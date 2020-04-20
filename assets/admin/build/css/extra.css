@@ -1,0 +1,8 @@
+.error{
+  font-size: 14px;
+  color:red;
+  font-weight: 500;
+}
+body{
+  text-transform: uppercase;
+}

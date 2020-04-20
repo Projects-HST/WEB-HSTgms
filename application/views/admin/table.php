@@ -1,4 +1,6 @@
-<div  class="right_col" role="main">
+
+
+  <div  class="right_col" role="main">
    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
       <thead>
          <tr>
@@ -644,5 +646,5 @@
       </tbody>
    </table>
 
-   
+
 </div>

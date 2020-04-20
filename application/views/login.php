@@ -12,10 +12,10 @@
 	<link href="<?php echo base_url(); ?>assets/admin/vendors/animate.css/animate.min.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
-	
+
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
-	
+
 </head>
 <body class="login">
 
@@ -37,7 +37,7 @@
 		  <?php endif; ?>
 	<div>
 		<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="15">
-	
+
 	</div>
 	<div>
 		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="15">
@@ -63,7 +63,7 @@
 		<button class="btn btn-primary" type="button">Submit</button>
 		<a href="#signin" class="reset_pass"> Log in </a>
 	</div>
-	
+
 	<div class="separator">
 		<div class="clearfix"></div>
 	</div>
