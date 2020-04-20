@@ -27,4 +27,10 @@ class Welcome extends CI_Controller {
 		$this->load->view('admin/form');
 		$this->load->view('admin/footer');
 	}
+	public function table()
+	{
+		$this->load->view('admin/header');
+		$this->load->view('admin/table');
+		$this->load->view('admin/footer');
+	}
 }

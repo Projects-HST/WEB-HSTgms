@@ -7,6 +7,11 @@
 </div>
 </div>
 
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <!-- <script src="<?php echo base_url(); ?>assets/admin/vendors/fastclick/lib/fastclick.js" type="text/javascript"></script> -->
 <!-- <script src="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.js" type="text/javascript"></script> -->

@@ -17,6 +17,9 @@
       <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
       <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+      <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
    </head>
    <body class="nav-md">
       <div class="container body">
