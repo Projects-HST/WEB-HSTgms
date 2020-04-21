@@ -17,7 +17,7 @@ class Login extends CI_Controller {
 			$user_type = $this->session->userdata('user_type');
 			
 			if($user_id){
-				redirect('dashboard');
+				redirect(base_url().'dashboard');
 			}else{
 				$this->load->view('login');
 			}
@@ -49,19 +49,21 @@ class Login extends CI_Controller {
 					$user_id=$result['user_id'];
 					$user_pic=$result['user_pic'];
 					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
-					print_r($datas);
-					//exit;
 					$session_data=$this->session->set_userdata($datas);
-					redirect('dashboard');
+					redirect(base_url().'dashboard');
 		}
 	}
-
+	
+	public function forgot_password(){
+		$user_name=$this->input->post('user_name');
+		$datas['res'] = $this->loginmodel->forgot_password($user_name);
+	}
 
 	public function logout(){
 		$datas=$this->session->userdata();
 		$this->session->unset_userdata($datas);
 		$this->session->sess_destroy();
-		redirect('/');
+		redirect(base_url());
 	}
 
 }

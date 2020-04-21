@@ -30,6 +30,47 @@ Class Loginmodel extends CI_Model
 		} 
 	}
 
+	function forgot_password($user_name){
+         $query="SELECT * FROM user_master WHERE email_id='$user_name'";
+         $result=$this->db->query($query);
+         if($result->num_rows()>0){
+			 foreach($result->result() as $row){
+				 $user_id = $row->id;
+				 $name = $row->full_name;
+				 $user_type = $row->role_id ;
+				}
+				
+			 $digits = 6;
+			 $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+			 $reset_pwd = md5($OTP);
+			 
+			$reset="UPDATE user_master SET password ='$reset_pwd' WHERE id='$user_id'";
+			$result_pwd=$this->db->query($reset);
+
+			 $subject = 'M3 - Password Reset';
+             $htmlContent = '<html>
+               <head><title></title>
+               </head>
+               <body>
+               <p>Hi  '.$name.'</p>
+               <p>Your Account Password is Reset. Please Use Below Password to login</p>
+			   <p>Password: '.$OTP.'</p>
+			   <p></p>
+			   <p><a href="'.base_url() .'">Click here to Login</a></p>
+               </body>
+               </html>';
+			   
+			$smsContent = 'Hi  '.$name.' Your Account Password is Reset. Please Use this '.$OTP.' to login';
+			
+			$this->mailmodel->sendEmail($to_email,$subject,$htmlContent);
+			$this->smsmodel->sendSMS($to_phone,$smsContent);
+			
+			echo "success";
+         }else{
+			echo "error";
+		 }
+     }
+
 	
 }
 ?>
