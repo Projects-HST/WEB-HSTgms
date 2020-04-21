@@ -12,15 +12,8 @@
 	<link href="<?php echo base_url(); ?>assets/admin/vendors/animate.css/animate.min.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
-<<<<<<< HEAD
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
 	
-=======
-
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
-
->>>>>>> 9254e48c4e0f8a98200491f78fb0b95e9a2e923e
 </head>
 <body class="login">
 
@@ -40,12 +33,7 @@
 			</div>
 		<?php endif; ?>
 	<div>
-<<<<<<< HEAD
 		<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
-=======
-		<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="15">
-
->>>>>>> 9254e48c4e0f8a98200491f78fb0b95e9a2e923e
 	</div>
 	<div>
 		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="15" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
@@ -72,7 +60,7 @@
 		<button class="btn btn-primary" type="submit">Submit</button>
 		<a href="#signin" class="reset_pass"> Log in </a>
 	</div>
-
+	
 	<div class="separator">
 		<div class="clearfix"></div>
 	</div>
@@ -110,7 +98,6 @@ $('#loginform').validate({ // initialize the plugin
           password: "Enter your password"
          }
  });
-<<<<<<< HEAD
 
  $("#reset_password").validate({
        rules: {
@@ -148,6 +135,3 @@ $('#loginform').validate({ // initialize the plugin
            }
    });
  </script>
-=======
- </script>
->>>>>>> 9254e48c4e0f8a98200491f78fb0b95e9a2e923e
