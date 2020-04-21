@@ -7,3 +7,5 @@ body{
   text-transform: uppercase;
 }
 input {text-transform: uppercase;}
+textarea {text-transform: uppercase;}
+select {text-transform: uppercase;}

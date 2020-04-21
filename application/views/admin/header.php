@@ -58,14 +58,12 @@
                            <li>
                               <a><i class="fa fa-edit"></i>Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
-                                <li><a href="<?php echo base_url(); ?>">Constituency</a></li>
-                                <li><a href="<?php echo base_url(); ?>">Paguthi</a></li>
-                                <li><a href="<?php echo base_url(); ?>">Ward</a></li>
-                                <li><a href="<?php echo base_url(); ?>">Booth</a></li>
-                                <li><a href="<?php echo base_url(); ?>">SMS template</a></li>
-                                <li><a href="<?php echo base_url(); ?>">Seeker type</a></li>
-                                <li><a href="<?php echo base_url(); ?>">Grievance type</a></li>
-                                  <li><a href="<?php echo base_url(); ?>">Grievance sub category</a></li>
+                                <li><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
+                                <li><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
+                                <li><a href="<?php echo base_url(); ?>masters/ward">Ward</a></li>
+                                <li><a href="<?php echo base_url(); ?>masters/seeker">Seeker type</a></li>
+                                <li><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
+                                  <li><a href="<?php echo base_url(); ?>">SMS template</a></li>
                               </ul>
                            </li>
                            <li>
@@ -137,7 +135,7 @@
                            <i class="fa fa-envelope-o"></i>
                            <span class="badge bg-green">6</span>
                            </a>
-                           
+
                         </li>
                      </ul>
                   </nav>
