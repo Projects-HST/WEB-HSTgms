@@ -33,12 +33,12 @@ class Login extends CI_Controller {
 		
 		if($result['status']=='Inactive'){
 			$this->session->set_flashdata('msg', 'Account inactive, please contact admin');
-			redirect('/');
+			redirect(base_url());
 		}
 	
 		if($result['status']=='Error'){
 			$this->session->set_flashdata('msg', "Invalid username/passsword. Kindly ensure they're correct.");
-			redirect('/');
+			redirect(base_url());
 		}
 		
 		if($result['status']=='Active'){
@@ -59,9 +59,6 @@ class Login extends CI_Controller {
 		$datas['res'] = $this->loginmodel->forgot_password($user_name);
 	}
 
-
-
-
 	public function profile(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -69,17 +66,105 @@ class Login extends CI_Controller {
 		
 		if($user_type==1 || $user_type==2){
 			$datas['res'] = $this->loginmodel->profile($user_id);
-			//print_r ($datas['res']);
-			//exit;
 			$this->load->view('admin/header');
-			$this->load->view('profile');
+			$this->load->view('profile',$datas);
 			$this->load->view('admin/footer');
 		}else {
 			redirect(base_url());
 		}
 	}
 
+	public function profile_update(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
 
+		if($user_type==1 || $user_type==2){
+			$user_id= $this->input->post('user_id');
+			$name=$this->input->post('name');
+			$address= $this->db->escape_str($this->input->post('address'));
+			$phone=$this->input->post('phone');
+			$gender=$this->input->post('gender');
+			$user_old_pic=$this->input->post('user_old_pic');
+			$profilepic = $_FILES['profile_pic']['name'];
+			
+			if(empty($profilepic)){
+				$staff_prof_pic=$user_old_pic;
+			}else{
+				$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
+				$staff_prof_pic = round(microtime(true)) . '.' . $temp;
+				$uploaddir = 'assets/users/';
+				$profilepic = $uploaddir.$staff_prof_pic;
+				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
+			}
+										
+			$datas=$this->loginmodel->profile_update($name,$address,$phone,$gender,$staff_prof_pic,$user_id);
+				
+			if($datas['status']=="success"){
+				$this->session->set_flashdata('msg', 'Profile Updated');
+				redirect(base_url().'login/profile');
+			}else{
+				$this->session->set_flashdata('msg', 'Failed');
+				redirect(base_url().'login/profile');
+			}
+	 } else {
+			redirect(base_url());
+	 }
+	}
+
+	public function password(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		
+		if($user_type==1 || $user_type==2){
+			$datas['res'] = $this->loginmodel->profile($user_id);
+			$this->load->view('admin/header');
+			$this->load->view('password',$datas);
+			$this->load->view('admin/footer');
+		}else {
+			redirect(base_url());
+		}
+	}
+	
+	public function check_password_match(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		
+		if($user_type==1 || $user_type==2){
+				$user_id  = $this->uri->segment(3);
+				$old_password=$this->input->post('old_password');
+				$datas['res']=$this->loginmodel->check_password_match($old_password,$user_id);
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function password_update(){
+		$datas = $this->session->userdata();
+		 $user_id = $this->session->userdata('user_id');
+		 $user_type=$this->session->userdata('user_type');
+		
+		
+		if($user_type==1 || $user_type==2){
+			
+				$new_password=$this->input->post('new_password');
+				$datas=$this->loginmodel->password_update($new_password,$user_id,$user_type);
+
+				if($datas['status']=="success"){
+					$this->session->set_flashdata('msg', 'Your password has been reset.');
+					redirect(base_url().'login/password');
+				}else{
+					$this->session->set_flashdata('msg', 'Failed to Update');
+					redirect(base_url().'login/password');
+				}
+				
+		}else{
+			redirect(base_url());
+		}
+	}
+	
 	
 	public function logout(){
 		$datas=$this->session->userdata();

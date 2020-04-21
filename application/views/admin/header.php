@@ -8,7 +8,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" href="images/favicon.ico" type="image/ico" />
-      <title>Grievance management system </title>
+      <title>GRIEVANCE MANAGEMENT SYSTEM </title>
       <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -21,6 +21,7 @@
       <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/admin/js/jquery.dataTables.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/admin/js/dataTables.bootstrap4.min.js"></script>
+	  <link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
       <script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
    </head>
    <body class="nav-md">
@@ -136,64 +137,7 @@
                            <i class="fa fa-envelope-o"></i>
                            <span class="badge bg-green">6</span>
                            </a>
-                           <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                              <li class="nav-item">
-                                 <a class="dropdown-item">
-                                 <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                 <span>
-                                 <span>John Smith</span>
-                                 <span class="time">3 mins ago</span>
-                                 </span>
-                                 <span class="message">
-                                 Film festivals used to be do-or-die moments for movie makers. They were where...
-                                 </span>
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="dropdown-item">
-                                 <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                 <span>
-                                 <span>John Smith</span>
-                                 <span class="time">3 mins ago</span>
-                                 </span>
-                                 <span class="message">
-                                 Film festivals used to be do-or-die moments for movie makers. They were where...
-                                 </span>
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="dropdown-item">
-                                 <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                 <span>
-                                 <span>John Smith</span>
-                                 <span class="time">3 mins ago</span>
-                                 </span>
-                                 <span class="message">
-                                 Film festivals used to be do-or-die moments for movie makers. They were where...
-                                 </span>
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="dropdown-item">
-                                 <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                 <span>
-                                 <span>John Smith</span>
-                                 <span class="time">3 mins ago</span>
-                                 </span>
-                                 <span class="message">
-                                 Film festivals used to be do-or-die moments for movie makers. They were where...
-                                 </span>
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <div class="text-center">
-                                    <a class="dropdown-item">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                    </a>
-                                 </div>
-                              </li>
-                           </ul>
+                           
                         </li>
                      </ul>
                   </nav>

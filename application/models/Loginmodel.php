@@ -77,5 +77,69 @@ Class Loginmodel extends CI_Model
 		return $resultset->result();
 	}
 	
+	function profile_update($name,$address,$phone,$gender,$staff_prof_pic,$user_id){
+		$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+		$result = $this->db->query($update);
+		
+		if ($result) {
+		  $data = array("status" => "success");
+		} else {
+		  $data = array("status" => "failed");
+		}
+		return $data;
+	}
+	
+	function check_password_match($old_password,$user_id){
+		$pwd=md5($old_password);
+		$select="SELECT * FROM user_master WHERE password='$pwd' AND id='$user_id'";
+		$result=$this->db->query($select);
+	   if($result->num_rows()==0){
+			echo "false";
+		 }else{
+			echo "true";
+	   }
+   } 
+	   
+	function password_update($new_password,$user_id,$user_type){
+		$pwd = md5($new_password);
+		$query="UPDATE user_master SET password='$pwd', updated_at=NOW() WHERE id='$user_id'";
+		$ex = $this->db->query($query);
+		
+		$sQuery = "SELECT * FROM user_master WHERE `id` = '$user_id'";
+		$user_result = $this->db->query($sQuery);
+		$ress = $user_result->result();
+		if($user_result->num_rows()>0)
+		{
+			foreach ($user_result->result() as $rows)
+			{
+				 $name = $rows->full_name;
+				 $email = $rows->email_id;
+				 $mobile = $rows->phone_number;
+			}
+
+		$subject ='M3 - Password Update';
+		$htmlContent = '<html>
+							<head> <title></title>
+							</head>
+							<body>
+							<p>Hi  '.$name.'</p>
+							<p>Your Password Updated Sucessfully!</p>
+							</body>
+							</html>';
+			
+			$smsContent = 'Hi  '.$name.' Your Password Updated Sucessfully!';
+			
+			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+			//$this->smsmodel->sendSMS($mobile,$smsContent);
+		}
+		
+		if ($ex) {
+		  $datas = array("status" => "success");
+		} else {
+		  $datas = array("status" => "failed");
+		}
+		 return $datas;
+	}
+	
 }
 ?>

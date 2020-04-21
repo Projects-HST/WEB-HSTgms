@@ -1,3 +1,6 @@
+<?php foreach($res as $rows){
+	$user_pic  = trim($rows->profile_pic );
+} ?>
 <div class="right_col" role="main">
 <div class="">
 
@@ -13,52 +16,69 @@
 </div>
 
 <div class="x_content">
+
+	<?php if($this->session->flashdata('msg')): ?>
+		<div class="alert alert-success alert-dismissible " role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+		</button>
+		<?php echo $this->session->flashdata('msg'); ?>
+		</div>
+	<?php endif; ?>
 <br>
-	<form id="demo-form2" class="form-horizontal form-label-left">
+	<form method="post" action="<?php echo base_url(); ?>login/profile_update" class="form-horizontal" enctype="multipart/form-data" id="profile">
+	
+	
 	<div class="item form-group">
-	<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
-	</label>
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-	<input type="text" id="first-name" required="required" class="form-control ">
+		<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>">
 	</div>
 	</div>
+	
 	<div class="item form-group">
-	<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
-	</label>
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Phone Number <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-	<input type="text" id="last-name" name="last-name" required="required" class="form-control">
+		<input type="text" id="phone" name="phone" class="form-control" placeholder="PHONE NUMBER" value="<?php echo $rows->phone_number; ?>">
 	</div>
 	</div>
+	
 	<div class="item form-group">
-	<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Address <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-	<input id="middle-name" class="form-control" type="text" name="middle-name">
+		<input class="form-control" type="text" name="address" id="address" value="<?php echo $rows->address; ?>"> 
 	</div>
 	</div>
+	
 	<div class="item form-group">
-	<label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
-	<div class="col-md-6 col-sm-6 ">
-	<div id="gender" class="btn-group" data-toggle="buttons">
-	<label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	<input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
-	</label>
-	<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-	<input type="radio" name="gender" value="female" class="join-btn"> Female
-	</label>
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
+	<div class="col-md-6 col-sm-6">
+		<?php $sgender = $rows->gender; ?>
+		<input type="radio" name="gender" value="M" <?php if($sgender =='M'){ echo "checked"; }?> style="margin-top:10px;"> &nbsp; Male &nbsp; <input type="radio" name="gender" value="F" <?php if($sgender =='F'){ echo "checked";} ?>> Female
 	</div>
 	</div>
-	</div>
+
 	<div class="item form-group">
-	<label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
-	</label>
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Profile Picture</label>
 	<div class="col-md-6 col-sm-6 ">
-	<input id="birthday" class="date-picker form-control" required="required" type="text">
+		<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" >
+		<div class="profile_pic">
+													
+						                     
+		<?php
+		if ($user_pic != '') {?>
+			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-circle profile_img">
+		<?php } else { ?>
+			<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img">
+		<?php } ?>
+		</div>
 	</div>
 	</div>
 	<div class="ln_solid"></div>
 	<div class="item form-group">
 	<div class="col-md-6 col-sm-6 offset-md-3">
-		<button type="submit" class="btn btn-success">Submit</button>
+			<input type="hidden" name="user_id" value="<?php echo $rows->id; ?>">
+			<input type="hidden" name="user_old_pic" value="<?php echo $rows->profile_pic; ?>">
+		<button type="submit" class="btn btn-success">SAVE</button>
 	</div>
 	</div>
 	</form>
@@ -70,3 +90,47 @@
 
 </div>
 </div>
+
+<script type="text/javascript">
+
+$.validator.addMethod('filesize', function (value, element, param) {
+	return this.optional(element) || (element.files[0].size <= param)
+}, 'File size must be less than 1 MB');
+	
+		$('#profile').validate({
+		rules: {
+			name: {
+				required: true
+			},
+			address: {
+				required: true
+			},
+			phone: {
+				required: true,
+				maxlength: 10,
+				minlength:10,
+				number:true,
+			},
+			staff_new_pic:{required:false,accept: "jpg,jpeg,png",filesize: 1048576},
+		},
+		messages: {
+			name: "Enter name",
+			address: "Enter address",
+			phone: {
+			required: "Enter phone number",
+			maxlength:"Invalid phone number",
+			minlength:"Invalid phone number",
+			number:"Invalid phone number"
+
+			},
+			staff_new_pic:{
+			  required:"",
+			  accept:"Please upload .jpg or .png .",
+			  filesize:"File must be JPG or PNG, less than 1MB"
+			}
+		}
+		});
+
+
+
+</script>
