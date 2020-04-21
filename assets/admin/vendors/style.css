@@ -4657,8 +4657,9 @@ body.box-layout {
 }
 .field-icon {
     float: right;
-   /* margin-left: -25px;*/
-    margin-top: -45px;
+    margin-left: -25px;
+    margin-right: 10px;
+	margin-top: -35px;
     position: relative;
     z-index: 2;
 }
