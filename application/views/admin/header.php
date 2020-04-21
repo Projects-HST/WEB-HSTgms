@@ -1,3 +1,4 @@
+<?php $user_pic = $this->session->userdata('user_pic'); ?>
 <!DOCTYPE html>
 <html lang="en">
    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -21,7 +22,6 @@
       <script src="<?php echo base_url(); ?>assets/admin/js/jquery.dataTables.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/admin/js/dataTables.bootstrap4.min.js"></script>
       <script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
-
    </head>
    <body class="nav-md">
       <div class="container body">
@@ -34,11 +34,16 @@
                   <div class="clearfix"></div>
                   <div class="profile clearfix">
                      <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+						<?php
+						if ($user_pic != '') {?>
+							<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-circle profile_img">
+						<?php } else { ?>
+							<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img">
+						<?php } ?>
                      </div>
                      <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>Admin</h2>
+                        <h2><?php echo $this->session->userdata('name');?></h2>
                      </div>
                   </div>
                   <br />
@@ -47,7 +52,7 @@
                         <h3>Menu </h3>
                         <ul class="nav side-menu">
                            <li>
-                              <a><i class="fa fa-home"></i> Dashboard</span></a>
+                              <a href="<?php echo base_url(); ?>/dashboard"><i class="fa fa-home"></i> Dashboard</span></a>
                            </li>
                            <li>
                               <a><i class="fa fa-edit"></i>Masters <span class="fa fa-chevron-down"></span></a>
@@ -113,16 +118,16 @@
                      <ul class=" navbar-right">
                         <li class="nav-item dropdown open" style="padding-left: 15px;">
                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                           <img src="images/img.jpg" alt="">John Doe
+                          <?php
+						if ($user_pic != '') {?>
+							<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>">
+						<?php } else { ?>
+							<img src="<?php echo base_url(); ?>assets/users/default.png">
+						<?php } ?><?php echo $this->session->userdata('name');?>
                            </a>
                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="javascript:;"> Profile</a>
-                              <a class="dropdown-item" href="javascript:;">
-                              <span class="badge bg-red pull-right">50%</span>
-                              <span>Settings</span>
-                              </a>
-                              <a class="dropdown-item" href="javascript:;">Help</a>
-
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/profile"> Profile</a>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/password"> Password update</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                            </div>
                         </li>

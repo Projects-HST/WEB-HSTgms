@@ -59,6 +59,28 @@ class Login extends CI_Controller {
 		$datas['res'] = $this->loginmodel->forgot_password($user_name);
 	}
 
+
+
+
+	public function profile(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		
+		if($user_type==1 || $user_type==2){
+			$datas['res'] = $this->loginmodel->profile($user_id);
+			//print_r ($datas['res']);
+			//exit;
+			$this->load->view('admin/header');
+			$this->load->view('profile');
+			$this->load->view('admin/footer');
+		}else {
+			redirect(base_url());
+		}
+	}
+
+
+	
 	public function logout(){
 		$datas=$this->session->userdata();
 		$this->session->unset_userdata($datas);

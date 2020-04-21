@@ -2,8 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
-
-
 	function __construct() {
 		 parent::__construct();
 			$this->load->helper("url");
@@ -12,9 +10,18 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('admin/header');
-		$this->load->view('admin/dashboard');
-		$this->load->view('admin/footer');
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		//print_r($datas);
+		if($user_type==1 || $user_type==2){
+			$this->load->view('admin/header');
+			$this->load->view('admin/dashboard/dashboard');
+			$this->load->view('admin/footer');
+		}else {
+			redirect(base_url());
+		}
+	
 	}
 
 	public function form()

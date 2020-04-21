@@ -71,6 +71,11 @@ Class Loginmodel extends CI_Model
 		 }
      }
 
+	function profile($user_id){
+		$query="SELECT * FROM `user_master` WHERE id='$user_id'";
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
 	
 }
 ?>
