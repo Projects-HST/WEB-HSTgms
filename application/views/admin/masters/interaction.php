@@ -9,7 +9,13 @@
             </div>
             <div class="x_content">
                <form id="master_form" action="<?php echo base_url(); ?>masters/create_interaction_question" method="post" enctype="multipart/form-data">
-
+                 <div class="item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">widgets title <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 ">
+                       <input id="widgets_title" class=" form-control" name="widgets_title" type="text" value="">
+                    </div>
+                 </div>
 
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 label-align">Interaction question<span class="required">*</span>
@@ -54,6 +60,7 @@
              <thead>
                 <tr>
                    <th>S.no</th>
+                   <th>interaction title</th>
                    <th>interaction question</th>
                    <th>status</th>
                    <th>Action</th>
@@ -63,6 +70,7 @@
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
                      <td><?php echo $i; ?></td>
+                     <td><?php echo $rows->widgets_title; ?></td>
                     <td><?php echo $rows->interaction_text; ?></td>
                     <td><?php if($rows->status=='ACTIVE'){ ?>
                             <span class="badge badge-success">Active</span>
@@ -95,10 +103,12 @@ $('#interactionmenu').addClass('active');
 $('#master_form').validate({
      rules: {
          interaction_text:{required:true,maxlength:240 },
+         widgets_title:{required:true,maxlength:20 },
          status:{required:true }
      },
      messages: {
        interaction_text:{required:"enter interaction question"},
+       widgets_title:{required:"enter title"},
        sms_text:{required:"enter sms text" }
 
          }

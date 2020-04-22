@@ -606,8 +606,9 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$interaction_text=mb_strtoupper($this->input->post('interaction_text'));
+			$widgets_title=mb_strtoupper($this->input->post('widgets_title'));
 			$status=mb_strtoupper($this->input->post('status'));
-			$data=$this->mastermodel->create_interaction_question($interaction_text,$status,$user_id);
+			$data=$this->mastermodel->create_interaction_question($widgets_title,$interaction_text,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("masters/interaction");
@@ -623,9 +624,10 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$interaction_text=mb_strtoupper($this->input->post('interaction_text'));
+			$widgets_title=mb_strtoupper($this->input->post('widgets_title'));
 			$interaction_id=$this->input->post('interaction_id');
 			$status=mb_strtoupper($this->input->post('status'));
-			$data=$this->mastermodel->update_interaction_question($interaction_text,$status,$user_id,$interaction_id);
+			$data=$this->mastermodel->update_interaction_question($widgets_title,$interaction_text,$status,$user_id,$interaction_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("masters/interaction");

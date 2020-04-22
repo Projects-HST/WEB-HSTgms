@@ -518,11 +518,11 @@ Class Mastermodel extends CI_Model
 	}
 
 
-	function create_interaction_question($interaction_text,$status,$user_id){
-		$select="SELECT * FROM interaction_question Where interaction_text='$interaction_text'";
+	function create_interaction_question($widgets_title,$interaction_text,$status,$user_id){
+		$select="SELECT * FROM interaction_question Where interaction_text='$interaction_text' and widgets_title='$widgets_title'";
 			$result=$this->db->query($select);
 			if($result->num_rows()==0){
-					$insert="INSERT INTO interaction_question (interaction_text,status,created_at,created_by) VALUES ('$interaction_text','$status',NOW(),'$user_id')";
+					$insert="INSERT INTO interaction_question (widgets_title,interaction_text,status,created_at,created_by) VALUES ('$widgets_title','$interaction_text','$status',NOW(),'$user_id')";
 					$result=$this->db->query($insert);
 					if($result){
 						$data=array("status"=>"success","msg"=>"interaction question created Successfully","class"=>"alert alert-success");
@@ -538,12 +538,12 @@ Class Mastermodel extends CI_Model
 
 
 
-	function update_interaction_question($interaction_text,$status,$user_id,$interaction_id){
+	function update_interaction_question($widgets_title,$interaction_text,$status,$user_id,$interaction_id){
 		$id=base64_decode($interaction_id)/98765;
-		$select="SELECT * FROM interaction_question where interaction_text='$interaction_text' and id!='$id'";
+		$select="SELECT * FROM interaction_question where interaction_text='$interaction_text' and widgets_title='$widgets_title' and id!='$id'";
 		$result=$this->db->query($select);
 		if($result->num_rows()==0){
-						$update="UPDATE interaction_question set interaction_text='$interaction_text',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+						$update="UPDATE interaction_question set widgets_title='$widgets_title',interaction_text='$interaction_text',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 						$result=$this->db->query($update);
 				if($result){
 					$data=array("status"=>"success","msg"=>"interaction question update Successfully","class"=>"alert alert-success");

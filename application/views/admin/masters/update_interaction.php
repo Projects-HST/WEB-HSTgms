@@ -10,6 +10,13 @@
             <div class="x_content">
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_interaction_question" method="post" enctype="multipart/form-data">
                  <?php foreach($res as $rows){} ?>
+                 <div class="item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">widgets title <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 ">
+                       <input id="widgets_title" class=" form-control" name="widgets_title" type="text" value="<?php echo  $rows->widgets_title; ?>">
+                    </div>
+                 </div>
 
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 label-align">Interaction question<span class="required">*</span>
@@ -51,10 +58,12 @@ $('#interactionmenu').addClass('active');
 $('#master_form').validate({
      rules: {
          interaction_text:{required:true,maxlength:240 },
+         widgets_title:{required:true,maxlength:20 },
          status:{required:true }
      },
      messages: {
        interaction_text:{required:"enter interaction question"},
+       widgets_title:{required:"enter title"},
        sms_text:{required:"enter sms text" }
 
          }
