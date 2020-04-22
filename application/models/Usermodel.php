@@ -80,7 +80,14 @@ Class Usermodel extends CI_Model
    }
 	
 	function list_users(){
-		$query="SELECT A.*, B.paguthi_name FROM user_master A, paguthi b WHERE A.pugathi_id = B.id";
+		$query="SELECT
+				A.*,
+				B.paguthi_name
+			FROM
+				user_master A,
+				paguthi b
+			WHERE
+				A.id!='1' AND A.pugathi_id = B.id";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}

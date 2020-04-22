@@ -84,6 +84,7 @@ class Login extends CI_Controller {
 			$name=$this->input->post('name');
 			$address= $this->db->escape_str($this->input->post('address'));
 			$phone=$this->input->post('phone');
+			$email=$this->input->post('email');
 			$gender=$this->input->post('gender');
 			$user_old_pic=$this->input->post('user_old_pic');
 			$profilepic = $_FILES['profile_pic']['name'];
@@ -98,7 +99,7 @@ class Login extends CI_Controller {
 				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 			}
 			
-			$datas=$this->loginmodel->profile_update(strtoupper($name),strtoupper($address),$phone,$gender,$staff_prof_pic,$user_id);
+			$datas=$this->loginmodel->profile_update(strtoupper($name),strtoupper($address),$phone,strtoupper($email),$gender,$staff_prof_pic,$user_id);
 
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'Profile Updated');

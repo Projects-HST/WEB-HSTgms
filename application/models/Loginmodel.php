@@ -78,10 +78,51 @@ Class Loginmodel extends CI_Model
 		return $resultset->result();
 	}
 	
-	function profile_update($name,$address,$phone,$gender,$staff_prof_pic,$user_id){
-		$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-		$result = $this->db->query($update);
+	function profile_update($name,$address,$phone,$email,$gender,$staff_prof_pic,$user_id){
 		
+		$sQuery = "SELECT * FROM user_master WHERE id = '$user_id'";
+		$user_result = $this->db->query($sQuery);
+		$ress = $user_result->result();
+		if($user_result->num_rows()>0)
+		{
+			foreach ($user_result->result() as $rows)
+			{
+				$old_email_id = $rows->email_id;
+			}
+		}
+	if ($email!=""){
+		if ($old_email_id != $email){
+		
+			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+
+			$result = $this->db->query($update);
+			$subject ='GMS - Staff Login - Username Updated';
+			$htmlContent = '<html>
+							<head> <title></title>
+							</head>
+							<body>
+							<p>Hi  '.$name.'</p>
+							<p>Login Details</p>
+							<p>Username: '.$email.'</p>
+							<p></p>
+							<p><a href="'.base_url() .'">Click here to Login</a></p>
+							</body>
+							</html>';
+			
+			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
+			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+			//$this->smsmodel->sendSMS($mobile,$smsContent);			
+		}else {
+			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+
+			$result = $this->db->query($update);
+		}
+	}
+	else{
+		 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+
+		$result = $this->db->query($update);
+	}
 		if ($result) {
 		  $data = array("status" => "success");
 		} else {

@@ -163,7 +163,7 @@
 			status: {
 				required: true
 			},
-			profile_pic:{required:false,accept: "jpg,jpeg,png",filesize: 1048576},
+			new_profile_pic:{required:false,accept: "jpg,jpeg,png",filesize: 1048576},
 			
 		},
 		messages: {
@@ -184,7 +184,7 @@
 
 			},
 			status: "Select Status",
-			profile_pic:{
+			new_profile_pic:{
 			  required:"",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"

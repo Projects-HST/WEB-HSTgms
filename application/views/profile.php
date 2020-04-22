@@ -1,5 +1,6 @@
 <?php foreach($res as $rows){
 	$user_pic  = trim($rows->profile_pic );
+	$user_type  = trim($rows->role_id );
 } ?>
 <div class="right_col" role="main">
 <div class="">
@@ -41,7 +42,14 @@
 		<input type="text" id="phone" name="phone" class="form-control" placeholder="PHONE NUMBER" value="<?php echo $rows->phone_number; ?>">
 	</div>
 	</div>
-	
+	<?php if ($user_type == '1'){?>
+	<div class="item form-group">
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Email ID <span class="required">*</span></label>
+	<div class="col-md-6 col-sm-6 ">
+		<input type="text" id="email" name="email" class="form-control" placeholder="Email Id" value="<?php echo $rows->email_id; ?>">
+	</div>
+	</div>
+	<?php } ?>
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Address <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
@@ -109,7 +117,15 @@ $.validator.addMethod('filesize', function (value, element, param) {
 				minlength:10,
 				number:true,
 			},
-			staff_new_pic:{required:false,accept: "jpg,jpeg,png",filesize: 1048576},
+			email: {
+				required: true,
+				email: true,
+				remote: {
+						 url: "<?php echo base_url(); ?>users/checkemail_edit/<?php echo base64_encode($rows->id*98765); ?>",
+						 type: "post"
+						}
+			},
+			profile_pic:{required:false,accept: "jpg,jpeg,png",filesize: 1048576},
 		},
 		messages: {
 			name: "Enter name",
@@ -119,9 +135,13 @@ $.validator.addMethod('filesize', function (value, element, param) {
 			maxlength:"Invalid phone number",
 			minlength:"Invalid phone number",
 			number:"Invalid phone number"
-
 			},
-		staff_new_pic:{
+		email: {
+					 required: "Enter email ID",
+					 email: "Enter valid Enter email ID",
+					 remote: "Email ID already in use!"
+			 },
+		profile_pic:{
 			  required:"",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"
