@@ -10,7 +10,8 @@ Class Loginmodel extends CI_Model
 
 	function login($username,$password)
 	{
-		$chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$password'";
+		$pwd=md5($password);
+		$chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$pwd'";
 		$res=$this->db->query($chkUser);
 		if($res->num_rows()>0){
 		   foreach($res->result() as $rows)

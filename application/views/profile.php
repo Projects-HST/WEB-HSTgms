@@ -45,7 +45,7 @@
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Address <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-		<input class="form-control" type="text" name="address" id="address" value="<?php echo $rows->address; ?>"> 
+		<textarea id="address" name="address" rows="3" class="form-control"><?php echo $rows->address; ?></textarea>
 	</div>
 	</div>
 	
@@ -62,8 +62,6 @@
 	<div class="col-md-6 col-sm-6 ">
 		<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" >
 		<div class="profile_pic">
-													
-						                     
 		<?php
 		if ($user_pic != '') {?>
 			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-circle profile_img">
@@ -123,7 +121,7 @@ $.validator.addMethod('filesize', function (value, element, param) {
 			number:"Invalid phone number"
 
 			},
-			staff_new_pic:{
+		staff_new_pic:{
 			  required:"",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"

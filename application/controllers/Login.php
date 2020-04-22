@@ -9,7 +9,7 @@ class Login extends CI_Controller {
 			$this->load->library('session');
 			$this->load->library('session');
 			$this->load->model('loginmodel');
- }
+	}
 
 	public function index()
 	{
@@ -27,9 +27,9 @@ class Login extends CI_Controller {
 	public function login_check(){
 
 		$username=$this->input->post('username');
-		$password=md5($this->input->post('password'));
+		$password=$this->input->post('password');
 		
-		$result = $this->loginmodel->login($username,$password);
+		$result = $this->loginmodel->login(strtoupper($username),strtoupper($password));
 		
 		if($result['status']=='Inactive'){
 			$this->session->set_flashdata('msg', 'Account inactive, please contact admin');
@@ -97,9 +97,9 @@ class Login extends CI_Controller {
 				$profilepic = $uploaddir.$staff_prof_pic;
 				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 			}
-										
-			$datas=$this->loginmodel->profile_update($name,$address,$phone,$gender,$staff_prof_pic,$user_id);
-				
+			
+			$datas=$this->loginmodel->profile_update(strtoupper($name),strtoupper($address),$phone,$gender,$staff_prof_pic,$user_id);
+
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'Profile Updated');
 				redirect(base_url().'login/profile');
@@ -135,7 +135,7 @@ class Login extends CI_Controller {
 		if($user_type==1 || $user_type==2){
 				$user_id  = $this->uri->segment(3);
 				$old_password=$this->input->post('old_password');
-				$datas['res']=$this->loginmodel->check_password_match($old_password,$user_id);
+				$datas['res']=$this->loginmodel->check_password_match(strtoupper($old_password),$user_id);
 		}else{
 			redirect('/');
 		}
@@ -150,7 +150,7 @@ class Login extends CI_Controller {
 		if($user_type==1 || $user_type==2){
 			
 				$new_password=$this->input->post('new_password');
-				$datas=$this->loginmodel->password_update($new_password,$user_id,$user_type);
+				$datas=$this->loginmodel->password_update(strtoupper($new_password),$user_id,$user_type);
 
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Your password has been reset.');
@@ -164,7 +164,6 @@ class Login extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
 	
 	public function logout(){
 		$datas=$this->session->userdata();

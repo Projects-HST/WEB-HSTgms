@@ -76,8 +76,8 @@
                            <li>
                               <a><i class="fa fa-desktop"></i>Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
-                                 <li><a href="#.html">Add user</a></li>
-                                 <li><a href="#.html">List user</a></li>
+                                 <li><a href="<?php echo base_url(); ?>users/add">Add user</a></li>
+                                 <li><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
                               </ul>
                            </li>
                            <li>
@@ -89,17 +89,17 @@
                            <li>
                               <a><i class="fa fa-bar-chart-o"></i> Report Presentation <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
-                                <li><a href="graph.html">Status</a></li>
-                                <li><a href="graph.html">Category</a></li>
-                                <li><a href="graph.html">Sub category</a></li>
-                                <li><a href="graph.html">Location</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/category">Category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/sub_category">Sub category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
                               </ul>
                            </li>
                            <li>
                               <a><i class="fa fa-table"></i> Settings <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
-                                 <li><a href="#.html">Profile</a></li>
-                                 <li><a href="#.html">Password update</a></li>
+                                 <li><a href="<?php echo base_url(); ?>login/profile">Profile</a></li>
+                                 <li><a href="<?php echo base_url(); ?>login/password">Password update</a></li>
                               </ul>
                            </li>
                         </ul>
