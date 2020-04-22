@@ -3,32 +3,37 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Update Ward</h2>
+               <h2>update sms template</h2>
 
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-<?php foreach($res as $rows){} ?>
-               <form id="master_form" action="<?php echo base_url(); ?>masters/update_ward" method="post" enctype="multipart/form-data">
+               <form id="master_form" action="<?php echo base_url(); ?>masters/update_sms_template" method="post" enctype="multipart/form-data">
+                 <?php foreach($res as $rows){} ?>
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Paguthi name <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                       <select class="form-control" name="paguthi_id" id="paguthi_id">
-                          <?php foreach($res_paguthi as $rows_paguthi){ ?>
-                          <option value="<?php echo $rows_paguthi->id; ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
-                        <?php } ?>
+                       <select class="form-control" name="template_type" id="template_type">
+                         <option value="GENERAL">GENERAL</option>
+                         <option value="REPLY">REPLY</option>
                        </select>
-                       <script>$('#paguthi_id').val('<?php echo $rows->paguthi_id; ?>')</script>
+                         <script>$('#status').val('<?php echo $rows->template_type; ?>');</script>
                     </div>
                  </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">ward name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 label-align">sms title <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
-                        <input id="ward_name" class=" form-control" name="ward_name" type="text" value="<?php echo $rows->ward_name; ?>">
-                        <input id="ward_id" class=" form-control" name="ward_id" type="hidden" value="<?php echo base64_encode($rows->id*98765); ?>">
+                        <input id="sms_title" class="form-control" name="sms_title" type="text" value="<?php echo $rows->sms_title; ?>">
+                        <input id="template_id" class="form-control" name="template_id" type="hidden" value="<?php echo base64_encode($rows->id*98765); ?>">
+                     </div>
+                  </div>
+                  <div class="item form-group">
+                     <label class="col-form-label col-md-3 col-sm-3 label-align">sms text  <span class="required">*</span>
+                     </label>
+                     <div class="col-md-6 col-sm-6 ">
+                        <textarea name="sms_text" id="sms_text" class="form-control"><?php echo $rows->sms_text; ?></textarea>
                      </div>
                   </div>
 
@@ -53,25 +58,21 @@
             </div>
          </div>
       </div>
-
-
-
    </div>
 </div>
 <script type="text/javascript">
 $('#mastermenu').addClass('active');
 $('.mastermenu').css('display','block');
-$('#wardmenu').addClass('active');
+$('#smsmenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         paguthi_id:{required:true
-             },
-         ward_name:{required:true
-                 },
+         sms_title:{required:true,maxlength:50 },
+         sms_text:{required:true,maxlength:240 },
          status:{required:true }
      },
      messages: {
-           ward_name: { required:"enter the ward name"}
+       sms_title:{required:"enter sms title"},
+       sms_text:{required:"enter sms text" }
 
          }
  });

@@ -11,7 +11,7 @@
                <form id="master_form" action="<?php echo base_url(); ?>masters/create_sub_category_name" method="post" enctype="multipart/form-data">
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Grievance type name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 label-align">sub category name <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <input id="grievance_name" class=" form-control" name="sub_category_name" type="text" value="">
@@ -77,8 +77,7 @@
                             <?php   } ?>
                     </td>
                     <td>
-              <a href="<?php echo base_url(); ?>masters/get_grievance_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
-              <a title="ADD GRIEVANCE SUB CATEGORY" href="<?php echo base_url(); ?>masters/grievance_sub_category/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-plus-square"></i></a>
+              <a href="<?php echo base_url(); ?>masters/get_sub_category_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
 
 </td>
 
@@ -96,7 +95,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#grievancemeenu').addClass('active');
+$('#master_form').validate({
      rules: {
          sub_category_name:{required:true },
 

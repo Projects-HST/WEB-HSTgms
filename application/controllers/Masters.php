@@ -227,7 +227,7 @@ class Masters extends CI_Controller {
 			$booth_name=mb_strtoupper($this->input->post('booth_name'));
 			$ward_id=$this->input->post('ward_id');
 			$booth_address=mb_strtoupper($this->input->post('booth_address'));
-		  $status=mb_strtoupper($this->input->post('status'));			
+		  $status=mb_strtoupper($this->input->post('status'));
 			$data=$this->mastermodel->create_booth($booth_name,$booth_address,$status,$user_id,$ward_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -433,6 +433,22 @@ class Masters extends CI_Controller {
 		}
 	}
 
+
+	public function get_sub_category_edit()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$sub_category_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_sub_category_edit($sub_category_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/update_sub_category',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
 	public function create_sub_category_name(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
@@ -449,7 +465,176 @@ class Masters extends CI_Controller {
 		}
 	}
 
+
+	public function update_sub_category_name(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$grievance_id=$this->input->post('grievance_id');
+			$sub_category_id=$this->input->post('sub_category_id');
+			$sub_category_name=mb_strtoupper($this->input->post('sub_category_name'));
+			$status=mb_strtoupper($this->input->post('status'));
+			$data=$this->mastermodel->update_sub_category_name($grievance_id,$sub_category_name,$status,$user_id,$sub_category_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/sub_category/$grievance_id");
+		}else{
+			redirect('/');
+		}
+	}
+
 	#################### Grievance Sub category  ####################
+
+
+	#################### Religion  ####################
+	public function religion()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$data['res']=$this->mastermodel->get_religion();
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/religion',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+	#################### Religion  ####################
+
+	#################### SMS template  ####################
+	public function sms_template()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$data['res']=$this->mastermodel->get_sms_template();
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/sms_template',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function create_sms_template(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$template_type=mb_strtoupper($this->input->post('template_type'));
+			$sms_text=mb_strtoupper($this->input->post('sms_text'));
+			$sms_title=mb_strtoupper($this->input->post('sms_title'));
+			$status=mb_strtoupper($this->input->post('status'));
+			$data=$this->mastermodel->create_sms_template($template_type,$sms_title,$sms_text,$status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/sms_template");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function update_sms_template(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$template_type=mb_strtoupper($this->input->post('template_type'));
+			$template_id=$this->input->post('template_id');
+			$sms_text=mb_strtoupper($this->input->post('sms_text'));
+			$sms_title=mb_strtoupper($this->input->post('sms_title'));
+			$status=mb_strtoupper($this->input->post('status'));
+			$data=$this->mastermodel->update_sms_template($template_type,$sms_title,$sms_text,$status,$user_id,$template_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/sms_template");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function get_sms_template_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$template_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_sms_template_edit($template_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/update_template',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+	#################### SMS template  ####################
+
+
+	#################### Interaction question  ####################
+	public function interaction()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$data['res']=$this->mastermodel->get_interaction_question();
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/interaction',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function get_interaction_question_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$interaction_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_interaction_question_edit($interaction_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/update_interaction',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function create_interaction_question(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$interaction_text=mb_strtoupper($this->input->post('interaction_text'));
+			$status=mb_strtoupper($this->input->post('status'));
+			$data=$this->mastermodel->create_interaction_question($interaction_text,$status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/interaction");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+
+	public function update_interaction_question(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1'){
+			$interaction_text=mb_strtoupper($this->input->post('interaction_text'));
+			$interaction_id=$this->input->post('interaction_id');
+			$status=mb_strtoupper($this->input->post('status'));
+			$data=$this->mastermodel->update_interaction_question($interaction_text,$status,$user_id,$interaction_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/interaction");
+		}else{
+			redirect('/');
+		}
+	}
+
+	#################### Interaction question  ####################
 
 
 

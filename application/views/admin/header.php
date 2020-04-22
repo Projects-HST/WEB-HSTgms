@@ -56,15 +56,17 @@
                            <li>
                               <a href="<?php echo base_url(); ?>/dashboard"><i class="fa fa-home"></i> Dashboard</span></a>
                            </li>
-                           <li>
+                           <li id="mastermenu">
                               <a><i class="fa fa-edit"></i>Masters <span class="fa fa-chevron-down"></span></a>
-                              <ul class="nav child_menu">
-                                <li><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
-                                <li><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
-                                <li><a href="<?php echo base_url(); ?>masters/ward">Ward</a></li>
-                                <li><a href="<?php echo base_url(); ?>masters/seeker">Seeker type</a></li>
-                                <li><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
-                                  <li><a href="<?php echo base_url(); ?>">SMS template</a></li>
+                              <ul class="nav child_menu mastermenu">
+                                <li id="constituencymenu"><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
+                                <li id="paguthimenu"><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
+                                <li id="wardmenu"><a href="<?php echo base_url(); ?>masters/ward">Ward</a></li>
+                                <li id="seekermenu"><a href="<?php echo base_url(); ?>masters/seeker">Seeker type</a></li>
+                                <li id="grievancemeenu"><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
+                                <li id="smsmenu"><a href="<?php echo base_url(); ?>masters/sms_template">SMS template</a></li>
+                                <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li>
+                                <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li>
                               </ul>
                            </li>
                            <li>

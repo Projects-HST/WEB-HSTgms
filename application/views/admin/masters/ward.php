@@ -104,7 +104,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#wardmenu').addClass('active');
+$('#master_form').validate({
      rules: {
          paguthi_id:{required:true
              },

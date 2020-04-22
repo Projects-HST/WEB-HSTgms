@@ -381,6 +381,13 @@ Class Mastermodel extends CI_Model
 	}
 
 
+	function get_sub_category_edit($sub_category_id){
+		$id=base64_decode($sub_category_id)/98765;
+		$query="SELECT gsc.*,gt.grievance_name FROM grievance_sub_category as gsc left join grievance_type as gt on gt.id=gsc.grievance_id where gsc.id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
 
 	function create_sub_category_name($grievance_id,$sub_category_name,$status,$user_id){
 		$id=base64_decode($grievance_id)/98765;
@@ -396,11 +403,162 @@ Class Mastermodel extends CI_Model
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"already exists went wrong","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
+
+
+
+	function update_sub_category_name($grievance_id,$sub_category_name,$status,$user_id,$sub_category_id){
+		$id=base64_decode($sub_category_id)/98765;
+		$g_id=base64_decode($grievance_id)/98765;
+		$select="SELECT * FROM grievance_sub_category where grievance_id='$g_id' and sub_category_name='$sub_category_name' and id!='$id'";
+ 		$result=$this->db->query($select);
+ 		if($result->num_rows()==0){
+ 				$update="UPDATE grievance_sub_category set grievance_id='$g_id',sub_category_name='$sub_category_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+ 				$result=$this->db->query($update);
+ 				if($result){
+ 					$data=array("status"=>"success","msg"=>"Sub category update Successfully","class"=>"alert alert-success");
+ 				}else{
+ 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+ 				}
+
+ 		}else{
+ 			$data=array("status"=>"error","msg"=>"Subcategory  name already exist to grievance","class"=>"alert alert-danger");
+ 		}
+ 		return $data;
+	}
 	#################### Grievance Sub category type  ####################
+
+
+	#################### Religion  ####################
+
+	function get_religion(){
+		$query="SELECT * FROM religion";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	#################### Religion  ####################
+
+
+	#################### SMS template  ####################
+
+	function get_sms_template(){
+		$query="SELECT * FROM sms_template order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_sms_template_edit($template_id){
+		$id=base64_decode($template_id)/98765;
+		$query="SELECT * FROM sms_template where id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function create_sms_template($template_type,$sms_title,$sms_text,$status,$user_id){
+		$select="SELECT * FROM sms_template Where template_type='$template_type' and sms_title='$sms_title'";
+			$result=$this->db->query($select);
+			if($result->num_rows()==0){
+					$insert="INSERT INTO sms_template (template_type,sms_title,sms_text,status,created_at,created_by) VALUES ('$template_type','$sms_title','$sms_text','$status',NOW(),'$user_id')";
+					$result=$this->db->query($insert);
+					if($result){
+						$data=array("status"=>"success","msg"=>"sms template created Successfully","class"=>"alert alert-success");
+					}else{
+						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					}
+
+			}else{
+				$data=array("status"=>"error","msg"=>"template already exists","class"=>"alert alert-danger");
+			}
+			return $data;
+	}
+
+	function update_sms_template($template_type,$sms_title,$sms_text,$status,$user_id,$template_id){
+		$id=base64_decode($template_id)/98765;
+		$select="SELECT * FROM sms_template where template_type='$template_type' and sms_title='$sms_title' and id!='$id'";
+ 		$result=$this->db->query($select);
+ 		if($result->num_rows()==0){
+ 						$update="UPDATE sms_template set template_type='$template_type',sms_title='$sms_title',sms_text='$sms_text',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+ 		        $result=$this->db->query($update);
+ 				if($result){
+ 					$data=array("status"=>"success","msg"=>"sms template update Successfully","class"=>"alert alert-success");
+ 				}else{
+ 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+ 				}
+
+ 		}else{
+ 			$data=array("status"=>"error","msg"=>"sms template already exists!","class"=>"alert alert-danger");
+ 		}
+ 		return $data;
+	}
+
+
+
+
+
+	#################### SMS template  ####################
+
+
+	#################### Interaction question  ####################
+
+	function get_interaction_question(){
+		$query="SELECT * FROM interaction_question order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_interaction_question_edit($interaction_id){
+		$id=base64_decode($interaction_id)/98765;
+		$query="SELECT * FROM interaction_question where id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+
+	function create_interaction_question($interaction_text,$status,$user_id){
+		$select="SELECT * FROM interaction_question Where interaction_text='$interaction_text'";
+			$result=$this->db->query($select);
+			if($result->num_rows()==0){
+					$insert="INSERT INTO interaction_question (interaction_text,status,created_at,created_by) VALUES ('$interaction_text','$status',NOW(),'$user_id')";
+					$result=$this->db->query($insert);
+					if($result){
+						$data=array("status"=>"success","msg"=>"interaction question created Successfully","class"=>"alert alert-success");
+					}else{
+						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					}
+
+			}else{
+				$data=array("status"=>"error","msg"=>"interaction question already exists","class"=>"alert alert-danger");
+			}
+			return $data;
+	}
+
+
+
+	function update_interaction_question($interaction_text,$status,$user_id,$interaction_id){
+		$id=base64_decode($interaction_id)/98765;
+		$select="SELECT * FROM interaction_question where interaction_text='$interaction_text' and id!='$id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()==0){
+						$update="UPDATE interaction_question set interaction_text='$interaction_text',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+						$result=$this->db->query($update);
+				if($result){
+					$data=array("status"=>"success","msg"=>"interaction question update Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+
+		}else{
+			$data=array("status"=>"error","msg"=>"interaction question already exists!","class"=>"alert alert-danger");
+		}
+		return $data;
+	}
+
+	#################### Interaction question  ####################
+
 
 }
 ?>

@@ -95,7 +95,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#paguthimenu').addClass('active');
+$('#master_form').validate({
      rules: {
          paguthi_name:{required:true,
            remote: {

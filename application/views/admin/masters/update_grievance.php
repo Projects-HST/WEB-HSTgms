@@ -59,7 +59,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#grievancemenu').addClass('active');
+$('#master_form').validate({
      rules: {
          grievance_name:{required:true },
 
