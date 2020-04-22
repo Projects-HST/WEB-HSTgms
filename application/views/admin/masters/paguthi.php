@@ -30,8 +30,8 @@
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status">
-                          <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="INACTIVE">INACTIVE</option>
                         </select>
                      </div>
                   </div>
@@ -95,7 +95,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#paguthimenu').addClass('active');
+$('#master_form').validate({
      rules: {
          paguthi_name:{required:true,
            remote: {
@@ -103,7 +106,7 @@ $('#master_form').validate({ // initialize the plugin
                      type: "post"
                   }
              },
-         paguthi_short_name:{required:true,
+         paguthi_short_name:{required:true,maxlength:5,
            remote: {
                      url: "<?php echo base_url(); ?>masters/checkpaguthishort",
                      type: "post"

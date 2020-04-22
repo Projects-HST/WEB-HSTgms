@@ -3,28 +3,35 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Create Booth</h2>
+               <h2>Create sms template</h2>
 
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-
-               <form id="master_form" action="<?php echo base_url(); ?>masters/create_booth" method="post" enctype="multipart/form-data">
-
+               <form id="master_form" action="<?php echo base_url(); ?>masters/create_sms_template" method="post" enctype="multipart/form-data">
+                 <div class="item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 ">
+                       <select class="form-control" name="template_type" id="template_type">
+                         <option value="GENERAL">GENERAL</option>
+                         <option value="REPLY">REPLY</option>
+                       </select>
+                    </div>
+                 </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">booth name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 label-align">sms title <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
-                        <input id="booth_name" class=" form-control" name="booth_name" type="text" value="">
-                        <input id="ward_id" class=" form-control" name="ward_id" type="hidden" value="<?php echo $this->uri->segment(3); ?>">
+                        <input id="sms_title" class=" form-control" name="sms_title" type="text" value="">
+
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">booth address <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 label-align">sms text  <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
-                        <textarea name="booth_address" id="booth_address" class="form-control"></textarea>
+                        <textarea name="sms_text" id="sms_text" class="form-control"></textarea>
                      </div>
                   </div>
 
@@ -63,29 +70,30 @@
              <thead>
                 <tr>
                    <th>S.no</th>
-                   <th>booth name</th>
-                   <th>booth address</th>
+                   <th>Type</th>
+                   <th>title</th>
+                   <th>text</th>
                    <th>status</th>
                    <th>Action</th>
-
                 </tr>
              </thead>
              <tbody>
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
                      <td><?php echo $i; ?></td>
-                    <td><?php echo $rows->booth_name; ?></td>
-                    <td><?php echo $rows->booth_address ;?></td>
+                    <td><?php echo $rows->template_type; ?></td>
+                    <td><?php echo $rows->sms_title; ?></td>
+                    <td><?php echo $rows->sms_text; ?></td>
                     <td><?php if($rows->status=='ACTIVE'){ ?>
                             <span class="badge badge-success">Active</span>
                             <?php  }else{ ?>
                               <span class="badge badge-danger">Inactive</span>
                             <?php   } ?>
                     </td>
-                <td>
-                  <a title="EDIT BOOTH" href="<?php echo base_url(); ?>masters/get_booth_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                    <td>
+              <a href="<?php echo base_url(); ?>masters/get_sms_template_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
 
-                </td>
+                  </td>
 
 
                  </tr>
@@ -103,18 +111,16 @@
 <script type="text/javascript">
 $('#mastermenu').addClass('active');
 $('.mastermenu').css('display','block');
-$('#wardmenu').addClass('active');
+$('#smsmenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         booth_name:{required:true
-             },
-         booth_address:{required:true
-                 },
+         sms_title:{required:true,maxlength:50 },
+         sms_text:{required:true,maxlength:240 },
          status:{required:true }
      },
      messages: {
-           booth_name: { required:"enter the booth name"},
-           booth_address: { required:"enter the booth address"}
+       sms_title:{required:"enter sms title"},
+       sms_text:{required:"enter sms text" }
 
          }
  });

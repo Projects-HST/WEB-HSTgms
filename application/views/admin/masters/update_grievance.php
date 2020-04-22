@@ -38,8 +38,8 @@
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status" id="status">
-                          <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="INACTIVE">INACTIVE</option>
                         </select>
                           <script>$('#status').val('<?php echo $rows->status; ?>');</script>
                      </div>
@@ -59,7 +59,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#grievancemenu').addClass('active');
+$('#master_form').validate({
      rules: {
          grievance_name:{required:true },
 

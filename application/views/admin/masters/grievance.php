@@ -36,8 +36,8 @@
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status">
-                          <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="INACTIVE">INACTIVE</option>
                         </select>
                      </div>
                   </div>
@@ -81,7 +81,7 @@
                     <td><?php echo $rows->seeker_info; ?></td>
                     <td><?php echo $rows->grievance_name; ?></td>
 
-                    <td><?php if($rows->status=='Active'){ ?>
+                    <td><?php if($rows->status=='ACTIVE'){ ?>
                             <span class="badge badge-success">Active</span>
                             <?php  }else{ ?>
                               <span class="badge badge-danger">Inactive</span>
@@ -107,7 +107,10 @@
    </div>
 </div>
 <script type="text/javascript">
-$('#master_form').validate({ // initialize the plugin
+$('#mastermenu').addClass('active');
+$('.mastermenu').css('display','block');
+$('#grievancemeenu').addClass('active');
+$('#master_form').validate({
      rules: {
          grievance_name:{required:true },
 

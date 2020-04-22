@@ -14,7 +14,11 @@ $(document).ready(function() {
 $("input").on("keypress", function(e) {
          if (e.which === 32 && !this.value.length)
              e.preventDefault();
-     });
+ });
+
+ $('input[type=text]').val (function () {
+     return this.value.toUpperCase();
+ })
 </script>
 <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" type="text/javascript"></script>

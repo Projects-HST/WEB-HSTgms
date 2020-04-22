@@ -3,32 +3,27 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Update Ward</h2>
+               <h2>Update interaction question</h2>
 
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-<?php foreach($res as $rows){} ?>
-               <form id="master_form" action="<?php echo base_url(); ?>masters/update_ward" method="post" enctype="multipart/form-data">
+               <form id="master_form" action="<?php echo base_url(); ?>masters/update_interaction_question" method="post" enctype="multipart/form-data">
+                 <?php foreach($res as $rows){} ?>
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Paguthi name <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">widgets title <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                       <select class="form-control" name="paguthi_id" id="paguthi_id">
-                          <?php foreach($res_paguthi as $rows_paguthi){ ?>
-                          <option value="<?php echo $rows_paguthi->id; ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
-                        <?php } ?>
-                       </select>
-                       <script>$('#paguthi_id').val('<?php echo $rows->paguthi_id; ?>')</script>
+                       <input id="widgets_title" class=" form-control" name="widgets_title" type="text" value="<?php echo  $rows->widgets_title; ?>">
                     </div>
                  </div>
+
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">ward name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 label-align">Interaction question<span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
-                        <input id="ward_name" class=" form-control" name="ward_name" type="text" value="<?php echo $rows->ward_name; ?>">
-                        <input id="ward_id" class=" form-control" name="ward_id" type="hidden" value="<?php echo base64_encode($rows->id*98765); ?>">
+                        <textarea name="interaction_text" id="interaction_text" class="form-control"><?php echo  $rows->interaction_text; ?></textarea>
+                        <input type="hidden" name="interaction_id" id="interaction_id" value="<?php echo base64_encode($rows->id*98765); ?>">
                      </div>
                   </div>
 
@@ -53,25 +48,23 @@
             </div>
          </div>
       </div>
-
-
-
    </div>
 </div>
 <script type="text/javascript">
 $('#mastermenu').addClass('active');
 $('.mastermenu').css('display','block');
-$('#wardmenu').addClass('active');
+$('#interactionmenu').addClass('active');
+
 $('#master_form').validate({
      rules: {
-         paguthi_id:{required:true
-             },
-         ward_name:{required:true
-                 },
+         interaction_text:{required:true,maxlength:240 },
+         widgets_title:{required:true,maxlength:20 },
          status:{required:true }
      },
      messages: {
-           ward_name: { required:"enter the ward name"}
+       interaction_text:{required:"enter interaction question"},
+       widgets_title:{required:"enter title"},
+       sms_text:{required:"enter sms text" }
 
          }
  });
