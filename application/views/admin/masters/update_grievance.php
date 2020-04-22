@@ -38,8 +38,8 @@
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status" id="status">
-                          <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="INACTIVE">INACTIVE</option>
                         </select>
                           <script>$('#status').val('<?php echo $rows->status; ?>');</script>
                      </div>

@@ -10,7 +10,7 @@ Class Mastermodel extends CI_Model
 ####################  constituency ####################
 
 	function get_constituency(){
-		$query="SELECT * FROM constituency WHERE status='Active'";
+		$query="SELECT * FROM constituency WHERE status='ACTIVE'";
 		$result=$this->db->query($query);
 		return $result->result();
 	}
@@ -196,7 +196,7 @@ Class Mastermodel extends CI_Model
 					$get_detail="SELECT * FROM ward where id='$id'";
 					$res=$this->db->query($get_detail);
 					foreach($res->result() as $rows){}
-					$insert="INSERT INTO booth (constituency_id,paguthi_id,ward_id,booth_name,booth_address,status,created_at,created_by) values('$rows->constituency_id','$rows->paguthi_id','$id','$booth_name','$booth_address','Active',NOW(),'$user_id')";
+					$insert="INSERT INTO booth (constituency_id,paguthi_id,ward_id,booth_name,booth_address,status,created_at,created_by) values('$rows->constituency_id','$rows->paguthi_id','$id','$booth_name','$booth_address','$status',NOW(),'$user_id')";
 					$result=$this->db->query($insert);
 					if($result){
 						$data=array("status"=>"success","msg"=>"Booth created Successfully","class"=>"alert alert-success");
