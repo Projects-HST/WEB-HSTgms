@@ -89,10 +89,10 @@
                            <li>
                               <a><i class="fa fa-bar-chart-o"></i> Report Presentation <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
-                                <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/category">Category</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/sub_category">Sub category</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/status1">Status</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/category1">Category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/sub_category1">Sub category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/location1">Location</a></li>
                               </ul>
                            </li>
                            <li>
