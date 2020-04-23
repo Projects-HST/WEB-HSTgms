@@ -72,12 +72,12 @@
                             <span class="badge badge-success">Active</span>
                             <?php  //}else{ ?>
                               <span class="badge badge-danger">Inactive</span>
-                            <?php  // } ?>
+                            <?php  //} ?>
                     </td>
                     <td><a href="<?php //echo base_url(); ?>users/edit/<?php //echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
                  </tr>
 
-            <?php//  $i++; } ?>
+            <?php //$i++; } ?>
 
 
 

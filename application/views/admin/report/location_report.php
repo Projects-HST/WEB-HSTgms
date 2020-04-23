@@ -64,20 +64,20 @@
              <tbody>
                <?php //$i=1; foreach($result as $rows){ ?>
                  <tr>
-                     <td><?php //echo $i; ?></td>
+                    <td><?php //echo $i; ?></td>
                     <td><?php //echo $rows->full_name; ?></td>
-					 <td><?php //echo $rows->email_id; ?></td>
-					 <td><?php //echo $rows->paguthi_name; ?></td>
+					<td><?php //echo $rows->email_id; ?></td>
+					<td><?php //echo $rows->paguthi_name; ?></td>
                     <td><?php //if($rows->status=='Active'){ ?>
-                            <span class="badge badge-success">Active</span>
-                            <?php  //}else{ ?>
-                              <span class="badge badge-danger">Inactive</span>
-                            <?php  // } ?>
+						<span class="badge badge-success">Active</span>
+						<?php  //}else{ ?>
+						  <span class="badge badge-danger">Inactive</span>
+						<?php  //} ?>
                     </td>
                     <td><a href="<?php //echo base_url(); ?>users/edit/<?php //echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
                  </tr>
 
-            <?php//  $i++; } ?>
+            <?php //$i++; } ?>
 
 
 
