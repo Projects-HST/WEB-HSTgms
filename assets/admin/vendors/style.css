@@ -1,3 +1,6 @@
+body{
+  text-transform: uppercase;
+}
 
 .error{
   color: red !important;
@@ -36,3 +39,7 @@
   color: blue !important;
   font-weight: 500;
 }
+
+input {text-transform: uppercase;}
+textarea {text-transform: uppercase;}
+select {text-transform: uppercase;}

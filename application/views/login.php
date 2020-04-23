@@ -25,7 +25,7 @@
 <div class="animate form login_form">
 <section class="login_content">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="loginform" name="loginform">
-	<h1 style="text-transform: uppercase;">Login Form</h1>
+	<h1>Login Form</h1>
 		<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger alert-dismissible " role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><!--<span aria-hidden="true">×</span>--></button>
@@ -33,14 +33,14 @@
 			</div>
 		<?php endif; ?>
 	<div>
-		<input type="text" name="username" id="username" class="form-control" placeholder="USERNAME" maxlength="50" style="margin-bottom:10px;">
+		<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
 	<div>
-		 <input type="password" name="password" id="password" class="form-control" placeholder="PASSWORD" maxlength="15" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
+		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="15" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
 	</div>
 	<div>
 		<button class="btn btn-primary" type="submit" style="text-transform: uppercase;">Log in</button>
-		<a href="#signup" class="reset_pass" style="text-transform: uppercase;"> Lost your password? </a>
+		<a href="#signup" class="reset_pass"> Lost your password? </a>
 	</div>
 	<div class="separator"></div>
 	</form>
@@ -51,9 +51,9 @@
 <div id="register" class="animate form registration_form">
 <section class="login_content">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
-	<h1 style="text-transform: uppercase;">Forgot Password</h1>
+	<h1>Forgot Password</h1>
 	<div>
-		<input type="text" class="form-control"  name="user_name" placeholder="USERNAME" maxlength="50" style="margin-bottom:10px;">
+		<input type="text" class="form-control"  name="user_name" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
 	<div>
 		<button class="btn btn-primary" type="submit" style="text-transform: uppercase;">Submit</button>
@@ -93,8 +93,8 @@ $('#loginform').validate({ // initialize the plugin
          password:{required:true }
      },
      messages: {
-          username: "ENTER VALID EMAIL ID",
-          password: "ENTER PASSWORD"
+          username: "Enter valid email id",
+          password: "Enter Password"
          }
  });
 
@@ -103,7 +103,7 @@ $('#loginform').validate({ // initialize the plugin
            user_name:{required:true,email:true }
        },
        messages: {
-            user_name:"ENTER VALID EMAIL ID"
+            user_name:"Enter valid email id"
            },
     submitHandler: function(form) {
       $.ajax({
