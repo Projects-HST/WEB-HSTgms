@@ -15,26 +15,26 @@
       <link href="<?php echo base_url(); ?>assets/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-      
+
 	  <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	  <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-      
+
 	  <link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/build/css/extra.css" rel="stylesheet">    
+      <link href="<?php echo base_url(); ?>assets/admin/build/css/extra.css" rel="stylesheet">
 	  <link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
-	  
+
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
-	  
+
 	  <script src="<?php echo base_url(); ?>assets/admin/js/jquery.dataTables.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/admin/js/dataTables.bootstrap4.min.js"></script>
-	  
+
       <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/additional-methods.min.js"></script>
-	  
+
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/moment/min/moment.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-	  
+
    </head>
    <body class="nav-md">
       <div class="container body">
@@ -80,11 +80,11 @@
                                   <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li>
                                 </ul>
                            </li>
-                           <li>
-                              <a><i class="fa fa-desktop"></i>Constituency memeber <span class="fa fa-chevron-down"></span></a>
-                              <ul class="nav child_menu">
-                                 <li><a href="add.html">Add Constituency</a></li>
-                                 <li><a href="list.html">List Constituency</a></li>
+                           <li id="constiituent_menu">
+                              <a><i class="fa fa-desktop"></i>Constituent  <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu constiituent_menu">
+                                 <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create member</a></li>
+                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List member</a></li>
                               </ul>
                            </li>
                            <li>

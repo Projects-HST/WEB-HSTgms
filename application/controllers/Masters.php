@@ -640,5 +640,28 @@ class Masters extends CI_Controller {
 
 
 
+	#################### Constituent purpose active data  ####################
+
+	public function get_active_ward(){
+		$paguthi_id=$this->input->post('paguthi_id');
+		$data['res']=$this->mastermodel->get_active_ward($paguthi_id);
+		echo json_encode($data['res']);
+	}
+
+	public function get_active_booth(){
+		$ward_id=$this->input->post('ward_id');
+		$data['res']=$this->mastermodel->get_active_booth($ward_id);
+		echo json_encode($data['res']);
+	}
+
+		public function get_booth_address(){
+			$booth_id=$this->input->post('booth_id');
+			$data['res']=$this->mastermodel->get_booth_address($booth_id);
+			echo json_encode($data['res']);
+		}
+
+
+	#################### Constituent purpose active data  ####################
+
 
 }

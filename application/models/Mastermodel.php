@@ -560,5 +560,69 @@ Class Mastermodel extends CI_Model
 	#################### Interaction question  ####################
 
 
+	#################### Constituent purpose active data  ####################
+
+	function get_active_constituency(){
+		$query="SELECT * FROM constituency WHERE status='ACTIVE'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_active_paguthi(){
+		$query="SELECT * FROM paguthi WHERE status='ACTIVE' and constituency_id='1' order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_active_ward($paguthi_id){
+		 $query="SELECT * FROM ward WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+		$result=$this->db->query($query);
+		if($result->num_rows()==0){
+			$data=array("status"=>"error");
+		}else{
+				$data=array("status"=>"success","res"=>$result->result());
+		}
+		return $data;
+	}
+
+
+	function get_active_booth($ward_id){
+		$query="SELECT * FROM booth where ward_id='$ward_id' and status='ACTIVE' order by id desc";
+	 $result=$this->db->query($query);
+	 if($result->num_rows()==0){
+		 $data=array("status"=>"error");
+	 }else{
+			 $data=array("status"=>"success","res"=>$result->result());
+	 }
+	 return $data;
+	}
+
+
+	function get_booth_address($booth_id){
+	$query="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
+	 $result=$this->db->query($query);
+	 if($result->num_rows()==0){
+		 $data=array("status"=>"error");
+	 }else{
+			 $data=array("status"=>"success","res"=>$result->result());
+	 }
+	 return $data;
+	}
+
+
+	function get_active_interaction_question(){
+		$query="SELECT * FROM interaction_question WHERE status='ACTIVE' order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_active_religion(){
+		$query="SELECT * FROM religion WHERE status='ACTIVE' order by id asc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+	#################### Constituent purpose active data  ####################
+
+
 }
 ?>

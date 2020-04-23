@@ -9,3 +9,8 @@ body{
 input {text-transform: uppercase;}
 textarea {text-transform: uppercase;}
 select {text-transform: uppercase;}
+.required{
+  color: red;
+  font-size: 15px;
+  font-weight: 900;
+}
