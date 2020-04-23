@@ -22,6 +22,20 @@ Class Usermodel extends CI_Model
 		return $resultset->result();
 	}
 	
+	function list_category()
+	{
+		$query="SELECT * FROM `grievance_type` WHERE status='Active'";
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+	
+	function list_subcategory()
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE status='Active'";
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+	
 	function checkemail($email){
 	$select="SELECT * FROM user_master WHERE email_id='$email'";
 	$result=$this->db->query($select);

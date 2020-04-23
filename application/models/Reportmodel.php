@@ -8,154 +8,184 @@ Class Reportmodel extends CI_Model
 		//$this->load->model('smsmodel');
 	}
 
-	function list_role()
+
+
+	function get_status_report($frmDate,$toDate,$status,$paguthi)
 	{
-		$query="SELECT * FROM `role_master` WHERE status='Active'";
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-
-	function list_paguthi()
-	{
-		$query="SELECT * FROM `paguthi` WHERE constituency_id='1' AND status='Active'";
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-	
-	function checkemail($email){
-	$select="SELECT * FROM user_master WHERE email_id='$email'";
-	$result=$this->db->query($select);
-		if($result->num_rows()>0){
-			echo "false";
-		}else{
-			echo "true";
-		}
-    }
-	
-	function add_users($role,$paguthi,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$user_id) {
-
-		$select="SELECT * FROM user_master WHERE email_id='$email' AND pugathi_id = '$paguthi'";
-		$result=$this->db->query($select);
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
 		
-       if($result->num_rows()>0){
-			 $data = array(
-				 "status" => "already"
-			 );
-			return $data;
-       }else{
-		   
-			$digits = 6;
-			$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
-			$md5pwd=md5($OTP);
-			
-			$insert="INSERT INTO user_master (constituency_id,pugathi_id,role_id,full_name,phone_number,email_id,password,gender,address,profile_pic,status,created_by,created_at) VALUES ('1','$paguthi','$role','$name','$mobile','$email','$md5pwd','$gender','$address','$staff_prof_pic','$status','$user_id',NOW())";
-			$result=$this->db->query($insert);
-				
-			$subject ='GMS - Staff Login Details';
-			$htmlContent = '<html>
-							<head> <title></title>
-							</head>
-							<body>
-							<p>Hi  '.$name.'</p>
-							<p>Staff Login Details</p>
-							<p>Username: '.$email.'</p>
-							<p>Password: '.$OTP.'</p>
-							<p></p>
-							<p><a href="'.base_url() .'">Click here to Login</a></p>
-							</body>
-							</html>';
-							
-			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' Password '.$OTP.'';
-
-			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
-			//$this->smsmodel->sendSMS($mobile,$smsContent);
-			  
-            if ($result) {
-                $data = array("status" => "success");
-            } else {
-                $data = array("status" => "failed");
-            }
-			 return $data;
-       }
-   }
-	
-	function list_users(){
-		$query="SELECT
-				A.*,
-				B.paguthi_name
-			FROM
-				user_master A,
-				paguthi b
-			WHERE
-				A.id!='1' AND A.pugathi_id = B.id";
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-	
-	function users_details($staff_id){
-		$query="SELECT * FROM `user_master` WHERE id='$staff_id'";
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-	
-	function checkemail_edit($email,$staff_id){
-	$select="SELECT * FROM user_master WHERE email_id='$email' AND id!='$staff_id'";
-	$result=$this->db->query($select);
-		if($result->num_rows()>0){
-			echo "false";
-		}else{
-			echo "true";
-		}
-	}
-
-	function update_user($role,$paguthi,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$staff_id,$user_id){
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
 		
-		$sQuery = "SELECT * FROM user_master WHERE id = '$staff_id'";
-		$user_result = $this->db->query($sQuery);
-		$ress = $user_result->result();
-		if($user_result->num_rows()>0)
+		if ($status=='All' && $paguthi == 'All')
 		{
-			foreach ($user_result->result() as $rows)
-			{
-				$old_email_id = $rows->email_id;
-			}
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
-
-		if ($old_email_id != $email){
-
-			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',email_id='$email',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
-			$result_user=$this->db->query($update_user);
-			
-			$subject ='GMS - Staff Login - Username Updated';
-			$htmlContent = '<html>
-							<head> <title></title>
-							</head>
-							<body>
-							<p>Hi  '.$name.'</p>
-							<p>Login Details</p>
-							<p>Username: '.$email.'</p>
-							<p></p>
-							<p><a href="'.base_url() .'">Click here to Login</a></p>
-							</body>
-							</html>';
-			
-			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
-			
-			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
-			//$this->smsmodel->sendSMS($mobile,$smsContent);			
-
-		}else {
-			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
-			$result_user=$this->db->query($update_user);
-		}		
-		if ($result_user) {
-		  $data = array("status" => "success");
-		} else {
-		  $data = array("status" => "failed");
+		if ($status=='All' && $paguthi != 'All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.pugathi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
-		return $data;
+		if ($status!='All' && $paguthi == 'All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status!='All' && $paguthi != 'All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.status = '$status' AND A.pugathi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+
+
+function get_category_report($frmDate,$toDate,$category)
+	{
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($category=='All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($category != 'All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
 	}
 	
+	function get_subcategory_report($frmDate,$toDate,$sub_category)
+	{
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($sub_category=='All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($sub_category != 'All')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by
+					FROM
+						grievance A,
+						constituent B,
+						user_master C
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
 	
+	function get_location_report($frmDate,$toDate,$paguthi)
+	{
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+
+		$query="SELECT
+					A.*,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by
+				FROM
+					grievance A,
+					constituent B,
+					user_master C
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A. 	pugathi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
 }
 ?>

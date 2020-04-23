@@ -48,7 +48,9 @@ class Login extends CI_Controller {
 					$status=$result['status'];
 					$user_id=$result['user_id'];
 					$user_pic=$result['user_pic'];
-					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
+					$constituency_id=$result['constituency_id'];
+					$pugathi_id=$result['pugathi_id'];
+					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic,"constituency_id"=>$constituency_id,"pugathi_id"=>$pugathi_id,);
 					$session_data=$this->session->set_userdata($datas);
 					redirect(base_url().'dashboard');
 		}

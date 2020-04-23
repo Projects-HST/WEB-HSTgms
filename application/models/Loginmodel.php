@@ -19,7 +19,7 @@ Class Loginmodel extends CI_Model
 			   $status = $rows->status;
 		   }
 			if ($status = 'Active'){
-				  $data = array("status"=>$rows->status,"email_id"=>$rows->email_id,"name"=>$rows->full_name,"user_type"=>$rows->role_id,"user_id"=>$rows->id,"user_pic"=>$rows->profile_pic);
+				  $data = array("user_type"=>$rows->role_id,"user_id"=>$rows->id,"name"=>$rows->full_name,"email_id"=>$rows->email_id,"constituency_id"=>$rows->constituency_id,"pugathi_id"=>$rows->pugathi_id,"user_pic"=>$rows->profile_pic,"status"=>$rows->status);
 				 return $data;
 			 } else {
 				  $data= array("status" => "Inactive");
