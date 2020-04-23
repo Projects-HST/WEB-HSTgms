@@ -85,7 +85,7 @@ Class Usermodel extends CI_Model
 				B.paguthi_name
 			FROM
 				user_master A,
-				paguthi b
+				paguthi B
 			WHERE
 				A.id!='1' AND A.pugathi_id = B.id";
 		$resultset=$this->db->query($query);
