@@ -1,10 +1,10 @@
 <div  class="right_col" role="main" style="height:100vh;">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
-         <form class="form-horizontal form-label-left" id="master_form" action="<?php  echo base_url(); ?>constituent/create_constituent_member" method="post" enctype="multipart/form-data">
+         <form class="form-horizontal form-label-left" id="master_form" action="<?php  echo base_url(); ?>constituent/update_constituent_member" method="post" enctype="multipart/form-data">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Constituency information</h2>
+               <h2>Update Constituency information</h2>
                <div class="clearfix"></div>
             </div>
             <?php if($this->session->flashdata('msg')) {
@@ -14,6 +14,12 @@
                  <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
              </div>
             <?php  }  ?>
+            <?php foreach($res as $rows){}
+              $paguthi_id=$rows->paguthi_id;
+              $ward_id=$rows->ward_id;
+              $booth_id=$rows->booth_id;
+               ?>
+
             <div class="x_content">
                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">Constituency <span class="required">*</span></label>
@@ -28,44 +34,71 @@
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Paguthi <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi(this);">
+                       <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi();">
                          <?php foreach($res_paguthi as $rows_paguthi){ ?>
                             <option value="<?php echo $rows_paguthi->id ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
                         <?php } ?>
 
 
                        </select>
+                       <script>$('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
                      </div>
                    </div>
                    <div class="form-group row ">
                       <label class="control-label col-md-2 col-sm-3 ">ward <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
-                        <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
-
-                          <option value=""></option>
-
+                          <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
+                            <?php $query="SELECT * FROM ward WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+                            $result=$this->db->query($query);
+                            if($result->num_rows()==0){ ?>
+                            <option value=""></option>
+                            <?php 	}else{
+                            $res_ward=$result->result();
+                            foreach($res_ward as $rows_ward){ ?>
+                              <option value="<?php echo $rows_ward->id; ?>"><?php echo $rows_ward->ward_name; ?></option>
+                            <?php   }		}    ?>
                         </select>
+                     <script>$('#ward_id').val('<?php echo $ward_id; ?>');</script>
                       </div>
                       <label class="control-label col-md-2 col-sm-3 ">booth <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
 
+                          <?php $query_b="SELECT * FROM booth where ward_id='$ward_id' and status='ACTIVE' order by id desc";
+                          $resultb=$this->db->query($query_b);
+                          if($resultb->num_rows()==0){ ?>
                           <option value=""></option>
+                          <?php 	}else{
+                          $res_booth=$resultb->result();
+                          foreach($res_booth as $rows_booth){ ?>
+                            <option value="<?php echo $rows_booth->id; ?>"><?php echo $rows_booth->booth_name; ?></option>
+                          <?php   }		}    ?>
 
                         </select>
+                        <script>$('#booth_id').val('<?php echo $booth_id; ?>');</script>
                       </div>
                     </div>
                     <div class="form-group row ">
                        <label class="control-label col-md-2 col-sm-3 ">booth address <span class="required">*</span></label>
                        <div class="col-md-4 col-sm-9 ">
+                         <?php $query_b="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
+                         $resultb=$this->db->query($query_b);
+                         if($resultb->num_rows()==0){ ?>
                         <textarea class="form-control" name="booth_address" id="booth_address" readonly></textarea>
+                         <?php 	}else{
+                         $res_booth=$resultb->result();
+                         foreach($res_booth as $rows_booth){ ?>
+                           <textarea class="form-control" name="booth_address" id="booth_address" readonly><?php echo $rows_booth->booth_address; ?></textarea>
+                         <?php   }		}    ?>
+
+
                        </div>
                        <label class="control-label col-md-2 col-sm-3 ">Party member</label>
                        <div class="col-md-4 col-sm-9 ">
                           <p>
                             YES:
-                            <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" checked="" required=""> NO:
-                            <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N">
+                            <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" <?php echo ($rows->party_member_status=='Y') ? 'checked="checked"':'';?>> NO:
+                            <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" <?php echo ($rows->party_member_status=='N') ? 'checked="checked"':'';?>>
                          </p>
 
                        </div>
@@ -78,10 +111,11 @@
                             <option value="MyVOTE">MY VOTE</option>
                             <option value="OTHERVOTE">OTHER VOTE</option>
                           </select>
+                          <script>$('#vote_type').val('<?php echo $rows->vote_type; ?>');</script>
                         </div>
                         <label class="control-label col-md-2 col-sm-3 ">Serial no <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-9 ">
-                          <input type="text" name="serial_no" id="serial_no" class="form-control">
+                          <input type="text" name="serial_no" id="serial_no" class="form-control" value="<?php echo $rows->serial_no; ?>">
                         </div>
 
                       </div>
@@ -97,51 +131,52 @@
                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">FULL name <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="full_name" id="full_name" class="form-control">
+                       <input type="text" name="full_name" id="full_name" class="form-control" value="<?php echo $rows->full_name; ?>">
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="father_husband_name" id="father_husband_name" class="form-control">
+                       <input type="text" name="father_husband_name" id="father_husband_name" class="form-control" value="<?php echo $rows->father_husband_name; ?>">
                      </div>
                   </div>
                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">Gaurdian name</label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="guardian_name" id="guardian_name" class="form-control">
+                       <input type="text" name="guardian_name" id="guardian_name" class="form-control" value="<?php echo $rows->guardian_name; ?>">
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">EMAIL ID</label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="email_id" id="email_id" class="form-control">
+                       <input type="text" name="email_id" id="email_id" class="form-control" value="<?php echo $rows->email_id; ?>">
                      </div>
                   </div>
                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">Mobile no <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="mobile_no" id="mobile_no" class="form-control">
+                       <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo $rows->mobile_no; ?>">
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control">
+                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control" value="<?php echo $rows->whatsapp_no; ?>">
                      </div>
                   </div>
                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">DOB <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="dob" id="dob" class="form-control">
+                       <input type="text" name="dob" id="dob" class="form-control" value="<?php echo $rows->dob; ?>">
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Door no <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="door_no" id="door_no" class="form-control">
+                       <input type="text" name="door_no" id="door_no" class="form-control" value="<?php echo $rows->door_no; ?>">
+                       <input type="hidden" name="constituent_id" id="constituent_id" class="form-control" value="<?php echo base64_encode($rows->id*98765); ?>">
                      </div>
                   </div>
                   <div class="form-group row ">
                     <label class="control-label col-md-2 col-sm-3 ">pincode <span class="required">*</span></label>
                     <div class="col-md-4 col-sm-9 ">
-                      <input type="text" name="pin_code" id="pin_code" class="form-control">
+                      <input type="text" name="pin_code" id="pin_code" class="form-control" value="<?php echo $rows->pin_code; ?>">
                     </div>
                      <label class="control-label col-md-2 col-sm-3 ">address <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <textarea name="address" id="address" class="form-control"></textarea>
+                       <textarea name="address" id="address" class="form-control"><?php echo $rows->address; ?></textarea>
                      </div>
 
                   </div>
@@ -154,6 +189,7 @@
                 <?php  } ?>
 
                        </select>
+                       <script>$('#religion_id').val('<?php echo $rows->religion_id; ?>');</script>
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Gender</label>
                      <div class="col-md-4 col-sm-9 ">
@@ -161,7 +197,8 @@
                          <option value="M">Male</option>
                          <option value="F">Female</option>
                        </select>
-                     </div>
+                       <script>$('#gender').val('<?php echo $rows->gender; ?>');</script>
+                        </div>
 
                    </div>
                     <div class="form-group row ">
@@ -169,13 +206,13 @@
                        <div class="col-md-4 col-sm-9 ">
                           <p>
                             YES:
-                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_statu_y" value="Y" checked="" required=""> NO:
-                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_status_n" value="N">
+                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_statu_y" value="Y" <?php echo ($rows->voter_id_status=='Y') ? 'checked="checked"':'';?>> NO:
+                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_status_n" value="N" <?php echo ($rows->voter_id_status=='N') ? 'checked="checked"':'';?>>
                          </p>
                        </div>
                         <label class="control-label col-md-2 col-sm-3 voter_id_box">Voter id no</label>
                        <div class="col-md-4 col-sm-9 voter_id_box">
-                        <input type="text" name="voter_id_no" id="voter_id_no" class="form-control">
+                        <input type="text" name="voter_id_no" id="voter_id_no" class="form-control" value="<?php echo $rows->voter_id_no; ?>">
                        </div>
                      </div>
                      <div class="form-group row ">
@@ -183,61 +220,52 @@
                         <div class="col-md-4 col-sm-9 ">
                            <p>
                              YES:
-                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" checked="" required=""> NO:
-                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_n" value="N">
+                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" <?php echo ($rows->aadhaar_status=='Y') ? 'checked="checked"':'';?>> NO:
+                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_n" value="N" <?php echo ($rows->aadhaar_status=='N') ? 'checked="checked"':'';?>>
                           </p>
                         </div>
-                         <label class="control-label col-md-2 col-sm-3 aadhaar_box">aadhaar no</label>
-                        <div class="col-md-4 col-sm-9 aadhaar_box">
-                         <input type="text" name="aadhaar_no" id="aadhaar_no" class="form-control">
-                        </div>
+
+                        <label class="control-label col-md-2 col-sm-3 aadhaar_box">aadhaar no</label>
+                       <div class="col-md-4 col-sm-9 aadhaar_box">
+                        <input type="text" name="aadhaar_no" id="aadhaar_no" class="form-control" value="<?php echo $rows->aadhaar_no; ?>">
+                       </div>
+
                       </div>
                       <div class="form-group row ">
 
                           <label class="control-label col-md-2 col-sm-3 ">Profile image</label>
                          <div class="col-md-4 col-sm-9 ">
                           <input type="file" name="profile_pic" id="profile_pic" class="form-control">
+                            <input type="hidden" name="old_profile_pic" id="old_profile_pic" class="form-control" value="<?php echo $rows->profile_pic; ?>">
                          </div>
+                         <label class="control-label col-md-2 col-sm-3 ">current image</label>
+                        <div class="col-md-4 col-sm-9 ">
+                         <img src="<?php echo base_url(); ?>assets/constituent/<?php echo $rows->profile_pic; ?>" style="width:150px;">
+                        </div>
                        </div>
-
                        <div class="form-group row ">
-                            <label class="control-label col-md-2 col-sm-3 ">Show interaction information <span class="required">*</span></label>
+
+                          <label class="control-label col-md-2 col-sm-3 ">status</label>
                           <div class="col-md-4 col-sm-9 ">
-                             <p>
-                               YES:
-                               <input type="radio" class="flat" name="interaction_section" id="interaction_section_y" value="Y" > NO:
-                               <input type="radio" class="flat" name="interaction_section" id="interaction_section_n" value="N" checked="" required="">
-                            </p>
-                          </div>
+                            <select class="form-control" name="status" id="status">
+                              <option value="ACTIVE">ACTIVE</option>
+                              <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                            <script>$('#status').val('<?php echo $rows->status; ?>');</script>
+                             </div>
 
                         </div>
+
+
             </div>
          </div>
 
          <div class="x_panel" class="interaction_div">
-            <div class="x_title interaction_div" >
-               <h2>Interaction information</h2>
-               <div class="clearfix"></div>
-            </div>
+
             <div class="x_content">
-              <div class="form-group row interaction_div">
-                <?php  foreach($res_interaction as $rows_question){ ?>
-                  <label class="control-label col-md-2 col-sm-3 mb_20"><?php echo $rows_question->interaction_text; ?></label>
-                  <div class="col-md-4 col-sm-9 mb_20">
-                    <input type="hidden" name="question_id[]" value="<?php echo $rows_question->id; ?>">
-                    <select class="form-control" name="question_response[]" id="">
-                      <option value="Y">YES</option>
-                      <option value="N">NO</option>
-                    </select>
-                  </div>
-                <?php    } ?>
-
-
-               </div>
-
-              <div class="form-group">
+                <div class="form-group">
                  <div class="col-md-9 col-sm-9  offset-md-3">
-                    <button type="submit" class="btn btn-success">SAve</button>
+                    <button type="submit" class="btn btn-success">Update</button>
                  </div>
               </div>
             </div>
@@ -254,6 +282,21 @@
   margin-bottom: 20px;
 }
 </style>
+<?php if($rows->aadhaar_status=='N'){ ?>
+<style>
+.aadhaar_box{
+  display: none;
+}
+</style>
+<?php } ?>
+<?php if($rows->voter_id_status=='N'){ ?>
+<style>
+.voter_id_box{
+  display: none;
+}
+</style>
+<?php } ?>
+
 <script type="text/javascript">
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
@@ -265,9 +308,10 @@
    });
 
 
-function get_paguthi(sel){
-  var paguthi_id=sel.value;
-  $.ajax({
+function get_paguthi(){
+      var paguthi_id=$('#paguthi_id').val();
+
+    $.ajax({
 		url:'<?php echo base_url(); ?>masters/get_active_ward',
 		method:"POST",
 		data:{paguthi_id:paguthi_id},
@@ -307,6 +351,7 @@ function get_booth(sel){
 		   var stat=data.status;
 		   $("#booth_id").empty();
 		   if(stat=="success"){
+
 		   var res=data.res;
 		   var len=res.length;
        $('#booth_id').html('<option value="">-SELECT BOOTH --</option>');
@@ -377,32 +422,32 @@ $('input[name=interaction_section]').click(function(){
           booth_id:{required:true },
           full_name:{required:true },
           father_husband_name:{required:true },
-          mobile_no:{required:true,minlength:10,maxlength:10 },
+          mobile_no:{required:true,minlength:10,maxlength:10  },
           whatsapp_no:{required:true,minlength:10,maxlength:10  },
           dob:{required:true },
           door_no:{required:true },
           address:{required:true },
           pin_code:{required:true },
-          email_id:{required:true ,email:true},
+          email_id:{required:true,email:true },
           serial_no:{required:true,
             remote: {
-                      url: "<?php echo base_url(); ?>constituent/checkserialno",
+                      url: "<?php echo base_url(); ?>constituent/checkserialnoexist/<?php echo $rows->id; ?>",
                       type: "post"
                    }
                   },
             voter_id_no:{required:true,
               remote: {
-                        url: "<?php echo base_url(); ?>constituent/checkvoter_id_no",
+                        url: "<?php echo base_url(); ?>constituent/checkvoter_id_noexist/<?php echo $rows->id; ?>",
                         type: "post"
                      }
                 },
             aadhaar_no:{required:true,maxlength:12,
               remote: {
-                        url: "<?php echo base_url(); ?>constituent/checkaadhaar_no",
+                        url: "<?php echo base_url(); ?>constituent/checkaadhaar_noexist/<?php echo $rows->id; ?>",
                         type: "post"
                      }
                     },
-            profile_pic:{required:true }
+            profile_pic:{required:false }
         },
         messages: {
           paguthi_id:{required:"select paguthi" },

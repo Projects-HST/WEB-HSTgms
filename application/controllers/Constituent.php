@@ -20,7 +20,7 @@ class constituent extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_interaction']=$this->mastermodel->get_active_interaction_question();
@@ -39,7 +39,7 @@ class constituent extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->constituentmodel->get_constituent_member_list();
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/list_constituent_member',$data);
@@ -53,35 +53,35 @@ class constituent extends CI_Controller {
 	public function create_constituent_member(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$constituency_id=$this->input->post('constituency_id');
 			$paguthi_id=$this->input->post('paguthi_id');
 			$ward_id=$this->input->post('ward_id');
 			$booth_id=$this->input->post('booth_id');
-			$full_name=mb_strtoupper($this->input->post('full_name'));
-			$father_husband_name=mb_strtoupper($this->input->post('father_husband_name'));
-			$guardian_name=mb_strtoupper($this->input->post('guardian_name'));
-			$mobile_no=mb_strtoupper($this->input->post('mobile_no'));
-			$whatsapp_no=mb_strtoupper($this->input->post('whatsapp_no'));
-			$originalDate=mb_strtoupper($this->input->post('dob'));
+			$full_name=strtoupper($this->input->post('full_name'));
+			$father_husband_name=strtoupper($this->input->post('father_husband_name'));
+			$guardian_name=strtoupper($this->input->post('guardian_name'));
+			$mobile_no=strtoupper($this->input->post('mobile_no'));
+			$whatsapp_no=strtoupper($this->input->post('whatsapp_no'));
+			$originalDate=strtoupper($this->input->post('dob'));
 			 $dob = date("Y-m-d", strtotime($originalDate));
-			$door_no=mb_strtoupper($this->input->post('door_no'));
-			$address=mb_strtoupper($this->input->post('address'));
-			$pin_code=mb_strtoupper($this->input->post('pin_code'));
-			$religion_id=mb_strtoupper($this->input->post('religion_id'));
-			$email_id=mb_strtoupper($this->input->post('email_id'));
-			$gender=mb_strtoupper($this->input->post('gender'));
-			$voter_id_status=mb_strtoupper($this->input->post('voter_id_status'));
-			$voter_id_no=mb_strtoupper($this->input->post('voter_id_no'));
-			$aadhaar_status=mb_strtoupper($this->input->post('aadhaar_status'));
-			$aadhaar_no=mb_strtoupper($this->input->post('aadhaar_no'));
-			$party_member_status=mb_strtoupper($this->input->post('party_member_status'));
-			$vote_type=mb_strtoupper($this->input->post('vote_type'));
-			$serial_no=mb_strtoupper($this->input->post('serial_no'));
+			$door_no=strtoupper($this->input->post('door_no'));
+			$address=strtoupper($this->input->post('address'));
+			$pin_code=strtoupper($this->input->post('pin_code'));
+			$religion_id=strtoupper($this->input->post('religion_id'));
+			$email_id=strtoupper($this->input->post('email_id'));
+			$gender=strtoupper($this->input->post('gender'));
+			$voter_id_status=strtoupper($this->input->post('voter_id_status'));
+			$voter_id_no=strtoupper($this->input->post('voter_id_no'));
+			$aadhaar_status=strtoupper($this->input->post('aadhaar_status'));
+			$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
+			$party_member_status=strtoupper($this->input->post('party_member_status'));
+			$vote_type=strtoupper($this->input->post('vote_type'));
+			$serial_no=strtoupper($this->input->post('serial_no'));
 			$question_id=$this->input->post('question_id');
 			$question_response=$this->input->post('question_response');
 			$interaction_section=$this->input->post('interaction_section');
-			// $status=mb_strtoupper($this->input->post('status'));
+			// $status=strtoupper($this->input->post('status'));
 			$profilepic = $_FILES['profile_pic']['name'];
 				if(empty($profilepic)){
 				$filename=' ';
@@ -101,23 +101,253 @@ class constituent extends CI_Controller {
 		}
 	}
 
+		public function update_constituent_member(){
+			$user_id = $this->session->userdata('user_id');
+			$user_type = $this->session->userdata('user_type');
+			if($user_type=='1' || $user_type=='2'){
+				$constituent_id=$this->input->post('constituent_id');
+				$constituency_id=$this->input->post('constituency_id');
+				$paguthi_id=$this->input->post('paguthi_id');
+				$ward_id=$this->input->post('ward_id');
+				$booth_id=$this->input->post('booth_id');
+				$full_name=strtoupper($this->input->post('full_name'));
+				$father_husband_name=strtoupper($this->input->post('father_husband_name'));
+				$guardian_name=strtoupper($this->input->post('guardian_name'));
+				$mobile_no=strtoupper($this->input->post('mobile_no'));
+				$whatsapp_no=strtoupper($this->input->post('whatsapp_no'));
+				$originalDate=strtoupper($this->input->post('dob'));
+				 $dob = date("Y-m-d", strtotime($originalDate));
+				$door_no=strtoupper($this->input->post('door_no'));
+				$address=strtoupper($this->input->post('address'));
+				$pin_code=strtoupper($this->input->post('pin_code'));
+				$religion_id=strtoupper($this->input->post('religion_id'));
+				$email_id=strtoupper($this->input->post('email_id'));
+				$gender=strtoupper($this->input->post('gender'));
+				$voter_id_status=strtoupper($this->input->post('voter_id_status'));
+				$voter_id_no=strtoupper($this->input->post('voter_id_no'));
+				$aadhaar_status=strtoupper($this->input->post('aadhaar_status'));
+				$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
+				$party_member_status=strtoupper($this->input->post('party_member_status'));
+				$vote_type=strtoupper($this->input->post('vote_type'));
+				$serial_no=strtoupper($this->input->post('serial_no'));
+				$question_id=$this->input->post('question_id');
+				$question_response=$this->input->post('question_response');
+				// $interaction_section=$this->input->post('interaction_section');
+					$old_profile_pic=$this->input->post('old_profile_pic');
+				$status=strtoupper($this->input->post('status'));
+				$profilepic = $_FILES['profile_pic']['name'];
+					if(empty($profilepic)){
+					$filename=$old_profile_pic;
+				}else{
+					$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
+					$filename = round(microtime(true)) . '.' . $temp;
+					$uploaddir = 'assets/constituent/';
+					$profilepic = $uploaddir.$filename;
+					move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
+				}
+				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$constituent_id);
+				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+				$this->session->set_flashdata('msg', $messge);
+				redirect("constituent/list_constituent_member");
+			}else{
+				redirect('/');
+			}
+		}
+
+
+
+	public function get_constituent_member_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->uri->segment(3);
+			$data['res']=$this->constituentmodel->get_constituent_member_edit($constituent_id);
+			$data['res_constituency']=$this->mastermodel->get_active_constituency();
+			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_interaction']=$this->mastermodel->get_active_interaction_question();
+			$data['res_religion']=$this->mastermodel->get_active_religion();
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/update_constituent_member',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
 
 	public function checkserialno(){
-		$serial_no=mb_strtoupper($this->input->post('serial_no'));
+		$serial_no=strtoupper($this->input->post('serial_no'));
 		$data=$this->constituentmodel->checkserialno($serial_no);
 	}
 	public function checkvoter_id_no(){
-		$voter_id_no=mb_strtoupper($this->input->post('voter_id_no'));
+		$voter_id_no=strtoupper($this->input->post('voter_id_no'));
 		$data=$this->constituentmodel->checkvoter_id_no($voter_id_no);
 	}
 	public function checkaadhaar_no(){
-		$aadhaar_no=mb_strtoupper($this->input->post('aadhaar_no'));
+		$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
 		$data=$this->constituentmodel->checkaadhaar_no($aadhaar_no);
+	}
 
+
+	public function checkserialnoexist(){
+		$constituent_id=$this->uri->segment(3);
+		$serial_no=strtoupper($this->input->post('serial_no'));
+		$data=$this->constituentmodel->checkserialnoexist($constituent_id,$serial_no);
+	}
+	public function checkvoter_id_noexist(){
+		$constituent_id=$this->uri->segment(3);
+		$voter_id_no=strtoupper($this->input->post('voter_id_no'));
+		$data=$this->constituentmodel->checkvoter_id_noexist($constituent_id,$voter_id_no);
+	}
+	public function checkaadhaar_noexist(){
+		$constituent_id=$this->uri->segment(3);
+		$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
+		$data=$this->constituentmodel->checkaadhaar_noexist($constituent_id,$aadhaar_no);
+	}
+
+
+################## documents upload ############################
+
+
+
+		public function get_list_document(){
+			$user_id = $this->session->userdata('user_id');
+			$user_type = $this->session->userdata('user_type');
+			if($user_type=='1' || $user_type=='2'){
+				$constituent_id=$this->uri->segment(3);
+				$data['res']=$this->constituentmodel->get_constituent_member_edit($constituent_id);
+				$data['res']=$this->constituentmodel->get_list_document($constituent_id);
+				$this->load->view('admin/header');
+				$this->load->view('admin/constituent/constituent_member_documents',$data);
+				$this->load->view('admin/footer');
+			}else{
+				redirect('/');
+			}
+		}
+
+
+		public function constituent_document_upload(){
+			$user_id = $this->session->userdata('user_id');
+			$user_type = $this->session->userdata('user_type');
+			if($user_type=='1' || $user_type=='2'){
+				$constituent_id=$this->input->post('constituent_id');
+				$doc_name=strtoupper($this->input->post('file_name'));
+				$profilepic = $_FILES['doc_file']['name'];
+				if(empty($profilepic)){
+				$filename=$old_profile_pic;
+				}else{
+					$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
+					$filename = round(microtime(true)) . '.' . $temp;
+					$uploaddir = 'assets/constituent/doc/';
+					$profilepic = $uploaddir.$filename;
+					move_uploaded_file($_FILES['doc_file']['tmp_name'], $profilepic);
+				}
+				$data=$this->constituentmodel->constituent_document_upload($constituent_id,$doc_name,$filename,$user_id);
+				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+				$this->session->set_flashdata('msg', $messge);
+				redirect("constituent/get_list_document/$constituent_id");
+			}else{
+				redirect('/');
+			}
+		}
+
+		public function delete_document(){
+			$user_id = $this->session->userdata('user_id');
+			$user_type = $this->session->userdata('user_type');
+			if($user_type=='1' || $user_type=='2'){
+				$d_id=$this->input->post('d_id');
+				$data=$this->constituentmodel->delete_document($d_id,$user_id);
+			}else{
+				redirect('/');
+			}
+		}
+
+################## documents upload ############################
+
+################## Interaction response ##############
+
+	public function add_interaction_response(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->uri->segment(3);
+			$data['res_interaction']=$this->mastermodel->get_active_interaction_question();
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/interaction_response',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function get_interaction_response_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_active_interaction_question();
+			$data['res_interaction']=$this->constituentmodel->get_interaction_response_edit($constituent_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/update_interaction_response',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function save_interaction_response(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('constituent_id');
+			$question_id=$this->input->post('question_id');
+			$question_response=$this->input->post('question_response');
+			$data=$this->constituentmodel->save_interaction_response($constituent_id,$question_id,$question_response,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_constituent_member");
+		}else{
+			redirect('/');
+		}
 	}
 
 
 
+################## Interaction response ##############
 
+
+################## Plant donation ##############
+
+	public function plant_save(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('constituent_id');
+			$name_of_plant=strtoupper($this->input->post('name_of_plant'));
+			$no_of_plant=$this->input->post('no_of_plant');
+			$data=$this->constituentmodel->plant_save($constituent_id,$name_of_plant,$no_of_plant,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_constituent_member");
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function get_plant_donation(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('c_id');
+			$data['res']=$this->constituentmodel->get_plant_donation($constituent_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+################## Plant donation ##############
 
 }

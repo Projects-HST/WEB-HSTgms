@@ -73,7 +73,7 @@
                      <td><?php echo $i; ?></td>
                     <td><?php echo $rows->paguthi_name; ?></td>
                     <td><?php echo $rows->paguthi_short_name ;?></td>
-                    <td><?php if($rows->status=='Active'){ ?>
+                    <td><?php if($rows->status=='ACTIVE'){ ?>
                             <span class="badge badge-success">Active</span>
                             <?php  }else{ ?>
                               <span class="badge badge-danger">Inactive</span>
