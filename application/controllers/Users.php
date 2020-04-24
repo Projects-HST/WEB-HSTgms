@@ -17,7 +17,7 @@ class Users extends CI_Controller {
 		$datas['role'] = $this->usermodel->list_role();
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 
-		if($user_type==1 || $user_type==2){
+		if($user_type==1){
 			$this->load->view('admin/header');
 			$this->load->view('admin/users/add',$datas);
 			$this->load->view('admin/footer');
@@ -31,7 +31,7 @@ class Users extends CI_Controller {
 		$datas=$this->session->userdata();
         $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-				if($user_type==1 || $user_type==2){
+				if($user_type==1){
 					$role=$this->input->post('role');
 					$paguthi=$this->input->post('paguthi');
 					$name=$this->input->post('name');
@@ -92,7 +92,7 @@ class Users extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$datas['result']=$this->usermodel->list_users();
 		
-		if($user_type==1 || $user_type==2){
+		if($user_type==1){
 			$this->load->view('admin/header');
 			$this->load->view('admin/users/list',$datas);
 			$this->load->view('admin/footer');
@@ -111,7 +111,7 @@ class Users extends CI_Controller {
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 		$datas['res']=$this->usermodel->users_details($staff_id);
 		
-		if($user_type==1 || $user_type==2){
+		if($user_type==1){
 			$this->load->view('admin/header');
 			$this->load->view('admin/users/edit',$datas);
 			$this->load->view('admin/footer');
@@ -124,7 +124,7 @@ class Users extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1 || $user_type==2){
+		if($user_type==1){
 				$staff_id=base64_decode($this->uri->segment(3))/98765;
 				$email=$this->input->post('email');
 				$datas['res']=$this->usermodel->checkemail_edit($email,$staff_id);
@@ -138,7 +138,7 @@ class Users extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 
-		if($user_type==1 || $user_type==2){
+		if($user_type==1){
 			$staff_id= $this->input->post('staff_id');
 			$role=$this->input->post('role');
 			$paguthi=$this->input->post('paguthi');

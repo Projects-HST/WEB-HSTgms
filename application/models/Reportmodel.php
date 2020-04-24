@@ -232,5 +232,73 @@ Class Reportmodel extends CI_Model
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
+	
+	function get_staff_report($frmDate,$toDate)
+	{
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+
+		$query="SELECT
+				um.id,
+				um.full_name,
+				COUNT(ct.created_by) AS total,
+				COUNT(
+					CASE WHEN ct.status = 'ACTIVE' THEN 1
+				END
+			) AS active,
+			COUNT(
+				CASE WHEN ct.status = 'INACTVIE' THEN 1
+			END
+			) AS inactive
+			FROM constituent AS
+				ct
+			LEFT JOIN user_master AS um
+			ON
+				um.id = ct.created_by
+			WHERE
+				DATE(ct.created_at) BETWEEN '2020-02-01' AND '2020-04-24'
+			GROUP BY
+				ct.created_by";
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+	
+	function get_birthday_report($frmDate,$toDate)
+	{
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+
+		$query="SELECT
+				um.id,
+				um.full_name,
+				COUNT(ct.created_by) AS total,
+				COUNT(
+					CASE WHEN ct.status = 'ACTIVE' THEN 1
+				END
+			) AS active,
+			COUNT(
+				CASE WHEN ct.status = 'INACTVIE' THEN 1
+			END
+			) AS inactive
+			FROM constituent AS
+				ct
+			LEFT JOIN user_master AS um
+			ON
+				um.id = ct.created_by
+			WHERE
+				DATE(ct.created_at) BETWEEN '2020-02-01' AND '2020-04-24'
+			GROUP BY
+				ct.created_by";
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
 }
 ?>

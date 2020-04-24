@@ -115,6 +115,8 @@
                                 <li><a href="<?php echo base_url(); ?>report/sub_category">Sub category</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
 								<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
+								<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
+								<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
                               </ul>
                            </li>
                            <li>
