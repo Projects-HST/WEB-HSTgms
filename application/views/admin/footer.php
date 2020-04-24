@@ -11,6 +11,18 @@
 $(document).ready(function() {
     $('#example').DataTable();
 } );
+
+$(document).ready(function() {
+    $('#export_example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+
 $("input").on("keypress", function(e) {
          if (e.which === 32 && !this.value.length)
              e.preventDefault();

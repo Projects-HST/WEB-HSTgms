@@ -19,14 +19,21 @@
 	  <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	  <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
+	  <link href="<?php echo base_url(); ?>assets/admin/vendors/datatable/css/buttons.dataTables.min.css" rel="stylesheet">
+
 	  <link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/build/css/extra.css" rel="stylesheet">
 	  <link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
 
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
-	  <script src="<?php echo base_url(); ?>assets/admin/js/jquery.dataTables.min.js"></script>
-      <script src="<?php echo base_url(); ?>assets/admin/js/dataTables.bootstrap4.min.js"></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jquery.dataTables.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.buttons.min.js"></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jszip.min.js"></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/pdfmake.min.js"></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/vfs_fonts.js"></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/buttons.html5.min.js "></script>
 
       <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/additional-methods.min.js"></script>
@@ -107,6 +114,7 @@
                                 <li><a href="<?php echo base_url(); ?>report/category">Category</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/sub_category">Sub category</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
+								<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
                               </ul>
                            </li>
                            <li>

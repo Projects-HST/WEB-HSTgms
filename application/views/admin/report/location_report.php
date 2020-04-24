@@ -9,42 +9,42 @@
             </div>
             <div class="x_content">
 			
-			<form id="report_form" action="<?php echo base_url(); ?>report/location" method="post" enctype="multipart/form-data">
-
-                  <div class="item form-group">
-                     <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
-                     <div class="col-md-2 col-sm-2">
-							<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate">
-                     </div>
-					  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
-                     <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate">
-                     </div>
-					  <label class="col-form-label col-md-2 col-sm-2 label-align">Location <span class="required">*</span></label>
-                     <div class="col-md-2 col-sm-2">
-							<select class="form-control" name="paguthi" id ="paguthi" >
-								<option value="">SELECT</option>
-								<?php foreach($paguthi as $rows){ ?>
-								<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
-								<?php } ?>
-							</select>
-                     </div>
-					 <div class="col-md-2 col-sm-2">
-                         <button type="submit" class="btn btn-success">SEARCH</button>					 
-                     </div>
-                  </div>
-                  <div class="ln_solid"></div>
-               </form>
-
+		<form id="report_form" action="<?php echo base_url(); ?>report/location" method="post" enctype="multipart/form-data">
+			  <div class="item form-group">
+				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
+				 <div class="col-md-2 col-sm-2">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate">
+				 </div>
+				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
+				 <div class="col-md-2 col-sm-2">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate">
+				 </div>
+				  <label class="col-form-label col-md-2 col-sm-2 label-align">Location <span class="required">*</span></label>
+				 <div class="col-md-2 col-sm-2">
+						<select class="form-control" name="paguthi" id ="paguthi" >
+							<option value="">SELECT</option>
+							<?php foreach($paguthi as $rows){ ?>
+							<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
+							<?php } ?>
+						</select>
+				 </div>
+				 <div class="col-md-2 col-sm-2">
+					 <button type="submit" class="btn btn-success">SEARCH</button>					 
+				 </div>
+			  </div>
+			  <div class="ln_solid"></div>
+		 </form>
 			   
-				<div class="col-md-12 col-sm-12 ">
-          <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+		<div class="col-md-12 col-sm-12 ">
+          <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
                    <th>S.no</th>
-                   <th>Name</th>
-				   <th>Email Id</th>
 				   <th>Petition No</th>
+				    <th>Date</th>
+                   <th>Name</th>
+				   <th>Phone</th>
+				    <th>Category</th>
 				   <th>Status</th>
                    <th>Created by</th>
 
@@ -54,17 +54,15 @@
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
+					<td><?php echo $rows->petition_enquiry_no; ?></td>
+					<td><?php echo date('d-m-Y', strtotime($rows->created_at)); ?></td>
                     <td><?php echo $rows->full_name; ?></td>
 					<td><?php echo $rows->mobile_no; ?></td>
-					<td><?php echo $rows->petition_enquiry_no; ?></td>
+					<td><?php echo $rows->grievance_name; ?></td>
                     <td><?php  echo $rows->status; ?></td>
                     <td><?php  echo $rows->full_name; ?></td>
                  </tr>
-
             <?php $i++; } ?>
-
-
-
              </tbody>
           </table>
 
