@@ -22,7 +22,7 @@
 				  <label class="col-form-label col-md-2 col-sm-2 label-align">Location <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 						<select class="form-control" name="paguthi" id ="paguthi" >
-							<option value="">SELECT</option>
+							<option value="ALL">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 							<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
 							<?php } ?>
