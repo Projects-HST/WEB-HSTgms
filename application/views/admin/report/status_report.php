@@ -14,11 +14,11 @@
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
 				 <div class="col-md-3 col-sm-3">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
 				 <div class="col-md-3 col-sm-3">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
 				 
 			  </div>
@@ -26,19 +26,19 @@
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">Status <span class="required">*</span></label>
 				 <div class="col-md-3 col-sm-3">
 						<select class="form-control" name="status" id ="status" >
-							<option value="All">All</option>
+							<option value="ALL">ALL</option>
 							<option value="PROCESSING">PROCESSING</option>
 							<option value="COMPLETED">COMPLETED</option>
-						</select>
+						</select><script> $('#status').val('<?php echo $dstatus; ?>');</script>
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">Area <span class="required">*</span></label>
 				 <div class="col-md-3 col-sm-3">
 						<select class="form-control" name="paguthi" id ="paguthi" >
-							<option value="All">All</option>
+							<option value="ALL">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 							<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
 							<?php } ?>
-						</select>
+						</select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
 				 </div>
 				 <div class="col-md-2 col-sm-2">
 					 <button type="submit" class="btn btn-success">SEARCH</button>					 

@@ -20,11 +20,21 @@ class Report extends CI_Controller {
 		
 		
 		 $frmDate=$this->input->post('frmDate');
+		 $datas['dfromDate'] = $frmDate;
 		 $toDate=$this->input->post('toDate');
+		 $datas['dtoDate'] = $toDate;
 		 $status=$this->input->post('status');
+		 if ($status != ""){
+			$datas['dstatus'] = $status;
+		 } else {
+			  $datas['dstatus'] = "ALL";
+		 }
 		 $paguthi=$this->input->post('paguthi');
-		
-
+		 if ($paguthi != ""){
+			 $datas['dpaguthi'] = $paguthi;
+		 } else {
+			  $datas['dpaguthi'] = "ALL";
+		 }
 		$datas['res']=$this->reportmodel->get_status_report($frmDate,$toDate,$status,$paguthi);
 
 		if($user_type=='1'){
@@ -44,10 +54,17 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$datas['category'] = $this->usermodel->list_category();
 		
-		$frmDate=$this->input->post('frmDate');
-		$toDate=$this->input->post('toDate');
-		$category=$this->input->post('category');
 		
+		 $frmDate=$this->input->post('frmDate');
+		 $datas['dfromDate'] = $frmDate;
+		 $toDate=$this->input->post('toDate');
+		 $datas['dtoDate'] = $toDate;
+		 $category=$this->input->post('category');
+		 if ($category != ""){
+			 $datas['dcategory'] = $category;
+		 } else {
+			  $datas['dcategory'] = "ALL";
+		 }		
 		$datas['res']=$this->reportmodel->get_category_report($frmDate,$toDate,$category);
 		
 		if($user_type=='1'){
@@ -67,9 +84,16 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$datas['subcategory'] = $this->usermodel->list_subcategory();
 		
-		$frmDate=$this->input->post('frmDate');
-		$toDate=$this->input->post('toDate');
-		$sub_category=$this->input->post('sub_category');
+		 $frmDate=$this->input->post('frmDate');
+		 $datas['dfromDate'] = $frmDate;
+		 $toDate=$this->input->post('toDate');
+		 $datas['dtoDate'] = $toDate;
+		 $sub_category=$this->input->post('sub_category');
+		 if ($sub_category != ""){
+			 $datas['dsub_category'] = $sub_category;
+		 } else {
+			  $datas['dsub_category'] = "ALL";
+		 }	
 		
 		$datas['res']=$this->reportmodel->get_subcategory_report($frmDate,$toDate,$sub_category);
 		
@@ -91,8 +115,15 @@ class Report extends CI_Controller {
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 		
 		$frmDate=$this->input->post('frmDate');
-		$toDate=$this->input->post('toDate');
-		$paguthi=$this->input->post('paguthi');
+		 $datas['dfromDate'] = $frmDate;
+		 $toDate=$this->input->post('toDate');
+		 $datas['dtoDate'] = $toDate;
+		 $paguthi=$this->input->post('paguthi');
+		 if ($paguthi != ""){
+			 $datas['dpaguthi'] = $paguthi;
+		 } else {
+			  $datas['dpaguthi'] = "ALL";
+		 }
 		
 		$datas['res']=$this->reportmodel->get_location_report($frmDate,$toDate,$paguthi);
 		
@@ -113,7 +144,9 @@ class Report extends CI_Controller {
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 		
 		$frmDate=$this->input->post('frmDate');
+		$datas['dfromDate'] = $frmDate;
 		$toDate=$this->input->post('toDate');
+		$datas['dtoDate'] = $toDate;
 		
 		$datas['res']=$this->reportmodel->get_meeting_report($frmDate,$toDate);
 		
@@ -134,7 +167,9 @@ class Report extends CI_Controller {
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 		
 		$frmDate=$this->input->post('frmDate');
+		$datas['dfromDate'] = $frmDate;
 		$toDate=$this->input->post('toDate');
+		$datas['dtoDate'] = $toDate;
 		
 		$datas['res']=$this->reportmodel->get_staff_report($frmDate,$toDate);
 		
@@ -155,7 +190,9 @@ class Report extends CI_Controller {
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 		
 		$frmDate=$this->input->post('frmDate');
+		$datas['dfromDate'] = $frmDate;
 		$toDate=$this->input->post('toDate');
+		$datas['dtoDate'] = $toDate;
 		
 		$datas['res']=$this->reportmodel->get_birthday_report($frmDate,$toDate);
 		

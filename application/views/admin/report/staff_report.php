@@ -4,7 +4,6 @@
          <div class="x_panel">
             <div class="x_title">
                <h2>Staff Report - Constituent Count</h2>
-
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -13,11 +12,11 @@
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
 				 <div class="col-md-2 col-sm-2">
 					 <button type="submit" class="btn btn-success">SEARCH</button>					 

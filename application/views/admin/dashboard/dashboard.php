@@ -1,15 +1,18 @@
 <div class="right_col" role="main" style="min-height: 1284px;">
 
+	<form id="search_form" action="<?php echo base_url(); ?>dashboard/searchresult" method="post" enctype="multipart/form-data">
 		<div class="title_left" style="padding-top:70px;">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
+				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for...">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="submit" style="padding:12px;">Go!</button>
 				</span>
 			</div>
 			</div>
 		</div>
+		</form>
+
 		<div class="clearfix"></div>
 <hr>
 <div class="row">
@@ -21,12 +24,15 @@
 <h2>Dashboard </h2>
 </div>
 <div class="col-md-5">
-		<form id="report_form" action="<?php echo base_url(); ?>report/location" method="post" enctype="multipart/form-data">
+		<form id="result_form" action="<?php echo base_url(); ?>dashboard" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-4 col-sm-4 label-align">Select Area <span class="required">*</span></label>
 				 <div class="col-md-6 col-sm-6">
-						<select class="form-control" name="status" id ="status" >
-							<option value="All">OVER ALL</option>
+						<select class="form-control" name="paguthi" id ="paguthi">
+								<option value="All">OVER ALL</option>
+							<?php foreach($paguthi as $rows){ ?>
+								<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
+							<?php } ?>
 						</select>
 				 </div>
 				  <div class="col-md-2 col-sm-2">
@@ -288,24 +294,60 @@
 
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Candidates'],
-          ['Mar-2020',  3],
-['Apr-2020',  1]
-]);
+         var data = google.visualization.arrayToDataTable([
+          ['MONTH', 'MEMBERS'],
+          ['JAN',  165],
+          ['FEB',  135],
+          ['MAR',  157],
+          ['APR',  139],
+          ['MAY',  136]
+        ]);
 
         var options = {
-          title : '',
-          vAxis: {title: 'Candidates',format: '0'},
-          hAxis: {title: 'Month'},
+          title : 'MEMBERS DETAILS',
+          vAxis: {title: 'MEMBERS'},
+          hAxis: {title: 'MONTHS'},
           seriesType: 'bars',
-          series: {5: {type: 'line'}}        };
+          series: {5: {type: 'line'}}        
+		 };
+
+
+		var data1 = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+		var options1 = {
+          title: 'GRIEVANCE DETAILS',
+		  is3D: true,
+        };
+
+
+        var data2 = google.visualization.arrayToDataTable([
+          ['MONTHS', 'MEETINGS'],
+          ['JAN',  1000],
+          ['FEB',  1170],
+          ['MAR',  660],
+          ['APR',  1030],
+		  ['MAY',  800],
+        ]);
+
+        var options2 = {
+          title: 'MEETING DETAILS',
+          hAxis: {title: 'MONTHS',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-		var chart1 = new google.visualization.ComboChart(document.getElementById('chart_div1'));
-		var chart2 = new google.visualization.ComboChart(document.getElementById('chart_div2'));
+		var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
+		var chart2 = new google.visualization.AreaChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
-		chart1.draw(data, options);
-		chart2.draw(data, options);
+		chart1.draw(data1, options1);
+		chart2.draw(data2, options2);
       }
     </script>

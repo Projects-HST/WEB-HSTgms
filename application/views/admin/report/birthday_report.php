@@ -9,15 +9,15 @@
             </div>
             <div class="x_content">
 			
-		<form id="report_form" action="<?php echo base_url(); ?>report/staff" method="post" enctype="multipart/form-data">
+		<form id="report_form" action="<?php echo base_url(); ?>report/birthday" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
 				 <div class="col-md-2 col-sm-2">
 					 <button type="submit" class="btn btn-success">SEARCH</button>					 
@@ -30,21 +30,35 @@
           <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
-                   <th>S.no</th>
-				    <th>Staff</th>
-                    <th>Total constituent</th>
-					<th>Active</th>
-					<th>Inactive</th>
+                   <th>S.no </th>
+				    <th>Name</th>
+                    <th>Date of Birth</th>
+					<th>Status</th>
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1; foreach($res as $rows){ ?>
+               <?php $i=1; foreach($res as $rows){ 
+						$disp = "";
+						$const_id = $rows->id;
+						$year = date("Y"); 
+						
+						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year'";
+                    	$subQuery_result = $this->db->query($subQuery);
+							foreach ($subQuery_result->result() as $rows1)
+                			{
+                			    $birth_id = $rows1->constituent_id;
+                			}
+			   ?>
                  <tr>
                     <td><?php echo $i; ?></td>
 					<td><?php echo $rows->full_name; ?></td>
-					<td><?php echo $rows->total; ?></td>
-                    <td><?php echo $rows->active; ?></td>
-					<td><?php echo $rows->inactive; ?></td>
+					<td><?php echo date('d-m-Y', strtotime($rows->dob)); ?></td>
+                    <td><?php 
+						if ($const_id == $birth_id){ ?>
+								Send
+						<?php } else { ?>
+								<a href="#">Not Send</a>
+						<?php } ?></td>
                  </tr>
             <?php $i++; } ?>
              </tbody>

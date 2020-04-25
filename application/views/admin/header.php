@@ -72,7 +72,7 @@
                         <h3>Menu </h3>
                         <ul class="nav side-menu">
                            <li>
-                              <a href="<?php echo base_url(); ?>/dashboard"><i class="fa fa-home"></i> Dashboard</span></a>
+                              <a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home"></i> Dashboard</span></a>
                            </li>
                            <li id="mastermenu">
                               <a><i class="fa fa-edit"></i>Masters <span class="fa fa-chevron-down"></span></a>
