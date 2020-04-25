@@ -50,11 +50,11 @@
 		
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Name <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>">
+			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
 		</div>
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Eamil ID <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" value="<?php echo $rows->email_id; ?>">
+			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" value="<?php echo $rows->email_id; ?>" maxlength='30'>
 		</div>
 	</div>
 		<div class="item form-group">
@@ -65,7 +65,7 @@
 		</div>
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Phone Number <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" value="<?php echo $rows->phone_number; ?>">
+			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" value="<?php echo $rows->phone_number; ?>" maxlength='10'>
 		</div>
 		
 	</div>
@@ -76,7 +76,7 @@
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Address <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<textarea id="address" name="address" rows="3" class="form-control"><?php echo $rows->address; ?></textarea>
+			<textarea id="address" name="address" rows="3" class="form-control" maxlength='150'><?php echo $rows->address; ?></textarea>
 		</div>
 		<div class="col-md-6 col-sm-6"><div class="profile_pic">
 		<?php
@@ -100,8 +100,8 @@
 		<div class="col-md-4 col-sm-4">
 			<select class="form-control" name="status" id="status">
 				<option value="">SELECT</option>
-				<option value="Active">ACTIVE</option>
-				<option value="Inactive">INACTIVE</option>
+				<option value="ACTIVE">ACTIVE</option>
+				<option value="INACTIVE">INACTIVE</option>
 			</select><script> $('#status').val('<?php echo $rows->status; ?>');</script>
 		</div>
 		<div class="col-md-6 col-sm-6"></div>

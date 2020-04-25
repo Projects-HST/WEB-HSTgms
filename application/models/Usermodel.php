@@ -4,34 +4,34 @@ Class Usermodel extends CI_Model
 	public function __construct()
 	{
 	  parent::__construct();
-		//$this->load->model('mailmodel');
-		//$this->load->model('smsmodel');
+		$this->load->model('mailmodel');
+		$this->load->model('smsmodel');
 	}
 
 	function list_role()
 	{
-		$query="SELECT * FROM `role_master` WHERE status='Active'";
+		$query="SELECT * FROM `role_master` WHERE status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
 
 	function list_paguthi()
 	{
-		$query="SELECT * FROM `paguthi` WHERE constituency_id='1' AND status='Active'";
+		$query="SELECT * FROM `paguthi` WHERE constituency_id='1' AND status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
 	
 	function list_category()
 	{
-		$query="SELECT * FROM `grievance_type` WHERE status='Active'";
+		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
 	
 	function list_subcategory()
 	{
-		$query="SELECT * FROM `grievance_sub_category` WHERE status='Active'";
+		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
@@ -81,7 +81,7 @@ Class Usermodel extends CI_Model
 							
 			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' Password '.$OTP.'';
 
-			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 			//$this->smsmodel->sendSMS($mobile,$smsContent);
 			  
             if ($result) {
@@ -155,7 +155,7 @@ Class Usermodel extends CI_Model
 			
 			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
 			
-			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 			//$this->smsmodel->sendSMS($mobile,$smsContent);			
 
 		}else {

@@ -27,8 +27,8 @@
 				 <div class="col-md-3 col-sm-3">
 						<select class="form-control" name="status" id ="status" >
 							<option value="All">All</option>
-							<option value="Processing">Processing</option>
-							<option value="Completed">Completed</option>
+							<option value="PROCESSING">PROCESSING</option>
+							<option value="COMPLETED">COMPLETED</option>
 						</select>
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">Area <span class="required">*</span></label>

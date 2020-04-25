@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 			redirect(base_url());
 		}
 		
-		if($result['status']=='Active'){
+		if($result['status']=='ACTIVE'){
 					$email_id = $result['email_id'];
 					$name=$result['name'];
 					$user_type=$result['user_type'];

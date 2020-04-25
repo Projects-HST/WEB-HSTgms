@@ -32,21 +32,21 @@
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-		<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>">
+		<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
 	</div>
 	</div>
 	
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Phone Number <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-		<input type="text" id="phone" name="phone" class="form-control" placeholder="PHONE NUMBER" value="<?php echo $rows->phone_number; ?>">
+		<input type="text" id="phone" name="phone" class="form-control" placeholder="PHONE NUMBER" value="<?php echo $rows->phone_number; ?>" maxlength='10'>
 	</div>
 	</div>
 	<?php if ($user_type == '1'){?>
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Email ID <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
-		<input type="text" id="email" name="email" class="form-control" placeholder="Email Id" value="<?php echo $rows->email_id; ?>">
+		<input type="text" id="email" name="email" class="form-control" placeholder="Email Id" value="<?php echo $rows->email_id; ?>" maxlength='30'>
 	</div>
 	</div>
 	<?php } ?>

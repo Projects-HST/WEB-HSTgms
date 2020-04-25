@@ -4,8 +4,8 @@ Class Loginmodel extends CI_Model
 	public function __construct()
 	{
 	  parent::__construct();
-		//$this->load->model('mailmodel');
-		//$this->load->model('smsmodel');
+		$this->load->model('mailmodel');
+		$this->load->model('smsmodel');
 	}
 
 	function login($username,$password)
@@ -18,7 +18,7 @@ Class Loginmodel extends CI_Model
 		   {
 			   $status = $rows->status;
 		   }
-			if ($status = 'Active'){
+			if ($status == 'ACTIVE'){
 				  $data = array("user_type"=>$rows->role_id,"user_id"=>$rows->id,"name"=>$rows->full_name,"email_id"=>$rows->email_id,"constituency_id"=>$rows->constituency_id,"pugathi_id"=>$rows->pugathi_id,"user_pic"=>$rows->profile_pic,"status"=>$rows->status);
 				 return $data;
 			 } else {
@@ -64,7 +64,7 @@ Class Loginmodel extends CI_Model
 			$smsContent = 'Hi  '.$name.' Your Account Password is Reset. Please Use this '.$OTP.' to login';
 			
 			$this->mailmodel->sendEmail($to_email,$subject,$htmlContent);
-			$this->smsmodel->sendSMS($to_phone,$smsContent);
+			//$this->smsmodel->sendSMS($to_phone,$smsContent);
 			
 			echo "success";
          }else{
@@ -110,7 +110,7 @@ Class Loginmodel extends CI_Model
 							</html>';
 			
 			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
-			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 			//$this->smsmodel->sendSMS($mobile,$smsContent);			
 		}else {
 			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
@@ -171,7 +171,7 @@ Class Loginmodel extends CI_Model
 			
 			$smsContent = 'Hi  '.$name.' Your Password Updated Sucessfully!';
 			
-			//$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 			//$this->smsmodel->sendSMS($mobile,$smsContent);
 		}
 		

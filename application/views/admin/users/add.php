@@ -48,11 +48,11 @@
 		
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Name <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME">
+			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" maxlength='30'>
 		</div>
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Eamil ID <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID">
+			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" maxlength='30'>
 		</div>
 	</div>
 		<div class="item form-group">
@@ -62,7 +62,7 @@
 		</div>
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Phone Number <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number">
+			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" maxlength='10'>
 		</div>
 		
 	</div>
@@ -89,8 +89,8 @@
 		<div class="col-md-4 col-sm-4">
 			<select class="form-control" name="status">
 				<option value="">SELECT</option>
-				<option value="Active">ACTIVE</option>
-				<option value="Inactive">INACTIVE</option>
+				<option value="ACTIVE">ACTIVE</option>
+				<option value="INACTIVE">INACTIVE</option>
 			</select>
 		</div>
 		<div class="col-md-6 col-sm-6"></div>
