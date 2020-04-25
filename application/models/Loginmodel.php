@@ -32,7 +32,8 @@ Class Loginmodel extends CI_Model
 	}
 
 	function forgot_password($user_name){
-         $query="SELECT * FROM user_master WHERE email_id='$user_name'";
+         ECHO $query="SELECT * FROM user_master WHERE email_id='$user_name'";
+		 EXIT;
          $result=$this->db->query($query);
          if($result->num_rows()>0){
 			 foreach($result->result() as $row){
