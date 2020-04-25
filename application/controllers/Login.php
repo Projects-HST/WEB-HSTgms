@@ -58,7 +58,7 @@ class Login extends CI_Controller {
 	
 	public function forgot_password(){
 		$user_name=$this->input->post('user_name');
-		$datas['res'] = $this->loginmodel->forgot_password($user_name);
+		$datas['res'] = $this->loginmodel->forgot_password(strtoupper$user_name));
 	}
 
 	public function profile(){
