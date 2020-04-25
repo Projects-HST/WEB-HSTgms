@@ -41,6 +41,9 @@ class constituent extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->constituentmodel->get_constituent_member_list();
+			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_constituency']=$this->mastermodel->get_active_constituency();
+			$data['res_seeker']=$this->mastermodel->get_active_seeker();
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/list_constituent_member',$data);
 			$this->load->view('admin/footer');
@@ -216,8 +219,9 @@ class constituent extends CI_Controller {
 			$user_type = $this->session->userdata('user_type');
 			if($user_type=='1' || $user_type=='2'){
 				$constituent_id=$this->uri->segment(3);
-				$data['res']=$this->constituentmodel->get_constituent_member_edit($constituent_id);
+				// $data['res']=$this->constituentmodel->get_constituent_member_edit($constituent_id);
 				$data['res']=$this->constituentmodel->get_list_document($constituent_id);
+				$data['res_grievance']=$this->constituentmodel->get_list_grievance_document($constituent_id);
 				$this->load->view('admin/header');
 				$this->load->view('admin/constituent/constituent_member_documents',$data);
 				$this->load->view('admin/footer');
@@ -349,5 +353,136 @@ class constituent extends CI_Controller {
 	}
 
 ################## Plant donation ##############
+
+################## Meeting request ##############
+
+	public function view_meeting_request(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('c_id');
+			$data['res']=$this->constituentmodel->view_meeting_request($constituent_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function save_meeting_request(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('meeting_constituent_id');
+			$meeting_detail=strtoupper($this->input->post('meeting_detail'));
+			$meeting_status=strtoupper($this->input->post('meeting_status'));
+			$data=$this->constituentmodel->save_meeting_request($constituent_id,$meeting_detail,$meeting_status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_constituent_member");
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function update_meeting_request(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$meeting_id=$this->input->post('meeting_id');
+			$meeting_detail=strtoupper($this->input->post('update_meeting_detail'));
+			$meeting_status=strtoupper($this->input->post('update_meeting_status'));
+			$data=$this->constituentmodel->update_meeting_request($meeting_id,$meeting_detail,$meeting_status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_constituent_member");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function edit_meeting_request(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$meeting_id=$this->input->post('m_id');
+			$data['res']=$this->constituentmodel->edit_meeting_request($meeting_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+################## Meeting request ##############
+
+################## Grievance module ##############
+
+
+public function list_grievance(){
+	$user_id = $this->session->userdata('user_id');
+	$user_type = $this->session->userdata('user_type');
+	if($user_type=='1' || $user_type=='2'){
+		$data['res']=$this->constituentmodel->get_all_grievance();
+		$data['res_petition']=$this->constituentmodel->get_all_grievance_petition();
+		$data['res_enquiry']=$this->constituentmodel->get_all_grievance_enquiry();
+		$this->load->view('admin/header');
+		$this->load->view('admin/constituent/list_grievance',$data);
+		$this->load->view('admin/footer');
+	}else{
+		redirect('/');
+	}
+}
+
+	public function get_petition_no(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$paguthi_id=$this->input->post('p_id');
+			$grievance_type=$this->input->post('gr_type');
+			$data['res']=$this->constituentmodel->get_petition_no($paguthi_id,$grievance_type,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function save_grievance_data(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('constituent_id');
+			$constituency_id=$this->input->post('constituency_id');
+			$paguthi_id=$this->input->post('paguthi_id');
+			$seeker_id=$this->input->post('seeker_id');
+			$grievance_id=$this->input->post('grievance_id');
+			$sub_category_id=$this->input->post('sub_category_id');
+			$grievance_type=$this->input->post('grievance_type');
+			$petition_enquiry_no=strtoupper($this->input->post('petition_enquiry_no'));
+			$description=strtoupper($this->input->post('description'));
+			$doc_name=strtoupper($this->input->post('doc_name'));
+			$reference_note=strtoupper($this->input->post('reference_note'));
+			$originalDate=strtoupper($this->input->post('grievance_date'));
+			 $grievance_date = date("Y-m-d", strtotime($originalDate));
+			 $profilepic = $_FILES['doc_file_name']['name'];
+			 if(empty($profilepic)){
+			 $filename='';
+			 }else{
+				 $temp = pathinfo($profilepic, PATHINFO_EXTENSION);
+				 $filename = round(microtime(true)) . '.' . $temp;
+				 $uploaddir = 'assets/constituent/doc/';
+				 $profilepic = $uploaddir.$filename;
+				 move_uploaded_file($_FILES['doc_file_name']['tmp_name'], $profilepic);
+			 }
+			$data=$this->constituentmodel->save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_grievance");
+
+		}else{
+			redirect('/');
+		}
+	}
+################## Grievance module ##############
 
 }

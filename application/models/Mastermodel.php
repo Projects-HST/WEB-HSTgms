@@ -616,6 +616,35 @@ Class Mastermodel extends CI_Model
 		return $result->result();
 	}
 
+
+	function get_active_seeker(){
+		$query="SELECT * FROM seeker_type WHERE status='ACTIVE' order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_grievance_active($seeker_id){
+		 $query="SELECT * FROM grievance_type WHERE seeker_id='$seeker_id' and status='ACTIVE' order by id desc";
+		$result=$this->db->query($query);
+		if($result->num_rows()==0){
+ 		 $data=array("status"=>"error");
+ 	 }else{
+ 			 $data=array("status"=>"success","res"=>$result->result());
+ 	 }
+ 	 return $data;
+	}
+
+	function get_active_sub_category($grievance_id){
+	   $query="SELECT * FROM grievance_sub_category WHERE grievance_id='$grievance_id' and status='ACTIVE' order by id desc";
+		$result=$this->db->query($query);
+		if($result->num_rows()==0){
+		 $data=array("status"=>"error");
+	 }else{
+			 $data=array("status"=>"success","res"=>$result->result());
+	 }
+	 return $data;
+	}
+
 	function get_active_religion(){
 		$query="SELECT * FROM religion WHERE status='ACTIVE' order by id asc";
 		$result=$this->db->query($query);

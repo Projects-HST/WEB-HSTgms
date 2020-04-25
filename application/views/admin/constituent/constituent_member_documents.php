@@ -96,8 +96,38 @@
 
                      </div>
                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                        booth letterpress, commodo enim craft beer mlkshk aliquip
+                       <div class="x_panel">
+                    <table id="example_2" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                       <thead>
+                          <tr>
+                             <th>S.no</th>
+                             <th>File name</th>
+                             <th>Download</th>
+                             <th>Last updated at</th>
+
+                             <th>Action</th>
+
+                          </tr>
+                       </thead>
+                       <tbody>
+                         <?php $i=1; foreach($res_grievance as $rows_doc){ ?>
+                           <tr>
+                               <td><?php echo $i; ?></td>
+                              <td><?php echo $rows_doc->doc_name; ?></td>
+                              <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows_doc->doc_file_name ;?>" target="_blank" class="badge badge-warning">download here</a></td>
+                              <td><?php echo $rows_doc->updated_at ;?></td>
+                              <td><button class="babdge badge-danger" onclick="delete_document('<?php echo $rows_doc->id; ?>')"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+
+
+                           </tr>
+
+                      <?php  $i++; } ?>
+
+
+
+                       </tbody>
+                    </table>
+          </div>
                      </div>
 
                   </div>
@@ -111,6 +141,7 @@
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');
+$('#example_2').DataTable();
 $('#master_form').validate({
      rules: {
          file_name:{required:true },

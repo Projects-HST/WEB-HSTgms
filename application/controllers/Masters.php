@@ -660,6 +660,20 @@ class Masters extends CI_Controller {
 			echo json_encode($data['res']);
 		}
 
+		public function get_grievance_active(){
+			$seeker_id=$this->input->post('seeker_id');
+			$data['res']=$this->mastermodel->get_grievance_active($seeker_id);
+			echo json_encode($data['res']);
+
+		}
+		public function get_active_sub_category(){
+			$grievance_id=$this->input->post('grievance_id');
+			$data['res']=$this->mastermodel->get_active_sub_category($grievance_id);
+			echo json_encode($data['res']);
+
+		}
+
+
 
 	#################### Constituent purpose active data  ####################
 

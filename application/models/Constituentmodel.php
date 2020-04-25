@@ -261,6 +261,168 @@ Class Constituentmodel extends CI_Model
 	}
 ################## plant donation ##############
 
+################## Meeting request ##############
+
+	function view_meeting_request($constituent_id,$user_id){
+		$select="SELECT * FROM meeting_request where constituent_id='$constituent_id' order by id desc";
+		$res_select   = $this->db->query($select);
+		if($res_select->num_rows()==0){
+		 $data=array("status"=>"error");
+		 }else{
+				 $data=array("status"=>"success","res"=>$res_select->result());
+		 }
+		 return $data;
+	}
+
+	function edit_meeting_request($meeting_id,$user_id){
+		$select="SELECT * FROM meeting_request where id='$meeting_id'";
+		$res_select   = $this->db->query($select);
+		if($res_select->num_rows()==0){
+		 $data=array("status"=>"error");
+		 }else{
+				 $data=array("status"=>"success","res"=>$res_select->result());
+		 }
+		 return $data;
+	}
+
+
+	function save_meeting_request($constituent_id,$meeting_detail,$meeting_status,$user_id){
+		$insert="INSERT INTO meeting_request(constituent_id,meeting_detail,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_detail','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
+		$result   = $this->db->query($insert);
+		if($result){
+				$data=array("status"=>"success","msg"=>"meeting request saved Successfully","class"=>"alert alert-success");
+			}else{
+				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+			}
+			 return $data;
+	}
+
+
+	function update_meeting_request($meeting_id,$meeting_detail,$meeting_status,$user_id){
+		$query="UPDATE meeting_request SET meeting_detail='$meeting_detail',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+		$result   = $this->db->query($query);
+		if($result){
+				$data=array("status"=>"success","msg"=>"meeting request updated Successfully","class"=>"alert alert-success");
+			}else{
+				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+			}
+			 return $data;
+	}
+
+################## Meeting request ##############
+
+
+################## Grievance module ##############
+
+		function get_petition_no($paguthi_id,$grievance_type,$user_id){
+			$selct_paguthi="SELECT * FROM paguthi where id ='$paguthi_id'";
+			$re_paguth=$this->db->query($selct_paguthi);
+			foreach($re_paguth->result() as $rows_paguthi){}
+				$paguthi_short_name=$rows_paguthi->paguthi_short_name;
+				$select="SELECT * FROM grievance where grievance_type='$grievance_type' order by id desc LIMIT 1";
+					$res=$this->db->query($select);
+					if($res->num_rows()==0){
+						$next_id='001';
+					}else{
+						foreach($res->result() as $rows_id){}
+							$next_id=$rows_id->id+1;
+					}
+				if($grievance_type=='P'){
+
+					$petition_code=$paguthi_short_name."PT".$next_id;
+				}else{
+						$petition_code=$paguthi_short_name."EQ".$next_id;
+				}
+
+				if($petition_code){
+						$data=array("status"=>"success",'petition_code'=>$petition_code);
+
+				 }else{
+					 $data=array("status"=>"error");
+				 }
+
+				return $data;
+
+		}
+
+
+		function save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id){
+
+			$check="SELECT * FROM grievance WHERE petition_enquiry_no='$petition_enquiry_no'";
+			$res_check=$this->db->query($check);
+			if($res_check->num_rows()==0){
+				$insert="INSERT INTO grievance (grievance_type,constituent_id,pugathi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$grievance_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
+				$res=$this->db->query($insert);
+				$last_id=$this->db->insert_id();
+				if(empty($filename)){
+
+				}else{
+					$insert_doc="INSERT INTO grievance_documents(constituent_id,grievance_id,doc_name,doc_file_name,status,created_by,created_at,updated_by,updated_at) VALUES ('$constituent_id','$last_id','$doc_name','$filename','ACTIVE','$user_id',NOW(),'$user_id',NOW())";
+						$result=$this->db->query($insert_doc);
+						if($result){
+								$data=array("status"=>"success","msg"=>"Grievance added Successfully","class"=>"alert alert-success");
+							}else{
+								$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+							}
+				}
+					$data=array("status"=>"success","msg"=>"Grievance added Successfully","class"=>"alert alert-success");
+			}else{
+				$data=array("status"=>"error","msg"=>"Petition already exists","class"=>"alert alert-danger");
+			}
+			return $data;
+
+
+		}
+
+
+
+		function get_all_grievance(){
+			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			left join constituent as c on c.id=g.constituent_id
+			left join paguthi as p on p.id=g.pugathi_id
+			left join seeker_type as st on st.id=g.seeker_type_id
+			left join grievance_type as gt on gt.id=g.grievance_type_id
+			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
+			order by g.id desc";
+			$result=$this->db->query($query);
+			return $result->result();
+		}
+
+		function get_all_grievance_petition(){
+			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			left join constituent as c on c.id=g.constituent_id
+			left join paguthi as p on p.id=g.pugathi_id
+			left join seeker_type as st on st.id=g.seeker_type_id
+			left join grievance_type as gt on gt.id=g.grievance_type_id
+			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='P'
+			order by g.id desc";
+			$result=$this->db->query($query);
+			return $result->result();
+		}
+
+		function get_all_grievance_enquiry(){
+			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			left join constituent as c on c.id=g.constituent_id
+			left join paguthi as p on p.id=g.pugathi_id
+			left join seeker_type as st on st.id=g.seeker_type_id
+			left join grievance_type as gt on gt.id=g.grievance_type_id
+			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='E'
+			order by g.id desc";
+			$result=$this->db->query($query);
+			return $result->result();
+		}
+
+
+		function get_list_grievance_document($constituent_id){
+				$id=base64_decode($constituent_id)/98765;
+			$query="SELECT * FROM grievance_documents where constituent_id='$id' and grievance_id!='' order by id desc";
+			$result=$this->db->query($query);
+			return $result->result();
+		}
+
+
+
+################## Grievance module ##############
 
 }
 ?>
