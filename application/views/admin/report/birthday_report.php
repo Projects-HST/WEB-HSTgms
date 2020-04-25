@@ -38,7 +38,7 @@
              </thead>
              <tbody>
                <?php $i=1; foreach($res as $rows){ 
-						$disp = "";
+						$birth_id = "";
 						$const_id = $rows->id;
 						$year = date("Y"); 
 						
