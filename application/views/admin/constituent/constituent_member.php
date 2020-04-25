@@ -238,7 +238,7 @@
 
               <div class="form-group">
                  <div class="col-md-9 col-sm-9  offset-md-3">
-                    <button type="submit" class="btn btn-success">SAve</button>
+                    <button type="submit" class="btn btn-success">SAVE</button>
                  </div>
               </div>
             </div>
@@ -379,7 +379,7 @@ $('input[name=interaction_section]').click(function(){
           full_name:{required:true },
           father_husband_name:{required:true },
           mobile_no:{required:true,minlength:10,maxlength:10 },
-          whatsapp_no:{required:true,minlength:10,maxlength:10  },
+          whatsapp_no:{required:false,minlength:10,maxlength:10  },
           dob:{required:true },
           door_no:{required:true },
           address:{required:true },
@@ -403,7 +403,7 @@ $('input[name=interaction_section]').click(function(){
                         type: "post"
                      }
                     },
-            profile_pic:{required:true }
+            profile_pic:{required:false }
         },
         messages: {
           paguthi_id:{required:"select paguthi" },
