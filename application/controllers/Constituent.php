@@ -9,6 +9,7 @@ class constituent extends CI_Controller {
 			$this->load->helper("url");
 			$this->load->library('session');
 			$this->load->model('mastermodel');
+			$this->load->model('smsmodel');
 			$this->load->model('constituentmodel');
  }
 
@@ -425,8 +426,23 @@ public function list_grievance(){
 		$data['res']=$this->constituentmodel->get_all_grievance();
 		$data['res_petition']=$this->constituentmodel->get_all_grievance_petition();
 		$data['res_enquiry']=$this->constituentmodel->get_all_grievance_enquiry();
+		$data['res_sms']=$this->mastermodel->get_active_template();
 		$this->load->view('admin/header');
 		$this->load->view('admin/constituent/list_grievance',$data);
+		$this->load->view('admin/footer');
+	}else{
+		redirect('/');
+	}
+}
+
+
+public function list_grievance_reply(){
+	$user_id = $this->session->userdata('user_id');
+	$user_type = $this->session->userdata('user_type');
+	if($user_type=='1' || $user_type=='2'){
+		$data['res']=$this->constituentmodel->list_grievance_reply();
+		$this->load->view('admin/header');
+		$this->load->view('admin/constituent/list_grievance_reply',$data);
 		$this->load->view('admin/footer');
 	}else{
 		redirect('/');
@@ -445,6 +461,35 @@ public function list_grievance(){
 			redirect('/');
 		}
 	}
+
+	public function get_grievance_status(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('grievance_id');
+			$data['res']=$this->constituentmodel->get_grievance_status($grievance_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+
+
+
+	public function get_sms_text(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$sms_id=$this->input->post('sms_id');
+			$data['res']=$this->mastermodel->get_sms_text($sms_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+
 
 
 	public function save_grievance_data(){
@@ -483,6 +528,65 @@ public function list_grievance(){
 			redirect('/');
 		}
 	}
+
+
+
+	public function update_grievance_status(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('grievance_id');
+			$status=strtoupper($this->input->post('status'));
+			$sms_text=strtoupper($this->input->post('sms_text'));
+			$constituent_id=$this->input->post('constituent_grievance_id');
+			$sms_id=$this->input->post('sms_id');
+			$data=$this->constituentmodel->update_grievance_status($grievance_id,$status,$sms_text,$constituent_id,$sms_id,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_grievance");
+		}else{
+			redirect('/');
+		}
+
+	}
+
+
+
+	public function update_refernce_note(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('reference_grievance_id');
+			$reference_note=strtoupper($this->input->post('reference_note'));
+			$data=$this->constituentmodel->update_refernce_note($grievance_id,$reference_note,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_grievance");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function reply_grievance_text(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('reply_grievance_id');
+			$sms_text=strtoupper($this->input->post('reply_sms_text'));
+			$constituent_id=$this->input->post('constituent_reply_id');
+			$sms_id=$this->input->post('reply_sms_id');
+			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_grievance");
+		}else{
+			redirect('/');
+		}
+
+	}
+
+
 ################## Grievance module ##############
 
 }

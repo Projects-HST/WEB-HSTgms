@@ -5,6 +5,7 @@ Class Constituentmodel extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('smsmodel');
 	}
 
 ####################  Constituent member ####################
@@ -416,6 +417,79 @@ Class Constituentmodel extends CI_Model
 		function get_list_grievance_document($constituent_id){
 				$id=base64_decode($constituent_id)/98765;
 			$query="SELECT * FROM grievance_documents where constituent_id='$id' and grievance_id!='' order by id desc";
+			$result=$this->db->query($query);
+			return $result->result();
+		}
+
+
+		function get_grievance_status($grievance_id,$user_id){
+			$select="SELECT * FROM grievance where id='$grievance_id'";
+			$res_select   = $this->db->query($select);
+			if($res_select->num_rows()==0){
+			 $data=array("status"=>"error");
+			 }else{
+					 $data=array("status"=>"success","res"=>$res_select->result());
+			 }
+			 return $data;
+		}
+
+
+		function update_grievance_status($grievance_id,$status,$sms_text,$constituent_id,$sms_id,$user_id){
+			$select="SELECT * FROM constituent where id='$constituent_id'";
+			$res=$this->db->query($select);
+			foreach($res->result() as $rows){}
+			$to_phone=$rows->mobile_no;
+			$smsContent=utf8_encode($sms_text);
+			$this->smsmodel->sendSMS($to_phone,$smsContent);
+
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
+			$result_insert=$this->db->query($insert);
+
+			$update="UPDATE grievance SET status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+			$result=$this->db->query($update);
+			if($result){
+					$data=array("status"=>"success","msg"=>"Grievance status updated Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+				return $data;
+		}
+
+
+		function reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id){
+			$select="SELECT * FROM constituent where id='$constituent_id'";
+			$res=$this->db->query($select);
+			foreach($res->result() as $rows){}
+			$to_phone=$rows->mobile_no;
+			$smsContent=utf8_encode($sms_text);
+			$this->smsmodel->sendSMS($to_phone,$smsContent);
+
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
+			$result_insert=$this->db->query($insert);
+			if($result_insert){
+					$data=array("status"=>"success","msg"=>"Constituent reply sent Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+				return $data;
+		}
+
+
+		function update_refernce_note($grievance_id,$reference_note,$user_id){
+			$update="UPDATE grievance SET reference_note='$reference_note',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+			$result=$this->db->query($update);
+			if($result){
+					$data=array("status"=>"success","msg"=>"Grievance reference updated Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+				return $data;
+		}
+
+		function list_grievance_reply(){
+			$query="SELECT gr.*,c.full_name,u.full_name as sent_by from grievance_reply as gr
+			left join constituent as c on c.id=gr.constituent_id
+			left join user_master as u on u.id=gr.created_by order by id desc";
 			$result=$this->db->query($query);
 			return $result->result();
 		}

@@ -41,6 +41,7 @@
                                     <!-- <th>category</th> -->
                                     <th>sub category</th>
                                     <th>petition no</th>
+                                    <th>reference</th>
                                     <th>status</th>
                                     <th>updated at</th>
                                     <th>Action</th>
@@ -56,9 +57,24 @@
                                     <!-- <td><?php echo $rows->grievance_name; ?></td> -->
                                     <td><?php echo $rows->sub_category_name; ?></td>
                                     <td><?php echo $rows->petition_enquiry_no; ?></td>
-                                    <td><?php echo $rows->status; ?></td>
+                                    <td><?php if(empty($rows->reference_note)){ ?>
+                                      <a class="badge badge-info handle_symbol" onclick="get_set_reference('<?php echo $rows->id; ?>')">Set reference</a>
+                                   <?php }else{ ?>
+                                     <a class="badge badge-warning handle_symbol" onclick="get_set_reference('<?php echo $rows->id; ?>')"><?php echo $rows->reference_note; ?></a>
+                                   <?php } ?></td>
+                                    <td><?php $status= $rows->status;
+                                        if($status=='COMPLETED'){ ?>
+                                          <a class="badge badge-success handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">COMPLETED</a>
+                                      <?php  }else if($status=='ONHOLD'){ ?>
+                                        <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">ONHOLD</a>
+                                        <?php }else{ ?>
+                                          <a class="badge badge-warning handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">PROCESSING</a>
+                                        <?php  }
+                                     ?></td>
                                     <td><?php echo $rows->updated_at; ?></td>
-                                    <td><?php echo $rows->id; ?></td>
+                                    <td>
+                                      <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                      &nbsp;<?php echo $rows->id; ?></td>
                                     </tr>
                               <?php $i++; } ?>
 
@@ -78,6 +94,7 @@
                                   <!-- <th>category</th> -->
                                   <th>sub category</th>
                                   <th>petition no</th>
+                                  <th>reference</th>
                                   <th>status</th>
                                   <th>updated at</th>
                                   <th>Action</th>
@@ -93,7 +110,16 @@
                                    <!-- <td><?php echo $rows_petition->grievance_name; ?></td> -->
                                    <td><?php echo $rows_petition->sub_category_name; ?></td>
                                    <td><?php echo $rows_petition->petition_enquiry_no; ?></td>
-                                   <td><?php echo $rows_petition->status; ?></td>
+                                   <td><?php echo $rows->reference_note; ?></td>
+                                   <td><?php $status= $rows_petition->status;
+                                       if($status=='COMPLETED'){ ?>
+                                         <a class="badge badge-success handle_symbol">COMPLETED</a>
+                                     <?php  }else if($status=='ONHOLD'){ ?>
+                                       <a class="badge badge-danger handle_symbol">ONHOLD</a>
+                                       <?php }else{ ?>
+                                         <a class="badge badge-warning handle_symbol">PROCESSING</a>
+                                       <?php  }
+                                    ?></td>
                                    <td><?php echo $rows_petition->updated_at; ?></td>
                                    <td><?php echo $rows_petition->id; ?></td>
                                    </tr>
@@ -115,6 +141,7 @@
                                   <!-- <th>category</th> -->
                                   <th>sub category</th>
                                   <th>petition no</th>
+                                  <th>reference</th>
                                   <th>status</th>
                                   <th>updated at</th>
                                   <th>Action</th>
@@ -130,7 +157,20 @@
                                    <!-- <td><?php echo $rows_enquiry->grievance_name; ?></td> -->
                                    <td><?php echo $rows_enquiry->sub_category_name; ?></td>
                                    <td><?php echo $rows_enquiry->petition_enquiry_no; ?></td>
-                                   <td><?php echo $rows_enquiry->status; ?></td>
+                                   <td><?php if(empty($rows_enquiry->reference_note)){ ?>
+                                     <a class="badge badge-success handle_symbol" onclick="get_set_reference()">Set reference</a>
+                                  <?php }else{ ?>
+                                    <a class="badge badge-primary handle_symbol" onclick="get_set_reference()"><?php echo $rows_enquiry->reference_note; ?></a>
+                                  <?php } ?></td>
+                                   <td><?php $status= $rows_enquiry->status;
+                                       if($status=='COMPLETED'){ ?>
+                                         <a class="badge badge-success handle_symbol" >COMPLETED</a>
+                                     <?php  }else if($status=='ONHOLD'){ ?>
+                                       <a class="badge badge-danger handle_symbol">ONHOLD</a>
+                                       <?php }else{ ?>
+                                         <a class="badge badge-warning handle_symbol">PROCESSING</a>
+                                       <?php  }
+                                    ?></td>
                                    <td><?php echo $rows_enquiry->updated_at; ?></td>
                                    <td><?php echo $rows_enquiry->id; ?></td>
                                    </tr>
@@ -148,38 +188,306 @@
       </div>
    </div>
 </div>
+<div class="modal fade bs-example-modal-lg" id="reference_modal" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">update reference</h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/update_refernce_note" method="post" id="update_referecnce_form">
+
+
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">set reference<span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                    <input id="reference_note" class=" form-control" name="reference_note">
+                    <input id="reference_grievance_id" class=" form-control" name="reference_grievance_id" type="hidden" value="">
+
+                 </div>
+              </div>
+               <div class="form-group row">
+                  <div class="col-md-9 col-sm-9  offset-md-3">
+                     <button type="submit" class="btn btn-success">Update</button>
+                  </div>
+               </div>
+            </form>
+       </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="status_modal" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">update Grievance status</h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/update_grievance_status" method="post" id="update_meeting_form">
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                   <select class="form-control" id="status" name="status">
+                        <option value="PROCESSING">PROCESSING</option>
+                        <option value="ONHOLD">ONHOLD</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                   </select>
+
+                 </div>
+              </div>
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                   <select class="form-control" id="sms_id" name="sms_id" onchange="get_sms_text(this)">
+                     <option value="">--Sms template--</option>
+                     <?php foreach($res_sms as $rows_sms){ ?>
+                       <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
+                     <?php } ?>
+                   </select>
+                 </div>
+              </div>
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 </label>
+                 <div class="col-md-9 col-sm-9 ">
+                    <textarea id="sms_text" class=" form-control" name="sms_text" rows="5"></textarea>
+                    <input id="grievance_id" class=" form-control" name="grievance_id" type="hidden" value="">
+                    <input id="constituent_grievance_id" class=" form-control" name="constituent_grievance_id" type="hidden" value="">
+                 </div>
+              </div>
+               <div class="form-group row">
+                  <div class="col-md-9 col-sm-9  offset-md-3">
+                     <button type="submit" class="btn btn-success">Update</button>
+                  </div>
+               </div>
+            </form>
+       </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="reply_modal" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Send reply message</h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/reply_grievance_text" method="post" id="reply_form">
+
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                   <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
+                     <option value="">--Sms template--</option>
+                     <?php foreach($res_sms as $rows_sms){ ?>
+                       <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
+                     <?php } ?>
+                   </select>
+                 </div>
+              </div>
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 </label>
+                 <div class="col-md-9 col-sm-9 ">
+                    <textarea id="reply_sms_text" class=" form-control" name="reply_sms_text" rows="5"></textarea>
+                    <input id="reply_grievance_id" class=" form-control" name="reply_grievance_id" type="hidden" value="">
+                    <input id="constituent_reply_id" class=" form-control" name="constituent_reply_id" type="hidden" value="">
+                 </div>
+              </div>
+               <div class="form-group row">
+                  <div class="col-md-9 col-sm-9  offset-md-3">
+                     <button type="submit" class="btn btn-success">send</button>
+                  </div>
+               </div>
+            </form>
+       </div>
+      </div>
+   </div>
+</div>
+
+
 <script>
 $('#example_2').DataTable();
 $('#example_3').DataTable();
-   $('#constiituent_menu').addClass('active');
-   $('.constiituent_menu').css('display','block');
-   $('#list_constituent_menu').addClass('active');
-   $('#master_form').validate({
+   $('#grievance_menu').addClass('active');
+   $('.grievance_menu').css('display','block');
+   $('#list_grievance_menu').addClass('active');
+   $('#update_meeting_form').validate({
         rules: {
-            file_name:{required:true },
-            doc_file:{required:true }
+            sms_id:{required:true },
+            sms_text:{required:true,maxlength:240 }
         },
         messages: {
-          file_name:{required:"enter the file name" },
-          doc_file:{required:"select file" }
-            }
+          sms_id:{required:"select title" },
+          sms_text:{required:"enter the sms text" }
+        },
+        submitHandler: function(form) {
+               if (confirm('Are you sure want to update.?')) {
+                   form.submit();
+               }
+      }
     });
 
-    function delete_document(sel){
-      var d_id=sel;
-      $.ajax({
-     url:'<?php echo base_url(); ?>constituent/delete_document',
-     method:"POST",
-     data:{d_id:d_id},
-     cache: false,
-     success:function(data)
-     {
-      if(data=="success"){
-         location.reload(true);
-        }else{
+    $('#update_referecnce_form').validate({
+         rules: {
+             reference_note:{required:true,maxlength:50 }
+         },
+         messages: {
+             reference_note:{required:"enter the reference text" }
+         },
+         submitHandler: function(form) {
+                if (confirm('Are you sure want to update.?')) {
+                    form.submit();
+                }
+       }
+     });
 
-        }
+     $('#reply_form').validate({
+       rules: {
+           reply_sms_id:{required:true },
+           reply_sms_text:{required:true,maxlength:240 }
+       },
+       messages: {
+         reply_sms_id:{required:"select title" },
+         reply_sms_text:{required:"enter the sms text" }
+       },
+       submitHandler: function(form) {
+              if (confirm('Are you sure want to update.?')) {
+                  form.submit();
+              }
      }
-   });
+      });
+
+
+function change_grievance_status(sel){
+  var grievance_id=sel;
+    $('#status_modal').modal('show');
+
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_grievance_status',
+    method:"POST",
+    data:{grievance_id:grievance_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      var stat=data.status;
+      $('#status').val("");
+      $('#grievance_id').val("");
+      $('#constituent_grievance_id').val(" ");
+      if(stat=="success"){
+      $('#status_modal').modal('show');
+      var res=data.res;
+      var len=res.length;
+      for (i = 0; i < len; i++) {
+        $('#status').val(res[i].status);
+        $('#grievance_id').val(res[i].id);
+        $('#constituent_grievance_id').val(res[i].constituent_id);
+
+
+     }
+      }else{
+
+      }
     }
+  });
+}
+
+function get_sms_text(sel){
+  let sms_id=sel.value;
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_sms_text',
+    method:"POST",
+    data:{sms_id:sms_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      var stat=data.status;
+      if(stat=="success"){
+      var res=data.res;
+      var len=res.length;
+      for (i = 0; i < len; i++) {
+        $('#sms_text').text(res[i].sms_text);
+        $('#reply_sms_text').text(res[i].sms_text);
+     }
+      }else{
+        $('#sms_text').empty();
+        $('#reply_sms_text').empty();
+      }
+    }
+  });
+}
+
+
+function get_set_reference(sel){
+  let grievance_id=sel;
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_grievance_status',
+    method:"POST",
+    data:{grievance_id:grievance_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      var stat=data.status;
+      if(stat=="success"){
+          $('#reference_modal').modal('show');
+      var res=data.res;
+      var len=res.length;
+      for (i = 0; i < len; i++) {
+        $('#reference_note').val(res[i].reference_note);
+        $('#reference_grievance_id').val(res[i].id);
+     }
+      }else{
+        $('#reference_note').empty();
+      }
+    }
+  });
+
+}
+function send_reply_constituent(sel){
+
+  let grievance_id=sel;
+   $('#reply_form')[0].reset();
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_grievance_status',
+    method:"POST",
+    data:{grievance_id:grievance_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      $('#reply_grievance_id').val(" ");
+      $('#constituent_reply_id').val(" ");
+
+      var stat=data.status;
+      if(stat=="success"){
+      $('#reply_modal').modal('show');
+      var res=data.res;
+      var len=res.length;
+      for (i = 0; i < len; i++) {
+        $('#reply_grievance_id').val(res[i].id);
+        $('#constituent_reply_id').val(res[i].constituent_id);
+     }
+      }else{
+        $('#reply_grievance_id').val(" ");
+        $('#constituent_reply_id').val(" ");
+      }
+    }
+  });
+}
+
 </script>

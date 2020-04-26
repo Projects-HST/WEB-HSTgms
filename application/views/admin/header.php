@@ -94,6 +94,13 @@
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List member</a></li>
                               </ul>
                            </li>
+                           <li id="grievance_menu">
+                              <a><i class="fa fa-desktop"></i>Grievance <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu grievance_menu">
+                                 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li>
+                                  <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
+                              </ul>
+                           </li>
                            <li>
                               <a><i class="fa fa-desktop"></i>Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
@@ -101,12 +108,7 @@
                                  <li><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
                               </ul>
                            </li>
-                           <li>
-                              <a><i class="fa fa-desktop"></i>Grievance <span class="fa fa-chevron-down"></span></a>
-                              <ul class="nav child_menu">
-                                 <li><a href="list.html">List Grievance</a></li>
-                              </ul>
-                           </li>
+
                            <li>
                               <a><i class="fa fa-bar-chart-o"></i> Report Presentation <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">

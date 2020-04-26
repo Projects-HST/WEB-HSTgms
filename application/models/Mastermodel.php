@@ -650,6 +650,25 @@ Class Mastermodel extends CI_Model
 		$result=$this->db->query($query);
 		return $result->result();
 	}
+
+
+	function get_active_template(){
+		$query="SELECT * FROM sms_template WHERE status='ACTIVE' order by id asc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+
+	function get_sms_text($sms_id,$user_id){
+		$query="SELECT * FROM sms_template WHERE status='ACTIVE' and id='$sms_id'";
+	 $result=$this->db->query($query);
+	 if($result->num_rows()==0){
+		$data=array("status"=>"error");
+	}else{
+			$data=array("status"=>"success","res"=>$result->result());
+	}
+	return $data;
+	}
 	#################### Constituent purpose active data  ####################
 
 
