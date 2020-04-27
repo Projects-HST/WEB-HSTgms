@@ -444,8 +444,13 @@ Class Constituentmodel extends CI_Model
 
 			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);
+			if($status=='COMPLETED'){
+				$enquiry_status='P';
+			}else{
+				$enquiry_status='E';
+			}
 
-			$update="UPDATE grievance SET status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+			$update="UPDATE grievance SET enquiry_status='$enquiry_status',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
 			$result=$this->db->query($update);
 			if($result){
 					$data=array("status"=>"success","msg"=>"Grievance status updated Successfully","class"=>"alert alert-success");

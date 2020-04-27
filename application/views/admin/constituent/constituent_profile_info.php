@@ -16,7 +16,7 @@
                   <div class="clearfix"></div>
                </div>
                <div class="x_content">
-                  <div class="col-md-3 col-sm-3  profile_left">
+                  <div class="col-md-2 col-sm-3  profile_left">
                      <div class="profile_img">
                         <div id="crop-avatar">
 
@@ -40,7 +40,7 @@
 
 
                   </div>
-                  <div class="col-md-9 col-sm-9 ">
+                  <div class="col-md-10 col-sm-9 ">
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
