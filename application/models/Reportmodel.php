@@ -46,7 +46,7 @@ Class Reportmodel extends CI_Model
 						user_master C,
 						grievance_type D
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.pugathi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		if ($status!='ALL' && $paguthi == 'ALL')
 		{
@@ -78,7 +78,7 @@ Class Reportmodel extends CI_Model
 						user_master C,
 						grievance_type D
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.status = '$status' AND A.pugathi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		//echo $query;
 		$resultset=$this->db->query($query);
@@ -217,7 +217,7 @@ Class Reportmodel extends CI_Model
 					user_master C,
 					grievance_type D
 				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.pugathi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		//echo $query;
 		$resultset=$this->db->query($query);
