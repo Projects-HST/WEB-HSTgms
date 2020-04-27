@@ -27,3 +27,6 @@ h4{
   font-size: 15px;
   font-weight: 500;
 }
+a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
+  color: #fff !important;
+}

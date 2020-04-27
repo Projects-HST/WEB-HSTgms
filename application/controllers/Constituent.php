@@ -88,7 +88,7 @@ class constituent extends CI_Controller {
 			// $status=strtoupper($this->input->post('status'));
 			$profilepic = $_FILES['profile_pic']['name'];
 				if(empty($profilepic)){
-				$filename=' ';
+				$filename='';
 			}else{
 				$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
 				$filename = round(microtime(true)) . '.' . $temp;
@@ -449,6 +449,24 @@ public function list_grievance_reply(){
 	}
 }
 
+
+	public function get_constituent_grievance_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievanve_id=$this->uri->segment(3);
+			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_constituency']=$this->mastermodel->get_active_constituency();
+			$data['res_seeker']=$this->mastermodel->get_active_seeker();
+			$data['res_grievance']=$this->constituentmodel->get_constituent_grievance_edit($grievanve_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/update_constituent_grievance',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
 	public function get_petition_no(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
@@ -551,6 +569,26 @@ public function list_grievance_reply(){
 	}
 
 
+	public function update_grievance_data(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('grievance_id');
+			$seeker_id=$this->input->post('seeker_id');
+			$reference_note=strtoupper($this->input->post('reference_note'));
+			$grievance_tb_id=$this->input->post('grievance_tb_id');
+			$sub_category_id=$this->input->post('sub_category_id');
+			$description=strtoupper($this->input->post('description'));
+			$data=$this->constituentmodel->update_grievance_data($grievance_id,$seeker_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_grievance");
+		}else{
+			redirect('/');
+		}
+	}
+
+
 
 	public function update_refernce_note(){
 		$user_id = $this->session->userdata('user_id');
@@ -588,5 +626,27 @@ public function list_grievance_reply(){
 
 
 ################## Grievance module ##############
+
+
+################## Constituent Profile view only ##############
+
+		public function constituent_profile_info(){
+				$user_id = $this->session->userdata('user_id');
+				$user_type = $this->session->userdata('user_type');
+				if($user_type=='1' || $user_type=='2'){
+					$constituent_id=$this->uri->segment(3);
+					$data['res']=$this->constituentmodel->get_constituent_profile($constituent_id);
+					$data['res_grievance']=$this->constituentmodel->get_constituent_grievance($constituent_id);
+					$data['res_meeting']=$this->constituentmodel->get_constituent_meeting($constituent_id);
+					$data['res_plant']=$this->constituentmodel->get_constituent_plant($constituent_id);
+					$this->load->view('admin/header');
+					$this->load->view('admin/constituent/constituent_profile_info',$data);
+					$this->load->view('admin/footer');
+				}else{
+					redirect('/');
+				}
+		}
+################## Constituent Profile view only ##############
+
 
 }

@@ -44,7 +44,7 @@
                                     <th>reference</th>
                                     <th>status</th>
                                     <th>updated at</th>
-                                    <th>Action</th>
+                                    <th style="width:100px !important;">Action</th>
                                  </tr>
                               </thead>
                               <tbody>
@@ -74,7 +74,14 @@
                                     <td><?php echo $rows->updated_at; ?></td>
                                     <td>
                                       <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
-                                      &nbsp;<?php echo $rows->id; ?></td>
+                                      &nbsp;
+
+                                      <a href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                                      &nbsp;
+
+                                      <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+
+                                     </td>
                                     </tr>
                               <?php $i++; } ?>
 
@@ -110,18 +117,31 @@
                                    <!-- <td><?php echo $rows_petition->grievance_name; ?></td> -->
                                    <td><?php echo $rows_petition->sub_category_name; ?></td>
                                    <td><?php echo $rows_petition->petition_enquiry_no; ?></td>
-                                   <td><?php echo $rows->reference_note; ?></td>
-                                   <td><?php $status= $rows_petition->status;
-                                       if($status=='COMPLETED'){ ?>
-                                         <a class="badge badge-success handle_symbol">COMPLETED</a>
-                                     <?php  }else if($status=='ONHOLD'){ ?>
-                                       <a class="badge badge-danger handle_symbol">ONHOLD</a>
-                                       <?php }else{ ?>
-                                         <a class="badge badge-warning handle_symbol">PROCESSING</a>
-                                       <?php  }
-                                    ?></td>
+                                   <td><?php if(empty($rows_petition->reference_note)){ ?>
+                                     <a class="badge badge-info handle_symbol" onclick="get_set_reference('<?php echo $rows_petition->id; ?>')">Set reference</a>
+                                  <?php }else{ ?>
+                                    <a class="badge badge-warning handle_symbol" onclick="get_set_reference('<?php echo $rows_petition->id; ?>')"><?php echo $rows_petition->reference_note; ?></a>
+                                  <?php } ?></td>
+                                  <td><?php $status= $rows_petition->status;
+                                      if($status=='COMPLETED'){ ?>
+                                        <a class="badge badge-success handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">COMPLETED</a>
+                                    <?php  }else if($status=='ONHOLD'){ ?>
+                                      <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">ONHOLD</a>
+                                      <?php }else{ ?>
+                                        <a class="badge badge-warning handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">PROCESSING</a>
+                                      <?php  }
+                                   ?></td>
                                    <td><?php echo $rows_petition->updated_at; ?></td>
-                                   <td><?php echo $rows_petition->id; ?></td>
+                                   <td>
+                                     <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_petition->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                     &nbsp;
+
+                                     <a href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows_petition->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                                     &nbsp;
+
+                                     <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows_petition->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+
+                                    </td>
                                    </tr>
                              <?php $i++; } ?>
                              </tbody>
@@ -158,21 +178,30 @@
                                    <td><?php echo $rows_enquiry->sub_category_name; ?></td>
                                    <td><?php echo $rows_enquiry->petition_enquiry_no; ?></td>
                                    <td><?php if(empty($rows_enquiry->reference_note)){ ?>
-                                     <a class="badge badge-success handle_symbol" onclick="get_set_reference()">Set reference</a>
+                                     <a class="badge badge-info handle_symbol" onclick="get_set_reference('<?php echo $rows_enquiry->id; ?>')">Set reference</a>
                                   <?php }else{ ?>
-                                    <a class="badge badge-primary handle_symbol" onclick="get_set_reference()"><?php echo $rows_enquiry->reference_note; ?></a>
+                                    <a class="badge badge-warning handle_symbol" onclick="get_set_reference('<?php echo $rows_enquiry->id; ?>')"><?php echo $rows_enquiry->reference_note; ?></a>
                                   <?php } ?></td>
-                                   <td><?php $status= $rows_enquiry->status;
-                                       if($status=='COMPLETED'){ ?>
-                                         <a class="badge badge-success handle_symbol" >COMPLETED</a>
-                                     <?php  }else if($status=='ONHOLD'){ ?>
-                                       <a class="badge badge-danger handle_symbol">ONHOLD</a>
-                                       <?php }else{ ?>
-                                         <a class="badge badge-warning handle_symbol">PROCESSING</a>
-                                       <?php  }
-                                    ?></td>
+                                  <td><?php $status= $rows_enquiry->status;
+                                      if($status=='COMPLETED'){ ?>
+                                        <a class="badge badge-success handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">COMPLETED</a>
+                                    <?php  }else if($status=='ONHOLD'){ ?>
+                                      <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">ONHOLD</a>
+                                      <?php }else{ ?>
+                                        <a class="badge badge-warning handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">PROCESSING</a>
+                                      <?php  }
+                                   ?></td>
                                    <td><?php echo $rows_enquiry->updated_at; ?></td>
-                                   <td><?php echo $rows_enquiry->id; ?></td>
+                                   <td>
+                                     <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_enquiry->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                     &nbsp;
+
+                                     <a href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows_enquiry->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                                     &nbsp;
+
+                                     <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows_enquiry->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+
+                                    </td>
                                    </tr>
                              <?php $i++; } ?>
 
@@ -317,7 +346,9 @@
    </div>
 </div>
 
+<style>
 
+</style>
 <script>
 $('#example_2').DataTable();
 $('#example_3').DataTable();

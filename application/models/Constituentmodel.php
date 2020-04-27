@@ -348,11 +348,11 @@ Class Constituentmodel extends CI_Model
 
 
 		function save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id){
-
+			$gr_date=date('Y-m-d');
 			$check="SELECT * FROM grievance WHERE petition_enquiry_no='$petition_enquiry_no'";
 			$res_check=$this->db->query($check);
 			if($res_check->num_rows()==0){
-				$insert="INSERT INTO grievance (grievance_type,constituent_id,pugathi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$grievance_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
+				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
 				$res=$this->db->query($insert);
 				$last_id=$this->db->insert_id();
 				if(empty($filename)){
@@ -380,7 +380,7 @@ Class Constituentmodel extends CI_Model
 		function get_all_grievance(){
 			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id
-			left join paguthi as p on p.id=g.pugathi_id
+			left join paguthi as p on p.id=g.paguthi_id
 			left join seeker_type as st on st.id=g.seeker_type_id
 			left join grievance_type as gt on gt.id=g.grievance_type_id
 			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
@@ -392,7 +392,7 @@ Class Constituentmodel extends CI_Model
 		function get_all_grievance_petition(){
 			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id
-			left join paguthi as p on p.id=g.pugathi_id
+			left join paguthi as p on p.id=g.paguthi_id
 			left join seeker_type as st on st.id=g.seeker_type_id
 			left join grievance_type as gt on gt.id=g.grievance_type_id
 			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='P'
@@ -404,7 +404,7 @@ Class Constituentmodel extends CI_Model
 		function get_all_grievance_enquiry(){
 			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id
-			left join paguthi as p on p.id=g.pugathi_id
+			left join paguthi as p on p.id=g.paguthi_id
 			left join seeker_type as st on st.id=g.seeker_type_id
 			left join grievance_type as gt on gt.id=g.grievance_type_id
 			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='E'
@@ -486,6 +486,18 @@ Class Constituentmodel extends CI_Model
 				return $data;
 		}
 
+		function update_grievance_data($grievance_id,$seeker_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id){
+			$id=base64_decode($grievance_tb_id)/98765;
+			$update="UPDATE grievance SET seeker_type_id='$seeker_id',grievance_type_id='$grievance_id',sub_category_id='$sub_category_id',description='$description',reference_note='$reference_note',updated_at=NOW(),updated_by='$user_id' WHERE id='$id'";
+			$result=$this->db->query($update);
+			if($result){
+					$data=array("status"=>"success","msg"=>"Grievance updated Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+				return $data;
+		}
+
 		function list_grievance_reply(){
 			$query="SELECT gr.*,c.full_name,u.full_name as sent_by from grievance_reply as gr
 			left join constituent as c on c.id=gr.constituent_id
@@ -496,7 +508,69 @@ Class Constituentmodel extends CI_Model
 
 
 
+		function get_constituent_grievance_edit($grievance_id){
+			$id=base64_decode($grievance_id)/98765;
+			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			left join constituent as c on c.id=g.constituent_id
+			left join paguthi as p on p.id=g.paguthi_id
+			left join seeker_type as st on st.id=g.seeker_type_id
+			left join grievance_type as gt on gt.id=g.grievance_type_id
+			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
+			where  g.id='$id'";
+			$result=$this->db->query($query);
+			return $result->result();
+		}
+
+
+
 ################## Grievance module ##############
+
+################## Constituent Profile view only ##############
+
+	function get_constituent_profile($constituent_id){
+		$id=base64_decode($constituent_id)/98765;
+		$query="SELECT c.*,ct.constituency_name,p.paguthi_name,w.ward_name,b.booth_name,b.booth_address,r.religion_name FROM constituent as c
+		left join constituency as ct on ct.id-c.constituency_id
+		left join paguthi as p on p.id=c.paguthi_id
+		left join ward as w on w.id=c.ward_id
+		left join booth as b on b.id=c.booth_id
+		left join religion as r on r.id=c.religion_id
+		where c.id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+
+	function get_constituent_grievance($constituent_id){
+			$id=base64_decode($constituent_id)/98765;
+			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			left join constituent as c on c.id=g.constituent_id
+			left join paguthi as p on p.id=g.paguthi_id
+			left join seeker_type as st on st.id=g.seeker_type_id
+			left join grievance_type as gt on gt.id=g.grievance_type_id
+			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
+			where  g.constituent_id='$id'";
+			$result=$this->db->query($query);
+			return $result->result();
+	}
+
+	function get_constituent_meeting($constituent_id){
+			$id=base64_decode($constituent_id)/98765;
+			$query="SELECT * FROM meeting_request where constituent_id='$id' order by id desc";
+			$result=$this->db->query($query);
+			return $result->result();
+	}
+
+	function get_constituent_plant($constituent_id){
+		$id=base64_decode($constituent_id)/98765;
+		$query="SELECT * FROM plant_donation where constituent_id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+
+
+	################## Constituent Profile view only ##############
 
 }
 ?>
