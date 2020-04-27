@@ -83,6 +83,7 @@ Class Reportmodel extends CI_Model
 		//echo $query;
 		$resultset=$this->db->query($query);
 		return $resultset->result();
+		
 	}
 
 
