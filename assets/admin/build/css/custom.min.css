@@ -4392,14 +4392,17 @@ ul.widget_tally li {
 }
 
 ul.widget_tally .month {
-    width: 70%;
-    float: left
+    width: 80%;
+    float: left;
+	font-size:12px;
 }
 
 ul.widget_tally .count {
-    width: 30%;
+    width: 20%;
     float: left;
-    text-align: right
+	font-size:12px;
+	color:#000000;
+    text-align: left;
 }
 
 .pie_bg {

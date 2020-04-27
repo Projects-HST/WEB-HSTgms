@@ -287,17 +287,26 @@ Class Reportmodel extends CI_Model
 		return $resultset->result();
 	}
 	
-	function get_birthday_report($frmDate,$toDate)
+	function get_birthday_report($selMonth)
 	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'m' );
-		
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'m' );
-
-		$query="SELECT * FROM constituent WHERE MONTH(dob) BETWEEN '$from_date' AND '$to_date'";
+		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
+	}
+	
+	function birthday_update($constituent_id,$user_id,$searchMonth)
+	{
+			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at) VALUES ('$constituent_id','Send','$user_id',NOW())";
+			$result=$this->db->query($insert);
+		
+			if ($result) {
+               $this->session->set_flashdata('msg', 'You have just updated the birthday wishes!');
+				redirect(base_url().'report/birthday/'.$searchMonth);
+            } else {
+               $this->session->set_flashdata('msg', 'Failed to Add');
+				redirect(base_url().'report/birthday/'.$searchMonth);
+            }
+			
 	}
 }
 ?>

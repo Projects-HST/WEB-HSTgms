@@ -32,7 +32,7 @@
 								<option value="All">OVER ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 								<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
-							<?php } ?>
+							<?php } ?><script> $('#paguthi').val('<?php echo $search_paguthi; ?>');</script>
 						</select>
 				 </div>
 				  <div class="col-md-2 col-sm-2">
@@ -60,7 +60,7 @@
 <h3 class="name">Constituent Members</h3>
 <div class="flex">
 	<ul class="list-inline count2">
-		<li><h3>4500</h3></li>
+		<li><h3><?php echo $result['con_count']; ?></h3></li>
 	</ul>
 </div>
 
@@ -68,26 +68,26 @@
 	<ul class="list-inline widget_tally">
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">Total Male </span>
+			<span class="count"><?php echo $result['conm_count']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">Total Female </span>
+			<span class="count"><?php echo $result['conf_count']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">No. of Voter ID </span>
+			<span class="count"><?php echo $result['conv_count']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">No. of Aadhaar Card </span>
+			<span class="count"><?php echo $result['cona_count']; ?></span>
 		</p>
 	</li>
 </ul>
@@ -112,7 +112,7 @@
 <h3 class="name">Total <br>Meetings</h3>
 <div class="flex">
 	<ul class="list-inline count2">
-		<li><h3>150</h3></li>
+		<li><h3><?php echo $result['meet_count']; ?></h3></li>
 	</ul>
 </div>
 
@@ -120,26 +120,14 @@
 	<ul class="list-inline widget_tally">
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">Meeting Requested </span>
+			<span class="count"><?php echo $result['meet_rcount']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">Meeting Completed </span>
+			<span class="count"><?php echo $result['meet_ccount']; ?></span>
 		</p>
 	</li>
 </ul>
@@ -163,7 +151,7 @@
 <h3 class="name">Grievance</h3>
 <div class="flex">
 	<ul class="list-inline count2">
-		<li><h3>45869</h3></li>
+		<li><h3><?php echo $result['grev_count']; ?></h3></li>
 	</ul>
 </div>
 
@@ -171,26 +159,26 @@
 	<ul class="list-inline widget_tally">
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">No. of Enquiry </span>
+			<span class="count"><?php echo $result['grev_ecount']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">No. of Petition </span>
+			<span class="count"><?php echo $result['grev_pcount']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">No. of Processing </span>
+			<span class="count"><?php echo $result['grev_processcount']; ?></span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
-			<span class="count">+12%</span>
+			<span class="month">No. of Completed </span>
+			<span class="count"><?php echo $result['grev_completecount']; ?></span>
 		</p>
 	</li>
 </ul>
@@ -222,25 +210,31 @@
 	<ul class="list-inline widget_tally">
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
+			<span class="month">Know this Person </span>
 			<span class="count">+12%</span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
+			<span class="month">Meet the Person </span>
 			<span class="count">+12%</span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
+			<span class="month">Visited Person House </span>
 			<span class="count">+12%</span>
 		</p>
 	</li>
 	<li>
 		<p>
-			<span class="month">12 December 2014 </span>
+			<span class="month">Volunteer </span>
+			<span class="count">+12%</span>
+		</p>
+	</li>
+	<li>
+		<p>
+			<span class="month">Ambassador </span>
 			<span class="count">+12%</span>
 		</p>
 	</li>
@@ -276,7 +270,9 @@
 
 <div class="col-md-6">
 <div class="x_panel">
-	<div id="chart_div2" style="height:400px;"></div>
+	<?php if (count($meeting_result) >0) { ?>
+		<div id="chart_div2" style="height:400px;"></div>
+	<?php } ?>
 </div>
 </div>
 </div>
@@ -296,16 +292,16 @@
         // Some raw data (not necessarily accurate)
          var data = google.visualization.arrayToDataTable([
           ['MONTH', 'MEMBERS'],
-          ['JAN',  165],
-          ['FEB',  135],
-          ['MAR',  157],
-          ['APR',  139],
-          ['MAY',  136]
+          ['JAN',  1],
+          ['FEB',  2],
+          ['MAR',  1],
+          ['APR',  2],
+          ['MAY',  3]
         ]);
 
         var options = {
           title : 'MEMBERS DETAILS',
-          vAxis: {title: 'MEMBERS'},
+          vAxis: {title: 'MEMBERS',format: '0'},
           hAxis: {title: 'MONTHS'},
           seriesType: 'bars',
           series: {5: {type: 'line'}}        
@@ -322,24 +318,29 @@
         ]);
 
 		var options1 = {
-          title: 'GRIEVANCE DETAILS',
-		  is3D: true,
+          title: 'GRIEVANCE DETAILS'
         };
 
 
         var data2 = google.visualization.arrayToDataTable([
           ['MONTHS', 'MEETINGS'],
-          ['JAN',  1000],
-          ['FEB',  1170],
-          ['MAR',  660],
-          ['APR',  1030],
-		  ['MAY',  800],
+		  <?php if (count($meeting_result) >0) { 
+			$i=1;
+			$rec_count = count($meeting_result);
+			foreach($meeting_result as $rows){
+				echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+			$i++;
+			}
+		}
+		?>
         ]);
 
         var options2 = {
           title: 'MEETING DETAILS',
-          hAxis: {title: 'MONTHS',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
+          hAxis: {title: 'MONTHS'},
+          vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}
+		  
+		  
         };
 
 

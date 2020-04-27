@@ -187,15 +187,21 @@ class Report extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		//$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$selMonth = "";
+		$selMonth=$this->input->post('month');
+		$getMonth=$this->uri->segment(3);
 		
-		$frmDate=$this->input->post('frmDate');
-		$datas['dfromDate'] = $frmDate;
-		$toDate=$this->input->post('toDate');
-		$datas['dtoDate'] = $toDate;
-		
-		$datas['res']=$this->reportmodel->get_birthday_report($frmDate,$toDate);
-		
+		if ($selMonth!=''){
+			$selMonth=$this->input->post('month');
+		}else if ($getMonth!=''){
+			$selMonth=$this->uri->segment(3);
+		}else{
+			$selMonth = date("m");
+		}
+		$datas['searchMonth'] = $selMonth;
+		$datas['res']=$this->reportmodel->get_birthday_report($selMonth);
+
 		if($user_type=='1'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/birthday_report',$datas);
@@ -203,6 +209,19 @@ class Report extends CI_Controller {
 		}else{
 			redirect('/');
 		}
+	}
+	
+	public function birthday_update()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$searchMonth=$this->uri->segment(3);
+		$constituent_id=base64_decode($this->uri->segment(4))/98765;
+
+		$datas['res']=$this->reportmodel->birthday_update($constituent_id,$user_id,$searchMonth);
+	
+
 	}
 
 }

@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
 			$this->load->library('session');
 			$this->load->model('usermodel');
 			$this->load->model('dashboardmodel');
+			$this->load->model('mastermodel');
  }
 
 	public function index()
@@ -23,8 +24,13 @@ class Dashboard extends CI_Controller {
 		}else {
 			$paguthi_value=$paguthi;
 		}
-		$datas['res']=$this->dashboardmodel->get_dashboard_reult($paguthi_value);
 		
+		$datas['search_paguthi'] = $paguthi_value;
+		$datas['result']=$this->dashboardmodel->get_dashboard_reult($paguthi_value);
+		$datas['meeting_result']=$this->dashboardmodel->get_meeeting_graph($paguthi_value);
+		
+		//print_r($datas);
+		//exit;
 		if($user_type==1 || $user_type==2){
 			$this->load->view('admin/header');
 			$this->load->view('admin/dashboard/dashboard',$datas);
@@ -36,7 +42,29 @@ class Dashboard extends CI_Controller {
 	
 	public function searchresult()
 	{
-		$datas=$this->session->userdata();
+		
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$keyword = "";
+			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_constituency']=$this->mastermodel->get_active_constituency();
+			$data['res_seeker']=$this->mastermodel->get_active_seeker();
+			
+			$keyword=$this->input->post('keyword');
+			$datas['keyword']=$keyword;
+			
+			$datas['res']=$this->dashboardmodel->get_search_reult($keyword);
+			$datas['res']=$this->dashboardmodel->get_search_reult($keyword);
+			
+			$this->load->view('admin/header');
+			$this->load->view('admin/dashboard/search_result',$datas);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('base_url()');
+		}
+		
+		/* $datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
@@ -51,7 +79,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('admin/footer');
 		}else {
 			redirect(base_url());
-		}
+		} */
 	}
 	
 }
