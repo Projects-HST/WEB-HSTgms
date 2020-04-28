@@ -263,7 +263,12 @@
 </div>
 
 </div>
+<?php
 
+foreach ($footfall_result as $rows) {  
+   $tot_grievance[] = array('disp_month' => $rows->disp_month,'total_grievance' => $rows->total_grievance); 
+}
+?>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -272,15 +277,17 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
           var data = google.visualization.arrayToDataTable([
-          ['Month', 'TOTAL'],
+          ['Month', 'TOTAL', 'NEW', 'REPETED'],
           <?php 
 			if (count($footfall_result) >0) { 
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month',  $rows->total_grievance]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					echo "['$rows->disp_month', $rows->total_grievance, 5, 2]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
 				$i++;
 				}
+			} else {
+				echo "['Nill', 0]";
 			}
 		?>
         ]);
@@ -315,6 +322,8 @@
 					echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
 				$i++;
 				}
+			}else {
+				echo "['Nill', 0]";
 			}
 		?>
         ]);

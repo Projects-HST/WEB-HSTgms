@@ -223,29 +223,15 @@ Class Dashboardmodel extends CI_Model
 	{
 		if ($paguthi == 'All')
 		{
-			 $query="SELECT
-						DATE_FORMAT(grievance_date, '%M %y') AS disp_month,
-						COUNT(*) AS total_grievance
-					FROM
-						`grievance`
-					GROUP BY
-						disp_month";
+			$query="SELECT DATE_FORMAT(grievance_date, '%M %y') AS disp_month, COUNT(*) AS total_grievance FROM `grievance` GROUP BY disp_month";
 			$res=$this->db->query($query);
 			$result=$res->result();
 			return $result;
 		} else {
-			$query="SELECT
-					DATE_FORMAT(grievance_date, '%M %y') AS disp_month,
-					COUNT(*) AS total_grievance
-				FROM
-					`grievance`
-				WHERE 
-					paguthi_id = '$paguthi'
-				GROUP BY
-					disp_month";
-		$res=$this->db->query($query);
-		$result=$res->result();
-		return $result;
+			$query="SELECT DATE_FORMAT(grievance_date, '%M %y') AS disp_month, COUNT(*) AS total_grievance FROM `grievance` WHERE paguthi_id = '$paguthi' GROUP BY disp_month";
+			$res=$this->db->query($query);
+			$result=$res->result();
+			return $result;
 		}
 	}
 	
