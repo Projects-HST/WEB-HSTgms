@@ -202,42 +202,26 @@
 <h3 class="name">Interaction Questions</h3>
 <div class="flex">
 	<ul class="list-inline count2">
-		<li><h3>1500</h3></li>
+		<li><h3><?php echo $result['interaction_count']; ?></h3></li>
 	</ul>
 </div>
 
 <div>
 	<ul class="list-inline widget_tally">
-	<li>
-		<p>
-			<span class="month">Know this Person </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">Meet the Person </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">Visited Person House </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">Volunteer </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">Ambassador </span>
-			<span class="count">+12%</span>
-		</p>
-	</li>
+	
+	
+	<?php if (count($interaction) >0) { 
+			foreach($interaction as $rows){?>
+		<li>
+			<p>
+				<span class="month"><?php echo $rows->widgets_title;?> </span>
+				<span class="count"><?php echo $rows->tot_values;?></span>
+			</p>
+		</li>
+	<?php
+			}
+		}
+		?>
 </ul>
 </div>
 
@@ -254,8 +238,7 @@
 <div class="row">
 <div class="col-md-12">
 <div class="x_panel">
-	<h2>Dashboard </h2>
-	<div id="chart_div" style="height:400px;"></div>
+		<div id="chart_div" style="height:400px;"></div>
 	</div>
 </div>
 </div>
@@ -270,9 +253,7 @@
 
 <div class="col-md-6">
 <div class="x_panel">
-	<?php if (count($meeting_result) >0) { ?>
 		<div id="chart_div2" style="height:400px;"></div>
-	<?php } ?>
 </div>
 </div>
 </div>
@@ -290,57 +271,60 @@
 
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
-         var data = google.visualization.arrayToDataTable([
-          ['MONTH', 'MEMBERS'],
-          ['JAN',  1],
-          ['FEB',  2],
-          ['MAR',  1],
-          ['APR',  2],
-          ['MAY',  3]
+          var data = google.visualization.arrayToDataTable([
+          ['Month', 'TOTAL'],
+          <?php 
+			if (count($footfall_result) >0) { 
+				$i=1;
+				$rec_count = count($footfall_result);
+				foreach($footfall_result as $rows){
+					echo "['$rows->month_year',  $rows->total_grievance]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+				$i++;
+				}
+			}
+		?>
         ]);
 
+
         var options = {
-          title : 'MEMBERS DETAILS',
-          vAxis: {title: 'MEMBERS',format: '0'},
+          title : 'FOOT FALL REPORT',
+          vAxis: {title: 'GRIEVANCE DETAILS',format: '0'},
           hAxis: {title: 'MONTHS'},
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}        
+          seriesType: 'bars'       
 		 };
 
 
+
 		var data1 = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['Grievance', 'Grievance Type'],
+          ['Enquiry', <?php echo $grievance_result['gerv_ecount']; ?>],
+          ['Petition completed', <?php echo $grievance_result['gerv_ppcount']; ?>],
+          ['Petition processing', <?php echo $grievance_result['gerv_pccount']; ?>]
         ]);
 
 		var options1 = {
-          title: 'GRIEVANCE DETAILS'
+          title: 'GRIEVANCE PROGRESS REPORT'
         };
 
 
         var data2 = google.visualization.arrayToDataTable([
           ['MONTHS', 'MEETINGS'],
-		  <?php if (count($meeting_result) >0) { 
-			$i=1;
-			$rec_count = count($meeting_result);
-			foreach($meeting_result as $rows){
-				echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
-			$i++;
+		<?php 
+			if (count($meeting_result) >0) { 
+				$i=1;
+				$rec_count = count($meeting_result);
+				foreach($meeting_result as $rows){
+					echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+				$i++;
+				}
 			}
-		}
 		?>
         ]);
 
         var options2 = {
-          title: 'MEETING DETAILS',
+          title: 'CONSTITUENTS MEETING REPORT',
           hAxis: {title: 'MONTHS'},
-          vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}
-		  
-		  
+          vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}	  
         };
 
 

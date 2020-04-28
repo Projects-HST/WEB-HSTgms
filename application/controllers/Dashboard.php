@@ -24,12 +24,16 @@ class Dashboard extends CI_Controller {
 		}else {
 			$paguthi_value=$paguthi;
 		}
-		
+
 		$datas['search_paguthi'] = $paguthi_value;
 		$datas['result']=$this->dashboardmodel->get_dashboard_reult($paguthi_value);
+		$datas['interaction']=$this->dashboardmodel->get_interaction($paguthi_value);
+		
+		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_value);
+		$datas['grievance_result']=$this->dashboardmodel->get_grievance_graph($paguthi_value);
 		$datas['meeting_result']=$this->dashboardmodel->get_meeeting_graph($paguthi_value);
 		
-		//print_r($datas);
+		//print_r($datas['grievance_result']);
 		//exit;
 		if($user_type==1 || $user_type==2){
 			$this->load->view('admin/header');
@@ -63,23 +67,6 @@ class Dashboard extends CI_Controller {
 		}else{
 			redirect('base_url()');
 		}
-		
-		/* $datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		
-		//$datas['paguthi'] = $this->usermodel->list_paguthi();
-		
-		$keyword=$this->input->post('keyword');
-		$datas['res']=$this->dashboardmodel->get_search_reult($keyword);
-		
-		if($user_type==1 || $user_type==2){
-			$this->load->view('admin/header');
-			$this->load->view('admin/dashboard/search_result',$datas);
-			$this->load->view('admin/footer');
-		}else {
-			redirect(base_url());
-		} */
 	}
 	
 }
