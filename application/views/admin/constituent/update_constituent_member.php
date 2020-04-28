@@ -435,7 +435,7 @@ $('input[name=interaction_section]').click(function(){
                       type: "post"
                    }
                   },
-            voter_id_no:{required:true,
+            voter_id_no:{required:true,maxlength:20,
               remote: {
                         url: "<?php echo base_url(); ?>constituent/checkvoter_id_noexist/<?php echo $rows->id; ?>",
                         type: "post"

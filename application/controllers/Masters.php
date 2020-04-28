@@ -31,7 +31,7 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$constituency_name=strtoupper($this->input->post('constituency_name'));
+			$constituency_name=strtoupper($this->db->escape_str($this->input->post('constituency_name')));
 			$data=$this->mastermodel->update_constituency($constituency_name,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -61,22 +61,22 @@ class Masters extends CI_Controller {
 
 
 	public function checkpaguthi(){
-		$paguthi_name=strtoupper($this->input->post('paguthi_name'));
+		$paguthi_name=strtoupper($this->db->escape_str($this->input->post('paguthi_name')));
 		$data=$this->mastermodel->checkpaguthi($paguthi_name);
 	}
 	public function checkpaguthishort(){
-		$paguthi_short_name=strtoupper($this->input->post('paguthi_short_name'));
+		$paguthi_short_name=strtoupper($this->db->escape_str($this->input->post('paguthi_short_name')));
 		$data=$this->mastermodel->checkpaguthishort($paguthi_short_name);
 	}
 
 	public function checkpaguthiexist(){
-		$paguthi_name=strtoupper($this->input->post('paguthi_name'));
+		$paguthi_name=strtoupper($this->db->escape_str($this->input->post('paguthi_name')));
 		$paguthi_id=$this->uri->segment(3);
 		$data=$this->mastermodel->checkpaguthiexist($paguthi_name,$paguthi_id);
 	}
 
 	public function checkpaguthishortexist(){
-		$paguthi_short_name=strtoupper($this->input->post('paguthi_short_name'));
+		$paguthi_short_name=strtoupper($this->db->escape_str($this->input->post('paguthi_short_name')));
 		$paguthi_id=$this->uri->segment(3);
 		$data=$this->mastermodel->checkpaguthishortexist($paguthi_short_name,$paguthi_id);
 	}
@@ -99,8 +99,8 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$paguthi_name=strtoupper($this->input->post('paguthi_name'));
-			$paguthi_short_name=strtoupper($this->input->post('paguthi_short_name'));
+			$paguthi_name=strtoupper($this->db->escape_str($this->input->post('paguthi_name')));
+			$paguthi_short_name=strtoupper($this->db->escape_str($this->input->post('paguthi_short_name')));
 			$status=$this->input->post('status');
 			$data=$this->mastermodel->create_paguthi($paguthi_name,$paguthi_short_name,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -116,10 +116,11 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$paguthi_name=strtoupper($this->input->post('paguthi_name'));
-			$paguthi_short_name=strtoupper($this->input->post('paguthi_short_name'));
-			$status=strtoupper($this->input->post('status'));
-			$paguthi_id=strtoupper($this->input->post('paguthi_id'));
+			$paguthi_name=strtoupper($this->db->escape_str($this->input->post('paguthi_name')));
+			$paguthi_short_name=strtoupper($this->db->escape_str($this->input->post('paguthi_short_name')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
+		 	$paguthi_id=$this->input->post('paguthi_id');
+
 			$data=$this->mastermodel->update_paguthi($paguthi_name,$paguthi_short_name,$status,$user_id,$paguthi_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -156,8 +157,8 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$paguthi_id=$this->input->post('paguthi_id');
-			$ward_name=strtoupper($this->input->post('ward_name'));
-			$status=strtoupper($this->input->post('status'));
+			$ward_name=strtoupper($this->db->escape_str($this->input->post('ward_name')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->create_ward($paguthi_id,$ward_name,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -172,8 +173,8 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$paguthi_id=$this->input->post('paguthi_id');
-			$ward_name=strtoupper($this->input->post('ward_name'));
-			$status=strtoupper($this->input->post('status'));
+			$ward_name=strtoupper($this->db->escape_str($this->input->post('ward_name')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$ward_id=$this->input->post('ward_id');
 			$data=$this->mastermodel->update_ward($paguthi_id,$ward_name,$status,$user_id,$ward_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -224,10 +225,10 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$booth_name=strtoupper($this->input->post('booth_name'));
+			$booth_name=strtoupper($this->db->escape_str($this->input->post('booth_name')));
 			$ward_id=$this->input->post('ward_id');
-			$booth_address=strtoupper($this->input->post('booth_address'));
-		  $status=strtoupper($this->input->post('status'));
+			$booth_address=strtoupper($this->db->escape_str($this->input->post('booth_address')));
+		  $status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->create_booth($booth_name,$booth_address,$status,$user_id,$ward_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -257,10 +258,10 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$booth_name=strtoupper($this->input->post('booth_name'));
+			$booth_name=strtoupper($this->db->escape_str($this->input->post('booth_name')));
 			$ward_id=$this->input->post('ward_id');
-			$booth_address=strtoupper($this->input->post('booth_address'));
-			$status=strtoupper($this->input->post('status'));
+			$booth_address=strtoupper($this->db->escape_str($this->input->post('booth_address')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$booth_id=$this->input->post('booth_id');
 			$data=$this->mastermodel->update_booth($booth_name,$booth_address,$status,$user_id,$ward_id,$booth_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -306,11 +307,11 @@ class Masters extends CI_Controller {
 		}
 
 		public function checkseeker(){
-			$seeker_info=strtoupper($this->input->post('seeker_info'));
+			$seeker_info=strtoupper($this->db->escape_str($this->input->post('seeker_info')));
 			$data=$this->mastermodel->checkseeker($seeker_info);
 		}
 		public function checkseekerexist(){
-			$seeker_info=strtoupper($this->input->post('seeker_info'));
+			$seeker_info=strtoupper($this->db->escape_str($this->input->post('seeker_info')));
 			$seeker_id=$this->uri->segment(3);
 			$data=$this->mastermodel->checkseekerexist($seeker_info,$seeker_id);
 		}
@@ -319,8 +320,8 @@ class Masters extends CI_Controller {
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
 			if($user_type=='1'){
-				$seeker_info=strtoupper($this->input->post('seeker_info'));
-				$status=strtoupper($this->input->post('status'));
+				$seeker_info=strtoupper($this->db->escape_str($this->input->post('seeker_info')));
+				$status=strtoupper($this->db->escape_str($this->input->post('status')));
 				$data=$this->mastermodel->create_seeker($seeker_info,$status,$user_id);
 				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 				$this->session->set_flashdata('msg', $messge);
@@ -334,8 +335,8 @@ class Masters extends CI_Controller {
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
 			if($user_type=='1'){
-				$seeker_info=strtoupper($this->input->post('seeker_info'));
-				$status=strtoupper($this->input->post('status'));
+				$seeker_info=strtoupper($this->db->escape_str($this->input->post('seeker_info')));
+				$status=strtoupper($this->db->escape_str($this->input->post('status')));
 				$seeker_id=$this->input->post('seeker_id');
 				$data=$this->mastermodel->update_seeker($seeker_info,$status,$user_id,$seeker_id);
 				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -385,8 +386,8 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$seeker_id=$this->input->post('seeker_id');
-			$grievance_name=strtoupper($this->input->post('grievance_name'));
-			$status=strtoupper($this->input->post('status'));
+			$grievance_name=strtoupper($this->db->escape_str($this->input->post('grievance_name')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->create_grievance($seeker_id,$grievance_name,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -401,9 +402,9 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$seeker_id=$this->input->post('seeker_id');
-			$grievance_name=strtoupper($this->input->post('grievance_name'));
+			$grievance_name=strtoupper($this->db->escape_str($this->input->post('grievance_name')));
 				$grievance_id=$this->input->post('grievance_id');
-			$status=strtoupper($this->input->post('status'));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->update_grievance($seeker_id,$grievance_name,$status,$user_id,$grievance_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -454,8 +455,8 @@ class Masters extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
 			$grievance_id=$this->input->post('grievance_id');
-			$sub_category_name=strtoupper($this->input->post('sub_category_name'));
-			$status=strtoupper($this->input->post('status'));
+			$sub_category_name=strtoupper($this->db->escape_str($this->input->post('sub_category_name')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->create_sub_category_name($grievance_id,$sub_category_name,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -472,8 +473,8 @@ class Masters extends CI_Controller {
 		if($user_type=='1'){
 			$grievance_id=$this->input->post('grievance_id');
 			$sub_category_id=$this->input->post('sub_category_id');
-			$sub_category_name=strtoupper($this->input->post('sub_category_name'));
-			$status=strtoupper($this->input->post('status'));
+			$sub_category_name=strtoupper($this->db->escape_str($this->input->post('sub_category_name')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->update_sub_category_name($grievance_id,$sub_category_name,$status,$user_id,$sub_category_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -522,10 +523,10 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$template_type=strtoupper($this->input->post('template_type'));
-			$sms_text=strtoupper($this->input->post('sms_text'));
-			$sms_title=strtoupper($this->input->post('sms_title'));
-			$status=strtoupper($this->input->post('status'));
+			$template_type=strtoupper($this->db->escape_str($this->input->post('template_type')));
+			$sms_text=strtoupper($this->db->escape_str($this->input->post('sms_text')));
+			$sms_title=strtoupper($this->db->escape_str($this->input->post('sms_title')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->create_sms_template($template_type,$sms_title,$sms_text,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -540,11 +541,11 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$template_type=strtoupper($this->input->post('template_type'));
+			$template_type=strtoupper($this->db->escape_str($this->input->post('template_type')));
 			$template_id=$this->input->post('template_id');
-			$sms_text=strtoupper($this->input->post('sms_text'));
-			$sms_title=strtoupper($this->input->post('sms_title'));
-			$status=strtoupper($this->input->post('status'));
+			$sms_text=strtoupper($this->db->escape_str($this->input->post('sms_text')));
+			$sms_title=strtoupper($this->db->escape_str($this->input->post('sms_title')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->update_sms_template($template_type,$sms_title,$sms_text,$status,$user_id,$template_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -605,9 +606,9 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$interaction_text=strtoupper($this->input->post('interaction_text'));
-			$widgets_title=strtoupper($this->input->post('widgets_title'));
-			$status=strtoupper($this->input->post('status'));
+			$interaction_text=strtoupper($this->db->escape_str($this->input->post('interaction_text')));
+			$widgets_title=strtoupper($this->db->escape_str($this->input->post('widgets_title')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->create_interaction_question($widgets_title,$interaction_text,$status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -623,10 +624,10 @@ class Masters extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1'){
-			$interaction_text=strtoupper($this->input->post('interaction_text'));
-			$widgets_title=strtoupper($this->input->post('widgets_title'));
+			$interaction_text=strtoupper($this->db->escape_str($this->input->post('interaction_text')));
+			$widgets_title=strtoupper($this->db->escape_str($this->input->post('widgets_title')));
 			$interaction_id=$this->input->post('interaction_id');
-			$status=strtoupper($this->input->post('status'));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$data=$this->mastermodel->update_interaction_question($widgets_title,$interaction_text,$status,$user_id,$interaction_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);

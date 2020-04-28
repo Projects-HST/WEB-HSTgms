@@ -16,7 +16,7 @@
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <input id="constituency_name" class=" form-control" name="paguthi_name" type="text" value="<?php echo $rows->paguthi_name; ?>">
-                        <input id="paguthi_id" class=" form-control" name="paguthi_id" type="hidden" value="<?php echo base64_encode($rows->id*98765); ?>">
+                        <input id="paguthi_id" class=" form-control" name="paguthi_id" type="hidden" value="<?php echo $rows->id; ?>">
                      </div>
                   </div>
                   <div class="item form-group">
@@ -30,7 +30,7 @@
                      <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
-                        <select class="form-control" name="status">
+                        <select class="form-control" name="status" id="status">
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
                         </select>

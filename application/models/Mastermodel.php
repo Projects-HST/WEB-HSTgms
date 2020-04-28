@@ -108,9 +108,9 @@ Class Mastermodel extends CI_Model
 
 
 	function update_paguthi($paguthi_name,$paguthi_short_name,$status,$user_id,$paguthi_id){
-			$id=base64_decode($paguthi_id)/98765;
-		 	$update="UPDATE paguthi SET paguthi_name='$paguthi_name',paguthi_short_name='$paguthi_short_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
-			$result=$this->db->query($update);
+			$id= $paguthi_id;
+ 		  $update="UPDATE paguthi SET paguthi_name='$paguthi_name',paguthi_short_name='$paguthi_short_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+		  $result=$this->db->query($update);
 			if($result){
 				$data=array("status"=>"success","msg"=>"Paguthi updated Successfully","class"=>"alert alert-success");
 			}else{

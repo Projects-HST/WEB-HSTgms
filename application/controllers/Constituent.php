@@ -62,30 +62,30 @@ class constituent extends CI_Controller {
 			$paguthi_id=$this->input->post('paguthi_id');
 			$ward_id=$this->input->post('ward_id');
 			$booth_id=$this->input->post('booth_id');
-			$full_name=strtoupper($this->input->post('full_name'));
-			$father_husband_name=strtoupper($this->input->post('father_husband_name'));
-			$guardian_name=strtoupper($this->input->post('guardian_name'));
-			$mobile_no=strtoupper($this->input->post('mobile_no'));
-			$whatsapp_no=strtoupper($this->input->post('whatsapp_no'));
-			$originalDate=strtoupper($this->input->post('dob'));
+			$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
+			$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
+			$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
+			$mobile_no=strtoupper($this->db->escape_str($this->input->post('mobile_no')));
+			$whatsapp_no=strtoupper($this->db->escape_str($this->input->post('whatsapp_no')));
+			$originalDate=strtoupper($this->db->escape_str($this->input->post('dob')));
 			 $dob = date("Y-m-d", strtotime($originalDate));
-			$door_no=strtoupper($this->input->post('door_no'));
-			$address=strtoupper($this->input->post('address'));
-			$pin_code=strtoupper($this->input->post('pin_code'));
-			$religion_id=strtoupper($this->input->post('religion_id'));
-			$email_id=strtoupper($this->input->post('email_id'));
-			$gender=strtoupper($this->input->post('gender'));
-			$voter_id_status=strtoupper($this->input->post('voter_id_status'));
-			$voter_id_no=strtoupper($this->input->post('voter_id_no'));
-			$aadhaar_status=strtoupper($this->input->post('aadhaar_status'));
-			$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
-			$party_member_status=strtoupper($this->input->post('party_member_status'));
-			$vote_type=strtoupper($this->input->post('vote_type'));
-			$serial_no=strtoupper($this->input->post('serial_no'));
+			$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
+			$address=strtoupper($this->db->escape_str($this->input->post('address')));
+			$pin_code=strtoupper($this->db->escape_str($this->input->post('pin_code')));
+			$religion_id=strtoupper($this->db->escape_str($this->input->post('religion_id')));
+			$email_id=strtoupper($this->db->escape_str($this->input->post('email_id')));
+			$gender=strtoupper($this->db->escape_str($this->input->post('gender')));
+			$voter_id_status=strtoupper($this->db->escape_str($this->input->post('voter_id_status')));
+			$voter_id_no=strtoupper($this->db->escape_str($this->input->post('voter_id_no')));
+			$aadhaar_status=strtoupper($this->db->escape_str($this->input->post('aadhaar_status')));
+			$aadhaar_no=strtoupper($this->db->escape_str($this->input->post('aadhaar_no')));
+			$party_member_status=strtoupper($this->db->escape_str($this->input->post('party_member_status')));
+			$vote_type=strtoupper($this->db->escape_str($this->input->post('vote_type')));
+			$serial_no=strtoupper($this->db->escape_str($this->input->post('serial_no')));
 			$question_id=$this->input->post('question_id');
 			$question_response=$this->input->post('question_response');
 			$interaction_section=$this->input->post('interaction_section');
-			// $status=strtoupper($this->input->post('status'));
+			// $status=strtoupper($this->db->escape_str($this->input->post('status')));
 			$profilepic = $_FILES['profile_pic']['name'];
 				if(empty($profilepic)){
 				$filename='';
@@ -114,31 +114,31 @@ class constituent extends CI_Controller {
 				$paguthi_id=$this->input->post('paguthi_id');
 				$ward_id=$this->input->post('ward_id');
 				$booth_id=$this->input->post('booth_id');
-				$full_name=strtoupper($this->input->post('full_name'));
-				$father_husband_name=strtoupper($this->input->post('father_husband_name'));
-				$guardian_name=strtoupper($this->input->post('guardian_name'));
+				$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
+				$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
+				$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
 				$mobile_no=strtoupper($this->input->post('mobile_no'));
 				$whatsapp_no=strtoupper($this->input->post('whatsapp_no'));
 				$originalDate=strtoupper($this->input->post('dob'));
 				 $dob = date("Y-m-d", strtotime($originalDate));
-				$door_no=strtoupper($this->input->post('door_no'));
-				$address=strtoupper($this->input->post('address'));
-				$pin_code=strtoupper($this->input->post('pin_code'));
-				$religion_id=strtoupper($this->input->post('religion_id'));
-				$email_id=strtoupper($this->input->post('email_id'));
-				$gender=strtoupper($this->input->post('gender'));
-				$voter_id_status=strtoupper($this->input->post('voter_id_status'));
-				$voter_id_no=strtoupper($this->input->post('voter_id_no'));
-				$aadhaar_status=strtoupper($this->input->post('aadhaar_status'));
-				$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
-				$party_member_status=strtoupper($this->input->post('party_member_status'));
-				$vote_type=strtoupper($this->input->post('vote_type'));
-				$serial_no=strtoupper($this->input->post('serial_no'));
+				$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
+				$address=strtoupper($this->db->escape_str($this->input->post('address')));
+				$pin_code=strtoupper($this->db->escape_str($this->input->post('pin_code')));
+				$religion_id=strtoupper($this->db->escape_str($this->input->post('religion_id')));
+				$email_id=strtoupper($this->db->escape_str($this->input->post('email_id')));
+				$gender=strtoupper($this->db->escape_str($this->input->post('gender')));
+				$voter_id_status=strtoupper($this->db->escape_str($this->input->post('voter_id_status')));
+				$voter_id_no=strtoupper($this->db->escape_str($this->input->post('voter_id_no')));
+				$aadhaar_status=strtoupper($this->db->escape_str($this->input->post('aadhaar_status')));
+				$aadhaar_no=strtoupper($this->db->escape_str($this->input->post('aadhaar_no')));
+				$party_member_status=strtoupper($this->db->escape_str($this->input->post('party_member_status')));
+				$vote_type=strtoupper($this->db->escape_str($this->input->post('vote_type')));
+				$serial_no=strtoupper($this->db->escape_str($this->input->post('serial_no')));
 				$question_id=$this->input->post('question_id');
 				$question_response=$this->input->post('question_response');
 				// $interaction_section=$this->input->post('interaction_section');
 					$old_profile_pic=$this->input->post('old_profile_pic');
-				$status=strtoupper($this->input->post('status'));
+				$status=strtoupper($this->db->escape_str($this->input->post('status')));
 				$profilepic = $_FILES['profile_pic']['name'];
 					if(empty($profilepic)){
 					$filename=$old_profile_pic;
@@ -181,32 +181,32 @@ class constituent extends CI_Controller {
 
 
 	public function checkserialno(){
-		$serial_no=strtoupper($this->input->post('serial_no'));
+		$serial_no=strtoupper($this->db->escape_str($this->input->post('serial_no')));
 		$data=$this->constituentmodel->checkserialno($serial_no);
 	}
 	public function checkvoter_id_no(){
-		$voter_id_no=strtoupper($this->input->post('voter_id_no'));
+		$voter_id_no=strtoupper($this->db->escape_str($this->input->post('voter_id_no')));
 		$data=$this->constituentmodel->checkvoter_id_no($voter_id_no);
 	}
 	public function checkaadhaar_no(){
-		$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
+		$aadhaar_no=strtoupper($this->db->escape_str($this->input->post('aadhaar_no')));
 		$data=$this->constituentmodel->checkaadhaar_no($aadhaar_no);
 	}
 
 
 	public function checkserialnoexist(){
 		$constituent_id=$this->uri->segment(3);
-		$serial_no=strtoupper($this->input->post('serial_no'));
+		$serial_no=strtoupper($this->db->escape_str($this->input->post('serial_no')));
 		$data=$this->constituentmodel->checkserialnoexist($constituent_id,$serial_no);
 	}
 	public function checkvoter_id_noexist(){
 		$constituent_id=$this->uri->segment(3);
-		$voter_id_no=strtoupper($this->input->post('voter_id_no'));
+		$voter_id_no=strtoupper($this->db->escape_str($this->input->post('voter_id_no')));
 		$data=$this->constituentmodel->checkvoter_id_noexist($constituent_id,$voter_id_no);
 	}
 	public function checkaadhaar_noexist(){
 		$constituent_id=$this->uri->segment(3);
-		$aadhaar_no=strtoupper($this->input->post('aadhaar_no'));
+		$aadhaar_no=strtoupper($this->db->escape_str($this->input->post('aadhaar_no')));
 		$data=$this->constituentmodel->checkaadhaar_noexist($constituent_id,$aadhaar_no);
 	}
 
@@ -237,7 +237,7 @@ class constituent extends CI_Controller {
 			$user_type = $this->session->userdata('user_type');
 			if($user_type=='1' || $user_type=='2'){
 				$constituent_id=$this->input->post('constituent_id');
-				$doc_name=strtoupper($this->input->post('file_name'));
+				$doc_name=strtoupper($this->db->escape_str($this->input->post('file_name')));
 				$profilepic = $_FILES['doc_file']['name'];
 				if(empty($profilepic)){
 				$filename=$old_profile_pic;
@@ -330,7 +330,7 @@ class constituent extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$constituent_id=$this->input->post('constituent_id');
-			$name_of_plant=strtoupper($this->input->post('name_of_plant'));
+			$name_of_plant=strtoupper($this->db->escape_str($this->input->post('name_of_plant')));
 			$no_of_plant=$this->input->post('no_of_plant');
 			$data=$this->constituentmodel->plant_save($constituent_id,$name_of_plant,$no_of_plant,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -375,8 +375,8 @@ class constituent extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$constituent_id=$this->input->post('meeting_constituent_id');
-			$meeting_detail=strtoupper($this->input->post('meeting_detail'));
-			$meeting_status=strtoupper($this->input->post('meeting_status'));
+			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('meeting_detail')));
+			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
 			$data=$this->constituentmodel->save_meeting_request($constituent_id,$meeting_detail,$meeting_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -391,8 +391,8 @@ class constituent extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$meeting_id=$this->input->post('meeting_id');
-			$meeting_detail=strtoupper($this->input->post('update_meeting_detail'));
-			$meeting_status=strtoupper($this->input->post('update_meeting_status'));
+			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('update_meeting_detail')));
+			$meeting_status=strtoupper($this->db->escape_str($this->input->post('update_meeting_status')));
 			$data=$this->constituentmodel->update_meeting_request($meeting_id,$meeting_detail,$meeting_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -521,11 +521,11 @@ public function list_grievance_reply(){
 			$grievance_id=$this->input->post('grievance_id');
 			$sub_category_id=$this->input->post('sub_category_id');
 			$grievance_type=$this->input->post('grievance_type');
-			$petition_enquiry_no=strtoupper($this->input->post('petition_enquiry_no'));
-			$description=strtoupper($this->input->post('description'));
-			$doc_name=strtoupper($this->input->post('doc_name'));
-			$reference_note=strtoupper($this->input->post('reference_note'));
-			$originalDate=strtoupper($this->input->post('grievance_date'));
+			$petition_enquiry_no=strtoupper($this->db->escape_str($this->input->post('petition_enquiry_no')));
+			$description=strtoupper($this->db->escape_str($this->input->post('description')));
+			$doc_name=strtoupper($this->db->escape_str($this->input->post('doc_name')));
+			$reference_note=strtoupper($this->db->escape_str($this->input->post('reference_note')));
+			$originalDate=strtoupper($this->db->escape_str($this->input->post('grievance_date')));
 			 $grievance_date = date("Y-m-d", strtotime($originalDate));
 			 $profilepic = $_FILES['doc_file_name']['name'];
 			 if(empty($profilepic)){
@@ -554,8 +554,8 @@ public function list_grievance_reply(){
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('grievance_id');
-			$status=strtoupper($this->input->post('status'));
-			$sms_text=strtoupper($this->input->post('sms_text'));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
+			$sms_text=strtoupper($this->db->escape_str($this->input->post('sms_text')));
 			$constituent_id=$this->input->post('constituent_grievance_id');
 			$sms_id=$this->input->post('sms_id');
 			$data=$this->constituentmodel->update_grievance_status($grievance_id,$status,$sms_text,$constituent_id,$sms_id,$user_id);
@@ -575,10 +575,10 @@ public function list_grievance_reply(){
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('grievance_id');
 			$seeker_id=$this->input->post('seeker_id');
-			$reference_note=strtoupper($this->input->post('reference_note'));
+			$reference_note=strtoupper($this->db->escape_str($this->input->post('reference_note')));
 			$grievance_tb_id=$this->input->post('grievance_tb_id');
 			$sub_category_id=$this->input->post('sub_category_id');
-			$description=strtoupper($this->input->post('description'));
+			$description=strtoupper($this->db->escape_str($this->input->post('description')));
 			$data=$this->constituentmodel->update_grievance_data($grievance_id,$seeker_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -595,7 +595,7 @@ public function list_grievance_reply(){
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('reference_grievance_id');
-			$reference_note=strtoupper($this->input->post('reference_note'));
+			$reference_note=strtoupper($this->db->escape_str($this->input->post('reference_note')));
 			$data=$this->constituentmodel->update_refernce_note($grievance_id,$reference_note,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
@@ -611,7 +611,7 @@ public function list_grievance_reply(){
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('reply_grievance_id');
-			$sms_text=strtoupper($this->input->post('reply_sms_text'));
+			$sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
 			$constituent_id=$this->input->post('constituent_reply_id');
 			$sms_id=$this->input->post('reply_sms_id');
 			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
