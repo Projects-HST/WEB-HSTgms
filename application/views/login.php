@@ -13,7 +13,7 @@
 	<link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
-	
+
 </head>
 <body class="login">
 
@@ -23,8 +23,12 @@
 <div class="login_wrapper">
 
 <div class="animate form login_form">
+
+
 <section class="login_content">
+	<img src="<?php echo base_url(); ?>assets/images/login.png" class="img-responsive login_img">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="loginform" name="loginform">
+
 	<h1>Login Form</h1>
 		<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger alert-dismissible " role="alert">
@@ -49,9 +53,11 @@
 
 
 <div id="register" class="animate form registration_form">
+	<img src="<?php echo base_url(); ?>assets/images/forgotpassword.png" class="img-responsive login_img">
+
 <section class="login_content">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
-	<h1>Forgot Password</h1>
+	<h2>Forgot Password</h2>
 	<div>
 		<input type="text" class="form-control"  name="user_name" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
@@ -59,7 +65,7 @@
 		<button class="btn btn-primary" type="submit" style="text-transform: uppercase;">Submit</button>
 		<a href="#signin" class="reset_pass" style="text-transform: uppercase;"> Log in </a>
 	</div>
-	
+
 	<div class="separator">
 		<div class="clearfix"></div>
 	</div>
@@ -74,7 +80,7 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-	
+
 <script type="text/javascript">
 $(".toggle-password").click(function() {
 

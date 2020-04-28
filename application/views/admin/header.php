@@ -49,7 +49,7 @@
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;">
-                     <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Grievance Mgmt</span></a>
+                     <a href="#" class="site_title"> <span>GMS</span></a>
                   </div>
                   <div class="clearfix"></div>
                   <div class="profile clearfix">
@@ -72,10 +72,10 @@
                         <h3>Menu </h3>
                         <ul class="nav side-menu">
                            <li>
-                              <a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home"></i> Dashboard</span></a>
+                              <a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive"></i> Dashboard</span></a>
                            </li>
                            <li id="mastermenu">
-                              <a><i class="fa fa-edit"></i>Masters <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/master.png" class="img-responsive"> Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu mastermenu">
                                   <li id="constituencymenu"><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
                                   <li id="paguthimenu"><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
@@ -88,21 +88,21 @@
                                 </ul>
                            </li>
                            <li id="constiituent_menu">
-                              <a><i class="fa fa-desktop"></i>Constituent  <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/constituent_info.png" class="img-responsive"> Constituent  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu constiituent_menu">
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create member</a></li>
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List member</a></li>
                               </ul>
                            </li>
                            <li id="grievance_menu">
-                              <a><i class="fa fa-desktop"></i>Grievance <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/grievance.png" class="img-responsive"> Grievance <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu grievance_menu">
                                  <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li>
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
                            <li>
-                              <a><i class="fa fa-desktop"></i>Users <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive"> Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>users/add">Add user</a></li>
                                  <li><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
@@ -110,7 +110,7 @@
                            </li>
 
                            <li>
-                              <a><i class="fa fa-bar-chart-o"></i> Report Presentation <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/report.png" class="img-responsive"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/category">Category</a></li>
@@ -122,7 +122,7 @@
                               </ul>
                            </li>
                            <li>
-                              <a><i class="fa fa-table"></i> Settings <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/setting.png" class="img-responsive"> Settings <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>login/profile">Profile</a></li>
                                  <li><a href="<?php echo base_url(); ?>login/password">Password update</a></li>
