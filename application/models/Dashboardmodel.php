@@ -224,48 +224,25 @@ Class Dashboardmodel extends CI_Model
 		if ($paguthi == 'All')
 		{
 			 $query="SELECT
-							CONCAT(
-								SUBSTRING(
-									DATE_FORMAT(`grievance_date`, '%M'),
-									1,
-									3
-								),
-								DATE_FORMAT(`grievance_date`, '-%Y')
-							) AS month_year,
-							COUNT(*) AS total_grievance
-						FROM
-							grievance
-						WHERE
-							PERIOD_DIFF(
-								DATE_FORMAT(NOW(), '%Y%m'),
-								DATE_FORMAT(`grievance_date`, '%Y%m')) < 12
-							GROUP BY
-								YEAR(`grievance_date`),
-								MONTH(`grievance_date`)";
+						DATE_FORMAT(grievance_date, '%M %y') AS disp_month,
+						COUNT(*) AS total_grievance
+					FROM
+						`grievance`
+					GROUP BY
+						disp_month";
 			$res=$this->db->query($query);
 			$result=$res->result();
 			return $result;
 		} else {
 			$query="SELECT
-						CONCAT(
-							SUBSTRING(
-								DATE_FORMAT(`grievance_date`, '%M'),
-								1,
-								3
-							),
-							DATE_FORMAT(`grievance_date`, '-%Y')
-						) AS month_year,
-						COUNT(*) AS total_grievance
-					FROM
-						grievance
-					WHERE
-						`paguthi_id` = '$paguthi' AND 
-						PERIOD_DIFF(
-							DATE_FORMAT(NOW(), '%Y%m'),
-							DATE_FORMAT(`grievance_date`, '%Y%m')) < 12
-						GROUP BY
-							YEAR(`grievance_date`),
-							MONTH(`grievance_date`)";
+					DATE_FORMAT(grievance_date, '%M %y') AS disp_month,
+					COUNT(*) AS total_grievance
+				FROM
+					`grievance`
+				WHERE 
+					paguthi_id = '$paguthi'
+				GROUP BY
+					disp_month";
 		$res=$this->db->query($query);
 		$result=$res->result();
 		return $result;

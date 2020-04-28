@@ -278,14 +278,12 @@
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->month_year',  $rows->total_grievance]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					echo "['$rows->disp_month',  $rows->total_grievance]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
 				$i++;
 				}
 			}
 		?>
         ]);
-
-
         var options = {
           title : 'FOOT FALL REPORT',
           vAxis: {title: 'GRIEVANCE DETAILS',format: '0'},
@@ -301,10 +299,10 @@
           ['Petition completed', <?php echo $grievance_result['gerv_ppcount']; ?>],
           ['Petition processing', <?php echo $grievance_result['gerv_pccount']; ?>]
         ]);
-
 		var options1 = {
           title: 'GRIEVANCE PROGRESS REPORT'
         };
+
 
 
         var data2 = google.visualization.arrayToDataTable([
@@ -320,12 +318,12 @@
 			}
 		?>
         ]);
-
         var options2 = {
           title: 'CONSTITUENTS MEETING REPORT',
           hAxis: {title: 'MONTHS'},
           vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}	  
         };
+
 
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
