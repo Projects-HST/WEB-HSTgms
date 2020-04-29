@@ -30,3 +30,18 @@ h4{
 a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
   color: #fff !important;
 }
+.widget_tally li p{
+  margin-top: 5px;
+  margin-bottom: 22px;
+}
+ul.widget_tally li{
+  /* padding: 0px 0px 0px 0px !important; */
+  border-bottom: none;
+
+}
+.count{
+  font-weight: 600;
+}
+ul.count2 li h3{
+  font-weight: 600;
+}

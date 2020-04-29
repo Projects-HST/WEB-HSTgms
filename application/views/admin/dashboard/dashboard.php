@@ -36,7 +36,7 @@
 						</select>
 				 </div>
 				  <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">GO</button>					 
+					 <button type="submit" class="btn btn-success">GO</button>
 				 </div>
 			  </div>
 		 </form>
@@ -53,11 +53,11 @@
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
 		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img"></li>
+		<li><img src="<?php echo base_url(); ?>assets/images/cm.png" class="img-circle profile_img"></li>
 		<li>&nbsp;</li>
 	</ul>
 </div>
-<h3 class="name">Constituent Members</h3>
+<h4 class="name">Constituent Members</h4>
 <div class="flex">
 	<ul class="list-inline count2">
 		<li><h3><?php echo $result['con_count']; ?></h3></li>
@@ -105,11 +105,11 @@
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
 		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img"></li>
+		<li><img src="<?php echo base_url(); ?>assets/images/meeting.png" class="img-circle profile_img"></li>
 		<li>&nbsp;</li>
 	</ul>
 </div>
-<h3 class="name">Total <br>Meetings</h3>
+<h4 class="name">Total <br>Meetings</h4>
 <div class="flex">
 	<ul class="list-inline count2">
 		<li><h3><?php echo $result['meet_count']; ?></h3></li>
@@ -144,11 +144,12 @@
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
 		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img"></li>
+		<li><img src="<?php echo base_url(); ?>assets/images/gl.png" class="img-circle profile_img"></li>
 		<li>&nbsp;</li>
 	</ul>
 </div>
-<h3 class="name">Grievance</h3>
+<h4 class="name">Grievance</h4>
+<br>
 <div class="flex">
 	<ul class="list-inline count2">
 		<li><h3><?php echo $result['grev_count']; ?></h3></li>
@@ -195,11 +196,11 @@
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
 		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img"></li>
+		<li><img src="<?php echo base_url(); ?>assets/images/interaction.png" class="img-circle profile_img"></li>
 		<li>&nbsp;</li>
 	</ul>
 </div>
-<h3 class="name">Interaction Questions</h3>
+<h4 class="name">Interaction Questions</h4>
 <div class="flex">
 	<ul class="list-inline count2">
 		<li><h3><?php echo $result['interaction_count']; ?></h3></li>
@@ -208,9 +209,9 @@
 
 <div>
 	<ul class="list-inline widget_tally">
-	
-	
-	<?php if (count($interaction) >0) { 
+
+
+	<?php if (count($interaction) >0) {
 			foreach($interaction as $rows){?>
 		<li>
 			<p>
@@ -265,8 +266,8 @@
 </div>
 <?php
 
-foreach ($footfall_result as $rows) {  
-   $tot_grievance[] = array('disp_month' => $rows->disp_month,'total_grievance' => $rows->total_grievance); 
+foreach ($footfall_result as $rows) {
+   $tot_grievance[] = array('disp_month' => $rows->disp_month,'total_grievance' => $rows->total_grievance);
 }
 ?>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -278,12 +279,12 @@ foreach ($footfall_result as $rows) {
         // Some raw data (not necessarily accurate)
           var data = google.visualization.arrayToDataTable([
           ['Month', 'TOTAL', 'NEW', 'REPETED'],
-          <?php 
-			if (count($footfall_result) >0) { 
+          <?php
+			if (count($footfall_result) >0) {
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month', $rows->total_grievance, 5, 2]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					echo "['$rows->disp_month', $rows->total_grievance, 5, 2]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; }
 				$i++;
 				}
 			} else {
@@ -295,7 +296,7 @@ foreach ($footfall_result as $rows) {
           title : 'FOOT FALL REPORT',
           vAxis: {title: 'GRIEVANCE DETAILS',format: '0'},
           hAxis: {title: 'MONTHS'},
-          seriesType: 'bars'       
+          seriesType: 'bars'
 		 };
 
 
@@ -314,12 +315,12 @@ foreach ($footfall_result as $rows) {
 
         var data2 = google.visualization.arrayToDataTable([
           ['MONTHS', 'MEETINGS'],
-		<?php 
-			if (count($meeting_result) >0) { 
+		<?php
+			if (count($meeting_result) >0) {
 				$i=1;
 				$rec_count = count($meeting_result);
 				foreach($meeting_result as $rows){
-					echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; }
 				$i++;
 				}
 			}else {
@@ -330,7 +331,7 @@ foreach ($footfall_result as $rows) {
         var options2 = {
           title: 'CONSTITUENTS MEETING REPORT',
           hAxis: {title: 'MONTHS'},
-          vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}	  
+          vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}
         };
 
 
