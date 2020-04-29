@@ -26,18 +26,18 @@
 <div class="col-md-5">
 		<form id="result_form" action="<?php echo base_url(); ?>dashboard" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				 <label class="col-form-label col-md-4 col-sm-4 label-align">Select Area <span class="required">*</span></label>
+				 <label class="col-form-label col-md-6 col-sm-6 label-align">Select Area <span class="required">*</span></label>
 				 <div class="col-md-6 col-sm-6">
-						<select class="form-control" name="paguthi" id ="paguthi">
+						<select class="form-control" name="paguthi" id ="paguthi"  onchange="this.form.submit()">
 								<option value="All">OVER ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 								<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
 							<?php } ?><script> $('#paguthi').val('<?php echo $search_paguthi; ?>');</script>
 						</select>
 				 </div>
-				  <div class="col-md-2 col-sm-2">
+				  <!--<div class="col-md-2 col-sm-2">
 					 <button type="submit" class="btn btn-success">GO</button>
-				 </div>
+				 </div>-->
 			  </div>
 		 </form>
 </div>
@@ -264,12 +264,6 @@
 </div>
 
 </div>
-<?php
-
-foreach ($footfall_result as $rows) {
-   $tot_grievance[] = array('disp_month' => $rows->disp_month,'total_grievance' => $rows->total_grievance);
-}
-?>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -279,17 +273,17 @@ foreach ($footfall_result as $rows) {
         // Some raw data (not necessarily accurate)
           var data = google.visualization.arrayToDataTable([
           ['Month', 'TOTAL', 'NEW', 'REPETED'],
-          <?php
-			if (count($footfall_result) >0) {
+          <?php 
+			  if (count($footfall_result) >0) { 
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month', $rows->total_grievance, 5, 2]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; }
+					echo "['$rows->disp_month', $rows->total_grev, 5, 2]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
 				$i++;
 				}
 			} else {
-				echo "['Nill', 0]";
-			}
+				echo "['Nill', 0,0,0]";
+			} 
 		?>
         ]);
         var options = {
