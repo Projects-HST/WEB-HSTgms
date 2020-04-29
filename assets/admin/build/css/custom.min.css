@@ -4476,7 +4476,7 @@ ul.widget_profile_box li .profile_img {
 
 .widget_tally_box p,
 .widget_tally_box span {
-    text-align: center
+    text-align: left
 }
 
 .widget_tally_box .name {
