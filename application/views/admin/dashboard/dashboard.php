@@ -303,8 +303,8 @@ foreach ($footfall_result as $rows) {
 		var data1 = google.visualization.arrayToDataTable([
           ['Grievance', 'Grievance Type'],
           ['Enquiry', <?php echo $grievance_result['gerv_ecount']; ?>],
-          ['Petition completed', <?php echo $grievance_result['gerv_ppcount']; ?>],
-          ['Petition processing', <?php echo $grievance_result['gerv_pccount']; ?>]
+          ['Petition processing', <?php echo $grievance_result['gerv_ppcount']; ?>],
+          ['Petition completed', <?php echo $grievance_result['gerv_pccount']; ?>]
         ]);
 		var options1 = {
           title: 'GRIEVANCE PROGRESS REPORT'
