@@ -45,3 +45,13 @@ ul.widget_tally li{
 ul.count2 li h3{
   font-weight: 600;
 }
+.top_search .form-control{
+  border-radius: 0px;
+  padding: 24px;
+}
+.top_search .input-group-btn button{
+  border-radius: 0px;
+  background-color: #31aa15;
+  color: #fff;
+  font-weight: 600;
+}
