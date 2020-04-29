@@ -9,7 +9,9 @@
 
 <script>
 $(document).ready(function() {
-    $('#example').DataTable();
+    $('#example').DataTable({
+        "scrollX": true
+    });
 } );
 
 $(document).ready(function() {

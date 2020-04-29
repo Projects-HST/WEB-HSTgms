@@ -141,7 +141,9 @@
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');
-$('#example_2').DataTable();
+$('#example_2').DataTable({
+    "scrollX": true
+});
 $('#master_form').validate({
      rules: {
          file_name:{required:true },

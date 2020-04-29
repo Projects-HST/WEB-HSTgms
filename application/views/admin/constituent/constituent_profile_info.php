@@ -24,7 +24,7 @@
                           if(empty($rows->profile_pic)){
                           $pic='default.png';
                           }else{
-                          echo  $pic=$rows->profile_pic;
+                            $pic=$rows->profile_pic;
                           }?>
                            <img class="img-responsive avatar-view" style="width:150px;" src="<?php echo base_url(); ?>assets/constituent/<?php echo $pic;  ?>" alt="Avatar" title="Change the avatar">
                         </div>
@@ -246,7 +246,9 @@
    </div>
 </div>
 <script>
-$('#example_2').DataTable();
+$('#example_2').DataTable({
+    "scrollX": true
+});
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');

@@ -350,8 +350,12 @@
 
 </style>
 <script>
-$('#example_2').DataTable();
-$('#example_3').DataTable();
+$('#example_2').DataTable({
+    "scrollX": true
+});
+$('#example_3').DataTable({
+    "scrollX": true
+});
    $('#grievance_menu').addClass('active');
    $('.grievance_menu').css('display','block');
    $('#list_grievance_menu').addClass('active');
