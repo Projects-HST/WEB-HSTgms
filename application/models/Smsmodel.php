@@ -73,23 +73,20 @@ Class Smsmodel extends CI_Model
 
 
 		function send_voice_call($constituent_id){
+
+			$get_phone="SELECT * FROM constituent where id='$constituent_id'";
+			$res=$this->db->query($get_phone);
+			foreach($res->result() as $rows){}
+			$phone=$rows->mobile_no;
 			$username = urlencode("u2630");
 			$token = urlencode("57cchT");
 			$plan_id = urlencode("5949");
 			$announcement_id = urlencode("209974");
 			$caller_id = urlencode("newcompany");
-			$contact_numbers = urlencode("9789108819");
-
+			$contact_numbers = urlencode($phone);
 			$api = "http://103.255.100.37/api/voice/voice_broadcast.php?username=".$username."&token=".$token."&plan_id=".$plan_id."&announcement_id=".$announcement_id."&caller_id=".$caller_id."&contact_numbers=".$contact_numbers."";
-			//
-			// $response = file_get_contents($api);
-			//
-			// echo $response;
-			// return $response;
-
 			$curl = curl_init();
       curl_setopt_array($curl, array(
-      // CURLOPT_URL => "https://api.msg91.com/api/sendhttp.php?mobiles=$phone&authkey=301243AX0Pp4EOQCn5db82c4f&route=4&sender=SKILEX&message=$notes&country=91",
       CURLOPT_URL => $api,
 
       CURLOPT_RETURNTRANSFER => true,
@@ -104,9 +101,7 @@ Class Smsmodel extends CI_Model
 
     $response = curl_exec($curl);
     $err = curl_error($curl);
-
     curl_close($curl);
-
     if ($err) {
       echo "cURL Error #:" . $err;
     } else {
