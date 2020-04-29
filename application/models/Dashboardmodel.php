@@ -149,7 +149,7 @@ Class Dashboardmodel extends CI_Model
 								ON
 									c.id = ih.constituent_id
 								WHERE
-									c.paguthi_id = '$paguthi'";
+									c.paguthi_id = '$paguthi' AND ih.question_response = 'Y'";
 			$interactioncount_res = $this->db->query($interactioncount);
 			$interactioncount = $interactioncount_res->num_rows();
 			
