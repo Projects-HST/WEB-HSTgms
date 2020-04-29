@@ -64,6 +64,7 @@
                        <a href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
                         <a href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
                         <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                        <a title="SEND VOICE CALL" onclick="give_voice_call(<?php echo $rows->id; ?>)" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 
 
                      </td>
@@ -509,6 +510,22 @@ function get_sub_category(sel){
       }else{
       $("#sub_category_id").empty();
       }
+    }
+  });
+}
+
+
+function give_voice_call(sel){
+  let cons_id=sel;
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/give_voice_call',
+    method:"POST",
+    data:{cons_id:cons_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      alert(data.status)
     }
   });
 }

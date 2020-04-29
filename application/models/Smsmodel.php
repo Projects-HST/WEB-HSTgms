@@ -1,7 +1,7 @@
 <?php
 Class Smsmodel extends CI_Model
 {
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -68,6 +68,28 @@ Class Smsmodel extends CI_Model
 	}
 
 //#################### SMS End ####################//
+
+//#################### voice call start  ####################//
+
+
+		function send_voice_call($constituent_id){
+			$username = urlencode("u2630");
+			$token = urlencode("57cchT");
+			$plan_id = urlencode("5949");
+			$announcement_id = urlencode("209974");
+			$caller_id = urlencode("newcompany");
+			$contact_numbers = urlencode("9789108819");
+
+			$api = "http://103.255.100.37/api/voice/voice_broadcast.php?username=".$username."&token=".$token."&plan_id=".$plan_id."&announcement_id=".$announcement_id."&caller_id=".$caller_id."&contact_numbers=".$contact_numbers."";
+
+			$response = file_get_contents($api);
+
+			echo $response;
+			return $response;
+
+		}
+
+//#################### voice call end ####################//
 
 }
 ?>

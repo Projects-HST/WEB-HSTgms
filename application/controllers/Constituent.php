@@ -648,5 +648,22 @@ public function list_grievance_reply(){
 		}
 ################## Constituent Profile view only ##############
 
+################## Constituent voice call ##############
+
+	public function give_voice_call(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('cons_id');
+			$data=$this->smsmodel->send_voice_call($constituent_id);
+
+		}else{
+			redirect('/');
+		}
+	}
+
+################## Constituent voice call ##############
+
+
 
 }
