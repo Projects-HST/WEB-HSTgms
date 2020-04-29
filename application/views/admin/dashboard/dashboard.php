@@ -48,7 +48,7 @@
 <div class="row">
 
 <div class="col-md-3 widget widget_tally_box">
-<div class="x_panel fixed_height_390">
+<div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
@@ -100,7 +100,7 @@
 
 
 <div class="col-md-3   widget widget_tally_box">
-<div class="x_panel fixed_height_390">
+<div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
@@ -139,7 +139,7 @@
 
 
 <div class="col-md-3   widget widget_tally_box">
-<div class="x_panel fixed_height_390">
+<div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
@@ -191,7 +191,7 @@
 
 
 <div class="col-md-3   widget widget_tally_box">
-<div class="x_panel fixed_height_390">
+<div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
 	<ul class="list-inline widget_profile_box">
