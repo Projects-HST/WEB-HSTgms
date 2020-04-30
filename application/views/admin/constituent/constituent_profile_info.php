@@ -246,13 +246,14 @@
    </div>
 </div>
 <script>
-$('#example_2').DataTable({
-    "scrollX": true,
-    "language": {
-      "search": "",
-      searchPlaceholder: "SEARCH HERE"
-    }
-});
+$(document).ready(function() {
+    $('#example_2').DataTable({
+
+    });
+    $('#example_3').DataTable({
+
+    });
+} );
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');

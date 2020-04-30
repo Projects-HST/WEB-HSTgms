@@ -7,16 +7,22 @@
 </div>
 </div>
 
+<style>
+
+</style>
 <script>
 $(document).ready(function() {
     $('#example').DataTable({
-        "scrollX": true,
-        "language": {
-          "search": "",
-          searchPlaceholder: "SEARCH HERE"
-        }
+      "language": {
+        "search": "",
+        searchPlaceholder: "SEARCH HERE"
+      },
+      "scrollX": true
+
+
     });
 } );
+
 
 $(document).ready(function() {
     $('#export_example').DataTable( {
