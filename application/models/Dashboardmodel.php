@@ -398,8 +398,8 @@ Class Dashboardmodel extends CI_Model
 						disp_month";
 			$res=$this->db->query($query);
 			$result=$res->result();
-			return $result; */
-		} 
+			return $result; 
+		} */
 	}
 	
 	function get_grievance_graph($paguthi)
