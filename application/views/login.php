@@ -43,7 +43,7 @@
 		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="15" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
 	</div>
 	<div>
-		<button class="btn btn-primary" type="submit" style="text-transform: uppercase;">Log in</button>
+		<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Log in</button>
 		<a href="#signup" class="reset_pass"> Lost your password? </a>
 	</div>
 	<div class="separator"></div>
@@ -62,7 +62,7 @@
 		<input type="text" class="form-control"  name="user_name" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
 	<div>
-		<button class="btn btn-primary" type="submit" style="text-transform: uppercase;">Submit</button>
+		<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Submit</button>
 		<a href="#signin" class="reset_pass" style="text-transform: uppercase;"> Log in </a>
 	</div>
 
@@ -74,7 +74,12 @@
 </div>
 
 </div>
-
+<style>
+.green_btn{
+	background-color: #31aa15;
+	border: none;
+}
+</style>
 </body>
 </html>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js"></script>
