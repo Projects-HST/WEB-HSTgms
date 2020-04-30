@@ -196,6 +196,7 @@
                        <select class="form-control" name="gender" id="gender">
                          <option value="M">Male</option>
                          <option value="F">Female</option>
+                         <option value="O">Others</option>
                        </select>
                        <script>$('#gender').val('<?php echo $rows->gender; ?>');</script>
                         </div>
@@ -420,16 +421,17 @@ $('input[name=interaction_section]').click(function(){
           paguthi_id:{required:true },
           ward_id:{required:true },
           booth_id:{required:true },
-          full_name:{required:true },
-          father_husband_name:{required:true },
-          mobile_no:{required:true,minlength:10,maxlength:10  },
-          whatsapp_no:{required:true,minlength:10,maxlength:10  },
-          dob:{required:true },
+          full_name:{required:true,maxlength:80 },
+          father_husband_name:{required:true,maxlength:80 },
+          guardian_name:{required:false,maxlength:80 },
+          mobile_no:{required:true,minlength:10,maxlength:10 },
+          whatsapp_no:{required:false,minlength:10,maxlength:10  },
+          dob:{required:true,maxlength:10 },
           door_no:{required:true },
-          address:{required:true },
-          pin_code:{required:true },
-          email_id:{required:true,email:true },
-          serial_no:{required:true,
+          address:{required:true,maxlength:240 },
+          pin_code:{required:true,digits:true,maxlength:6,minlength:6 },
+          email_id:{required:true ,email:true,maxlength:80},
+          serial_no:{required:false,
             remote: {
                       url: "<?php echo base_url(); ?>constituent/checkserialnoexist/<?php echo $rows->id; ?>",
                       type: "post"

@@ -84,14 +84,14 @@
                                   <li id="grievancemeenu"><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
                                   <li id="smsmenu"><a href="<?php echo base_url(); ?>masters/sms_template">SMS template</a></li>
                                   <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li>
-                                  <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li>
+                                  <!-- <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li> -->
                                 </ul>
                            </li>
                            <li id="constiituent_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/constituent_info.png" class="img-responsive"> Constituent  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu constiituent_menu">
-                                 <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create member</a></li>
-                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List member</a></li>
+                                 <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
+                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
                               </ul>
                            </li>
                            <li id="grievance_menu">
@@ -156,13 +156,13 @@
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                            </div>
                         </li>
-                        <li role="presentation" class="nav-item dropdown open">
+                        <!-- <li role="presentation" class="nav-item dropdown open">
                            <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                            <i class="fa fa-envelope-o"></i>
                            <span class="badge bg-green">6</span>
                            </a>
 
-                        </li>
+                        </li> -->
                      </ul>
                   </nav>
                </div>

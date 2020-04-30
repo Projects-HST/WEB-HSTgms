@@ -43,7 +43,7 @@ $('.mastermenu').css('display','block');
 $('#constituencymenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         constituency_name:{required:true }
+         constituency_name:{required:true,maxlength:80 }
      },
      messages: {
 

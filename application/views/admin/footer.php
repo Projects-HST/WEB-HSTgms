@@ -10,7 +10,11 @@
 <script>
 $(document).ready(function() {
     $('#example').DataTable({
-        "scrollX": true
+        "scrollX": true,
+        "language": {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        }
     });
 } );
 

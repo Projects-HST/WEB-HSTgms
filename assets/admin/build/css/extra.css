@@ -58,3 +58,6 @@ ul.count2 li h3{
 .fixed_height_430{
     height: 430px;
 }
+.nav-md ul.nav.child_menu li:after{
+  border-left: none;
+}

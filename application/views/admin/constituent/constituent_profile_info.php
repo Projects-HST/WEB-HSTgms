@@ -247,7 +247,11 @@
 </div>
 <script>
 $('#example_2').DataTable({
-    "scrollX": true
+    "scrollX": true,
+    "language": {
+      "search": "",
+      searchPlaceholder: "SEARCH HERE"
+    }
 });
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');

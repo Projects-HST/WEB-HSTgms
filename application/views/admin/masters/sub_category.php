@@ -77,7 +77,7 @@
                             <?php   } ?>
                     </td>
                     <td>
-              <a href="<?php echo base_url(); ?>masters/get_sub_category_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
+              <a title="EDIT" href="<?php echo base_url(); ?>masters/get_sub_category_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
 
 </td>
 

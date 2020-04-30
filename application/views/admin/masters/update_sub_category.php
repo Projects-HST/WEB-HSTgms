@@ -52,7 +52,7 @@ $('.mastermenu').css('display','block');
 $('#grievancemeenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         sub_category_name:{required:true },
+         sub_category_name:{required:true,maxlength:80 },
 
          status:{required:true }
      },

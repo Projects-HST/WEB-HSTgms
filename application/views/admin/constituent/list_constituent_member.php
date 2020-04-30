@@ -61,9 +61,9 @@
                      </td>
                      <td><a  class="badge badge-warning handle_symbol" onclick="get_grievance_modal('<?php echo $rows->id; ?>')">Add grievance</a></td>
                      <td>
-                       <a href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
-                        <a href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
-                        <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                       <a id="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                        <a title="DOCUMENTS" href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
+                        <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
                         <a title="SEND VOICE CALL" onclick="give_voice_call(<?php echo $rows->id; ?>)" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 
 
@@ -255,7 +255,7 @@
 
               <div class=" form-group row modal_row">
                 <div class="col-md-4 col-sm-6 ">
-                  <label>paguthi</label>
+                  <label>paguthi   <span class="required">*</span></label>
                   <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_petition_no(this)">
                       <option value="">-SELECT--</option>
                     <?php foreach($res_paguthi as $rows_paguthi){ ?>
@@ -265,7 +265,7 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
-                  <label>Petition no</label>
+                  <label>Petition no  <span class="required">*</span></label>
                   <input type="text" name="petition_enquiry_no" id="petition_enquiry_no" class="form-control" readonly>
                     <input type="hidden" name="constituent_id" id="g_constituent_id" class="form-control" readonly>
                 </div>
@@ -277,7 +277,7 @@
 
               <div class=" form-group row modal_row">
                 <div class="col-md-4 col-sm-6 ">
-                  <label>seeker type</label>
+                  <label>seeker type  <span class="required">*</span></label>
                   <select class="form-control" id="seeker_id" name="seeker_id" onchange="get_grievance(this)">
                     <option value="">-SELECT--</option>
                     <?php foreach($res_seeker as $rows_seeker){ ?>
@@ -287,13 +287,13 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
-                  <label>grievance type</label>
+                  <label>grievance type  <span class="required">*</span></label>
                   <select class="form-control" id="grievance_id" name="grievance_id" onchange="get_sub_category(this)">
                      <option value="">--select--</option>
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
-                  <label>grievance sub category</label>
+                  <label>grievance sub category  <span class="required">*</span></label>
                   <select class="form-control" id="sub_category_id" name="sub_category_id">
                        <option value="">-SELECT--</option>
                   </select>

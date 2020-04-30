@@ -79,7 +79,7 @@
                               <span class="badge badge-danger">Inactive</span>
                             <?php   } ?>
                     </td>
-                    <td><a href="<?php echo base_url(); ?>masters/get_paguthi_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
+                    <td><a title="EDIT" href="<?php echo base_url(); ?>masters/get_paguthi_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
 
 
                  </tr>
@@ -100,7 +100,7 @@ $('.mastermenu').css('display','block');
 $('#paguthimenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         paguthi_name:{required:true,
+         paguthi_name:{required:true,maxlength:80,
            remote: {
                      url: "<?php echo base_url(); ?>masters/checkpaguthi",
                      type: "post"

@@ -88,7 +88,7 @@
                             <?php   } ?>
                     </td>
                     <td>
-              <a href="<?php echo base_url(); ?>masters/get_grievance_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
+              <a title="EDIT" href="<?php echo base_url(); ?>masters/get_grievance_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
               <a title="ADD GRIEVANCE SUB CATEGORY" href="<?php echo base_url(); ?>masters/sub_category/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-plus-square"></i></a>
 
 </td>

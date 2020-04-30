@@ -73,13 +73,13 @@
                                      ?></td>
                                     <td><?php echo $rows->updated_at; ?></td>
                                     <td>
-                                      <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                      <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                       &nbsp;
 
-                                      <a href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                                      <a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
                                       &nbsp;
 
-                                      <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                                      <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
 
                                      </td>
                                     </tr>
@@ -133,13 +133,13 @@
                                    ?></td>
                                    <td><?php echo $rows_petition->updated_at; ?></td>
                                    <td>
-                                     <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_petition->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                     <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_petition->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                      &nbsp;
 
-                                     <a href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows_petition->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                                     <a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows_petition->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
                                      &nbsp;
 
-                                     <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows_petition->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                                     <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows_petition->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
 
                                     </td>
                                    </tr>
@@ -193,13 +193,13 @@
                                    ?></td>
                                    <td><?php echo $rows_enquiry->updated_at; ?></td>
                                    <td>
-                                     <a class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_enquiry->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                     <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_enquiry->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                      &nbsp;
 
-                                     <a href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows_enquiry->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                                     <a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows_enquiry->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
                                      &nbsp;
 
-                                     <a target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows_enquiry->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                                     <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows_enquiry->constituent_id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
 
                                     </td>
                                    </tr>
@@ -352,10 +352,18 @@
 <script>
 
 $('#example_2').DataTable({
-    "scrollX": true
+    "scrollX": true,
+    "language": {
+      "search": "",
+      searchPlaceholder: "SEARCH HERE"
+    }
 });
 $('#example_3').DataTable({
-    "scrollX": true
+    "scrollX": true,
+    "language": {
+      "search": "",
+      searchPlaceholder: "SEARCH HERE"
+    }
 });
    $('#grievance_menu').addClass('active');
    $('.grievance_menu').css('display','block');
