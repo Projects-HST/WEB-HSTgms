@@ -375,9 +375,11 @@ class constituent extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$constituent_id=$this->input->post('meeting_constituent_id');
+			$originalDate=strtoupper($this->db->escape_str($this->input->post('meeting_date')));
+			 $meeting_date = date("Y-m-d", strtotime($originalDate));
 			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('meeting_detail')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
-			$data=$this->constituentmodel->save_meeting_request($constituent_id,$meeting_detail,$meeting_status,$user_id);
+			$data=$this->constituentmodel->save_meeting_request($constituent_id,$meeting_detail,$meeting_date,$meeting_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");
@@ -391,9 +393,11 @@ class constituent extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$meeting_id=$this->input->post('meeting_id');
+			$originalDate=strtoupper($this->db->escape_str($this->input->post('update_meeting_date')));
+			 $meeting_date = date("Y-m-d", strtotime($originalDate));
 			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('update_meeting_detail')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('update_meeting_status')));
-			$data=$this->constituentmodel->update_meeting_request($meeting_id,$meeting_detail,$meeting_status,$user_id);
+			$data=$this->constituentmodel->update_meeting_request($meeting_id,$meeting_detail,$meeting_date,$meeting_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");

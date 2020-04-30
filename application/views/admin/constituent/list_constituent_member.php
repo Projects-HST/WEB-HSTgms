@@ -132,6 +132,13 @@
                  </div>
               </div>
               <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting date <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                    <input id="meeting_date" class=" form-control" name="meeting_date" type="text">
+                 </div>
+              </div>
+              <div class="item form-group">
                  <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting details<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
@@ -150,6 +157,7 @@
                <thead>
                   <tr>
                      <th style="width:600px !important;">Meeting details</th>
+                     <th>date</th>
                      <th>status</th>
                      <th>updated at</th>
                      <th>Action</th>
@@ -184,6 +192,13 @@
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="update_meeting_status" class=" form-control" name="update_meeting_status" type="text" value="REQUESTED" readonly>
+                 </div>
+              </div>
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                    <input id="update_meeting_date" class=" form-control" name="update_meeting_date" type="text">
                  </div>
               </div>
               <div class="item form-group">
@@ -329,6 +344,15 @@
    }
 </style>
 <script type="text/javascript">
+$('#meeting_date').datetimepicker({
+      format: 'DD-MM-YYYY',
+      minDate: new Date()
+
+});
+$('#update_meeting_date').datetimepicker({
+      format: 'DD-MM-YYYY',
+        minDate: new Date()
+});
 function add_plant_donation(sel){
   $('#plant_model').modal('show');
   $('#constituent_id').val(sel);
@@ -394,7 +418,7 @@ function view_meeting_request(sel){
       var len=res.length;
       for (i = 0; i < len; i++) {
         // $('#constituent_id').val(res[i].constituent_id);
-        $('#table_meeting').append('<tr><td>'+res[i].meeting_detail+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+        $('#table_meeting').append('<tr><td>'+res[i].meeting_detail+'</td><td>'+res[i].meeting_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
      }
       }else{
         $('#table_meeting').append('<tr><td colspan="4">No data</td></tr>');
@@ -425,6 +449,7 @@ var m_id=sel;
         $('#meeting_id').val(res[i].id);
         $('#update_meeting_detail').text(res[i].meeting_detail);
         $('#update_meeting_status').val(res[i].meeting_status);
+        $('#update_meeting_date').val(res[i].meeting_date);
 
      }
       }else{
@@ -544,14 +569,28 @@ function give_voice_call(sel){
     });
     $('#meeting_form').validate({
          rules: {
+                meeting_date:{required:true},
                meeting_detail:{required:true ,maxlength:200}
 
          },
          messages: {
+             meeting_date:{required:"enter the date"},
            meeting_detail:{required:"enter the meeting detail " }
 
              }
      });
+     $('#update_meeting_form').validate({
+          rules: {
+                 update_meeting_date:{required:true},
+                update_meeting_detail:{required:true ,maxlength:200}
+
+          },
+          messages: {
+              update_meeting_date:{required:"enter the date"},
+            update_meeting_detail:{required:"enter the meeting detail " }
+
+              }
+      });
      $('#grievance_form').validate({
           rules: {
                 constituent_id:{required:true},
