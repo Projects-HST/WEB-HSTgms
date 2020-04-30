@@ -18,8 +18,6 @@ $(document).ready(function() {
         searchPlaceholder: "SEARCH HERE"
       },
       "scrollX": true
-
-
     });
 } );
 
