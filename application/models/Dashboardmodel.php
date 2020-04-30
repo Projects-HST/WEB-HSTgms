@@ -221,7 +221,7 @@ Class Dashboardmodel extends CI_Model
 	
 	function get_footfall_graph($paguthi)
 	{
-		if ($paguthi == 'All')
+		/* if ($paguthi == 'All')
 		{
 			 $s_query = "SELECT
 							count(*) AS total,
@@ -243,24 +243,6 @@ Class Dashboardmodel extends CI_Model
 						 $total = $rows->total;
 						 $disp_month = $rows->disp_month;
 						
-						 $r_query = "SELECT
-										COUNT(*) AS repeted,`constituent_id`
-									FROM
-										grievance
-										WHERE DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
-									GROUP BY
-										constituent_id
-									HAVING
-										COUNT(*) > 1";
-						$r_res = $this->db->query($r_query);
-						if($r_res->num_rows()>0){
-							foreach ($r_res->result() as $r_rows)
-							{
-								 $repeted = $r_rows->repeted;
-							}
-						} else {
-								 $repeted = 0;
-						}
 						
 						$n_query = "SELECT
 										COUNT(*) AS new,`constituent_id`
@@ -273,19 +255,43 @@ Class Dashboardmodel extends CI_Model
 										COUNT(*) = 1";
 						$n_res = $this->db->query($n_query);
 						if($n_res->num_rows()>0){
+							$disp_new = 0; 
 							foreach ($n_res->result() as $n_rows)
 							{
 								 $new = $n_rows->new;
+								 $disp_new = ($disp_new +  $new);
 							}
 						} else {
-								 $new = 0;
+								 $disp_new = 0;
 						}
-
+					
+						
+						 $r_query = "SELECT
+										COUNT(*) AS repeted,`constituent_id`
+									FROM
+										grievance
+										WHERE DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
+									GROUP BY
+										constituent_id
+									HAVING
+										COUNT(*) > 1";
+						$r_res = $this->db->query($r_query);
+						if($r_res->num_rows()>0){
+							$disp_repeted =0;
+							foreach ($r_res->result() as $r_rows)
+							{
+								 $repeted = $r_rows->repeted;
+								 $disp_repeted = ($disp_repeted +  $repeted);
+							}
+						} else {
+								 $disp_repeted = 0;
+						}
+						
     			       $graph_result[]  = (object) array(
     					   "disp_month" => $disp_month,
     					   "total_grev" => $total,
-						   "repeted_grev" => $repeted,
-						   "new_grev" => $new
+						   "new_grev" => $disp_new,
+						   "repeted_grev" => $disp_repeted
     			        ); 
     		         }	
 				}
@@ -305,55 +311,61 @@ Class Dashboardmodel extends CI_Model
 								disp_month";
 				$s_res = $this->db->query($s_query);
     			if($s_res->num_rows()>0){
+					$disp_repeted =0;
+					 $disp_new = 0;
     			    foreach ($s_res->result() as $rows)
     		        {
 						 $month_year = $rows->month_year;
 						 $total = $rows->total;
 						 $disp_month = $rows->disp_month;
 						
-						$n_query = "SELECT
+						echo $n_query = "SELECT
 										COUNT(*) AS new,`constituent_id`
 									FROM
 										grievance
-										WHERE DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
+										WHERE paguthi_id = '$paguthi' AND DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
 									GROUP BY
 										constituent_id
 									HAVING
 										COUNT(*) = 1";
 						$n_res = $this->db->query($n_query);
 						if($n_res->num_rows()>0){
+							$disp_new = 0; 
 							foreach ($n_res->result() as $n_rows)
 							{
 								 $new = $n_rows->new;
+								 $disp_new = ($disp_new +  $new);
 							}
 						} else {
-								 $new = 0;
+								 $disp_new = 0;
 						}
 						
 						$r_query = "SELECT
 										COUNT(*) AS repeted,`constituent_id`
 									FROM
 										grievance
-										WHERE DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
+										WHERE paguthi_id = '$paguthi' AND DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
 									GROUP BY
 										constituent_id
 									HAVING
 										COUNT(*) > 1";
 						$r_res = $this->db->query($r_query);
 						if($r_res->num_rows()>0){
+							$disp_repeted =0;
 							foreach ($r_res->result() as $r_rows)
 							{
 								 $repeted = $r_rows->repeted;
+								 $disp_repeted = ($disp_repeted +  $repeted);
 							}
 						} else {
-								 $repeted = 0;
+								 $disp_repeted = 0;
 						}
 
     			       $graph_result[]  = (object) array(
     					   "disp_month" => $disp_month,
     					   "total_grev" => $total,
-						   "repeted_grev" => $repeted,
-						   "new_grev" => $new
+						   "new_grev" => $disp_new,
+						   "repeted_grev" => $disp_repeted
     			        ); 
     		         }	
 				} else {
@@ -366,40 +378,190 @@ Class Dashboardmodel extends CI_Model
 				}
 		}
 
-		return $graph_result; 
+		return $graph_result;  */
 		
-		/* if ($paguthi == 'All')
+		if ($paguthi == 'All')
 		{
 			$query="SELECT
-					COUNT(*) AS total_grev,
-					DATE_FORMAT(grievance_date, '%M %Y') AS disp_month
+					DATE_FORMAT(A1.grievance_date, '%M %y') AS disp_month,
+					COALESCE(A2.entry, 0) AS total,
+					COALESCE(A3.entry, 0) AS new_grev,
+					COALESCE(A4.entry, 0) AS repeted_grev
 				FROM
-					grievance
-				WHERE
-					PERIOD_DIFF(
-						DATE_FORMAT(NOW(), '%Y%m'),
-						DATE_FORMAT(`grievance_date`, '%Y%m')) < 12
+					grievance A1
+				LEFT JOIN(
+					SELECT
+						DATE_FORMAT(G.grievance_date, '%M %y') AS disp_month,
+						COUNT(*) AS entry
+					FROM
+						grievance G
 					GROUP BY
-						disp_month";
+						YEAR(G.grievance_date),
+						MONTH(G.grievance_date)
+				) A2
+				ON
+					DATE_FORMAT(A1.grievance_date, '%M %y') = A2.disp_month
+				LEFT JOIN(
+					SELECT
+						COUNT(*) AS entry,
+						DATE_FORMAT(b.min_date, '%M %y') AS disp_month
+					FROM
+						grievance a
+					JOIN(
+						SELECT
+							id,
+							constituent_id,
+							MIN(grievance_date) AS min_date
+						FROM
+							grievance
+						GROUP BY
+							constituent_id
+					) b
+				ON
+					a.id = b.id
+				GROUP BY
+					YEAR(b.min_date),
+					MONTH(b.min_date)
+				DESC
+				) A3
+				ON
+					DATE_FORMAT(A1.grievance_date, '%M %y') = A3.disp_month
+				LEFT JOIN(
+					SELECT
+						DATE_FORMAT(k.grievance_date, '%M %y') AS disp_month,
+						COUNT(*) AS entry
+					FROM
+						grievance g
+					JOIN(
+						SELECT
+							a.id,
+							a.constituent_id,
+							a.grievance_date
+						FROM
+							grievance a
+						LEFT JOIN(
+							SELECT
+								id,
+								constituent_id,
+								MIN(grievance_date) AS min_date
+							FROM
+								grievance
+							GROUP BY
+								constituent_id
+						) b
+					ON
+						a.constituent_id = b.constituent_id
+					WHERE
+						b.id NOT IN(a.id)
+					) k
+				ON
+					g.id = k.id
+				GROUP BY
+					YEAR(k.grievance_date),
+					MONTH(k.grievance_date)
+				DESC
+				) A4
+				ON
+					DATE_FORMAT(A1.grievance_date, '%M %y') = A4.disp_month
+					GROUP BY
+						YEAR(A1.grievance_date),
+						MONTH(A1.grievance_date)";
 			$res=$this->db->query($query);
 			$result=$res->result();
 			return $result;
 		} else {
 			$query="SELECT
-					COUNT(*) AS total_grev,
-					DATE_FORMAT(grievance_date, '%M %Y') AS disp_month
+					DATE_FORMAT(A1.grievance_date, '%M %y') AS disp_month,
+					COALESCE(A2.entry, 0) AS total,
+					COALESCE(A3.entry, 0) AS new_grev,
+					COALESCE(A4.entry, 0) AS repeted_grev
 				FROM
-					grievance
-				WHERE paguthi_id = '$paguthi' AND
+					grievance A1
+				LEFT JOIN(
+					SELECT
+						DATE_FORMAT(G.grievance_date, '%M %y') AS disp_month,
+						COUNT(*) AS entry
+					FROM
+						grievance G
+					GROUP BY
+						YEAR(G.grievance_date),
+						MONTH(G.grievance_date)
+				) A2
+				ON
+					DATE_FORMAT(A1.grievance_date, '%M %y') = A2.disp_month
+				LEFT JOIN(
+					SELECT
+						COUNT(*) AS entry,
+						DATE_FORMAT(b.min_date, '%M %y') AS disp_month
+					FROM
+						grievance a
+					JOIN(
+						SELECT
+							id,
+							constituent_id,
+							MIN(grievance_date) AS min_date
+						FROM
+							grievance
+						GROUP BY
+							constituent_id
+					) b
+				ON
+					a.id = b.id
+				GROUP BY
+					YEAR(b.min_date),
+					MONTH(b.min_date)
+				DESC
+				) A3
+				ON
+					DATE_FORMAT(A1.grievance_date, '%M %y') = A3.disp_month
+				LEFT JOIN(
+					SELECT
+						DATE_FORMAT(k.grievance_date, '%M %y') AS disp_month,
+						COUNT(*) AS entry
+					FROM
+						grievance g
+					JOIN(
+						SELECT
+							a.id,
+							a.constituent_id,
+							a.grievance_date
+						FROM
+							grievance a
+						LEFT JOIN(
+							SELECT
+								id,
+								constituent_id,
+								MIN(grievance_date) AS min_date
+							FROM
+								grievance
+							GROUP BY
+								constituent_id
+						) b
+					ON
+						a.constituent_id = b.constituent_id
+					WHERE
+						b.id NOT IN(a.id)
+					) k
+				ON
+					g.id = k.id
+				GROUP BY
+					YEAR(k.grievance_date),
+					MONTH(k.grievance_date)
+				DESC
+				) A4
+				ON
+					DATE_FORMAT(A1.grievance_date, '%M %y') = A4.disp_month
+				WHERE
 					PERIOD_DIFF(
 						DATE_FORMAT(NOW(), '%Y%m'),
-						DATE_FORMAT(`grievance_date`, '%Y%m')) < 12
+						DATE_FORMAT(A1.grievance_date, '%Y%m')) < 12 AND paguthi_id = '$paguthi'
 					GROUP BY
-						disp_month";
+						YEAR(A1.grievance_date),
+						MONTH(A1.grievance_date)";
 			$res=$this->db->query($query);
 			$result=$res->result();
 			return $result; 
-		} */
+		} 
 	}
 	
 	function get_grievance_graph($paguthi)
