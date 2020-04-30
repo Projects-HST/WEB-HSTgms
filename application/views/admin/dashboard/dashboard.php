@@ -278,8 +278,22 @@
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month', $rows->total_grev, $rows->new_grev, $rows->repeted_grev]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					$cal_repeted_grev = 0;
+					$cal_new_grev = 0;
+				
+					$cal_repeted_grev = $rows->repeted_grev;
+					$cal_new_grev = $rows->new_grev;
+					
+					if ($cal_repeted_grev >='2'){
+						$disp_repeted_grev = ($cal_repeted_grev -1);
+						$disp_new_grev = ($cal_new_grev+1);
+					} else {
+						$disp_repeted_grev = $cal_repeted_grev;
+						$disp_new_grev = $cal_new_grev;
+					}
+					echo "['$rows->disp_month', $rows->total_grev, $disp_new_grev, $disp_repeted_grev]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
 				$i++;
+				
 				}
 			} else {
 				echo "['Nill', 0,0,0]";
