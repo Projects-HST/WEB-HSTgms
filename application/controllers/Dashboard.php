@@ -32,8 +32,8 @@ class Dashboard extends CI_Controller {
 		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_value);
 		$datas['grievance_result']=$this->dashboardmodel->get_grievance_graph($paguthi_value);
 		$datas['meeting_result']=$this->dashboardmodel->get_meeeting_graph($paguthi_value);
-		
-		//print_r($datas['footfall_result']);
+
+		//print_r($datas['footfall_result']); 
 
 		if($user_type==1 || $user_type==2){
 			$this->load->view('admin/header');

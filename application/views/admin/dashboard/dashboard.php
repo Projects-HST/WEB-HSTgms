@@ -278,7 +278,7 @@
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month', $rows->total_grev, 5, 2]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					echo "['$rows->disp_month', $rows->total_grev, $rows->new_grev, $rows->repeted_grev]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
 				$i++;
 				}
 			} else {
