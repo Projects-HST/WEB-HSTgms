@@ -143,12 +143,55 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
 		
+		$frmDate = "";
+		$toDate = "";
+		
 		$frmDate=$this->input->post('frmDate');
-		$datas['dfromDate'] = $frmDate;
+		$getfrmDate=$this->uri->segment(3);
+		
 		$toDate=$this->input->post('toDate');
+		$gettoDate=$this->uri->segment(4);
+		
+		if ($frmDate!=''){
+			$frmDate=$this->input->post('frmDate');
+		}else if ($getfrmDate!=''){
+			$frmDate=$this->uri->segment(3);
+		}
+		
+		if ($toDate!=''){
+			$toDate=$this->input->post('toDate');
+		}else if ($gettoDate!=''){
+			$toDate=$this->uri->segment(4);
+		}
+		
+		
+		$datas['dfromDate'] = $frmDate;
 		$datas['dtoDate'] = $toDate;
 		
+		
 		$datas['res']=$this->reportmodel->get_meeting_report($frmDate,$toDate);
+		
+		if($user_type=='1'){
+			$this->load->view('admin/header');		
+			$this->load->view('admin/report/meeting_report',$datas);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+	
+	public function meeting_update()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$datas['paguthi'] = $this->usermodel->list_paguthi();
+
+		$meeting_id=base64_decode($this->uri->segment(3))/98765;
+		$frmDate=$this->uri->segment(4);
+		$toDate=$this->uri->segment(5);
+		
+		$datas['res']=$this->reportmodel->meeting_update($meeting_id,$user_id,$frmDate,$toDate);
 		
 		if($user_type=='1'){
 			$this->load->view('admin/header');		

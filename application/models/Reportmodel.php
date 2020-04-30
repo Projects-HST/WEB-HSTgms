@@ -254,6 +254,21 @@ Class Reportmodel extends CI_Model
 		return $resultset->result();
 	}
 	
+	
+	function meeting_update($meeting_id,$user_id,$frmDate,$toDate)
+	{
+		$update="UPDATE meeting_request SET meeting_status='COMPLETED',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+		$result=$this->db->query($update);
+	
+		if ($result) {
+		   $this->session->set_flashdata('msg', 'You have just updated the meeting request!');
+			redirect(base_url().'report/meetings/'.$frmDate.'/'.$toDate);
+		} else {
+		   $this->session->set_flashdata('msg', 'Failed to Update');
+			redirect(base_url().'reportmeetings');
+		}
+	}
+	
 	function get_staff_report($frmDate,$toDate)
 	{
 		$dateTime1 = new DateTime($frmDate);
