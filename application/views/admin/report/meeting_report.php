@@ -57,9 +57,9 @@
 					<?php 
 						$meeting_status = $rows->meeting_status;
 						if ($meeting_status == 'REQUESTED'){ ?>
-								<td><a href="<?php echo base_url(); ?>report/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');"><?php  echo $rows->meeting_status; ?></a></td>
+								<td><a href="<?php echo base_url(); ?>report/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>
 						<?php } else { ?>
-								<td><?php  echo $meeting_status; ?></td>
+								<td style="font-size:13px;font-weight:bold;color:#1fae03;"><?php  echo $meeting_status; ?></td>
 						<?php } ?>
 
                     <td><?php  echo $rows->created_by; ?></td>

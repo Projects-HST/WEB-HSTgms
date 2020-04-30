@@ -31,7 +31,7 @@
 							<option value="COMPLETED">COMPLETED</option>
 						</select><script> $('#status').val('<?php echo $dstatus; ?>');</script>
 				 </div>
-				  <label class="col-form-label col-md-2 col-sm-2 label-align">Area <span class="required">*</span></label>
+				  <label class="col-form-label col-md-2 col-sm-2 label-align">Paguthi <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 						<select class="form-control" name="paguthi" id ="paguthi" >
 							<option value="ALL">ALL</option>
@@ -58,7 +58,7 @@
                    <th>Name</th>
 				   <th>Phone</th>
 				    <th>Category</th>
-				   <th>Status</th>
+				   <th>Grievance Status</th>
                    <th>Created by</th>
 
                 </tr>
