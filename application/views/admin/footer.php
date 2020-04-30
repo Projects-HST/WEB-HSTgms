@@ -20,11 +20,14 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#export_example').DataTable( {
+		"scrollX": true,
+		"language": {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        },
         dom: 'Bfrtip',
         buttons: [
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
+            'excelHtml5'
         ]
     } );
 } );
