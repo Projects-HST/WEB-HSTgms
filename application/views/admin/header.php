@@ -156,13 +156,13 @@
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                            </div>
                         </li>
-                        <li role="presentation" class="nav-item dropdown open">
+                        <!-- <li role="presentation" class="nav-item dropdown open">
                            <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                            <i class="fa fa-envelope-o"></i>
                            <span class="badge bg-green">6</span>
                            </a>
 
-                        </li>
+                        </li> -->
                      </ul>
                   </nav>
                </div>
