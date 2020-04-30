@@ -66,7 +66,7 @@ $('#master_form').validate({
      rules: {
          paguthi_id:{required:true
              },
-         ward_name:{required:true
+         ward_name:{required:true,maxlength:10
                  },
          status:{required:true }
      },

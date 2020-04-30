@@ -64,7 +64,7 @@ $('.mastermenu').css('display','block');
 $('#grievancemenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         grievance_name:{required:true },
+         grievance_name:{required:true,maxlength:240 },
 
          status:{required:true }
      },

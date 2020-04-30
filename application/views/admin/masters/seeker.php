@@ -73,7 +73,7 @@
                               <span class="badge badge-danger">Inactive</span>
                             <?php   } ?>
                     </td>
-                    <td><a href="<?php echo base_url(); ?>masters/get_seeker_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
+                    <td><a title="EDIT" href="<?php echo base_url(); ?>masters/get_seeker_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
 
 
                  </tr>

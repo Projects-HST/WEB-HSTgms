@@ -106,9 +106,9 @@ $('.mastermenu').css('display','block');
 $('#wardmenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         booth_name:{required:true
+         booth_name:{required:true,maxlength:40
              },
-         booth_address:{required:true
+         booth_address:{required:true,maxlength:240
                  },
          status:{required:true }
      },
