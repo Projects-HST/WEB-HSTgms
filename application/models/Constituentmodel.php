@@ -287,8 +287,8 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-	function save_meeting_request($constituent_id,$meeting_detail,$meeting_status,$user_id){
-		$insert="INSERT INTO meeting_request(constituent_id,meeting_detail,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_detail','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
+	function save_meeting_request($constituent_id,$meeting_detail,$meeting_date,$meeting_status,$user_id){
+		$insert="INSERT INTO meeting_request(constituent_id,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
 		$result   = $this->db->query($insert);
 		if($result){
 				$data=array("status"=>"success","msg"=>"meeting request saved Successfully","class"=>"alert alert-success");
@@ -299,8 +299,8 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-	function update_meeting_request($meeting_id,$meeting_detail,$meeting_status,$user_id){
-		$query="UPDATE meeting_request SET meeting_detail='$meeting_detail',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+	function update_meeting_request($meeting_id,$meeting_detail,$meeting_date,$meeting_status,$user_id){
+		$query="UPDATE meeting_request SET meeting_detail='$meeting_detail',meeting_date='$meeting_date',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
 		$result   = $this->db->query($query);
 		if($result){
 				$data=array("status"=>"success","msg"=>"meeting request updated Successfully","class"=>"alert alert-success");

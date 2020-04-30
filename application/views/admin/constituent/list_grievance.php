@@ -350,6 +350,7 @@
 
 </style>
 <script>
+
 $('#example_2').DataTable({
     "scrollX": true
 });
