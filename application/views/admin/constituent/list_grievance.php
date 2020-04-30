@@ -352,10 +352,18 @@
 <script>
 
 $('#example_2').DataTable({
-    "scrollX": true
+    "scrollX": true,
+    "language": {
+      "search": "",
+      searchPlaceholder: "SEARCH HERE"
+    }
 });
 $('#example_3').DataTable({
-    "scrollX": true
+    "scrollX": true,
+    "language": {
+      "search": "",
+      searchPlaceholder: "SEARCH HERE"
+    }
 });
    $('#grievance_menu').addClass('active');
    $('.grievance_menu').css('display','block');

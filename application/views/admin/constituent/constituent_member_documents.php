@@ -142,7 +142,11 @@ $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');
 $('#example_2').DataTable({
-    "scrollX": true
+    "scrollX": true,
+    "language": {
+      "search": "",
+      searchPlaceholder: "SEARCH HERE"
+    }
 });
 $('#master_form').validate({
      rules: {
