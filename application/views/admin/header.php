@@ -62,20 +62,23 @@
 						<?php } ?>
                      </div>
                      <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2><?php echo $this->session->userdata('name');?></h2>
+
+                        <h2 style="margin-top:9px;"><?php echo $this->session->userdata('name');?></h2>
                      </div>
                   </div>
+
                   <br />
                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                      <hr>
                      <div class="menu_section">
-                        <h3>Menu </h3>
+                        <h3> MENU </h3>
+                          <hr>
                         <ul class="nav side-menu">
                            <li>
-                              <a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive"></i> Dashboard</span></a>
+                              <a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Dashboard</span></a>
                            </li>
                            <li id="mastermenu">
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/master.png" class="img-responsive"> Masters <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/master.png" class="img-responsive menu_img"> Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu mastermenu">
                                   <li id="constituencymenu"><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
                                   <li id="paguthimenu"><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
@@ -88,21 +91,21 @@
                                 </ul>
                            </li>
                            <li id="constiituent_menu">
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/constituent_info.png" class="img-responsive"> Constituent  <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/constituent_info.png" class="img-responsive menu_img"> Constituent  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu constiituent_menu">
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
                               </ul>
                            </li>
                            <li id="grievance_menu">
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/grievance.png" class="img-responsive"> Grievance <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/grievance.png" class="img-responsive menu_img"> Grievance <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu grievance_menu">
                                  <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li>
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
                            <li>
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive"> Users <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive menu_img"> Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>users/add">Add user</a></li>
                                  <li><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
@@ -110,7 +113,7 @@
                            </li>
 
                            <li>
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/report.png" class="img-responsive"> Report  <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/category">Category</a></li>
@@ -122,7 +125,7 @@
                               </ul>
                            </li>
                            <li>
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/setting.png" class="img-responsive"> Settings <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/setting.png" class="img-responsive menu_img"> Settings <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>login/profile">Profile</a></li>
                                  <li><a href="<?php echo base_url(); ?>login/password">Password update</a></li>

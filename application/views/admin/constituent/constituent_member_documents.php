@@ -78,7 +78,7 @@
                   <tr>
                       <td><?php echo $i; ?></td>
                      <td><?php echo $rows->doc_name; ?></td>
-                     <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows->doc_file_name ;?>" target="_blank" class="badge badge-warning">download here</a></td>
+                     <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows->doc_file_name ;?>" target="_blank" class="badge badge-download">download here</a></td>
                      <td><?php echo $rows->updated_at ;?></td>
                      <td><button class="babdge badge-danger" onclick="delete_document('<?php echo $rows->id; ?>')"><i class="fa fa-times" aria-hidden="true"></i></button></td>
 
@@ -114,7 +114,7 @@
                            <tr>
                                <td><?php echo $i; ?></td>
                               <td><?php echo $rows_doc->doc_name; ?></td>
-                              <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows_doc->doc_file_name ;?>" target="_blank" class="badge badge-warning">download here</a></td>
+                              <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows_doc->doc_file_name ;?>" target="_blank" class="badge badge-download">download here</a></td>
                               <td><?php echo $rows_doc->updated_at ;?></td>
                               <td><button class="babdge badge-danger" onclick="delete_document('<?php echo $rows_doc->id; ?>')"><i class="fa fa-times" aria-hidden="true"></i></button></td>
 

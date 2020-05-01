@@ -68,3 +68,44 @@ ul.count2 li h3{
 table {
   margin-bottom: 0px !important;
 }
+.img-circle.profile_img{
+  width: 50%;
+}
+.menu_img{
+  margin-top: -10px;
+}
+.badge-success{
+  background-color: #6aa84e;
+  color:#fff;
+}
+.badge-danger{
+    background-color: #cb2027;
+    color:#fff;
+}
+.badge-add{
+  background-color: #4696d1;
+  color:#fff !important;
+}
+.badge-view{
+  background-color: #fdbb34;
+  color:#fff !important;
+}
+.badge-download{
+  background-color:#efad4d;
+  color:#fff !important;
+}
+.badge-reference{
+  background-color:#807f7f;
+  color:#fff !important;
+}
+.badge-processing{
+  background-color:#f49025;
+  color:#fff !important;
+}
+.badge-completed{
+  background-color:#6aa84e;
+  color:#fff !important;
+}
+hr{
+  background-color:#fff;
+}

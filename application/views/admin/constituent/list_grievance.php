@@ -58,17 +58,17 @@
                                     <td><?php echo $rows->sub_category_name; ?></td>
                                     <td><?php echo $rows->petition_enquiry_no; ?></td>
                                     <td><?php if(empty($rows->reference_note)){ ?>
-                                      <a class="badge badge-info handle_symbol" onclick="get_set_reference('<?php echo $rows->id; ?>')">Set reference</a>
+                                      <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows->id; ?>')">Set reference</a>
                                    <?php }else{ ?>
-                                     <a class="badge badge-warning handle_symbol" onclick="get_set_reference('<?php echo $rows->id; ?>')"><?php echo $rows->reference_note; ?></a>
+                                     <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows->id; ?>')"><?php echo $rows->reference_note; ?></a>
                                    <?php } ?></td>
                                     <td><?php $status= $rows->status;
                                         if($status=='COMPLETED'){ ?>
-                                          <a class="badge badge-success handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">COMPLETED</a>
+                                          <a class="badge badge-completed handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">COMPLETED</a>
                                       <?php  }else if($status=='ONHOLD'){ ?>
                                         <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">ONHOLD</a>
                                         <?php }else{ ?>
-                                          <a class="badge badge-warning handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">PROCESSING</a>
+                                          <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">PROCESSING</a>
                                         <?php  }
                                      ?></td>
                                     <td><?php echo $rows->updated_at; ?></td>
@@ -118,17 +118,17 @@
                                    <td><?php echo $rows_petition->sub_category_name; ?></td>
                                    <td><?php echo $rows_petition->petition_enquiry_no; ?></td>
                                    <td><?php if(empty($rows_petition->reference_note)){ ?>
-                                     <a class="badge badge-info handle_symbol" onclick="get_set_reference('<?php echo $rows_petition->id; ?>')">Set reference</a>
+                                     <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows_petition->id; ?>')">Set reference</a>
                                   <?php }else{ ?>
-                                    <a class="badge badge-warning handle_symbol" onclick="get_set_reference('<?php echo $rows_petition->id; ?>')"><?php echo $rows_petition->reference_note; ?></a>
+                                    <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows_petition->id; ?>')"><?php echo $rows_petition->reference_note; ?></a>
                                   <?php } ?></td>
                                   <td><?php $status= $rows_petition->status;
                                       if($status=='COMPLETED'){ ?>
-                                        <a class="badge badge-success handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">COMPLETED</a>
+                                        <a class="badge badge-completed handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">COMPLETED</a>
                                     <?php  }else if($status=='ONHOLD'){ ?>
                                       <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">ONHOLD</a>
                                       <?php }else{ ?>
-                                        <a class="badge badge-warning handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">PROCESSING</a>
+                                        <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">PROCESSING</a>
                                       <?php  }
                                    ?></td>
                                    <td><?php echo $rows_petition->updated_at; ?></td>
@@ -178,17 +178,17 @@
                                    <td><?php echo $rows_enquiry->sub_category_name; ?></td>
                                    <td><?php echo $rows_enquiry->petition_enquiry_no; ?></td>
                                    <td><?php if(empty($rows_enquiry->reference_note)){ ?>
-                                     <a class="badge badge-info handle_symbol" onclick="get_set_reference('<?php echo $rows_enquiry->id; ?>')">Set reference</a>
+                                     <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows_enquiry->id; ?>')">Set reference</a>
                                   <?php }else{ ?>
-                                    <a class="badge badge-warning handle_symbol" onclick="get_set_reference('<?php echo $rows_enquiry->id; ?>')"><?php echo $rows_enquiry->reference_note; ?></a>
+                                    <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows_enquiry->id; ?>')"><?php echo $rows_enquiry->reference_note; ?></a>
                                   <?php } ?></td>
                                   <td><?php $status= $rows_enquiry->status;
                                       if($status=='COMPLETED'){ ?>
-                                        <a class="badge badge-success handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">COMPLETED</a>
+                                        <a class="badge badge-completed handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">COMPLETED</a>
                                     <?php  }else if($status=='ONHOLD'){ ?>
                                       <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">ONHOLD</a>
                                       <?php }else{ ?>
-                                        <a class="badge badge-warning handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">PROCESSING</a>
+                                        <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">PROCESSING</a>
                                       <?php  }
                                    ?></td>
                                    <td><?php echo $rows_enquiry->updated_at; ?></td>

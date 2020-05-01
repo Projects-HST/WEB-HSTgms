@@ -52,8 +52,8 @@
 </div>
 
 
-<div id="register" class="animate form registration_form">
-	<img src="<?php echo base_url(); ?>assets/images/forgotpassword.png" class="img-responsive login_img">
+<div id="register" class="animate form registration_form" style="text-align:center;">
+	<img style="width:250px;" src="<?php echo base_url(); ?>assets/images/forgotpassword.png" class="img-responsive login_img">
 
 <section class="login_content">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
@@ -76,6 +76,10 @@
 </div>
 <style>
 .green_btn{
+	background-color: #31aa15;
+	border: none;
+}
+.green_btn:hover{
 	background-color: #31aa15;
 	border: none;
 }

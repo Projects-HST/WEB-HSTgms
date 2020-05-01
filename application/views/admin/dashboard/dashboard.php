@@ -272,19 +272,19 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
           var data = google.visualization.arrayToDataTable([
-          ['Month', 'TOTAL', 'NEW', 'REPETED'],
-          <?php 
-			  if (count($footfall_result) >0) { 
+          ['Month', 'TOTAL', 'NEW', 'REPEATED'],
+          <?php
+			  if (count($footfall_result) >0) {
 				$i=1;
 				$rec_count = count($footfall_result);
 				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month', $rows->total, $rows->new_grev, $rows->repeted_grev]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; } 
+					echo "['$rows->disp_month', $rows->total, $rows->new_grev, $rows->repeted_grev]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; }
 				$i++;
-				
+
 				}
 			} else {
 				echo "['Nill', 0,0,0]";
-			} 
+			}
 		?>
         ]);
         var options = {

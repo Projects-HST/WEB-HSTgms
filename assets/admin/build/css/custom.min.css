@@ -1671,7 +1671,8 @@ body .container.body .right_col {
 }
 
 body {
-    color: #73879C;
+    /* color: #73879C; */
+    color:#6c757d;
     background: #31aa15;
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
@@ -3894,8 +3895,8 @@ a.btn-danger {
 }
 
 .btn-success {
-    background: #26B99A;
-    border: 1px solid #169F85
+    background:  #31aa15;
+    border: 1px solid  #31aa15;
 }
 
 .btn-success:hover,
@@ -3903,7 +3904,7 @@ a.btn-danger {
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-    background: #169F85
+    background:  #31aa15;
 }
 
 .btn-dark {
