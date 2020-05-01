@@ -73,12 +73,12 @@
 					<td><?php echo date('d-m-Y', strtotime($rows->dob)); ?></td>
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->door_no; ?><br><?php echo $rows->address; ?><br><?php echo $rows->pin_code; ?></td>
-					<?php 
-					if ($const_id == $birth_id){ ?>
-						<td style="font-size:13px;font-weight:bold;color:#1fae03;">Send</td>
-					<?php } else { ?>
-						<td><a href="<?php echo base_url(); ?>report/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->id*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</a></td>	
-					<?php } ?>
+                    <td><?php 
+						if ($const_id == $birth_id){ ?>
+								Send
+						<?php } else { ?>
+								<a href="<?php echo base_url(); ?>report/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');">Not Send</a>
+						<?php } ?></td>
                  </tr>
             <?php $i++; } ?>
              </tbody>
