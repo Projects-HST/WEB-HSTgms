@@ -69,10 +69,10 @@
 
 
                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                      <hr>
+                  
                      <div class="menu_section">
                         <h3> MENU </h3>
-                          <hr>
+
                         <ul class="nav side-menu">
                            <li>
                               <a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Dashboard</span></a>

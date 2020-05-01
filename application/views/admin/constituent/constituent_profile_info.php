@@ -10,11 +10,12 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
-               <div class="x_title">
+              <?php foreach($res as $rows){} ?>
+               <!-- <div class="x_title">
                   <h2>User Report <small>Activity report</small></h2>
-<?php foreach($res as $rows){} ?>
+
                   <div class="clearfix"></div>
-               </div>
+               </div> -->
                <div class="x_content">
                   <div class="col-md-2 col-sm-3  profile_left">
                      <div class="profile_img">
