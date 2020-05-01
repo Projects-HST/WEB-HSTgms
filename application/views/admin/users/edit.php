@@ -25,7 +25,7 @@
 	<?php endif; ?>
 <br>
 	<form method="post" action="<?php echo base_url(); ?>users/update_user" class="form-horizontal" enctype="multipart/form-data" id="profile">
-	
+
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Role <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<div class="item form-group">
-		
+
 		<label class="col-form-label col-md-2 col-sm-2 label-align">Name <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
@@ -67,10 +67,10 @@
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" value="<?php echo $rows->phone_number; ?>" maxlength='10'>
 		</div>
-		
+
 	</div>
 		<div class="item form-group">
-		
+
 		<div class="col-md-6 col-sm-6"></div>
 	</div>
 	<div class="item form-group">
@@ -82,9 +82,9 @@
 		<?php
 		$user_pic  = trim($rows->profile_pic );
 		if ($user_pic != '') {?>
-			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-circle profile_img">
+			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-responsive" style="width:150px;">
 		<?php } else { ?>
-			<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img">
+			<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-responsive profile_img" style="width:150px;">
 		<?php } ?>
 		</div></div>
 	</div>
@@ -105,10 +105,10 @@
 			</select><script> $('#status').val('<?php echo $rows->status; ?>');</script>
 		</div>
 		<div class="col-md-6 col-sm-6"></div>
-		
+
 	</div>
 	<div class="ln_solid"></div>
-	
+
 	<div class="item form-group">
 	<div class="col-md-6 col-sm-6 offset-md-3">
 			<input type="hidden" name="staff_id" value="<?php echo $rows->id; ?>">
@@ -131,7 +131,7 @@
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');
-	
+
 	$('#profile').validate({
 		rules: {
 			role: {
@@ -164,7 +164,7 @@
 				required: true
 			},
 			new_profile_pic:{required:false,accept: "jpg,jpeg,png",filesize: 1048576},
-			
+
 		},
 		messages: {
 			role: "Select role",
@@ -189,7 +189,7 @@
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"
 			}
-			
+
 		}
 		});
 

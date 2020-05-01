@@ -63,11 +63,11 @@
                      </div>
                      <div class="profile_info">
 
-                        <h2 style="margin-top:9px;"><?php echo $this->session->userdata('name');?></h2>
+                        <h2 style="margin-top:9px;text-align:center;"><?php echo $this->session->userdata('name');?></h2>
                      </div>
                   </div>
 
-                  <br />
+
                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                       <hr>
                      <div class="menu_section">

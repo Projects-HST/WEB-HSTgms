@@ -27,15 +27,15 @@
 	<?php endif; ?>
 <br>
 	<form method="post" action="<?php echo base_url(); ?>login/profile_update" class="form-horizontal" enctype="multipart/form-data" id="profile">
-	
-	
+
+
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
 		<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
 	</div>
 	</div>
-	
+
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Phone Number <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6 ">
@@ -56,7 +56,7 @@
 		<textarea id="address" name="address" rows="3" class="form-control"><?php echo $rows->address; ?></textarea>
 	</div>
 	</div>
-	
+
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6">
@@ -72,9 +72,9 @@
 		<div class="profile_pic">
 		<?php
 		if ($user_pic != '') {?>
-			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-circle profile_img">
+			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-responsive profile_img" style="width:150px;">
 		<?php } else { ?>
-			<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-circle profile_img">
+			<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-responsive profile_img" style="width:150px;">
 		<?php } ?>
 		</div>
 	</div>
@@ -102,7 +102,7 @@
 $.validator.addMethod('filesize', function (value, element, param) {
 	return this.optional(element) || (element.files[0].size <= param)
 }, 'File size must be less than 1 MB');
-	
+
 		$('#profile').validate({
 		rules: {
 			name: {

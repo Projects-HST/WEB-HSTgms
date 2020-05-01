@@ -71,6 +71,10 @@ table {
 .img-circle.profile_img{
   width: 50%;
 }
+.profile_pic{
+  width: 90%;
+  text-align: center;
+}
 .menu_img{
   margin-top: -10px;
 }
