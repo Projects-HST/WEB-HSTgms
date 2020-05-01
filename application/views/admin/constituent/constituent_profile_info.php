@@ -151,7 +151,7 @@
                                   </table>
                            </div>
                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                             <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                             <table id="example_4" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
                                    <tr>
                                       <th>S.no</th>
@@ -246,14 +246,40 @@
    </div>
 </div>
 <script>
-$(document).ready(function() {
-    $('#example_2').DataTable({
 
+
+$(document).ready(function () {
+    $('#example_2').DataTable({
+      "scrollX": true,
+        responsive: true,
+        language: {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        }
+    });
+    $('#example_4').DataTable({
+      "scrollX": true,
+        responsive: true,
+        language: {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        }
     });
     $('#example_3').DataTable({
-
+      "scrollX": true,
+        responsive: true,
+        "language": {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        }
     });
-} );
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust()
+           .responsive.recalc();
+    });
+});
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');
