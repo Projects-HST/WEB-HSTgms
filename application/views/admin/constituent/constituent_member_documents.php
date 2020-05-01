@@ -97,7 +97,7 @@
                      </div>
                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                        <div class="x_panel">
-                    <table id="example_2" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                    <table id="example_2" class="table table-striped table-bordered dt-responsive" style="width:100%">
                        <thead>
                           <tr>
                              <th>S.no</th>
@@ -142,7 +142,6 @@ $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#list_constituent_menu').addClass('active');
 $('#example_2').DataTable({
-    "scrollX": true,
     "language": {
       "search": "",
       searchPlaceholder: "SEARCH HERE"

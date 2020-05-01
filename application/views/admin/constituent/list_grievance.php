@@ -91,8 +91,8 @@
                      </div>
                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                        <div class="x_panel">
-                          <table id="example_2" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                             <thead>
+                          <table id="example_2" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
+                             <thead style="width:100% !important;">
                                 <tr>
                                   <th>S.no</th>
                                   <th>Full name</th>
@@ -151,7 +151,7 @@
                      </div>
                      <div class="tab-pane fade" id="enquiry_tab" role="tabpanel" aria-labelledby="enquiry-tab">
                        <div class="x_panel">
-                          <table id="example_3" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                          <table id="example_3" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
                              <thead>
                                 <tr>
                                   <th>S.no</th>
@@ -350,23 +350,33 @@
 
 </style>
 <script>
+$(document).ready(function () {
+    $('#example_2').DataTable({
+      "scrollX": true,
+        responsive: true,
+        language: {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        }
+    });
+    $('#example_3').DataTable({
+      "scrollX": true,
+        responsive: true,
+        "language": {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        }
+    });
 
-$('#example_2').DataTable({
-    "scrollX": true,
-    "language": {
-      "search": "",
-      searchPlaceholder: "SEARCH HERE"
-    }
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust()
+           .responsive.recalc();
+    });
 });
-$('#example_3').DataTable({
-    "scrollX": true,
-    "language": {
-      "search": "",
-      searchPlaceholder: "SEARCH HERE"
-    }
-});
+
    $('#grievance_menu').addClass('active');
-   $('.grievance_menu').css('display','block');
+   $('.grievance_menu').css('display','none');
    $('#list_grievance_menu').addClass('active');
    $('#update_meeting_form').validate({
         rules: {
