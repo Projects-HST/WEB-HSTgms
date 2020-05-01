@@ -109,3 +109,24 @@ table {
 hr{
   background-color:#fff;
 }
+.profile_heading{
+  background-color: #F5F7FA;
+  padding: 5px;
+
+
+}
+.profile_heading h4{
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.profile_info{
+  margin-bottom: 10px;
+  width: 100%;
+}
+.label_text{
+  color: #000 !important;
+}
+.bar_tabs li a{
+  font-weight: 600;
+  margin-bottom: 0px;
+}
