@@ -265,7 +265,7 @@
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="status" name="status">
                         <option value="PROCESSING">PROCESSING</option>
-                        <option value="ONHOLD">ONHOLD</option>
+                        <!-- <option value="ONHOLD">ONHOLD</option> -->
                         <option value="COMPLETED">COMPLETED</option>
                    </select>
 
