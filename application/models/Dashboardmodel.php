@@ -580,15 +580,15 @@ Class Dashboardmodel extends CI_Model
 			$grievance_graphcount_res = $this->db->query($grievance_graphcount);
 			$grievance_graphcount = $grievance_graphcount_res->num_rows();
 			
-			$grievance_graphecount = "SELECT * FROM grievance WHERE grievance_type = 'E'";
+			$grievance_graphecount = "SELECT * FROM grievance WHERE enquiry_status = 'E'";
 			$grievance_graphecount_res = $this->db->query($grievance_graphecount);
 			$grievance_graphecount = $grievance_graphecount_res->num_rows();
 			
-			$grievance_graphppcount = "SELECT * FROM grievance WHERE grievance_type = 'P' AND status='PROCESSING'";
+			$grievance_graphppcount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='PROCESSING'";
 			$grievance_graphppcount_res = $this->db->query($grievance_graphppcount);
 			$grievance_graphppcount = $grievance_graphppcount_res->num_rows();
 			
-			$grievance_graphpccount = "SELECT * FROM grievance WHERE grievance_type = 'P' AND status='COMPLETED'";
+			$grievance_graphpccount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='COMPLETED'";
 			$grievance_graphpccount_res = $this->db->query($grievance_graphpccount);
 			$grievance_graphpccount = $grievance_graphpccount_res->num_rows();
 			
@@ -605,15 +605,15 @@ Class Dashboardmodel extends CI_Model
 			$grievance_graphcount_res = $this->db->query($grievance_graphcount);
 			$grievance_graphcount = $grievance_graphcount_res->num_rows();
 			
-			$grievance_graphecount = "SELECT * FROM grievance WHERE grievance_type = 'E' AND paguthi_id = '$paguthi'";
+			$grievance_graphecount = "SELECT * FROM grievance WHERE enquiry_status = 'E' AND paguthi_id = '$paguthi'";
 			$grievance_graphecount_res = $this->db->query($grievance_graphecount);
 			$grievance_graphecount = $grievance_graphecount_res->num_rows();
 			
-			$grievance_graphppcount = "SELECT * FROM grievance WHERE grievance_type = 'P' AND status='PROCESSING' AND paguthi_id = '$paguthi'";
+			$grievance_graphppcount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='PROCESSING' AND paguthi_id = '$paguthi'";
 			$grievance_graphppcount_res = $this->db->query($grievance_graphppcount);
 			$grievance_graphppcount = $grievance_graphppcount_res->num_rows();
 			
-			$grievance_graphpccount = "SELECT * FROM grievance WHERE grievance_type = 'P' AND status='COMPLETED' AND paguthi_id = '$paguthi'";
+			$grievance_graphpccount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='COMPLETED' AND paguthi_id = '$paguthi'";
 			$grievance_graphpccount_res = $this->db->query($grievance_graphpccount);
 			$grievance_graphpccount = $grievance_graphpccount_res->num_rows();
 			
