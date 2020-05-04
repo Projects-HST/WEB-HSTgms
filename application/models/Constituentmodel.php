@@ -352,7 +352,15 @@ Class Constituentmodel extends CI_Model
 			$check="SELECT * FROM grievance WHERE petition_enquiry_no='$petition_enquiry_no'";
 			$res_check=$this->db->query($check);
 			if($res_check->num_rows()==0){
-				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
+		 $repeat_check="SELECT * FROM grievance where constituent_id='$constituent_id'";
+				$res_repeat=$this->db->query($repeat_check);
+				if($res_repeat->num_rows()==0){
+					$repeated_status='N';
+				}else{
+					$repeated_status='R';
+				}
+			
+				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
 				$res=$this->db->query($insert);
 				$last_id=$this->db->insert_id();
 				if(empty($filename)){
