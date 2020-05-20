@@ -52,7 +52,7 @@ $('.mastermenu').css('display','block');
 $('#seekermenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         seeker_info:{required:true,maxlength:80
+         seeker_info:{required:true,maxlength:80,
            remote: {
                      url: "<?php echo base_url(); ?>masters/checkseekerexist/<?php echo $rows->id; ?>",
                      type: "post"

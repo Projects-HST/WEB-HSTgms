@@ -58,7 +58,7 @@ $('.mastermenu').css('display','block');
 $('#paguthimenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         paguthi_name:{required:true,maxlength:80
+         paguthi_name:{required:true,maxlength:80,
            remote: {
                      url: "<?php echo base_url(); ?>masters/checkpaguthiexist/<?php echo $rows->id; ?>",
                      type: "post"
