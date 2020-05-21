@@ -177,36 +177,6 @@ class Apigmsmodel extends CI_Model {
 		return $response;
 	}
 	
-	
-	
-	
-	function List_subcategory()
-	{
-		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
-		$sub_category_result = $resultset->result();
-		if($resultset->num_rows()>0)
-			{
-				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
-			} else {
-				$response = array("status" => "Error", "msg" => "No records found");
-			}
-		return $response;
-	}
-	
-	function Subcategory_list($category_id)
-	{
-		$query="SELECT * FROM `grievance_sub_category` WHERE grievance_id ='$category_id' AND status='ACTIVE'";
-		$resultset=$this->db->query($query);
-		$sub_category_result = $resultset->result();
-		if($resultset->num_rows()>0)
-			{
-				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
-			} else {
-				$response = array("status" => "Error", "msg" => "No records found");
-			}
-		return $response;
-	}
 //#################### List Details End ####################//
 
 
@@ -1068,7 +1038,7 @@ class Apigmsmodel extends CI_Model {
 
 	function List_ward()
 	{
-		$query="SELECT * FROM `ward` WHERE status='ACTIVE'";
+		$query="SELECT * FROM `ward`";
 		$resultset=$this->db->query($query);
 		$ward_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1147,7 +1117,7 @@ class Apigmsmodel extends CI_Model {
 
 	function List_booth()
 	{
-		$query="SELECT * FROM `booth` WHERE status='ACTIVE'";
+		$query="SELECT * FROM `booth`";
 		$resultset=$this->db->query($query);
 		$booth_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1226,7 +1196,7 @@ class Apigmsmodel extends CI_Model {
 	
 	function List_seekertype()
 	{
-		$query="SELECT * FROM `seeker_type` WHERE status='ACTIVE'";
+		$query="SELECT * FROM `seeker_type`";
 		$resultset=$this->db->query($query);
 		$seeker_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1292,7 +1262,7 @@ class Apigmsmodel extends CI_Model {
 	
 	function List_grievance()
 	{
-		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
+		$query="SELECT * FROM `grievance_type`";
 		$resultset=$this->db->query($query);
 		$category_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1334,24 +1304,369 @@ class Apigmsmodel extends CI_Model {
 	
 	function Update_grievance($user_id,$seekertype_id,$grievance_id,$grievance_name,$status)
 	{
-		$query="SELECT * FROM `grievance_type` WHERE grievance_name='$grievance_name' AND id!='$grievance_id' AND seeker_id = '$seekertype_id'";
+		$query="SELECT * FROM `grievance_type` WHERE grievance_name='$grievance_name' AND id!='$grievance_id' AND seeker_id != '$seekertype_id'";
 		$resultset=$this->db->query($query);
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Error", "msg" => "Seeker Type exist");
+				$response = array("status" => "Error", "msg" => "Grievance Type exist");
 			} else {
-				$sQuery = "UPDATE seeker_type SET seeker_info ='$seekertype',status='$status',updated_at=NOW(), updated_by='$user_id' WHERE id='$seekertype_id'";
+				$sQuery = "UPDATE grievance_type SET seeker_id = '$seekertype_id', grievance_name ='$grievance_name',status='$status',updated_at=NOW(), updated_by='$user_id' WHERE id='$seekertype_id'";
 				$update_Query = $this->db->query($sQuery);
 
-				$response = array("status" => "Success", "msg" => "Seeker Type Updated");
+				$response = array("status" => "Success", "msg" => "Grievance Type Updated");
 			}
 		return $response;
 	}
 //#################### Grievance type end ####################//		
+
+//#################### Grievance Subcategory ####################//	
+
+	function Add_subcategory($user_id,$grievance_id,$subcategory_name,$status)
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE sub_category_name ='$subcategory_name' AND grievance_id = '$grievance_id'";
+		$resultset=$this->db->query($query);
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Error", "msg" => "Grievance Sub Category exist");
+			} else {
+				
+						$sQuery = "INSERT INTO grievance_sub_category (grievance_id,sub_category_name,status,created_at,created_by) VALUES ('$grievance_id','$subcategory_name','$status',NOW(),'$user_id')";
+						$add_Query = $this->db->query($sQuery);
+						
+						$response = array("status" => "Success", "msg" => "Grievance Sub Category added");
+			}
+		return $response;
+	}
 	
+	function List_subcategory()
+	{
+		$query="SELECT * FROM `grievance_sub_category`";
+		$resultset=$this->db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
 	
+	function List_grievancesubcategory($grievance_id)
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE grievance_id ='$grievance_id' AND status='ACTIVE'";
+		$resultset=$this->db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
 	
+	function Edit_subcategory($subcategory_id)
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE id='$subcategory_id'";
+		$resultset=$this->db->query($query);
+		$grev_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Sub Category Details", "subcategory_details" =>$grev_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
 	
+	function Update_subcategory($user_id,$grievance_id,$subcategory_id,$subcategory_name,$status)
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE sub_category_name='$subcategory_name' AND id!='$subcategory_id' AND grievance_id != '$grievance_id'";
+		$resultset=$this->db->query($query);
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Error", "msg" => "Sub Category exist");
+			} else {
+				$sQuery = "UPDATE grievance_sub_category SET sub_category_name ='$subcategory_name',status='$status',updated_at=NOW(), updated_by='$user_id' WHERE id='$subcategory_id'";
+				$update_Query = $this->db->query($sQuery);
+
+				$response = array("status" => "Success", "msg" => "Sub Category Updated");
+			}
+		return $response;
+	}
+//#################### Grievance Subcategory end ####################//		
+
+//#################### SMS Templates ####################//	
+
+	function Add_smstemplate($user_id,$template_type,$sms_title,$sms_text,$status)
+	{
+		$query="SELECT * FROM `sms_template` WHERE template_type ='$template_type' AND sms_title = '$sms_title'";
+		$resultset=$this->db->query($query);
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Error", "msg" => "Template exist");
+			} else {
+				
+						$sQuery = "INSERT INTO sms_template (template_type,sms_title,sms_text,status,created_at,created_by) VALUES ('$template_type','$sms_title','$sms_text','$status',NOW(),'$user_id')";
+						$add_Query = $this->db->query($sQuery);
+						
+						$response = array("status" => "Success", "msg" => "Template added");
+			}
+		return $response;
+	}
+	
+	 function List_smstemplate()
+	{
+		$query="SELECT * FROM `sms_template";
+		$resultset=$this->db->query($query);
+		$template_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Templates", "template_details" =>$template_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+
+	function Edit_smstemplate($template_id)
+	{
+		$query="SELECT * FROM `sms_template` WHERE id='$template_id'";
+		$resultset=$this->db->query($query);
+		$template_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Template Details", "template_details" =>$template_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_smstemplate($user_id,$template_id,$template_type,$sms_title,$sms_text,$status)
+	{
+		$query="SELECT * FROM `sms_template` WHERE template_type='$template_type' AND sms_title ='$sms_title' AND id != '$template_id'";
+		$resultset=$this->db->query($query);
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Error", "msg" => "Template exist");
+			} else {
+				$sQuery = "UPDATE sms_template SET template_type ='$template_type',sms_title ='$sms_title',sms_text ='$sms_text',status='$status',updated_at=NOW(), updated_by='$user_id' WHERE id='$template_id'";
+				$update_Query = $this->db->query($sQuery);
+
+				$response = array("status" => "Success", "msg" => "Template Updated");
+			}
+		return $response;
+	} 
+//#################### SMS Templates end ####################//	
+
+
+//#################### Interactions ####################//	
+
+	function Add_interaction($user_id,$widgets_title,$interaction_text,$status)
+	{
+		$sQuery = "INSERT INTO interaction_question (widgets_title,interaction_text,status,created_at,created_by) VALUES ('$widgets_title','$interaction_text','$status',NOW(),'$user_id')";
+		$add_Query = $this->db->query($sQuery);
+		
+		$response = array("status" => "Success", "msg" => "Interaction added");
+		return $response;
+	}
+	
+	 function List_interaction()
+	{
+		$query="SELECT * FROM `interaction_question";
+		$resultset=$this->db->query($query);
+		$interaction_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Interaction", "interaction_details" =>$interaction_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+
+	function Edit_interaction($interaction_id)
+	{
+		$query="SELECT * FROM `interaction_question` WHERE id='$interaction_id'";
+		$resultset=$this->db->query($query);
+		$interaction_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Interaction Details", "interaction_details" =>$interaction_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_interaction($user_id,$interaction_id,$widgets_title,$interaction_text,$status)
+	{
+		$sQuery = "UPDATE interaction_question SET widgets_title ='$widgets_title',interaction_text ='$interaction_text',status='$status',updated_at=NOW(), updated_by='$user_id' WHERE id='$interaction_id'";
+		$update_Query = $this->db->query($sQuery);
+
+		$response = array("status" => "Success", "msg" => "Interaction Updated");
+		return $response;
+	} 
+//#################### Interaction end ####################//	
+
+//#################### Users ####################//	
+
+	function Add_user($user_id,$constituency_id,$role,$paguthi,$name,$email,$mobile,$address,$gender,$status)
+	{
+		$query="SELECT * FROM `user_master` WHERE email_id='$email'";
+		$resultset=$this->db->query($query);
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Error", "msg" => "User exist");
+			} else {
+				$digits = 6;
+				$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+				$md5pwd=md5($OTP);
+				
+				$insert="INSERT INTO user_master (constituency_id,pugathi_id,role_id,full_name,phone_number,email_id,password,gender,address,status,created_by,created_at) VALUES ('$constituency_id','$paguthi','$role','$name','$mobile','$email','$md5pwd','$gender','$address','$status','$user_id',NOW())";
+				$result=$this->db->query($insert);
+				$last_insertid = $this->db->insert_id();
+				
+				
+				$subject ='GMS - Staff Login Details';
+				$htmlContent = '<html>
+								<head> <title></title>
+								</head>
+								<body>
+								<p>Hi  '.$name.'</p>
+								<p>Staff Login Details</p>
+								<p>Username: '.$email.'</p>
+								<p>Password: '.$OTP.'</p>
+								<p></p>
+								<p><a href="'.base_url() .'">Click here to Login</a></p>
+								</body>
+								</html>';
+								
+				$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' Password '.$OTP.'';
+
+				$this->sendEmail($email,$subject,$htmlContent);
+				$this->sendSMS($mobile,$smsContent);
+
+				$response = array("status" => "Success", "msg" => "User Added","last_insert_id"=>$last_insertid);
+			}
+		return $response;
+	}
+	
+	 function List_user()
+	{
+		$query="SELECT
+				A.*,
+				B.paguthi_name
+			FROM
+				user_master A,
+				paguthi B
+			WHERE
+				A.id!='1' AND A.pugathi_id = B.id";
+		$resultset=$this->db->query($query);
+		$interaction_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Users", "user_details" =>$interaction_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+
+	function Edit_user($staff_id)
+	{
+		$query="SELECT * FROM `user_master` WHERE id='$staff_id'";
+		$result=$this->db->query($query);
+		$resultset = $result->result();
+		if($result->num_rows()>0)
+			{
+				foreach ($result->result() as $rows)
+				{
+				  $user_picture = $rows->profile_pic ;
+				}
+				
+				if ($user_picture != ''){
+			        $picture_url = base_url().'assets/users/'.$user_picture;
+			    }else {
+			         $picture_url = '';
+			    }
+				$staff_result  = array(
+							"user_id" => $resultset[0]->id,
+							"user_role" => $resultset[0]->role_id,
+							"constituency_id" => $resultset[0]->constituency_id,
+							"pugathi_id" => $resultset[0]->pugathi_id,
+							"full_name" => $resultset[0]->full_name,
+							"phone_number" => $resultset[0]->phone_number,
+							"email_id" => $resultset[0]->email_id,
+							"gender" => $resultset[0]->gender,
+							"address" => $resultset[0]->address,
+							"picture_url" => $picture_url,
+							"status" => $resultset[0]->status
+				);
+				
+				$response = array("status" => "Success", "msg" => "User Details", "user_details" =>$staff_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_user($user_id,$constituency_id,$staff_id,$role,$paguthi,$name,$email,$mobile,$address,$gender,$status)
+	{
+		$query="SELECT * FROM `user_master` WHERE email_id ='$email' AND id != '$staff_id'";
+		$resultset=$this->db->query($query);
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Error", "msg" => "Email Exist");
+			} else {
+				
+				$sQuery = "SELECT * FROM user_master WHERE id = '$staff_id'";
+				$user_result = $this->db->query($sQuery);
+				$ress = $user_result->result();
+				if($user_result->num_rows()>0)
+				{
+					foreach ($user_result->result() as $rows)
+					{
+						$old_email_id = $rows->email_id;
+					}
+				}
+
+				if ($old_email_id != $email){
+
+					$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',email_id='$email',phone_number='$mobile',gender='$gender',address='$address',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+					$result_user=$this->db->query($update_user);
+					
+					$subject ='GMS - Staff Login - Username Updated';
+					$htmlContent = '<html>
+									<head> <title></title>
+									</head>
+									<body>
+									<p>Hi  '.$name.'</p>
+									<p>Login Details</p>
+									<p>Username: '.$email.'</p>
+									<p></p>
+									<p><a href="'.base_url() .'">Click here to Login</a></p>
+									</body>
+									</html>';
+					
+					$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
+					
+					$this->sendEmail($email,$subject,$htmlContent);
+					$this->sendSMS($mobile,$smsContent);			
+
+				}else {
+					$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+					$result_user=$this->db->query($update_user);
+				}	
+				$response = array("status" => "Success", "msg" => "User Updated");
+			}
+		
+		return $response;
+	} 
+//#################### Users end ####################//	
+
 } 
 
 ?>

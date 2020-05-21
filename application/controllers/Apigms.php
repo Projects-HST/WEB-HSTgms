@@ -49,46 +49,6 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
-
-
-//-----------------------------------------------//
-
-	public function listsubCategory()
-	{
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$user_id = '';
-		$user_id = $this->input->post("user_id");
-
-		$data['result']=$this->apigmsmodel->List_subcategory($user_id);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	public function subCategorylist()
-	{
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$category_id = '';
-		$category_id = $this->input->post("category_id");
-
-		$data['result']=$this->apigmsmodel->Subcategory_list($category_id);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
 //-----------------------------------------------//
 
 	public function login()
@@ -907,6 +867,418 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
+//-----------------------------------------------//
 
+	public function addSubcategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id = '';
+		$seekertype='';
+		$status = '';
+		$user_id = $this->input->post("user_id");
+		$grievance_id = $this->input->post("grievance_id");
+		$subcategory_name = $this->input->post("subcategory_name");
+		$status = $this->input->post("status");
+
+		$data['result']=$this->apigmsmodel->Add_subcategory($user_id,$grievance_id,strtoupper($subcategory_name),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listSubcategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_subcategory($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listGrievancesubcategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$grievance_id = '';
+		$grievance_id = $this->input->post("grievance_id");
+
+		$data['result']=$this->apigmsmodel->List_grievancesubcategory($grievance_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editSubcategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$subcategory_id = '';
+		$subcategory_id = $this->input->post("subcategory_id");
+
+		$data['result']=$this->apigmsmodel->Edit_subcategory($subcategory_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateSubcategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$grievance_id='';
+		$subcategory_id='';
+		$subcategory_name='';
+		$status = '';
+		
+		$user_id = $this->input->post("user_id");
+		$grievance_id = $this->input->post("grievance_id");
+		$subcategory_id = $this->input->post("subcategory_id");
+		$subcategory_name = $this->input->post("subcategory_name");
+		$status = $this->input->post("status");
+
+		$data['result']=$this->apigmsmodel->Update_subcategory($user_id,$grievance_id,$subcategory_id,strtoupper($subcategory_name),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function addSMStemplate()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id = '';
+		$template_type='';
+		$sms_title = '';
+		$sms_text = '';
+		$status = '';
+		$user_id = $this->input->post("user_id");
+		$template_type = $this->input->post("template_type");
+		$sms_title = $this->input->post("sms_title");
+		$sms_text= $this->db->escape_str($this->input->post('sms_text'));
+		$status = $this->input->post("status");
+
+		$data['result']=$this->apigmsmodel->Add_smstemplate($user_id,strtoupper($template_type),strtoupper($sms_title),strtoupper($sms_text),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listSMStemplate()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_smstemplate($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editSMStemplate()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$template_id = '';
+		$template_id = $this->input->post("template_id");
+
+		$data['result']=$this->apigmsmodel->Edit_smstemplate($template_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateSMStemplate()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$template_id = '';
+		$template_type='';
+		$sms_title = '';
+		$sms_text = '';
+		$status = '';
+		
+		$user_id = $this->input->post("user_id");
+		$template_id = $this->input->post("template_id");
+		$template_type = $this->input->post("template_type");
+		$sms_title = $this->input->post("sms_title");
+		$sms_text= $this->db->escape_str($this->input->post('sms_text'));
+		$status = $this->input->post("status");
+
+		$data['result']=$this->apigmsmodel->Update_smstemplate($user_id,$template_id,strtoupper($template_type),strtoupper($sms_title),strtoupper($sms_text),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function addInteraction()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id = '';
+		$widgets_title='';
+		$interaction_text = '';
+		$status = '';
+		
+		$user_id = $this->input->post("user_id");
+		$widgets_title = $this->input->post("widgets_title");
+		$interaction_text= $this->db->escape_str($this->input->post('interaction_text'));
+		$status = $this->input->post("status");
+
+		$data['result']=$this->apigmsmodel->Add_interaction($user_id,strtoupper($widgets_title),strtoupper($interaction_text),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listInteraction()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_interaction($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editInteraction()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$interaction_id = '';
+		$interaction_id = $this->input->post("interaction_id");
+
+		$data['result']=$this->apigmsmodel->Edit_interaction($interaction_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateInteraction()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$interaction_id ='';
+		$widgets_title='';
+		$interaction_text = '';
+		$status = '';
+		
+		$user_id = $this->input->post("user_id");
+		$interaction_id = $this->input->post("interaction_id");
+		$widgets_title = $this->input->post("widgets_title");
+		$interaction_text= $this->db->escape_str($this->input->post('interaction_text'));
+		$status = $this->input->post("status");
+
+		$data['result']=$this->apigmsmodel->Update_interaction($user_id,$interaction_id,strtoupper($widgets_title),strtoupper($interaction_text),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function addUser()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id ='';
+		$constituency_id = '';
+		$role='';
+		$paguthi='';
+		$name='';
+		$email='';
+		$mobile='';
+		$address= '';
+		$gender='';
+		$status='';
+		
+		$user_id = $this->input->post("user_id");
+		$constituency_id = $this->input->post("constituency_id");
+		$role=$this->input->post('role');
+		$paguthi=$this->input->post('paguthi');
+		$name=$this->input->post('name');
+		$email=$this->input->post('email');
+		$mobile=$this->input->post('phone');
+		$address= $this->db->escape_str($this->input->post('address'));
+		$gender=$this->input->post('gender');
+		$status=$this->input->post('status');
+
+		$data['result']=$this->apigmsmodel->Add_user($user_id,$constituency_id,$role,$paguthi,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listUser()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_user($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editUser()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$staff_id = '';
+		$staff_id = $this->input->post("staff_id");
+
+		$data['result']=$this->apigmsmodel->Edit_user($staff_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateUser()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$staff_id = '';
+		$constituency_id = '';
+		$role='';
+		$paguthi='';
+		$name='';
+		$email='';
+		$mobile='';
+		$address= '';
+		$gender='';
+		$status='';
+		
+		$user_id = $this->input->post("constituency_id");
+		$constituency_id = $this->input->post("constituency_id");
+		$staff_id = $this->input->post("staff_id");
+		$role=$this->input->post('role');
+		$paguthi=$this->input->post('paguthi');
+		$name=$this->input->post('name');
+		$email=$this->input->post('email');
+		$mobile=$this->input->post('phone');
+		$address= $this->db->escape_str($this->input->post('address'));
+		$gender=$this->input->post('gender');
+		$status=$this->input->post('status');
+
+		$data['result']=$this->apigmsmodel->Update_user($user_id,$constituency_id,$staff_id,$role,$paguthi,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
 
 }
