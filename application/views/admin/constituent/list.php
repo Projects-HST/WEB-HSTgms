@@ -30,10 +30,10 @@
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jquery.dataTables.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.buttons.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jszip.min.js"></script>
+	  <!-- <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jszip.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/pdfmake.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/vfs_fonts.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/buttons.html5.min.js "></script>
+	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/buttons.html5.min.js "></script> -->
 
       <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/additional-methods.min.js"></script>
@@ -94,8 +94,7 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/constituent_info.png" class="img-responsive menu_img"> Constituent  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu constiituent_menu">
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
-                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
-                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li>
+                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_member">List Constituent</a></li>
                               </ul>
                            </li>
                            <li id="grievance_menu">
@@ -171,3 +170,107 @@
                   </nav>
                </div>
             </div>
+<div  class="right_col" role="main">
+   <div class="">
+      <div class="col-md-12 col-sm-12 ">
+         <div class="x_panel">
+            <h2>List of constituent member</h2>
+            <?php if($this->session->flashdata('msg')) {
+               $message = $this->session->flashdata('msg');?>
+            <div class="<?php echo $message['class'] ?> alert-dismissible">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+            </div>
+            <?php  }  ?>
+
+            {elaspsed_time}
+            <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+               <thead>
+                  <tr>
+                     <th>S.no</th>
+                     <th>full name</th>
+                     <th>paguthi</th>
+                     <th>mobile</th>
+                     <th>voter id</th>
+                     <th>aadhhar id</th>
+
+                  </tr>
+               </thead>
+               <tbody>
+
+
+                  <?php $i=1; foreach($result as $rows){ ?>
+                  <tr>
+                     <td><?php echo $rows->id; ?></td>
+                     <td><?php echo $rows->full_name; ?></td>
+                     <td><?php echo $rows->mobile_no ;?></td>
+                     <td><?php echo $rows->voter_id_no ;?></td>
+                     <td><?php echo $rows->aadhaar_no ;?></td>
+                     <td><?php echo $rows->serial_no ;?></td>
+
+
+                  </tr>
+                  <?php  $i++; } ?>
+               </tbody>
+            </table>
+             <?php echo $links; ?>
+
+
+         </div>
+      </div>
+   </div>
+</div>
+<footer>
+   <div class="pull-right">
+       Developed by <a href="#">Happy Sanz Tech</a>
+   </div>
+   <div class="clearfix"></div>
+</footer>
+</div>
+</div>
+
+<style>
+
+</style>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable({
+      "language": {
+        "search": "",
+        searchPlaceholder: "SEARCH HERE"
+      },
+      "scrollX": true
+    });
+} );
+
+
+$(document).ready(function() {
+    $('#export_example').DataTable( {
+		"scrollX": true,
+		"language": {
+          "search": "",
+          searchPlaceholder: "SEARCH HERE"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5'
+        ]
+    } );
+} );
+
+$("input").on("keypress", function(e) {
+         if (e.which === 32 && !this.value.length)
+             e.preventDefault();
+ });
+
+ $('input[type=text]').val (function () {
+     return this.value.toUpperCase();
+ })
+</script>
+<script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/vendors/skycons/skycons.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/build/js/custom.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/build/js/rocket-loader.min.js" data-cf-settings="06b171321855c1ee1d6f7155- |49" defer=""></script>
+</body>
+</html>

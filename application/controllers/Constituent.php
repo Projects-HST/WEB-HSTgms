@@ -11,6 +11,9 @@ class constituent extends CI_Controller {
 			$this->load->model('mastermodel');
 			$this->load->model('smsmodel');
 			$this->load->model('constituentmodel');
+			$this->load->library('pagination');
+			$this->load->helper('form');
+
  }
 
 
@@ -36,23 +39,183 @@ class constituent extends CI_Controller {
 	}
 
 
-	public function list_constituent_member()
+	public function recent_constituent_member()
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
-			$data['res']=$this->constituentmodel->get_constituent_member_list();
+			$data['result']=$this->constituentmodel->get_recent_constituent_member_list();
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_seeker']=$this->mastermodel->get_active_seeker();
 			$this->load->view('admin/header');
-			$this->load->view('admin/constituent/list_constituent_member',$data);
+			$this->load->view('admin/constituent/recent_member',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function sample_list()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$this->load->view('admin/constituent/sample_list');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+
+	public function list()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+
+			$this->load->library("pagination_bootstrap");
+			$sql=$this->db->get('constituent',10000);
+			$this->pagination_bootstrap->offset(10);
+			$this->pagination_bootstrap->set_links(array('first' => 'go to first',
+                                             'last' => 'go to last',
+                                             'next' => 'next',
+                                             'prev' => 'prev'));
+
+			$data['result']=$this->pagination_bootstrap->config('/constituent/list',$sql);
+			$this->load->view('admin/constituent/list',$data);
+
+		}else{
+			redirect('/');
+		}
+	}
+	public function list_constituent_member()
+{
+			$user_id = $this->session->userdata('user_id');
+			$user_type = $this->session->userdata('user_type');
+			if($user_type=='1' || $user_type=='2'){
+			$config = array();
+			$config["base_url"] = base_url() . "constituent/list_constituent_member";
+			$config["total_rows"] = $this->constituentmodel->record_count();
+			$config["per_page"] = 10;
+			$config["uri_segment"] = 3;
+			$config['display_pages'] = FALSE;
+			$config['prev_link'] = 'Previous';
+			$config['next_link'] = 'Next';
+			$config['first_link'] = FALSE;
+			$config['last_link'] = FALSE;
+			$choice = $config["total_rows"] / $config["per_page"];
+			$config["num_links"] = round($choice);
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3))? $this->uri->segment(3) : 0;
+			$data["res"] = $this->constituentmodel->fetch_data($config["per_page"], $page);
+			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_constituency']=$this->mastermodel->get_active_constituency();
+			$data['res_seeker']=$this->mastermodel->get_active_seeker();
+			$data["links"] = $this->pagination->create_links();
+			$this->load->view('admin/header');
+			$this->load->view("admin/constituent/list_constituent_member", $data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
 		}
 
+		}
+
+
+		public function search_member(){
+			$user_id = $this->session->userdata('user_id');
+			$user_type = $this->session->userdata('user_type');
+			if($user_type=='1' || $user_type=='2'){
+			// get search string
+				$search = ($this->input->post("search_name"))? $this->input->post("search_name") : "NIL";
+				$search = ($this->uri->segment(3)) ? $this->uri->segment(3) : $search;
+				// pagination settings
+				$config = array();
+				$config["base_url"] = base_url() . "constituent/list_constituent_member";
+				$config["total_rows"] = $this->constituentmodel->record_count();
+				$config["per_page"] = 10;
+				$config["uri_segment"] = 3;
+				$config['display_pages'] = FALSE;
+				$config['prev_link'] = 'Previous';
+				$config['next_link'] = 'Next';
+				$config['first_link'] = FALSE;
+				$config['last_link'] = FALSE;
+				$choice = $config["total_rows"] / $config["per_page"];
+				$config["num_links"] = round($choice);
+				$this->pagination->initialize($config);
+				$page = ($this->uri->segment(3))? $this->uri->segment(3) : 0;
+				$data["res"] = $this->constituentmodel->search_member($config["per_page"], $page,$search);
+				$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+				$data['res_constituency']=$this->mastermodel->get_active_constituency();
+				$data['res_seeker']=$this->mastermodel->get_active_seeker();
+				$data["links"] = $this->pagination->create_links();
+				$this->load->view('admin/header');
+				$this->load->view("admin/constituent/list_constituent_member", $data);
+				$this->load->view('admin/footer');
+			}else{
+				redirect('/');
+			}
+		}
+
+
+	public function list_member()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			// $data['res']=$this->constituentmodel->get_constituent_member_list();
+			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_constituency']=$this->mastermodel->get_active_constituency();
+			$data['res_seeker']=$this->mastermodel->get_active_seeker();
+
+			//pagination settings
+			 $config['base_url'] = site_url('constituent/list_member');
+			 $config['total_rows'] = $this->db->count_all('constituent');
+			 $config['per_page'] = "10";
+			 $config["uri_segment"] = 10;
+			 $choice = $config["total_rows"]/$config["per_page"];
+			 $config["num_links"] = floor($choice);
+
+			 // integrate bootstrap pagination
+			 $config['full_tag_open'] = '<ul class="pagination">';
+			 $config['full_tag_close'] = '</ul>';
+			 $config['first_link'] = false;
+			 $config['last_link'] = false;
+			 $config['first_tag_open'] = '<li class="page-item">';
+			 $config['first_tag_close'] = '</li>';
+			 $config['prev_link'] = '«';
+			 $config['prev_tag_open'] = '<li class="prev">';
+			 $config['prev_tag_close'] = '</li>';
+			 $config['next_link'] = '»';
+			 $config['next_tag_open'] = '<li>';
+			 $config['next_tag_close'] = '</li>';
+			 $config['last_tag_open'] = '<li>';
+			 $config['last_tag_close'] = '</li>';
+			 $config['cur_tag_open'] = '<li class="active"><a  href="#">';
+			 $config['cur_tag_close'] = '</a></li>';
+			 $config['num_tag_open'] = '<li>';
+			 $config['num_tag_close'] = '</li>';
+
+
+
+			 $this->pagination->initialize($config);
+			 $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			 $data['booklist'] = $this->constituentmodel->get_books($config["per_page"], $data['page'], NULL);
+			 $data['pagination'] = $this->pagination->create_links();
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/list_member',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
 	}
+
+
+
+
 
 	public function create_constituent_member(){
 		$user_id = $this->session->userdata('user_id');

@@ -7,12 +7,12 @@
   padding:5px 5px 5px 5px;
   border: 1px solid #4696d1;
 }
-</style><div  class="right_col" role="main">
+</style>
+<div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
-            <h2>List of constituent member</h2>
-
+            <h2>Recent constituent 1000 members </h2>
             <?php if($this->session->flashdata('msg')) {
                $message = $this->session->flashdata('msg');?>
             <div class="<?php echo $message['class'] ?> alert-dismissible">
@@ -20,29 +20,8 @@
                <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
             </div>
             <?php  }  ?>
-            <div class="col-12">
 
-              <?php
-              $attr = array("class" => "form-horizontal", "role" => "form", "id" => "form1", "name" => "form1");
-              echo form_open("constituent/search_member", $attr); ?>
-                  <div class="form-group row">
-                      <div class="col-6">
-                          <input class="form-control" id="search_name" name="search_name" placeholder="Search for Name or Voter id..." type="text" value="<?php echo set_value('search_name'); ?>" />
-                      </div>
-                      <div class="col-4">
-                          <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Search" />
-                          <a href="<?php echo base_url(). "/constituent/list_constituent_member"; ?>" class="btn btn-primary">Show All</a>
-                      </div>
-                      <div class="col-2">
-                      <div class="pagination">
-                      <?php echo $links; ?>
-                      </div>
-                    </div>
-                  </div>
-            </form>
-            </div>
-
-            <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                <thead>
                   <tr>
                      <th>S.no</th>
@@ -61,9 +40,9 @@
                   </tr>
                </thead>
                <tbody>
-                  <?php $i=1; foreach($res as $rows){ ?>
+                  <?php $i=1; foreach($result as $rows){ ?>
                   <tr>
-                     <td><?php echo $rows->id; ?></td>
+                     <td><?php echo $i; ?></td>
                      <td><?php echo $rows->full_name; ?></td>
                      <td><?php echo $rows->paguthi_name; ?></td>
                      <td><?php echo $rows->mobile_no ;?></td>
@@ -98,9 +77,7 @@
                   <?php  $i++; } ?>
                </tbody>
             </table>
-            <div class="pagination">
-            <?php echo $links; ?>
-            </div>
+
          </div>
       </div>
    </div>

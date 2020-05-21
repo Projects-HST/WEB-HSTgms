@@ -1,110 +1,128 @@
+<div  class="right_col" role="main" style="height:100vh;">
+   <div class="container">
+      <div class="col-md-12 col-sm-12 ">
+        <div class="row">
+          <h2>List of constituent member</h2>
+          <?php if($this->session->flashdata('msg')) {
+             $message = $this->session->flashdata('msg');?>
+          <div class="<?php echo $message['class'] ?> alert-dismissible">
+             <button type="button" class="close" data-dismiss="alert">&times;</button>
+             <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+          </div>
+          <?php  }  ?>
+        <div class="col-md-12  well">
+        <?php
+        $attr = array("class" => "form-horizontal", "role" => "form", "id" => "form1", "name" => "form1");
+        echo form_open("constituent/search", $attr); ?>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input class="form-control" id="book_name" name="book_name" placeholder="Search for Name or Voter id..." type="text" value="<?php echo set_value('book_name'); ?>" />
+                </div>
+                <div class="col-md-6">
+                    <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Search" />
+                    <a href="<?php echo base_url(). "/constituent/list_member"; ?>" class="btn btn-primary">Show All</a>
+                </div>
+            </div>
+      </form>
+        </div>
+    </div>
+<div class="row">
+        <div class="col-md-12  bg-border">
+            <table class="table table-striped table-hover " id="">
+                <thead>
+                    <tr>
+                      <th>S.no</th>
+                      <th>full name</th>
+                      <th>paguthi</th>
+                      <th>mobile</th>
+                      <th>voter id</th>
+                      <th>aadhhar id</th>
+                      <th>serial no</th>
+                      <th>Meeting</th>
+                      <!-- <th>status</th> -->
+                      <th>interaction</th>
+                      <th>plant</th>
+
+                      <th>Grievance</th>
+                      <th>Action</th>
+                    </tr>
+                </thead>
+               <tbody>
+                <?php for ($i = 1; $i < count($booklist); ++$i) { ?>
+                <tr>
+
+
+                     <td><?php echo ($page+$i+1); ?></td>
+                    <td><?php echo $booklist[$i]->full_name; ?></td>
+                    <td><?php echo $booklist[$i]->paguthi_name; ?></td>
+                    <td><?php echo $booklist[$i]->mobile_no ;?></td>
+                    <td><?php echo $booklist[$i]->voter_id_no ;?></td>
+                    <td><?php echo $booklist[$i]->aadhaar_no ;?></td>
+                    <td><?php echo $booklist[$i]->serial_no ;?></td>
+                    <td><a  title="VIEW " class="badge badge-add handle_symbol" onclick="view_meeting_request('<?php echo $booklist[$i]->id; ?>')">Add/View</a></td>
+                    <!-- <td><?php if($booklist[$i]->status=='ACTIVE'){ ?>
+                       <span class="badge badge-success">Active</span>
+                       <?php  }else{ ?>
+                       <span class="badge badge-danger">Inactive</span>
+                       <?php   } ?>
+                    </td> -->
+                    <td><?php if($booklist[$i]->interaction_status =='0'){ ?>
+                      <a class="badge badge-add" href="<?php echo base_url(); ?>constituent/add_interaction_response/<?php echo base64_encode($booklist[$i]->id*98765); ?>" title="INTERACTION ADDED">ADD</i></a>
+                       <?php }else{ ?>
+                       <a href="<?php echo base_url(); ?>constituent/get_interaction_response_edit/<?php  echo base64_encode($booklist[$i]->id*98765); ?>" title="VIEW " class="badge badge-view" >View</a>
+                       <?php }?>
+                    </td>
+                    <td><?php if($booklist[$i]->plant_status =='0'){ ?>
+                       <a class="badge badge-add handle_symbol" onclick="add_plant_donation('<?php echo $booklist[$i]->id; ?>')" >ADD</i></a>
+                       <?php }else{ ?>
+                         <a  title="VIEW " class="badge badge-view handle_symbol" onclick="view_donation('<?php echo $booklist[$i]->id; ?>')">View</a>
+
+                       <?php }?>
+                    </td>
+                    <td><a  class="badge badge-add handle_symbol" onclick="get_grievance_modal('<?php echo $booklist[$i]->id; ?>')">Add grievance</a></td>
+                    <td>
+                      <a id="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($booklist[$i]->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                       <a title="DOCUMENTS" href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($booklist[$i]->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
+                       <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($booklist[$i]->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                       <a title="SEND VOICE CALL" onclick="give_voice_call(<?php echo $booklist[$i]->id; ?>)" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
+
+
+                    </td>
+                </tr>
+                <?php } ?>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="row">
+
+       <div class="col-6"></div>
+       <div class="col-6">
+
+
+         <nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <?php echo $pagination; ?>
+    </ul>
+</nav>
+       </div>
+   </div>
+  </div>
+</div>
+</div>
 <style>
 .pagination{
-  float: right;
-  border: 1px solid #4696d1;
+  width:100%;
+  overflow-y: scroll;
+
 }
-.pagination a{
-  padding:5px 5px 5px 5px;
-  border: 1px solid #4696d1;
+.pagination  li a{
+  padding-left: 5px;
+  padding-right: 5px;
 }
-</style><div  class="right_col" role="main">
-   <div class="">
-      <div class="col-md-12 col-sm-12 ">
-         <div class="x_panel">
-            <h2>List of constituent member</h2>
+</style>
 
-            <?php if($this->session->flashdata('msg')) {
-               $message = $this->session->flashdata('msg');?>
-            <div class="<?php echo $message['class'] ?> alert-dismissible">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
-            </div>
-            <?php  }  ?>
-            <div class="col-12">
-
-              <?php
-              $attr = array("class" => "form-horizontal", "role" => "form", "id" => "form1", "name" => "form1");
-              echo form_open("constituent/search_member", $attr); ?>
-                  <div class="form-group row">
-                      <div class="col-6">
-                          <input class="form-control" id="search_name" name="search_name" placeholder="Search for Name or Voter id..." type="text" value="<?php echo set_value('search_name'); ?>" />
-                      </div>
-                      <div class="col-4">
-                          <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Search" />
-                          <a href="<?php echo base_url(). "/constituent/list_constituent_member"; ?>" class="btn btn-primary">Show All</a>
-                      </div>
-                      <div class="col-2">
-                      <div class="pagination">
-                      <?php echo $links; ?>
-                      </div>
-                    </div>
-                  </div>
-            </form>
-            </div>
-
-            <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-               <thead>
-                  <tr>
-                     <th>S.no</th>
-                     <th>full name</th>
-                     <th>paguthi</th>
-                     <th>mobile</th>
-                     <th>voter id</th>
-                     <th>aadhhar id</th>
-                     <th>serial no</th>
-                     <th>Meeting</th>
-                     <!-- <th>status</th> -->
-                     <th>interaction</th>
-                     <th>plant</th>
-                     <th>Grievance</th>
-                     <th>Action</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <?php $i=1; foreach($res as $rows){ ?>
-                  <tr>
-                     <td><?php echo $rows->id; ?></td>
-                     <td><?php echo $rows->full_name; ?></td>
-                     <td><?php echo $rows->paguthi_name; ?></td>
-                     <td><?php echo $rows->mobile_no ;?></td>
-                     <td><?php echo $rows->voter_id_no ;?></td>
-                     <td><?php echo $rows->aadhaar_no ;?></td>
-                     <td><?php echo $rows->serial_no ;?></td>
-                     <td><a  title="VIEW " class="badge badge-add handle_symbol" onclick="view_meeting_request('<?php echo $rows->id; ?>')">Add/View</a></td>
-
-                     <td><?php if($rows->interaction_status =='0'){ ?>
-                       <a class="badge badge-add" href="<?php echo base_url(); ?>constituent/add_interaction_response/<?php echo base64_encode($rows->id*98765); ?>" title="INTERACTION ADDED">ADD</i></a>
-                        <?php }else{ ?>
-                        <a href="<?php echo base_url(); ?>constituent/get_interaction_response_edit/<?php  echo base64_encode($rows->id*98765); ?>" title="VIEW " class="badge badge-view" >View</a>
-                        <?php }?>
-                     </td>
-                     <td><?php if($rows->plant_status =='0'){ ?>
-                        <a class="badge badge-add handle_symbol" onclick="add_plant_donation('<?php echo $rows->id; ?>')" >ADD</i></a>
-                        <?php }else{ ?>
-                          <a  title="VIEW " class="badge badge-view handle_symbol" onclick="view_donation('<?php echo $rows->id; ?>')">View</a>
-
-                        <?php }?>
-                     </td>
-                     <td><a  class="badge badge-add handle_symbol" onclick="get_grievance_modal('<?php echo $rows->id; ?>')">Add grievance</a></td>
-                     <td>
-                       <a id="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
-                        <a title="DOCUMENTS" href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
-                        <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
-                        <a title="SEND VOICE CALL" onclick="give_voice_call(<?php echo $rows->id; ?>)" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
-
-
-                     </td>
-                  </tr>
-                  <?php  $i++; } ?>
-               </tbody>
-            </table>
-            <div class="pagination">
-            <?php echo $links; ?>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
 <div class="modal fade bs-example-modal-lg" id="plant_model" tabindex="-1" role="dialog" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">

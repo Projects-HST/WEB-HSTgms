@@ -4,6 +4,7 @@ Class Constituentmodel extends CI_Model
 
 	public function __construct()
 	{
+
 		parent::__construct();
 		$this->load->model('smsmodel');
 	}
@@ -136,10 +137,11 @@ Class Constituentmodel extends CI_Model
 					}
 			}
 
-			function get_constituent_member_list(){
+			function get_recent_constituent_member_list(){
 				$query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
 				left join interaction_history as ih on c.id=ih.constituent_id
-				left join plant_donation as pd on pd.constituent_id=c.id group by c.id order by c.id desc";
+				left join plant_donation as pd on pd.constituent_id=c.id group by c.id order by c.id desc LIMIT 1000";
+				// $query="SELECT * FROM constituent limit 1000";
 				$result=$this->db->query($query);
 				return $result->result();
 			}
@@ -150,6 +152,65 @@ Class Constituentmodel extends CI_Model
 				$result=$this->db->query($query);
 				return $result->result();
 			}
+
+
+
+
+			function get_books($limit, $start, $st = NULL)
+	{
+			if ($st == "NIL") $st = "";
+			// $sql = "select * from constituent where full_name like '%$st%' limit " . $start . ", " . $limit;
+		 	$sql="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
+			left join interaction_history as ih on c.id=ih.constituent_id
+			left join plant_donation as pd on pd.constituent_id=c.id where (c.full_name like '%$st%' or c.voter_id_no like '%$st%') group by c.id order by c.id desc limit $start, $limit";
+
+			$query = $this->db->query($sql);
+			return $query->result();
+	}
+
+	function get_books_count($st = NULL)
+	{
+			if ($st == "NIL") $st = "";
+			$sql = "select * from constituent where full_name like '%$st%'";
+			$query = $this->db->query($sql);
+			return $query->num_rows();
+	}
+
+	 function record_count() {
+        return $this->db->count_all("constituent");
+    }
+
+  function fetch_data($limit, $start) {
+  		$query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
+			left join interaction_history as ih on c.id=ih.constituent_id
+			left join plant_donation as pd on pd.constituent_id=c.id group by c.id order by c.id desc limit $start, $limit";
+			$query = $this->db->query($query);
+  			if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+
+   }
+
+	 function search_member($limit, $start,$search){
+
+		 $query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
+		 left join interaction_history as ih on c.id=ih.constituent_id
+		 left join plant_donation as pd on pd.constituent_id=c.id where (c.full_name like '%$search%' or c.voter_id_no like '%$search%' or c.mobile_no like '%$search%') group by c.id order by c.id desc limit $start, $limit";
+		 $query = $this->db->query($query);
+			 if ($query->num_rows() > 0) {
+					 foreach ($query->result() as $row) {
+							 $data[] = $row;
+					 }
+					 return $data;
+			 }
+			 return false;
+	 }
+
+
 
 ####################  Constituent member ####################
 
@@ -359,7 +420,7 @@ Class Constituentmodel extends CI_Model
 				}else{
 					$repeated_status='R';
 				}
-			
+
 				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
 				$res=$this->db->query($insert);
 				$last_id=$this->db->insert_id();
