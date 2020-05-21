@@ -7,7 +7,59 @@
   padding:5px 5px 5px 5px;
   border: 1px solid #4696d1;
 }
-</style><div  class="right_col" role="main">
+.loader,
+        .loader:after {
+            border-radius: 50%;
+            width: 10em;
+            height: 10em;
+        }
+        .loader {
+            margin: 60px auto;
+            font-size: 10px;
+            position: relative;
+            text-indent: -9999em;
+            border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+            border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+            border-left: 1.1em solid #ffffff;
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: load8 1.1s infinite linear;
+            animation: load8 1.1s infinite linear;
+        }
+        @-webkit-keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        #loadingDiv {
+            position:absolute;;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background-color:#dee2e6;
+        }
+
+</style>
+<div id="cover"></div>
+<div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
@@ -27,7 +79,7 @@
               echo form_open("constituent/search_member", $attr); ?>
                   <div class="form-group row">
                       <div class="col-6">
-                          <input class="form-control" id="search_name" name="search_name" placeholder="Search for Name or Voter id..." type="text" value="<?php echo set_value('search_name'); ?>" />
+                          <input class="form-control" id="search_name" name="search_name" placeholder="Search for Name or Voter id or Mobile..." type="text" value="<?php echo set_value('search_name'); ?>" />
                       </div>
                       <div class="col-4">
                           <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Search" />
@@ -644,4 +696,14 @@ function give_voice_call(sel){
               }
       });
 
+      $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+$(window).on('load', function(){
+  setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
+});
+function removeLoader(){
+    $( "#loadingDiv" ).fadeOut(500, function() {
+      // fadeOut complete. Remove the loading div
+      $( "#loadingDiv" ).remove(); //makes page more lightweight
+  });
+}
 </script>
