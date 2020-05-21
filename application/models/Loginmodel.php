@@ -49,7 +49,7 @@ Class Loginmodel extends CI_Model
 			$reset="UPDATE user_master SET password ='$reset_pwd' WHERE id='$user_id'";
 			$result_pwd=$this->db->query($reset);
 
-			 $subject = 'M3 - Password Reset';
+			 $subject = 'GMS - Forgot Password';
              $htmlContent = '<html>
                <head><title></title>
                </head>
@@ -121,7 +121,6 @@ Class Loginmodel extends CI_Model
 	}
 	else{
 		 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-
 		$result = $this->db->query($update);
 	}
 		if ($result) {
@@ -131,6 +130,8 @@ Class Loginmodel extends CI_Model
 		}
 		return $data;
 	}
+	
+	
 	
 	function check_password_match($old_password,$user_id){
 		$pwd=md5($old_password);

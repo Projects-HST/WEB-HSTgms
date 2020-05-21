@@ -8,7 +8,7 @@ Class Dashboardmodel extends CI_Model
 		//$this->load->model('smsmodel');
 	}
 
-	function get_dashboard_reult($paguthi)
+	function get_dashboard_result($paguthi)
 	{
 		if ($paguthi == 'All')
 		{

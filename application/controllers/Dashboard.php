@@ -26,7 +26,7 @@ class Dashboard extends CI_Controller {
 		}
 
 		$datas['search_paguthi'] = $paguthi_value;
-		$datas['result']=$this->dashboardmodel->get_dashboard_reult($paguthi_value);
+		$datas['result']=$this->dashboardmodel->get_dashboard_result($paguthi_value);
 		$datas['interaction']=$this->dashboardmodel->get_interaction($paguthi_value);
 		
 		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_value);
