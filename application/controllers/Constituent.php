@@ -70,7 +70,7 @@ class constituent extends CI_Controller {
 
 
 
-	public function list()
+	public function list_cons()
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
@@ -86,7 +86,6 @@ class constituent extends CI_Controller {
 
 			$data['result']=$this->pagination_bootstrap->config('/constituent/list',$sql);
 			$this->load->view('admin/constituent/list',$data);
-
 		}else{
 			redirect('/');
 		}
