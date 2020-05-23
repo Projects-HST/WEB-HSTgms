@@ -62,7 +62,7 @@
 <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
-         <div class="x_panel">
+         <div class="x_panel" style="overflow-x:auto;">
             <h2>List of constituent member</h2>
 
             <?php if($this->session->flashdata('msg')) {
@@ -234,7 +234,7 @@
                </div>
             </form>
 
-            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                <thead>
                   <tr>
                      <th style="width:600px !important;">Meeting details</th>
@@ -502,7 +502,7 @@ function view_meeting_request(sel){
         $('#table_meeting').append('<tr><td>'+res[i].meeting_detail+'</td><td>'+res[i].meeting_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
      }
       }else{
-        $('#table_meeting').append('<tr><td colspan="4">No data</td></tr>');
+        $('#table_meeting').append('<tr><td colspan="5">No data</td></tr>');
       }
     }
   });
