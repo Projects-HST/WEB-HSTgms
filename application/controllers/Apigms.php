@@ -1024,6 +1024,25 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function activeSMStemplate()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->Active_smstemplate($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function editSMStemplate()
 	{
 		if(!$this->checkMethod())
@@ -1071,6 +1090,24 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
+//-----------------------------------------------//
+
+	public function getSMSdetails()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$template_id = '';
+		$template_id = $this->input->post("template_id");
+		
+		$data['result']=$this->apigmsmodel->get_SMSdetails($template_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
 
 //-----------------------------------------------//
 
@@ -1111,6 +1148,25 @@ class Apigms extends CI_Controller {
 		$user_id = $this->input->post("user_id");
 
 		$data['result']=$this->apigmsmodel->List_interaction($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listInteractionactive()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_interactionactive($user_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1275,6 +1331,1003 @@ class Apigms extends CI_Controller {
 		$status=$this->input->post('status');
 
 		$data['result']=$this->apigmsmodel->Update_user($user_id,$constituency_id,$staff_id,$role,$paguthi,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function chkSerialno()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$serial_no = '';
+		$serial_no = $this->input->post("serial_no");
+
+		$data['result']=$this->apigmsmodel->Chk_serialno($serial_no);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function chkVoterid()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$voter_id = '';
+		$voter_id = $this->input->post("voter_id_no");
+
+		$data['result']=$this->apigmsmodel->Chk_voterid($voter_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function chkAadhaarno()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$aadhaar_no = '';
+		$aadhaar_no = $this->input->post("aadhaar_no");
+
+		$data['result']=$this->apigmsmodel->Chk_aadhaarno($aadhaar_no);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function chkSerialnoexist()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$serial_no = '';
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+		$serial_no = $this->input->post("serial_no");
+
+		$data['result']=$this->apigmsmodel->serialno_exist($constituent_id,$serial_no);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function chkVoteridexist()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$voter_id = '';
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+		$voter_id = $this->input->post("voter_id_no");
+
+		$data['result']=$this->apigmsmodel->voterid_exist($constituent_id,$voter_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function chkAadhaarexist()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$aadhaar_no = '';
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+		$aadhaar_no = $this->input->post("aadhaar_no");
+
+		$data['result']=$this->apigmsmodel->aadhaarnum_exist($constituent_id,$aadhaar_no);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function addConstituent()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id ='';
+		$constituency_id='';
+		$paguthi_id='';
+		$ward_id='';
+		$booth_id='';
+		$party_member_status='';
+		$vote_type='';
+		$serial_no='';
+		$full_name='';
+		$father_husband_name='';
+		$guardian_name='';
+		$email_id='';
+		$mobile_no='';
+		$whatsapp_no='';
+		$originalDate='';
+		$dob = '';
+		$door_no='';
+		$address='';
+		$pin_code='';
+		$religion_id='';
+		$gender='';
+		$voter_id_status='';
+		$voter_id_no='';
+		$aadhaar_status='';
+		$aadhaar_no='';
+		$interaction_section='';
+		$question_id='';
+		$question_response='';
+		$status='';
+			
+		$user_id=$this->input->post('user_id');;
+		$constituency_id=$this->input->post('constituency_id');
+		$paguthi_id=$this->input->post('paguthi_id');
+		$ward_id=$this->input->post('ward_id');
+		$booth_id=$this->input->post('booth_id');
+		$party_member_status=strtoupper($this->db->escape_str($this->input->post('party_member_status')));
+		$vote_type=strtoupper($this->db->escape_str($this->input->post('vote_type')));
+		$serial_no=strtoupper($this->db->escape_str($this->input->post('serial_no')));
+		
+		$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
+		$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
+		$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
+		$email_id=strtoupper($this->db->escape_str($this->input->post('email_id')));
+		$mobile_no=strtoupper($this->db->escape_str($this->input->post('mobile_no')));
+		$whatsapp_no=strtoupper($this->db->escape_str($this->input->post('whatsapp_no')));
+		$originalDate=strtoupper($this->db->escape_str($this->input->post('dob')));
+		$dob = date("Y-m-d", strtotime($originalDate));
+		$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
+		$address=strtoupper($this->db->escape_str($this->input->post('address')));
+		$pin_code=strtoupper($this->db->escape_str($this->input->post('pin_code')));
+		$religion_id=strtoupper($this->db->escape_str($this->input->post('religion_id')));
+		$gender=strtoupper($this->db->escape_str($this->input->post('gender')));
+		$voter_id_status=strtoupper($this->db->escape_str($this->input->post('voter_id_status')));
+		$voter_id_no=strtoupper($this->db->escape_str($this->input->post('voter_id_no')));
+		$aadhaar_status=strtoupper($this->db->escape_str($this->input->post('aadhaar_status')));
+		$aadhaar_no=strtoupper($this->db->escape_str($this->input->post('aadhaar_no')));
+		
+		$interaction_section=$this->input->post('interaction_section');
+		$question_id=$this->input->post('question_id');
+		$question_response=$this->input->post('question_response');
+
+		$status=strtoupper($this->db->escape_str($this->input->post('status')));
+			
+		$data['result']=$this->apigmsmodel->Add_constituent($constituency_id,$paguthi_id,$ward_id,$booth_id,$party_member_status,$vote_type,$serial_no,$full_name,$father_husband_name,$guardian_name,$email_id,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$question_id,$question_response,$interaction_section,$user_id,$status);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+    public function constPictureUpload()
+	{
+		$const_id = $this->uri->segment(3);
+		
+		$profilepic = $_FILES['const_pic']['name'];
+		$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
+		$const_prof_pic = round(microtime(true)) . '.' . $temp;
+		$uploaddir = 'assets/constituent/';
+		$profilepic = $uploaddir.$const_prof_pic;
+		move_uploaded_file($_FILES['const_pic']['tmp_name'], $profilepic);
+
+		$data['result']=$this->apigmsmodel->Update_constpic($const_id,$const_prof_pic);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listConstituent()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+		$data['result']=$this->apigmsmodel->List_constituent($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editConstituent()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+		$data['result']=$this->apigmsmodel->Edit_constituent($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateConstituent()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id ='';
+		$constituent_id = '';
+		$constituency_id='';
+		$paguthi_id='';
+		$ward_id='';
+		$booth_id='';
+		$party_member_status='';
+		$vote_type='';
+		$serial_no='';
+		$full_name='';
+		$father_husband_name='';
+		$guardian_name='';
+		$email_id='';
+		$mobile_no='';
+		$whatsapp_no='';
+		$originalDate='';
+		$dob = '';
+		$door_no='';
+		$address='';
+		$pin_code='';
+		$religion_id='';
+		$gender='';
+		$voter_id_status='';
+		$voter_id_no='';
+		$aadhaar_status='';
+		$aadhaar_no='';
+		$interaction_section='';
+		$question_id='';
+		$question_response='';
+		$status='';
+		
+		
+		$user_id=$this->input->post('user_id');;
+		$constituent_id = $this->input->post("constituent_id");
+		$constituency_id=$this->input->post('constituency_id');
+		$paguthi_id=$this->input->post('paguthi_id');
+		$ward_id=$this->input->post('ward_id');
+		$booth_id=$this->input->post('booth_id');
+		$party_member_status=strtoupper($this->db->escape_str($this->input->post('party_member_status')));
+		$vote_type=strtoupper($this->db->escape_str($this->input->post('vote_type')));
+		$serial_no=strtoupper($this->db->escape_str($this->input->post('serial_no')));
+		
+		$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
+		$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
+		$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
+		$email_id=strtoupper($this->db->escape_str($this->input->post('email_id')));
+		$mobile_no=strtoupper($this->db->escape_str($this->input->post('mobile_no')));
+		$whatsapp_no=strtoupper($this->db->escape_str($this->input->post('whatsapp_no')));
+		$originalDate=strtoupper($this->db->escape_str($this->input->post('dob')));
+		$dob = date("Y-m-d", strtotime($originalDate));
+		$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
+		$address=strtoupper($this->db->escape_str($this->input->post('address')));
+		$pin_code=strtoupper($this->db->escape_str($this->input->post('pin_code')));
+		$religion_id=strtoupper($this->db->escape_str($this->input->post('religion_id')));
+		$gender=strtoupper($this->db->escape_str($this->input->post('gender')));
+		$voter_id_status=strtoupper($this->db->escape_str($this->input->post('voter_id_status')));
+		$voter_id_no=strtoupper($this->db->escape_str($this->input->post('voter_id_no')));
+		$aadhaar_status=strtoupper($this->db->escape_str($this->input->post('aadhaar_status')));
+		$aadhaar_no=strtoupper($this->db->escape_str($this->input->post('aadhaar_no')));
+		
+		//$interaction_section=$this->input->post('interaction_section');
+		//$question_id=$this->input->post('question_id');
+		//$question_response=$this->input->post('question_response');
+
+		$status=strtoupper($this->db->escape_str($this->input->post('status')));
+				
+		$data['result']=$this->apigmsmodel->Update_constituent($constituent_id,$constituency_id,$paguthi_id,$ward_id,$booth_id,$party_member_status,$vote_type,$serial_no,$full_name,$father_husband_name,$guardian_name,$email_id,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$user_id,$status);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function addMeeting()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id = '';
+		$constituent_id = '';
+		$meeting_status = '';
+		$meeting_detail = '';
+		$meeting_date = '';
+		
+		$user_id = $this->input->post("user_id");
+		$constituent_id = $this->input->post("constituent_id");
+		$meeting_status = $this->input->post("meeting_status");
+		$meeting_detail = $this->db->escape_str($this->input->post('meeting_detail'));
+		$originalDate = $this->db->escape_str($this->input->post('meeting_date'));
+		$meeting_date = date("Y-m-d", strtotime($originalDate));
+
+		$data['result']=$this->apigmsmodel->Add_meeting($user_id,$constituent_id,strtoupper($meeting_status),strtoupper($meeting_detail),$meeting_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listMeeting()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+
+		$data['result']=$this->apigmsmodel->List_meeting($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editMeeting()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$meeting_id = '';
+		$meeting_id = $this->input->post("meeting_id");
+
+		$data['result']=$this->apigmsmodel->Edit_meeting($meeting_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateMeeting()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$meeting_id = '';
+		$meeting_status = '';
+		$meeting_detail = '';
+		$meeting_date = '';
+		
+		$user_id = $this->input->post("user_id");
+		$meeting_id = $this->input->post("meeting_id");
+		$meeting_status = $this->input->post("meeting_status");
+		$meeting_detail = $this->db->escape_str($this->input->post('meeting_detail'));
+		$originalDate = $this->db->escape_str($this->input->post('meeting_date'));
+		$meeting_date = date("Y-m-d", strtotime($originalDate));
+
+		$data['result']=$this->apigmsmodel->Update_meeting($user_id,$meeting_id,strtoupper($meeting_status),strtoupper($meeting_detail),$meeting_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function addInteractionresponse()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id = '';
+		$constituent_id='';
+		$question_id = '';
+		$question_response = '';
+		
+		$user_id = $this->input->post('user_id');
+		$constituent_id=$this->input->post('constituent_id');
+		$question_id=$this->input->post('question_id');
+		$question_response=$this->input->post('question_response');
+
+		$data['result']=$this->apigmsmodel->Save_interactionresponse($user_id,$constituent_id,$question_id,$question_response);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editInteractionresponse()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+
+		$data['result']=$this->apigmsmodel->Edit_interactionresponse($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function saveInteractionresponse()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$constituent_id='';
+		$question_id = '';
+		$question_response = '';
+		
+		$user_id = $this->input->post('user_id');
+		$constituent_id=$this->input->post('constituent_id');
+		$question_id=$this->input->post('question_id');
+		$question_response=$this->input->post('question_response');
+
+		$data['result']=$this->apigmsmodel->Save_interactionresponse($user_id,$constituent_id,$question_id,$question_response);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function addPlants()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$user_id = '';
+		$constituent_id='';
+		$no_of_plant = '';
+		$name_of_plant = '';
+		$status = '';
+		
+		$user_id = $this->input->post('user_id');
+		$constituent_id=$this->input->post('constituent_id');
+		$no_of_plant=$this->input->post('no_of_plant');
+		$name_of_plant=$this->input->post('name_of_plant');
+		$status=$this->input->post('status');
+
+		$data['result']=$this->apigmsmodel->Add_plants($user_id,$constituent_id,$no_of_plant,strtoupper($name_of_plant),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editPlants()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+
+		$data['result']=$this->apigmsmodel->Edit_plants($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updatePlants()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$constituent_id='';
+		$no_of_plant = '';
+		$name_of_plant = '';
+		$status = '';
+		
+		$user_id = $this->input->post('user_id');
+		$constituent_id=$this->input->post('constituent_id');
+		$plant_id=$this->input->post('plant_id');
+		$no_of_plant=$this->input->post('no_of_plant');
+		$name_of_plant=$this->input->post('name_of_plant');
+		$status=$this->input->post('status');
+
+		$data['result']=$this->apigmsmodel->Update_plants($user_id,$constituent_id,$plant_id,$no_of_plant,strtoupper($name_of_plant),strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function generatePetitionno()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$grievance_type = '';
+
+		$paguthi_id=$this->input->post('paguthi_id');
+		$grievance_type=$this->input->post('grievance_type');
+
+		$data['result']=$this->apigmsmodel->Generate_petitionno($paguthi_id,$grievance_type);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function addGrievancedetails()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$constituent_id='';
+		$grievance_type = '';
+		
+		$petition_enquiry_no = '';
+		$grievance_date = '';
+		
+		$constituency_id = '';
+		$paguthi_id = '';
+		$seeker_id ='';
+		$grievance_id = '';
+		$sub_category_id = '';
+		
+		$reference_note = '';
+		$description = '';
+		
+		$user_id = $this->input->post('user_id');
+		$constituent_id=$this->input->post('constituent_id');
+		$grievance_type=$this->input->post('grievance_type');
+		
+		$petition_enquiry_no=strtoupper($this->db->escape_str($this->input->post('petition_enquiry_no')));	
+		$originalDate=strtoupper($this->db->escape_str($this->input->post('grievance_date')));
+		$grievance_date = date("Y-m-d", strtotime($originalDate));
+		
+		$constituency_id=$this->input->post('constituency_id');
+		$paguthi_id=$this->input->post('paguthi_id');
+		$seeker_id=$this->input->post('seeker_id');
+		$grievance_id=$this->input->post('grievance_id');
+		$sub_category_id=$this->input->post('sub_category_id');
+
+		$reference_note=strtoupper($this->db->escape_str($this->input->post('reference_note')));
+		$description=strtoupper($this->db->escape_str($this->input->post('description')));
+		
+		$data['result']=$this->apigmsmodel->Add_grievancedetails($user_id,$constituent_id,$grievance_type,$petition_enquiry_no,$grievance_date,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$reference_note,$description);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+    public function addGrievancedoc()
+	{
+		
+		$grev_id = $this->uri->segment(3);
+
+		$constituent_id = $this->uri->input->post('constituent_id');
+		$user_id = $this->input->post('user_id');
+		$doc_tile = $this->input->post('doc_tile');
+		
+		$grevdoc = $_FILES['grev_doc']['name'];
+		$temp = pathinfo($grevdoc, PATHINFO_EXTENSION);
+		$doc_name = round(microtime(true)) . '.' . $temp;
+		$uploaddir = 'assets/constituent/doc/';
+		$grevdoc = $uploaddir.$doc_name;
+		move_uploaded_file($_FILES['grev_doc']['tmp_name'], $grevdoc);
+
+		$data['result']=$this->apigmsmodel->Add_grievancedoc($user_id,$const_id,$grev_id,$doc_tile,$doc_name);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+   public function listGrievancedoc()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+		$data['result']=$this->apigmsmodel->List_grievancedoc($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+    public function addConstdoc()
+	{
+		$constituent_id = $this->input->post('constituent_id');
+		$user_id = $this->input->post('user_id');
+		$doc_tile = $this->input->post('doc_tile');
+		
+		$constdoc = $_FILES['const_doc']['name'];
+		$temp = pathinfo($constdoc, PATHINFO_EXTENSION);
+		$doc_name = round(microtime(true)) . '.' . $temp;
+		$uploaddir = 'assets/constituent/doc/';
+		$constdoc = $uploaddir.$doc_name;
+		move_uploaded_file($_FILES['const_doc']['tmp_name'], $constdoc);
+
+		$data['result']=$this->apigmsmodel->Add_constdoc($user_id,$constituent_id,$doc_tile,$doc_name);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+   public function listConstdoc()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+
+		$data['result']=$this->apigmsmodel->List_constdoc($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function dispConstdetails()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = '';
+		$constituent_id = $this->input->post("constituent_id");
+
+		$data['result']=$this->apigmsmodel->Disp_constdetails($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listallGrievance()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_allgrievance($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listPetitions()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_petitions($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listEnquries()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->List_enquries($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function editGrievancedetails()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$grievance_id = '';
+		$grievance_id = $this->input->post("grievance_id");
+
+		$data['result']=$this->apigmsmodel->Edit_grievancedetails($grievance_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateGrievancedetails()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$grievance_id = '';
+		$seeker_id='';
+		$reference_note='';
+		$grievance_tb_id='';
+		$sub_category_id='';
+		$description='';
+		$user_id = '';
+		
+		$user_id = $this->input->post("user_id");
+		$grievance_id = $this->input->post("grievance_id");
+		$reference =strtoupper($this->db->escape_str($this->input->post('reference')));
+		$seeker_id = $this->input->post('seeker_id');
+		$grievance_type_id=$this->input->post('grievance_type_id');
+		$sub_category_id=$this->input->post('sub_category_id');
+		$description=strtoupper($this->db->escape_str($this->input->post('description')));
+		
+		$data['result']=$this->apigmsmodel->Update_grievancedetails($user_id,$grievance_id,$reference,$seeker_id,$grievance_type_id,$sub_category_id,$description);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function statusUpdategrievance()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$grievance_id = '';
+		$status = '';
+		$sms_title = '';
+		$sms_details = '';
+		$user_id = '';
+		$constituent_id = '';
+		
+		$user_id = $this->input->post("user_id");
+		$constituent_id = $this->input->post("constituent_id");
+		$grievance_id = $this->input->post("grievance_id");
+		$status = $this->input->post("status");
+		$sms_template_id = $this->input->post("sms_template_id");
+		$sms_title = $this->input->post("sms_title");
+		$sms_details = $this->input->post("sms_details");
+
+		$data['result']=$this->apigmsmodel->Status_updategrievance($user_id,$constituent_id,$grievance_id,$sms_template_id,$status,$sms_title,$sms_details);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateGrievancereference()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$grievance_id = '';
+		$reference='';
+		$user_id = $this->input->post("user_id");
+		$grievance_id = $this->input->post("grievance_id");
+		$reference =strtoupper($this->db->escape_str($this->input->post('reference')));
+		
+		$data['result']=$this->apigmsmodel->Update_grievancereference($user_id,$grievance_id,$reference);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function grievanceReplay()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$grievance_id = '';
+		$constituent_id='';
+		$sms_template_id='';
+		$sms_content = '';
+		
+		$user_id = $this->input->post("user_id");
+		$grievance_id = $this->input->post("grievance_id");	
+		$constituent_id=$this->input->post('constituent_id');
+		$sms_template_id=$this->input->post('sms_template_id');
+		$sms_content =strtoupper($this->db->escape_str($this->input->post('sms_details')));
+		
+		$data['result']=$this->apigmsmodel->Grievance_replay($user_id,$grievance_id,$constituent_id,$sms_template_id,$sms_content);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportStatus()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$status='';
+		$paguthi='';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$status=$this->input->post('status');
+		$paguthi=$this->input->post('paguthi');
+		
+		$data['result']=$this->apigmsmodel->Report_status($from_date,$to_date,$status,$paguthi);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportCategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$category='';
+		$paguthi='';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$category=$this->input->post('category');
+		
+		$data['result']=$this->apigmsmodel->Report_category($from_date,$to_date,$category);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

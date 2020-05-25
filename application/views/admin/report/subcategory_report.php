@@ -60,7 +60,7 @@
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->sub_category_name; ?></td>
                     <td><?php  echo $rows->status; ?></td>
-                    <td><?php  echo $rows->full_name; ?></td>
+                    <td><?php  echo $rows->created_by; ?></td>
                  </tr>
             <?php $i++; } ?>
              </tbody>

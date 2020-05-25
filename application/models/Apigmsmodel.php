@@ -1416,7 +1416,7 @@ class Apigmsmodel extends CI_Model {
 		return $response;
 	}
 	
-	 function List_smstemplate()
+	function List_smstemplate()
 	{
 		$query="SELECT * FROM `sms_template";
 		$resultset=$this->db->query($query);
@@ -1430,6 +1430,21 @@ class Apigmsmodel extends CI_Model {
 		return $response;
 	}
 
+
+	function Active_smstemplate()
+	{
+		$query="SELECT * FROM sms_template WHERE status = 'ACTIVE'";
+		$resultset=$this->db->query($query);
+		$template_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Templates", "template_details" =>$template_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
 	function Edit_smstemplate($template_id)
 	{
 		$query="SELECT * FROM `sms_template` WHERE id='$template_id'";
@@ -1459,6 +1474,20 @@ class Apigmsmodel extends CI_Model {
 			}
 		return $response;
 	} 
+	
+	function get_SMSdetails($template_id)
+	{
+		$query="SELECT * FROM `sms_template` WHERE id = '$template_id'";
+		$resultset=$this->db->query($query);
+		$sms_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "SMS Details", "sms_details" =>$sms_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
 //#################### SMS Templates end ####################//	
 
 
@@ -1473,9 +1502,23 @@ class Apigmsmodel extends CI_Model {
 		return $response;
 	}
 	
-	 function List_interaction()
+	function List_interaction()
 	{
 		$query="SELECT * FROM `interaction_question";
+		$resultset=$this->db->query($query);
+		$interaction_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Interaction", "interaction_details" =>$interaction_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function List_interactionactive()
+	{
+		$query="SELECT * FROM interaction_question WHERE status='ACTIVE' order by id desc";
 		$resultset=$this->db->query($query);
 		$interaction_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1565,10 +1608,10 @@ class Apigmsmodel extends CI_Model {
 			WHERE
 				A.id!='1' AND A.pugathi_id = B.id";
 		$resultset=$this->db->query($query);
-		$interaction_result = $resultset->result();
+		$user_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "List Users", "user_details" =>$interaction_result);
+				$response = array("status" => "Success", "msg" => "List Users", "user_details" =>$user_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -1667,6 +1710,783 @@ class Apigmsmodel extends CI_Model {
 	} 
 //#################### Users end ####################//	
 
+
+//#################### Constituent ####################//	
+
+	function Chk_serialno($serial_no){
+		$select="SELECT * FROM constituent Where serial_no='$serial_no'";
+		$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			$response = array("status" => "Error", "msg" => "Serial number already exist");
+		}else {
+			$response = array("status" => "Success", "msg" => "Serial number not found");
+		}
+		return $response;
+	}
+
+	function Chk_voterid($voter_id){
+		$select="SELECT * FROM constituent Where voter_id_no='$voter_id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			$response = array("status" => "Error", "msg" => "Voter ID already exist");
+		}else {
+			$response = array("status" => "Success", "msg" => "Voter ID not found");
+		}
+		return $response;
+	}
+
+	function Chk_aadhaarno($aadhaar_no){
+		$select="SELECT * FROM constituent Where aadhaar_no='$aadhaar_no'";
+		$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			$response = array("status" => "Error", "msg" => "Aadhaar number already exist");
+		}else {
+			$response = array("status" => "Success", "msg" => "Aadhaar number not found");
+		}
+		return $response;
+	}
+
+	function serialno_exist($constituent_id,$serial_no){
+		$select="SELECT * FROM constituent Where serial_no='$serial_no' and id!='$constituent_id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			$response = array("status" => "Error", "msg" => "Serial number already exist");
+		} else {
+			$response = array("status" => "Success", "msg" => "Serial number not found");
+		}
+		return $response;
+	}
+
+	function voterid_exist($constituent_id,$voter_id_no){
+		$select="SELECT * FROM constituent Where voter_id_no='$voter_id_no' and id!='$constituent_id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			$response = array("status" => "Error", "msg" => "Voter ID already exist");
+		}else {
+			$response = array("status" => "Success", "msg" => "Voter ID not found");
+		}
+		return $response;
+	}
+
+	function aadhaarnum_exist($constituent_id,$aadhaar_no){
+		$select="SELECT * FROM constituent Where aadhaar_no='$aadhaar_no' and id!='$constituent_id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			$response = array("status" => "Error", "msg" => "Aadhaar number already exist");
+		}else {
+			$response = array("status" => "Success", "msg" => "Aadhaar number not found");
+		}
+		return $response;
+	}
+
+	function Add_constituent($constituency_id,$paguthi_id,$ward_id,$booth_id,$party_member_status,$vote_type,$serial_no,$full_name,$father_husband_name,$guardian_name,$email_id,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$question_id,$question_response,$interaction_section,$user_id,$status)
+	{
+		$select="SELECT * FROM constituent where serial_no='$serial_no'";
+		$res_select   = $this->db->query($select);
+		if($res_select->num_rows()>0){
+				$response = array("status" => "Error", "msg" => "Already exists");
+		} else{
+				if($aadhaar_status=='N'){
+					$aadhar_id_no='';
+				}else{
+					$aadhar_id_no=$aadhaar_no;
+				}
+			
+			if($voter_id_status=='N'){
+				$voter_no='';
+			}else{
+				$voter_no=$voter_id_no;
+			}
+
+			$query = "INSERT INTO constituent (constituency_id,paguthi_id,ward_id,booth_id,party_member_status,vote_type,serial_no,full_name,father_husband_name,guardian_name,email_id,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$ward_id','$booth_id','$party_member_status','$vote_type','$serial_no','$full_name','$father_husband_name','$guardian_name','$email_id','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','ACTIVE','$user_id',NOW())";
+			$result = $this->db->query($query);
+			$last_insertid = $this->db->insert_id();
+
+			if($interaction_section == 'Y'){
+				$count_question=count($question_id);
+				
+				for($i=0;$i<$count_question;$i++){
+					$insert_interaction = "INSERT INTO interaction_history(constituent_id,question_id,question_response,status,created_at,created_by) VALUES('$last_id','$question_id[$i]','$question_response[$i]','Active',NOW(),'$user_id')";
+					$res_interaction   = $this->db->query($insert_interaction);
+				}
+			 }
+
+				$response = array("status" => "Success", "msg" => "Constituent Added","last_insert_id"=>$last_insertid);
+		}
+		return $response;
+	}
+	
+
+	public function Update_constpic($const_id,$const_prof_pic)
+	{
+            $update_sql= "UPDATE constituent SET profile_pic='$const_prof_pic' WHERE id='$const_id'";
+			$update_result = $this->db->query($update_sql);
+			$picture_url = base_url().'assets/constituent/'.$const_prof_pic;
+
+			$response = array("status" => "success", "msg" => "Profile Picture Updated","picture_url" =>$picture_url);
+			return $response;
+	}
+	
+	public function List_constituent($user_id)
+	{
+		$query="SELECT
+					c.*,
+					IFNULL(ih.constituent_id, '0') AS interaction_status,
+					IFNULL(pd.constituent_id, '0') AS plant_status,
+					p.paguthi_name
+				FROM
+					constituent AS c
+				LEFT JOIN paguthi AS p
+				ON
+					p.id = c.paguthi_id
+				LEFT JOIN interaction_history AS ih
+				ON
+					c.id = ih.constituent_id
+				LEFT JOIN plant_donation AS pd
+				ON
+					pd.constituent_id = c.id
+				GROUP BY
+					c.id
+				ORDER BY
+					c.id
+				DESC";
+		$resultset=$this->db->query($query);
+		$user_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Users", "user_details" =>$user_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	
+	
+	function Edit_constituent($constituent_id)
+	{
+		$query="SELECT * FROM `constituent` WHERE id='$constituent_id'";
+		$result=$this->db->query($query);
+		$user_result = $result->result();
+		if($result->num_rows()>0)
+			{
+				foreach ($result->result() as $rows)
+				{
+				  $user_picture = $rows->profile_pic ;
+				}
+				
+				if ($user_picture != ''){
+			        $picture_url = base_url().'assets/constituent/'.$user_picture;
+			    }else {
+			         $picture_url = '';
+			    }
+				
+				$response = array("status" => "Success", "msg" => "Constituent Details", "constituent_details" =>$user_result,"profile_pic" =>$picture_url);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_constituent($constituent_id,$constituency_id,$paguthi_id,$ward_id,$booth_id,$party_member_status,$vote_type,$serial_no,$full_name,$father_husband_name,$guardian_name,$email_id,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$user_id,$status)
+	{
+		if($aadhaar_status=='N'){
+			$aadhar_id_no=' ';
+		}else{
+			$aadhar_id_no=$aadhaar_no;
+		}
+		
+		if($voter_id_status=='N'){
+			$voter_no=' ';
+		}else{
+			$voter_no=$voter_id_no;
+		}
+		
+		$update_sql="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',ward_id='$ward_id',booth_id='$booth_id',party_member_status='$party_member_status',vote_type='$vote_type',serial_no='$serial_no',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',email_id='$email_id',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$constituent_id'";
+		$update_result = $this->db->query($update_sql);
+		
+		$response = array("status" => "Success", "msg" => "Constituent Updated");
+		return $response;
+	}
+//#################### Constituent end ####################//	
+
+
+//#################### Meetings ####################//	
+
+	function Add_meeting($user_id,$constituent_id,$meeting_status,$meeting_detail,$meeting_date)
+	{
+		$insert="INSERT INTO meeting_request(constituent_id,meeting_detail,meeting_date,meeting_status,created_at,created_by) VALUES('$constituent_id','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id')";
+		$result   = $this->db->query($insert);
+		
+		$response = array("status" => "Success", "msg" => "Meeting added");
+		return $response;
+	}
+	
+	function List_meeting($constituent_id)
+	{
+		$query="SELECT * FROM meeting_request WHERE constituent_id = '$constituent_id' ";
+		$resultset=$this->db->query($query);
+		$meeting_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Meetings", "meeting_details" =>$meeting_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+
+	function Edit_meeting($meeting_id)
+	{
+		$query="SELECT * FROM `meeting_request` WHERE id='$meeting_id'";
+		$resultset=$this->db->query($query);
+		$meeting_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Meeting Details", "meeting_details" =>$meeting_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_meeting($user_id,$meeting_id,$meeting_status,$meeting_detail,$meeting_date)
+	{
+		$sQuery="UPDATE meeting_request SET meeting_detail='$meeting_detail',meeting_date='$meeting_date',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+		$update_Query = $this->db->query($sQuery);
+
+		$response = array("status" => "Success", "msg" => "Meeting Updated");
+		return $response;
+	} 
+//#################### Meeting end ####################//	
+
+
+//#################### Interaction Response ####################//	
+
+	function Save_interactionresponse($user_id,$constituent_id,$question_id,$question_response)
+	{
+			$delete="DELETE FROM interaction_history where constituent_id='$constituent_id'";
+			$res=	$this->db->query($delete);
+
+			$count_question = count($question_id);
+			
+	 		for($i=0;$i<$count_question;$i++){
+				 $insert_interaction = "INSERT INTO interaction_history(constituent_id,question_id,question_response,status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$question_id[$i]','$question_response[$i]','ACTIVE',NOW(),'$user_id',NOW(),'$user_id')";
+				 $res_interaction   = $this->db->query($insert_interaction);
+			 }
+			 
+		$response = array("status" => "Success", "msg" => "Interaction saved");
+		return $response;
+	}
+	
+	function Edit_interactionresponse($constituent_id)
+	{
+		$query="SELECT * FROM interaction_history where constituent_id='$constituent_id' order by question_id desc";
+		$resultset=$this->db->query($query);
+		$interaction_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Interaction Details", "interaction_details" =>$interaction_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+//#################### Interaction Response ####################//	
+
+
+//#################### Plants ####################//	
+
+	function Add_plants($user_id,$constituent_id,$no_of_plant,$name_of_plant,$status)
+	{
+		$insert="INSERT INTO plant_donation(constituent_id,no_of_plant,name_of_plant,status,created_at,created_by) VALUES('$constituent_id','$no_of_plant','$name_of_plant','$status',NOW(),'$user_id')";
+		$result   = $this->db->query($insert);
+		
+		$response = array("status" => "Success", "msg" => "Plant donation added");
+		return $response;
+	}
+	
+	function Edit_plants($constituent_id)
+	{
+		$query="SELECT * FROM `plant_donation` WHERE constituent_id='$constituent_id'";
+		$resultset=$this->db->query($query);
+		$plant_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Plant Details", "plant_details" =>$plant_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_plants($user_id,$constituent_id,$plant_id,$no_of_plant,$name_of_plant,$status)
+	{
+		$sQuery="UPDATE plant_donation SET no_of_plant='$no_of_plant',name_of_plant='$name_of_plant',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$plant_id'";
+		$update_Query = $this->db->query($sQuery);
+
+		$response = array("status" => "Success", "msg" => "Plant donation Updated");
+		return $response;
+	} 
+//#################### Plants end ####################//
+
+//#################### Grievance Details ####################//	
+
+	function Generate_petitionno($paguthi_id,$grievance_type)
+	{
+			$selct_paguthi="SELECT * FROM paguthi where id ='$paguthi_id'";
+			$re_paguth=$this->db->query($selct_paguthi);
+			
+			foreach($re_paguth->result() as $rows_paguthi){
+				$paguthi_short_name=$rows_paguthi->paguthi_short_name;
+			}
+			
+				$select="SELECT * FROM grievance where grievance_type='$grievance_type' order by id desc LIMIT 1";
+				$res=$this->db->query($select);
+				
+				if($res->num_rows()==0){
+					$next_id='1';
+				}else{
+					foreach($res->result() as $rows_id){
+						$next_id=$rows_id->id+1;
+					}
+				}
+				
+				$invID = str_pad($next_id, 3, '0', STR_PAD_LEFT);
+					
+				if($grievance_type=='P'){
+						$petition_code=$paguthi_short_name."PT".$invID;
+				}else{
+						$petition_code=$paguthi_short_name."EQ".$invID;
+				}
+		
+		$response = array("status" => "Success", "msg" => "Petition code","petition_code" => $petition_code);
+		return $response;
+	}
+	
+	function Add_grievancedetails($user_id,$constituent_id,$grievance_type,$petition_enquiry_no,$grievance_date,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$reference_note,$description)
+	{
+		$check="SELECT * FROM grievance WHERE petition_enquiry_no='$petition_enquiry_no'";
+		$res_check=$this->db->query($check);
+			if($res_check->num_rows() == 0){
+				$repeat_check="SELECT * FROM grievance where constituent_id='$constituent_id'";
+				$res_repeat=$this->db->query($repeat_check);
+				if($res_repeat->num_rows()==0){
+					$repeated_status='N';
+				}else{
+					$repeated_status='R';
+				}
+
+				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$grievance_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PROCESSING','$user_id',NOW())";
+				$res=$this->db->query($insert);
+				$last_insert_id=$this->db->insert_id();
+
+				$response = array("status" => "Success", "msg" => "Grievance details added","last_insert_id" => $last_insert_id);
+			}else{
+				$response = array("status" => "error", "msg" => "Grievance details exist");
+				
+			}
+			return $response;
+	}
+	
+	
+	function Add_grievancedoc($user_id,$constituent_id,$grev_id,$doc_tile,$doc_name)
+	{
+			$insert="INSERT INTO grievance_documents (constituent_id,grievance_id,doc_name,doc_file_name,status,created_by,created_at) VALUES ('$constituent_id','$grev_id','$doc_tile','$doc_name','ACTIVE','$user_id',NOW())";
+			$res=$this->db->query($insert);
+
+			$response = array("status" => "Success", "msg" => "Grievance document uploaded");
+			return $response;
+	}
+	
+	
+	function List_grievancedoc($constituent_id)
+	{
+		$query="SELECT * FROM grievance_documents where constituent_id='$constituent_id' AND grievance_id ='' AND status='ACTIVE' order by id desc";
+		$resultset=$this->db->query($query);
+		$doc_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Cocuments", "document_details" =>$doc_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	
+	function Add_constdoc($user_id,$constituent_id,$doc_tile,$doc_name)
+	{
+			$insert="INSERT INTO grievance_documents (constituent_id,doc_name,doc_file_name,status,created_by,created_at) VALUES ('$constituent_id','$doc_tile','$doc_name','ACTIVE','$user_id',NOW())";
+			$res=$this->db->query($insert);
+
+			$response = array("status" => "Success", "msg" => "Constituent document uploaded");
+			return $response;
+	}
+	
+	function List_constdoc($constituent_id)
+	{
+		$query="SELECT * FROM grievance_documents where constituent_id='$constituent_id' AND grievance_id !='' AND status='ACTIVE' order by id desc";
+		$resultset=$this->db->query($query);
+		$doc_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Cocuments", "document_details" =>$doc_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Disp_constdetails($constituent_id)
+	{
+		$query="SELECT
+					c.*,
+					ct.constituency_name,
+					p.paguthi_name,
+					w.ward_name,
+					b.booth_name,
+					b.booth_address,
+					r.religion_name
+				FROM
+					constituent AS c
+				LEFT JOIN constituency AS ct
+				ON
+					ct.id = c.constituency_id
+				LEFT JOIN paguthi AS p
+				ON
+					p.id = c.paguthi_id
+				LEFT JOIN ward AS w
+				ON
+					w.id = c.ward_id
+				LEFT JOIN booth AS b
+				ON
+					b.id = c.booth_id
+				LEFT JOIN religion AS r
+				ON
+					r.id = c.religion_id
+				WHERE
+					c.id = '$constituent_id'";
+		$resultset=$this->db->query($query);
+		$const_details = $resultset->result();
+
+
+			$query="SELECT * FROM meeting_request WHERE constituent_id = '$constituent_id'";
+			$meet_result=$this->db->query($query);
+			if($meet_result->num_rows()>0)
+			{
+				$meeting_result = $meet_result->result();
+			} else {
+				$meeting_result ='';
+			}
+			
+			$query="SELECT * FROM plant_donation WHERE constituent_id = '$constituent_id'";
+			$pla_result=$this->db->query($query);
+			if($pla_result->num_rows()>0)
+			{
+				$plant_result = $pla_result->result();
+			} else {
+				$plant_result ='';
+			}
+			
+			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+					left join constituent as c on c.id=g.constituent_id
+					left join paguthi as p on p.id=g.paguthi_id
+					left join seeker_type as st on st.id=g.seeker_type_id
+					left join grievance_type as gt on gt.id=g.grievance_type_id
+					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
+					where  g.constituent_id='$constituent_id'";
+			$grev_result=$this->db->query($query);
+			if($grev_result->num_rows()>0)
+			{
+				$grievance_result = $grev_result->result();
+			} else {
+				$grievance_result ='';
+			}
+			
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Constituent Details", "const_details" =>$const_details, "meeting_details" =>$meeting_result,"plant_details" =>$plant_result,"grievance_details" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+
+
+	function List_allgrievance()
+	{
+		$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+					left join constituent as c on c.id=g.constituent_id
+					left join paguthi as p on p.id=g.paguthi_id
+					left join seeker_type as st on st.id=g.seeker_type_id
+					left join grievance_type as gt on gt.id=g.grievance_type_id
+					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
+					order by g.id desc";
+		$resultset=$this->db->query($query);
+		$grievance_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List All Grievances", "list_grievances" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function List_petitions()
+	{
+		$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+					left join constituent as c on c.id=g.constituent_id
+					left join paguthi as p on p.id=g.paguthi_id
+					left join seeker_type as st on st.id=g.seeker_type_id
+					left join grievance_type as gt on gt.id=g.grievance_type_id
+					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='P'
+					order by g.id desc";
+		$resultset=$this->db->query($query);
+		$grievance_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Petitions", "list_petitions" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function List_enquries()
+	{
+		$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+					left join constituent as c on c.id=g.constituent_id
+					left join paguthi as p on p.id=g.paguthi_id
+					left join seeker_type as st on st.id=g.seeker_type_id
+					left join grievance_type as gt on gt.id=g.grievance_type_id
+					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='E'
+					order by g.id desc";
+		$resultset=$this->db->query($query);
+		$grievance_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Enquries", "list_enquries" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Edit_grievancedetails($grievance_id)
+	{
+		$query="SELECT * FROM `grievance` WHERE id = '$grievance_id'";
+		$resultset=$this->db->query($query);
+		$grievance_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Edit Grievance", "grievance_details" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Update_grievancedetails($user_id,$grievance_id,$reference,$seeker_id,$grievance_type_id,$sub_category_id,$description)
+	{
+		$sQuery="UPDATE grievance SET seeker_type_id='$seeker_id',grievance_type_id='$grievance_type_id',sub_category_id='$sub_category_id',description='$description',reference_note='$reference',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+		$update_Query = $this->db->query($sQuery);
+
+		$response = array("status" => "Success", "msg" => "Grievance Updated");
+		return $response;
+	} 
+	
+	
+	function Status_updategrievance($user_id,$constituent_id,$grievance_id,$sms_template_id,$status,$sms_title,$sms_details)
+	{
+		
+			$select="SELECT * FROM constituent where id='$constituent_id'";
+			$res=$this->db->query($select);
+			foreach($res->result() as $rows){
+				$to_phone=$rows->mobile_no;
+			}
+			$smsContent=utf8_encode($sms_details);
+			$this->smsmodel->sendSMS($to_phone,$smsContent);
+			
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_template_id','$sms_details',NOW(),'$user_id')";
+			$result_insert=$this->db->query($insert);
+			
+			if($status=='COMPLETED'){
+				$enquiry_status='P';
+			}else{
+				$enquiry_status='E';
+			}
+			
+			$sQuery="UPDATE grievance SET enquiry_status='$enquiry_status',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+			$update_Query = $this->db->query($sQuery);
+
+		$response = array("status" => "Success", "msg" => "Grievance Updated");
+		return $response;
+	} 
+	
+	
+	function Update_grievancereference($user_id,$grievance_id,$reference)
+	{
+		$sQuery="UPDATE grievance SET reference_note='$reference',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+		$update_Query = $this->db->query($sQuery);
+
+		$response = array("status" => "Success", "msg" => "Grievance Updated");
+		return $response;
+	} 
+	
+	function Grievance_replay($user_id,$grievance_id,$constituent_id,$sms_template_id,$sms_content){
+
+		$select="SELECT * FROM constituent where id='$constituent_id'";
+		$res=$this->db->query($select);
+		
+		foreach($res->result() as $rows){
+			$to_phone=$rows->mobile_no;
+		}
+		$smsContent=utf8_encode($sms_content);
+		$this->smsmodel->sendSMS($to_phone,$smsContent);
+
+		$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_template_id','$sms_content',NOW(),'$user_id')";
+		$result_insert=$this->db->query($insert);
+		
+		$response = array("status" => "Success", "msg" => "Grievance Reply Updated");
+		return $response;
+	}
+//#################### Grievance Details ####################//	
+
+//#################### Reports ####################//	
+
+	function Report_status($from_date,$to_date,$status,$paguthi){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($status=='ALL' && $paguthi == 'ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status=='ALL' && $paguthi != 'ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status!='ALL' && $paguthi == 'ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status!='ALL' && $paguthi != 'ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		$resultset=$this->db->query($query);
+		$report_result = $resultset->result();
+		
+		$response = array("status" => "Success", "msg" => "Status based report","status_report" =>$report_result);
+		return $response;
+	}
+	
+	function Report_category($from_date,$to_date,$category){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($category=='ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($category != 'ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		
+		$resultset=$this->db->query($query);
+		$report_result = $resultset->result();
+		
+		$response = array("status" => "Success", "msg" => "Category based report","category_report" =>$report_result);
+		return $response;
+	}
+//#################### Reports End ####################//	
+
+
+	
 } 
 
 ?>
