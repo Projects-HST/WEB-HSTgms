@@ -718,6 +718,25 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function activeSeekertype()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->Active_seekertype($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function editSeekertype()
 	{
 		if(!$this->checkMethod())
@@ -798,6 +817,25 @@ class Apigms extends CI_Controller {
 		$user_id = $this->input->post("user_id");
 
 		$data['result']=$this->apigmsmodel->List_grievance($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function activeGrievance()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->Active_grievance($user_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -904,6 +942,25 @@ class Apigms extends CI_Controller {
 		$user_id = $this->input->post("user_id");
 
 		$data['result']=$this->apigmsmodel->List_subcategory($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function activeSubcategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apigmsmodel->Active_subcategory($user_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1156,7 +1213,7 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function listInteractionactive()
+	public function activeInteraction()
 	{
 		if(!$this->checkMethod())
 		{
@@ -1166,7 +1223,7 @@ class Apigms extends CI_Controller {
 		$user_id = '';
 		$user_id = $this->input->post("user_id");
 
-		$data['result']=$this->apigmsmodel->List_interactionactive($user_id);
+		$data['result']=$this->apigmsmodel->Active_interaction($user_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -2321,7 +2378,6 @@ class Apigms extends CI_Controller {
 		$from_date = '';
 		$to_date = '';
 		$category='';
-		$paguthi='';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
@@ -2334,4 +2390,158 @@ class Apigms extends CI_Controller {
 
 //-----------------------------------------------//
 
+//-----------------------------------------------//
+
+	public function reportsubCategory()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$sub_category='';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$sub_category=$this->input->post('sub_category');
+		
+		$data['result']=$this->apigmsmodel->Report_subcategory($from_date,$to_date,$sub_category);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportLocation()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$paguthi='';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$paguthi=$this->input->post('paguthi');
+		
+		$data['result']=$this->apigmsmodel->Report_location($from_date,$to_date,$paguthi);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportMeetings()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		
+		$data['result']=$this->apigmsmodel->Report_meetings($from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateMeetingrequest()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$meeting_id = '';
+		
+		$user_id = $this->input->post("user_id");
+		$meeting_id = $this->input->post("meeting_id");
+		$status = $this->input->post("status");		
+		
+		$data['result']=$this->apigmsmodel->Update_meetingrequest($user_id,$meeting_id,strtoupper($status));
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportStaff()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		
+		$data['result']=$this->apigmsmodel->Report_staff($from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportBirthday()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$selMonth = '';
+		$selMonth = $this->input->post("select_month");
+		
+		$data['result']=$this->apigmsmodel->Report_birthday($selMonth);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function updateBirthday()
+	{
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$constituent_id = '';
+		$user_id = $this->input->post("user_id");
+		$constituent_id = $this->input->post("constituent_id");
+		
+		$data['result']=$this->apigmsmodel->Update_birthday($user_id,$constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
 }

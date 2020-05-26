@@ -1201,7 +1201,21 @@ class Apigmsmodel extends CI_Model {
 		$seeker_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "List Seeker type", "paguthi_details" =>$seeker_result);
+				$response = array("status" => "Success", "msg" => "List Seeker type", "seeker_details" =>$seeker_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Active_seekertype()
+	{
+		$query="SELECT * FROM `seeker_type` WHERE status = 'ACTIVE'";
+		$resultset=$this->db->query($query);
+		$seeker_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Seeker type", "seeker_details" =>$seeker_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -1263,6 +1277,20 @@ class Apigmsmodel extends CI_Model {
 	function List_grievance()
 	{
 		$query="SELECT * FROM `grievance_type`";
+		$resultset=$this->db->query($query);
+		$category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Grievance", "grievance_details" =>$category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Active_grievance()
+	{
+		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		$category_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1341,6 +1369,20 @@ class Apigmsmodel extends CI_Model {
 	function List_subcategory()
 	{
 		$query="SELECT * FROM `grievance_sub_category`";
+		$resultset=$this->db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Active_subcategory()
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		$sub_category_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -1516,7 +1558,7 @@ class Apigmsmodel extends CI_Model {
 		return $response;
 	}
 	
-	function List_interactionactive()
+	function Active_interaction()
 	{
 		$query="SELECT * FROM interaction_question WHERE status='ACTIVE' order by id desc";
 		$resultset=$this->db->query($query);
@@ -2481,6 +2523,226 @@ class Apigmsmodel extends CI_Model {
 		$report_result = $resultset->result();
 		
 		$response = array("status" => "Success", "msg" => "Category based report","category_report" =>$report_result);
+		return $response;
+	}
+	
+	function Report_subcategory($from_date,$to_date,$sub_category){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($sub_category=='ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.sub_category_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_sub_category D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id  AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($sub_category != 'ALL')
+		{
+			$query="SELECT
+						A.*,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.sub_category_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_sub_category D
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		$resultset=$this->db->query($query);
+		$report_result = $resultset->result();
+		
+		$response = array("status" => "Success", "msg" => "Sub Category based report","subcategory_report" =>$report_result);
+		return $response;
+	}
+	
+	function Report_location($from_date,$to_date,$paguthi){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($paguthi=='ALL')
+		{
+			$query="SELECT
+					A.*,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by,
+					D.grievance_name
+				FROM
+					grievance A,
+					constituent B,
+					user_master C,
+					grievance_type D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($paguthi != 'ALL')
+		{
+			$query="SELECT
+					A.*,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by,
+					D.grievance_name
+				FROM
+					grievance A,
+					constituent B,
+					user_master C,
+					grievance_type D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		//echo $query;
+		$resultset=$this->db->query($query);
+		$report_result = $resultset->result();
+		
+		$response = array("status" => "Success", "msg" => "Location based report","location_report" =>$report_result);
+		return $response;
+	}
+	
+	
+	function Report_meetings($from_date,$to_date){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$query="SELECT
+					A.*,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND (A.meeting_date BETWEEN '$from_date' AND '$to_date'
+					)
+				ORDER BY
+					 A.meeting_date DESC";
+		$resultset=$this->db->query($query);
+		$report_result = $resultset->result();
+		
+		$response = array("status" => "Success", "msg" => "Meetings report","meetings_report" =>$report_result);
+		return $response;
+	}
+	
+	
+	function Update_meetingrequest($user_id,$meeting_id,$status){
+		
+		$update="UPDATE meeting_request SET meeting_status='$status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+		$result=$this->db->query($update);
+		
+		$response = array("status" => "Success", "msg" => "Meeting status updated");
+		return $response;
+	}
+	
+	function Report_staff($from_date,$to_date){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$query="SELECT
+				um.id,
+				um.full_name,
+				COUNT(ct.created_by) AS total,
+				COUNT( CASE WHEN ct.status = 'ACTIVE' THEN 1 END ) AS active,
+				COUNT( CASE WHEN ct.status = 'INACTIVE' THEN 1 END ) AS inactive
+				FROM constituent AS	ct
+				LEFT JOIN user_master AS um ON um.id = ct.created_by
+				WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date' GROUP BY ct.created_by";
+		$resultset=$this->db->query($query);
+		$report_result = $resultset->result();
+		
+		$response = array("status" => "Success", "msg" => "Staff report","staff_report" =>$report_result);
+		return $response;
+	}
+	
+	function Report_birthday($selMonth){
+
+		$year = date("Y"); 
+		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
+		$resultset=$this->db->query($query);
+		if($resultset->num_rows()>0){
+			foreach ($resultset->result() as $rows)
+			{
+				$const_id = $rows->id;
+				$full_name = $rows->full_name;
+				$dob = $rows->dob;
+				$mobile_no = $rows->mobile_no;
+				$door_no = $rows->door_no;
+				$address = $rows->address;
+				$pin_code = $rows->pin_code;
+				
+				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
+				$subQuery_result = $this->db->query($subQuery);
+				if($subQuery_result->num_rows()>0){
+					foreach ($subQuery_result->result() as $rows1)
+					{
+						$birth_id = $rows1->constituent_id;
+					}
+				}else{
+					$birth_id = '';
+				}
+				
+				if ($const_id == $birth_id){
+					 $birth_wish = 'Send';
+				} else {
+					 $birth_wish = 'NotSend';
+				}
+				$contData[]  = (object) array(
+						"const_id" => $const_id,
+						"full_name" => $full_name,
+						"dob" => $dob,
+						"mobile_no" => $mobile_no,
+						"door_no" => $door_no,
+						"address" => $address,
+						"pin_code" => $pin_code,
+						"birth_wish_status" => $birth_wish,
+				);
+			} 
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","birthday_report" =>$contData);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Update_birthday($user_id,$constituent_id){
+		
+		$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at) VALUES ('$constituent_id','SEND','$user_id',NOW())";
+		$result=$this->db->query($insert);
+		
+		$response = array("status" => "Success", "msg" => "Birthday Greetings Update");
 		return $response;
 	}
 //#################### Reports End ####################//	

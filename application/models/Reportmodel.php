@@ -243,12 +243,10 @@ Class Reportmodel extends CI_Model
 					constituent B,
 					user_master C
 				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND(
-						DATE(A.created_at) BETWEEN '$from_date' AND '$to_date'
+					A.constituent_id = B.id AND A.created_by = C.id AND (A.meeting_date BETWEEN '$from_date' AND '$to_date'
 					)
 				ORDER BY
-					A.`created_at`
-				DESC";
+					 A.meeting_date DESC";
 		//echo $query;
 		$resultset=$this->db->query($query);
 		return $resultset->result();
@@ -281,23 +279,11 @@ Class Reportmodel extends CI_Model
 				um.id,
 				um.full_name,
 				COUNT(ct.created_by) AS total,
-				COUNT(
-					CASE WHEN ct.status = 'ACTIVE' THEN 1
-				END
-			) AS active,
-			COUNT(
-				CASE WHEN ct.status = 'INACTVIE' THEN 1
-			END
-			) AS inactive
-			FROM constituent AS
-				ct
-			LEFT JOIN user_master AS um
-			ON
-				um.id = ct.created_by
-			WHERE
-				DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date'
-			GROUP BY
-				ct.created_by";
+				COUNT( CASE WHEN ct.status = 'ACTIVE' THEN 1 END ) AS active,
+				COUNT( CASE WHEN ct.status = 'INACTIVE' THEN 1 END ) AS inactive
+				FROM constituent AS	ct
+				LEFT JOIN user_master AS um ON um.id = ct.created_by
+				WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date' GROUP BY ct.created_by";
 		//echo $query;
 		$resultset=$this->db->query($query);
 		return $resultset->result();
@@ -305,9 +291,51 @@ Class Reportmodel extends CI_Model
 	
 	function get_birthday_report($selMonth)
 	{
-		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-		$resultset=$this->db->query($query);
-		return $resultset->result();
+				$year = date("Y"); 
+				$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
+				$resultset=$this->db->query($query);
+				if($resultset->num_rows()>0){
+					foreach ($resultset->result() as $rows)
+					{
+						$const_id = $rows->id;
+						$full_name = $rows->full_name;
+						$dob = $rows->dob;
+						$mobile_no = $rows->mobile_no;
+						$door_no = $rows->door_no;
+						$address = $rows->address;
+						$pin_code = $rows->pin_code;
+						
+						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
+						$subQuery_result = $this->db->query($subQuery);
+						if($subQuery_result->num_rows()>0){
+							foreach ($subQuery_result->result() as $rows1)
+							{
+								$birth_id = $rows1->constituent_id;
+							}
+						}else{
+							$birth_id = '';
+						}
+						
+						if ($const_id == $birth_id){
+							 $birth_wish = 'Send';
+						} else {
+							 $birth_wish = 'NotSend';
+						}
+						$contData[]  = (object) array(
+								"const_id" => $const_id,
+								"full_name" => $full_name,
+								"dob" => $dob,
+								"mobile_no" => $mobile_no,
+								"door_no" => $door_no,
+								"address" => $address,
+								"pin_code" => $pin_code,
+								"birth_wish_status" => $birth_wish,
+						);
+					} 
+				}else {
+						$contData = array();
+				}
+		return $contData;
 	}
 	
 	function birthday_update($constituent_id,$user_id,$searchMonth)

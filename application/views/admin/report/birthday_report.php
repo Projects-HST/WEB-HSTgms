@@ -55,17 +55,21 @@
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1; $birth_id=''; foreach($res as $rows){ 
+               <?php 
+			    if (count($res) >0) {
+					$i=1;
+					foreach($res as $rows){ 
 						
-						$const_id = $rows->id;
-						$year = date("Y"); 
+						$const_id = $rows->const_id;
+						$birth_wish_status = $rows->birth_wish_status;
+						/* $year = date("Y"); 
 						
 						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
                     	$subQuery_result = $this->db->query($subQuery);
 							foreach ($subQuery_result->result() as $rows1)
                 			{
                 			    $birth_id = $rows1->constituent_id;
-                			}
+                			} */
 			   ?>
                  <tr>
                     <td><?php echo $i; ?></td>
@@ -74,13 +78,13 @@
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->door_no; ?><br><?php echo $rows->address; ?><br><?php echo $rows->pin_code; ?></td>
 					<?php 
-					if ($const_id == $birth_id){ ?>
+					if ($birth_wish_status == 'Send'){ ?>
 						<td style="font-size:13px;font-weight:bold;color:#1fae03;">Send</td>
 					<?php } else { ?>
-						<td><a href="<?php echo base_url(); ?>report/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->id*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</a></td>	
+						<td><a href="<?php echo base_url(); ?>report/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->const_id*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</a></td>	
 					<?php } ?>
                  </tr>
-            <?php $i++; } ?>
+				<?php $i++; } } ?>
              </tbody>
           </table>
 
