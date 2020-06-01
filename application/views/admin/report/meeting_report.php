@@ -49,7 +49,7 @@
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-					<td><?php echo date('d-m-Y', strtotime($rows->created_at)); ?></td>
+					<td><?php echo date('d-m-Y', strtotime($rows->meeting_date)); ?></td>
                     <td><?php echo $rows->full_name; ?></td>
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->meeting_detail; ?></td>
