@@ -10,6 +10,7 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => '',
 	'database' => 'grievance_management',
+	//'database' => 'grievance_livedata',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

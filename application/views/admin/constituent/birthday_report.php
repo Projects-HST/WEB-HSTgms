@@ -3,7 +3,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Birthday Report</h2>
+               <h2>Birthday Wishes</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -16,7 +16,7 @@
 		</div>
 	<?php endif; ?>
 	
-		<form id="report_form" action="<?php echo base_url(); ?>report/birthday" method="post" enctype="multipart/form-data">
+		<form id="report_form" action="<?php echo base_url(); ?>constituent/birthday" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
 				<label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
@@ -62,6 +62,8 @@
 						
 						$const_id = $rows->const_id;
 						$birth_wish_status = $rows->birth_wish_status;
+						
+					if ($birth_wish_status == 'NotSend'){
 			   ?>
                  <tr>
                     <td><?php echo $i; ?></td>
@@ -69,15 +71,9 @@
 					<td><?php echo date('d-m-Y', strtotime($rows->dob)); ?></td>
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->door_no; ?><br><?php echo $rows->address; ?><br><?php echo $rows->pin_code; ?></td>
-					<?php 
-					if ($birth_wish_status == 'Send'){ ?>
-						<td style="font-size:13px;font-weight:bold;color:#1fae03;">Send</td>
-					<?php } else { ?>
-						<td style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</td>
-						<!--<td><a href="<?php echo base_url(); ?>report/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->const_id*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</a></td>-->
-					<?php } ?>
+					<td><a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->const_id*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</a></td>	
                  </tr>
-				<?php $i++; } } ?>
+				<?php } $i++; } } ?>
              </tbody>
           </table>
 
@@ -110,4 +106,7 @@ $('#report_form').validate({ // initialize the plugin
            toDate: { required:"Select To Date"}
          }
  });
+$('#constiituent_menu').addClass('active');
+$('.constiituent_menu').css('display','block');
+$('#constituent_birthday').addClass('active current-page');
  </script>

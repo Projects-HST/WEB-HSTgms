@@ -3,7 +3,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Meeting Based Report</h2>
+               <h2>Meeting Requests</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -15,7 +15,7 @@
 		<?php echo $this->session->flashdata('msg'); ?>
 		</div>
 	<?php endif; ?>
-		<form id="report_form" action="<?php echo base_url(); ?>report/meetings" method="post" enctype="multipart/form-data">
+		<form id="report_form" action="<?php echo base_url(); ?>constituent/meetings" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
@@ -37,35 +37,30 @@
              <thead>
                 <tr>
                    <th>S.no</th>
-				   <th>Date</th>
+				    <th>Date</th>
                    <th>Name</th>
 				   <th>Phone</th>
-				   <th>Details</th>
+				    <th>Details</th>
 				   <th>Status</th>
-                   <th>Created</th>
+                   <th>Created by</th>
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1; foreach($res as $rows){ ?>
+               <?php $i=1; 
+			   foreach($res as $rows){ 
+					$meeting_status = $rows->meeting_status;
+				if ($meeting_status == 'REQUESTED'){ 
+			   ?>
                  <tr>
                     <td><?php echo $i; ?></td>
 					<td><?php echo date('d-m-Y', strtotime($rows->created_at)); ?></td>
                     <td><?php echo $rows->full_name; ?></td>
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->meeting_detail; ?></td>
-					
-					<?php 
-						$meeting_status = $rows->meeting_status;
-						if ($meeting_status == 'REQUESTED'){ ?>
-								<td style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $meeting_status; ?></td>
-								<!--<td><a href="<?php echo base_url(); ?>report/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>-->
-						<?php } else { ?>
-								<td style="font-size:13px;font-weight:bold;color:#1fae03;"><?php  echo $meeting_status; ?></td>
-						<?php } ?>
-
-                    <td><?php  echo $rows->created_by; ?></td>
+					<td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>
+					 <td><?php  echo $rows->created_by; ?></td>
                  </tr>
-            <?php $i++; } ?>
+				<?php } $i++; } ?>
              </tbody>
           </table>
 
@@ -161,4 +156,8 @@ $('#report_form').validate({ // initialize the plugin
            toDate: { required:"Select To Date"}
          }
  });
+ 
+$('#constiituent_menu').addClass('active');
+$('.constiituent_menu').css('display','block');
+$('#constituent_meetings').addClass('active current-page');
  </script>

@@ -641,10 +641,113 @@ Class Constituentmodel extends CI_Model
 		$result=$this->db->query($query);
 		return $result->result();
 	}
-
-
-
 	################## Constituent Profile view only ##############
+	
+	
+	function get_birthday_report($selMonth)
+	{
+				$year = date("Y"); 
+				$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
+				$resultset=$this->db->query($query);
+				if($resultset->num_rows()>0){
+					foreach ($resultset->result() as $rows)
+					{
+						$const_id = $rows->id;
+						$full_name = $rows->full_name;
+						$dob = $rows->dob;
+						$mobile_no = $rows->mobile_no;
+						$door_no = $rows->door_no;
+						$address = $rows->address;
+						$pin_code = $rows->pin_code;
+						
+						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
+						$subQuery_result = $this->db->query($subQuery);
+						if($subQuery_result->num_rows()>0){
+							foreach ($subQuery_result->result() as $rows1)
+							{
+								$birth_id = $rows1->constituent_id;
+							}
+						}else{
+							$birth_id = '';
+						}
+						if ($const_id == $birth_id){
+							 $birth_wish = 'Send';
+						} else {
+							 $birth_wish = 'NotSend';
+						}
+						$contData[]  = (object) array(
+								"const_id" => $const_id,
+								"full_name" => $full_name,
+								"dob" => $dob,
+								"mobile_no" => $mobile_no,
+								"door_no" => $door_no,
+								"address" => $address,
+								"pin_code" => $pin_code,
+								"birth_wish_status" => $birth_wish,
+						);
+					} 
+				}else {
+						$contData = array();
+				}
+		return $contData;
+	}
+	
+	function birthday_update($constituent_id,$user_id,$searchMonth)
+	{
+			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at) VALUES ('$constituent_id','Send','$user_id',NOW())";
+			$result=$this->db->query($insert);
+		
+			if ($result) {
+               $this->session->set_flashdata('msg', 'You have just updated the birthday wishes!');
+				redirect(base_url().'constituent/birthday/'.$searchMonth);
+            } else {
+               $this->session->set_flashdata('msg', 'Failed to Add');
+				redirect(base_url().'constituent/birthday/'.$searchMonth);
+            }
+			
+	}
+	
+	function get_meeting_report($frmDate,$toDate)
+	{
+		$dateTime1 = new DateTime($frmDate);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($toDate);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+
+		$query="SELECT
+					A.*,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND (A.meeting_date BETWEEN '$from_date' AND '$to_date'
+					)
+				ORDER BY
+					 A.meeting_date DESC";
+		//echo $query;
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+	
+	
+	function meeting_update($meeting_id,$user_id,$frmDate,$toDate)
+	{
+		$update="UPDATE meeting_request SET meeting_status='COMPLETED',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+		$result=$this->db->query($update);
+	
+		if ($result) {
+		   $this->session->set_flashdata('msg', 'You have just updated the meeting request!');
+			redirect(base_url().'constituent/meetings/'.$frmDate.'/'.$toDate);
+		} else {
+		   $this->session->set_flashdata('msg', 'Failed to Update');
+			redirect(base_url().'constituent/meetings/'.$frmDate.'/'.$toDate);
+		}
+	}
 
 }
 ?>
