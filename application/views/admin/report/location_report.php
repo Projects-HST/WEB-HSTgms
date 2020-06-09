@@ -76,7 +76,18 @@
    </div>
 </div>
 <script type="text/javascript">
+$.validator.addMethod("chkDates", function(value, element) {
+		var startDate = $('#frmDate').val();		
+		var datearray = startDate.split("-");
+		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+		
+		var endDate = $('#toDate').val();		
+		var datearray = endDate.split("-");
+		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
+		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
+	}, "Please check dates");
+	
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });
@@ -88,7 +99,7 @@ $('#toDate').datetimepicker({
 $('#report_form').validate({ // initialize the plugin
      rules: {
          frmDate:{required:true},
-         toDate:{required:true},
+         toDate:{required:true, chkDates: "#frmDate"},
 		 paguthi:{required:true}
      },
      messages: {

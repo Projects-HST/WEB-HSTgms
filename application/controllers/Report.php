@@ -7,6 +7,7 @@ class Report extends CI_Controller {
 		 parent::__construct();
 			$this->load->helper("url");
 			$this->load->library('session');
+			$this->load->library('pagination');
 			$this->load->model('reportmodel');
 			$this->load->model('usermodel');
  }
@@ -263,8 +264,76 @@ class Report extends CI_Controller {
 		$constituent_id=base64_decode($this->uri->segment(4))/98765;
 
 		$datas['res']=$this->reportmodel->birthday_update($constituent_id,$user_id,$searchMonth);
+	}
 	
+	public function list_records($rowno=0){
 
+		// Row per page
+		$rowperpage = 50000;
+
+		// Row position
+		if($rowno != 0){
+			$rowno = ($rowno-1) * $rowperpage;
+		}
+      	
+      	// All records count
+      	$allcount = $this->reportmodel->getrecordCount();
+
+      	// Get  records
+      	$users_record = $this->reportmodel->getData($rowno,$rowperpage);
+      	
+      	// Pagination Configuration
+      	$config['base_url'] = base_url().'report/list_records';
+      	$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		//Pagination Container tag
+		$config['full_tag_open'] = '<div style="margin:50px 30%;">';
+		$config['full_tag_close'] = '</div>';
+		
+		//First and last Link Text
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		
+		//First tag 
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+		
+		//Last tag 
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+		
+		
+		//Next and Prev Link
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		
+		
+		//Next and Prev Link Styling
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+		
+		
+		//Current page tag
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+ 
+		
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		// Initialize
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+
+		$this->load->view('admin/header');		
+		$this->load->view('admin/report/list_records',$data);
+		$this->load->view('admin/footer');
 	}
 
 }

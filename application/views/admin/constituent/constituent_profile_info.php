@@ -13,7 +13,6 @@
               <?php foreach($res as $rows){} ?>
                <!-- <div class="x_title">
                   <h2>User Report <small>Activity report</small></h2>
-
                   <div class="clearfix"></div>
                </div> -->
                <div class="x_content">
@@ -30,9 +29,9 @@
                            <img class="img-responsive avatar-view" style="width:150px;" src="<?php echo base_url(); ?>assets/constituent/<?php echo $pic;  ?>" alt="Avatar" title="Change the avatar">
                         </div>
                      </div>
-                     <h4><?php echo $rows->full_name; ?></h4>
+                     <h4 style="text-align:center;margin-top:15px;"><?php echo $rows->full_name; ?></h4>
                      <ul class="list-unstyled user_data">
-                       <li><i class="fa fa-map-marker user-profile-icon"></i><?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
+                       <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
                        <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->pin_code; ?></li>
 
 
@@ -56,8 +55,6 @@
                           <p class="label_profile">ward: <span class="label_text"><?php echo $rows->ward_name; ?></span></p>
                           <p class="label_profile">booth: <span class="label_text"><?php echo $rows->booth_name; ?></span></p>
                           <p class="label_profile">booth address: <span class="label_text"><?php echo $rows->booth_address; ?></span></p>
-
-
                       </div>
                       <div class="col-md-6">
                         <p class="label_profile">GENDER: <span class="label_text"><?php if($rows->gender=='M'){ echo "male"; }else if($rows->gender=='M'){ echo "female";}else{ echo "others"; }  ?></span></p>
@@ -69,7 +66,6 @@
                         <p class="label_profile">aadhaar: <span class="label_text"><?php echo $rows->aadhaar_no; ?></span></p>
                         <p class="label_profile">father or husband: <span class="label_text"><?php echo $rows->father_husband_name; ?></span></p>
                         <p class="label_profile">date of birth: <span class="label_text"><?php echo $rows->dob; ?></span></p>
-
                       </div>
                     </div>
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -88,7 +84,6 @@
                                       <th>Plant</th>
                                       <th>no of plant </th>
                                       <th>updated at</th>
-
                                    </tr>
                                 </thead>
                                 <tbody>
@@ -98,7 +93,6 @@
                                       <td><?php echo $rows_plant->name_of_plant; ?></td>
                                       <td><?php echo $rows_plant->no_of_plant; ?></td>
                                       <td><?php echo $rows_plant->updated_at; ?></td>
-
                                       </tr>
                                 <?php $i++; } ?>
 
@@ -149,8 +143,6 @@
                                   <?php $i=1; foreach($res_grievance as $rows_grievance){ ?>
                                     <tr>
                                       <td><?php echo $i; ?></td>
-
-
                                       <td><?php echo $rows_grievance->seeker_info; ?></td>
                                       <!-- <td><?php echo $rows_grievance->grievance_name; ?></td> -->
                                       <td><?php echo $rows_grievance->sub_category_name; ?></td>

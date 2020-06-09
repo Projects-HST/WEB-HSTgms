@@ -211,13 +211,13 @@ class Apigmsmodel extends CI_Model {
 				$update_sql = "UPDATE user_master SET last_login=NOW(),login_count='$login_count' WHERE id='$user_id'";
 				$update_result = $this->db->query($update_sql);
 				
-				$gcmQuery = "SELECT * FROM push_notification_master WHERE gcm_key like '%" .$gcm_key. "%' LIMIT 1";
+				$gcmQuery = "SELECT * FROM notification_master WHERE gcm_key like '%" .$gcm_key. "%' LIMIT 1";
 				$gcm_result = $this->db->query($gcmQuery);
 				$gcm_ress = $gcm_result->result();
 
 				if($gcm_result->num_rows()==0)
 				{
-					$sQuery = "INSERT INTO push_notification_master (user_id,gcm_key,mobile_type) VALUES ('". $user_id . "','". $gcm_key . "','". $mobile_type . "')";
+					$sQuery = "INSERT INTO notification_master (user_id,gcm_key,mobile_type) VALUES ('". $user_id . "','". $gcm_key . "','". $mobile_type . "')";
 					$update_gcm = $this->db->query($sQuery);
 				}
 			}

@@ -74,7 +74,7 @@
                         <h3> MENU </h3>
 
                         <ul class="nav side-menu">
-                           <li id="dashboardmenu"><a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Dashboard</span></a>                           </li>
+                           <li id="dashboardmenu"><a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Dashboard</span></a></li>
                            <li id="mastermenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/master.png" class="img-responsive menu_img"> Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu mastermenu">
@@ -113,12 +113,20 @@
                               </ul>
                            </li>
 
+							<li id="news_menu">
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive menu_img"> News Feeder <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu news_menu">
+                                 <li id="create_news_menu"><a href="<?php echo base_url(); ?>news/add">Create Feeder</a></li>
+                                 <li id="list_news_menu"><a href="<?php echo base_url(); ?>news/list">List Feeder</a></li>
+                              </ul>
+                           </li>
+						<li id="bannersmenu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Banners</span></a></li>
                            <li>
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/category">Category</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/sub_category">Sub category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/category">Grievance Category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
 								<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
 								<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
@@ -160,13 +168,6 @@
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                            </div>
                         </li>
-                        <!-- <li role="presentation" class="nav-item dropdown open">
-                           <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                           <i class="fa fa-envelope-o"></i>
-                           <span class="badge bg-green">6</span>
-                           </a>
-
-                        </li> -->
                      </ul>
                   </nav>
                </div>
