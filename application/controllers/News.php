@@ -43,6 +43,7 @@ class News extends CI_Controller {
 					$newsdetails = str_replace("\r\n",'', $this->input->post('news_details'));
 					$news_details= $this->db->escape_str($newsdetails);
 					$status=$this->input->post('status');
+					$notify=$this->input->post('notify');
 					$newspic = $_FILES['news_pic']['name'];
 
 					if(empty($newspic)){
@@ -55,7 +56,7 @@ class News extends CI_Controller {
 						move_uploaded_file($_FILES['news_pic']['tmp_name'], $profilepic);
 					}
 
-					$datas=$this->newsmodel->add_news($constituency_id,$news_date,strtoupper($news_title),strtoupper($news_details),$status,$news_pic,$user_id);
+					$datas=$this->newsmodel->add_news($constituency_id,$news_date,strtoupper($news_title),strtoupper($news_details),$status,$news_pic,$notify,$user_id);
 					
 					if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'News Details Created Sucessfully!');

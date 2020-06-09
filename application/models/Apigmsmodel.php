@@ -2,165 +2,13 @@
 
 class Apigmsmodel extends CI_Model {
 
-    function __construct()
-    {
-        parent::__construct();
-    }
-
-
-//#################### Email ####################//
-
-	public function sendMail($to,$subject,$email_message)
+public function __construct()
 	{
-		// Set content-type header for sending HTML email
-		$headers = "MIME-Version: 1.0" . "\r\n";
-		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-		// Additional headers
-		$headers .= 'From: GMS Admin<admin@gms.com>' . "\r\n";
-		mail($to,$subject,$email_message,$headers);
+	  parent::__construct();
+		$this->load->model('mailmodel');
+		$this->load->model('smsmodel');
+		$this->load->model('notificationmodel');
 	}
-
-//#################### Email End ####################//
-
-
-//#################### Notification ####################//
-
-	public function sendNotification($gcm_key,$Title,$Message,$mobiletype)
-	{
-		if ($mobiletype =='1'){
-
-		    require_once 'assets/notification/Firebase.php';
-            require_once 'assets/notification/Push.php';
-
-            $device_token = explode(",", $gcm_key);
-            $push = null;
-
-//        //first check if the push has an image with it
-		     $push = new Push(
-					$Title,
-					$Message,
-					'https://heylaapp.com/testing/assets/notification/images/event.JPG'
-				);
-
-// 			//if the push don't have an image give null in place of image
- 			 /* $push = new Push(
- 			 		'HEYLA',
- 			 		'Hi Testing from maran',
- 			 		null
- 			 	); */
-
-    		//getting the push from push object
-    		$mPushNotification = $push->getPush();
-
-    		//creating firebase class object
-    		$firebase = new Firebase();
-
-    	foreach($device_token as $token) {
-    		 $firebase->send(array($token),$mPushNotification);
-    	}
-
-		} else {
-
-			$device_token = explode(",", $gcm_key);
-			$passphrase = 'hs123';
-		    $loction ='assets/notification/heylaapp.pem';
-
-			$ctx = stream_context_create();
-			stream_context_set_option($ctx, 'ssl', 'local_cert', $loction);
-			stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
-
-			// Open a connection to the APNS server
-			$fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
-
-			if (!$fp)
-				exit("Failed to connect: $err $errstr" . PHP_EOL);
-
-			$body['aps'] = array(
-				'alert' => array(
-					'body' => $Message,
-					'action-loc-key' => 'Heyla App',
-				),
-				'badge' => 2,
-				'sound' => 'assets/notification/oven.caf',
-				);
-
-			$payload = json_encode($body);
-
-			foreach($device_token as $token) {
-
-				// Build the binary notification
-    			$msg = chr(0) . pack("n", 32) . pack("H*", str_replace(" ", "", $token)) . pack("n", strlen($payload)) . $payload;
-        		$result = fwrite($fp, $msg, strlen($msg));
-			}
-
-				fclose($fp);
-		}
-	}
-
-//#################### Notification End ####################//
-
-
-//#################### SMS ####################//
-
-	public function sendSMS($to_phone,$smsContent)
-	{
-        //Your authentication key
-        $authKey = "308533AMShxOBgKSt75df73187";
-
-        //Multiple mobiles numbers separated by comma
-        $mobileNumber = "$to_phone";
-
-        //Sender ID,While using route4 sender id should be 6 characters long.
-        $senderId = "GADMIN";
-
-        //Your message to send, Add URL encoding here.
-        $message = urlencode($smsContent);
-
-        //Define route
-        $route = "transactional";
-
-        //Prepare you post parameters
-        $postData = array(
-            'authkey'=> $authKey,
-            'mobiles'=> $mobileNumber,
-            'message'=> $message,
-            'sender'=> $senderId,
-            'route'=> $route
-        );
-
-        //API URL
-        $url="https://control.msg91.com/api/sendhttp.php";
-
-        // init the resource
-        $ch = curl_init();
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $postData
-            //,CURLOPT_FOLLOWLOCATION => true
-        ));
-
-
-
-        //Ignore SSL certificate verification
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-
-        //get response
-        $output = curl_exec($ch);
-
-        //Print error if any
-        if(curl_errno($ch))
-        {
-            echo 'error:' . curl_error($ch);
-        }
-
-        curl_close($ch);
-	}
-
-//#################### SMS End ####################//
 
 //#################### List Details ####################//
 	function List_role()
@@ -289,8 +137,10 @@ class Apigmsmodel extends CI_Model {
 				   
 				$smsContent = 'Hi  '.$name.' Your Account Password is Reset. Please Use this '.$OTP.' to login';
 			
-				$this->sendMail($to_email,$subject,$htmlContent);
-				$this->sendSMS($to_phone,$smsContent);
+				$this->mailmodel->sendEmail($to_email,$subject,$htmlContent);
+				$this->smsmodel->sendSMS($to_phone,$smsContent);
+				//$this->sendMail($to_email,$subject,$htmlContent);
+				//$this->sendSMS($to_phone,$smsContent);
 				$response = array("status" => "success", "msg" => "Reset Password");
     		}else {
 				$response = array("status" => "error", "msg" => "Username not found");
@@ -411,8 +261,11 @@ class Apigmsmodel extends CI_Model {
 					
 					$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
 					
-					$this->sendMail($email,$subject,$htmlContent);
-					$this->sendSMS($to_phone,$smsContent);
+					$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+					$this->smsmodel->sendSMS($to_phone,$smsContent);
+				
+					//$this->sendMail($email,$subject,$htmlContent);
+					//$this->sendSMS($to_phone,$smsContent);
 				}else {
 						$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
 						$result = $this->db->query($update);

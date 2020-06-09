@@ -68,7 +68,7 @@
 
 $('#news_menu').addClass('active');
    $('.news_menu').css('display','block');
-   $('#list_news_menu').addClass('active');
+   $('#list_news_menu').addClass('active current-page');
    
 $('#master_form').validate({ // initialize the plugin
      rules: {

@@ -82,7 +82,7 @@ Class Usermodel extends CI_Model
 			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' Password '.$OTP.'';
 
 			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
-			//$this->smsmodel->sendSMS($mobile,$smsContent);
+			$this->smsmodel->sendSMS($mobile,$smsContent);
 			  
             if ($result) {
                 $data = array("status" => "success");
@@ -156,7 +156,7 @@ Class Usermodel extends CI_Model
 			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
 			
 			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
-			//$this->smsmodel->sendSMS($mobile,$smsContent);			
+			$this->smsmodel->sendSMS($mobile,$smsContent);			
 
 		}else {
 			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";

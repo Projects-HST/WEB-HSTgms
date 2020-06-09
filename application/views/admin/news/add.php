@@ -55,6 +55,12 @@
 							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" ><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align">Notofication</label>
+						<div class="col-md-4 col-sm-4">
+							<label class="col-form-label label-align"><input type="radio" id="notify" name="notify" value='Y'>Yes <input type="radio" id="notify" name="notify" value='N' checked>No</label>
+						</div>
+					</div>
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">

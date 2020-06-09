@@ -3,8 +3,12 @@ Class Newsmodel extends CI_Model
 {
 	public function __construct()
 	{
-		parent::__construct();
+	  parent::__construct();
+		$this->load->model('mailmodel');
+		$this->load->model('smsmodel');
+		$this->load->model('notificationmodel');
 	}
+
 
 	function get_constituency(){
 		$query="SELECT * FROM constituency WHERE status='ACTIVE'";
@@ -13,12 +17,29 @@ Class Newsmodel extends CI_Model
 	}
 
 
-	function add_news($constituency_id,$news_date,$news_title,$news_details,$status,$news_pic,$user_id){
+	function add_news($constituency_id,$news_date,$news_title,$news_details,$status,$news_pic,$notify,$user_id){
 		$select="SELECT * FROM news_feeder Where title='$news_title'";
 		$result=$this->db->query($select);
 		if($result->num_rows()==0){
-				$insert="INSERT INTO news_feeder(constituency_id,news_date,title,details,image_file_name,status,created_at,created_by) VALUES ('$constituency_id','$news_date','$news_title','$news_details','$news_pic','$status',NOW(),'$user_id')";
-				$result=$this->db->query($insert);
+
+			$insert = "INSERT INTO news_feeder(constituency_id,news_date,title,details,image_file_name,status,created_at,created_by) VALUES ('$constituency_id','$news_date','$news_title','$news_details','$news_pic','$status',NOW(),'$user_id')";
+			$result = $this->db->query($insert);
+	
+
+			if ($notify == 'Y') {
+				$sQuery = "SELECT * FROM notification_master";
+				$result = $this->db->query($sQuery);
+				if($result->num_rows()>0)
+				{
+					foreach ($result->result() as $rows)
+					{
+						$gcm_key = $rows->gcm_key;
+						$mobile_type = $rows->mobile_type;
+						$this->notificationmodel->sendNotification($gcm_key,$news_title,$news_details,$news_pic,$mobile_type);
+					}
+				}
+			}
+				
 				if($result){
 					$data=array("status"=>"success");
 				}else{
