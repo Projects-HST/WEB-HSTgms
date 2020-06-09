@@ -15,7 +15,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">Select Banner</label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*">
+							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*"><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
 					<div class="item form-group">
@@ -24,9 +24,9 @@
 							<?php
 							$image_file_name  = trim($rows->banner_image_name );
 							if ($image_file_name != '') {?>
-								<img src="<?php echo base_url(); ?>assets/banners/<?php echo $image_file_name;?>" class="img-responsive" style="width:300px;height:150px;">
+								<img src="<?php echo base_url(); ?>assets/banners/<?php echo $image_file_name;?>" class="img-responsive" style="width:260px;height:150px;">
 							<?php } else { ?>
-								<img src="<?php echo base_url(); ?>assets/banners/default.png" class="img-responsive profile_img" style="width:150px;">
+								<img src="<?php echo base_url(); ?>assets/banners/default.png" class="img-responsive profile_img" style="width:260px;height:150px;">
 							<?php } ?>
 						</div>
 					</div>
@@ -58,6 +58,10 @@
    </div>
 
 <script type="text/javascript">
+
+   $('#banners_menu').addClass('active current-page');
+
+   
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');

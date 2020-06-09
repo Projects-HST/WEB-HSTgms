@@ -127,6 +127,9 @@
 </div>
 
 <script type="text/javascript">
+$('#user_menu').addClass('active');
+$('.user_menu').css('display','block');
+$('#list_user').addClass('active current-page');
 
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)

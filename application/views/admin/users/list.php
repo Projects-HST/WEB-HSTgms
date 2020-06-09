@@ -63,6 +63,11 @@
    </div>
 </div>
 <script type="text/javascript">
+
+$('#user_menu').addClass('active');
+$('.user_menu').css('display','block');
+$('#list_user').addClass('active current-page');
+
 $('#master_form').validate({ // initialize the plugin
      rules: {
          paguthi_name:{required:true,

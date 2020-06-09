@@ -276,7 +276,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting date <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="update_meeting_date" class=" form-control" name="update_meeting_date" type="text">
@@ -499,7 +499,7 @@ function view_meeting_request(sel){
       var len=res.length;
       for (i = 0; i < len; i++) {
         // $('#constituent_id').val(res[i].constituent_id);
-        $('#table_meeting').append('<tr><td>'+res[i].meeting_detail+'</td><td>'+res[i].meeting_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+        $('#table_meeting').append('<tr><td>'+res[i].meeting_detail+'</td><td>'+res[i].disp_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
      }
       }else{
         $('#table_meeting').append('<tr><td colspan="5">No data</td></tr>');
@@ -530,7 +530,7 @@ var m_id=sel;
         $('#meeting_id').val(res[i].id);
         $('#update_meeting_detail').text(res[i].meeting_detail);
         $('#update_meeting_status').val(res[i].meeting_status);
-        $('#update_meeting_date').val(res[i].meeting_date);
+        $('#update_meeting_date').val(res[i].disp_date);
 
      }
       }else{

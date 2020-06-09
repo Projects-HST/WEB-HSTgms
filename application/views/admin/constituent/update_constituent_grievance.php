@@ -19,7 +19,7 @@
                <div class="col-md-4 col-sm-6 ">
                    <label>Date</label>
 
-                   <input type="text" name="grievance_date" id="grievance_date" class="form-control" readonly value="<?php echo $con_row->grievance_date; ?>">
+                   <input type="text" name="grievance_date" id="grievance_date" class="form-control" readonly value="<?php echo date('d-m-Y', strtotime($con_row->grievance_date)); ?>">
                </div>
                <div class="col-md-4 col-sm-6 ">
                  <label>set reference</label>

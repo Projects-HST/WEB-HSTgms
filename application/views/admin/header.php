@@ -49,7 +49,7 @@
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;">
-                     <a href="#" class="site_title"> <span>GMS</span></a>
+                     <a href="#" class="site_title" style="margin-top:9px;text-align:center;"> <span >GMS</span></a>
                   </div>
                   <div class="clearfix"></div>
                   <div class="profile clearfix">
@@ -105,11 +105,11 @@
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
-                           <li>
+                           <li id="user_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive menu_img"> Users <span class="fa fa-chevron-down"></span></a>
-                              <ul class="nav child_menu">
-                                 <li><a href="<?php echo base_url(); ?>users/add">Add user</a></li>
-                                 <li><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
+                              <ul class="nav child_menu user_menu">
+                                 <li id="create_user"><a href="<?php echo base_url(); ?>users/add">Add user</a></li>
+                                 <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
                               </ul>
                            </li>
 
@@ -120,7 +120,7 @@
                                  <li id="list_news_menu"><a href="<?php echo base_url(); ?>news/list">List Feeder</a></li>
                               </ul>
                            </li>
-						<li id="bannersmenu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Banners</span></a></li>
+						<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/dashboard.png" class="img-responsive menu_img"></i> Banners</span></a></li>
                            <li>
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">

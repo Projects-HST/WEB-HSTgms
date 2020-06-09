@@ -65,7 +65,7 @@
                         <p class="label_profile">voter id: <span class="label_text"><?php echo $rows->voter_id_no; ?></span></p>
                         <p class="label_profile">aadhaar: <span class="label_text"><?php echo $rows->aadhaar_no; ?></span></p>
                         <p class="label_profile">father or husband: <span class="label_text"><?php echo $rows->father_husband_name; ?></span></p>
-                        <p class="label_profile">date of birth: <span class="label_text"><?php echo $rows->dob; ?></span></p>
+                        <p class="label_profile">date of birth: <span class="label_text"><?php echo date('d-m-Y', strtotime($rows->dob)); ?></span></p>
                       </div>
                     </div>
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -92,7 +92,7 @@
                                       <td><?php echo $i; ?></td>
                                       <td><?php echo $rows_plant->name_of_plant; ?></td>
                                       <td><?php echo $rows_plant->no_of_plant; ?></td>
-                                      <td><?php echo $rows_plant->updated_at; ?></td>
+                                      <td><?php echo date('d-m-Y H:i:s', strtotime($rows_plant->updated_at)); ?></td>
                                       </tr>
                                 <?php $i++; } ?>
 
@@ -104,6 +104,7 @@
                                    <tr>
                                       <th>S.no</th>
                                       <th>Meeting details</th>
+									   <th>Meeting date</th>
                                       <th>status</th>
                                       <th>updated at</th>
 
@@ -114,8 +115,10 @@
                                     <tr>
                                       <td><?php echo $i; ?></td>
                                       <td><?php echo $rows_meeting->meeting_detail; ?></td>
+									  <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
                                       <td><?php echo $rows_meeting->meeting_status; ?></td>
-                                      <td><?php echo $rows_meeting->updated_at; ?></td>
+									  
+                                     <td><?php echo date('d-m-Y H:i:s', strtotime($rows_meeting->updated_at)); ?></td>
 
                                       </tr>
                                 <?php $i++; } ?>

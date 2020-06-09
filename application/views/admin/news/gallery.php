@@ -23,7 +23,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">Select Photos <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" multiple required>
+							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" multiple required><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
                   

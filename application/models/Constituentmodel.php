@@ -326,7 +326,10 @@ Class Constituentmodel extends CI_Model
 ################## Meeting request ##############
 
 	function view_meeting_request($constituent_id,$user_id){
-		$select="SELECT * FROM meeting_request where constituent_id='$constituent_id' order by id desc";
+		//$select="SELECT * FROM meeting_request where constituent_id='$constituent_id' order by id desc";
+		
+		$select="SELECT *, DATE_FORMAT(`meeting_date`, '%d-%m-%Y') AS disp_date, DATE_FORMAT(`updated_at`, '%d-%m-%Y %h:%i:%s') AS disp_updated_date FROM meeting_request where constituent_id='$constituent_id' ORDER BY id DESC";
+
 		$res_select   = $this->db->query($select);
 		if($res_select->num_rows()==0){
 		 $data=array("status"=>"error");
@@ -337,7 +340,7 @@ Class Constituentmodel extends CI_Model
 	}
 
 	function edit_meeting_request($meeting_id,$user_id){
-		$select="SELECT * FROM meeting_request where id='$meeting_id'";
+		$select="SELECT *,DATE_FORMAT(`meeting_date`, '%d-%m-%Y') AS disp_date FROM meeting_request where id='$meeting_id'";
 		$res_select   = $this->db->query($select);
 		if($res_select->num_rows()==0){
 		 $data=array("status"=>"error");

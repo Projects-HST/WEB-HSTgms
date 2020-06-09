@@ -23,8 +23,9 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">Select Banner <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*">
+							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*"><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
+
 					</div>
 
                   	<div class="item form-group">
@@ -55,7 +56,6 @@
          <div class="x_panel">
             <div class="x_title">
                <h2>View Banners</h2>
-
                <div class="clearfix"></div>
             </div>
             <div class="x_content">

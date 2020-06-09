@@ -54,7 +54,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">News Picture </label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" >
+							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" ><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
 					<div class="item form-group">
@@ -63,9 +63,9 @@
 							<?php
 							$image_file_name  = trim($rows->image_file_name );
 							if ($image_file_name != '') {?>
-								<img src="<?php echo base_url(); ?>assets/news/<?php echo $image_file_name;?>" class="img-responsive" style="width:200px;height:100px;">
+								<img src="<?php echo base_url(); ?>assets/news/<?php echo $image_file_name;?>" class="img-responsive" style="width:260px;height:150px;">
 							<?php } else { ?>
-								<img src="<?php echo base_url(); ?>assets/news/default.png" class="img-responsive profile_img" style="width:150px;">
+								<img src="<?php echo base_url(); ?>assets/news/default.png" class="img-responsive profile_img" style="width:260px;height:150px;">
 							<?php } ?>
 						</div>
 					</div>

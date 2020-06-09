@@ -115,6 +115,10 @@
 
 <script type="text/javascript">
 
+$('#user_menu').addClass('active');
+$('.user_menu').css('display','block');
+$('#create_user').addClass('active current-page');
+   
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');

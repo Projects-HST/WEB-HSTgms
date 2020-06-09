@@ -71,7 +71,7 @@
                                           <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">PROCESSING</a>
                                         <?php  }
                                      ?></td>
-                                    <td><?php echo $rows->updated_at; ?></td>
+                                    <td><?php echo date('d-m-Y H:i:s', strtotime($rows->updated_at)); ?></td>
                                     <td>
                                       <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                       &nbsp;
@@ -131,7 +131,7 @@
                                         <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">PROCESSING</a>
                                       <?php  }
                                    ?></td>
-                                   <td><?php echo $rows_petition->updated_at; ?></td>
+                                   <td><?php echo date('d-m-Y H:i:s', strtotime($rows_petition->updated_at)); ?></td>
                                    <td>
                                      <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_petition->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                      &nbsp;
@@ -191,7 +191,7 @@
                                         <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">PROCESSING</a>
                                       <?php  }
                                    ?></td>
-                                   <td><?php echo $rows_enquiry->updated_at; ?></td>
+                                   <td><?php echo date('d-m-Y H:i:s', strtotime($rows_enquiry->updated_at)); ?></td>
                                    <td>
                                      <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows_enquiry->id; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                      &nbsp;

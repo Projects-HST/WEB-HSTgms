@@ -52,7 +52,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">News Picture <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" >
+							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" ><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
                   <div class="item form-group">
@@ -85,7 +85,7 @@
 
 	$('#news_menu').addClass('active');
    $('.news_menu').css('display','block');
-   $('#create_news_menu').addClass('current-page');
+   $('#create_news_menu').addClass('active current-page');
    
 $.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
