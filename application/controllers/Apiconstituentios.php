@@ -293,4 +293,21 @@ class Apiconstituentios extends CI_Controller {
 	}
 //-----------------------------------------------//
 
+//-----------------------------------------------//
+
+	public function view_banners()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = $this->input->post("user_id");
+		$data['result']=$this->apiconstituentmodelios->view_banners($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+//-----------------------------------------------//
+
 }

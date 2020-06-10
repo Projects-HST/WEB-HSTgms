@@ -447,6 +447,29 @@ function version_check($version_code){
 
   ######### Newsfeed details ############
 
+  ######### Banner list ############
+
+
+  function view_banners($constituent_id){
+    $gallery="SELECT id,banner_image_name as gallery_image FROM banners where status='ACTIVE'";
+    $res_gallery=$this->db->query($gallery);
+    if($res_gallery->num_rows()!=0){
+        $result_gallery=$res_gallery->result();
+        foreach($result_gallery as $rows_gallery){
+          $galley_img[]=array(
+            "id"=>$rows_gallery->id,
+            "gallery_image"=>base_url().'assets/banners/'.$rows_gallery->gallery_image,
+          );
+        }
+        $data=array("status"=>"success","msg"=>"Banner image found","banner_image"=>$galley_img);
+    }else{
+        $data=array("status"=>"error","msg"=>"No Banner image");
+    }
+      return $data;
+  }
+
+  ######### Banner list ############
+
 
 }
 ?>
