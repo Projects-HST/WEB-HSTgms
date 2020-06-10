@@ -369,6 +369,71 @@ Class Apiconstituentmodel extends CI_Model
   ######### Notification details ############
 
 
+  ######### Newsfeed list ############
+
+  function newsfeed_list($constituent_id){
+    $select="SELECT id,DATE_FORMAT(news_date,'%d-%m-%Y') as news_date,title,details,image_file_name FROM news_feeder where status='ACTIVE' order by news_date desc";
+    $res=$this->db->query($select);
+    if($res->num_rows()!=0){
+      $result=$res->result();
+      foreach($result as $rows){
+        $details[]=array(
+          "id"=>$rows->id,
+          "news_date"=>$rows->news_date,
+          "image_file_name"=>base_url().'assets/constituent/'.$rows->image_file_name,
+          "title"=>$rows->title,
+          "details"=>$rows->details,
+        );
+      }
+      $data=array('status'=>'success','msg'=>'list found','news_list'=>$details);
+    }else{
+        $data=array('status'=>'error','msg'=>'No list found');
+    }
+  return $data;
+  }
+
+  ######### Newsfeed list ############
+
+  ######### Newsfeed details ############
+
+  function newsfeed_details($constituent_id,$id){
+    $select="SELECT id,DATE_FORMAT(news_date,'%d-%m-%Y') as news_date,title,details,image_file_name FROM news_feeder where status='ACTIVE' and id='$id'";
+    $res=$this->db->query($select);
+    if($res->num_rows()!=0){
+      $result=$res->result();
+      foreach($result as $rows){
+        $details=array(
+          "id"=>$rows->id,
+          "news_date"=>$rows->news_date,
+          "image_file_name"=>base_url().'assets/constituent/'.$rows->image_file_name,
+          "title"=>$rows->title,
+          "details"=>$rows->details,
+        );
+      }
+
+      $gallery="SELECT id,image_file_name as gallery_image FROM news_gallery where news_id='$id'";
+      $res_gallery=$this->db->query($gallery);
+      if($res_gallery->num_rows()!=0){
+          $result_gallery=$res_gallery->result();
+          foreach($result_gallery as $rows_gallery){
+            $galley_img[]=array(
+              "id"=>$rows->id,
+              "gallery_image"=>base_url().'assets/constituent/'.$rows_gallery->gallery_image,
+            );
+          }
+          $gallery_data=array("status"=>"success","msg"=>"Galley image found","gallery_image"=>$galley_img);
+      }else{
+          $gallery_data=array("status"=>"error","msg"=>"No Gallery image");
+      }
+      $data=array('status'=>'success','msg'=>'list found','news_details'=>$details,"gallery_image"=>$gallery_data);
+    }else{
+        $data=array('status'=>'error','msg'=>'No details found');
+    }
+  return $data;
+  }
+
+  ######### Newsfeed details ############
+
 
 }
 ?>

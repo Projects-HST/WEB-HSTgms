@@ -228,4 +228,40 @@ class Apiconstituent extends CI_Controller {
 		echo json_encode($response);
 	}
 //-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function newsfeed_list()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = $this->input->post("user_id");
+		$data['result']=$this->apiconstituentmodel->newsfeed_list($constituent_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function newsfeed_details()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituent_id = $this->input->post("user_id");
+		$id = $this->input->post("id");
+		$data['result']=$this->apiconstituentmodel->newsfeed_details($constituent_id,$id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+//-----------------------------------------------//
+
 }
