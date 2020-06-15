@@ -113,41 +113,48 @@
                   </tr>
                </thead>
                <tbody>
-                  <?php $i=1; foreach($res as $rows){ ?>
-                  <tr>
-                     <td><?php echo $rows->id; ?></td>
-                     <td><?php echo $rows->full_name; ?></td>
-                     <td><?php echo $rows->paguthi_name; ?></td>
-                     <td><?php echo $rows->mobile_no ;?></td>
-                     <td><?php echo $rows->voter_id_no ;?></td>
-                     <td><?php echo $rows->aadhaar_no ;?></td>
-                     <td><?php echo $rows->serial_no ;?></td>
-                     <td><a  title="VIEW " class="badge badge-add handle_symbol" onclick="view_meeting_request('<?php echo $rows->id; ?>')">Add/View</a></td>
 
-                     <td><?php if($rows->interaction_status =='0'){ ?>
-                       <a class="badge badge-add" href="<?php echo base_url(); ?>constituent/add_interaction_response/<?php echo base64_encode($rows->id*98765); ?>" title="INTERACTION ADDED">ADD</i></a>
-                        <?php }else{ ?>
-                        <a href="<?php echo base_url(); ?>constituent/get_interaction_response_edit/<?php  echo base64_encode($rows->id*98765); ?>" title="VIEW " class="badge badge-view" >View</a>
-                        <?php }?>
-                     </td>
-                     <td><?php if($rows->plant_status =='0'){ ?>
-                        <a class="badge badge-add handle_symbol" onclick="add_plant_donation('<?php echo $rows->id; ?>')" >ADD</i></a>
-                        <?php }else{ ?>
-                          <a  title="VIEW " class="badge badge-view handle_symbol" onclick="view_donation('<?php echo $rows->id; ?>')">View</a>
+                  <?php $i=1;
+                  if(empty($res)){
 
-                        <?php }?>
-                     </td>
-                     <td><a  class="badge badge-add handle_symbol" onclick="get_grievance_modal('<?php echo $rows->id; ?>')">Add grievance</a></td>
-                     <td>
-                       <a id="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
-                        <a title="DOCUMENTS" href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
-                        <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
-                        <a title="SEND VOICE CALL" onclick="give_voice_call(<?php echo $rows->id; ?>)" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
+                  }else{
+                    foreach($res as $rows){ ?>
+                    <tr>
+                       <td><?php echo $rows->id; ?></td>
+                       <td><?php echo $rows->full_name; ?></td>
+                       <td><?php echo $rows->paguthi_name; ?></td>
+                       <td><?php echo $rows->mobile_no ;?></td>
+                       <td><?php echo $rows->voter_id_no ;?></td>
+                       <td><?php echo $rows->aadhaar_no ;?></td>
+                       <td><?php echo $rows->serial_no ;?></td>
+                       <td><a  title="VIEW " class="badge badge-add handle_symbol" onclick="view_meeting_request('<?php echo $rows->id; ?>')">Add/View</a></td>
+
+                       <td><?php if($rows->interaction_status =='0'){ ?>
+                         <a class="badge badge-add" href="<?php echo base_url(); ?>constituent/add_interaction_response/<?php echo base64_encode($rows->id*98765); ?>" title="INTERACTION ADDED">ADD</i></a>
+                          <?php }else{ ?>
+                          <a href="<?php echo base_url(); ?>constituent/get_interaction_response_edit/<?php  echo base64_encode($rows->id*98765); ?>" title="VIEW " class="badge badge-view" >View</a>
+                          <?php }?>
+                       </td>
+                       <td><?php if($rows->plant_status =='0'){ ?>
+                          <a class="badge badge-add handle_symbol" onclick="add_plant_donation('<?php echo $rows->id; ?>')" >ADD</i></a>
+                          <?php }else{ ?>
+                            <a  title="VIEW " class="badge badge-view handle_symbol" onclick="view_donation('<?php echo $rows->id; ?>')">View</a>
+
+                          <?php }?>
+                       </td>
+                       <td><a  class="badge badge-add handle_symbol" onclick="get_grievance_modal('<?php echo $rows->id; ?>')">Add grievance</a></td>
+                       <td>
+                         <a id="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
+                          <a title="DOCUMENTS" href="<?php echo base_url(); ?>constituent/get_list_document/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-file-word-o"></i></a>&nbsp;
+                          <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                          <a title="SEND VOICE CALL" onclick="give_voice_call(<?php echo $rows->id; ?>)" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 
 
-                     </td>
-                  </tr>
-                  <?php  $i++; } ?>
+                       </td>
+                    </tr>
+
+
+                  <?php } $i++; } ?>
                </tbody>
             </table>
             <div class="pagination">
