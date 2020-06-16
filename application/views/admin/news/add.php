@@ -31,7 +31,7 @@
 				  <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 label-align">News Date <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">
-						<input type="text" class="form-control" placeholder="News Date" id="news_date" name="news_date">
+						<input type="text" class="form-control" id="news_date" name="news_date">
                      </div>
                   </div>
 				  <div class="item form-group">
