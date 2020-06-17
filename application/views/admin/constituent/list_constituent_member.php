@@ -114,13 +114,14 @@
                </thead>
                <tbody>
 
-                  <?php $i=1;
+                  <?php
                   if(empty($res)){
 
                   }else{
+                     $i = 1 + ($this->pagination->cur_page-1)*$this->pagination->per_page;
                     foreach($res as $rows){ ?>
                     <tr>
-                       <td><?php echo $rows->id; ?></td>
+                       <td><?php echo $i++; ?></td>
                        <td><?php echo $rows->full_name; ?></td>
                        <td><?php echo $rows->paguthi_name; ?></td>
                        <td><?php echo $rows->mobile_no ;?></td>

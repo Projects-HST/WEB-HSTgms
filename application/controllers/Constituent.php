@@ -57,39 +57,7 @@ class constituent extends CI_Controller {
 	}
 
 
-	public function sample_list()
-	{
-		$user_id = $this->session->userdata('user_id');
-		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1' || $user_type=='2'){
-			$this->load->view('admin/constituent/sample_list');
-		}else{
-			redirect('/');
-		}
-	}
 
-
-
-	public function list_cons()
-	{
-		$user_id = $this->session->userdata('user_id');
-		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1' || $user_type=='2'){
-
-			$this->load->library("pagination_bootstrap");
-			$sql=$this->db->get('constituent',10000);
-			$this->pagination_bootstrap->offset(10);
-			$this->pagination_bootstrap->set_links(array('first' => 'go to first',
-                                             'last' => 'go to last',
-                                             'next' => 'next',
-                                             'prev' => 'prev'));
-
-			$data['result']=$this->pagination_bootstrap->config('/constituent/list',$sql);
-			$this->load->view('admin/constituent/list',$data);
-		}else{
-			redirect('/');
-		}
-	}
 	public function list_constituent_member()
 {
 			$user_id = $this->session->userdata('user_id');
@@ -109,6 +77,7 @@ class constituent extends CI_Controller {
 			$config["num_links"] = round($choice);
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3))? $this->uri->segment(3) : 0;
+		
 			$data["res"] = $this->constituentmodel->fetch_data($config["per_page"], $page);
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
@@ -839,7 +808,7 @@ public function birthday()
 		$selMonth = "";
 		$selMonth=$this->input->post('month');
 		$getMonth=$this->uri->segment(3);
-		
+
 		if ($selMonth!=''){
 			$selMonth=$this->input->post('month');
 		}else if ($getMonth!=''){
@@ -849,16 +818,16 @@ public function birthday()
 		}
 		$datas['searchMonth'] = $selMonth;
 		$datas['res']=$this->constituentmodel->get_birthday_report($selMonth);
-		
+
 		if($user_type=='1'){
-			$this->load->view('admin/header');		
+			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/birthday_report',$datas);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
 		}
 	}
-	
+
 	public function birthday_update()
 	{
 		$datas=$this->session->userdata();
@@ -868,7 +837,7 @@ public function birthday()
 		$constituent_id=base64_decode($this->uri->segment(4))/98765;
 
 		$datas['res']=$this->constituentmodel->birthday_update($constituent_id,$user_id,$searchMonth);
-	
+
 
 	}
 
@@ -879,44 +848,44 @@ public function meetings()
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		//$datas['paguthi'] = $this->usermodel->list_paguthi();
-		
+
 		$frmDate = "";
 		$toDate = "";
-		
+
 		$frmDate=$this->input->post('frmDate');
 		$getfrmDate=$this->uri->segment(3);
-		
+
 		$toDate=$this->input->post('toDate');
 		$gettoDate=$this->uri->segment(4);
-		
+
 		if ($frmDate!=''){
 			$frmDate=$this->input->post('frmDate');
 		}else if ($getfrmDate!=''){
 			$frmDate=$this->uri->segment(3);
 		}
-		
+
 		if ($toDate!=''){
 			$toDate=$this->input->post('toDate');
 		}else if ($gettoDate!=''){
 			$toDate=$this->uri->segment(4);
 		}
-		
-		
+
+
 		$datas['dfromDate'] = $frmDate;
 		$datas['dtoDate'] = $toDate;
-		
-		
+
+
 		$datas['res']=$this->constituentmodel->get_meeting_report($frmDate,$toDate);
-		
+
 		if($user_type=='1'){
-			$this->load->view('admin/header');		
+			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/meeting_report',$datas);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
 		}
 	}
-	
+
 	public function meeting_update()
 	{
 		$datas=$this->session->userdata();
@@ -927,11 +896,11 @@ public function meetings()
 		$meeting_id=base64_decode($this->uri->segment(3))/98765;
 		$frmDate=$this->uri->segment(4);
 		$toDate=$this->uri->segment(5);
-		
+
 		$datas['res']=$this->constituentmodel->meeting_update($meeting_id,$user_id,$frmDate,$toDate);
-		
+
 		if($user_type=='1'){
-			$this->load->view('admin/header');		
+			$this->load->view('admin/header');
 			$this->load->view('admin/report/meeting_report',$datas);
 			$this->load->view('admin/footer');
 		}else{
