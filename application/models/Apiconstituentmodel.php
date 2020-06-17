@@ -395,7 +395,7 @@ function version_check($version_code){
         $details[]=array(
           "id"=>$rows->id,
           "news_date"=>$rows->news_date,
-          "image_file_name"=>base_url().'assets/constituent/'.$rows->image_file_name,
+          "image_file_name"=>base_url().'assets/news/'.$rows->image_file_name,
           "title"=>$rows->title,
           "details"=>$rows->details,
         );
@@ -420,7 +420,7 @@ function version_check($version_code){
         $details=array(
           "id"=>$rows->id,
           "news_date"=>$rows->news_date,
-          "image_file_name"=>base_url().'assets/constituent/'.$rows->image_file_name,
+          "image_file_name"=>base_url().'assets/news/'.$rows->image_file_name,
           "title"=>$rows->title,
           "details"=>$rows->details,
         );
@@ -433,7 +433,7 @@ function version_check($version_code){
           foreach($result_gallery as $rows_gallery){
             $galley_img[]=array(
               "id"=>$rows->id,
-              "gallery_image"=>base_url().'assets/constituent/'.$rows_gallery->gallery_image,
+              "gallery_image"=>base_url().'assets/news/'.$rows_gallery->gallery_image,
             );
           }
           $gallery_data=array("status"=>"success","msg"=>"Galley image found","gallery_image"=>$galley_img);
