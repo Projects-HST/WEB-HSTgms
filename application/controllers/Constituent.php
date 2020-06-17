@@ -77,7 +77,7 @@ class constituent extends CI_Controller {
 			$config["num_links"] = round($choice);
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3))? $this->uri->segment(3) : 0;
-		
+
 			$data["res"] = $this->constituentmodel->fetch_data($config["per_page"], $page);
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
@@ -509,8 +509,9 @@ class constituent extends CI_Controller {
 			$originalDate=strtoupper($this->db->escape_str($this->input->post('meeting_date')));
 			 $meeting_date = date("Y-m-d", strtotime($originalDate));
 			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('meeting_detail')));
+			$meeting_title=strtoupper($this->db->escape_str($this->input->post('meeting_title')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
-			$data=$this->constituentmodel->save_meeting_request($constituent_id,$meeting_detail,$meeting_date,$meeting_status,$user_id);
+			$data=$this->constituentmodel->save_meeting_request($constituent_id,$meeting_title,$meeting_detail,$meeting_date,$meeting_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");
@@ -527,8 +528,9 @@ class constituent extends CI_Controller {
 			$originalDate=strtoupper($this->db->escape_str($this->input->post('update_meeting_date')));
 			 $meeting_date = date("Y-m-d", strtotime($originalDate));
 			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('update_meeting_detail')));
+			$meeting_title=strtoupper($this->db->escape_str($this->input->post('update_meeting_title')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('update_meeting_status')));
-			$data=$this->constituentmodel->update_meeting_request($meeting_id,$meeting_detail,$meeting_date,$meeting_status,$user_id);
+			$data=$this->constituentmodel->update_meeting_request($meeting_id,$meeting_title,$meeting_detail,$meeting_date,$meeting_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");

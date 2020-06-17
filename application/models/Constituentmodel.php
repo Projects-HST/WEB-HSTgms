@@ -327,7 +327,7 @@ Class Constituentmodel extends CI_Model
 
 	function view_meeting_request($constituent_id,$user_id){
 		//$select="SELECT * FROM meeting_request where constituent_id='$constituent_id' order by id desc";
-		
+
 		$select="SELECT *, DATE_FORMAT(`meeting_date`, '%d-%m-%Y') AS disp_date, DATE_FORMAT(`updated_at`, '%d-%m-%Y %h:%i:%s') AS disp_updated_date FROM meeting_request where constituent_id='$constituent_id' ORDER BY id DESC";
 
 		$res_select   = $this->db->query($select);
@@ -351,8 +351,8 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-	function save_meeting_request($constituent_id,$meeting_detail,$meeting_date,$meeting_status,$user_id){
-		$insert="INSERT INTO meeting_request(constituent_id,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
+	function save_meeting_request($constituent_id,$meeting_title,$meeting_detail,$meeting_date,$meeting_status,$user_id){
+		$insert="INSERT INTO meeting_request(constituent_id,meeting_title,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_title','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
 		$result   = $this->db->query($insert);
 		if($result){
 				$data=array("status"=>"success","msg"=>"meeting request saved Successfully","class"=>"alert alert-success");
@@ -363,8 +363,8 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-	function update_meeting_request($meeting_id,$meeting_detail,$meeting_date,$meeting_status,$user_id){
-		$query="UPDATE meeting_request SET meeting_detail='$meeting_detail',meeting_date='$meeting_date',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
+	function update_meeting_request($meeting_id,$meeting_title,$meeting_detail,$meeting_date,$meeting_status,$user_id){
+		$query="UPDATE meeting_request SET meeting_title='$meeting_title',meeting_detail='$meeting_detail',meeting_date='$meeting_date',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
 		$result   = $this->db->query($query);
 		if($result){
 				$data=array("status"=>"success","msg"=>"meeting request updated Successfully","class"=>"alert alert-success");
@@ -645,11 +645,11 @@ Class Constituentmodel extends CI_Model
 		return $result->result();
 	}
 	################## Constituent Profile view only ##############
-	
-	
+
+
 	function get_birthday_report($selMonth)
 	{
-				$year = date("Y"); 
+				$year = date("Y");
 				$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
 				$resultset=$this->db->query($query);
 				if($resultset->num_rows()>0){
@@ -662,7 +662,7 @@ Class Constituentmodel extends CI_Model
 						$door_no = $rows->door_no;
 						$address = $rows->address;
 						$pin_code = $rows->pin_code;
-						
+
 						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
 						$subQuery_result = $this->db->query($subQuery);
 						if($subQuery_result->num_rows()>0){
@@ -688,18 +688,18 @@ Class Constituentmodel extends CI_Model
 								"pin_code" => $pin_code,
 								"birth_wish_status" => $birth_wish,
 						);
-					} 
+					}
 				}else {
 						$contData = array();
 				}
 		return $contData;
 	}
-	
+
 	function birthday_update($constituent_id,$user_id,$searchMonth)
 	{
 			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at) VALUES ('$constituent_id','Send','$user_id',NOW())";
 			$result=$this->db->query($insert);
-		
+
 			if ($result) {
                $this->session->set_flashdata('msg', 'You have just updated the birthday wishes!');
 				redirect(base_url().'constituent/birthday/'.$searchMonth);
@@ -707,14 +707,14 @@ Class Constituentmodel extends CI_Model
                $this->session->set_flashdata('msg', 'Failed to Add');
 				redirect(base_url().'constituent/birthday/'.$searchMonth);
             }
-			
+
 	}
-	
+
 	function get_meeting_report($frmDate,$toDate)
 	{
 		$dateTime1 = new DateTime($frmDate);
 		$from_date=date_format($dateTime1,'Y-m-d' );
-		
+
 		$dateTime2 = new DateTime($toDate);
 		$to_date=date_format($dateTime2,'Y-m-d' );
 
@@ -736,13 +736,13 @@ Class Constituentmodel extends CI_Model
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
-	
-	
+
+
 	function meeting_update($meeting_id,$user_id,$frmDate,$toDate)
 	{
 		$update="UPDATE meeting_request SET meeting_status='COMPLETED',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
 		$result=$this->db->query($update);
-	
+
 		if ($result) {
 		   $this->session->set_flashdata('msg', 'You have just updated the meeting request!');
 			redirect(base_url().'constituent/meetings/'.$frmDate.'/'.$toDate);
