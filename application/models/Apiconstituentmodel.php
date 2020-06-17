@@ -259,7 +259,7 @@ function version_check($version_code){
   ######### Meeting list ############
 
   function meeting_list($constituent_id){
-    $select="SELECT id,constituent_id,meeting_detail,DATE_FORMAT(meeting_date,'%d-%m-%Y') as meeting_date,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,meeting_status FROM meeting_request where constituent_id='$constituent_id' order by id desc";
+    $select="SELECT id,constituent_id,meeting_title,meeting_detail,DATE_FORMAT(meeting_date,'%d-%m-%Y') as meeting_date,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,meeting_status FROM meeting_request where constituent_id='$constituent_id' order by id desc";
     $res=$this->db->query($select);
     if($res->num_rows()!=0){
       $result=$res->result();
@@ -269,6 +269,7 @@ function version_check($version_code){
           "constituent_id"=>$rows->constituent_id,
           "created_at"=>$rows->created_at,
           "meeting_date"=>$rows->meeting_date,
+          "meeting_title"=>$rows->meeting_title,
           "meeting_detail"=>$rows->meeting_detail,
           "meeting_status"=>$rows->meeting_status,
         );
@@ -285,7 +286,7 @@ function version_check($version_code){
   ######### Meeting details ############
 
   function meeting_details($constituent_id,$id){
-    $select="SELECT id,constituent_id,meeting_detail,DATE_FORMAT(meeting_date,'%d-%m-%Y') as meeting_date,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,meeting_status FROM meeting_request where constituent_id='$constituent_id' and id='$id'";
+    $select="SELECT id,constituent_id,meeting_title,meeting_detail,DATE_FORMAT(meeting_date,'%d-%m-%Y') as meeting_date,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,meeting_status FROM meeting_request where constituent_id='$constituent_id' and id='$id'";
     $res=$this->db->query($select);
     if($res->num_rows()!=0){
       $result=$res->result();
@@ -294,6 +295,7 @@ function version_check($version_code){
           "id"=>$rows->id,
           "constituent_id"=>$rows->constituent_id,
           "meeting_date"=>$rows->meeting_date,
+          "meeting_title"=>$rows->meeting_title,
           "created_at"=>$rows->created_at,
           "meeting_detail"=>$rows->meeting_detail,
           "meeting_status"=>$rows->meeting_status,
