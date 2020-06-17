@@ -100,8 +100,8 @@
     #close {
         display: block;
         position: absolute;
-        width: 31px;
-        height: 31px;
+        width: 25px;
+        height: 25px;
         top: -10px;
         left: 225px;
         background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
