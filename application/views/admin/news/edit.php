@@ -32,7 +32,10 @@
 					<div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 label-align">News Date <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">
-						<input type="text" class="form-control" id="news_date" name="news_date" value="<?php $date=date_create($rows->news_date);echo date_format($date,"d-m-Y");  ?>">
+						<input type="text" class="form-control" id="news_old_date" name="news_old_date" value="<?php $date=date_create($rows->news_date);echo date_format($date,"d-m-Y");  ?>" disabled>
+                     </div>
+					 <div class="col-md-3 col-sm-3">
+						<input type="text" class="form-control" id="news_date" name="news_date" placeholder="New Date">
                      </div>
                   </div>
 				  <div class="item form-group">
@@ -120,7 +123,6 @@ var dateToday = new Date();
 	debug: false,
 		rules: {
 			constituency_id: { required: true },
-			news_date:{required:true},
 			news_title: { required: true },
 			news_details:{
 			 required: function() 
@@ -133,7 +135,6 @@ var dateToday = new Date();
 		},
 		messages: {
 				constituency_id: "Select constituency",
-				news_date: { required:"Select News Date"},
 				news_title: "Enter News title",
 				 news_details:{
 					required:"Enter News Details"

@@ -118,12 +118,21 @@ class News extends CI_Controller {
 			$news_id=$this->input->post('news_id');
 			$constituency_id=$this->input->post('constituency_id');
 
+			$news_old_date=$this->input->post('news_old_date');
+			$dateTime2 = new DateTime($news_old_date);
+			$news_old_date=date_format($dateTime2,'Y-m-d' );
+			
 			$newsdate=$this->input->post('news_date');
 			$dateTime1 = new DateTime($newsdate);
 			$news_date=date_format($dateTime1,'Y-m-d' );
+			
+			if ($news_date==''){
+				$newsn_date = $news_old_date;
+			}else {
+				$newsn_date = $news_date;
+			}
 
 			$news_title= $this->db->escape_str($this->input->post('news_title'));
-
 			$newsdetails = str_replace("\r\n",'', $this->input->post('news_details'));
 			$news_details= $this->db->escape_str($newsdetails);
 			$status=$this->input->post('status');
@@ -141,7 +150,7 @@ class News extends CI_Controller {
 						move_uploaded_file($_FILES['news_pic']['tmp_name'], $profilepic);
 					}
 			//exit;
-			$datas=$this->newsmodel->update_news($news_id,$constituency_id,$news_date,strtoupper($news_title),strtoupper($news_details),$status,$news_pic,$user_id);
+			$datas=$this->newsmodel->update_news($news_id,$constituency_id,$newsn_date,strtoupper($news_title),strtoupper($news_details),$status,$news_pic,$user_id);
 
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'News Details Updated');

@@ -40,7 +40,7 @@
 		<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
 	<div>
-		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="15" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
+		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="10" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
 	</div>
 	<div>
 		<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Log in</button>

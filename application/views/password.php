@@ -49,7 +49,7 @@
 	
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
-		<div class="col-md-6 col-sm-6" style="font-size:9px;color:#ed0404;">NOTE: PASSWORD SAVED AS CAPITAL LETER</div>
+		<div class="col-md-6 col-sm-6" style="font-size:10px;color:#ed0404;font-weight:bold;">NOTE: PASSWORD SAVED AS CAPITAL LETER</div>
 	</div>
 	
 	<div class="ln_solid"></div>
