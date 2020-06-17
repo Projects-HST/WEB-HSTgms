@@ -38,7 +38,7 @@ class Report extends CI_Controller {
 		 }
 		$datas['res']=$this->reportmodel->get_status_report($frmDate,$toDate,$status,$paguthi);
 
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/status_report',$datas);
 			$this->load->view('admin/footer');
@@ -68,7 +68,7 @@ class Report extends CI_Controller {
 		 }		
 		$datas['res']=$this->reportmodel->get_category_report($frmDate,$toDate,$category);
 		
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/category_report',$datas);
 			$this->load->view('admin/footer');
@@ -98,7 +98,7 @@ class Report extends CI_Controller {
 		
 		$datas['res']=$this->reportmodel->get_subcategory_report($frmDate,$toDate,$sub_category);
 		
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/subcategory_report',$datas);
 			$this->load->view('admin/footer');
@@ -128,7 +128,7 @@ class Report extends CI_Controller {
 		
 		$datas['res']=$this->reportmodel->get_location_report($frmDate,$toDate,$paguthi);
 		
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/location_report',$datas);
 			$this->load->view('admin/footer');
@@ -172,7 +172,7 @@ class Report extends CI_Controller {
 		
 		$datas['res']=$this->reportmodel->get_meeting_report($frmDate,$toDate);
 		
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/meeting_report',$datas);
 			$this->load->view('admin/footer');
@@ -194,7 +194,7 @@ class Report extends CI_Controller {
 		
 		$datas['res']=$this->reportmodel->meeting_update($meeting_id,$user_id,$frmDate,$toDate);
 		
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/meeting_report',$datas);
 			$this->load->view('admin/footer');
@@ -217,7 +217,7 @@ class Report extends CI_Controller {
 		
 		$datas['res']=$this->reportmodel->get_staff_report($frmDate,$toDate);
 		
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/staff_report',$datas);
 			$this->load->view('admin/footer');
@@ -246,7 +246,7 @@ class Report extends CI_Controller {
 		$datas['searchMonth'] = $selMonth;
 		$datas['res']=$this->reportmodel->get_birthday_report($selMonth);
 
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');		
 			$this->load->view('admin/report/birthday_report',$datas);
 			$this->load->view('admin/footer');

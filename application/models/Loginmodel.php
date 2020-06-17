@@ -89,40 +89,71 @@ Class Loginmodel extends CI_Model
 			foreach ($user_result->result() as $rows)
 			{
 				$old_email_id = $rows->email_id;
+				$old_phone = $rows->phone_number;
 			}
 		}
-	if ($email!=""){
-		if ($old_email_id != $email){
 		
-			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-
-			$result = $this->db->query($update);
-			$subject ='GMS - Staff Login - Username Updated';
-			$htmlContent = '<html>
-							<head> <title></title>
-							</head>
-							<body>
-							<p>Hi  '.$name.'</p>
-							<p>Login Details</p>
-							<p>Username: '.$email.'</p>
-							<p></p>
-							<p><a href="'.base_url() .'">Click here to Login</a></p>
-							</body>
-							</html>';
+		if ($email!="")
+		{
+			if ($old_email_id != $email){
 			
-			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
-			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
-			//$this->smsmodel->sendSMS($mobile,$smsContent);			
-		}else {
-			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-
+				 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+				$result = $this->db->query($update);
+				$subject ='GMS - Staff Login - Username Updated';
+				$htmlContent = '<html>
+								<head> <title></title>
+								</head>
+								<body>
+								<p>Hi  '.$name.'</p>
+								<p>Login Details</p>
+								<p>Email: '.$email.'</p>
+								<p></p>
+								<p><a href="'.base_url() .'">Click here to Login</a></p>
+								</body>
+								</html>';
+				
+				$smsContent = 'Hi  '.$name.' Your Account Email : '.$email.' is updated.';
+				$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+				$this->smsmodel->sendSMS($phone,$smsContent);			
+			}else {
+				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+				$result = $this->db->query($update);
+			}
+		}
+		
+		if  ($phone!=""){  
+				if ($old_phone != $phone) {
+					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+					$result = $this->db->query($update);
+					$subject ='GMS - Staff Login - Phone number Updated';
+					$htmlContent = '<html>
+									<head> <title></title>
+									</head>
+									<body>
+									<p>Hi  '.$name.'</p>
+									<p>Login Details</p>
+									<p>New Phone number: '.$phone.'</p>
+									<p></p>
+									<p><a href="'.base_url() .'">Click here to Login</a></p>
+									</body>
+									</html>';
+					
+					$smsContent = 'Hi  '.$name.' Your Account Phone number : '.$phone.' is updated.';
+					
+					$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+					$this->smsmodel->sendSMS($phone,$smsContent);
+				} else {
+					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+					$result = $this->db->query($update);
+				}
+		}
+		
+		if ($email =="" && $phone =="")
+		{
+			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
 			$result = $this->db->query($update);
 		}
-	}
-	else{
-		 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-		$result = $this->db->query($update);
-	}
+		
 		if ($result) {
 		  $data = array("status" => "success");
 		} else {

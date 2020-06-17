@@ -23,7 +23,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">Select Banner <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*"><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
+							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*"><span class="required" style="font-size:11px;font-weight:normal;">&nbsp;1400 * 800 px</span>
 						</div>
 
 					</div>
@@ -74,7 +74,7 @@
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-                    <td><img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:200px;height:100px;">
+                    <td><img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:200px;height:114px;">
                     <td><?php if($rows->status=='ACTIVE'){ ?>
 						<span class="badge badge-success">Active</span>
 						<?php  }else{ ?>

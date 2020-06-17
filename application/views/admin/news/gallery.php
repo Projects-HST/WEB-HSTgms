@@ -8,6 +8,14 @@
 	<div class="row">
 	
       <div class="col-md-12 col-sm-12 ">
+		<?php if($this->session->flashdata('msg')): ?>
+				<div class="alert alert-success alert-dismissible " role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+				</button>
+				<?php echo $this->session->flashdata('msg'); ?>
+				</div>
+			<?php endif; ?>
+			
          <div class="x_panel">
             <div class="x_title">
                <h2>Add Gallery</h2>
@@ -56,9 +64,9 @@
 					echo "No Gallery Found";
 				}else{
 					foreach($res_img as $rows){ ?>
-					<div class="col-lg-3" style="margin-bottom:5px;">
+					<div class="col-lg-3" style="margin-bottom:25px;">
 					<div id="thumbnail">
-						<img src="<?php echo base_url(); ?>assets/news/<?php echo $rows->image_file_name; ?>" class="img-responsive" style="width:225px;height:120px;">
+						<img src="<?php echo base_url(); ?>assets/news/<?php echo $rows->image_file_name; ?>" class="img-responsive" style="width:225px;height:129px;">
 						<a id="close" onclick="return confirm('Are you sure?')? delgal(<?php echo $rows->id; ?>):'';" data-toggle="tooltip" title="Delete" style="cursor:pointer"></a>
 						</a>
 					</div>
@@ -95,7 +103,7 @@
         width: 31px;
         height: 31px;
         top: -10px;
-        right: 2px;
+        left: 225px;
         background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
         background-size: 100% 100%;
         background-repeat: no-repeat;

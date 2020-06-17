@@ -39,7 +39,7 @@
                      <label class="col-form-label col-md-3 col-sm-3 label-align">News Title <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-4">
-                         <input type="text" name="news_title" id="news_title" class="form-control" value="<?php echo $rows->title; ?>">
+                         <input type="text" name="news_title" id="news_title" class="form-control" value="<?php echo $rows->title; ?>" maxlength="200">
                      </div>
                   </div>
                   <div class="item form-group">
@@ -84,7 +84,7 @@
                      <div class="col-md-6 col-sm-6 offset-md-3">
 						<input type="hidden" name="news_id" value="<?php echo $rows->id; ?>">
 						<input type="hidden" name="news_old_pic" value="<?php  echo $rows->image_file_name; ?>">
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="submit" class="btn btn-success">UPDATE</button>
                      </div>
                   </div>
                </form>
@@ -108,8 +108,11 @@ $.validator.addMethod('filesize', function (value, element, param) {
 	}, 'File size must be less than 1 MB');
 
 
+var dateToday = new Date(); 
+	
 	$('#news_date').datetimepicker({
-			format: 'DD-MM-YYYY'
+			format: 'DD-MM-YYYY',
+			minDate: dateToday
 	});
 
 	$('#myformsection').validate({

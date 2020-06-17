@@ -78,16 +78,15 @@ Class Newsmodel extends CI_Model
 
 	function create_gallery($news_id,$file_name,$user_id){
 
-          $count_picture=count($file_name);
+		$enc_newid =  base64_encode($news_id*98765);
+		$count_picture=count($file_name);
 
           for($i=0;$i<$count_picture;$i++){
             $check_batch="SELECT * FROM news_gallery WHERE news_id='$news_id'";
            $res=$this->db->query($check_batch);
             $res->num_rows();
             if($res->num_rows()>10){
-            $data = array(
-                "status" => "limit"
-            );
+            $data = array("status" => "limit","url"=>base_url().'news/gallery/'.$enc_newid);
             return $data;
           }else{
             $gal_l=$file_name[$i];
@@ -97,14 +96,10 @@ Class Newsmodel extends CI_Model
             }
 
           if ($res_gal) {
-              $data = array(
-                  "status" => "success"
-              );
+              $data = array("status" => "success","url"=>base_url().'news/gallery/'.$enc_newid);
               return $data;
           } else {
-              $data = array(
-                  "status" => "failed"
-              );
+              $data = array("status" => "failed");
               return $data;
           }
 	}

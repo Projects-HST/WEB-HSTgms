@@ -74,7 +74,7 @@ class Users extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1 || $user_type==2){
+		if($user_type==1){
 				$email=$this->input->post('email');
 				$datas['res']=$this->usermodel->checkemail(strtoupper($email));
 		}else{
@@ -82,7 +82,17 @@ class Users extends CI_Controller {
 		}
 	}
 	
-	
+	public function checkphone(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		if($user_type==1){
+				$phone=$this->input->post('phone');
+				$datas['res']=$this->usermodel->checkphone($phone);
+		}else{
+			redirect(base_url());
+		}
+	}	
 
 	
 	public function list_users()
@@ -128,6 +138,19 @@ class Users extends CI_Controller {
 				$staff_id=base64_decode($this->uri->segment(3))/98765;
 				$email=$this->input->post('email');
 				$datas['res']=$this->usermodel->checkemail_edit($email,$staff_id);
+		}else{
+			redirect(base_url());
+		}
+	}
+	
+	public function checkphone_edit(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		if($user_type==1){
+				$staff_id=base64_decode($this->uri->segment(3))/98765;
+				$phone=$this->input->post('phone');
+				$datas['res']=$this->usermodel->checkphone_edit($phone,$staff_id);
 		}else{
 			redirect(base_url());
 		}

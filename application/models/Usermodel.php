@@ -46,6 +46,17 @@ Class Usermodel extends CI_Model
 		}
     }
 	
+	function checkphone($phone){
+	$select="SELECT * FROM user_master WHERE phone_number='$phone'";
+	$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			echo "false";
+		}else{
+			echo "true";
+		}
+    }
+	
+	
 	function add_users($role,$paguthi,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$user_id) {
 
 		$select="SELECT * FROM user_master WHERE email_id='$email' AND pugathi_id = '$paguthi'";
@@ -121,6 +132,16 @@ Class Usermodel extends CI_Model
 			echo "true";
 		}
 	}
+	
+	function checkphone_edit($phone,$staff_id){
+	$select="SELECT * FROM user_master WHERE phone_number='$phone' AND id!='$staff_id'";
+	$result=$this->db->query($select);
+		if($result->num_rows()>0){
+			echo "false";
+		}else{
+			echo "true";
+		}
+	}
 
 	function update_user($role,$paguthi,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$staff_id,$user_id){
 		
@@ -132,12 +153,13 @@ Class Usermodel extends CI_Model
 			foreach ($user_result->result() as $rows)
 			{
 				$old_email_id = $rows->email_id;
+				$old_phone = $rows->phone_number;
 			}
 		}
 
 		if ($old_email_id != $email){
 
-			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',email_id='$email',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',email_id='$email',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
 			$result_user=$this->db->query($update_user);
 			
 			$subject ='GMS - Staff Login - Username Updated';
@@ -147,21 +169,42 @@ Class Usermodel extends CI_Model
 							<body>
 							<p>Hi  '.$name.'</p>
 							<p>Login Details</p>
-							<p>Username: '.$email.'</p>
+							<p>New Email: '.$email.'</p>
 							<p></p>
 							<p><a href="'.base_url() .'">Click here to Login</a></p>
 							</body>
 							</html>';
 			
-			$smsContent = 'Hi  '.$name.' Your Account Username : '.$email.' is updated.';
+			$smsContent = 'Hi  '.$name.' Your Account Email : '.$email.' is updated.';
 			
 			$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 			$this->smsmodel->sendSMS($mobile,$smsContent);			
 
+		}else if  ($old_phone != $mobile) {
+				$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+				$result_user=$this->db->query($update_user);
+				$subject ='GMS - Staff Login - Phone number Updated';
+				$htmlContent = '<html>
+								<head> <title></title>
+								</head>
+								<body>
+								<p>Hi  '.$name.'</p>
+								<p>Login Details</p>
+								<p>New Phone number: '.$mobile.'</p>
+								<p></p>
+								<p><a href="'.base_url() .'">Click here to Login</a></p>
+								</body>
+								</html>';
+				
+				$smsContent = 'Hi  '.$name.' Your Account Phone number : '.$mobile.' is updated.';
+				
+				$this->mailmodel->sendEmail($email,$subject,$htmlContent);
+				$this->smsmodel->sendSMS($mobile,$smsContent);
 		}else {
-			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
 			$result_user=$this->db->query($update_user);
-		}		
+		}
+
 		if ($result_user) {
 		  $data = array("status" => "success");
 		} else {

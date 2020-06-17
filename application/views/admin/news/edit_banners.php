@@ -24,9 +24,9 @@
 							<?php
 							$image_file_name  = trim($rows->banner_image_name );
 							if ($image_file_name != '') {?>
-								<img src="<?php echo base_url(); ?>assets/banners/<?php echo $image_file_name;?>" class="img-responsive" style="width:260px;height:150px;">
+								<img src="<?php echo base_url(); ?>assets/banners/<?php echo $image_file_name;?>" class="img-responsive" style="width:260px;height:149px;">
 							<?php } else { ?>
-								<img src="<?php echo base_url(); ?>assets/banners/default.png" class="img-responsive profile_img" style="width:260px;height:150px;">
+								<img src="<?php echo base_url(); ?>assets/banners/default.png" class="img-responsive" style="width:260px;height:150px;">
 							<?php } ?>
 						</div>
 					</div>
@@ -45,7 +45,7 @@
                      <div class="col-md-6 col-sm-6 offset-md-3">
 						<input type="hidden" name="banner_id" value="<?php echo $rows->id; ?>">
 						<input type="hidden" name="banner_old_pic" value="<?php  echo $rows->banner_image_name; ?>">
-						<button type="submit" class="btn btn-success">SAVE</button>
+						<button type="submit" class="btn btn-success">UPDATE</button>
                      </div>
                   </div>
                </form>

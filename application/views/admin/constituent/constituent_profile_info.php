@@ -152,7 +152,8 @@
                                       <td><?php echo $rows_grievance->petition_enquiry_no; ?></td>
                                       <td><?php echo $status= $rows_grievance->reference_note; ?></td>
                                       <td><?php echo $status= $rows_grievance->status; ?></td>
-                                      <td><?php echo $rows_grievance->updated_at; ?></td>
+									   <td><?php echo date('d-m-Y H:i:s', strtotime($rows_grievance->updated_at)); ?></td>
+                                      
 
                                       </tr>
                                 <?php $i++; } ?>

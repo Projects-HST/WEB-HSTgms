@@ -150,6 +150,10 @@ $('#create_user').addClass('active current-page');
 				maxlength: 10,
 				minlength:10,
 				number:true,
+				remote: {
+						 url: "<?php echo base_url(); ?>users/checkphone",
+						 type: "post"
+						}
 			},
 			profile_pic:{required:true,accept: "jpg,jpeg,png",filesize: 1048576},
 			status: {
@@ -170,7 +174,8 @@ $('#create_user').addClass('active current-page');
 			required: "Enter phone number",
 			maxlength:"Invalid phone number",
 			minlength:"Invalid phone number",
-			number:"Invalid phone number"
+			number:"Invalid phone number",
+			remote: "Phone number already in use!"
 
 			},
 			profile_pic:{

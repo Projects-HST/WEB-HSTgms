@@ -113,7 +113,7 @@
 	<div class="col-md-6 col-sm-6 offset-md-3">
 			<input type="hidden" name="staff_id" value="<?php echo $rows->id; ?>">
 			<input type="hidden" name="user_old_pic" value="<?php echo $rows->profile_pic; ?>">
-		<button type="submit" class="btn btn-success">SAVE</button>
+		<button type="submit" class="btn btn-success">UPDATE</button>
 	</div>
 	</div>
 	</form>
@@ -162,6 +162,10 @@ $('#list_user').addClass('active current-page');
 				maxlength: 10,
 				minlength:10,
 				number:true,
+				remote: {
+						 url: "<?php echo base_url(); ?>users/checkphone_edit/<?php echo base64_encode($rows->id*98765); ?>",
+						 type: "post"
+						}
 			},
 			status: {
 				required: true
@@ -183,8 +187,8 @@ $('#list_user').addClass('active current-page');
 			required: "Enter phone number",
 			maxlength:"Invalid phone number",
 			minlength:"Invalid phone number",
-			number:"Invalid phone number"
-
+			number:"Invalid phone number",
+			remote: "Phone number already in use!"
 			},
 			status: "Select Status",
 			new_profile_pic:{

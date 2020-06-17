@@ -56,7 +56,7 @@
 	<div class="item form-group">
 	<div class="col-md-6 col-sm-6 offset-md-3">
 		<input type="hidden" name="user_id" value="<?php echo $rows->id; ?>">
-		<button type="submit" class="btn btn-success">SAVE</button>
+		<button type="submit" class="btn btn-success">UPDATE</button>
 	</div>
 	</div>
 	</form>

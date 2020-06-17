@@ -35,7 +35,7 @@ class Dashboard extends CI_Controller {
 
 		//print_r($datas['footfall_result']); 
 		//exit;
-		if($user_type==1 || $user_type==2){
+		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/dashboard/dashboard',$datas);
 			$this->load->view('admin/footer');

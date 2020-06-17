@@ -13,9 +13,9 @@ class Masters extends CI_Controller {
 
 	public function constituency()
 	{
-	  $user_id = $this->session->userdata('user_id');
+		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_constituency();
 			$this->load->view('admin/header');
 			$this->load->view('admin/masters/constituency',$data);
@@ -30,7 +30,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$constituency_name=strtoupper($this->db->escape_str($this->input->post('constituency_name')));
 			$data=$this->mastermodel->update_constituency($constituency_name,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -48,7 +48,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_paguthi();
 			$this->load->view('admin/header');
 			$this->load->view('admin/masters/paguthi',$data);
@@ -84,7 +84,7 @@ class Masters extends CI_Controller {
 	public function get_paguthi_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$paguthi_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_paguthi_edit($paguthi_id);
 			$this->load->view('admin/header');
@@ -98,7 +98,7 @@ class Masters extends CI_Controller {
 	public function create_paguthi(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$paguthi_name=strtoupper($this->db->escape_str($this->input->post('paguthi_name')));
 			$paguthi_short_name=strtoupper($this->db->escape_str($this->input->post('paguthi_short_name')));
 			$status=$this->input->post('status');
@@ -115,7 +115,7 @@ class Masters extends CI_Controller {
 	public function update_paguthi(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$paguthi_name=strtoupper($this->db->escape_str($this->input->post('paguthi_name')));
 			$paguthi_short_name=strtoupper($this->db->escape_str($this->input->post('paguthi_short_name')));
 			$status=strtoupper($this->db->escape_str($this->input->post('status')));
@@ -140,7 +140,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_ward();
 			$data['res_paguthi']=$this->mastermodel->get_paguthi();
 			$this->load->view('admin/header');
@@ -155,7 +155,7 @@ class Masters extends CI_Controller {
 	public function create_ward(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$paguthi_id=$this->input->post('paguthi_id');
 			$ward_name=strtoupper($this->db->escape_str($this->input->post('ward_name')));
 			$status=strtoupper($this->db->escape_str($this->input->post('status')));
@@ -171,7 +171,7 @@ class Masters extends CI_Controller {
 	public function update_ward(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$paguthi_id=$this->input->post('paguthi_id');
 			$ward_name=strtoupper($this->db->escape_str($this->input->post('ward_name')));
 			$status=strtoupper($this->db->escape_str($this->input->post('status')));
@@ -188,7 +188,7 @@ class Masters extends CI_Controller {
 	public function get_ward_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$ward_id=$this->uri->segment(3);
 			$data['res_paguthi']=$this->mastermodel->get_paguthi();
 			$data['res']=$this->mastermodel->get_ward_edit($ward_id);
@@ -208,7 +208,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$ward_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_booth($ward_id);
 			$this->load->view('admin/header');
@@ -224,7 +224,7 @@ class Masters extends CI_Controller {
 	public function create_booth(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$booth_name=strtoupper($this->db->escape_str($this->input->post('booth_name')));
 			$ward_id=$this->input->post('ward_id');
 			$booth_address=strtoupper($this->db->escape_str($this->input->post('booth_address')));
@@ -242,7 +242,7 @@ class Masters extends CI_Controller {
 	public function get_booth_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$booth_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_booth_edit($booth_id);
 			$this->load->view('admin/header');
@@ -257,7 +257,7 @@ class Masters extends CI_Controller {
 	public function update_booth(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$booth_name=strtoupper($this->db->escape_str($this->input->post('booth_name')));
 			$ward_id=$this->input->post('ward_id');
 			$booth_address=strtoupper($this->db->escape_str($this->input->post('booth_address')));
@@ -281,7 +281,7 @@ class Masters extends CI_Controller {
 		{
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
-			if($user_type=='1'){
+			if($user_type=='1' || $user_type=='2'){
 				$data['res']=$this->mastermodel->get_seeker();
 				$this->load->view('admin/header');
 				$this->load->view('admin/masters/seeker',$data);
@@ -295,7 +295,7 @@ class Masters extends CI_Controller {
 		public function get_seeker_edit(){
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
-			if($user_type=='1'){
+			if($user_type=='1' || $user_type=='2'){
 				$seeker_id=$this->uri->segment(3);
 				$data['res']=$this->mastermodel->get_seeker_edit($seeker_id);
 				$this->load->view('admin/header');
@@ -319,7 +319,7 @@ class Masters extends CI_Controller {
 		public function create_seeker(){
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
-			if($user_type=='1'){
+			if($user_type=='1' || $user_type=='2'){
 				$seeker_info=strtoupper($this->db->escape_str($this->input->post('seeker_info')));
 				$status=strtoupper($this->db->escape_str($this->input->post('status')));
 				$data=$this->mastermodel->create_seeker($seeker_info,$status,$user_id);
@@ -334,7 +334,7 @@ class Masters extends CI_Controller {
 		public function update_seeker(){
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
-			if($user_type=='1'){
+			if($user_type=='1' || $user_type=='2'){
 				$seeker_info=strtoupper($this->db->escape_str($this->input->post('seeker_info')));
 				$status=strtoupper($this->db->escape_str($this->input->post('status')));
 				$seeker_id=$this->input->post('seeker_id');
@@ -354,7 +354,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_grievance();
 			$data['res_seeker']=$this->mastermodel->get_seeker();
 			$this->load->view('admin/header');
@@ -368,7 +368,7 @@ class Masters extends CI_Controller {
 	public function get_grievance_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_grievance_edit($grievance_id);
 			$data['res_seeker']=$this->mastermodel->get_seeker();
@@ -384,7 +384,7 @@ class Masters extends CI_Controller {
 	public function create_grievance(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$seeker_id=$this->input->post('seeker_id');
 			$grievance_name=strtoupper($this->db->escape_str($this->input->post('grievance_name')));
 			$status=strtoupper($this->db->escape_str($this->input->post('status')));
@@ -400,7 +400,7 @@ class Masters extends CI_Controller {
 	public function update_grievance(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$seeker_id=$this->input->post('seeker_id');
 			$grievance_name=strtoupper($this->db->escape_str($this->input->post('grievance_name')));
 				$grievance_id=$this->input->post('grievance_id');
@@ -423,7 +423,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_grievance_sub_category($grievance_id);
 			$this->load->view('admin/header');
@@ -439,7 +439,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$sub_category_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_sub_category_edit($sub_category_id);
 			$this->load->view('admin/header');
@@ -453,7 +453,7 @@ class Masters extends CI_Controller {
 	public function create_sub_category_name(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('grievance_id');
 			$sub_category_name=strtoupper($this->db->escape_str($this->input->post('sub_category_name')));
 			$status=strtoupper($this->db->escape_str($this->input->post('status')));
@@ -470,7 +470,7 @@ class Masters extends CI_Controller {
 	public function update_sub_category_name(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('grievance_id');
 			$sub_category_id=$this->input->post('sub_category_id');
 			$sub_category_name=strtoupper($this->db->escape_str($this->input->post('sub_category_name')));
@@ -492,7 +492,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_religion();
 			$this->load->view('admin/header');
 			$this->load->view('admin/masters/religion',$data);
@@ -508,7 +508,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_sms_template();
 			$this->load->view('admin/header');
 			$this->load->view('admin/masters/sms_template',$data);
@@ -522,7 +522,7 @@ class Masters extends CI_Controller {
 	public function create_sms_template(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$template_type=strtoupper($this->db->escape_str($this->input->post('template_type')));
 			$sms_text=strtoupper($this->db->escape_str($this->input->post('sms_text')));
 			$sms_title=strtoupper($this->db->escape_str($this->input->post('sms_title')));
@@ -540,7 +540,7 @@ class Masters extends CI_Controller {
 	public function update_sms_template(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$template_type=strtoupper($this->db->escape_str($this->input->post('template_type')));
 			$template_id=$this->input->post('template_id');
 			$sms_text=strtoupper($this->db->escape_str($this->input->post('sms_text')));
@@ -559,7 +559,7 @@ class Masters extends CI_Controller {
 	public function get_sms_template_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$template_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_sms_template_edit($template_id);
 			$this->load->view('admin/header');
@@ -577,7 +577,7 @@ class Masters extends CI_Controller {
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$data['res']=$this->mastermodel->get_interaction_question();
 			$this->load->view('admin/header');
 			$this->load->view('admin/masters/interaction',$data);
@@ -590,7 +590,7 @@ class Masters extends CI_Controller {
 	public function get_interaction_question_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$interaction_id=$this->uri->segment(3);
 			$data['res']=$this->mastermodel->get_interaction_question_edit($interaction_id);
 			$this->load->view('admin/header');
@@ -605,7 +605,7 @@ class Masters extends CI_Controller {
 	public function create_interaction_question(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$interaction_text=strtoupper($this->db->escape_str($this->input->post('interaction_text')));
 			$widgets_title=strtoupper($this->db->escape_str($this->input->post('widgets_title')));
 			$status=strtoupper($this->db->escape_str($this->input->post('status')));
@@ -623,7 +623,7 @@ class Masters extends CI_Controller {
 	public function update_interaction_question(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1'){
+		if($user_type=='1' || $user_type=='2'){
 			$interaction_text=strtoupper($this->db->escape_str($this->input->post('interaction_text')));
 			$widgets_title=strtoupper($this->db->escape_str($this->input->post('widgets_title')));
 			$interaction_id=$this->input->post('interaction_id');
@@ -673,8 +673,6 @@ class Masters extends CI_Controller {
 			echo json_encode($data['res']);
 
 		}
-
-
 
 	#################### Constituent purpose active data  ####################
 

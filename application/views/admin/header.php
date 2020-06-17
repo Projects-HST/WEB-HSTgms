@@ -1,4 +1,7 @@
-<?php $user_pic = $this->session->userdata('user_pic'); ?>
+<?php 
+	$user_pic = $this->session->userdata('user_pic'); 
+	$user_type = $this->session->userdata('user_type');
+?>
 <!DOCTYPE html>
 <html lang="en">
    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -105,6 +108,7 @@
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
+						   <?php if ($user_type =='1'){ ?>
                            <li id="user_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive menu_img"> Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu user_menu">
@@ -112,7 +116,7 @@
                                  <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
                               </ul>
                            </li>
-
+						   <?php } ?>
 							<li id="news_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/user.png" class="img-responsive menu_img"> News Feeder <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu news_menu">
