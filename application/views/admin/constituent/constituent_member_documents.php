@@ -147,10 +147,16 @@ $('#example_2').DataTable({
       searchPlaceholder: "SEARCH HERE"
     }
 });
+$.validator.addMethod('filesize', function (value, element,param) {
+  var size=element.files[0].size;
+  size=size/1024;
+  size=Math.round(size);
+  return this.optional(element) || size <=param ;
+}, 'File size must be less than 1 MB');
 $('#master_form').validate({
      rules: {
          file_name:{required:true },
-         doc_file:{required:true }
+         doc_file:{required:true,extension:'jpe?g,png,doc,docx,pdf', filesize: 1000    }
      },
      messages: {
        file_name:{required:"enter the file name" },

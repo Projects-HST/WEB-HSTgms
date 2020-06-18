@@ -228,7 +228,7 @@ Class Constituentmodel extends CI_Model
 					$insert="INSERT INTO grievance_documents(constituent_id,doc_name,doc_file_name,status,created_by,created_at,updated_by,updated_at) VALUES ('$id','$doc_name','$filename','ACTIVE','$user_id',NOW(),'$user_id',NOW())";
 						$result=$this->db->query($insert);
 						if($result){
-							$data=array("status"=>"success","msg"=>"constituent updated Successfully","class"=>"alert alert-success");
+							$data=array("status"=>"success","msg"=>"$doc_name Document uploaded Successfully","class"=>"alert alert-success");
 						}else{
 							$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 						}
