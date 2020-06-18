@@ -340,7 +340,7 @@ function version_check($version_code){
   ######### Notification list ############
 
   function notification_list($constituent_id){
-    $select="SELECT id,constituent_id,sms_text,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,TIME_FORMAT(created_at,'%h:%i %r') as created_time FROM grievance_reply where constituent_id='$constituent_id' order by id desc";
+    $select="SELECT id,constituent_id,sms_text,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,TIME_FORMAT(created_at,'%r') as created_time FROM grievance_reply where constituent_id='$constituent_id' order by id desc";
     $res=$this->db->query($select);
     if($res->num_rows()!=0){
       $result=$res->result();
@@ -365,7 +365,7 @@ function version_check($version_code){
   ######### Notification details ############
 
   function notification_details($constituent_id,$id){
-    $select="SELECT id,constituent_id,sms_text,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,TIME_FORMAT(created_at,'%h:%i %r') as created_time FROM grievance_reply where constituent_id='$constituent_id' and id='$id'";
+    $select="SELECT id,constituent_id,sms_text,DATE_FORMAT(created_at,'%d-%m-%Y') as created_at,TIME_FORMAT(created_at,'%r') as created_time FROM grievance_reply where constituent_id='$constituent_id' and id='$id'";
     $res=$this->db->query($select);
     if($res->num_rows()!=0){
       $result=$res->result();
