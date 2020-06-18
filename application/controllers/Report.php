@@ -10,6 +10,8 @@ class Report extends CI_Controller {
 			$this->load->library('pagination');
 			$this->load->model('reportmodel');
 			$this->load->model('usermodel');
+			$this->load->model('mastermodel');
+			$this->load->model('smsmodel');
  }
 
 	public function status()
@@ -268,8 +270,12 @@ class Report extends CI_Controller {
 	
 	public function list_records($rowno=0){
 
+		$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+		$data['res_constituency']=$this->mastermodel->get_active_constituency();
+		$data['res_seeker']=$this->mastermodel->get_active_seeker();
+			
 		// Row per page
-		$rowperpage = 50;
+		$rowperpage = 10;
 
 		// Row position
 		if($rowno != 0){
