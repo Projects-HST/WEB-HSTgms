@@ -269,7 +269,7 @@ class Report extends CI_Controller {
 	public function list_records($rowno=0){
 
 		// Row per page
-		$rowperpage = 50000;
+		$rowperpage = 50;
 
 		// Row position
 		if($rowno != 0){
@@ -288,7 +288,7 @@ class Report extends CI_Controller {
 		$config['total_rows'] = $allcount;
 		$config['per_page'] = $rowperpage;
 		//Pagination Container tag
-		$config['full_tag_open'] = '<div style="margin:50px 30%;">';
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
 		$config['full_tag_close'] = '</div>';
 		
 		//First and last Link Text
@@ -303,11 +303,9 @@ class Report extends CI_Controller {
 		$config['last_tag_open'] = '<span class="pagination-last-tag">';
 		$config['last_tag_close'] = '</span>';
 		
-		
 		//Next and Prev Link
 		$config['next_link'] = 'Next';
 		$config['prev_link'] = 'Prev';
-		
 		
 		//Next and Prev Link Styling
 		$config['next_tag_open'] = '<span class="pagination-next-tag">';

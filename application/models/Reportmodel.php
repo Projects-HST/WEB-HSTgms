@@ -356,25 +356,22 @@ Class Reportmodel extends CI_Model
 	// Fetch records
 	public function getData($rowno,$rowperpage) {
 		
-		/* echo $query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
+/* 		 echo $query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
 			left join interaction_history as ih on c.id=ih.constituent_id
 			left join plant_donation as pd on pd.constituent_id=c.id group by c.id order by c.id desc limit $rowno, $rowperpage";
-			$query = $this->db->query($query);
-  			if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return false;  */
+			 $resultset=$this->db->query($query);
+  			if ($resultset->num_rows() > 0) {
+				return $resultset->result();
+			}
+        return false;   */
+
 		
-		
-		 $this->db->select('*');
+		$this->db->select('*');
 		$this->db->from('constituent');
-        $this->db->limit($rowperpage, $rowno);   
+		$this->db->limit($rowperpage, $rowno);   
 		$query = $this->db->get();
        
-		return $query->result_array(); 
+		return $query->result_array();
 	}
 
 	// Select total records

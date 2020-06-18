@@ -1,5 +1,4 @@
-	<style type="text/css">
-
+<style type="text/css">
 .pagination-first-tag{
 	border:1px solid #eeeeee;
 	padding:10px;
@@ -12,7 +11,6 @@
 	background:#31aa15;
 	
 }
- 
 .pagination-next-tag{
 	padding:10px;
 	border:1px solid #eeeeee;
@@ -52,38 +50,45 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-		<div class="col-md-12 col-sm-12 ">
-	<div style='margin-top: 10px;margin-bottom:10px;'>
-		<?= $pagination; ?>
-	</div>
-	<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-		<tr>
-			<th>S.no</th>
-			<th>full_name</th>
-			<th>father_husband_name</th>
-			<th>guardian_name</th>
-		</tr>
-		<?php 
-		$sno = $row+1;
-		foreach($result as $data){
-			echo "<tr>";
-			echo "<td>".$sno."</td>";
-			echo "<td>".$data['full_name']."</td>";
-			echo "<td>".$data['father_husband_name']."</td>";
-			echo "<td>".$data['guardian_name']."</td>";
-			echo "</tr>";
-			$sno++;
-		}
-		?>
-	</table>
-		<div style='margin-top: 10px;margin-bottom:10px;'>
-		<?= $pagination; ?>
-	</div>
+			
+			<div class="col-md-12 col-sm-12" style="padding:0px;">
+				  <div class="col-md-3 col-sm-3"></div>
+				  <div class="col-md-3 col-sm-3"></div>
+				  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+			</div>
+				
+			<div class="col-md-12 col-sm-12">
+			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+			<tr>
+				<th>S.no</th>
+				<th>full_name</th>
+				<th>father_husband_name</th>
+				<th>guardian_name</th>
+			</tr>
+			<?php 
+			$sno = $row+1;
+			foreach($result as $data){
+				echo "<tr>";
+				echo "<td>".$sno."</td>";
+				echo "<td>".$data['full_name']."</td>";
+				echo "<td>".$data['father_husband_name']."</td>";
+				echo "<td>".$data['guardian_name']."</td>";
+				echo "</tr>";
+				$sno++;
+			}
+			?>
+		</table>
+		</div>
+	
+		<div class="col-md-12 col-sm-12" style="padding:0px;">
+			  <div class="col-md-3 col-sm-3"></div>
+			  <div class="col-md-3 col-sm-3"></div>
+			  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+		</div>
 	<!-- Paginate -->
 	
 
-        </div>
+        
             </div>
          </div>
       </div>

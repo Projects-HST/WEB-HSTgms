@@ -85,16 +85,15 @@ Class Newsmodel extends CI_Model
             $check_batch="SELECT * FROM news_gallery WHERE news_id='$news_id'";
            $res=$this->db->query($check_batch);
             $res->num_rows();
-            if($res->num_rows()>10){
-            $data = array("status" => "limit","url"=>base_url().'news/gallery/'.$enc_newid);
-            return $data;
-          }else{
-            $gal_l=$file_name[$i];
-             $gall_img="INSERT INTO news_gallery(news_id,image_file_name,created_at,created_by) VALUES('$news_id','$gal_l',NOW(),'$user_id')";
-             $res_gal   = $this->db->query($gall_img);
+            if($res->num_rows()>=10){
+				$data = array("status" => "limit","url"=>base_url().'news/gallery/'.$enc_newid);
+				return $data;
+			}else{
+				$gal_l=$file_name[$i];
+				$gall_img="INSERT INTO news_gallery(news_id,image_file_name,created_at,created_by) VALUES('$news_id','$gal_l',NOW(),'$user_id')";
+				$res_gal   = $this->db->query($gall_img);
               }
             }
-
           if ($res_gal) {
               $data = array("status" => "success","url"=>base_url().'news/gallery/'.$enc_newid);
               return $data;
