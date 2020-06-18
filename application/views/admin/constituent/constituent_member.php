@@ -4,7 +4,7 @@
          <form class="form-horizontal form-label-left" id="master_form" action="<?php  echo base_url(); ?>constituent/create_constituent_member" method="post" enctype="multipart/form-data">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Constituency information</h2>
+               <h2>constituent information</h2>
                <div class="clearfix"></div>
             </div>
             <?php if($this->session->flashdata('msg')) {
@@ -371,6 +371,12 @@ $('input[name=interaction_section]').click(function(){
     $('.interaction_div').hide();
   }
 });
+$.validator.addMethod('filesize', function (value, element,param) {
+  var size=element.files[0].size;
+  size=size/1024;
+  size=Math.round(size);
+  return this.optional(element) || size <=param ;
+}, 'File size must be less than 1 MB');
 
    $('#master_form').validate({
         rules: {
@@ -405,7 +411,7 @@ $('input[name=interaction_section]').click(function(){
                         type: "post"
                      }
                     },
-            profile_pic:{required:false }
+            profile_pic:{required:false,extension:'jpe?g,png', filesize: 1000  }
         },
         messages: {
           paguthi_id:{required:"select paguthi" },
