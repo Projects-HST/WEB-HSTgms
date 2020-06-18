@@ -696,6 +696,14 @@ function give_voice_call(sel){
 
               }
       });
+
+      $.validator.addMethod('filesize', function (value, element,param) {
+        var size=element.files[0].size;
+        size=size/1024;
+        size=Math.round(size);
+        return this.optional(element) || size <=param ;
+      }, 'File size must be less than 1 MB');
+      
      $('#grievance_form').validate({
           rules: {
                 constituent_id:{required:true},
@@ -704,7 +712,7 @@ function give_voice_call(sel){
                 seeker_id:{required:true},
                 grievance_id:{required:true},
                 doc_name:{required:true},
-                doc_file_name:{required:true},
+                doc_file_name:{required:true,extension:'jpe?g,png,doc,docx,pdf', filesize: 1000 },
                 petition_enquiry_no:{required:true},
                 sub_category_id:{required:true},
                 sub_category_id:{required:true}
