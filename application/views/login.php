@@ -134,7 +134,9 @@ $('#loginform').validate({ // initialize the plugin
                                  icon:'success',
                                  stack: false
                              })
-                             window.setTimeout(function(){location.reload()},3000);
+                            // window.setTimeout(function(){location.reload()},3000);
+							window.setTimeout(function(){window.location.replace("<?php echo base_url(); ?>")},3000);
+
                      }else{
                        $.toast({
                                  heading: 'Error',
