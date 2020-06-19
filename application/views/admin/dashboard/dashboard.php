@@ -47,15 +47,14 @@
 
 <div class="row">
 
-<div class="col-md-3 widget widget_tally_box">
+<div class="col-md-3  widget_tally_box">
 <div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
-	<ul class="list-inline widget_profile_box">
-		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/images/cm.png" class="img-circle profile_img"></li>
-		<li>&nbsp;</li>
-	</ul>
+	<div style="width:100%">
+		<center><img src="<?php echo base_url(); ?>assets/images/cm.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 4px;"></center>
+	</div>
 </div>
 <h4 class="name">Constituent Members</h4>
 <div class="flex">
@@ -99,15 +98,15 @@
 
 
 
-<div class="col-md-3   widget widget_tally_box">
+<div class="col-md-3  widget_tally_box">
 <div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
-	<ul class="list-inline widget_profile_box">
-		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/images/meeting.png" class="img-circle profile_img"></li>
-		<li>&nbsp;</li>
-	</ul>
+
+	<div style="width:100%">
+		<center><img src="<?php echo base_url(); ?>assets/images/meeting.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
+		padding: 4px;"></center>
+	</div>
 </div>
 <h4 class="name">Total <br>Meetings</h4>
 <div class="flex">
@@ -138,15 +137,14 @@
 </div>
 
 
-<div class="col-md-3   widget widget_tally_box">
+<div class="col-md-3  widget_tally_box">
 <div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
-	<ul class="list-inline widget_profile_box">
-		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/images/gl.png" class="img-circle profile_img"></li>
-		<li>&nbsp;</li>
-	</ul>
+	<div style="width:100%">
+		<center><img src="<?php echo base_url(); ?>assets/images/gl.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
+		padding: 4px;"></center>
+	</div>
 </div>
 <h4 class="name">Grievance</h4>
 <br>
@@ -190,16 +188,17 @@
 </div>
 
 
-<div class="col-md-3   widget widget_tally_box">
+<div class="col-md-3  widget_tally_box">
 <div class="x_panel fixed_height_430">
 <div class="x_content">
 <div class="flex">
-	<ul class="list-inline widget_profile_box">
-		<li>&nbsp;</li>
-		<li><img src="<?php echo base_url(); ?>assets/images/interaction.png" class="img-circle profile_img"></li>
-		<li>&nbsp;</li>
-	</ul>
+	<div style="width:100%">
+		<center><img src="<?php echo base_url(); ?>assets/images/interaction.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
+		padding: 4px;"></center>
+	</div>
+
 </div>
+
 <h4 class="name">Interaction Questions</h4>
 <div class="flex">
 	<ul class="list-inline count2">
