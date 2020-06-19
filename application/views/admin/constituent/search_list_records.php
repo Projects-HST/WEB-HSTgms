@@ -5,41 +5,41 @@
 	padding:10px;
 	background:#31aa15;
 }
- 
+
 .pagination-last-tag{
 	border:1px solid #eeeeee;
 	padding:10px;
 	background:#31aa15;
-	
+
 }
 .pagination-next-tag{
 	padding:10px;
 	border:1px solid #eeeeee;
 	background:#31aa15;
 }
- 
+
 .pagination-prev-tag{
 	padding:10px;
 	border:1px solid #eeeeee;
 	background:#31aa15;
-	
+
 }
- 
+
 .pagination-current-tag{
 	color:#000000;
 	font-weight:bold;
 	padding:10px;
 	border:1px solid #eeeeee;
 }
- 
+
 .pagination-number{
 	padding:10px;
 	border:1px solid #eeeeee;
 }
- 
+
 .pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
 	color:#ffffff;
-	
+
 }
 	</style>
 <div  class="right_col" role="main">
@@ -47,7 +47,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List of constituents</h2>
+               <h2>List of constituent</h2>
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -75,12 +75,12 @@
                      <th>Grievance</th>
                      <th>Action</th>
 			</tr>
-			<?php 
+			<?php
 			$sno = $row+1;
 			foreach($result as $data){
 				$const_id = $data['id'];
 				$paguthi_id = $data['paguthi_id'];
-				
+
 				$paQuery = "SELECT paguthi_name FROM paguthi WHERE id = '$paguthi_id'";
 				$paQuery_result = $this->db->query($paQuery);
 				if($paQuery_result->num_rows()>0){
@@ -89,7 +89,7 @@
 							  $paguthi_name = $rows->paguthi_name ;
 						}
 				}
-				
+
 				$intQuery = "SELECT * FROM interaction_history WHERE constituent_id = '$const_id'";
 				$intQuery_result = $this->db->query($intQuery);
 				if($intQuery_result->num_rows()>0){
@@ -97,7 +97,7 @@
 				}else{
 					$int_status = "N";
 				}
-				
+
 				$pltQuery = "SELECT * FROM plant_donation WHERE constituent_id = '$const_id'";
 				$pltQuery_result = $this->db->query($pltQuery);
 				if($pltQuery_result->num_rows()>0){
@@ -133,16 +133,16 @@
 			?>
 		</table>
 		</div>
-	
+
 		<div class="col-md-12 col-sm-12" style="padding:0px;">
 			  <div class="col-md-3 col-sm-3"></div>
 			  <div class="col-md-3 col-sm-3"></div>
 			  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
 		</div>
 	<!-- Paginate -->
-	
 
-        
+
+
             </div>
          </div>
       </div>
@@ -477,7 +477,7 @@ function view_donation(sel){
 }
 
   $('.enquiry_box').hide();
-  
+
 $('input[name=grievance_type]').click(function(){
   if(this.value == 'P'){
     $('#petition_enquiry_no').val("");
@@ -665,11 +665,13 @@ function give_voice_call(sel){
     $('#meeting_form').validate({
          rules: {
                 meeting_date:{required:true},
+								meeting_title:{required:true ,maxlength:60},
                meeting_detail:{required:true ,maxlength:200}
 
          },
          messages: {
              meeting_date:{required:"enter the date"},
+						 meeting_title:{required:"enter the title"},
            meeting_detail:{required:"enter the meeting detail " }
 
              }
@@ -677,11 +679,13 @@ function give_voice_call(sel){
      $('#update_meeting_form').validate({
           rules: {
                  update_meeting_date:{required:true},
+								 update_meeting_title:{required:true ,maxlength:60},
                 update_meeting_detail:{required:true ,maxlength:200}
 
           },
           messages: {
               update_meeting_date:{required:"enter the date"},
+							update_meeting_title:{required:"enter the title"},
             update_meeting_detail:{required:"enter the meeting detail " }
 
               }
@@ -693,7 +697,7 @@ function give_voice_call(sel){
         size=Math.round(size);
         return this.optional(element) || size <=param ;
       }, 'File size must be less than 1 MB');
-      
+
      $('#grievance_form').validate({
           rules: {
                 constituent_id:{required:true},
