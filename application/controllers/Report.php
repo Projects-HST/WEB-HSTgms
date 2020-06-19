@@ -343,9 +343,9 @@ class Report extends CI_Controller {
 	public function list_constituent($rowno=0){
 
 
-		$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
-		$data['res_constituency']=$this->mastermodel->get_active_constituency();
-		$data['res_seeker']=$this->mastermodel->get_active_seeker();
+	$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+	$data['res_constituency']=$this->mastermodel->get_active_constituency();
+	$data['res_seeker']=$this->mastermodel->get_active_seeker();
 		
     // Search text
     $search_text = "";
