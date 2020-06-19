@@ -438,7 +438,7 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		
 		$this->session->unset_userdata('search');
-		redirect("constituent/list_constituent_member");
+		redirect(base_url()."constituent/list_constituent_member");
 	}
 
 }
