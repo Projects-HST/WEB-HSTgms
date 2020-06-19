@@ -353,7 +353,7 @@ Class Reportmodel extends CI_Model
 			
 	}
 	
-	// Fetch records
+	/* // Fetch records
 	public function getData($rowno,$rowperpage) {		
 		$this->db->select('*');
 		$this->db->from('constituent');
@@ -371,7 +371,58 @@ Class Reportmodel extends CI_Model
       $result = $query->result_array();
       
       return $result[0]['allcount'];
-    }
+    } */
+	
+	// Fetch records
+	public function getData($rowno,$rowperpage,$search="") {
+ 
+		$this->db->select('*');
+		$this->db->from('constituent');
+
+		if($search != ''){
+				$this->db->like('full_name', $search);
+				$this->db->or_like('father_husband_name', $search);
+				$this->db->or_like('guardian_name', $search);
+				$this->db->or_like('mobile_no', $search);
+				$this->db->or_like('whatsapp_no', $search);
+				$this->db->or_like('address', $search);
+				$this->db->or_like('pin_code', $search);
+				$this->db->or_like('email_id', $search);
+				$this->db->or_like('voter_id_no', $search);
+				$this->db->or_like('aadhaar_no', $search);
+				$this->db->or_like('serial_no', $search);
+		}
+		$this->db->limit($rowperpage, $rowno); 
+		$query = $this->db->get();
+ 
+		return $query->result_array();
+  }
+
+  // Select total records
+	public function getrecordCount($search = '') {
+
+		$this->db->select('count(*) as allcount');
+		$this->db->from('constituent');
+	 
+		if($search != ''){
+				$this->db->like('full_name', $search);
+				$this->db->or_like('father_husband_name', $search);
+				$this->db->or_like('guardian_name', $search);
+				$this->db->or_like('mobile_no', $search);
+				$this->db->or_like('whatsapp_no', $search);
+				$this->db->or_like('address', $search);
+				$this->db->or_like('pin_code', $search);
+				$this->db->or_like('email_id', $search);
+				$this->db->or_like('voter_id_no', $search);
+				$this->db->or_like('aadhaar_no', $search);
+				$this->db->or_like('serial_no', $search);
+		}
+
+		$query = $this->db->get();
+		$result = $query->result_array();
+	 
+		return $result[0]['allcount'];
+  }
 	
 }
 ?>
