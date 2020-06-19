@@ -342,6 +342,11 @@ class Report extends CI_Controller {
 	
 	public function list_constituent($rowno=0){
 
+
+		$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+		$data['res_constituency']=$this->mastermodel->get_active_constituency();
+		$data['res_seeker']=$this->mastermodel->get_active_seeker();
+		
     // Search text
     $search_text = "";
     if($this->input->post('submit') != NULL ){
@@ -433,7 +438,7 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		
 		$this->session->unset_userdata('search');
-		redirect("report/list_constituent");
+		redirect("constituent/list_constituent_member");
 	}
 
 }
