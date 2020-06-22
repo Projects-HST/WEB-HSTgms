@@ -101,6 +101,8 @@ class Apiandroid extends CI_Controller {
 
 	public function profileDetails()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -121,6 +123,8 @@ class Apiandroid extends CI_Controller {
 
 	public function checkEmail()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -141,6 +145,8 @@ class Apiandroid extends CI_Controller {
 
 	public function checkEmailedit()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -162,6 +168,8 @@ class Apiandroid extends CI_Controller {
 
 	public function checkPhone()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -182,6 +190,8 @@ class Apiandroid extends CI_Controller {
 
 	public function checkPhoneedit()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -203,6 +213,7 @@ class Apiandroid extends CI_Controller {
 
 	public function profileUpdate()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -254,6 +265,8 @@ class Apiandroid extends CI_Controller {
 
 	public function changePassword()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -278,6 +291,8 @@ class Apiandroid extends CI_Controller {
 
 	public function listPaguthi()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -297,6 +312,8 @@ class Apiandroid extends CI_Controller {
 
 	public function dashBoard()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -316,6 +333,8 @@ class Apiandroid extends CI_Controller {
 
 	public function widgets_members()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -335,6 +354,8 @@ class Apiandroid extends CI_Controller {
 
 	public function widgets_meetings()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -354,6 +375,8 @@ class Apiandroid extends CI_Controller {
 
 	public function widgets_grievances()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -373,6 +396,8 @@ class Apiandroid extends CI_Controller {
 
 	public function widgets_interactions()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -392,6 +417,8 @@ class Apiandroid extends CI_Controller {
 
 	public function dashBoard_search()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -411,6 +438,8 @@ class Apiandroid extends CI_Controller {
 
 	public function listConstituent()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -429,6 +458,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentDetails()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -447,6 +478,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentMeetings()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -465,6 +498,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentMeetingdetails()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -483,6 +518,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentGrievances()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -501,6 +538,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentGrievancedetails()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -519,6 +558,8 @@ class Apiandroid extends CI_Controller {
 
 	public function grievanceMessage()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -538,6 +579,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentInteraction()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -556,6 +599,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentPlant()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -574,6 +619,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentDocuments()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -593,6 +640,8 @@ class Apiandroid extends CI_Controller {
 
 	public function constituentgrvDocuments()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -611,6 +660,8 @@ class Apiandroid extends CI_Controller {
 
 	public function meetingRequest()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -629,6 +680,8 @@ class Apiandroid extends CI_Controller {
 
 	public function meetingDetails()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -647,6 +700,8 @@ class Apiandroid extends CI_Controller {
 
 	public function meetingUpdate()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -671,6 +726,8 @@ class Apiandroid extends CI_Controller {
 
 	public function listGrievance()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -692,6 +749,8 @@ class Apiandroid extends CI_Controller {
 
 	public function listStaff()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -711,6 +770,8 @@ class Apiandroid extends CI_Controller {
 
 	public function staffDetails()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -730,6 +791,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportStatus()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -756,6 +819,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportCategory()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -780,6 +845,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportsubCategory()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -804,6 +871,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportLocation()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -828,6 +897,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportMeetings()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -851,6 +922,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportStaff()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -873,6 +946,8 @@ class Apiandroid extends CI_Controller {
 
 	public function reportBirthday()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
