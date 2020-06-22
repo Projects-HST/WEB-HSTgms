@@ -17,7 +17,8 @@ class Apiandroid extends CI_Controller {
 
 	public function checkMethod()
 	{
-		
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	
 		if($_SERVER['REQUEST_METHOD'] != 'POST')
 		{
 			$res = array();
@@ -34,6 +35,8 @@ class Apiandroid extends CI_Controller {
 
 	public function version_check()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -52,6 +55,8 @@ class Apiandroid extends CI_Controller {
 
 	public function login()
 	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
 		if(!$this->checkMethod())
 		{
 			return FALSE;
@@ -75,6 +80,8 @@ class Apiandroid extends CI_Controller {
 //-----------------------------------------------//
 
 	public function forgotPassword(){
+		
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 		
 		if(!$this->checkMethod())
 		{
