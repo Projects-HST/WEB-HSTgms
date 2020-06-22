@@ -17,8 +17,6 @@ class Apiandroid extends CI_Controller {
 
 	public function checkMethod()
 	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-	
 		if($_SERVER['REQUEST_METHOD'] != 'POST')
 		{
 			$res = array();
