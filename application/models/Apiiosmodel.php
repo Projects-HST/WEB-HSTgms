@@ -55,7 +55,7 @@ public function __construct()
 
 				if($gcm_result->num_rows()==0)
 				{
-					$sQuery = "INSERT INTO notification_master (user_id,gcm_key,mobile_type) VALUES ('". $user_id . "','". $gcm_key . "','". $mobile_type . "')";
+					$sQuery = "INSERT INTO notification_master (user_type,user_id,gcm_key,mobile_type) VALUES ('2','". $user_id . "','". $gcm_key . "','". $mobile_type . "')";
 					$update_gcm = $this->db->query($sQuery);
 				}
 			}
