@@ -71,7 +71,7 @@ function version_check($version_code){
 
           if($gcm_result->num_rows()==0)
           {
-            $sQuery = "INSERT INTO notification_master (user_id,gcm_key,mobile_type) VALUES ('$rows->id','$gcmkey','$mobiletype')";
+            $sQuery = "INSERT INTO notification_master (user_id,user_type,gcm_key,mobile_type) VALUES ('$rows->id','3','$gcmkey','$mobiletype')";
             $update_gcm = $this->db->query($sQuery);
           }
 
