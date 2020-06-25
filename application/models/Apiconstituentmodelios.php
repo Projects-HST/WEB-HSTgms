@@ -59,11 +59,23 @@ function version_check($version_code){
 
   	function mobile_verify($mobile_no,$otp,$gcmkey,$mobiletype)
   	{
-      $select="SELECT id,full_name,father_husband_name,guardian_name,mobile_no,mobile_otp,serial_no,dob,profile_pic FROM constituent where mobile_no='$mobile_no' and mobile_otp='$otp'";
+     $select="SELECT id,full_name,father_husband_name,guardian_name,mobile_no,mobile_otp,serial_no,dob,profile_pic FROM constituent where mobile_no='$mobile_no' and mobile_otp='$otp'";
       $res=$this->db->query($select);
       if($res->num_rows()!=0){
         $result=$res->result();
         foreach($result as $rows){
+
+          $gcmQuery = "SELECT * FROM notification_master WHERE user_id='$rows->id' and gcm_key like '%" .$gcmkey. "%' LIMIT 1";
+          $gcm_result = $this->db->query($gcmQuery);
+          $gcm_ress = $gcm_result->result();
+
+          if($gcm_result->num_rows()==0)
+          {
+            $sQuery = "INSERT INTO notification_master (user_id,gcm_key,mobile_type) VALUES ('$rows->id','$gcmkey','$mobiletype')";
+            $update_gcm = $this->db->query($sQuery);
+          }
+
+
           if($rows->dob=='0000-00-00'){
             $dob='';
           }else{
@@ -101,6 +113,7 @@ function version_check($version_code){
     if($res->num_rows()!=0){
       $result=$res->result();
       foreach($result as $rows){
+
         if($rows->dob=='0000-00-00'){
           $dob='';
         }else{
