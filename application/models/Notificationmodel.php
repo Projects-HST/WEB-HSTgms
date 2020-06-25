@@ -16,19 +16,19 @@ Class Notificationmodel extends CI_Model
             $device_token = explode(",", $gcm_key);
             $push = null;
 
-//        //first check if the push has an image with it
-		     $push = new Push(
+		//first check if the push has an image with it
+		    /*  $push = new Push(
 					$Title,
 					$Message,
 					'https://heylaapp.com/testing/assets/notification/images/event.JPG'
-				);
+				); */
 
-// 			//if the push don't have an image give null in place of image
- 			 /* $push = new Push(
- 			 		'HEYLA',
- 			 		'Hi Testing from maran',
+ 			//if the push don't have an image give null in place of image
+ 			  $push = new Push(
+ 			 		$Title,
+ 			 		$Message,
  			 		null
- 			 	); */
+ 			 	);
 
     		//getting the push from push object
     		$mPushNotification = $push->getPush();
