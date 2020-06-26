@@ -65,15 +65,20 @@ function version_check($version_code){
         $result=$res->result();
         foreach($result as $rows){
 
-          $gcmQuery = "SELECT * FROM notification_master WHERE user_id='$rows->id' and gcm_key like '%" .$gcmkey. "%' LIMIT 1";
-          $gcm_result = $this->db->query($gcmQuery);
-          $gcm_ress = $gcm_result->result();
+          if(empty($gcmkey)){
 
-          if($gcm_result->num_rows()==0)
-          {
-            $sQuery = "INSERT INTO notification_master (user_id,user_type,gcm_key,mobile_type) VALUES ('$rows->id','3','$gcmkey','$mobiletype')";
-            $update_gcm = $this->db->query($sQuery);
+          }else{
+            $gcmQuery = "SELECT * FROM notification_master WHERE user_id='$rows->id' and gcm_key like '%" .$gcmkey. "%' LIMIT 1";
+            $gcm_result = $this->db->query($gcmQuery);
+            $gcm_ress = $gcm_result->result();
+
+            if($gcm_result->num_rows()==0)
+            {
+              $sQuery = "INSERT INTO notification_master (user_id,user_type,gcm_key,mobile_type) VALUES ('$rows->id','3','$gcmkey','$mobiletype')";
+              $update_gcm = $this->db->query($sQuery);
+            }
           }
+
 
 
           if($rows->dob=='0000-00-00'){
