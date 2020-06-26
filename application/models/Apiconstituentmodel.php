@@ -102,7 +102,7 @@ function version_check($version_code){
 
         $data=array('status'=>'success','msg'=>'details found','user_count'=>$res->num_rows(),'user_details'=>$user_details);
       }else{
-        $data=array('status'=>'error','msg'=>'No details found for this mobile number');
+        $data=array('status'=>'error','msg'=>'Invaild OTP');
       }
       return $data;
   	}
