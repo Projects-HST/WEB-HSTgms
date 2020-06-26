@@ -417,7 +417,7 @@ function version_check($version_code){
       $news_date=$rows->news_date;
       $date1 = new DateTime(date('d-m-Y'));
       $date2 = new DateTime($news_date);
-      if ($date1 > $date2) {
+      if ($date1 >= $date2) {
            $time_elapsed = $this->timeAgo($rows->news_date);
         }else{
           $time_elapsed = "Upcoming";
