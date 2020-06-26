@@ -409,7 +409,7 @@ function version_check($version_code){
   ######### Newsfeed list ############
 
   function newsfeed_list($constituent_id){
-    $select="SELECT id,DATE_FORMAT(news_date,'%d-%m-%Y') as news_date,title,details,image_file_name FROM news_feeder where status='ACTIVE' order by news_date desc";
+    $select="SELECT id,DATE_FORMAT(news_date,'%d-%m-%Y') as news_date,title,details,image_file_name FROM news_feeder where status='ACTIVE' order by news_feeder.news_date desc";
     $res=$this->db->query($select);
     if($res->num_rows()!=0){
       $result=$res->result();
