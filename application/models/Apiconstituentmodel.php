@@ -413,9 +413,19 @@ function version_check($version_code){
     if($res->num_rows()!=0){
       $result=$res->result();
       foreach($result as $rows){
+      $cur_date=date('d-m-Y');
+      $news_date=$rows->news_date;
+      $date1 = new DateTime(date('d-m-Y'));
+      $date2 = new DateTime($news_date);
+      if ($date1 > $date2) {
+           $time_elapsed = $this->timeAgo($rows->news_date);
+        }else{
+          $time_elapsed = "Upcoming";
+          }
         $details[]=array(
           "id"=>$rows->id,
-          "news_date"=>$rows->news_date,
+          "news_date"=>$news_date,
+          "date_elapsed"=>$time_elapsed,
           "image_file_name"=>base_url().'assets/news/'.$rows->image_file_name,
           "title"=>$rows->title,
           "details"=>$rows->details,
@@ -492,6 +502,78 @@ function version_check($version_code){
   }
 
   ######### Banner list ############
+
+  ######### Date elasped to ago ############
+
+  function timeAgo($time_ago)
+{
+    $time_ago = strtotime($time_ago);
+    $cur_time   = time();
+    $time_elapsed   = $cur_time - $time_ago;
+    $seconds    = $time_elapsed ;
+    $minutes    = round($time_elapsed / 60 );
+    $hours      = round($time_elapsed / 3600);
+    $days       = round($time_elapsed / 86400 );
+    $weeks      = round($time_elapsed / 604800);
+    $months     = round($time_elapsed / 2600640 );
+    $years      = round($time_elapsed / 31207680 );
+    // Seconds
+    if($seconds <= 60){
+        return "Today";
+    }
+    //Minutes
+    else if($minutes <=60){
+        if($minutes==1){
+            return "one minute ago";
+        }
+        else{
+            return "$minutes minutes ago";
+        }
+    }
+    //Hours
+    else if($hours <=24){
+        if($hours==1){
+            return "an hour ago";
+        }else{
+            return "$hours hrs ago";
+        }
+    }
+    //Days
+    else if($days <= 7){
+        if($days==1){
+            return "yesterday";
+        }else{
+            return "$days days ago";
+        }
+    }
+    //Weeks
+    else if($weeks <= 4.3){
+        if($weeks==1){
+            return "a week ago";
+        }else{
+            return "$weeks weeks ago";
+        }
+    }
+    //Months
+    else if($months <=12){
+        if($months==1){
+            return "a month ago";
+        }else{
+            return "$months months ago";
+        }
+    }
+    //Years
+    else{
+        if($years==1){
+            return "one year ago";
+        }else{
+            return "$years years ago";
+        }
+    }
+}
+
+######### Date elasped to ago ############
+
 
 
 }
