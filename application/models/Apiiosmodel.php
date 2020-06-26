@@ -396,7 +396,14 @@ public function __construct()
 			
 			$s_query = "SELECT
 							count(*) AS total,
-							DATE_FORMAT(grievance_date, '%M %Y') AS disp_month,
+							CONCAT(
+								SUBSTRING(
+									DATE_FORMAT(`grievance_date`, '%M'),
+									1,
+									3
+								),
+								DATE_FORMAT(`grievance_date`, '-%Y')
+							) AS disp_month,
 							DATE_FORMAT(`grievance_date`, '%Y%m') AS month_year
 						FROM 
 							grievance
@@ -579,7 +586,14 @@ public function __construct()
 			
 			$s_query = "SELECT
 							count(*) AS total,
-							DATE_FORMAT(grievance_date, '%M %Y') AS disp_month,
+							CONCAT(
+								SUBSTRING(
+									DATE_FORMAT(`grievance_date`, '%M'),
+									1,
+									3
+								),
+								DATE_FORMAT(`grievance_date`, '-%Y')
+							) AS disp_month,
 							DATE_FORMAT(`grievance_date`, '%Y%m') AS month_year
 						FROM 
 							grievance
