@@ -112,7 +112,7 @@ function version_check($version_code){
 
   function user_list_and_details($mobile_no)
   {
-    $select="SELECT id,full_name,father_husband_name,guardian_name,mobile_no,mobile_otp,serial_no,dob FROM constituent where mobile_no='$mobile_no'";
+    $select="SELECT id,full_name,father_husband_name,guardian_name,mobile_no,mobile_otp,serial_no,dob,profile_pic FROM constituent where mobile_no='$mobile_no'";
     $res=$this->db->query($select);
     if($res->num_rows()!=0){
       $result=$res->result();
