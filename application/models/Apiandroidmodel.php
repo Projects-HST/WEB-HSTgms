@@ -350,7 +350,7 @@ public function __construct()
 //#################### List paguthi ####################//
 	function List_paguthi($constituency_id)
 	{
-		$query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
+		/* $query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		$paguthi_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -359,7 +359,30 @@ public function __construct()
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
-		return $response;
+		return $response; */
+		
+			$query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
+			$resultset=$this->db->query($query);
+			if($resultset->num_rows()>0) {
+				$paguthi_result[]  = array(
+					"id" => "ALL",
+					"paguthi_name" => "ALL"
+				);
+				foreach ($resultset->result() as $rows)
+				{
+				  $id = $rows->id;
+				  $paguthi_name = $rows->paguthi_name;
+				  
+					$paguthi_result[]  = array(
+						"id" => $id,
+						"paguthi_name" => $paguthi_name
+					);
+				}
+				$response = array("status" => "Success", "msg" => "List Paguthi", "paguthi_details" =>$paguthi_result);
+			}else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			return $response;
 	}
 //#################### List paguthi end ####################//
 
@@ -1079,7 +1102,7 @@ public function __construct()
 	
 	function Constituent_meetings($constituent_id)
 	{
-			$query="SELECT id,meeting_title,meeting_date,meeting_status FROM meeting_request WHERE constituent_id = '$constituent_id' ORDER BY id DESC";
+			$query="SELECT * FROM meeting_request WHERE constituent_id = '$constituent_id' ORDER BY id DESC";
 			$resultset=$this->db->query($query);
 			$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
@@ -1112,15 +1135,12 @@ public function __construct()
 			$grievance_count = $grievance_count_res->num_rows();
 			
 			$query="SELECT
+						gr.*,
 						pa.paguthi_name,
 						se.seeker_info,
 						gt.grievance_name,
 						gs.sub_category_name,
-						pa.paguthi_name,
-						gr.grievance_type,
-						gr.petition_enquiry_no,
-						gr.status,
-						gr.created_at
+						pa.paguthi_name
 					FROM
 						grievance AS gr
 					LEFT JOIN seeker_type AS se

@@ -1078,7 +1078,7 @@ public function __construct()
 	
 	function Constituent_meetings($constituent_id)
 	{
-			$query="SELECT id,meeting_title,meeting_date,meeting_status FROM meeting_request WHERE constituent_id = '$constituent_id' ORDER BY id DESC";
+			$query="SELECT * FROM meeting_request WHERE constituent_id = '$constituent_id' ORDER BY id DESC";
 			$resultset=$this->db->query($query);
 			$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
@@ -1111,15 +1111,12 @@ public function __construct()
 			$grievance_count = $grievance_count_res->num_rows();
 			
 			$query="SELECT
+						gr.*,
 						pa.paguthi_name,
 						se.seeker_info,
 						gt.grievance_name,
 						gs.sub_category_name,
-						pa.paguthi_name,
-						gr.grievance_type,
-						gr.petition_enquiry_no,
-						gr.status,
-						gr.created_at
+						pa.paguthi_name
 					FROM
 						grievance AS gr
 					LEFT JOIN seeker_type AS se
