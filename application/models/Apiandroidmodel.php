@@ -350,7 +350,7 @@ public function __construct()
 //#################### List paguthi ####################//
 	function List_paguthi($constituency_id)
 	{
-		/* $query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
+		 $query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
 		$resultset=$this->db->query($query);
 		$paguthi_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -359,9 +359,9 @@ public function __construct()
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
-		return $response; */
+		return $response; 
 		
-			$query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
+			/* $query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
 			$resultset=$this->db->query($query);
 			if($resultset->num_rows()>0) {
 				$paguthi_result[]  = array(
@@ -382,7 +382,7 @@ public function __construct()
 			}else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
-			return $response;
+			return $response; */
 	}
 //#################### List paguthi end ####################//
 
