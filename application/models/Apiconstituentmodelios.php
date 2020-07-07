@@ -96,6 +96,7 @@ function version_check($version_code){
             'id'=>$rows->id,
             'full_name'=>$rows->full_name,
             'father_husband_name'=>$rows->father_husband_name,
+            'serial_no'=>$rows->serial_no,
             'dob'=>$dob,
             'profile_picture'=>$pic,
           );
@@ -133,6 +134,7 @@ function version_check($version_code){
         $user_details[]=array(
           'id'=>$rows->id,
           'full_name'=>$rows->full_name,
+          'serial_no'=>$rows->serial_no,
           'father_husband_name'=>$rows->father_husband_name,
           'dob'=>$dob,
           'profile_picture'=>$pic,
