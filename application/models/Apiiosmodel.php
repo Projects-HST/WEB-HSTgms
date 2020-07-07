@@ -1048,6 +1048,7 @@ public function __construct()
 					wa.ward_name,
 					bo.booth_name,
 					bo.booth_address,
+					re.religion_name,
 					con.*
 				FROM
 					constituent AS con
@@ -1063,7 +1064,11 @@ public function __construct()
 				LEFT JOIN booth AS bo
 				ON
 					bo.id = con.booth_id
-				WHERE con.id = '$constituent_id'";
+				LEFT JOIN religion AS re
+				ON
+					con.religion_id = re.id
+				WHERE
+					con.id = '$constituent_id'";
 		$resultset=$this->db->query($query);
 		$constituent_result = $resultset->result();
 		if($resultset->num_rows()>0)
