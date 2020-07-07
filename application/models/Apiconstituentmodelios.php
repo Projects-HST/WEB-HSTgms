@@ -107,7 +107,8 @@ function version_check($version_code){
         $data=array('status'=>'error','msg'=>'Invaild OTP');
       }
       return $data;
-  	}    
+      
+  	}
 ######## Mobile number check with OTP ##############
 
   ######## user list and details  ##############
