@@ -97,7 +97,7 @@ function version_check($version_code){
             'full_name'=>$rows->full_name,
             'father_husband_name'=>$rows->father_husband_name,
             'serial_no'=>$rows->serial_no,
-            'dob'=>$dob,
+            'dob'=>$dob,            
             'profile_picture'=>$pic,
           );
         }
