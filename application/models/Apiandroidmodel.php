@@ -1758,7 +1758,7 @@ public function __construct()
 //#################### New Grievance list End ####################//
 
 
-//#################### New Grievance list Start ####################//
+//#################### New Grievance search Start ####################//
 	function List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount)
 	{
 		if ($paguthi == 'ALL')	{
