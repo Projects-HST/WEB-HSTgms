@@ -434,6 +434,30 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function dashBoard_searchnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiandroidmodel->Dashboard_searchnew($keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function listConstituent()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -446,6 +470,56 @@ class Apiandroid extends CI_Controller {
 		$paguthi = '';
 		$paguthi = $this->input->post("paguthi");
 		$data['result']=$this->apiandroidmodel->List_constituent($paguthi);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listConstituentnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi = '';
+		$offset = '';
+		$rowcount = '';
+		$paguthi = $this->input->post("paguthi");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiandroidmodel->List_constituentnew($paguthi,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listConstituentsearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$keyword = '';
+		$paguthi = '';
+		$offset = '';
+		$rowcount = '';
+		$keyword = $this->input->post("keyword");
+		$paguthi = $this->input->post("paguthi");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiandroidmodel->List_constituentsearch($keyword,$paguthi,$offset,$rowcount);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -667,7 +741,34 @@ class Apiandroid extends CI_Controller {
 
 		$constituency_id = '';
 		$constituency_id = $this->input->post("constituency_id");
+		
 		$data['result']=$this->apiandroidmodel->Meeting_request($constituency_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function meetingRequestnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituency_id = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$constituency_id = $this->input->post("constituency_id");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiandroidmodel->Meeting_requestnew($constituency_id,$offset,$rowcount);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -764,6 +865,35 @@ class Apiandroid extends CI_Controller {
 		$rowcount = $this->input->post("rowcount");
 
 		$data['result']=$this->apiandroidmodel->List_grievancenew($paguthi,$grievance_type,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function listGrievancesearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$keyword = '';
+		$paguthi = '';
+		$grievance_type = '';
+		$offset = '';
+		$rowcount = '';
+		$keyword = $this->input->post("keyword");
+		$paguthi = $this->input->post("paguthi");
+		$grievance_type = $this->input->post("grievance_type");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+
+		$data['result']=$this->apiandroidmodel->List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

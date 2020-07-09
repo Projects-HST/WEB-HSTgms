@@ -1023,6 +1023,35 @@ public function __construct()
 		return $response;
 	}
 	
+	function Dashboard_searchnew($keyword,$offset,$rowcount)
+	{
+		$query="SELECT
+					c.id,
+					c.full_name,
+					c.mobile_no,
+					c.serial_no,
+					c.profile_pic,
+					p.paguthi_name
+				FROM
+					constituent AS c
+				LEFT JOIN paguthi AS p
+				ON
+					p.id = c.paguthi_id
+				WHERE c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%'
+				ORDER BY
+					c.id
+				DESC LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$constituent_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Search Result", "search_result" =>$constituent_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
 //#################### Dashboard End ####################//
 
 
@@ -1051,6 +1080,106 @@ public function __construct()
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent WHERE paguthi_id = '$paguthi' ORDER BY id DESC";
+			$resultset=$this->db->query($query);
+			$constituent_result = $resultset->result();
+			if($resultset->num_rows()>0)
+				{
+					$response = array("status" => "Success", "msg" => "List constituent", "constituent_count" =>$constituent_count, "constituent_result" =>$constituent_result);
+				} else {
+					$response = array("status" => "Error", "msg" => "No records found");
+				}
+		}
+		return $response;
+	}
+	
+	function List_constituentnew($paguthi,$offset,$rowcount)
+	{
+		if ($paguthi == 'ALL')
+		{
+			$constituent_count = "SELECT * FROM constituent";
+			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count = $constituent_count_res->num_rows();
+			
+			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent ORDER BY id DESC LIMIT $offset, $rowcount";
+			$resultset=$this->db->query($query);
+			$constituent_result = $resultset->result();
+			if($resultset->num_rows()>0)
+				{
+					$response = array("status" => "Success", "msg" => "List constituent", "constituent_count" =>$constituent_count, "constituent_result" =>$constituent_result);
+				} else {
+					$response = array("status" => "Error", "msg" => "No records found");
+				}
+		} else {
+			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi'";
+			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count = $constituent_count_res->num_rows();
+			
+			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent WHERE paguthi_id = '$paguthi' ORDER BY id DESC LIMIT $offset, $rowcount";
+			$resultset=$this->db->query($query);
+			$constituent_result = $resultset->result();
+			if($resultset->num_rows()>0)
+				{
+					$response = array("status" => "Success", "msg" => "List constituent", "constituent_count" =>$constituent_count, "constituent_result" =>$constituent_result);
+				} else {
+					$response = array("status" => "Error", "msg" => "No records found");
+				}
+		}
+		return $response;
+	}
+	
+	function List_constituentsearch($keyword,$paguthi,$offset,$rowcount)
+	{
+		if ($paguthi == 'ALL')
+		{
+			$constituent_count = "SELECT * FROM constituent WHERE full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%' ORDER BY id DESC";
+			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count = $constituent_count_res->num_rows();
+			
+			$query="SELECT
+					c.id,
+					c.full_name,
+					c.mobile_no,
+					c.serial_no,
+					c.profile_pic,
+					p.paguthi_name
+				FROM
+					constituent AS c
+				LEFT JOIN paguthi AS p
+				ON
+					p.id = c.paguthi_id
+				WHERE c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%'
+				ORDER BY
+					c.id
+				DESC LIMIT $offset, $rowcount";
+			$resultset=$this->db->query($query);
+			$constituent_result = $resultset->result();
+			if($resultset->num_rows()>0)
+				{
+					$response = array("status" => "Success", "msg" => "List constituent", "constituent_count" =>$constituent_count, "constituent_result" =>$constituent_result);
+				} else {
+					$response = array("status" => "Error", "msg" => "No records found");
+				}
+		} else {
+			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi' AND full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%' ORDER BY id DESC";
+			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count = $constituent_count_res->num_rows();
+			
+			$query="SELECT
+					c.id,
+					c.full_name,
+					c.mobile_no,
+					c.serial_no,
+					c.profile_pic,
+					p.paguthi_name
+				FROM
+					constituent AS c
+				LEFT JOIN paguthi AS p
+				ON
+					p.id = c.paguthi_id
+				WHERE c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%'
+				ORDER BY
+					c.id
+				DESC LIMIT $offset, $rowcount";
 			$resultset=$this->db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
@@ -1349,6 +1478,44 @@ public function __construct()
 		return $response;
 	}
 
+	function Meeting_requestnew($constituency_id,$offset,$rowcount)
+	{
+		
+		$meeting_count = "SELECT * FROM meeting_request WHERE meeting_status = 'REQUESTED'";
+		$meeting_count_res = $this->db->query($meeting_count);
+		$meeting_count = $meeting_count_res->num_rows();
+			
+		$query="SELECT
+				mr.id,
+				con.full_name,
+				p.paguthi_name,
+				mr.meeting_title,
+				mr.meeting_date,
+				mr.meeting_status,
+				um.full_name as created_by
+			FROM
+				meeting_request AS mr
+			LEFT JOIN constituent AS con
+			ON
+				con.id = mr.constituent_id
+			LEFT JOIN paguthi AS p
+			ON
+			p.id = con.paguthi_id
+			LEFT JOIN user_master AS um
+			ON
+			mr.created_by = um.id
+			WHERE
+				mr.meeting_status = 'REQUESTED' order by mr.id desc LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$meeting_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Meeting Request","meeting_count" =>$meeting_count, "meeting_details" =>$meeting_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
 
 	function Meeting_details($meeting_id)
 	{
@@ -1576,7 +1743,377 @@ public function __construct()
 			
 			$resultset=$this->db->query($query);
 			$grievance_result = $resultset->result();
-			$grievance_count = $resultset->num_rows();
+
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List All Grievances", "grievance_count" =>$grievance_count, "list_grievances" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			
+		}
+		return $response;
+	}
+	
+//#################### New Grievance list End ####################//
+
+
+//#################### New Grievance list Start ####################//
+	function List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount)
+	{
+		if ($paguthi == 'ALL')	{
+		
+			if ($grievance_type == 'A'){
+				
+					$cquery="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC";
+							
+					$query="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id`  ASC LIMIT $offset, $rowcount";
+			} else if ($grievance_type == 'P') {
+					$cquery="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.grievance_type='P' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC";
+						
+					$query="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.grievance_type='P' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
+			}else if ($grievance_type == 'E') {
+					$cquery="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.grievance_type='E' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC";
+					
+					$query="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.grievance_type='E' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
+			} 
+			
+			$resultset_count=$this->db->query($cquery);
+			$grievance_count = $resultset_count->num_rows();
+			
+			$resultset=$this->db->query($query);
+			$grievance_result = $resultset->result();
+			
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List All Grievances", "grievance_count" =>$grievance_count, "list_grievances" =>$grievance_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			
+		} else {
+			
+			if ($grievance_type == 'A'){
+				
+					$cquery="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.paguthi_id='$paguthi' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC";
+							
+					$query="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.paguthi_id='$paguthi' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id`  ASC LIMIT $offset, $rowcount";
+			} else if ($grievance_type == 'P') {
+					$cquery="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.paguthi_id='$paguthi' AND g.grievance_type='P' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC";
+						
+					$query="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.paguthi_id='$paguthi' AND g.grievance_type='P' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
+			}else if ($grievance_type == 'E') {
+					$cquery="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.paguthi_id='$paguthi' AND g.grievance_type='E' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC";
+					
+					$query="SELECT
+								g.*,
+								c.full_name,
+								p.paguthi_name,
+								st.seeker_info,
+								gt.grievance_name,
+								gsc.sub_category_name
+							FROM
+								grievance AS g
+							LEFT JOIN constituent AS c
+							ON
+								c.id = g.constituent_id
+							LEFT JOIN paguthi AS p
+							ON
+								p.id = g.paguthi_id
+							LEFT JOIN seeker_type AS st
+							ON
+								st.id = g.seeker_type_id
+							LEFT JOIN grievance_type AS gt
+							ON
+								gt.id = g.grievance_type_id
+							LEFT JOIN grievance_sub_category AS gsc
+							ON
+								gsc.id = g.sub_category_id
+								WHERE g.paguthi_id='$paguthi' AND g.grievance_type='E' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
+			}  
+			
+			$resultset_count=$this->db->query($cquery);
+			$grievance_count = $resultset_count->num_rows();
+			
+			$resultset=$this->db->query($query);
+			$grievance_result = $resultset->result();
+			
 			if($resultset->num_rows()>0)
 			{
 				$response = array("status" => "Success", "msg" => "List All Grievances", "grievance_count" =>$grievance_count, "list_grievances" =>$grievance_result);
