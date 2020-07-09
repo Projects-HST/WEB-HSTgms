@@ -1484,7 +1484,7 @@ public function __construct()
 
 
 //#################### New Grievance list Start ####################//
-	function List_grievance($paguthi,$grievance_type,$offset,$rowcount)
+	function List_grievancenew($paguthi,$grievance_type,$offset,$rowcount)
 	{
 		if ($paguthi == 'ALL')	{
 		
@@ -1496,7 +1496,7 @@ public function __construct()
 						left join seeker_type as st on st.id=g.seeker_type_id
 						left join grievance_type as gt on gt.id=g.grievance_type_id
 						left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
-						order by g.id desc LIMIT '$offset', '$rowcount'";
+						order by g.id desc LIMIT $offset, $rowcount";
 			} else if ($grievance_type == 'P') {
 					$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 						left join constituent as c on c.id=g.constituent_id
@@ -1504,7 +1504,7 @@ public function __construct()
 						left join seeker_type as st on st.id=g.seeker_type_id
 						left join grievance_type as gt on gt.id=g.grievance_type_id
 						left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='P'
-						order by g.id desc LIMIT '$offset', '$rowcount'";
+						order by g.id desc LIMIT $offset, $rowcount";
 			}else if ($grievance_type == 'E') {
 			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 					left join constituent as c on c.id=g.constituent_id
@@ -1512,7 +1512,7 @@ public function __construct()
 					left join seeker_type as st on st.id=g.seeker_type_id
 					left join grievance_type as gt on gt.id=g.grievance_type_id
 					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='E'
-					order by g.id desc LIMIT '$offset', '$rowcount'";
+					order by g.id desc LIMIT $offset, $rowcount";
 			} 
 			$resultset=$this->db->query($query);
 			$grievance_result = $resultset->result();
@@ -1533,7 +1533,7 @@ public function __construct()
 						left join seeker_type as st on st.id=g.seeker_type_id
 						left join grievance_type as gt on gt.id=g.grievance_type_id
 						left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.paguthi_id='$paguthi' 
-						order by g.id desc LIMIT '$offset', '$rowcount'";
+						order by g.id desc LIMIT $offset, $rowcount";
 			} else if ($grievance_type == 'P') {
 					$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 						left join constituent as c on c.id=g.constituent_id
@@ -1541,7 +1541,7 @@ public function __construct()
 						left join seeker_type as st on st.id=g.seeker_type_id
 						left join grievance_type as gt on gt.id=g.grievance_type_id
 						left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.paguthi_id='$paguthi' AND g.grievance_type='P'
-						order by g.id desc LIMIT '$offset', '$rowcount'";
+						order by g.id desc LIMIT $offset, $rowcount";
 			}else if ($grievance_type == 'E') {
 			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 					left join constituent as c on c.id=g.constituent_id
@@ -1549,7 +1549,7 @@ public function __construct()
 					left join seeker_type as st on st.id=g.seeker_type_id
 					left join grievance_type as gt on gt.id=g.grievance_type_id
 					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.paguthi_id='$paguthi' AND g.grievance_type='E'
-					order by g.id desc LIMIT '$offset', '$rowcount'";
+					order by g.id desc LIMIT $offset, $rowcount";
 			} 
 			$resultset=$this->db->query($query);
 			$grievance_result = $resultset->result();
