@@ -745,6 +745,33 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function listGrievancenew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi = '';
+		$grievance_type = '';
+		$offset = '';
+		$rowcount = '';
+		$paguthi = $this->input->post("paguthi");
+		$grievance_type = $this->input->post("grievance_type");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+
+		$data['result']=$this->apiandroidmodel->List_grievancenew($paguthi,$grievance_type,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function listStaff()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
