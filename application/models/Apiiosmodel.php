@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Apiiosdmodel extends CI_Model {
+class Apiiosmodel extends CI_Model {
 
 public function __construct()
 	{
