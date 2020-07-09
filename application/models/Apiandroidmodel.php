@@ -1160,7 +1160,7 @@ public function __construct()
 					$response = array("status" => "Error", "msg" => "No records found");
 				}
 		} else {
-			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi' AND full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%' ORDER BY id DESC";
+			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%') ORDER BY id DESC";
 			$constituent_count_res = $this->db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
@@ -1176,7 +1176,7 @@ public function __construct()
 				LEFT JOIN paguthi AS p
 				ON
 					p.id = c.paguthi_id
-				WHERE c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%'
+				WHERE c.paguthi_id = '$paguthi' AND (c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%')
 				ORDER BY
 					c.id
 				DESC LIMIT $offset, $rowcount";
@@ -1540,7 +1540,7 @@ public function __construct()
 						ON
 							mr.created_by = um.id
 						WHERE
-							mr.meeting_status = 'REQUESTED' AND con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR created_by like '%$keyword%'";
+							mr.meeting_status = 'REQUESTED' AND (con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR um.full_name like '%$keyword%')";
 		$meeting_count_res = $this->db->query($meeting_count);
 		$meeting_count = $meeting_count_res->num_rows();
 			
@@ -1564,7 +1564,7 @@ public function __construct()
 						ON
 							mr.created_by = um.id
 						WHERE
-							mr.meeting_status = 'REQUESTED' AND con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR created_by like '%$keyword%' order by mr.id desc LIMIT $offset, $rowcount";
+							mr.meeting_status = 'REQUESTED' AND (con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR um.full_name like '%$keyword%') order by mr.id desc LIMIT $offset, $rowcount";
 		$resultset=$this->db->query($query);
 		$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
@@ -2163,7 +2163,7 @@ public function __construct()
 							LEFT JOIN grievance_sub_category AS gsc
 							ON
 								gsc.id = g.sub_category_id
-								WHERE g.paguthi_id='$paguthi' AND g.grievance_type='E' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%'
+								WHERE g.paguthi_id='$paguthi' AND (g.grievance_type='E' AND g.petition_enquiry_no LIKE '%$keyword%' OR st.seeker_info LIKE '%$keyword%' OR gt.grievance_name LIKE '%$keyword%' OR gsc.sub_category_name LIKE '%$keyword%')
 							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
 			}  
 			
