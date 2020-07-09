@@ -1516,6 +1516,65 @@ public function __construct()
 			}
 		return $response;
 	}
+	
+	
+	function Meeting_requestsearch($constituency_id,$keyword,$offset,$rowcount)
+	{
+		$meeting_count = "SELECT
+							mr.id,
+							con.full_name,
+							p.paguthi_name,
+							mr.meeting_title,
+							mr.meeting_date,
+							mr.meeting_status,
+							um.full_name AS created_by
+						FROM
+							meeting_request AS mr
+						LEFT JOIN constituent AS con
+						ON
+							con.id = mr.constituent_id
+						LEFT JOIN paguthi AS p
+						ON
+							p.id = con.paguthi_id
+						LEFT JOIN user_master AS um
+						ON
+							mr.created_by = um.id
+						WHERE
+							mr.meeting_status = 'REQUESTED' AND con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR created_by like '%$keyword%'";
+		$meeting_count_res = $this->db->query($meeting_count);
+		$meeting_count = $meeting_count_res->num_rows();
+			
+		$query = "SELECT
+							mr.id,
+							con.full_name,
+							p.paguthi_name,
+							mr.meeting_title,
+							mr.meeting_date,
+							mr.meeting_status,
+							um.full_name AS created_by
+						FROM
+							meeting_request AS mr
+						LEFT JOIN constituent AS con
+						ON
+							con.id = mr.constituent_id
+						LEFT JOIN paguthi AS p
+						ON
+							p.id = con.paguthi_id
+						LEFT JOIN user_master AS um
+						ON
+							mr.created_by = um.id
+						WHERE
+							mr.meeting_status = 'REQUESTED' AND con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR created_by like '%$keyword%' order by mr.id desc LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$meeting_result = $resultset->result();
+			if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Meeting Request","meeting_count" =>$meeting_count, "meeting_details" =>$meeting_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
 
 	function Meeting_details($meeting_id)
 	{

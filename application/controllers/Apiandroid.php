@@ -777,6 +777,34 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function meetingRequestsearch()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituency_id = '';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$constituency_id = $this->input->post("constituency_id");
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiandroidmodel->Meeting_requestsearch($constituency_id,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function meetingDetails()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
