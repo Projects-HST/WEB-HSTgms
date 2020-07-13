@@ -2195,7 +2195,7 @@ public function __construct()
 		$staff_count = $staff_count_res->num_rows();
 			
 		$query="SELECT
-				A.id
+				A.id,
 				A.full_name,
 				A.phone_number,
 				A.email_id,
