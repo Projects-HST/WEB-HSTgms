@@ -64,9 +64,11 @@ class Apiandroid extends CI_Controller {
 		$password = '';
 		$gcmkey ='';
 		$mobiletype ='';
-
-		$username = $this->input->post("user_name");
-		$password = $this->input->post("password");
+		
+		$username=$this->db->escape_str($this->input->post('user_name'));
+		$password=$this->db->escape_str($this->input->post('password'));
+		//$username = $this->input->post("user_name");
+		//$password = $this->input->post("password");
 		$gcmkey = $this->input->post("device_id");
 		$mobiletype = $this->input->post("mobile_type");
 
@@ -87,7 +89,8 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$user_name = '';
-		$user_name = $this->input->post("user_name");
+		$username=$this->db->escape_str($this->input->post('user_name'));
+		//$user_name = $this->input->post("user_name");
 		
 		$data['result']=$this->apiandroidmodel->Forgot_password(strtoupper($user_name));
 		$response = $data['result'];
