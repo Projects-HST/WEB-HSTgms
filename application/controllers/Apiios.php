@@ -1006,6 +1006,74 @@ class Apiios extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function reportStatusnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$status='';
+		$paguthi='';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$status=$this->input->post('status');
+		$paguthi=$this->input->post('paguthi');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportStatussearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		
+		$from_date = '';
+		$to_date = '';
+		$status='';
+		$paguthi='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$status=$this->input->post('status');
+		$paguthi = $this->input->post("paguthi");
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiiosmodel->Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+
+//-----------------------------------------------//
+
 	public function reportCategory()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -1029,6 +1097,69 @@ class Apiios extends CI_Controller {
 	}
 
 //-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportCategorynew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$category='';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$category=$this->input->post('category');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_categorynew($from_date,$to_date,$category,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportCategorysearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$from_date = '';
+		$to_date = '';
+		$category='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$category=$this->input->post('category');
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiiosmodel->Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
 
 //-----------------------------------------------//
 
@@ -1058,6 +1189,70 @@ class Apiios extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function reportsubCategorynew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$sub_category='';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$sub_category=$this->input->post('sub_category');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportsubCategorysearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		
+		$from_date = '';
+		$to_date = '';
+		$sub_category='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$sub_category=$this->input->post('sub_category');
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiiosmodel->Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+
+//-----------------------------------------------//
+
 	public function reportLocation()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -1084,6 +1279,68 @@ class Apiios extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function reportLocationnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$paguthi='';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$paguthi=$this->input->post('paguthi');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiiosmodel->Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportLocationsearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$paguthi='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$paguthi=$this->input->post('paguthi');
+		$keyword=$this->input->post('keyword');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$data['result']=$this->apiiosmodel->Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+
+//-----------------------------------------------//
+
 	public function reportMeetings()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -1105,6 +1362,65 @@ class Apiios extends CI_Controller {
 	}
 
 //-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportMeetingsnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_meetingsnew($from_date,$to_date,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportMeetingssearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
 
 
 //-----------------------------------------------//
