@@ -72,7 +72,7 @@ class Apiios extends CI_Controller {
 		$gcmkey = $this->input->post("device_id");
 		$mobiletype = $this->input->post("mobile_type");
 
-		$data['result']=$this->apiandroidmodel->Login(strtoupper($username),strtoupper($password),$gcmkey,$mobiletype);
+		$data['result']=$this->apiiosmodel->Login(strtoupper($username),strtoupper($password),$gcmkey,$mobiletype);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -92,7 +92,7 @@ class Apiios extends CI_Controller {
 		$username=$this->db->escape_str($this->input->post('user_name'));
 		//$user_name = $this->input->post("user_name");
 		
-		$data['result']=$this->apiandroidmodel->Forgot_password(strtoupper($user_name));
+		$data['result']=$this->apiiosmodel->Forgot_password(strtoupper($user_name));
 		$response = $data['result'];
 		echo json_encode($response);
 	}

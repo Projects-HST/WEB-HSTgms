@@ -2254,9 +2254,7 @@ public function __construct()
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
 		if ($status=='ALL' && $paguthi == 'ALL')
-		{
-			
-			
+		{		
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
@@ -2360,6 +2358,241 @@ public function __construct()
 		return $response;
 	}
 	
+	function Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($status=='ALL' && $paguthi == 'ALL')
+		{		
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($status=='ALL' && $paguthi != 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi == 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi != 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			
+		return $response;
+	}
+	
+	function Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($status=='ALL' && $paguthi == 'ALL')
+		{		
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($status=='ALL' && $paguthi != 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi == 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi != 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			
+		return $response;
+	}
+	
+	
 	function Report_category($from_date,$to_date,$category){
 
 		$dateTime1 = new DateTime($from_date);
@@ -2429,6 +2662,151 @@ public function __construct()
 		return $response;
 	}
 	
+	function Report_categorynew($from_date,$to_date,$category,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($category=='ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($category != 'ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"category_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+	
+		return $response;
+	}
+	
+	function Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($category=='ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($category != 'ALL')
+		{
+			 $query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"category_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+	
+		return $response;
+	}
+	
+	
+	
+	
 	function Report_subcategory($from_date,$to_date,$sub_category){
 
 		$dateTime1 = new DateTime($from_date);
@@ -2496,6 +2874,148 @@ public function __construct()
 		
 		return $response;
 	}
+	
+	function Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($sub_category=='ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.sub_category_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_sub_category D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($sub_category != 'ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.sub_category_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_sub_category D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"subcategory_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		
+		return $response;
+	}
+	
+	function Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($sub_category=='ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.sub_category_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_sub_category D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.sub_category_name like '%$keyword%') 
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($sub_category != 'ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.sub_category_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_sub_category D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.sub_category_name like '%$keyword%') 
+						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"subcategory_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		
+		return $response;
+	}
+	
+	
 	
 	function Report_location($from_date,$to_date,$paguthi){
 
@@ -2565,6 +3085,148 @@ public function __construct()
 		return $response;
 	}
 	
+	function Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($paguthi=='ALL')
+		{
+			$query="SELECT
+					A.id,
+					F.paguthi_name,
+					A.petition_enquiry_no,
+					A.grievance_date,
+					A.status,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by,
+					D.grievance_name,
+					E.role_name
+				FROM
+					grievance A,
+					constituent B,
+					user_master C,
+					grievance_type D,
+					role_master E,
+					paguthi F
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($paguthi != 'ALL')
+		{
+			$query="SELECT
+					A.id,
+					F.paguthi_name,
+					A.petition_enquiry_no,
+					A.grievance_date,
+					A.status,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by,
+					D.grievance_name
+				FROM
+					grievance A,
+					constituent B,
+					user_master C,
+					grievance_type D,
+					role_master E,
+					paguthi F
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"location_report" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+			
+		return $response;
+	}
+	
+	
+	function Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($paguthi=='ALL')
+		{
+			$query="SELECT
+					A.id,
+					F.paguthi_name,
+					A.petition_enquiry_no,
+					A.grievance_date,
+					A.status,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by,
+					D.grievance_name,
+					E.role_name
+				FROM
+					grievance A,
+					constituent B,
+					user_master C,
+					grievance_type D,
+					role_master E,
+					paguthi F
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+					AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%') 
+					ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		if ($paguthi != 'ALL')
+		{
+			$query="SELECT
+					A.id,
+					F.paguthi_name,
+					A.petition_enquiry_no,
+					A.grievance_date,
+					A.status,
+					B.full_name,
+					B.mobile_no,
+					C.full_name AS created_by,
+					D.grievance_name
+				FROM
+					grievance A,
+					constituent B,
+					user_master C,
+					grievance_type D,
+					role_master E,
+					paguthi F
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+					AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%') 
+					ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+		}
+		
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"location_report" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+			
+		return $response;
+	}
+	
+	
 	
 	function Report_meetings($from_date,$to_date){
 
@@ -2587,9 +3249,7 @@ public function __construct()
 						user_master C,
 						paguthi D
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(
-							A.meeting_date BETWEEN '$from_date' AND '$to_date'
-						)
+						A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
 					ORDER BY
 						A.meeting_date
 					DESC";
@@ -2605,6 +3265,84 @@ public function __construct()
 		}
 		
 		
+		return $response;
+	}
+	
+	function Report_meetingsnew($from_date,$to_date,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$query="SELECT
+					B.full_name,
+					A.meeting_date,
+					A.meeting_title,
+					A.meeting_status,
+					C.full_name AS created_by,
+					D.paguthi_name
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C,
+					paguthi D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
+				ORDER BY
+					A.meeting_date
+				DESC LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"meetings_report" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount){
+
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$query="SELECT
+					B.full_name,
+					A.meeting_date,
+					A.meeting_title,
+					A.meeting_status,
+					C.full_name AS created_by,
+					D.paguthi_name
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C,
+					paguthi D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
+					AND (A.meeting_status like '%$keyword%' OR  A.meeting_date like '%$keyword%' OR A.meeting_title like '%$keyword%' OR B.full_name like '%$keyword%' OR C.full_name like '%$keyword%' OR D.paguthi_name like '%$keyword%') 
+				ORDER BY
+					A.meeting_date
+				DESC LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"meetings_report" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
 		return $response;
 	}
 	
