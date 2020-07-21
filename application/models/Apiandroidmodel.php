@@ -2258,6 +2258,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2281,6 +2282,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2304,6 +2306,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2327,6 +2330,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2371,6 +2375,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2394,6 +2399,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2417,6 +2423,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2440,6 +2447,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2484,6 +2492,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2509,6 +2518,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2534,6 +2544,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2559,6 +2570,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2606,6 +2618,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2629,6 +2642,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2675,6 +2689,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2698,6 +2713,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2744,6 +2760,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2769,6 +2786,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2820,6 +2838,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2843,6 +2862,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2888,6 +2908,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2911,6 +2932,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2956,6 +2978,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2981,6 +3004,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -3030,6 +3054,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3053,6 +3078,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3098,6 +3124,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3121,6 +3148,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3167,6 +3195,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3192,6 +3221,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,

@@ -2254,12 +2254,11 @@ public function __construct()
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
 		if ($status=='ALL' && $paguthi == 'ALL')
-		{
-			
-			
+		{		
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2283,6 +2282,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2306,6 +2306,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2329,6 +2330,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2373,6 +2375,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2396,6 +2399,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2419,6 +2423,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2442,6 +2447,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2465,7 +2471,7 @@ public function __construct()
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2486,6 +2492,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2511,6 +2518,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2536,6 +2544,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2561,6 +2570,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2586,14 +2596,13 @@ public function __construct()
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
 			
 		return $response;
 	}
-	
 	
 	
 	function Report_category($from_date,$to_date,$category){
@@ -2609,6 +2618,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2632,6 +2642,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2678,6 +2689,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2701,6 +2713,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2726,7 +2739,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"category_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2747,6 +2760,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2772,6 +2786,7 @@ public function __construct()
 			 $query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2799,13 +2814,15 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"category_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
 	
 		return $response;
 	}
+	
+	
 	
 	
 	function Report_subcategory($from_date,$to_date,$sub_category){
@@ -2821,6 +2838,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2844,6 +2862,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2889,6 +2908,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2912,6 +2932,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2936,7 +2957,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"subcategory_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2957,6 +2978,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -2982,6 +3004,7 @@ public function __construct()
 			$query="SELECT
 						A.id,
 						F.paguthi_name,
+						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
 						A.status,
@@ -3008,7 +3031,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"subcategory_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -3031,6 +3054,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3054,6 +3078,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3099,6 +3124,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3122,6 +3148,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3146,7 +3173,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 		{
-			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"location_report" =>$report_result);
+			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"report_list" =>$report_result);
 		} else {
 			$response = array("status" => "Error", "msg" => "No records found");
 		}
@@ -3168,6 +3195,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3193,6 +3221,7 @@ public function __construct()
 			$query="SELECT
 					A.id,
 					F.paguthi_name,
+					A.grievance_type,
 					A.petition_enquiry_no,
 					A.grievance_date,
 					A.status,
@@ -3219,7 +3248,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 		{
-			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"location_report" =>$report_result);
+			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"report_list" =>$report_result);
 		} else {
 			$response = array("status" => "Error", "msg" => "No records found");
 		}
