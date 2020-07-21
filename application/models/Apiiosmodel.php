@@ -3434,6 +3434,39 @@ public function __construct()
 	}
 	
 //#################### Reports End ####################//	
+
+//#################### Category and Sub Category ####################//	
+	function Active_category()
+	{
+		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
+		$resultset=$this->db->query($query);
+		$category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Category", "category_details" =>$category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Active_subcategory()
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
+		$resultset=$this->db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	//#################### Category and Sub Category End ####################//
+
+
 } 
 
 ?>

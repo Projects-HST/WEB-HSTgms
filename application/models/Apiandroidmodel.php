@@ -2463,7 +2463,7 @@ public function __construct()
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2584,7 +2584,7 @@ public function __construct()
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2723,7 +2723,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"category_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2796,7 +2796,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"category_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -2935,7 +2935,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"subcategory_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -3007,7 +3007,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 			{
-				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"subcategory_report" =>$report_result);
+				$response = array("status" => "Success", "msg" => "Sub Category based report","result_count" =>$result_count,"report_list" =>$report_result);
 			} else {
 				$response = array("status" => "Error", "msg" => "No records found");
 			}
@@ -3145,7 +3145,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 		{
-			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"location_report" =>$report_result);
+			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"report_list" =>$report_result);
 		} else {
 			$response = array("status" => "Error", "msg" => "No records found");
 		}
@@ -3218,7 +3218,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 		{
-			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"location_report" =>$report_result);
+			$response = array("status" => "Success", "msg" => "Location based report","result_count" =>$result_count,"report_list" =>$report_result);
 		} else {
 			$response = array("status" => "Error", "msg" => "No records found");
 		}
@@ -3299,7 +3299,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 		{
-			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"meetings_report" =>$report_result);
+			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"report_list" =>$report_result);
 		} else {
 			$response = array("status" => "Error", "msg" => "No records found");
 		}
@@ -3339,7 +3339,7 @@ public function __construct()
 		
 		if($resultset->num_rows()>0)
 		{
-			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"meetings_report" =>$report_result);
+			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"report_list" =>$report_result);
 		} else {
 			$response = array("status" => "Error", "msg" => "No records found");
 		}
@@ -3431,6 +3431,39 @@ public function __construct()
 	}
 	
 //#################### Reports End ####################//	
+
+
+//#################### Category and Sub Category ####################//	
+	function Active_category()
+	{
+		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
+		$resultset=$this->db->query($query);
+		$category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Category", "category_details" =>$category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Active_subcategory()
+	{
+		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
+		$resultset=$this->db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	//#################### Category and Sub Category End ####################//
+	
 } 
 
 ?>

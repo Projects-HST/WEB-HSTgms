@@ -1467,4 +1467,48 @@ class Apiios extends CI_Controller {
 	}
 
 //-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function activeCategory()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apiiosmodel->Active_category($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function activeSubcategory()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apiiosmodel->Active_subcategory($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
 }
