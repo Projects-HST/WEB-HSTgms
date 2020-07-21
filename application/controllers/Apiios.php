@@ -1470,6 +1470,60 @@ class Apiios extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function reportBirthdaynew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$selMonth = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$selMonth = $this->input->post("select_month");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_birthdaynew($selMonth,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportBirthdaysearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$selMonth = '';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		
+		$selMonth = $this->input->post("select_month");
+		$keyword = $this->input->post("keyword");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		
+		$data['result']=$this->apiiosmodel->Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function activeCategory()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);

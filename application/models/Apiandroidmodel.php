@@ -3460,6 +3460,110 @@ public function __construct()
 		return $response;
 	}
 	
+	function Report_birthdaynew($selMonth,$offset,$rowcount){
+
+		$year = date("Y"); 
+		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		if($resultset->num_rows()>0){
+			foreach ($resultset->result() as $rows)
+			{
+				$const_id = $rows->id;
+				$full_name = $rows->full_name;
+				$dob = $rows->dob;
+				$mobile_no = $rows->mobile_no;
+				$door_no = $rows->door_no;
+				$address = $rows->address;
+				$pin_code = $rows->pin_code;
+				
+				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
+				$subQuery_result = $this->db->query($subQuery);
+				if($subQuery_result->num_rows()>0){
+					foreach ($subQuery_result->result() as $rows1)
+					{
+						$birth_id = $rows1->constituent_id;
+					}
+				}else{
+					$birth_id = '';
+				}
+				
+				if ($const_id == $birth_id){
+					 $birth_wish = 'Send';
+				} else {
+					 $birth_wish = 'NotSend';
+				}
+				$contData[]  = (object) array(
+						"const_id" => $const_id,
+						"full_name" => $full_name,
+						"dob" => $dob,
+						"mobile_no" => $mobile_no,
+						"door_no" => $door_no,
+						"address" => $address,
+						"pin_code" => $pin_code,
+						"birth_wish_status" => $birth_wish,
+				);
+			} 
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$contData);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount){
+
+		$year = date("Y"); 	
+		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%') LIMIT $offset, $rowcount";
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		if($resultset->num_rows()>0){
+			foreach ($resultset->result() as $rows)
+			{
+				$const_id = $rows->id;
+				$full_name = $rows->full_name;
+				$dob = $rows->dob;
+				$mobile_no = $rows->mobile_no;
+				$door_no = $rows->door_no;
+				$address = $rows->address;
+				$pin_code = $rows->pin_code;
+				
+				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
+				$subQuery_result = $this->db->query($subQuery);
+				if($subQuery_result->num_rows()>0){
+					foreach ($subQuery_result->result() as $rows1)
+					{
+						$birth_id = $rows1->constituent_id;
+					}
+				}else{
+					$birth_id = '';
+				}
+				
+				if ($const_id == $birth_id){
+					 $birth_wish = 'Send';
+				} else {
+					 $birth_wish = 'NotSend';
+				}
+				$contData[]  = (object) array(
+						"const_id" => $const_id,
+						"full_name" => $full_name,
+						"dob" => $dob,
+						"mobile_no" => $mobile_no,
+						"door_no" => $door_no,
+						"address" => $address,
+						"pin_code" => $pin_code,
+						"birth_wish_status" => $birth_wish,
+				);
+			} 
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$contData);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
 //#################### Reports End ####################//	
 
 
