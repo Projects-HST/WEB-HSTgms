@@ -3267,22 +3267,23 @@ public function __construct()
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
 		$query="SELECT
-						B.full_name,
-						A.meeting_date,
-						A.meeting_title,
-						A.meeting_status,
-						C.full_name AS created_by,
-						D.paguthi_name
-					FROM
-						meeting_request A,
-						constituent B,
-						user_master C,
-						paguthi D
-					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
-					ORDER BY
-						A.meeting_date
-					DESC";
+					A.id,
+					B.full_name,
+					A.meeting_date,
+					A.meeting_title,
+					A.meeting_status,
+					C.full_name AS created_by,
+					D.paguthi_name
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C,
+					paguthi D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
+				ORDER BY
+					A.meeting_date
+				DESC";
 		$resultset=$this->db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
@@ -3307,6 +3308,7 @@ public function __construct()
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
 		$query="SELECT
+					A.id,
 					B.full_name,
 					A.meeting_date,
 					A.meeting_title,
@@ -3346,6 +3348,7 @@ public function __construct()
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
 		$query="SELECT
+					A.id,
 					B.full_name,
 					A.meeting_date,
 					A.meeting_title,
