@@ -252,7 +252,7 @@ public function __construct()
 		{
 			if ($old_email_id != $email){
 			
-				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
 				$result = $this->db->query($update);
 				$subject ='GMS - Staff Login - Username Updated';
 				$htmlContent = '<html>
@@ -271,7 +271,7 @@ public function __construct()
 				$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 				$this->smsmodel->sendSMS($phone,$smsContent);			
 			}else {
-				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
 				$result = $this->db->query($update);
 			}
 		}
@@ -298,14 +298,14 @@ public function __construct()
 					$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 					$this->smsmodel->sendSMS($phone,$smsContent);
 				} else {
-					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
 					$result = $this->db->query($update);
 				}
 		}
 		
 		if ($email =="" && $phone =="")
 		{
-			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
+			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
 			$result = $this->db->query($update);
 		}
 			
