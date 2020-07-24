@@ -426,7 +426,8 @@ class Apiios extends CI_Controller {
 		}
 
 		$keyword = '';
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 
 		$data['result']=$this->apiiosmodel->Dashboard_search($keyword);
 		$response = $data['result'];
@@ -449,7 +450,8 @@ class Apiios extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$data['result']=$this->apiiosmodel->Dashboard_searchnew($keyword,$offset,$rowcount);
@@ -518,7 +520,8 @@ class Apiios extends CI_Controller {
 		$paguthi = '';
 		$offset = '';
 		$rowcount = '';
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$paguthi = $this->input->post("paguthi");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
@@ -796,7 +799,8 @@ class Apiios extends CI_Controller {
 		$rowcount = '';
 		
 		$constituency_id = $this->input->post("constituency_id");
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		
@@ -921,7 +925,8 @@ class Apiios extends CI_Controller {
 		$grievance_type = '';
 		$offset = '';
 		$rowcount = '';
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$paguthi = $this->input->post("paguthi");
 		$grievance_type = $this->input->post("grievance_type");
 		$offset = $this->input->post("offset");
@@ -975,6 +980,8 @@ class Apiios extends CI_Controller {
 	}
 
 //-----------------------------------------------//
+
+
 
 //-----------------------------------------------//
 
@@ -1060,7 +1067,8 @@ class Apiios extends CI_Controller {
 		$to_date = $this->input->post("to_date");	
 		$status=$this->input->post('status');
 		$paguthi = $this->input->post("paguthi");
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$data['result']=$this->apiiosmodel->Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount);
@@ -1149,7 +1157,8 @@ class Apiios extends CI_Controller {
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$category=$this->input->post('category');
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$data['result']=$this->apiiosmodel->Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount);
@@ -1239,7 +1248,8 @@ class Apiios extends CI_Controller {
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$sub_category=$this->input->post('sub_category');
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$data['result']=$this->apiiosmodel->Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount);
@@ -1327,7 +1337,8 @@ class Apiios extends CI_Controller {
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$paguthi=$this->input->post('paguthi');
-		$keyword=$this->input->post('keyword');
+		//$keyword=$this->input->post('keyword');
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$data['result']=$this->apiiosmodel->Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount);
@@ -1354,7 +1365,9 @@ class Apiios extends CI_Controller {
 		$to_date = '';
 		
 		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
+		$to_date = $this->input->post("to_date");
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
 		
 		$data['result']=$this->apiiosmodel->Report_meetings($from_date,$to_date);
 		$response = $data['result'];
@@ -1410,7 +1423,8 @@ class Apiios extends CI_Controller {
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		
@@ -1511,7 +1525,8 @@ class Apiios extends CI_Controller {
 		$rowcount = '';
 		
 		$selMonth = $this->input->post("select_month");
-		$keyword = $this->input->post("keyword");
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		
@@ -1563,6 +1578,5 @@ class Apiios extends CI_Controller {
 	}
 
 //-----------------------------------------------//
-
 
 }
