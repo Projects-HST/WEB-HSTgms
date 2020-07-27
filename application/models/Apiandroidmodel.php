@@ -2372,7 +2372,7 @@ public function __construct()
 		
 		if ($status=='ALL' && $paguthi == 'ALL')
 		{		
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2392,11 +2392,13 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($status=='ALL' && $paguthi != 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2416,11 +2418,13 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($status!='ALL' && $paguthi == 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2440,11 +2444,13 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($status!='ALL' && $paguthi != 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2464,10 +2470,15 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+			
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
+		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+			
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -2489,7 +2500,7 @@ public function __construct()
 		
 		if ($status=='ALL' && $paguthi == 'ALL')
 		{		
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2511,11 +2522,13 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($status=='ALL' && $paguthi != 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2537,11 +2550,13 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($status!='ALL' && $paguthi == 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2563,11 +2578,13 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($status!='ALL' && $paguthi != 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2589,10 +2606,15 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
+		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -2686,7 +2708,7 @@ public function __construct()
 		
 		if ($category=='ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2706,11 +2728,14 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		
+			$query= $cquery." LIMIT $offset, $rowcount";
+		
 		}
 		if ($category != 'ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2730,11 +2755,15 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+			
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -2757,7 +2786,7 @@ public function __construct()
 		
 		if ($category=='ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2779,11 +2808,13 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($category != 'ALL')
 		{
-			 $query="SELECT
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2805,11 +2836,16 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+				$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
+		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -2905,7 +2941,7 @@ public function __construct()
 		
 		if ($sub_category=='ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2925,11 +2961,13 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+			
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($sub_category != 'ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2949,10 +2987,15 @@ public function __construct()
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+			
+			$query= $cquery." LIMIT $offset, $rowcount";			
 		}
+		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -2975,7 +3018,7 @@ public function __construct()
 		
 		if ($sub_category=='ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -2997,11 +3040,13 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.sub_category_name like '%$keyword%') 
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($sub_category != 'ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 						A.id,
 						F.paguthi_name,
 						A.grievance_type,
@@ -3023,10 +3068,15 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.sub_category_name like '%$keyword%') 
-						ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
+		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3121,7 +3171,7 @@ public function __construct()
 		
 		if ($paguthi=='ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 					A.id,
 					F.paguthi_name,
 					A.grievance_type,
@@ -3141,11 +3191,13 @@ public function __construct()
 					role_master E,
 					paguthi F
 				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+					
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($paguthi != 'ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 					A.id,
 					F.paguthi_name,
 					A.grievance_type,
@@ -3164,11 +3216,15 @@ public function __construct()
 					role_master E,
 					paguthi F
 				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+					
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3192,7 +3248,7 @@ public function __construct()
 		
 		if ($paguthi=='ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 					A.id,
 					F.paguthi_name,
 					A.grievance_type,
@@ -3214,11 +3270,13 @@ public function __construct()
 				WHERE
 					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 					AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%') 
-					ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+					ORDER BY A.`grievance_date` DESC";
+					
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		if ($paguthi != 'ALL')
 		{
-			$query="SELECT
+			$cquery="SELECT
 					A.id,
 					F.paguthi_name,
 					A.grievance_type,
@@ -3239,11 +3297,15 @@ public function __construct()
 				WHERE
 					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 					AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%') 
-					ORDER BY A.`grievance_date` DESC LIMIT $offset, $rowcount";
+					ORDER BY A.`grievance_date` DESC";
+					
+			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3307,7 +3369,7 @@ public function __construct()
 		$dateTime2 = new DateTime($to_date);
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
-		$query="SELECT
+		$cquery="SELECT
 					A.id,
 					B.full_name,
 					A.meeting_date,
@@ -3324,9 +3386,14 @@ public function __construct()
 					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
 				ORDER BY
 					A.meeting_date
-				DESC LIMIT $offset, $rowcount";
+				DESC";
+				
+		$query= $cquery." LIMIT $offset, $rowcount";
+				
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3347,7 +3414,7 @@ public function __construct()
 		$dateTime2 = new DateTime($to_date);
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
-		$query="SELECT
+		$cquery="SELECT
 					A.id,
 					B.full_name,
 					A.meeting_date,
@@ -3365,9 +3432,14 @@ public function __construct()
 					AND (A.meeting_status like '%$keyword%' OR  A.meeting_date like '%$keyword%' OR A.meeting_title like '%$keyword%' OR B.full_name like '%$keyword%' OR C.full_name like '%$keyword%' OR D.paguthi_name like '%$keyword%') 
 				ORDER BY
 					A.meeting_date
-				DESC LIMIT $offset, $rowcount";
+				DESC";
+				
+		$query= $cquery." LIMIT $offset, $rowcount";
+				
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3466,9 +3538,15 @@ public function __construct()
 	function Report_birthdaynew($selMonth,$offset,$rowcount){
 
 		$year = date("Y"); 
-		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' LIMIT $offset, $rowcount";
+		
+		$cquery="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+				
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		if($resultset->num_rows()>0){
 			foreach ($resultset->result() as $rows)
 			{
@@ -3519,9 +3597,15 @@ public function __construct()
 	function Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount){
 
 		$year = date("Y"); 	
-		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%') LIMIT $offset, $rowcount";
+	
+		$cquery="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%')";
+		
+		$query= $cquery." LIMIT $offset, $rowcount";
+		
+		$resultset_count=$this->db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
 		$resultset=$this->db->query($query);
-		$result_count = $resultset->num_rows();
 		if($resultset->num_rows()>0){
 			foreach ($resultset->result() as $rows)
 			{
