@@ -2881,17 +2881,19 @@ public function __construct()
 						B.full_name,
 						B.mobile_no,
 						C.full_name AS created_by,
+						G.grievance_name,
 						D.sub_category_name,
 						E.role_name
 					FROM
 						grievance A,
 						constituent B,
 						user_master C,
+						grievance_type G,
 						grievance_sub_category D,
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		if ($sub_category != 'ALL')
 		{
@@ -2905,17 +2907,19 @@ public function __construct()
 						B.full_name,
 						B.mobile_no,
 						C.full_name AS created_by,
+						G.grievance_name,
 						D.sub_category_name,
 						E.role_name
 					FROM
 						grievance A,
 						constituent B,
 						user_master C,
+						grievance_type G,
 						grievance_sub_category D,
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		$resultset=$this->db->query($query);
 		$result_count = $resultset->num_rows();
@@ -2951,17 +2955,19 @@ public function __construct()
 						B.full_name,
 						B.mobile_no,
 						C.full_name AS created_by,
+						G.grievance_name,
 						D.sub_category_name,
 						E.role_name
 					FROM
 						grievance A,
 						constituent B,
 						user_master C,
+						grievance_type G,
 						grievance_sub_category D,
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 			
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
@@ -2977,17 +2983,19 @@ public function __construct()
 						B.full_name,
 						B.mobile_no,
 						C.full_name AS created_by,
+						G.grievance_name,
 						D.sub_category_name,
 						E.role_name
 					FROM
 						grievance A,
 						constituent B,
 						user_master C,
+						grievance_type G,
 						grievance_sub_category D,
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 			
 			$query= $cquery." LIMIT $offset, $rowcount";			
 		}
@@ -3028,17 +3036,19 @@ public function __construct()
 						B.full_name,
 						B.mobile_no,
 						C.full_name AS created_by,
+						G.grievance_name,
 						D.sub_category_name,
 						E.role_name
 					FROM
 						grievance A,
 						constituent B,
 						user_master C,
+						grievance_type G,
 						grievance_sub_category D,
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.sub_category_name like '%$keyword%') 
 						ORDER BY A.`grievance_date` DESC";
 						
@@ -3056,17 +3066,19 @@ public function __construct()
 						B.full_name,
 						B.mobile_no,
 						C.full_name AS created_by,
+						G.grievance_name,
 						D.sub_category_name,
 						E.role_name
 					FROM
 						grievance A,
 						constituent B,
 						user_master C,
+						grievance_type G,
 						grievance_sub_category D,
 						role_master E,
 						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
 						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.sub_category_name like '%$keyword%') 
 						ORDER BY A.`grievance_date` DESC";
 						
