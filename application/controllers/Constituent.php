@@ -1038,5 +1038,35 @@ public function meetings()
 			}
 
 	}
+	
+	public function export_csv(){ 
+		// file name 
+		
+		// Search text
+		$search_text = "";
+		 if($this->session->userdata('search') != NULL){
+			$search_text = $this->session->userdata('search');
+		  }
+			
+		$filename = 'users_'.date('Ymd').'.csv'; 
+		header("Content-Description: File Transfer"); 
+		header("Content-Disposition: attachment; filename=$filename"); 
+		header("Content-Type: application/csv; "); 
+	   // get data 
+	    $usersData = $this->reportmodel->exportrecords($search_text);
+		
+		//print_r($usersData);
+		//exit;
+		//$usersData = $this->Crud_model->getUserDetails();
+		// file creation 
+		$file = fopen('php://output','w');
+		$header = array("Name","Father/Husband_name","Mobile","Door no","Address","Pincode","Aadhaar","Voter id","Serial no","Status"); 
+		fputcsv($file, $header);
+		foreach ($usersData as $key=>$line){ 
+			fputcsv($file,$line); 
+		}
+		fclose($file); 
+		exit; 
+	}
 
 }

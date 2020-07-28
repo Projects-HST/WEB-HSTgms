@@ -96,7 +96,7 @@
                               <ul class="nav child_menu constiituent_menu">
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
-                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li>
+                                 <!--<li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li>-->
 								 <li id="constituent_birthday"><a href="<?php echo base_url(); ?>constituent/birthday">Birthday Wishes</a></li>
 								 <li id="constituent_meetings"><a href="<?php echo base_url(); ?>constituent/meetings">Meeting Request</a></li>
                               </ul>

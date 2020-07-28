@@ -3215,7 +3215,8 @@ public function __construct()
 					B.full_name,
 					B.mobile_no,
 					C.full_name AS created_by,
-					D.grievance_name
+					D.grievance_name,
+					E.role_name
 				FROM
 					grievance A,
 					constituent B,
@@ -3294,7 +3295,8 @@ public function __construct()
 					B.full_name,
 					B.mobile_no,
 					C.full_name AS created_by,
-					D.grievance_name
+					D.grievance_name,
+					E.role_name
 				FROM
 					grievance A,
 					constituent B,

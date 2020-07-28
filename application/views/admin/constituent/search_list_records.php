@@ -47,7 +47,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List of constituent</h2>
+               <h2>List of constituent</h2> <!--<span style="float:right;"><a class="badge-success" style="padding:10px;" href="<?= base_url() ?>constituent/export_csv"> Export </a></span>-->
                <div class="clearfix"></div>
             </div>
             <div class="x_content">

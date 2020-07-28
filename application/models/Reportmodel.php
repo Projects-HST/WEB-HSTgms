@@ -289,6 +289,71 @@ Class Reportmodel extends CI_Model
 		return $resultset->result();
 	}
 	
+
+	/* function get_staff_report($frmDate,$toDate)
+	{
+		if ($frmDate !='' && $toDate !=""){
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+			
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+		}
+		
+		$query="SELECT * FROM user_master";
+		$resultset=$this->db->query($query);
+		$result_count = $resultset->num_rows();
+		if($resultset->num_rows()>0){
+			foreach ($resultset->result() as $rows)
+			{
+				$user_id = $rows->id;
+				$user_name = $rows->full_name;
+				
+					if ($frmDate !='' && $toDate !=""){
+						 $subQuery = "SELECT * FROM constituent WHERE created_at BETWEEN '$from_date' AND '$to_date' AND created_by = '$user_id'";
+					} else {
+						 $subQuery = "SELECT * FROM constituent WHERE created_by = '$user_id'";
+					}
+						
+				$subQuery_result = $this->db->query($subQuery);
+				$total = $subQuery_result->num_rows();
+				
+				$active = 0;
+				$inactive = 0;
+				
+				if($subQuery_result->num_rows()>0){
+					foreach ($subQuery_result->result() as $rows1)
+					{
+						$status = $rows1->status;
+						
+						if ($status == 'ACTIVE'){
+							 $active = $active +1;
+						} else {
+							 $inactive = $inactive +1;
+						}
+					}
+					
+					$contData[]  = (object) array(
+						"user_id" => $user_id,
+						"full_name" => $user_name,
+						"total" => $total,
+						"active" => $active,
+						"inactive" => $inactive);
+				}else{
+					$contData[]  = (object) array(
+						"user_id" => $user_id,
+						"full_name" => $user_name,
+						"total" => $total,
+						"active" => $active,
+						"inactive" => $inactive);
+				}
+			}
+		}
+		return $contData;
+	} */
+	
+	
+	
 	function get_birthday_report($selMonth)
 	{
 				$year = date("Y"); 
@@ -417,11 +482,35 @@ Class Reportmodel extends CI_Model
 				$this->db->or_like('aadhaar_no', $search);
 				$this->db->or_like('serial_no', $search);
 		}
-
 		$query = $this->db->get();
 		$result = $query->result_array();
 	 
 		return $result[0]['allcount'];
+  }
+  
+    // Select total records
+	public function exportrecords($search = '') {
+			
+		$this->db->select('full_name,father_husband_name,mobile_no,door_no,address,pin_code,aadhaar_no,voter_id_no,serial_no,status');
+		$this->db->from('constituent');
+	 
+		if($search != ''){
+				$this->db->like('full_name', $search);
+				$this->db->or_like('father_husband_name', $search);
+				$this->db->or_like('guardian_name', $search);
+				$this->db->or_like('mobile_no', $search);
+				$this->db->or_like('whatsapp_no', $search);
+				$this->db->or_like('address', $search);
+				$this->db->or_like('pin_code', $search);
+				$this->db->or_like('email_id', $search);
+				$this->db->or_like('voter_id_no', $search);
+				$this->db->or_like('aadhaar_no', $search);
+				$this->db->or_like('serial_no', $search);
+		}
+		$query = $this->db->get();
+		$result = $query->result_array();
+		
+		return $query->result_array();
   }
 	
 }
