@@ -1775,7 +1775,7 @@ public function __construct()
 						order by g.id desc LIMIT $offset, $rowcount";
 			} else if ($grievance_type == 'P') {
 				
-					$cquery="SELECT FROM grievance where paguthi_id='$paguthi' AND grievance_type='P' order by id desc";
+					$cquery="SELECT * FROM grievance where paguthi_id='$paguthi' AND grievance_type='P' order by id desc";
 						
 					$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 						left join constituent as c on c.id=g.constituent_id
@@ -1786,7 +1786,7 @@ public function __construct()
 						order by g.id desc LIMIT $offset, $rowcount";
 			}else if ($grievance_type == 'E') {
 				
-					$cquery="SELECT FROM grievance where paguthi_id='$paguthi' AND grievance_type='E' order by id desc";
+					$cquery="SELECT * FROM grievance where paguthi_id='$paguthi' AND grievance_type='E' order by id desc";
 
 					$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 					left join constituent as c on c.id=g.constituent_id
