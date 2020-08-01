@@ -428,7 +428,7 @@ function version_check($version_code){
           "date_elapsed"=>$time_elapsed,
           "image_file_name"=>base_url().'assets/news/'.$rows->image_file_name,
           "title"=>$rows->title,
-          "details"=>$rows->details,
+          "details"=>ucwords(strtolower($rows->details)),
         );
       }
       $data=array('status'=>'success','msg'=>'list found','news_list'=>$details);
