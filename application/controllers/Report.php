@@ -580,7 +580,7 @@ class Report extends CI_Controller {
 			$users_record = $this->reportmodel->constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id);
 
 				// Pagination Configuration
-				$config['base_url'] = base_url().'report/festival_wishes_report';
+				$config['base_url'] = base_url().'report/constituent_list';
 				$config['use_page_numbers'] = TRUE;
 				$config['total_rows'] = $allcount;
 				$config['per_page'] = $rowperpage;
