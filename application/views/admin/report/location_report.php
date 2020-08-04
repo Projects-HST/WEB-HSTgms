@@ -8,33 +8,43 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-			
+
 		<form id="report_form" action="<?php echo base_url(); ?>report/location" method="post" enctype="multipart/form-data">
-			  <div class="item form-group">
-				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
-				 </div>
-				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
-				 </div>
-				  <label class="col-form-label col-md-2 col-sm-2 label-align">Location <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-2">
-						<select class="form-control" name="paguthi" id ="paguthi" >
-							<option value="ALL">ALL</option>
-							<?php foreach($paguthi as $rows){ ?>
-							<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
-							<?php } ?>
-						</select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
-				 </div>
-				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
-				 </div>
-			  </div>
+			 
+          <div class="form-group row ">
+            <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
+            <div class="col-md-2 col-sm-2">
+               <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+            </div>
+            <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
+          <div class="col-md-2 col-sm-2">
+           <input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+          </div>
+          </div>
+        <div class="form-group row ">
+             <label class="control-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
+             <div class="col-md-2 col-sm-9 ">
+             <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+               <option value="ALL">ALL</option>
+               <?php foreach($paguthi as $rows){ ?>
+               <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
+               <?php } ?>
+             </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+           </div>
+           <label class="col-form-label col-md-1 col-sm-3">Ward</label>
+          <div class="col-md-2 col-sm-2">
+             <select class="form-control" name="ward_id" id ="ward_id" >
+               <option value=""></option>
+             </select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <button type="submit" class="btn btn-success">SEARCH</button>
+          </div>
+
+         </div>
 			  <div class="ln_solid"></div>
 		 </form>
-			   
+
 		<div class="col-md-12 col-sm-12 ">
           <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
@@ -72,22 +82,52 @@
       </div>
 
 
-        
+
    </div>
 </div>
 <script type="text/javascript">
+function get_paguthi(sel){
+  var paguthi_id=sel.value;
+  $.ajax({
+		url:'<?php echo base_url(); ?>masters/get_active_ward',
+		method:"POST",
+		data:{paguthi_id:paguthi_id},
+		dataType: "JSON",
+		cache: false,
+		success:function(data)
+		{
+		   var stat=data.status;
+		   $("#ward_id").empty();
+
+		   if(stat=="success"){
+		   var res=data.res;
+		   var len=res.length;
+        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+		   for (i = 0; i < len; i++) {
+		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
+		   }
+
+		   }else{
+		   $("#ward_id").empty();
+
+		   }
+		}
+	});
+}
+
+
 $.validator.addMethod("chkDates", function(value, element) {
-		var startDate = $('#frmDate').val();		
+		var startDate = $('#frmDate').val();
 		var datearray = startDate.split("-");
 		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-		
-		var endDate = $('#toDate').val();		
+
+		var endDate = $('#toDate').val();
 		var datearray = endDate.split("-");
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
 	}, "Please check dates");
-	
+
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });

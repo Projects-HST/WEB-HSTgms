@@ -4,7 +4,7 @@
 		<div class="title_left" style="padding-top:70px;">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for...">
+				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="submit" style="padding:12px;">Go!</button>
 				</span>
@@ -244,7 +244,7 @@
 </div>
 <div class="clearfix"></div>
 
-<div class="row">
+<!-- <div class="row">
 <div class="col-md-6">
 <div class="x_panel">
 	<div id="chart_div1" style="height:400px;"></div>
@@ -256,7 +256,7 @@
 		<div id="chart_div2" style="height:400px;"></div>
 </div>
 </div>
-</div>
+</div> -->
 
 </div>
 </div>
@@ -331,10 +331,10 @@
 
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-		var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
-		var chart2 = new google.visualization.AreaChart(document.getElementById('chart_div2'));
+		// var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
+		// var chart2 = new google.visualization.AreaChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
-		chart1.draw(data1, options1);
-		chart2.draw(data2, options2);
+		// chart1.draw(data1, options1);
+		// chart2.draw(data2, options2);
       }
     </script>

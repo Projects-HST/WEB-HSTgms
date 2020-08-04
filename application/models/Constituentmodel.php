@@ -12,9 +12,9 @@ Class Constituentmodel extends CI_Model
 ####################  Constituent member ####################
 
 	function create_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$user_id){
-		$select="SELECT * FROM constituent where serial_no='$serial_no'";
-		$res_select   = $this->db->query($select);
-		if($res_select->num_rows()==0){
+		// $select="SELECT * FROM constituent where serial_no='$serial_no'";
+		// $res_select   = $this->db->query($select);
+		// if($res_select->num_rows()==0){
 		if($aadhaar_status=='N'){
 			$aadhar_id_no=' ';
 		}else{
@@ -25,7 +25,7 @@ Class Constituentmodel extends CI_Model
 		}else{
 			$voter_no=$voter_id_no;
 		}
-		$query="INSERT INTO constituent (constituency_id,paguthi_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,vote_type,serial_no,profile_pic,status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$user_id',NOW())";
+		$query="INSERT INTO constituent (constituency_id,paguthi_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$user_id',NOW())";
 		$result=$this->db->query($query);
 		 $last_id=$this->db->insert_id();
 
@@ -42,9 +42,9 @@ Class Constituentmodel extends CI_Model
 			$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 		}
 
-	}else{
-		$data=array("status"=>"error","msg"=>"Already exists!.","class"=>"alert alert-danger");
-	}
+	// }else{
+	// 	$data=array("status"=>"error","msg"=>"Already exists!.","class"=>"alert alert-danger");
+	// }
 	return $data;
 	}
 
@@ -61,7 +61,7 @@ Class Constituentmodel extends CI_Model
 					$voter_no=$voter_id_no;
 				}
 				$id=base64_decode($constituent_id)/98765;
-				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',vote_type='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 
 					$result=$this->db->query($update);
 					if($result){
@@ -578,7 +578,7 @@ Class Constituentmodel extends CI_Model
 		function list_grievance_reply(){
 			$query="SELECT gr.*,c.full_name,u.full_name as sent_by from grievance_reply as gr
 			left join constituent as c on c.id=gr.constituent_id
-			left join user_master as u on u.id=gr.created_by order by id desc";
+			left join user_master as u on u.id=gr.created_by order by id desc LIMIT 500";
 			$result=$this->db->query($query);
 			return $result->result();
 		}
@@ -728,10 +728,9 @@ Class Constituentmodel extends CI_Model
 					constituent B,
 					user_master C
 				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND (A.meeting_date BETWEEN '$from_date' AND '$to_date'
-					)
+					A.constituent_id = B.id AND A.created_by = C.id
 				ORDER BY
-					 A.meeting_date DESC";
+					 A.id DESC";
 		//echo $query;
 		$resultset=$this->db->query($query);
 		return $resultset->result();
@@ -750,6 +749,30 @@ Class Constituentmodel extends CI_Model
 		   $this->session->set_flashdata('msg', 'Failed to Update');
 			redirect(base_url().'constituent/meetings/'.$frmDate.'/'.$toDate);
 		}
+	}
+
+	function save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id){
+		if($send_checkbox=='1'){
+			$select="SELECT * FROM constituent where id='$constituent_id'";
+			$res=$this->db->query($select);
+			foreach($res->result() as $rows){}
+			$to_phone=$rows->mobile_no;
+			$smsContent=utf8_encode($reply_sms_text);
+			$this->smsmodel->sendSMS($to_phone,$smsContent);
+			$insert="INSERT INTO grievance_reply (constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$constituent_id','$reply_sms_id','$reply_sms_text',NOW(),'$user_id')";
+			$result_insert=$this->db->query($insert);
+		}
+
+		 $id=base64_decode($meeting_id)/98765;
+		 $update="UPDATE meeting_request SET meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+		 $result=$this->db->query($update);
+			if($result){
+				$data=array("status"=>"success","msg"=>"Constituent Meeting status Updated","class"=>"alert alert-success");
+			}else{
+				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+			}
+			return $data;
+
 	}
 
 }

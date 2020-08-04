@@ -1,5 +1,5 @@
-<?php 
-	$user_pic = $this->session->userdata('user_pic'); 
+<?php
+	$user_pic = $this->session->userdata('user_pic');
 	$user_type = $this->session->userdata('user_type');
 ?>
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/vfs_fonts.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/buttons.html5.min.js "></script>
 
-      <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/additional-methods.min.js"></script>
 
 	  <script src="<?php echo base_url(); ?>assets/admin/vendors/moment/min/moment.min.js"></script>
@@ -89,6 +89,7 @@
                                   <li id="smsmenu"><a href="<?php echo base_url(); ?>masters/sms_template">SMS template</a></li>
                                   <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li>
                                   <!-- <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li> -->
+																	<li><a href="<?php echo base_url(); ?>masters/festival">Festival</a></li>
                                 </ul>
                            </li>
                            <li id="constiituent_menu">
@@ -96,9 +97,10 @@
                               <ul class="nav child_menu constiituent_menu">
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
-                                 <!--<li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li>-->
+                                 <!-- <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li> -->
 								 <li id="constituent_birthday"><a href="<?php echo base_url(); ?>constituent/birthday">Birthday Wishes</a></li>
 								 <li id="constituent_meetings"><a href="<?php echo base_url(); ?>constituent/meetings">Meeting Request</a></li>
+								 <li><a href="<?php echo base_url(); ?>constituent/festival_wishes">Festival wishes</a></li>
                               </ul>
                            </li>
                            <li id="grievance_menu">
@@ -130,11 +132,13 @@
                               <ul class="nav child_menu">
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/category">Grievance Category</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li>
+                                <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
                                 <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
-								<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
-								<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
-								<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
+																<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
+																<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
+																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
+																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes report</a></li>
+																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent report</a></li>
                               </ul>
                            </li>
                            <li>

@@ -1,3 +1,9 @@
+<style>
+th{
+    width:200px;
+}
+
+</style>
 <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -16,19 +22,49 @@
 		</div>
 	<?php endif; ?>
 		<form id="report_form" action="<?php echo base_url(); ?>report/meetings" method="post" enctype="multipart/form-data">
-			  <div class="item form-group">
-				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
-				 </div>
-				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
-				 </div>
-				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
-				 </div>
-			  </div>
+      <div class="form-group row ">
+        <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
+        <div class="col-md-2 col-sm-2">
+           <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+        </div>
+        <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
+      <div class="col-md-2 col-sm-2">
+       <input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+      </div>
+      <label class="col-form-label col-md-1 col-sm-1 ">Status <span class="required">*</span></label>
+    <div class="col-md-2 col-sm-2">
+      <select class="form-control" name="status" id ="status" >
+        <option value="ALL">ALL</option>
+        <option value="PROCESSING">PROCESSING</option>
+        <!-- <option value="COMPLETED">COMPLETED</option> -->
+        <option value="REJECTED">REJECTED</option>
+        <option value="FAILURE">FAILURE</option>
+        <option value="ONHOLD">ONHOLD</option>
+        <option value="COMPLETED">COMPLETED</option>
+      </select><script> $('#status').val('<?php echo $dstatus; ?>');</script>
+    </div>
+      </div>
+      <div class="form-group row ">
+           <label class="control-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
+           <div class="col-md-2 col-sm-9 ">
+           <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+             <option value="ALL">ALL</option>
+             <?php foreach($paguthi as $rows){ ?>
+             <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
+             <?php } ?>
+           </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+         </div>
+         <label class="col-form-label col-md-1 col-sm-3">Ward</label>
+        <div class="col-md-2 col-sm-2">
+           <select class="form-control" name="ward_id" id ="ward_id" >
+             <option value=""></option>
+           </select>
+        </div>
+        <div class="col-md-2 col-sm-2">
+          <button type="submit" class="btn btn-success">SEARCH</button>
+        </div>
+
+       </div>
 			  <div class="ln_solid"></div>
 		</form>
 
@@ -53,8 +89,8 @@
                     <td><?php echo $rows->full_name; ?></td>
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->meeting_detail; ?></td>
-					
-					<?php 
+
+					<?php
 						$meeting_status = $rows->meeting_status;
 						if ($meeting_status == 'REQUESTED'){ ?>
 								<td style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $meeting_status; ?></td>
@@ -75,85 +111,51 @@
       </div>
 
 
-        
+
    </div>
 </div>
-<div class="modal fade bs-example-modal-lg" id="meeting_model" tabindex="-1" role="dialog" aria-hidden="true">
-   <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Meeting request</h4>
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/save_meeting_request" method="post" id="meeting_form">
-              <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
-                 </label>
-                 <div class="col-md-6 col-sm-9 ">
-                    <input id="meeting_status" class=" form-control" name="meeting_status" type="text" value="REQUESTED" readonly>
-                 </div>
-              </div>
-              <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting date <span class="required">*</span>
-                 </label>
-                 <div class="col-md-6 col-sm-9 ">
-                    <input id="meeting_date" class=" form-control" name="meeting_date" type="text">
-                 </div>
-              </div>
-              <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting details<span class="required">*</span>
-                 </label>
-                 <div class="col-md-9 col-sm-9 ">
-                    <textarea id="meeting_detail" class=" form-control" name="meeting_detail" rows="5"></textarea>
-                    <input id="meeting_constituent_id" class=" form-control" name="meeting_constituent_id" type="hidden" value="">
-                 </div>
-              </div>
-               <div class="form-group row">
-                  <div class="col-md-9 col-sm-9  offset-md-3">
-                     <button type="submit" class="btn btn-success">Save</button>
-                  </div>
-               </div>
-            </form>
 
-            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-               <thead>
-                  <tr>
-                     <th style="width:600px !important;">Meeting details</th>
-                     <th>date</th>
-                     <th>status</th>
-                     <th>updated at</th>
-                     <th>Action</th>
-
-                  </tr>
-               </thead>
-               <tbody id="table_meeting">
-
-
-               </tbody>
-            </table>
-
-
-
-         </div>
-
-      </div>
-   </div>
-</div>
 <script type="text/javascript">
+function get_paguthi(sel){
+  var paguthi_id=sel.value;
+  $.ajax({
+		url:'<?php echo base_url(); ?>masters/get_active_ward',
+		method:"POST",
+		data:{paguthi_id:paguthi_id},
+		dataType: "JSON",
+		cache: false,
+		success:function(data)
+		{
+		   var stat=data.status;
+		   $("#ward_id").empty();
+
+		   if(stat=="success"){
+		   var res=data.res;
+		   var len=res.length;
+        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+		   for (i = 0; i < len; i++) {
+		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
+		   }
+
+		   }else{
+		   $("#ward_id").empty();
+
+		   }
+		}
+	});
+}
 $.validator.addMethod("chkDates", function(value, element) {
-		var startDate = $('#frmDate').val();		
+		var startDate = $('#frmDate').val();
 		var datearray = startDate.split("-");
 		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-		
-		var endDate = $('#toDate').val();		
+
+		var endDate = $('#toDate').val();
 		var datearray = endDate.split("-");
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
 	}, "Please check dates");
-	
+
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });

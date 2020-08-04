@@ -47,9 +47,16 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List of constituent</h2> <!--<span style="float:right;"><a class="badge-success" style="padding:10px;" href="<?= base_url() ?>constituent/export_csv"> Export </a></span>-->
+               <h2>List of constituent</h2>
                <div class="clearfix"></div>
             </div>
+						<?php if($this->session->flashdata('msg')) {
+							 $message = $this->session->flashdata('msg');?>
+						<div class="<?php echo $message['class'] ?> alert-dismissible">
+							 <button type="button" class="close" data-dismiss="alert">&times;</button>
+							 <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+						</div>
+						<?php  }  ?>
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>constituent/list_constituent_member" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
@@ -68,10 +75,10 @@
 				<th>S.no</th>
                      <th>Name</th>
                      <th>Mobile</th>
-					 <th>Paguthi</th>
+					 				 	<th>Paguthi</th>
                      <th>Meeting</th>
                      <th>interaction</th>
-                     <th>plant</th>
+                     <!-- <th>plant</th> -->
                      <th>Grievance</th>
                      <th>Action</th>
 			</tr>
@@ -117,16 +124,18 @@
 				} else {
 					echo '<td><a class="badge badge-add" href="'.base_url().'constituent/add_interaction_response/'. base64_encode($const_id*98765).'" title="INTERACTION ADD">ADD</i></a></td>';
 				}
-				if ($plt_status == "Y"){
-					echo '<td><a class="badge badge-view handle_symbol" onclick="view_donation('.$const_id.')">VIEW</i></a></td>';
-				} else {
-					echo '<td><a class="badge badge-add handle_symbol" onclick="add_plant_donation('.$const_id.')">ADD</i></a></td>';
-				}
+				// if ($plt_status == "Y"){
+				// 	echo '<td><a class="badge badge-view handle_symbol" onclick="view_donation('.$const_id.')">VIEW</i></a></td>';
+				// } else {
+				// 	echo '<td><a class="badge badge-add handle_symbol" onclick="add_plant_donation('.$const_id.')">ADD</i></a></td>';
+				// }
 				echo '<td><a  class="badge badge-add handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
 				echo '<td>	<a id="EDIT" href="'. base_url().'constituent/get_constituent_member_edit/'.base64_encode($const_id*98765).'"><i class="fa fa-edit"></i></a>&nbsp;
 							<a title="DOCUMENTS" href="'.base_url().'constituent/get_list_document/'.base64_encode($const_id*98765).'"><i class="fa fa-file-word-o"></i></a>&nbsp;
 							<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
-							<a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a></td>';
+							<a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
+							<a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+							</td>';
 				echo "</tr>";
 				$sno++;
 			}
@@ -314,6 +323,48 @@
    </div>
 </div>
 
+<div class="modal fade bs-example-modal-lg" id="reply_modal" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Send reply message</h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/send_reply_constituent_text" method="post" id="reply_form">
+
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                   <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
+                     <option value="">--Sms template--</option>
+                     <?php foreach($res_sms as $rows_sms){ ?>
+                       <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
+                     <?php } ?>
+                   </select>
+                 </div>
+              </div>
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 </label>
+                 <div class="col-md-9 col-sm-9 ">
+                    <textarea id="reply_sms_text" class=" form-control" name="reply_sms_text" rows="5"></textarea>
+
+                    <input id="constituent_reply_id" class=" form-control" name="constituent_reply_id" type="hidden" value="">
+                 </div>
+              </div>
+               <div class="form-group row">
+                  <div class="col-md-9 col-sm-9  offset-md-3">
+                     <button type="submit" class="btn btn-success">send</button>
+                  </div>
+               </div>
+            </form>
+       </div>
+      </div>
+   </div>
+</div>
 
 <div class="modal fade bs-example-modal-lg" id="grievance_model" tabindex="-1" role="dialog" aria-hidden="true">
    <div class="modal-dialog modal-lg">
@@ -664,13 +715,13 @@ function give_voice_call(sel){
     });
     $('#meeting_form').validate({
          rules: {
-                meeting_date:{required:true},
+                // meeting_date:{required:true},
 								meeting_title:{required:true ,maxlength:60},
                meeting_detail:{required:true ,maxlength:200}
 
          },
          messages: {
-             meeting_date:{required:"enter the date"},
+             // meeting_date:{required:"enter the date"},
 						 meeting_title:{required:"enter the title"},
            meeting_detail:{required:"enter the meeting detail " }
 
@@ -678,13 +729,13 @@ function give_voice_call(sel){
      });
      $('#update_meeting_form').validate({
           rules: {
-                 update_meeting_date:{required:true},
+                 // update_meeting_date:{required:true},
 								 update_meeting_title:{required:true ,maxlength:60},
                 update_meeting_detail:{required:true ,maxlength:200}
 
           },
           messages: {
-              update_meeting_date:{required:"enter the date"},
+              // update_meeting_date:{required:"enter the date"},
 							update_meeting_title:{required:"enter the title"},
             update_meeting_detail:{required:"enter the meeting detail " }
 
@@ -732,6 +783,37 @@ function removeLoader(){
     $( "#loadingDiv" ).fadeOut(500, function() {
       // fadeOut complete. Remove the loading div
       $( "#loadingDiv" ).remove(); //makes page more lightweight
+  });
+}
+function send_reply_constituent(sel){
+
+  let const_id=sel;
+   	$('#reply_modal').modal('show');
+		$('#constituent_reply_id').val(const_id);
+}
+function get_sms_text(sel){
+  let sms_id=sel.value;
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_sms_text',
+    method:"POST",
+    data:{sms_id:sms_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      var stat=data.status;
+      if(stat=="success"){
+      var res=data.res;
+      var len=res.length;
+      for (i = 0; i < len; i++) {
+        $('#sms_text').text(res[i].sms_text);
+        $('#reply_sms_text').text(res[i].sms_text);
+     }
+      }else{
+        $('#sms_text').empty();
+        $('#reply_sms_text').empty();
+      }
+    }
   });
 }
 </script>

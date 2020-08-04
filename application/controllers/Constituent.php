@@ -30,6 +30,7 @@ class constituent extends CI_Controller {
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_interaction']=$this->mastermodel->get_active_interaction_question();
 			$data['res_religion']=$this->mastermodel->get_active_religion();
+			$data['res_booth']=$this->mastermodel->get_active_booth_address();
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/constituent_member',$data);
 			$this->load->view('admin/footer');
@@ -170,6 +171,7 @@ class constituent extends CI_Controller {
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_seeker']=$this->mastermodel->get_active_seeker();
+
 
 			//pagination settings
 			 $config['base_url'] = site_url('constituent/list_member');
@@ -539,7 +541,11 @@ class constituent extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 			$constituent_id=$this->input->post('meeting_constituent_id');
 			$originalDate=strtoupper($this->db->escape_str($this->input->post('meeting_date')));
-			 $meeting_date = date("Y-m-d", strtotime($originalDate));
+			if(empty($originalDate)){
+					$meeting_date ='';
+			}else{
+					$meeting_date = date("Y-m-d", strtotime($originalDate));
+			}
 			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('meeting_detail')));
 			$meeting_title=strtoupper($this->db->escape_str($this->input->post('meeting_title')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
@@ -558,7 +564,11 @@ class constituent extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 			$meeting_id=$this->input->post('meeting_id');
 			$originalDate=strtoupper($this->db->escape_str($this->input->post('update_meeting_date')));
-			 $meeting_date = date("Y-m-d", strtotime($originalDate));
+			if(empty($originalDate)){
+					$meeting_date ='';
+			}else{
+					$meeting_date = date("Y-m-d", strtotime($originalDate));
+			}
 			$meeting_detail=strtoupper($this->db->escape_str($this->input->post('update_meeting_detail')));
 			$meeting_title=strtoupper($this->db->escape_str($this->input->post('update_meeting_title')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('update_meeting_status')));
@@ -571,6 +581,25 @@ class constituent extends CI_Controller {
 		}
 	}
 
+
+	public function save_meeting_request_status(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$meeting_id=$this->input->post('meeting_id');
+			$constituent_id=$this->input->post('constituent_id');
+			$send_checkbox=strtoupper($this->db->escape_str($this->input->post('send_checkbox')));
+			$reply_sms_id=strtoupper($this->db->escape_str($this->input->post('reply_sms_id')));
+	 		$reply_sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
+			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
+			$data=$this->constituentmodel->save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/meetings");
+		}else{
+			redirect('/');
+		}
+	}
 
 	public function edit_meeting_request(){
 		$user_id = $this->session->userdata('user_id');
@@ -793,6 +822,24 @@ public function list_grievance_reply(){
 
 	}
 
+	public function send_reply_constituent_text(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('reply_grievance_id');
+			$sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
+			$constituent_id=$this->input->post('constituent_reply_id');
+			$sms_id=$this->input->post('reply_sms_id');
+			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("constituent/list_constituent_member");
+		}else{
+			redirect('/');
+		}
+
+	}
+
 
 ################## Grievance module ##############
 
@@ -910,7 +957,7 @@ public function meetings()
 
 
 		$datas['res']=$this->constituentmodel->get_meeting_report($frmDate,$toDate);
-
+			$datas['res_sms']=$this->mastermodel->get_active_template();
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/meeting_report',$datas);
@@ -941,17 +988,17 @@ public function meetings()
 			redirect('/');
 		}
 	}
-	
+
 	public function list_constituent_member($rowno=0)
 	{
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
-				
+
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_seeker']=$this->mastermodel->get_active_seeker();
-			
+			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
 			$search_text = "";
 			if($this->input->post('submit') != NULL ){
@@ -970,13 +1017,13 @@ public function meetings()
 			if($rowno != 0){
 			  $rowno = ($rowno-1) * $rowperpage;
 			}
-	 
+
 			// All records count
 			$allcount = $this->reportmodel->getrecordCount($search_text);
 
 			// Get records
 			$users_record = $this->reportmodel->getData($rowno,$rowperpage,$search_text);
-		 
+
 			// Pagination Configuration
 			$config['base_url'] = base_url().'constituent/list_constituent_member';
 			$config['use_page_numbers'] = TRUE;
@@ -987,86 +1034,165 @@ public function meetings()
 			//Pagination Container tag
 			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
 			$config['full_tag_close'] = '</div>';
-			
+
 			//First and last Link Text
 			$config['first_link'] = 'First';
 			$config['last_link'] = 'Last';
-			
-			//First tag 
+
+			//First tag
 			$config['first_tag_open'] = '<span class="pagination-first-tag">';
 			$config['first_tag_close'] = '</span>';
-			
-			//Last tag 
+
+			//Last tag
 			$config['last_tag_open'] = '<span class="pagination-last-tag">';
 			$config['last_tag_close'] = '</span>';
-			
+
 			//Next and Prev Link
 			$config['next_link'] = 'Next';
 			$config['prev_link'] = 'Prev';
-			
+
 			//Next and Prev Link Styling
 			$config['next_tag_open'] = '<span class="pagination-next-tag">';
 			$config['next_tag_close'] = '</span>';
-			
+
 			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
 			$config['prev_tag_close'] = '</span>';
-			
-			
+
+
 			//Current page tag
 			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
 			$config['cur_tag_close'] = '</strong>';
-	 
-			
+
+
 			$config['num_tag_open'] = '<span class="pagination-number">';
 			$config['num_tag_close'] = '</span>';
-			
+
 		// Initialize
 		$this->pagination->initialize($config);
-	 
+
 		$data['pagination'] = $this->pagination->create_links();
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
 		$data['search'] = $search_text;
 
 		// Load view
-			$this->load->view('admin/header');		
+			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/search_list_records',$data);
 			$this->load->view('admin/footer');
-			
+
 			}else{
 				redirect('/');
 			}
 
 	}
-	
-	public function export_csv(){ 
-		// file name 
-		
-		// Search text
-		$search_text = "";
-		 if($this->session->userdata('search') != NULL){
-			$search_text = $this->session->userdata('search');
-		  }
-			
-		$filename = 'users_'.date('Ymd').'.csv'; 
-		header("Content-Description: File Transfer"); 
-		header("Content-Disposition: attachment; filename=$filename"); 
-		header("Content-Type: application/csv; "); 
-	   // get data 
-	    $usersData = $this->reportmodel->exportrecords($search_text);
-		
-		//print_r($usersData);
-		//exit;
-		//$usersData = $this->Crud_model->getUserDetails();
-		// file creation 
-		$file = fopen('php://output','w');
-		$header = array("Name","Father/Husband_name","Mobile","Door no","Address","Pincode","Aadhaar","Voter id","Serial no","Status"); 
-		fputcsv($file, $header);
-		foreach ($usersData as $key=>$line){ 
-			fputcsv($file,$line); 
-		}
-		fclose($file); 
-		exit; 
+
+
+
+	public function festival_wishes($rowno=0){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['res_festival']=$this->mastermodel->get_active_festival();
+			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
+			// Search text
+			$search_text = "";
+			if($this->input->post('submit') != NULL ){
+				$search_text = $this->input->post('search');
+				$this->session->set_userdata(array("search"=>$search_text));
+			}else{
+				if($this->session->userdata('search') != NULL){
+				$search_text = $this->session->userdata('search');
+				}
+			}
+				$paguthi = $this->input->post('paguthi');
+				$religion_id = $this->input->post('religion_id');
+				$ward_id = $this->input->post('ward_id');
+				$data['festival_id']=$religion_id;
+			// Row per page
+			$rowperpage = 25;
+
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
+
+			// All records count
+			$allcount = $this->reportmodel->getrecordCount($search_text);
+
+			// Get records
+			$users_record = $this->reportmodel->fetch_festival_data($rowno,$rowperpage,$search_text,$paguthi,$ward_id,$religion_id);
+
+			// Pagination Configuration
+			$config['base_url'] = base_url().'constituent/festival_wishes';
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $allcount;
+			$config['per_page'] = $rowperpage;
+
+
+			//Pagination Container tag
+			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+			$config['full_tag_close'] = '</div>';
+
+			//First and last Link Text
+			$config['first_link'] = 'First';
+			$config['last_link'] = 'Last';
+
+			//First tag
+			$config['first_tag_open'] = '<span class="pagination-first-tag">';
+			$config['first_tag_close'] = '</span>';
+
+			//Last tag
+			$config['last_tag_open'] = '<span class="pagination-last-tag">';
+			$config['last_tag_close'] = '</span>';
+
+			//Next and Prev Link
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+
+			//Next and Prev Link Styling
+			$config['next_tag_open'] = '<span class="pagination-next-tag">';
+			$config['next_tag_close'] = '</span>';
+			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+			$config['prev_tag_close'] = '</span>';
+			//Current page tag
+			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+			$config['cur_tag_close'] = '</strong>';
+			$config['num_tag_open'] = '<span class="pagination-number">';
+			$config['num_tag_close'] = '</span>';
+		// Initialize
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+		$data['search'] = $search_text;
+		// Load view
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/festival_wishes',$data);
+			$this->load->view('admin/footer');
+
+			}else{
+				redirect('/');
+			}
+
+	}
+
+	public function reset_search()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+
+		$this->session->unset_userdata('search');
+		redirect(base_url()."constituent/festival_wishes");
+	}
+
+	public function sent_festival_wishes(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$cons_id = $this->input->post('cons_id');
+		$festival_id = $this->input->post('festival_id');
+		$data=$this->reportmodel->sent_festival_wishes($cons_id,$festival_id,$user_id);
 	}
 
 }

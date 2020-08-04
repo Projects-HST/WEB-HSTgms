@@ -23,11 +23,12 @@
 
                         <?php } ?>
                          <option value="<?php echo $rows_constituency->id ?>"><?php echo $rows_constituency->constituency_name; ?></option>
+                         <option value="0">OTHERS</option>
 
                        </select>
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Paguthi <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
+                     <label class="control-label col-md-2 col-sm-3 hide_part">Paguthi <span class="required">*</span></label>
+                     <div class="col-md-4 col-sm-9 hide_part">
                        <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi(this);">
                          <option value="">--SELECT--</option>
                          <?php foreach($res_paguthi as $rows_paguthi){ ?>
@@ -38,7 +39,21 @@
                        </select>
                      </div>
                    </div>
-                   <div class="form-group row ">
+                   <div class="form-group row hide_part">
+                      <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
+                      <div class="col-md-4 col-sm-9 ">
+                          <p>
+                            VOTER:
+                            <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER" checked="" required=""> NON-VOTER:
+                            <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER">
+                         </p>
+                      </div>
+                      <label class="control-label col-md-2 col-sm-3 voter_section">Serial no <span class="required">*</span></label>
+                      <div class="col-md-4 col-sm-9 voter_section">
+                        <input type="text" name="serial_no" id="serial_no" class="form-control">
+                      </div>
+                    </div>
+                   <div class="form-group row voter_section">
                       <label class="control-label col-md-2 col-sm-3 ">ward <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
@@ -47,45 +62,48 @@
 
                         </select>
                       </div>
+
+                    </div>
+                    <div class="form-group row voter_section">
                       <label class="control-label col-md-2 col-sm-3 ">booth <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
+                          <option value="">--Select--</option>
+                          <?php foreach($res_booth as $rows_booth){ ?>
+                            <option value="<?php echo $rows_booth->id; ?>"><?php echo $rows_booth->booth_name; ?></option>
+                        <?php  } ?>
 
-                          <option value=""></option>
 
                         </select>
                       </div>
-                    </div>
-                    <div class="form-group row ">
                        <label class="control-label col-md-2 col-sm-3 ">booth address <span class="required">*</span></label>
                        <div class="col-md-4 col-sm-9 ">
                         <textarea class="form-control" name="booth_address" id="booth_address" readonly></textarea>
                        </div>
-                       <label class="control-label col-md-2 col-sm-3 ">Party member</label>
-                       <div class="col-md-4 col-sm-9 ">
-                          <p>
-                            YES:
-                            <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" checked="" required=""> NO:
-                            <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N">
-                         </p>
 
-                       </div>
                      </div>
 
-                     <div class="form-group row ">
-                        <label class="control-label col-md-2 col-sm-3 ">Vote type</label>
+                     <div class="form-group row hide_part">
+                        <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
-                            <option value="MyVOTE">MY VOTE</option>
-                            <option value="OTHERVOTE">OTHER VOTE</option>
+                            <option value="YES">YES</option>
+                            <option value="NO">NO</option>
                           </select>
                         </div>
-                        <label class="control-label col-md-2 col-sm-3 ">Serial no <span class="required">*</span></label>
+                        <label class="control-label col-md-2 col-sm-3 ">Party member</label>
                         <div class="col-md-4 col-sm-9 ">
-                          <input type="text" name="serial_no" id="serial_no" class="form-control">
+                           <p>
+                             YES:
+                             <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" checked="" required=""> NO:
+                             <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N">
+                          </p>
+
                         </div>
 
+
                       </div>
+
             </div>
          </div>
 
@@ -118,7 +136,8 @@
                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">Mobile no <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="mobile_no" id="mobile_no" class="form-control">
+                       <input type="text" name="mobile_no" id="mobile_no" class="form-control" onblur="checkTextField(this);">
+                       <p id="copy_section"><input type="radio"  id="copy_value"><span>Same number to whatsapp</span></p>
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
                      <div class="col-md-4 col-sm-9 ">
@@ -161,12 +180,12 @@
                        <select class="form-control" name="gender" id="gender">
                          <option value="M">Male</option>
                          <option value="F">Female</option>
-                         <option value="O">Others</option>
+                         <option value="T">Transgender</option>
                        </select>
                      </div>
 
                    </div>
-                    <div class="form-group row ">
+                    <div class="form-group row voter_section" id="">
                          <label class="control-label col-md-2 col-sm-3 ">Voter id status</label>
                        <div class="col-md-4 col-sm-9 ">
                           <p>
@@ -260,11 +279,28 @@
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
    $('#create_constituent_menu').addClass('active');
+   $('#copy_section').hide();
+   $('#copy_section').change(function() {
+       $("#whatsapp_no").val($("#mobile_no").val());
+    });
+    function checkTextField(field) {
+      if(field.value==''){
+        $('#copy_section').hide();
+      }
+    }
+    $("#mobile_no").keyup(function(){
+        $('#copy_section').show();
+    });
 
    $('#dob').datetimepicker({
          format: 'DD-MM-YYYY',
-         viewMode: 'years'
+         viewMode: 'years',
+         defaultDate: "01/1/1986",
+         minDate:"01/1/1986",
+         maxDate:"01/1/1996"
    });
+
+
 
 
 function get_paguthi(sel){
@@ -279,6 +315,8 @@ function get_paguthi(sel){
 		{
 		   var stat=data.status;
 		   $("#ward_id").empty();
+       $("#booth_id").empty();
+       $("#booth_address").empty();
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
@@ -356,6 +394,49 @@ $('input[name=voter_id_status]').click(function(){
     $('.voter_id_box').hide();
   }
 });
+
+$('input[name=voter_status]').click(function(){
+  if(this.value == 'VOTER'){
+    $('.voter_section').show();
+  }else{
+    $('.voter_section').hide();
+  }
+});
+$('#constituency_id').on('change', function() {
+  var constituency_id=this.value;
+  if(constituency_id=='0'){
+    $('.voter_section').hide();
+    $('.hide_part').hide();
+  }else{
+    $('.voter_section').show();
+    $('.hide_part').show();
+  }
+});
+
+
+$('#booth_id').on('change', function() {
+  var booth_id=this.value;
+  $.ajax({
+    url:'<?php echo base_url(); ?>masters/get_ward_paguthi_details',
+    method:"POST",
+    data:{booth_id:booth_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+       var stat=data.status;
+       if(stat=="success"){
+         $("#ward_id").empty();
+         var res=data.res;
+         $('#ward_id').html("<option value='"+res[0].ward_id+"'>"+res[0].ward_name+"</option>");
+         $('#paguthi_id').val(res[0].paguthi_id);
+       }else{
+       $("#booth_address").empty();
+       }
+    }
+  });
+});
+
 $('input[name=aadhaar_status]').click(function(){
   if(this.value == 'Y'){
     $('.aadhaar_box').show();
@@ -371,18 +452,17 @@ $('input[name=interaction_section]').click(function(){
     $('.interaction_div').hide();
   }
 });
-$.validator.addMethod('filesize', function (value, element,param) {
-  var size=element.files[0].size;
-  size=size/1024;
-  size=Math.round(size);
-  return this.optional(element) || size <=param ;
-}, 'File size must be less than 1 MB');
+
+$.validator.addMethod('filesize', function(value, element, arg) {
+  return this.optional(element) || element.files[0].size <= arg;
+  });
 
    $('#master_form').validate({
+
         rules: {
           paguthi_id:{required:true },
           ward_id:{required:true },
-          booth_id:{required:true },
+          booth_id:{required:false },
           full_name:{required:true,maxlength:80 },
           father_husband_name:{required:true,maxlength:80 },
           guardian_name:{required:false,maxlength:80 },
@@ -410,7 +490,7 @@ $.validator.addMethod('filesize', function (value, element,param) {
                         url: "<?php echo base_url(); ?>constituent/checkaadhaar_no",
                         type: "post"
                      }
-                    },
+                   },
             profile_pic:{required:false,extension:'jpe?g,png', filesize: 1000  }
         },
         messages: {
@@ -430,8 +510,9 @@ $.validator.addMethod('filesize', function (value, element,param) {
           voter_id_no:{required:"enter voter id"},
             voter_id_no: { required:"enter the voter id",remote:"voter id no  already exist"},
             aadhaar_no: { required:"enter the aadhaar no",remote:"aadhaar no  already exist"},
-            profile_pic:{required:"select profile image" },
+            profile_pic:{required:"select profile image",filesize:"File size must less than 1 mb" },
             }
     });
+
 
 </script>

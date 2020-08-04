@@ -4,7 +4,7 @@
 		<div class="title_left" style="padding-top:70px;">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for...">
+				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="submit" style="padding:12px;">Go!</button>
 				</span>
@@ -15,7 +15,7 @@
 
 		<div class="clearfix"></div>
 		<hr>
-		
+
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <h2>Search Result</h2>
@@ -528,7 +528,7 @@ function get_sub_category(sel){
 }
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
-   $('#list_constituent_menu').addClass('active'); 
+   $('#list_constituent_menu').addClass('active');
    $('#plant_form').validate({
         rules: {
               name_of_plant:{required:true ,maxlength:80},

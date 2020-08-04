@@ -563,6 +563,61 @@ Class Mastermodel extends CI_Model
 
 	#################### Interaction question  ####################
 
+	#################### Festival  ####################
+
+	function get_all_festival(){
+		$query="SELECT fm.*,r.religion_name FROM festival_master as fm left join religion as r on r.id=fm.religion_id";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function create_festival($festival_name,$religion_id,$status,$user_id){
+		$select="SELECT * FROM festival_master Where festival_name='$festival_name'";
+			$result=$this->db->query($select);
+			if($result->num_rows()==0){
+					$insert="INSERT INTO festival_master (festival_name,religion_id,status,updated_at,updated_by) VALUES ('$festival_name','$religion_id','$status',NOW(),'$user_id')";
+					$result=$this->db->query($insert);
+					if($result){
+						$data=array("status"=>"success","msg"=>"festival created Successfully","class"=>"alert alert-success");
+					}else{
+						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					}
+
+			}else{
+				$data=array("status"=>"error","msg"=>"festival already exists","class"=>"alert alert-danger");
+			}
+			return $data;
+	}
+
+
+	function get_festival_edit($fm_id){
+		$id=base64_decode($fm_id)/98765;
+		$query="SELECT fm.*,r.religion_name FROM festival_master as fm left join religion as r on r.id=fm.religion_id where fm.id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function update_festival($festival_name,$religion_id,$status,$user_id,$fm_id){
+		$select="SELECT * FROM festival_master where  festival_name='$festival_name' and id!='$fm_id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()==0){
+						 $update="UPDATE festival_master set festival_name='$festival_name',religion_id='$religion_id',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$fm_id'";
+					$result=$this->db->query($update);
+				if($result){
+					$data=array("status"=>"success","msg"=>"Festival update Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+
+		}else{
+			$data=array("status"=>"error","msg"=>"interaction question already exists!","class"=>"alert alert-danger");
+		}
+		return $data;
+	}
+
+
+	#################### Festival  ####################
+
 
 	#################### Constituent purpose active data  ####################
 
@@ -627,6 +682,12 @@ Class Mastermodel extends CI_Model
 		return $result->result();
 	}
 
+	function get_active_festival(){
+		$query="SELECT * FROM festival_master WHERE status='ACTIVE' order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
 	function get_grievance_active($seeker_id){
 		 $query="SELECT * FROM grievance_type WHERE seeker_id='$seeker_id' and status='ACTIVE' order by id desc";
 		$result=$this->db->query($query);
@@ -639,18 +700,37 @@ Class Mastermodel extends CI_Model
 	}
 
 	function get_active_sub_category($grievance_id){
-	   $query="SELECT * FROM grievance_sub_category WHERE grievance_id='$grievance_id' and status='ACTIVE' order by id desc";
+	  $query="SELECT * FROM grievance_sub_category WHERE grievance_id='$grievance_id' and status='ACTIVE' order by id desc";
 		$result=$this->db->query($query);
 		if($result->num_rows()==0){
 		 $data=array("status"=>"error");
-	 }else{
-			 $data=array("status"=>"success","res"=>$result->result());
-	 }
-	 return $data;
+		 }else{
+				 $data=array("status"=>"success","res"=>$result->result());
+		 }
+	 	return $data;
+	}
+
+
+	function get_ward_paguthi_details($booth_id){
+		$query="SELECT b.id as booth_id,b.booth_name,w.ward_name,w.id as ward_id,p.paguthi_name,p.id as paguthi_id FROM booth as b left join ward as w on w.id=b.ward_id left join paguthi as p on p.id=b.paguthi_id
+		where b.id='$booth_id' and b.status='ACTIVE'";
+		$result=$this->db->query($query);
+		if($result->num_rows()==0){
+		 $data=array("status"=>"error");
+		 }else{
+				 $data=array("status"=>"success","res"=>$result->result());
+		 }
+	 	return $data;
 	}
 
 	function get_active_religion(){
 		$query="SELECT * FROM religion WHERE status='ACTIVE' order by id asc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function get_active_booth_address(){
+		$query="SELECT * FROM booth WHERE status='ACTIVE' order by id asc";
 		$result=$this->db->query($query);
 		return $result->result();
 	}

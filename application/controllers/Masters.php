@@ -639,7 +639,73 @@ class Masters extends CI_Controller {
 
 	#################### Interaction question  ####################
 
+	#################### Festival  ####################
 
+
+	public function festival()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['res']=$this->mastermodel->get_all_festival();
+			$data['res_religion']=$this->mastermodel->get_religion();
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/festival',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function create_festival(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$festival_name=strtoupper($this->db->escape_str($this->input->post('festival_name')));
+			$religion_id=strtoupper($this->db->escape_str($this->input->post('religion_id')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
+			$data=$this->mastermodel->create_festival($festival_name,$religion_id,$status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/festival");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function update_festival(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$festival_name=strtoupper($this->db->escape_str($this->input->post('festival_name')));
+			$fm_id=strtoupper($this->db->escape_str($this->input->post('fm_id')));
+			$religion_id=strtoupper($this->db->escape_str($this->input->post('religion_id')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
+			$data=$this->mastermodel->update_festival($festival_name,$religion_id,$status,$user_id,$fm_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/festival");
+		}else{
+			redirect('/');
+		}
+	}
+	public function get_festival_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$fm_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_festival_edit($fm_id);
+			$data['res_religion']=$this->mastermodel->get_religion();
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/update_festival',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+	#################### Festival  ####################
 
 	#################### Constituent purpose active data  ####################
 
@@ -672,6 +738,12 @@ class Masters extends CI_Controller {
 			$data['res']=$this->mastermodel->get_active_sub_category($grievance_id);
 			echo json_encode($data['res']);
 
+		}
+
+		public function get_ward_paguthi_details(){
+			$booth_id=$this->input->post('booth_id');
+			$data['res']=$this->mastermodel->get_ward_paguthi_details($booth_id);
+			echo json_encode($data['res']);
 		}
 
 	#################### Constituent purpose active data  ####################

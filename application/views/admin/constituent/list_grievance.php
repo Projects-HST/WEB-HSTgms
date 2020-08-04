@@ -68,7 +68,7 @@
                                       <?php  }else if($status=='ONHOLD'){ ?>
                                         <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">ONHOLD</a>
                                         <?php }else{ ?>
-                                          <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')">PROCESSING</a>
+                                          <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows->id; ?>')"><?php echo $status; ?></a>
                                         <?php  }
                                      ?></td>
                                     <td><?php echo date('d-m-Y H:i:s', strtotime($rows->updated_at)); ?></td>
@@ -128,7 +128,7 @@
                                     <?php  }else if($status=='ONHOLD'){ ?>
                                       <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">ONHOLD</a>
                                       <?php }else{ ?>
-                                        <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')">PROCESSING</a>
+                                        <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_petition->id; ?>')"><?php echo  $status; ?></a>
                                       <?php  }
                                    ?></td>
                                    <td><?php echo date('d-m-Y H:i:s', strtotime($rows_petition->updated_at)); ?></td>
@@ -188,7 +188,7 @@
                                     <?php  }else if($status=='ONHOLD'){ ?>
                                       <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">ONHOLD</a>
                                       <?php }else{ ?>
-                                        <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')">PROCESSING</a>
+                                        <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows_enquiry->id; ?>')"><?php echo $status; ?></a>
                                       <?php  }
                                    ?></td>
                                    <td><?php echo date('d-m-Y H:i:s', strtotime($rows_enquiry->updated_at)); ?></td>
@@ -265,7 +265,10 @@
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="status" name="status">
                         <option value="PROCESSING">PROCESSING</option>
-                        <!-- <option value="ONHOLD">ONHOLD</option> -->
+                        <!-- <option value="PENDING">PENDING</option> -->
+                        <option value="REJECTED">REJECTED</option>
+                        <option value="FAILURE">FAILURE</option>
+                        <option value="ONHOLD">ONHOLD</option>
                         <option value="COMPLETED">COMPLETED</option>
                    </select>
 

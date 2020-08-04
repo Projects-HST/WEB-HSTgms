@@ -8,7 +8,7 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-			
+
 		<form id="report_form" action="<?php echo base_url(); ?>report/status" method="post" enctype="multipart/form-data">
 
 			  <div class="item form-group">
@@ -20,7 +20,7 @@
 				 <div class="col-md-2 col-sm-2">
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
-				 
+
 			  </div>
 			   <div class="item form-group">
 				  <label class="col-form-label col-md-2 col-sm-2 label-align">Status <span class="required">*</span></label>
@@ -28,26 +28,36 @@
 						<select class="form-control" name="status" id ="status" >
 							<option value="ALL">ALL</option>
 							<option value="PROCESSING">PROCESSING</option>
-							<option value="COMPLETED">COMPLETED</option>
+							<!-- <option value="COMPLETED">COMPLETED</option> -->
+              <option value="REJECTED">REJECTED</option>
+              <option value="FAILURE">FAILURE</option>
+              <option value="ONHOLD">ONHOLD</option>
+              <option value="COMPLETED">COMPLETED</option>
 						</select><script> $('#status').val('<?php echo $dstatus; ?>');</script>
 				 </div>
 				  <label class="col-form-label col-md-2 col-sm-2 label-align">Paguthi <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-						<select class="form-control" name="paguthi" id ="paguthi" >
+						<select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
 							<option value="ALL">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 							<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
 							<?php } ?>
 						</select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
 				 </div>
+         <label class="col-form-label col-md-1 col-sm-2 label-align">Ward</label>
+        <div class="col-md-2 col-sm-2">
+           <select class="form-control" name="ward_id" id ="ward_id" >
+             <option value=""></option>
+           </select>
+        </div>
 				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
+					 <button type="submit" class="btn btn-success">SEARCH</button>
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
 		</form>
 
-			   
+
 		<div class="col-md-12 col-sm-12 ">
           <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
@@ -81,10 +91,10 @@
 
         </div>
             </div>
-			
-			
-			
-			
+
+
+
+
          </div>
       </div>
 
@@ -94,23 +104,52 @@
 
 
 
-        
+
    </div>
 </div>
 <script type="text/javascript">
 
+function get_paguthi(sel){
+  var paguthi_id=sel.value;
+  $.ajax({
+		url:'<?php echo base_url(); ?>masters/get_active_ward',
+		method:"POST",
+		data:{paguthi_id:paguthi_id},
+		dataType: "JSON",
+		cache: false,
+		success:function(data)
+		{
+		   var stat=data.status;
+		   $("#ward_id").empty();
+
+		   if(stat=="success"){
+		   var res=data.res;
+		   var len=res.length;
+        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+		   for (i = 0; i < len; i++) {
+		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
+		   }
+
+		   }else{
+		   $("#ward_id").empty();
+      
+		   }
+		}
+	});
+}
+
 $.validator.addMethod("chkDates", function(value, element) {
-		var startDate = $('#frmDate').val();		
+		var startDate = $('#frmDate').val();
 		var datearray = startDate.split("-");
 		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-		
-		var endDate = $('#toDate').val();		
+
+		var endDate = $('#toDate').val();
 		var datearray = endDate.split("-");
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
 	}, "Please check dates");
-		
+
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });
@@ -122,7 +161,7 @@ $('#toDate').datetimepicker({
 $('#report_form').validate({ // initialize the plugin
      rules: {
          frmDate:{required:true},
-         toDate:{required:true, chkDates: "#frmDate"}       
+         toDate:{required:true, chkDates: "#frmDate"}
      },
      messages: {
            frmDate: { required:"Select From Date"},

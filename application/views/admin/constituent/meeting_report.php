@@ -8,13 +8,13 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-			<?php if($this->session->flashdata('msg')): ?>
-		<div class="alert alert-success alert-dismissible " role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-		</button>
-		<?php echo $this->session->flashdata('msg'); ?>
-		</div>
-	<?php endif; ?>
+              <?php if($this->session->flashdata('msg')) {
+                 $message = $this->session->flashdata('msg');?>
+              <div class="<?php echo $message['class'] ?> alert-dismissible">
+                 <button type="button" class="close" data-dismiss="alert">&times;</button>
+                 <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+              </div>
+              <?php  }  ?>
 		<form id="report_form" action="<?php echo base_url(); ?>constituent/meetings" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
@@ -26,7 +26,7 @@
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
 				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
+					 <button type="submit" class="btn btn-success">SEARCH</button>
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
@@ -37,30 +37,37 @@
              <thead>
                 <tr>
                    <th>S.no</th>
-				    <th>Date</th>
+
                    <th>Name</th>
+                   <th>Date</th>
 				   <th>Phone</th>
-				    <th>Details</th>
+				    <th style="width:200px;">Details</th>
 				   <th>Status</th>
                    <th>Created by</th>
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1; 
-			   foreach($res as $rows){ 
+               <?php $i=1;
+			   foreach($res as $rows){
 					$meeting_status = $rows->meeting_status;
-				if ($meeting_status == 'REQUESTED'){ 
+
 			   ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-					<td><?php echo date('d-m-Y', strtotime($rows->meeting_date)); ?></td>
-                    <td><?php echo $rows->full_name; ?></td>
+                      <td><?php echo $rows->full_name; ?></td>
+					           <td><?php if(empty($rows->meeting_date)){
+                     }else{
+                       echo date('d-m-Y', strtotime($rows->meeting_date));
+                     }
+                      ?></td>
+
 					<td><?php echo $rows->mobile_no; ?></td>
 					<td><?php echo $rows->meeting_detail; ?></td>
-					<td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>
+					<!-- <td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td> -->
+          <td><a href="#" onclick="meeting_status_update('<?php echo base64_encode($rows->id*98765); ?>','<?php echo $meeting_status; ?>','<?php echo $rows->constituent_id; ?>')" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>
 					 <td><?php  echo $rows->created_by; ?></td>
                  </tr>
-				<?php } $i++; } ?>
+				<?php  $i++; } ?>
              </tbody>
           </table>
 
@@ -70,7 +77,7 @@
       </div>
 
 
-        
+
    </div>
 </div>
 <div class="modal fade bs-example-modal-lg" id="meeting_model" tabindex="-1" role="dialog" aria-hidden="true">
@@ -82,27 +89,52 @@
             </button>
          </div>
          <div class="modal-body">
-            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/save_meeting_request" method="post" id="meeting_form">
+            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/save_meeting_request_status" method="post" id="meeting_form">
               <div class="item form-group">
                  <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
-                    <input id="meeting_status" class=" form-control" name="meeting_status" type="text" value="REQUESTED" readonly>
+
+                    <select class="form-control" name="meeting_status" id="meeting_status">
+                      <option value="REQUESTED">REQUESTED</option>
+                      <option value="PENDING">PENDING</option>
+                      <option value="COMPLETED">COMPLETED</option>
+                      <option value="REJECTED">REJECTED</option>
+                      <option value="FAILURE">FAILURE</option>
+                    </select>
                  </div>
+
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting date <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Send SMS
                  </label>
                  <div class="col-md-6 col-sm-9 ">
-                    <input id="meeting_date" class=" form-control" name="meeting_date" type="text">
+                   <input type="hidden" class="form-control"  id="meeting_id" name="meeting_id">
+                   <input type="hidden" class="form-control"  id="constituent_id" name="constituent_id">
+                  <input type="checkbox" class="form-control" style="width:15px;" id="send_checkbox" name="send_checkbox" value="1">
+                 </div>
+
+              </div>
+
+              <div class="item form-group show_sms">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+                   <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
+                     <option value="">--Sms template--</option>
+                     <?php foreach($res_sms as $rows_sms){ ?>
+                       <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
+                     <?php } ?>
+                   </select>
                  </div>
               </div>
-              <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting details<span class="required">*</span>
+              <div class="item form-group show_sms">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
-                    <textarea id="meeting_detail" class=" form-control" name="meeting_detail" rows="5"></textarea>
-                    <input id="meeting_constituent_id" class=" form-control" name="meeting_constituent_id" type="hidden" value="">
+                    <textarea id="reply_sms_text" class=" form-control" name="reply_sms_text" rows="5"></textarea>
+
+                    <input id="constituent_reply_id" class=" form-control" name="constituent_reply_id" type="hidden" value="">
                  </div>
               </div>
                <div class="form-group row">
@@ -111,26 +143,6 @@
                   </div>
                </div>
             </form>
-
-            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-               <thead>
-                  <tr>
-                     <th style="width:600px !important;">Meeting details</th>
-                     <th>date</th>
-                     <th>status</th>
-                     <th>updated at</th>
-                     <th>Action</th>
-
-                  </tr>
-               </thead>
-               <tbody id="table_meeting">
-
-
-               </tbody>
-            </table>
-
-
-
          </div>
 
       </div>
@@ -145,7 +157,9 @@ $('#frmDate').datetimepicker({
 $('#toDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });
-
+$('#send_checkbox').change(function () {
+      $('.show_sms').fadeToggle();
+    });
 $('#report_form').validate({ // initialize the plugin
      rules: {
          frmDate:{required:true},
@@ -156,8 +170,39 @@ $('#report_form').validate({ // initialize the plugin
            toDate: { required:"Select To Date"}
          }
  });
- 
+ function get_sms_text(sel){
+   let sms_id=sel.value;
+   $.ajax({
+     url:'<?php echo base_url(); ?>constituent/get_sms_text',
+     method:"POST",
+     data:{sms_id:sms_id},
+     dataType: "JSON",
+     cache: false,
+     success:function(data)
+     {
+       var stat=data.status;
+       if(stat=="success"){
+       var res=data.res;
+       var len=res.length;
+       for (i = 0; i < len; i++) {
+         $('#sms_text').text(res[i].sms_text);
+         $('#reply_sms_text').text(res[i].sms_text);
+      }
+       }else{
+         $('#sms_text').empty();
+         $('#reply_sms_text').empty();
+       }
+     }
+   });
+ }
+function meeting_status_update(meeting_id,m_status,cons_id){
+  $('#meeting_model').modal('show');
+  $('#meeting_status').val(m_status);
+  $('#meeting_id').val(meeting_id);
+  $('#constituent_id').val(cons_id);
+}
 $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#constituent_meetings').addClass('active current-page');
+$('.show_sms').hide();
  </script>

@@ -18,6 +18,8 @@
               $paguthi_id=$rows->paguthi_id;
               $ward_id=$rows->ward_id;
               $booth_id=$rows->booth_id;
+              $constituency_id=$rows->constituency_id;
+
                ?>
 
             <div class="x_content">
@@ -29,11 +31,12 @@
 
                         <?php } ?>
                          <option value="<?php echo $rows_constituency->id ?>"><?php echo $rows_constituency->constituency_name; ?></option>
-
+                         <option value="0">OTHERS</option>
                        </select>
+                       <script>$('#constituency_id').val('<?php echo $rows->constituency_id; ?>');</script>
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Paguthi <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
+                     <label class="control-label col-md-2 col-sm-3 hide_part">Paguthi <span class="required">*</span></label>
+                     <div class="col-md-4 col-sm-9 hide_part">
                        <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi();">
                          <?php foreach($res_paguthi as $rows_paguthi){ ?>
                             <option value="<?php echo $rows_paguthi->id ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
@@ -44,7 +47,23 @@
                        <script>$('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
                      </div>
                    </div>
-                   <div class="form-group row ">
+                   <div class="form-group row hide_part">
+                     <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
+                     <div class="col-md-4 col-sm-9 ">
+                         <p>
+                           VOTER:
+                           <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER" checked="" required=""> NON-VOTER:
+                           <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER">
+                        </p>
+                     </div>
+                     <label class="control-label col-md-2 col-sm-3 voter_section">Serial no <span class="required">*</span></label>
+                     <div class="col-md-4 col-sm-9 voter_section">
+                       <input type="text" name="serial_no" id="serial_no" class="form-control" value="<?php echo $rows->serial_no; ?>">
+                     </div>
+                   </div>
+                   <div class="clearfix"></div>
+
+                   <div class="form-group row voter_section">
                       <label class="control-label col-md-2 col-sm-3 ">ward <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
@@ -58,8 +77,11 @@
                               <option value="<?php echo $rows_ward->id; ?>"><?php echo $rows_ward->ward_name; ?></option>
                             <?php   }		}    ?>
                         </select>
-                     <script>$('#ward_id').val('<?php echo $ward_id; ?>');</script>
+                        <script>$('#ward_id').val('<?php echo $ward_id; ?>');</script>
                       </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group row voter_section">
                       <label class="control-label col-md-2 col-sm-3 ">booth <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
@@ -77,8 +99,6 @@
                         </select>
                         <script>$('#booth_id').val('<?php echo $booth_id; ?>');</script>
                       </div>
-                    </div>
-                    <div class="form-group row ">
                        <label class="control-label col-md-2 col-sm-3 ">booth address <span class="required">*</span></label>
                        <div class="col-md-4 col-sm-9 ">
                          <?php $query_b="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
@@ -93,31 +113,28 @@
 
 
                        </div>
-                       <label class="control-label col-md-2 col-sm-3 ">Party member</label>
-                       <div class="col-md-4 col-sm-9 ">
-                          <p>
-                            YES:
-                            <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" <?php echo ($rows->party_member_status=='Y') ? 'checked="checked"':'';?>> NO:
-                            <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" <?php echo ($rows->party_member_status=='N') ? 'checked="checked"':'';?>>
-                         </p>
 
-                       </div>
                      </div>
+                     <div class="clearfix"></div>
 
-                     <div class="form-group row ">
-                        <label class="control-label col-md-2 col-sm-3 ">Vote type</label>
+                     <div class="form-group row hide_part">
+                        <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
-                            <option value="MyVOTE">MY VOTE</option>
-                            <option value="OTHERVOTE">OTHER VOTE</option>
+                            <option value="YES">YES</option>
+                            <option value="NO">NO</option>
                           </select>
-                          <script>$('#vote_type').val('<?php echo $rows->vote_type; ?>');</script>
+                          <script>$('#vote_type').val('<?php echo $rows->volunteer_status; ?>');</script>
                         </div>
-                        <label class="control-label col-md-2 col-sm-3 ">Serial no <span class="required">*</span></label>
+                        <label class="control-label col-md-2 col-sm-3 ">Party member</label>
                         <div class="col-md-4 col-sm-9 ">
-                          <input type="text" name="serial_no" id="serial_no" class="form-control" value="<?php echo $rows->serial_no; ?>">
-                        </div>
+                           <p>
+                             YES:
+                             <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" <?php echo ($rows->party_member_status=='Y') ? 'checked="checked"':'';?>> NO:
+                             <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" <?php echo ($rows->party_member_status=='N') ? 'checked="checked"':'';?>>
+                          </p>
 
+                        </div>
                       </div>
             </div>
          </div>
@@ -196,7 +213,7 @@
                        <select class="form-control" name="gender" id="gender">
                          <option value="M">Male</option>
                          <option value="F">Female</option>
-                         <option value="O">Others</option>
+                         <option value="T">Transgender</option>
                        </select>
                        <script>$('#gender').val('<?php echo $rows->gender; ?>');</script>
                         </div>
@@ -296,16 +313,24 @@
   display: none;
 }
 </style>
-<?php } ?>
+<?php }
+if($rows->constituency_id=='0'){
+  echo "<style>.voter_section{display:none;}.hide_part{display:none;}</style>";
+}else{
+
+}
+
+?>
 
 <script type="text/javascript">
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
    $('#create_constituent_menu').addClass('active');
-
    $('#dob').datetimepicker({
          format: 'DD-MM-YYYY',
-         viewMode: 'years'
+         viewMode: 'years',
+         minDate:"01/1/1986"
+         // maxDate:"01/1/1996"
    });
 
 
@@ -392,7 +417,23 @@ function get_booth_address(sel){
     }
   });
 }
-
+$('input[name=voter_status]').click(function(){
+  if(this.value == 'VOTER'){
+    $('.voter_section').show();
+  }else{
+    $('.voter_section').hide();
+  }
+});
+$('#constituency_id').on('change', function() {
+  var constituency_id=this.value;
+  if(constituency_id=='0'){
+    $('.voter_section').hide();
+    $('.hide_part').hide();
+  }else{
+    $('.voter_section').show();
+    $('.hide_part').show();
+  }
+});
 $('input[name=voter_id_status]').click(function(){
   if(this.value == 'Y'){
     $('.voter_id_box').show();
@@ -415,12 +456,9 @@ $('input[name=interaction_section]').click(function(){
     $('.interaction_div').hide();
   }
 });
-$.validator.addMethod('filesize', function (value, element,param) {
-  var size=element.files[0].size;
-  size=size/1024;
-  size=Math.round(size);
-  return this.optional(element) || size <=param ;
-}, 'File size must be less than 1 MB');
+$.validator.addMethod('filesize', function(value, element, arg) {
+  return this.optional(element) || element.files[0].size <= arg;
+  });
 
    $('#master_form').validate({
         rules: {
@@ -455,7 +493,7 @@ $.validator.addMethod('filesize', function (value, element,param) {
                         type: "post"
                      }
                     },
-            profile_pic:{required:false,extension:'jpe?g,png,doc,docx,pdf', filesize: 1000 }
+            profile_pic:{required:false,extension:'jpe?g,png', filesize: 1000 }
         },
         messages: {
           paguthi_id:{required:"select paguthi" },
@@ -474,7 +512,7 @@ $.validator.addMethod('filesize', function (value, element,param) {
           voter_id_no:{required:"enter voter id"},
             voter_id_no: { required:"enter the voter id",remote:"voter id no  already exist"},
             aadhaar_no: { required:"enter the aadhaar no",remote:"aadhaar no  already exist"},
-            profile_pic:{required:"select profile image" },
+            profile_pic:{required:"select profile image",filesize:"File size must less than 1 mb" },
             }
     });
 
