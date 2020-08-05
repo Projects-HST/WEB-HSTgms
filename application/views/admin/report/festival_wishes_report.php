@@ -87,7 +87,9 @@
 						<a href="<?php echo base_url(). "report/festival_wishes_report"; ?>" class="btn btn-danger">Clear All</a>
 
 				  </div>
+						<?php if(!empty($result)){ ?>
 				  <div class="col-md-3 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+				<?php } ?>
 			</div>
 				</form>
 			<div class="col-md-12 col-sm-12" style="overflow-x: scroll;">
@@ -119,7 +121,10 @@
 		<div class="col-md-12 col-sm-12" style="padding:0px;">
 			  <div class="col-md-3 col-sm-3"></div>
 			  <div class="col-md-3 col-sm-3"></div>
-			  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+				<?php if(!empty($result)){ ?>
+					<div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+			<?php	} ?>
+
 		</div>
 	<!-- Paginate -->
 
