@@ -456,7 +456,7 @@ Class Constituentmodel extends CI_Model
 			left join seeker_type as st on st.id=g.seeker_type_id
 			left join grievance_type as gt on gt.id=g.grievance_type_id
 			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id
-			order by g.id desc";
+			order by g.id desc LIMIT 1000";
 			$result=$this->db->query($query);
 			return $result->result();
 		}
@@ -468,7 +468,7 @@ Class Constituentmodel extends CI_Model
 			left join seeker_type as st on st.id=g.seeker_type_id
 			left join grievance_type as gt on gt.id=g.grievance_type_id
 			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='P'
-			order by g.id desc";
+			order by g.id desc LIMIT 1000";
 			$result=$this->db->query($query);
 			return $result->result();
 		}
@@ -480,7 +480,7 @@ Class Constituentmodel extends CI_Model
 			left join seeker_type as st on st.id=g.seeker_type_id
 			left join grievance_type as gt on gt.id=g.grievance_type_id
 			left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='E'
-			order by g.id desc";
+			order by g.id desc LIMIT 1000";
 			$result=$this->db->query($query);
 			return $result->result();
 		}
