@@ -445,7 +445,7 @@ public function __construct()
     			    foreach ($s_res->result() as $rows)
     		        {
 						 $month_year = $rows->month_year;
-						 $total = $rows->total;
+						 $total = intval($rows->total);
 						 $disp_month = $rows->disp_month;
 						
 						
@@ -639,7 +639,7 @@ public function __construct()
     			    foreach ($s_res->result() as $rows)
     		        {
 						 $month_year = $rows->month_year;
-						 $total = $rows->total;
+						 $total = intval($rows->total);
 						 $disp_month = $rows->disp_month;
 
 						$n_query = "SELECT
