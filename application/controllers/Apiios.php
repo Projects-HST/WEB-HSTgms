@@ -89,7 +89,7 @@ class Apiios extends CI_Controller {
 		}
 
 		$user_name = '';
-		$username=$this->db->escape_str($this->input->post('user_name'));
+		$user_name=$this->db->escape_str($this->input->post('user_name'));
 		//$user_name = $this->input->post("user_name");
 		
 		$data['result']=$this->apiiosmodel->Forgot_password(strtoupper($user_name));
