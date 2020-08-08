@@ -588,11 +588,17 @@ class constituent extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 			$meeting_id=$this->input->post('meeting_id');
 			$constituent_id=$this->input->post('constituent_id');
+			$originalDate=strtoupper($this->db->escape_str($this->input->post('meeting_date')));
+			if(empty($originalDate)){
+					$meeting_date ='';
+			}else{
+					$meeting_date = date("Y-m-d", strtotime($originalDate));
+			}
 			$send_checkbox=strtoupper($this->db->escape_str($this->input->post('send_checkbox')));
 			$reply_sms_id=strtoupper($this->db->escape_str($this->input->post('reply_sms_id')));
 	 		$reply_sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
-			$data=$this->constituentmodel->save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id);
+			$data=$this->constituentmodel->save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$meeting_date,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/meetings");
@@ -634,11 +640,71 @@ public function list_grievance(){
 }
 
 
-public function list_grievance_reply(){
+public function list_grievance_reply($rowno=0){
 	$user_id = $this->session->userdata('user_id');
 	$user_type = $this->session->userdata('user_type');
 	if($user_type=='1' || $user_type=='2'){
-		$data['res']=$this->constituentmodel->list_grievance_reply();
+		// Search text
+		$search_text = "";
+		if($this->input->post('submit') != NULL ){
+			$search_text = $this->input->post('search');
+
+		}else{
+			if($this->session->userdata('search') != NULL){
+
+			}
+		}
+		// Row per page
+		$rowperpage = 20;
+
+		// Row position
+		if($rowno != 0){
+			$rowno = ($rowno-1) * $rowperpage;
+		}
+
+		// All records count
+		$allcount = $this->constituentmodel->getrecordreplycount($search_text);
+
+		// Get records
+		$users_record = $this->constituentmodel->list_grievance_reply($rowno,$rowperpage,$search_text);
+
+		// Pagination Configuration
+		$config['base_url'] = base_url().'constituent/list_grievance_reply';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		//Pagination Container tag
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+		$config['full_tag_close'] = '</div>';
+		//First and last Link Text
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		//First tag
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+		//Last tag
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+		//Next and Prev Link
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		//Next and Prev Link Styling
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+		//Current page tag
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		// Initialize
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['res'] = $users_record;
+		$data['row'] = $rowno;
+		$data['search'] = $search_text;
+		// $data['res']=$this->constituentmodel->list_grievance_reply();
 		$this->load->view('admin/header');
 		$this->load->view('admin/constituent/list_grievance_reply',$data);
 		$this->load->view('admin/footer');
@@ -738,7 +804,7 @@ public function list_grievance_reply(){
 			$data=$this->constituentmodel->save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
-			redirect("constituent/list_grievance");
+			redirect("constituent/all_grievance");
 
 		}else{
 			redirect('/');
@@ -759,7 +825,7 @@ public function list_grievance_reply(){
 			$data=$this->constituentmodel->update_grievance_status($grievance_id,$status,$sms_text,$constituent_id,$sms_id,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
-			redirect("constituent/list_grievance");
+			redirect("constituent/all_grievance");
 		}else{
 			redirect('/');
 		}
@@ -780,7 +846,7 @@ public function list_grievance_reply(){
 			$data=$this->constituentmodel->update_grievance_data($grievance_id,$seeker_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
-			redirect("constituent/list_grievance");
+			redirect("constituent/all_grievance");
 		}else{
 			redirect('/');
 		}
@@ -797,7 +863,8 @@ public function list_grievance_reply(){
 			$data=$this->constituentmodel->update_refernce_note($grievance_id,$reference_note,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
-			redirect("constituent/list_grievance");
+			redirect($_SERVER['HTTP_REFERER']);
+
 		}else{
 			redirect('/');
 		}
@@ -923,41 +990,65 @@ public function birthday()
 	}
 
 
-public function meetings()
+public function meetings($rowno=0)
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		//$datas['paguthi'] = $this->usermodel->list_paguthi();
-
 		$frmDate = "";
 		$toDate = "";
-
 		$frmDate=$this->input->post('frmDate');
 		$getfrmDate=$this->uri->segment(3);
-
 		$toDate=$this->input->post('toDate');
 		$gettoDate=$this->uri->segment(4);
-
 		if ($frmDate!=''){
 			$frmDate=$this->input->post('frmDate');
 		}else if ($getfrmDate!=''){
 			$frmDate=$this->uri->segment(3);
 		}
-
 		if ($toDate!=''){
 			$toDate=$this->input->post('toDate');
 		}else if ($gettoDate!=''){
 			$toDate=$this->uri->segment(4);
 		}
-
-
 		$datas['dfromDate'] = $frmDate;
 		$datas['dtoDate'] = $toDate;
-
-
-		$datas['res']=$this->constituentmodel->get_meeting_report($frmDate,$toDate);
-			$datas['res_sms']=$this->mastermodel->get_active_template();
+		$datas['res_sms']=$this->mastermodel->get_active_template();
+		$search_text = "";
+		$search_text = $this->input->post('search');
+		$rowperpage = 10;
+		if($rowno != 0){
+			$rowno = ($rowno-1) * $rowperpage;
+		}
+		$allcount = $this->constituentmodel->get_meeting_count($search_text);
+		$users_record=$this->constituentmodel->get_meeting_report($rowno,$rowperpage,$search_text,$frmDate,$toDate);
+		$config['base_url'] = base_url().'constituent/meetings';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+		$config['full_tag_close'] = '</div>';
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		$this->pagination->initialize($config);
+		$datas['pagination'] = $this->pagination->create_links();
+		$datas['result'] = $users_record;
+		$datas['row'] = $rowno;
+		$datas['search'] = $search_text;
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/meeting_report',$datas);
@@ -972,14 +1063,10 @@ public function meetings()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		//$datas['paguthi'] = $this->usermodel->list_paguthi();
-
 		$meeting_id=base64_decode($this->uri->segment(3))/98765;
 		$frmDate=$this->uri->segment(4);
 		$toDate=$this->uri->segment(5);
-
 		$datas['res']=$this->constituentmodel->meeting_update($meeting_id,$user_id,$frmDate,$toDate);
-
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/meeting_report',$datas);
@@ -1194,5 +1281,236 @@ public function meetings()
 		$festival_id = $this->input->post('festival_id');
 		$data=$this->reportmodel->sent_festival_wishes($cons_id,$festival_id,$user_id);
 	}
+
+
+
+	public function all_grievance($rowno=0){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['res_sms']=$this->mastermodel->get_active_template();
+			// Search text
+			$search_text = "";
+			if($this->input->post('submit') != NULL ){
+				$search_text = $this->input->post('search');
+
+			}else{
+				if($this->session->userdata('search') != NULL){
+
+				}
+			}
+			// Row per page
+			$rowperpage = 25;
+
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
+
+			// All records count
+			$allcount = $this->constituentmodel->getrecordCount($search_text);
+
+			// Get records
+			$users_record = $this->constituentmodel->all_grievance($rowno,$rowperpage,$search_text);
+
+			// Pagination Configuration
+			$config['base_url'] = base_url().'constituent/all_grievenace';
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $allcount;
+			$config['per_page'] = $rowperpage;
+			//Pagination Container tag
+			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+			$config['full_tag_close'] = '</div>';
+			//First and last Link Text
+			$config['first_link'] = 'First';
+			$config['last_link'] = 'Last';
+			//First tag
+			$config['first_tag_open'] = '<span class="pagination-first-tag">';
+			$config['first_tag_close'] = '</span>';
+			//Last tag
+			$config['last_tag_open'] = '<span class="pagination-last-tag">';
+			$config['last_tag_close'] = '</span>';
+			//Next and Prev Link
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+			//Next and Prev Link Styling
+			$config['next_tag_open'] = '<span class="pagination-next-tag">';
+			$config['next_tag_close'] = '</span>';
+			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+			$config['prev_tag_close'] = '</span>';
+			//Current page tag
+			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+			$config['cur_tag_close'] = '</strong>';
+			$config['num_tag_open'] = '<span class="pagination-number">';
+			$config['num_tag_close'] = '</span>';
+			// Initialize
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
+			$data['result'] = $users_record;
+			$data['row'] = $rowno;
+			$data['search'] = $search_text;
+			// Load view
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/all_grievance',$data);
+			$this->load->view('admin/footer');
+
+			}else{
+				redirect('/');
+			}
+
+	}
+
+	public function all_petition($rowno=0){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['res_sms']=$this->mastermodel->get_active_template();
+			// Search text
+			$search_text = "";
+			if($this->input->post('submit') != NULL ){
+				$search_text = $this->input->post('search');
+
+			}else{
+				if($this->session->userdata('search') != NULL){
+
+				}
+			}
+			// Row per page
+			$rowperpage = 25;
+
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
+
+			// All records count
+			$allcount = $this->constituentmodel->getrecordCount($search_text);
+
+			// Get records
+			$users_record = $this->constituentmodel->all_petition($rowno,$rowperpage,$search_text);
+
+			// Pagination Configuration
+			$config['base_url'] = base_url().'constituent/all_petition';
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $allcount;
+			$config['per_page'] = $rowperpage;
+			//Pagination Container tag
+			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+			$config['full_tag_close'] = '</div>';
+			//First and last Link Text
+			$config['first_link'] = 'First';
+			$config['last_link'] = 'Last';
+			//First tag
+			$config['first_tag_open'] = '<span class="pagination-first-tag">';
+			$config['first_tag_close'] = '</span>';
+			//Last tag
+			$config['last_tag_open'] = '<span class="pagination-last-tag">';
+			$config['last_tag_close'] = '</span>';
+			//Next and Prev Link
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+			//Next and Prev Link Styling
+			$config['next_tag_open'] = '<span class="pagination-next-tag">';
+			$config['next_tag_close'] = '</span>';
+			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+			$config['prev_tag_close'] = '</span>';
+			//Current page tag
+			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+			$config['cur_tag_close'] = '</strong>';
+			$config['num_tag_open'] = '<span class="pagination-number">';
+			$config['num_tag_close'] = '</span>';
+			// Initialize
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
+			$data['result'] = $users_record;
+			$data['row'] = $rowno;
+			$data['search'] = $search_text;
+			// Load view
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/all_petition',$data);
+			$this->load->view('admin/footer');
+
+			}else{
+				redirect('/');
+			}
+
+	}
+
+	public function all_enquiry($rowno=0){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['res_sms']=$this->mastermodel->get_active_template();
+			// Search text
+			$search_text = "";
+			if($this->input->post('submit') != NULL ){
+				$search_text = $this->input->post('search');
+
+			}else{
+				if($this->session->userdata('search') != NULL){
+
+				}
+			}
+			// Row per page
+			$rowperpage = 25;
+
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
+
+			// All records count
+			$allcount = $this->constituentmodel->getrecordCount($search_text);
+
+			// Get records
+			$users_record = $this->constituentmodel->all_enquiry($rowno,$rowperpage,$search_text);
+
+			// Pagination Configuration
+			$config['base_url'] = base_url().'constituent/all_enquiry';
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $allcount;
+			$config['per_page'] = $rowperpage;
+			//Pagination Container tag
+			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+			$config['full_tag_close'] = '</div>';
+			//First and last Link Text
+			$config['first_link'] = 'First';
+			$config['last_link'] = 'Last';
+			//First tag
+			$config['first_tag_open'] = '<span class="pagination-first-tag">';
+			$config['first_tag_close'] = '</span>';
+			//Last tag
+			$config['last_tag_open'] = '<span class="pagination-last-tag">';
+			$config['last_tag_close'] = '</span>';
+			//Next and Prev Link
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+			//Next and Prev Link Styling
+			$config['next_tag_open'] = '<span class="pagination-next-tag">';
+			$config['next_tag_close'] = '</span>';
+			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+			$config['prev_tag_close'] = '</span>';
+			//Current page tag
+			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+			$config['cur_tag_close'] = '</strong>';
+			$config['num_tag_open'] = '<span class="pagination-number">';
+			$config['num_tag_close'] = '</span>';
+			// Initialize
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
+			$data['result'] = $users_record;
+			$data['row'] = $rowno;
+			$data['search'] = $search_text;
+			// Load view
+			$this->load->view('admin/header');
+			$this->load->view('admin/constituent/all_enquiry',$data);
+			$this->load->view('admin/footer');
+
+			}else{
+				redirect('/');
+			}
+
+	}
+
 
 }

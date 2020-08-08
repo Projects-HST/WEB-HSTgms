@@ -1,4 +1,50 @@
-<div  class="right_col" role="main">
+<style type="text/css">
+th{
+	width:200px;
+}
+.pagination-first-tag{
+	border:1px solid #eeeeee;
+	padding:10px;
+	background:#31aa15;
+}
+
+.pagination-last-tag{
+	border:1px solid #eeeeee;
+	padding:10px;
+	background:#31aa15;
+
+}
+.pagination-next-tag{
+	padding:10px;
+	border:1px solid #eeeeee;
+	background:#31aa15;
+}
+
+.pagination-prev-tag{
+	padding:10px;
+	border:1px solid #eeeeee;
+	background:#31aa15;
+
+}
+
+.pagination-current-tag{
+	color:#000000;
+	font-weight:bold;
+	padding:10px;
+	border:1px solid #eeeeee;
+}
+
+.pagination-number{
+	padding:10px;
+	border:1px solid #eeeeee;
+}
+
+.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
+	color:#ffffff;
+
+}
+	</style>
+  <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
@@ -25,52 +71,62 @@
 				 <div class="col-md-2 col-sm-2">
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
-				 <div class="col-md-2 col-sm-2">
+         <div class="col-md-2 col-sm-4">
+            <input class="form-control" id="search" name="search" type="text" placeholder="Search Full name " value="<?= $search ?>" />
+          </div>
+				 <div class="col-md-1 col-sm-2">
 					 <button type="submit" class="btn btn-success">SEARCH</button>
 				 </div>
+         <div class="col-md-2 col-sm-2">
+          <a href="<?php echo base_url(). "constituent/meetings"; ?>" class="btn btn-danger">Clear All</a>
+        </div>
+
 			  </div>
 			  <div class="ln_solid"></div>
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
-          <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+          <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
                    <th>S.no</th>
 
                    <th>Name</th>
                    <th>Date</th>
-				   <th>Phone</th>
-				    <th style="width:200px;">Details</th>
-				   <th>Status</th>
-                   <th>Created by</th>
+				   		 		<th>Phone</th>
+				    			<th>Details</th>
+				   				<th>Status</th>
+                  <th>Created by</th>
+									<th>Requested on</th>
                 </tr>
              </thead>
              <tbody>
                <?php $i=1;
-			   foreach($res as $rows){
-					$meeting_status = $rows->meeting_status;
-
-			   ?>
+			   foreach($result as $rows){
+					$meeting_status = $rows['meeting_status'];?>
                  <tr>
                     <td><?php echo $i; ?></td>
-                      <td><?php echo $rows->full_name; ?></td>
-					           <td><?php if(empty($rows->meeting_date)){
+                      <td><?php echo $rows['full_name']; ?></td>
+					           <td><?php if(empty($rows['meeting_date'])){
                      }else{
-                       echo date('d-m-Y', strtotime($rows->meeting_date));
+                       echo date('d-m-Y', strtotime($rows['meeting_date']));
                      }
                       ?></td>
-
-					<td><?php echo $rows->mobile_no; ?></td>
-					<td><?php echo $rows->meeting_detail; ?></td>
-					<!-- <td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td> -->
-          <td><a href="#" onclick="meeting_status_update('<?php echo base64_encode($rows->id*98765); ?>','<?php echo $meeting_status; ?>','<?php echo $rows->constituent_id; ?>')" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>
-					 <td><?php  echo $rows->created_by; ?></td>
+					<td><?php echo $rows['mobile_no']; ?></td>
+					<td><?php echo $rows['meeting_detail']; ?></td>
+					<!-- <td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows['id']*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td> -->
+          <td><a href="#" onclick="meeting_status_update('<?php echo base64_encode($rows['id']*98765); ?>','<?php echo $meeting_status; ?>','<?php echo $rows['constituent_id']; ?>')" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows['meeting_status']; ?></a></td>
+					 <td><?php  echo $rows['created_by']; ?></td>
+					 <td><?php  echo $rows['created_at']; ?></td>
                  </tr>
 				<?php  $i++; } ?>
              </tbody>
           </table>
-
+          <div class="col-md-12 col-sm-12" style="padding:0px;">
+             <div class="col-md-3 col-sm-3"></div>
+             <div class="col-md-3 col-sm-3"></div>
+             <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+         </div>
         </div>
             </div>
          </div>
@@ -100,7 +156,7 @@
                       <option value="PENDING">PENDING</option>
                       <option value="COMPLETED">COMPLETED</option>
                       <option value="REJECTED">REJECTED</option>
-                      <option value="FAILURE">FAILURE</option>
+                      <option value="SCHEDULED">SCHEDULED</option>
                     </select>
                  </div>
 
@@ -114,6 +170,14 @@
                   <input type="checkbox" class="form-control" style="width:15px;" id="send_checkbox" name="send_checkbox" value="1">
                  </div>
 
+              </div>
+
+							<div class="item form-group meet_date">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting Date<span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-9 ">
+									 <input type="text" class="form-control"  id="meeting_date" name="meeting_date">
+                 </div>
               </div>
 
               <div class="item form-group show_sms">
@@ -149,7 +213,10 @@
    </div>
 </div>
 <script type="text/javascript">
-
+$('#meeting_date').datetimepicker({
+      format: 'DD-MM-YYYY',
+      minDate: new Date()
+});
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });
@@ -205,4 +272,31 @@ $('#constiituent_menu').addClass('active');
 $('.constiituent_menu').css('display','block');
 $('#constituent_meetings').addClass('active current-page');
 $('.show_sms').hide();
+
+
+
+$('#meeting_status').change(function(){
+    var stats=$(this).val();
+		if(stats=='SCHEDULED'){
+			$('.meet_date').show();
+		}else{
+			$('.meet_date').hide();
+		}
+});
+$('.meet_date').hide();
+$('#meeting_form').validate({
+		 rules: {
+						meeting_date:{required:true},
+						reply_sms_id:{required:true},
+					 reply_sms_text:{required:true ,maxlength:240}
+
+		 },
+		 messages: {
+				 meeting_date:{required:"enter the date"},
+				 reply_sms_id:{required:"select the title"},
+			 reply_sms_text:{required:"enter the meeting detail " }
+
+				 }
+ });
+
  </script>

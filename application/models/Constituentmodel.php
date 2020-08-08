@@ -575,12 +575,22 @@ Class Constituentmodel extends CI_Model
 				return $data;
 		}
 
-		function list_grievance_reply(){
-			$query="SELECT gr.*,c.full_name,u.full_name as sent_by from grievance_reply as gr
-			left join constituent as c on c.id=gr.constituent_id
-			left join user_master as u on u.id=gr.created_by order by id desc LIMIT 500";
-			$result=$this->db->query($query);
-			return $result->result();
+		function list_grievance_reply($rowno,$rowperpage,$search_text){
+			$this->db->select('gr.*,c.full_name,u.full_name as sent_by');
+			$this->db->from('grievance_reply as gr');
+			$this->db->join('constituent as c', 'c.id = gr.constituent_id', 'left');
+			$this->db->join('user_master as u', 'u.id = gr.created_by', 'left');
+			if(empty($search)){
+
+			}else{
+				$this->db->or_where('c.full_name',$search);
+			}
+			$this->db->order_by("gr.id", "desc");
+			// echo $this->db->get_compiled_select(); // before $this->db->get();
+			// exit;
+			$this->db->limit($rowperpage, $rowno);
+			$query = $this->db->get();
+			return $query->result_array();
 		}
 
 
@@ -710,30 +720,35 @@ Class Constituentmodel extends CI_Model
 
 	}
 
-	function get_meeting_report($frmDate,$toDate)
+	function get_meeting_report($rowno,$rowperpage,$search_text,$frmDate,$toDate)
 	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
 
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
+		$this->db->select('A.*,B.full_name,B.mobile_no,C.full_name AS created_by,A.created_at');
+		$this->db->from('meeting_request as A');
+		$this->db->join('constituent as B', 'B.id = A.constituent_id', 'left');
+		$this->db->join('user_master as C', 'C.id = A.created_by', 'left');
+		if(empty($frmDate)){
 
-		$query="SELECT
-					A.*,
-					B.full_name,
-					B.mobile_no,
-					C.full_name AS created_by
-				FROM
-					meeting_request A,
-					constituent B,
-					user_master C
-				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id
-				ORDER BY
-					 A.id DESC";
-		//echo $query;
-		$resultset=$this->db->query($query);
-		return $resultset->result();
+		}else{
+			$first=date("Y-m-d", strtotime($frmDate));
+			$this->db->where('A.meeting_date >=', $first);
+		}
+		if(empty($toDate)){
+
+		}else{
+			$second=date("Y-m-d", strtotime($toDate));
+			$this->db->where('A.meeting_date <=', $second);
+		}
+		if(empty($search_text)){
+
+		}else{
+			$this->db->or_where('C.full_name',$search_text);
+		}
+		$this->db->order_by("A.id", "desc");
+
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 
 
@@ -751,7 +766,7 @@ Class Constituentmodel extends CI_Model
 		}
 	}
 
-	function save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id){
+	function save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$meeting_date,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id){
 		if($send_checkbox=='1'){
 			$select="SELECT * FROM constituent where id='$constituent_id'";
 			$res=$this->db->query($select);
@@ -764,7 +779,7 @@ Class Constituentmodel extends CI_Model
 		}
 
 		 $id=base64_decode($meeting_id)/98765;
-		 $update="UPDATE meeting_request SET meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+		 $update="UPDATE meeting_request SET meeting_status='$meeting_status',meeting_date='$meeting_date',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 		 $result=$this->db->query($update);
 			if($result){
 				$data=array("status"=>"success","msg"=>"Constituent Meeting status Updated","class"=>"alert alert-success");
@@ -774,6 +789,107 @@ Class Constituentmodel extends CI_Model
 			return $data;
 
 	}
+
+	 function getrecordCount($search = '') {
+
+		$this->db->select('count(*) as allcount');
+		$this->db->from('grievance');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+	function get_meeting_count(){
+		$this->db->select('count(*) as allcount');
+		$this->db->from('meeting_request');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+	 function getrecordreplycount($search = '') {
+
+		$this->db->select('count(*) as allcount');
+		$this->db->from('grievance_reply');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+
+	function all_grievance($rowno,$rowperpage,$search=""){
+		$this->db->select('g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
+		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		if(empty($search)){
+
+		}else{
+			$this->db->or_where('g.reference_note',$search);
+			$this->db->or_where('g.petition_enquiry_no',$search);
+			$this->db->or_where('c.full_name',$search);
+		}
+		$this->db->order_by("g.id", "desc");
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+
+	function all_petition($rowno,$rowperpage,$search=""){
+		$this->db->select('g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
+		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		if(empty($search)){
+
+		}else{
+			$this->db->or_where('g.reference_note',$search);
+			$this->db->or_where('g.petition_enquiry_no',$search);
+			$this->db->or_where('c.full_name',$search);
+		}
+		$this->db->or_where('g.grievance_type','P');
+		$this->db->order_by("g.id", "desc");
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+
+	function all_enquiry($rowno,$rowperpage,$search=""){
+		$this->db->select('g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
+		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		if(empty($search)){
+
+		}else{
+			$this->db->or_where('g.reference_note',$search);
+			$this->db->or_where('g.petition_enquiry_no',$search);
+			$this->db->or_where('c.full_name',$search);
+		}
+		$this->db->or_where('g.grievance_type','E');
+		$this->db->order_by("g.id", "desc");
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 
 }
 ?>

@@ -98,15 +98,20 @@
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
                                  <!-- <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li> -->
-								 <li id="constituent_birthday"><a href="<?php echo base_url(); ?>constituent/birthday">Birthday Wishes</a></li>
+
 								 <li id="constituent_meetings"><a href="<?php echo base_url(); ?>constituent/meetings">Meeting Request</a></li>
+								 <li id="constituent_birthday"><a href="<?php echo base_url(); ?>constituent/birthday">Birthday Wishes</a></li>
 								 <li><a href="<?php echo base_url(); ?>constituent/festival_wishes">Festival wishes</a></li>
+
                               </ul>
                            </li>
                            <li id="grievance_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Grievance.png" class="img-responsive menu_img"> Grievance <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu grievance_menu">
-                                 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li>
+                                 <!-- <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li> -->
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">All Grievance</a></li>
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_petition">ALL Petition</a></li>
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_enquiry">ALl Enquiry</a></li>
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
@@ -135,10 +140,11 @@
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
                                 <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
 																<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
-																<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
-																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
+
+																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>
 																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes report</a></li>
 																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent report</a></li>
+																<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
                               </ul>
                            </li>
                            <li>

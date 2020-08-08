@@ -226,10 +226,11 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting date <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Requested On
                  </label>
                  <div class="col-md-6 col-sm-9 ">
-                    <input id="meeting_date" class=" form-control" name="meeting_date" type="text">
+                    <!-- <input id="meeting_date" class=" form-control" name="meeting_date" type="text"> -->
+										<input id="" class=" form-control" name="" type="text" value="<?php echo date('d-m-Y'); ?>" readonly>
                  </div>
               </div>
               <div class="item form-group">
@@ -250,10 +251,10 @@
                <thead>
                   <tr>
                     <th>title</th>
-                     <th style="width:600px !important;">Meeting details</th>
-                     <th>date</th>
+                     <th style="width:400px !important;">Meeting details</th>
+                     <th>Schedule on</th>
                      <th>status</th>
-                     <th>updated at</th>
+                     <th>requested at</th>
                      <th>Action</th>
 
                   </tr>
@@ -587,7 +588,12 @@ function view_meeting_request(sel){
       var len=res.length;
       for (i = 0; i < len; i++) {
         // $('#constituent_id').val(res[i].constituent_id);
-        $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_detail+'</td><td>'+res[i].disp_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+				if(res[i].disp_date==null){
+					var meet_date='';
+				}else{
+					var meet_date=res[i].disp_date;
+				}
+        $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_detail+'</td><td>'+meet_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
      }
       }else{
         $('#table_meeting').append('<tr><td colspan="6">No data</td></tr>');
