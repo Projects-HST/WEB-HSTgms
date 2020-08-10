@@ -495,12 +495,12 @@ Class Reportmodel extends CI_Model
  			if(empty($paguthi)){
 
  			}else{
- 				$this->db->or_where('c.paguthi_id',$paguthi);
+ 				$this->db->where('c.paguthi_id',$paguthi);
  			}
  			if(empty($ward_id)){
 
  			}else{
- 				$this->db->or_where('c.ward_id',$ward_id);
+ 				$this->db->where('c.ward_id',$ward_id);
  			}
 			if(empty($mobile_no)){
 
