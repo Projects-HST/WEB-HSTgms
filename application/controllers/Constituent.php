@@ -1098,7 +1098,7 @@ public function meetings($rowno=0)
 			}
 
 			// Row per page
-			$rowperpage = 25;
+			$rowperpage = 250;
 
 			// Row position
 			if($rowno != 0){
