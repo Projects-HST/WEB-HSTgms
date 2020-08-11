@@ -47,7 +47,9 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-                <h2>List of constituent</h2> <span style="float:right;"><a class="badge-success" style="padding:10px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
+                <h2>List of constituent</h2> <span style="float:right;">
+			
+				<a class="btn btn-danger" style="margin-top:5px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
                <div class="clearfix"></div>
             </div>
 						<?php if($this->session->flashdata('msg')) {
@@ -60,8 +62,8 @@
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>constituent/list_constituent_member" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
-				  <div class="col-md-4 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search keyword" value="<?= $search ?>" /></div>
-				  <div class="col-md-2 col-sm-2" style="padding-top:10px;"><input class="btn btn-success" type='submit' name='submit' value='Search'>
+				  <div class="col-md-3 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search keyword" value="<?= $search ?>" /></div>
+				  <div class="col-md-3 col-sm-2" style="padding-top:10px;"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 					  <?php if ($search_value!='') { ?>
 						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear All</a>
 					  <?php } ?>
