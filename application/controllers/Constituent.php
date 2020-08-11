@@ -1513,4 +1513,39 @@ public function meetings($rowno=0)
 	}
 
 
+public function export_constituent(){ 
+		// file name 
+		
+		// Search text
+		$search_text = "";
+		 if($this->session->userdata('search') != NULL){
+			$search_text = $this->session->userdata('search');
+		  }
+			
+		$filename = 'users_'.date('Ymd').'.csv'; 
+		//$filename = 'users_'.date('Ymd').'.xls'; 
+		
+		header("Content-Description: File Transfer"); 
+		header("Content-Type: application/csv; "); 
+		header("Content-Disposition: attachment; filename=$filename"); 	
+		//header("Content-type: application/vnd.ms-excel");
+		//header("Content-Disposition: attachment;Filename=$filename");
+
+	   // get data 
+	    $resultData = $this->reportmodel->exportrecords($search_text);
+		//print_r($resultData);
+		//exit;
+		
+		// file creation 
+		$file = fopen('php://output','w');
+		$header = array("Name","Father/Husband_name","Mobile","Door no","Address","Pincode","Aadhaar","Voter id","Serial no","Status"); 
+		fputcsv($file, $header);
+		foreach ($resultData as $key=>$line){ 
+			fputcsv($file,$line); 
+		}
+		fclose($file); 
+		exit; 
+	}
+
+
 }

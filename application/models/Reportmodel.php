@@ -527,6 +527,29 @@ Class Reportmodel extends CI_Model
 		 }
 
 
+	public function exportrecords($search = '') {
+			
+		$this->db->select('full_name,father_husband_name,mobile_no,door_no,address,pin_code,aadhaar_no,voter_id_no,serial_no,status');
+		$this->db->from('constituent');
+	 
+		if($search != ''){
+				$this->db->like('full_name', $search);
+				$this->db->or_like('father_husband_name', $search);
+				$this->db->or_like('guardian_name', $search);
+				$this->db->or_like('mobile_no', $search);
+				$this->db->or_like('whatsapp_no', $search);
+				$this->db->or_like('address', $search);
+				$this->db->or_like('pin_code', $search);
+				$this->db->or_like('email_id', $search);
+				$this->db->or_like('voter_id_no', $search);
+				$this->db->or_like('aadhaar_no', $search);
+				$this->db->or_like('serial_no', $search);
+		}
+		$query = $this->db->get();
+		$result = $query->result_array();
+		
+		return $query->result_array();
+  }
 
 }
 ?>
