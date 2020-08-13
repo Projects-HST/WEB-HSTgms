@@ -1,7 +1,7 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style type="text/css">
 th{
-  width:200px;
+  width:100px;
 }
 .pagination-first-tag{
 	border:1px solid #eeeeee;

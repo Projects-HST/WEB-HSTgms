@@ -124,10 +124,10 @@
                      </div>
                   </div>
                   <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">Gaurdian name</label>
+                     <!-- <label class="control-label col-md-2 col-sm-3 ">Gaurdian name</label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="guardian_name" id="guardian_name" class="form-control">
-                     </div>
+                     </div> -->
                      <label class="control-label col-md-2 col-sm-3 ">EMAIL ID</label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="email_id" id="email_id" class="form-control">
@@ -137,7 +137,7 @@
                      <label class="control-label col-md-2 col-sm-3 ">Mobile no <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="mobile_no" id="mobile_no" class="form-control" onblur="checkTextField(this);">
-                       <p id="copy_section"><input type="radio"  id="copy_value"><span>Same number to whatsapp</span></p>
+                       <p id="copy_section"><input type="checkbox"  id="copy_value"><span>Same number to whatsapp</span></p>
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
                      <div class="col-md-4 col-sm-9 ">
@@ -221,7 +221,7 @@
                          </div>
                        </div>
 
-                       <div class="form-group row ">
+                       <!-- <div class="form-group row ">
                             <label class="control-label col-md-2 col-sm-3 ">Show interaction information <span class="required">*</span></label>
                           <div class="col-md-4 col-sm-9 ">
                              <p>
@@ -231,7 +231,7 @@
                             </p>
                           </div>
 
-                        </div>
+                        </div> -->
             </div>
          </div>
 
@@ -280,9 +280,18 @@
    $('.constiituent_menu').css('display','block');
    $('#create_constituent_menu').addClass('active');
    $('#copy_section').hide();
-   $('#copy_section').change(function() {
-       $("#whatsapp_no").val($("#mobile_no").val());
-    });
+   // $('#copy_section').change(function() {
+   //     $("#whatsapp_no").val($("#mobile_no").val());
+   //  });
+    $("#copy_value").click(function() {
+           var checked = $(this).is(':checked');
+           if (checked) {
+               $("#whatsapp_no").val($("#mobile_no").val());
+           } else {
+             $('#whatsapp_no').val(" ");
+               // $("#whatsapp_no").val($("#mobile_no").val());
+           }
+       });
     function checkTextField(field) {
       if(field.value==''){
         $('#copy_section').hide();

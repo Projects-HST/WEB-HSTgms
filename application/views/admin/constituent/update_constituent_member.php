@@ -56,7 +56,7 @@
                            <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER">
                         </p>
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 voter_section">Serial no <span class="required">*</span></label>
+                     <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
                      <div class="col-md-4 col-sm-9 voter_section">
                        <input type="text" name="serial_no" id="serial_no" class="form-control" value="<?php echo $rows->serial_no; ?>">
                      </div>
@@ -156,10 +156,10 @@
                      </div>
                   </div>
                   <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">Gaurdian name</label>
+                     <!-- <label class="control-label col-md-2 col-sm-3 ">Gaurdian name</label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="guardian_name" id="guardian_name" class="form-control" value="<?php echo $rows->guardian_name; ?>">
-                     </div>
+                     </div> -->
                      <label class="control-label col-md-2 col-sm-3 ">EMAIL ID</label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="email_id" id="email_id" class="form-control" value="<?php echo $rows->email_id; ?>">

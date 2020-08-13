@@ -15,94 +15,149 @@
 		<?php echo $this->session->flashdata('msg'); ?>
 		</div>
 	<?php endif; ?>
-	
+
 		<form id="report_form" action="<?php echo base_url(); ?>report/birthday" method="post" enctype="multipart/form-data">
-			  <div class="item form-group">
-				<label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-2">
-					<select id="month" name="month" class="form-control">
-						<option value="01">January</option>
-						<option value="02">February</option>
-						<option value="03">March</option>
-						<option value="04">April</option>
-						<option value="05">May</option>
-						<option value="06">June</option>
-						<option value="07">July</option>
-						<option value="08">August</option>
-						<option value="09">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select><script> $('#month').val('<?php echo $searchMonth; ?>');</script>
-				 </div>
-				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
-				 </div>
-			  </div>
+
+        <div class="form-group row ">
+          <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
+           <div class="col-md-2 col-sm-2">
+            <select id="year_id" name="year_id" class="form-control">
+
+              <?php foreach($res_year as $row_year){ ?>
+                <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
+            <?php  } ?>
+            </select>
+           </div>
+          <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
+           <div class="col-md-2 col-sm-2">
+            <select id="month" name="month" class="form-control">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select><script> $('#month').val('<?php echo $searchMonth; ?>');</script>
+           </div>
+        </div>
+        <div class="form-group row ">
+             <label class="control-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
+             <div class="col-md-2 col-sm-9 ">
+             <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+               <option value="ALL">ALL</option>
+               <?php foreach($paguthi as $rows){ ?>
+               <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
+               <?php } ?>
+             </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+           </div>
+           <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
+          <div class="col-md-2 col-sm-2">
+             <select class="form-control" name="ward_id" id ="ward_id" >
+               <option value=""></option>
+             </select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <button type="submit" class="btn btn-success">SEARCH</button>
+          </div>
+
+         </div>
 			  <div class="ln_solid"></div>
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
-          <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+      <div class="col-md-12 col-sm-12" style="padding:0px;">
+         <div class="col-md-3 col-sm-3">
+            <h2>Search Result</h2>
+            Total records <?php echo $allcount; ?>
+         </div>
+         <div class="col-md-3 col-sm-3"></div>
+         <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+      </div>
+          <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
-                   <th>S.no </th>
-				    <th>Name</th>
+                    <th>S.no </th>
+                    <th>Name</th>
                     <th>Date of Birth</th>
-					<th>Phone</th>
-					<th>Address</th>
-					<th>Status</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Sent on</th>
                 </tr>
              </thead>
              <tbody>
-               <?php 
-			    if (count($res) >0) {
+               <?php
+			    if (count($result) >0) {
 					$i=1;
-					foreach($res as $rows){ 
-						
-						$const_id = $rows->const_id;
-						$birth_wish_status = $rows->birth_wish_status;
+					foreach($result as $rows){
+
 			   ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-					<td><?php echo $rows->full_name; ?></td>
-					<td><?php echo date('d-m-Y', strtotime($rows->dob)); ?></td>
-					<td><?php echo $rows->mobile_no; ?></td>
-					<td><?php echo $rows->door_no; ?><br><?php echo $rows->address; ?><br><?php echo $rows->pin_code; ?></td>
-					<?php 
-					if ($birth_wish_status == 'Send'){ ?>
-						<td style="font-size:13px;font-weight:bold;color:#1fae03;">Send</td>
-					<?php } else { ?>
-						<td style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</td>
-						<!--<td><a href="<?php echo base_url(); ?>report/birthday_update/<?php echo $searchMonth?>/<?php echo base64_encode($rows->const_id*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Send</a></td>-->
-					<?php } ?>
+                    <td><?php echo $rows['full_name']; ?></td>
+                    <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
+                    <td><?php echo $rows['mobile_no']; ?></td>
+                    <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
+                    <td><?php echo $rows['created_at']; ?></td>
+
                  </tr>
 				<?php $i++; } } ?>
              </tbody>
           </table>
-
+          <div class="col-md-12 col-sm-12" style="padding:0px;">
+             <div class="col-md-3 col-sm-3"></div>
+             <div class="col-md-3 col-sm-3"></div>
+             <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+          </div>
         </div>
             </div>
          </div>
       </div>
 
 
-        
+
    </div>
 </div>
 <script type="text/javascript">
+function get_paguthi(sel){
+  var paguthi_id=sel.value;
+  $.ajax({
+		url:'<?php echo base_url(); ?>masters/get_active_ward',
+		method:"POST",
+		data:{paguthi_id:paguthi_id},
+		dataType: "JSON",
+		cache: false,
+		success:function(data)
+		{
+		   var stat=data.status;
+		   $("#ward_id").empty();
 
-$('#frmDate').datetimepicker({
-        format: 'DD-MM-YYYY'
-});
+		   if(stat=="success"){
+		   var res=data.res;
+		   var len=res.length;
+        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+		   for (i = 0; i < len; i++) {
+		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
+		   }
 
-$('#toDate').datetimepicker({
-        format: 'DD-MM-YYYY'
-});
+		   }else{
+		   $("#ward_id").empty();
+
+		   }
+		}
+	});
+}
+
+
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-         frmDate:{required:true},
+         year_id:{required:true},
          toDate:{required:true}
      },
      messages: {

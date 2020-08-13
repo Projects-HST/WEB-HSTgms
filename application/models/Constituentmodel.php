@@ -795,8 +795,9 @@ Class Constituentmodel extends CI_Model
 // Fetch records
 	public function getConstituent($rowno,$rowperpage,$search="") {
 
-		$this->db->select('*');
-		$this->db->from('constituent');
+		$this->db->select('c.*,p.paguthi_name');
+		$this->db->from('constituent as c');
+			$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
 
 		if($search != ''){
 				$this->db->like('full_name', $search);
@@ -844,10 +845,10 @@ Class Constituentmodel extends CI_Model
   }
 
 	public function exportConstituent($search = '') {
-			
+
 		$this->db->select('full_name,father_husband_name,mobile_no,door_no,address,pin_code,aadhaar_no,voter_id_no,serial_no,status');
 		$this->db->from('constituent');
-	 
+
 		if($search != ''){
 				$this->db->like('full_name', $search);
 				$this->db->or_like('father_husband_name', $search);
@@ -863,13 +864,33 @@ Class Constituentmodel extends CI_Model
 		}
 		$query = $this->db->get();
 		$result = $query->result_array();
-		
+
 		return $query->result_array();
   }
 
 
 
+	function getrecordconscount($search = '') {
 
+	 $this->db->select('count(*) as allcount');
+	 $this->db->from('constituent');
+	 if($search != ''){
+			 $this->db->like('full_name', $search);
+			 $this->db->or_like('father_husband_name', $search);
+			 $this->db->or_like('guardian_name', $search);
+			 $this->db->or_like('mobile_no', $search);
+			 $this->db->or_like('whatsapp_no', $search);
+			 $this->db->or_like('address', $search);
+			 $this->db->or_like('pin_code', $search);
+			 $this->db->or_like('email_id', $search);
+			 $this->db->or_like('voter_id_no', $search);
+			 $this->db->or_like('aadhaar_no', $search);
+			 $this->db->or_like('serial_no', $search);
+	 }
+	 $query = $this->db->get();
+	 $result = $query->result_array();
+	 return $result[0]['allcount'];
+ }
 
 
 

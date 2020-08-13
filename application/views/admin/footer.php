@@ -24,7 +24,10 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#export_example').DataTable( {
+
 		"scrollX": true,
+
+
 		"language": {
           "search": "",
           searchPlaceholder: "SEARCH HERE"
@@ -32,7 +35,8 @@ $(document).ready(function() {
         dom: 'Bfrtip',
         buttons: [
             'excelHtml5'
-        ]
+        ],
+
     } );
 } );
 

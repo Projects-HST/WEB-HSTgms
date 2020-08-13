@@ -106,7 +106,7 @@
                                <?php  }else if($status=='ONHOLD'){ ?>
                                  <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')">ONHOLD</a>
                                  <?php }else{ ?>
-                                   <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php $rows['id']; ?>')"><?php echo $status; ?></a>
+                                   <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')"><?php echo $status; ?></a>
                                  <?php  }
                               ?></td>
                              <td><?php echo date('d-m-Y H:i:s', strtotime($rows['updated_at'])); ?></td>

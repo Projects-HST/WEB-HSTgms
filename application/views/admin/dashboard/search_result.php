@@ -1,4 +1,48 @@
-<div  class="right_col" role="main">
+<style type="text/css">
+
+.pagination-first-tag{
+	border:1px solid #eeeeee;
+	padding:10px;
+	background:#31aa15;
+}
+
+.pagination-last-tag{
+	border:1px solid #eeeeee;
+	padding:10px;
+	background:#31aa15;
+
+}
+.pagination-next-tag{
+	padding:10px;
+	border:1px solid #eeeeee;
+	background:#31aa15;
+}
+
+.pagination-prev-tag{
+	padding:10px;
+	border:1px solid #eeeeee;
+	background:#31aa15;
+
+}
+
+.pagination-current-tag{
+	color:#000000;
+	font-weight:bold;
+	padding:10px;
+	border:1px solid #eeeeee;
+}
+
+.pagination-number{
+	padding:10px;
+	border:1px solid #eeeeee;
+}
+
+.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
+	color:#ffffff;
+
+}
+	</style>
+  <div  class="right_col" role="main">
    <div class="">
    <form id="search_form" action="<?php echo base_url(); ?>dashboard/searchresult" method="post" enctype="multipart/form-data">
 		<div class="title_left" style="padding-top:70px;">
@@ -14,11 +58,11 @@
 		</form>
 
 		<div class="clearfix"></div>
-		<hr>
+		
 
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
-            <h2>Search Result</h2>
+            <h2>Search Result</h2> Total records <?php echo $total_records; ?>
             <?php if($this->session->flashdata('msg')) {
                $message = $this->session->flashdata('msg');?>
             <div class="<?php echo $message['class'] ?> alert-dismissible">
@@ -26,13 +70,18 @@
                <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
             </div>
             <?php  }  ?>
-            <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <div class="col-md-12 col-sm-12" style="padding:0px;">
+               <div class="col-md-3 col-sm-3"></div>
+               <div class="col-md-3 col-sm-3"></div>
+               <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+           </div>
+            <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                <thead>
                   <tr>
                      <th>S.no</th>
                      <th>Full name</th>
                      <th>Paguthi</th>
-					 <th>Serial no</th>
+					                <th>Serial no</th>
                      <th>Mobile</th>
                      <th>Voter id</th>
                      <th>Aadhhar id</th>
@@ -40,16 +89,16 @@
                   </tr>
                </thead>
                <tbody>
-                  <?php $i=1; foreach($res as $rows){ ?>
+                  <?php $i=1; foreach($result as $rows){ ?>
                   <tr>
                      <td><?php echo $i; ?></td>
-                     <td><?php echo $rows->full_name; ?></td>
-					 <td><?php echo $rows->paguthi_name; ?></td>
-					 <td><?php echo $rows->serial_no ;?></td>
-                     <td><?php echo $rows->mobile_no ;?></td>
-                     <td><?php echo $rows->voter_id_no ;?></td>
-                     <td><?php echo $rows->aadhaar_no ;?></td>
-                     <td><?php if($rows->status=='ACTIVE'){ ?>
+                     <td><?php echo $rows['full_name']; ?></td>
+					 <td><?php echo $rows['paguthi_name']; ?></td>
+					 <td><?php echo $rows['serial_no'] ;?></td>
+                     <td><?php echo $rows['mobile_no'] ;?></td>
+                     <td><?php echo $rows['voter_id_no'] ;?></td>
+                     <td><?php echo $rows['aadhaar_no'] ;?></td>
+                     <td><?php if($rows['status']=='ACTIVE'){ ?>
                         <span class="badge badge-success">Active</span>
                         <?php  }else{ ?>
                         <span class="badge badge-danger">Inactive</span>
@@ -59,12 +108,13 @@
                   <?php  $i++; } ?>
                </tbody>
             </table>
+            <div class="col-md-12 col-sm-12" style="padding:0px;">
+               <div class="col-md-3 col-sm-3"></div>
+               <div class="col-md-3 col-sm-3"></div>
+               <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+           </div>
          </div>
+
       </div>
    </div>
 </div>
-
-
-<script type="text/javascript">
-
-</script>

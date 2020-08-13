@@ -69,42 +69,56 @@ th{
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
-          <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+      <div class="col-md-12 col-sm-12" style="padding:0px;">
+         <div class="col-md-3 col-sm-3">
+            <h2>Search Result</h2>
+            Total records <?php echo $allcount; ?>
+         </div>
+         <div class="col-md-3 col-sm-3"></div>
+         <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+      </div>
+          <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
-                   <th>S.no</th>
-				   <th>Date</th>
-                   <th>Name</th>
-				   <th>Phone</th>
-				   <th>Details</th>
-				   <th>Status</th>
-                   <th>Created</th>
+                  <th>S.no</th>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Details</th>
+                  <th>Status</th>
+                  <th>Created</th>
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1; foreach($res as $rows){ ?>
+               <?php $i=1; foreach($result as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-					<td><?php echo date('d-m-Y', strtotime($rows->meeting_date)); ?></td>
-                    <td><?php echo $rows->full_name; ?></td>
-					<td><?php echo $rows->mobile_no; ?></td>
-					<td><?php echo $rows->meeting_detail; ?></td>
+                    <td><?php echo date('d-m-Y', strtotime($rows['meeting_date'])); ?></td>
+                    <td><?php echo $rows['full_name']; ?></td>
+                    <td><?php echo $rows['mobile_no']; ?></td>
+                    <td><?php echo $rows['meeting_detail']; ?></td>
 
-					<?php
-						$meeting_status = $rows->meeting_status;
-						if ($meeting_status == 'REQUESTED'){ ?>
-								<td style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $meeting_status; ?></td>
-								<!--<td><a href="<?php echo base_url(); ?>report/meeting_update/<?php echo base64_encode($rows->id*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td>-->
-						<?php } else { ?>
-								<td style="font-size:13px;font-weight:bold;color:#1fae03;"><?php  echo $meeting_status; ?></td>
-						<?php } ?>
+                    <?php
+                    $meeting_status = $rows['meeting_status'];
+                    if ($meeting_status == 'REQUESTED'){ ?>
+                    <td style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $meeting_status; ?></td>
+                    <!--<td><a href="<?php echo base_url(); ?>report/meeting_update/<?php echo base64_encode($rows['id']*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows['meeting_status']; ?></a></td>-->
+                    <?php } else { ?>
+                    <td style="font-size:13px;font-weight:bold;color:#1fae03;"><?php  echo $meeting_status; ?></td>
+                    <?php } ?>
 
-                    <td><?php  echo $rows->created_by; ?></td>
+                    <td><?php  echo $rows['created_by']; ?></td>
                  </tr>
             <?php $i++; } ?>
              </tbody>
           </table>
+          <div class="col-md-12 col-sm-12" style="padding:0px;">
+             <div class="col-md-3 col-sm-3">
 
+             </div>
+             <div class="col-md-3 col-sm-3"></div>
+             <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+          </div>
         </div>
             </div>
          </div>

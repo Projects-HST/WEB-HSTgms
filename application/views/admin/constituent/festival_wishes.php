@@ -76,6 +76,7 @@
                 <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                 <?php } ?>
               </select>
+							<script>$('#paguthi').val('<?php echo $paguthi_id; ?>')</script>
         </div>
           <div class="col-md-2 col-sm-4">
             <select class="form-control" name="ward_id" id ="ward_id" >
@@ -105,12 +106,12 @@
 			foreach($result as $data){ ?>
         <tr>
           <td><?php echo $sno; ?></td>
-          <td><?php echo $data['full_name']; ?></td>
-          
+          <td><?php echo $data['full_name']; ?><?php echo $data['paguthi_id']; ?></td>
+
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['address']; ?></td>
           <td><?php if(empty($festival_id)){
-            echo "Select fesctival";
+            echo "Select festival";
           }else{
             if($data['sent_festival_id']==$festival_id){ ?>
 
@@ -150,7 +151,7 @@
    $('#list_constituent_menu').addClass('active');
 
    function send_festival(cons_id,festival_id){
-     alert(festival_id);
+
      $.ajax({
    		url:'<?php echo base_url(); ?>constituent/sent_festival_wishes',
    		method:"POST",

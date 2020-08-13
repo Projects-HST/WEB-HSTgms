@@ -8,229 +8,333 @@ Class Reportmodel extends CI_Model
 		//$this->load->model('smsmodel');
 	}
 
-	function get_status_report($frmDate,$toDate,$status,$paguthi,$ward_id)
+	function get_status_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id)
 	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
 
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-
-		if(empty($frmDate) && empty($toDate) && empty($status) && empty($paguthi) && empty($ward_id)){
-			$query="SELECT g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id
-			left join user_master as u on g.created_by=u.id
-			left join grievance_type as gt on gt.id=g.grievance_type_id
-			where g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month";
+		$this->db->select('g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
 
 		}else{
-
-			if($status=='ALL'){
-				$quer_status=' ';
-			}else{
-				$quer_status="AND g.status='$status'";
-			}
-			if($paguthi=='ALL'){
-				$quer_pagu='';
-			}else{
-				$quer_pagu="AND g.paguthi_id='$paguthi'";
-			}
-			if(empty($ward_id)){
-				$query_war='';
-			}else{
-				$query_war="AND c.ward_id='$ward_id'";
-			}
-			$query="SELECT g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id
-			left join user_master as u on g.created_by=u.id
-			left join grievance_type as gt on gt.id=g.grievance_type_id
-			where (g.grievance_date BETWEEN '$from_date' AND '$to_date') $quer_status $quer_pagu $query_war";
-
+			$this->db->where('c.paguthi_id',$paguthi);
 		}
-		$resultset=$this->db->query($query);
-		return $resultset->result();
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($status) || $status=='ALL'){
+
+		}else{
+			$this->db->where('g.status',$status);
+		}
+		if(empty($frmDate)){
+				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('g.grievance_date >=', $from_date);
+			$this->db->where('g.grievance_date <=', $to_date);
+		}
+
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+
 
 	}
 
-
-	function get_category_report($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id)
-	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-
-		if(empty($frmDate) && empty($toDate) && empty($category) && empty($paguthi) && empty($ward_id)){
-			$query="SELECT g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id
-			left join user_master as u on g.created_by=u.id
-			left join grievance_type as gt on gt.id=g.grievance_type_id
-			where g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month";
+	function get_count_status_report($frmDate,$toDate,$status,$paguthi,$ward_id){
+		$this->db->select('count(*) as allcount');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
 
 		}else{
-
-			if($category=='ALL'){
-				$quer_status=' ';
-			}else{
-				$quer_status="AND g.grievance_type_id='$category'";
-			}
-			if($paguthi=='ALL'){
-				$quer_pagu='';
-			}else{
-				$quer_pagu="AND g.paguthi_id='$paguthi'";
-			}
-			if(empty($ward_id)){
-				$query_war='';
-			}else{
-				$query_war="AND c.ward_id='$ward_id'";
-			}
-			if(empty($sub_category_id)){
-				$query_sub='';
-			}else{
-				$query_sub="AND g.sub_category_id='$sub_category_id'";
-			}
-			$query="SELECT g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id
-			left join user_master as u on g.created_by=u.id
-			left join grievance_type as gt on gt.id=g.grievance_type_id
-			where (g.grievance_date BETWEEN '$from_date' AND '$to_date') $quer_status $quer_pagu $query_war $query_sub";
-
+			$this->db->where('c.paguthi_id',$paguthi);
 		}
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-
-	function get_subcategory_report($frmDate,$toDate,$sub_category)
-	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-
-		if ($sub_category=='ALL')
-		{
-			$query="SELECT
-						A.*,
-						B.full_name,
-						B.mobile_no,
-						C.full_name AS created_by,
-						D.sub_category_name
-					FROM
-						grievance A,
-						constituent B,
-						user_master C,
-						grievance_sub_category D
-					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id  AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
-		}
-		if ($sub_category != 'ALL')
-		{
-			$query="SELECT
-						A.*,
-						B.full_name,
-						B.mobile_no,
-						C.full_name AS created_by,
-						D.sub_category_name
-					FROM
-						grievance A,
-						constituent B,
-						user_master C,
-						grievance_sub_category D
-					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.sub_category_id = D.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
-		}
-
-		//echo $query;
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-
-	function get_location_report($frmDate,$toDate,$paguthi,$ward_id)
-	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-
-		if(empty($frmDate) && empty($toDate) && empty($paguthi) && empty($ward_id)){
-			$query="SELECT g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id
-			left join user_master as u on g.created_by=u.id
-			left join grievance_type as gt on gt.id=g.grievance_type_id
-			where g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month";
+		if(empty($ward_id)){
 
 		}else{
-
-
-			if($paguthi=='ALL'){
-				$quer_pagu='';
-			}else{
-				$quer_pagu="AND g.paguthi_id='$paguthi'";
-			}
-			if(empty($ward_id)){
-				$query_war='';
-			}else{
-				$query_war="AND c.ward_id='$ward_id'";
-			}
-
-			$query="SELECT g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id
-			left join user_master as u on g.created_by=u.id
-			left join grievance_type as gt on gt.id=g.grievance_type_id
-			where (g.grievance_date BETWEEN '$from_date' AND '$to_date')  $quer_pagu $query_war";
-
+			$this->db->where('c.ward_id',$ward_id);
 		}
-
-
-		$resultset=$this->db->query($query);
-		return $resultset->result();
-	}
-
-	function get_meeting_report($frmDate,$toDate,$status,$paguthi,$ward_id)
-	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-
-		if(empty($frmDate) && empty($toDate) && empty($paguthi) && empty($ward_id)){
-			$query="SELECT mr.*,c.full_name,c.mobile_no,u.full_name as created_by from  meeting_request as mr
-			left join constituent as c on c.id=mr.constituent_id
-			left join user_master as u on u.id=mr.created_by
-			where mr.meeting_date >= last_day(now()) + interval 1 day - interval 3 month";
+		if(empty($status) || $status=='ALL'){
 
 		}else{
+			$this->db->where('g.status',$ward_id);
+		}
+		if(empty($frmDate)){
+				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
 
-			if($status=='ALL'){
-				$quer_status=' ';
-			}else{
-				$quer_status="AND mr.meeting_status='$status'";
-			}
-			if($paguthi=='ALL'){
-				$quer_pagu='';
-			}else{
-				$quer_pagu="AND g.paguthi_id='$paguthi'";
-			}
-			if(empty($ward_id)){
-				$query_war='';
-			}else{
-				$query_war="AND c.ward_id='$ward_id'";
-			}
-
-		  $query="SELECT mr.*,c.full_name,c.mobile_no,u.full_name as created_by from  meeting_request as mr
-			left join constituent as c on c.id=mr.constituent_id
-			left join user_master as u on u.id=mr.created_by
-			where (mr.meeting_date BETWEEN '$from_date' AND '$to_date')  $quer_status $quer_pagu $query_war";
-
-
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('g.grievance_date >=', $from_date);
+			$this->db->where('g.grievance_date <=', $to_date);
 		}
 
-		$resultset=$this->db->query($query);
-		return $resultset->result();
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+	function get_category_count($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id){
+		$this->db->select('count(g.id) as allcount');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($frmDate)){
+				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('g.grievance_date >=', $from_date);
+			$this->db->where('g.grievance_date <=', $to_date);
+		}
+		if(empty($category) || $category=='ALL'){
+
+		}else{
+			$this->db->where('g.grievance_type_id',$category);
+		}
+		if(empty($sub_category_id)){
+
+		}else{
+			$this->db->where('g.sub_category_id',$sub_category_id);
+		}
+		// echo $this->db->get_compiled_select();
+		// exit;
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+	function get_category_report($rowno,$rowperpage,$frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id)
+	{
+
+		$this->db->select('g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($frmDate)){
+				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('g.grievance_date >=', $from_date);
+			$this->db->where('g.grievance_date <=', $to_date);
+		}
+		if(empty($category) || $category=='ALL'){
+
+		}else{
+			$this->db->where('g.grievance_type_id',$category);
+		}
+		if(empty($sub_category_id)){
+
+		}else{
+			$this->db->where('g.sub_category_id',$sub_category_id);
+		}
+		// echo $this->db->get_compiled_select();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+
+
+	function get_location_count($frmDate,$toDate,$paguthi,$ward_id){
+		$this->db->select('count(g.id) as allcount');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($frmDate)){
+				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('g.grievance_date >=', $from_date);
+			$this->db->where('g.grievance_date <=', $to_date);
+		}
+		$query = $this->db->get();
+		$result = $query->result_array();
+
+		return $result[0]['allcount'];
+
+
+	}
+
+	function get_location_report($rowno,$rowperpage,$frmDate,$toDate,$paguthi,$ward_id)
+	{
+
+		$this->db->select('g.*,c.full_name,c.mobile_no,u.full_name as created_by,gt.grievance_name');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($frmDate)){
+				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('g.grievance_date >=', $from_date);
+			$this->db->where('g.grievance_date <=', $to_date);
+		}
+
+		// echo $this->db->get_compiled_select();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function get_meeting_count($frmDate,$toDate,$status,$paguthi,$ward_id){
+		$this->db->select('count(mr.id) as allcount');
+		$this->db->from('meeting_request as mr');
+		$this->db->join('constituent as c', 'mr.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'mr.created_by = u.id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($status) || $status=='ALL'){
+
+		}else{
+			$this->db->where('mr.meeting_status',$status);
+		}
+		if(empty($frmDate)){
+				$this->db->where('mr.meeting_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('mr.meeting_date >=', $from_date);
+			$this->db->where('mr.meeting_date <=', $to_date);
+		}
+
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$query = $this->db->get();
+		$result = $query->result_array();
+
+		return $result[0]['allcount'];
+	}
+
+	function get_meeting_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id)
+	{
+		$this->db->select('mr.*,c.full_name,c.mobile_no,u.full_name as created_by');
+		$this->db->from('meeting_request as mr');
+		$this->db->join('constituent as c', 'mr.constituent_id = c.id', 'left');
+		$this->db->join('user_master as u', 'mr.created_by = u.id', 'left');
+		if(empty($paguthi) || $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		if(empty($status) || $status=='ALL'){
+
+		}else{
+			$this->db->where('mr.meeting_status',$status);
+		}
+		if(empty($frmDate)){
+				$this->db->where('mr.meeting_date >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+			$this->db->where('mr.meeting_date >=', $from_date);
+			$this->db->where('mr.meeting_date <=', $to_date);
+		}
+
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+
 	}
 
 
@@ -270,53 +374,67 @@ Class Reportmodel extends CI_Model
 		return $resultset->result();
 	}
 
-	function get_birthday_report($selMonth)
+	function get_birthday_report($rowno,$rowperpage,$year_id,$month_id,$paguthi,$ward_id)
 	{
-				$year = date("Y");
-				$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-				$resultset=$this->db->query($query);
-				if($resultset->num_rows()>0){
-					foreach ($resultset->result() as $rows)
-					{
-						$const_id = $rows->id;
-						$full_name = $rows->full_name;
-						$dob = $rows->dob;
-						$mobile_no = $rows->mobile_no;
-						$door_no = $rows->door_no;
-						$address = $rows->address;
-						$pin_code = $rows->pin_code;
+		$this->db->select('bw.*,c.full_name,c.mobile_no,c.whatsapp_no,c.email_id,c.address,c.dob,c.pin_code,c.door_no');
+		$this->db->from('consitutent_birthday_wish as bw');
+		$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
+		if(empty($year_id)){
+			$this->db->where('DATE(bw.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$this->db->where('YEAR(bw.created_at)',$year_id);
+		}
+		if(empty($month_id)){
 
-						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-						$subQuery_result = $this->db->query($subQuery);
-						if($subQuery_result->num_rows()>0){
-							foreach ($subQuery_result->result() as $rows1)
-							{
-								$birth_id = $rows1->constituent_id;
-							}
-						}else{
-							$birth_id = '';
-						}
+		}else{
+			$this->db->where('MONTH(bw.created_at)',$month_id);
+		}
+		if(empty($paguthi) || $paguthi=="ALL"){
 
-						if ($const_id == $birth_id){
-							 $birth_wish = 'Send';
-						} else {
-							 $birth_wish = 'NotSend';
-						}
-						$contData[]  = (object) array(
-								"const_id" => $const_id,
-								"full_name" => $full_name,
-								"dob" => $dob,
-								"mobile_no" => $mobile_no,
-								"door_no" => $door_no,
-								"address" => $address,
-								"pin_code" => $pin_code,
-								"birth_wish_status" => $birth_wish,
-						);
-					}
-				}else {
-						$contData = array();
-				}
-		return $contData;
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+
+	}
+
+	function get_birthday_count($year_id,$month_id,$paguthi,$ward_id){
+		$this->db->select('count(bw.id) as allcount');
+		$this->db->from('consitutent_birthday_wish as bw');
+		$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
+		if(empty($year_id)){
+			$this->db->where('DATE(bw.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
+		}else{
+			$this->db->where('YEAR(bw.created_at)',$year_id);
+		}
+		if(empty($month_id)){
+
+		}else{
+			$this->db->where('MONTH(bw.created_at)',$month_id);
+		}
+		if(empty($paguthi) && $paguthi=='ALL'){
+
+		}else{
+			$this->db->where('c.paguthi_id',$paguthi);
+		}
+		if(empty($ward_id)){
+
+		}else{
+			$this->db->where('c.ward_id',$ward_id);
+		}
+		$query = $this->db->get();
+		$result = $query->result_array();
+
+		return $result[0]['allcount'];
 	}
 
 	function birthday_update($constituent_id,$user_id,$searchMonth)
@@ -429,12 +547,12 @@ Class Reportmodel extends CI_Model
 			if(empty($paguthi)){
 
 			}else{
-				$this->db->or_where('c.paguthi_id',$paguthi);
+				$this->db->where('c.paguthi_id',$paguthi);
 			}
 			if(empty($ward_id)){
 
 			}else{
-				$this->db->or_where('c.ward_id',$ward_id);
+				$this->db->where('c.ward_id',$ward_id);
 			}
 
 
@@ -473,12 +591,12 @@ Class Reportmodel extends CI_Model
  			if(empty($paguthi)){
 
  			}else{
- 				$this->db->or_where('c.paguthi_id',$paguthi);
+ 				$this->db->where('c.paguthi_id',$paguthi);
  			}
  			if(empty($ward_id)){
 
  			}else{
- 				$this->db->or_where('c.ward_id',$ward_id);
+ 				$this->db->where('c.ward_id',$ward_id);
  			}
  			// echo $this->db->get_compiled_select(); // before $this->db->get();
  			// exit;
@@ -488,6 +606,40 @@ Class Reportmodel extends CI_Model
 
  		 }
 
+		 function get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id){
+			 	$this->db->select('count(c.id) as allcount');
+				$this->db->from('constituent as c');
+				if(empty($paguthi)){
+
+				}else{
+					$this->db->where('c.paguthi_id',$paguthi);
+				}
+				if(empty($ward_id)){
+
+				}else{
+					$this->db->where('c.ward_id',$ward_id);
+				}
+			if(empty($mobile_no)){
+
+				}else{
+					$this->db->where('c.mobile_no!=',0);
+				}
+			if(empty($whatsapp_no)){
+
+				}else{
+					$this->db->where('c.whatsapp_no!=',0);
+				}
+			if(empty($email_id)){
+
+				}else{
+					$this->db->where('c.email_id!=" "');
+				}
+				$query = $this->db->get();
+				$result = $query->result_array();
+				return $result[0]['allcount'];
+
+
+		 }
 
 		 function constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id){
 			 $this->db->select('c.*');
@@ -505,17 +657,17 @@ Class Reportmodel extends CI_Model
 			if(empty($mobile_no)){
 
  			}else{
- 				$this->db->or_where('c.mobile_no!=',0);
+ 				$this->db->where('c.mobile_no!=',0);
  			}
 			if(empty($whatsapp_no)){
 
  			}else{
- 				$this->db->or_where('c.whatsapp_no!=',0);
+ 				$this->db->where('c.whatsapp_no!=',0);
  			}
 			if(empty($email_id)){
 
  			}else{
- 				$this->db->or_where('c.email_id!=" "');
+ 				$this->db->where('c.email_id!=" "');
  			}
 
   			// echo $this->db->get_compiled_select(); // before $this->db->get();
@@ -528,10 +680,10 @@ Class Reportmodel extends CI_Model
 
 
 	public function exportrecords($search = '') {
-			
+
 		$this->db->select('full_name,father_husband_name,mobile_no,door_no,address,pin_code,aadhaar_no,voter_id_no,serial_no,status');
 		$this->db->from('constituent');
-	 
+
 		if($search != ''){
 				$this->db->like('full_name', $search);
 				$this->db->or_like('father_husband_name', $search);
@@ -547,9 +699,15 @@ Class Reportmodel extends CI_Model
 		}
 		$query = $this->db->get();
 		$result = $query->result_array();
-		
+
 		return $query->result_array();
   }
 
+
+	function get_birthday_wish_year(){
+		$query="SELECT YEAR(created_at)  as year_name FROM consitutent_birthday_wish GROUP BY year_name";
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
 }
 ?>

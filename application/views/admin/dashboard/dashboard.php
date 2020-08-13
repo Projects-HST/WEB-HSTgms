@@ -204,7 +204,7 @@
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">letter greeting</p>
-								<p class="widget_count"><?= $row_br_list->birth_wish_count; ?></p>
+								<p class="widget_count"><?= $rows_cons->total; ?></p>
 							</div>
 						</div>
 					</div>

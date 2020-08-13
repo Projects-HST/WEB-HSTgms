@@ -47,7 +47,7 @@
                     <div class="col-md-12 profile_info">
                       <div class="col-md-6">
                           <p class="label_profile">PARTY MEMBER : <span class="label_text"><?php if($rows->party_member_status=='Y'){ echo "Yes"; }else{ echo "NO"; } ?></span></p>
-                          <p class="label_profile">vote type : <span class="label_text"><?php echo $rows->vote_type; ?></span></p>
+                          <p class="label_profile">Volunteer : <span class="label_text"><?php echo $rows->volunteer_status; ?></span></p>
                           <p class="label_profile">serial no: <span class="label_text"><?php echo $rows->serial_no; ?></span></p>
                           <p class="label_profile">status: <span class="label_text"><?php echo $rows->status; ?></span></p>
                           <p class="label_profile">constituency: <span class="label_text"><?php echo $rows->constituency_name; ?></span></p>
@@ -76,8 +76,8 @@
                         </ul>
                         <div id="myTabContent" class="tab-content">
                            <div role="tabpanel" class="tab-pane fade active show" id="tab_content1" aria-labelledby="home-tab">
-                             <h4>Plant donation</h4>
-                             <table id="example_3" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                             <!-- <h4>Plant donation</h4> -->
+                             <!-- <table id="example_3" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
                                    <tr>
                                       <th>S.no</th>
@@ -97,7 +97,7 @@
                                 <?php $i++; } ?>
 
                                 </tbody>
-                             </table>
+                             </table> -->
                              <h4>meeting request</h4>
                              <table id="example_2" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
@@ -117,7 +117,7 @@
                                       <td><?php echo $rows_meeting->meeting_detail; ?></td>
 									  <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
                                       <td><?php echo $rows_meeting->meeting_status; ?></td>
-									  
+
                                      <td><?php echo date('d-m-Y H:i:s', strtotime($rows_meeting->updated_at)); ?></td>
 
                                       </tr>
@@ -153,7 +153,7 @@
                                       <td><?php echo $status= $rows_grievance->reference_note; ?></td>
                                       <td><?php echo $status= $rows_grievance->status; ?></td>
 									   <td><?php echo date('d-m-Y H:i:s', strtotime($rows_grievance->updated_at)); ?></td>
-                                      
+
 
                                       </tr>
                                 <?php $i++; } ?>

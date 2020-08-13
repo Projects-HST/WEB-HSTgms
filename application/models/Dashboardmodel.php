@@ -83,7 +83,7 @@ Class Dashboardmodel extends CI_Model
 		}else{
 			$quer_paguthi="WHERE g.paguthi_id='$paguthi_id'";
 		}
-			if($paguthi_id=='ALL'){
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi_cons="";
 		}else{
 			$quer_paguthi_cons="WHERE c.paguthi_id='$paguthi_id'";
@@ -104,6 +104,40 @@ Class Dashboardmodel extends CI_Model
 				$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 			}
 		}
+
+
+		if(empty($from_date)){
+			$quer_mr_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if(empty($quer_paguthi)){
+				$quer_mr_date="WHERE DATE(mr.meeting_date) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_mr_date="AND DATE(mr.meeting_date) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+
+		if(empty($from_date)){
+			$quer_bw_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if(empty($quer_paguthi_cons)){
+				$quer_bw_date="WHERE DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_bw_date="AND DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+
 
 
 		   $query_1="SELECT s.seeker_info,IFNULL(count(*),'0') as total,
@@ -130,12 +164,13 @@ Class Dashboardmodel extends CI_Model
 			$query_3="SELECT count(*) as total,
 						IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0')  AS meeting_request_count
 						FROM meeting_request as mr
-            left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons";
+            left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_mr_date";
 			$res_3=$this->db->query($query_3);
 			$result_3=$res_3->result();
 
-			$query_4="SELECT count(*) as birth_wish_count FROM consitutent_birthday_wish as br
-						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons";
+		 $query_4="SELECT IFNULL(count(*),'0') as birth_wish_count
+						FROM consitutent_birthday_wish as br
+						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_bw_date";
 			$res_4=$this->db->query($query_4);
 			$result_4=$res_4->result();
 

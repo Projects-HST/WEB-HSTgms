@@ -8,7 +8,10 @@ class Dashboard extends CI_Controller {
 			$this->load->library('session');
 			$this->load->model('usermodel');
 			$this->load->model('dashboardmodel');
+			$this->load->model('constituentmodel');
 			$this->load->model('mastermodel');
+			$this->load->library('pagination');
+			$this->load->helper('form');
  }
 
 	public function index()
@@ -35,25 +38,67 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	public function searchresult()
+	public function searchresult($rowno=0)
 	{
 
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
-			$keyword = "";
-			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
-			$data['res_constituency']=$this->mastermodel->get_active_constituency();
-			$data['res_seeker']=$this->mastermodel->get_active_seeker();
+			$search_text=$this->input->post('keyword');
+			$data['keyword']=$search_text;
+			$rowperpage = 25;
 
-			$keyword=$this->input->post('keyword');
-			$datas['keyword']=$keyword;
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
 
-			$datas['res']=$this->dashboardmodel->get_search_reult($keyword);
-			// $datas['res']=$this->dashboardmodel->get_search_reult($keyword);
+			// All records count
+			$allcount = $this->constituentmodel->getrecordconscount($search_text);
+
+			// Get records
+			$users_record = $this->constituentmodel->getConstituent($rowno,$rowperpage,$search_text);
+
+			// Pagination Configuration
+			$config['base_url'] = base_url().'dashboard/searchresult';
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $allcount;
+			$config['per_page'] = $rowperpage;
+			//Pagination Container tag
+			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+			$config['full_tag_close'] = '</div>';
+			//First and last Link Text
+			$config['first_link'] = 'First';
+			$config['last_link'] = 'Last';
+			//First tag
+			$config['first_tag_open'] = '<span class="pagination-first-tag">';
+			$config['first_tag_close'] = '</span>';
+			//Last tag
+			$config['last_tag_open'] = '<span class="pagination-last-tag">';
+			$config['last_tag_close'] = '</span>';
+			//Next and Prev Link
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+			//Next and Prev Link Styling
+			$config['next_tag_open'] = '<span class="pagination-next-tag">';
+			$config['next_tag_close'] = '</span>';
+			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+			$config['prev_tag_close'] = '</span>';
+			//Current page tag
+			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+			$config['cur_tag_close'] = '</strong>';
+			$config['num_tag_open'] = '<span class="pagination-number">';
+			$config['num_tag_close'] = '</span>';
+			// Initialize
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
+			$data['result'] = $users_record;
+			$data['total_records'] = $allcount;
+			$data['row'] = $rowno;
+			$data['search'] = $search_text;
 
 			$this->load->view('admin/header');
-			$this->load->view('admin/dashboard/search_result',$datas);
+			$this->load->view('admin/dashboard/search_result',$data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('base_url()');

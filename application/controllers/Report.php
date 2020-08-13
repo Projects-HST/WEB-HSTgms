@@ -14,35 +14,83 @@ class Report extends CI_Controller {
 			$this->load->model('smsmodel');
  }
 
-	public function status()
+	public function status($rowno=0)
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$data['paguthi'] = $this->usermodel->list_paguthi();
 
 
 		 $frmDate=$this->input->post('frmDate');
-		 $datas['dfromDate'] = $frmDate;
+		 $data['dfromDate'] = $frmDate;
 		 $toDate=$this->input->post('toDate');
-		 $datas['dtoDate'] = $toDate;
+		 $data['dtoDate'] = $toDate;
 		 $status=$this->input->post('status');
 		 if ($status != ""){
-			$datas['dstatus'] = $status;
+			$data['dstatus'] = $status;
 		 } else {
-			  $datas['dstatus'] = "ALL";
+			  $data['dstatus'] = "ALL";
 		 }
 		 $paguthi=$this->input->post('paguthi');
 		 $ward_id=$this->input->post('ward_id');
 		 if ($paguthi != ""){
-			 $datas['dpaguthi'] = $paguthi;
+			 $data['dpaguthi'] = $paguthi;
 		 } else {
-			  $datas['dpaguthi'] = "ALL";
+			  $data['dpaguthi'] = "ALL";
 		 }
-		$datas['res']=$this->reportmodel->get_status_report($frmDate,$toDate,$status,$paguthi,$ward_id);
-		if($user_type=='1' || $user_type=='2'){
+		$rowperpage = 25;
+
+		// Row position
+		if($rowno != 0){
+			$rowno = ($rowno-1) * $rowperpage;
+		}
+
+		// All records count
+		$allcount = $this->reportmodel->get_count_status_report($frmDate,$toDate,$status,$paguthi,$ward_id);
+
+		// Get records
+		$users_record = $this->reportmodel->get_status_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id);
+
+		// Pagination Configuration
+		$config['base_url'] = base_url().'dashboard/searchresult';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		//Pagination Container tag
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+		$config['full_tag_close'] = '</div>';
+		//First and last Link Text
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		//First tag
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+		//Last tag
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+		//Next and Prev Link
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		//Next and Prev Link Styling
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+		//Current page tag
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		// Initialize
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['total_records'] = $allcount;
+		$data['row'] = $rowno;
+	 if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
-			$this->load->view('admin/report/status_report',$datas);
+			$this->load->view('admin/report/status_report',$data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
@@ -50,146 +98,266 @@ class Report extends CI_Controller {
 
 	}
 
-	public function category()
+	public function category($rowno=0)
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$datas['category'] = $this->usermodel->list_category();
-		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$data['category'] = $this->usermodel->list_category();
+		$data['paguthi'] = $this->usermodel->list_paguthi();
 
-		 $frmDate=$this->input->post('frmDate');
-		 $datas['dfromDate'] = $frmDate;
-		 $toDate=$this->input->post('toDate');
-		 $datas['dtoDate'] = $toDate;
-		 $category=$this->input->post('category');
-		 if ($category != ""){
-			 $datas['dcategory'] = $category;
-		 } else {
-			  $datas['dcategory'] = "ALL";
-		 }
-		 $sub_category_id=$this->input->post('sub_category_id');
-		 $paguthi=$this->input->post('paguthi');
-		$ward_id=$this->input->post('ward_id');
-		$datas['res']=$this->reportmodel->get_category_report($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
-
-		if($user_type=='1' || $user_type=='2'){
-			$this->load->view('admin/header');
-			$this->load->view('admin/report/category_report',$datas);
-			$this->load->view('admin/footer');
-		}else{
-			redirect('/');
-		}
-	}
-
-
-	public function sub_category()
-	{
-		$datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		$datas['subcategory'] = $this->usermodel->list_subcategory();
-
-		 $frmDate=$this->input->post('frmDate');
-		 $datas['dfromDate'] = $frmDate;
-		 $toDate=$this->input->post('toDate');
-		 $datas['dtoDate'] = $toDate;
-		 $sub_category=$this->input->post('sub_category');
-		 if ($sub_category != ""){
-			 $datas['dsub_category'] = $sub_category;
-		 } else {
-			  $datas['dsub_category'] = "ALL";
-		 }
-
-		$datas['res']=$this->reportmodel->get_subcategory_report($frmDate,$toDate,$sub_category);
-
-		if($user_type=='1' || $user_type=='2'){
-			$this->load->view('admin/header');
-			$this->load->view('admin/report/subcategory_report',$datas);
-			$this->load->view('admin/footer');
-		}else{
-			redirect('/');
-		}
-	}
-
-
-	public function location()
-	{
-		$datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		$datas['paguthi'] = $this->usermodel->list_paguthi();
-
-		$frmDate=$this->input->post('frmDate');
-		 $datas['dfromDate'] = $frmDate;
-		 $toDate=$this->input->post('toDate');
-		 $datas['dtoDate'] = $toDate;
-		 $paguthi=$this->input->post('paguthi');
-		 if ($paguthi != ""){
-			 $datas['dpaguthi'] = $paguthi;
-		 } else {
-			  $datas['dpaguthi'] = "ALL";
-		 }
-		$ward_id=$this->input->post('ward_id');
-		$datas['res']=$this->reportmodel->get_location_report($frmDate,$toDate,$paguthi,$ward_id);
-
-		if($user_type=='1' || $user_type=='2'){
-			$this->load->view('admin/header');
-			$this->load->view('admin/report/location_report',$datas);
-			$this->load->view('admin/footer');
-		}else{
-			redirect('/');
-		}
-	}
-
-	public function meetings()
-	{
-		$datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		$datas['paguthi'] = $this->usermodel->list_paguthi();
-
-		$frmDate = "";
-		$toDate = "";
-
-		$frmDate=$this->input->post('frmDate');
-		$getfrmDate=$this->uri->segment(3);
-
-		$toDate=$this->input->post('toDate');
-		$gettoDate=$this->uri->segment(4);
-
-		if ($frmDate!=''){
 			$frmDate=$this->input->post('frmDate');
-		}else if ($getfrmDate!=''){
-			$frmDate=$this->uri->segment(3);
-		}
-
-		if ($toDate!=''){
+			$data['dfromDate'] = $frmDate;
 			$toDate=$this->input->post('toDate');
-		}else if ($gettoDate!=''){
-			$toDate=$this->uri->segment(4);
-		}
+			$data['dtoDate'] = $toDate;
+			$category=$this->input->post('category');
+			if ($category != ""){
+			 $data['dcategory'] = $category;
+			} else {
+			  $data['dcategory'] = "ALL";
+			}
+			$sub_category_id=$this->input->post('sub_category_id');
+			$paguthi=$this->input->post('paguthi');
+			$ward_id=$this->input->post('ward_id');
+
+			$rowperpage = 25;
+			if($rowno != 0){
+			$rowno = ($rowno-1) * $rowperpage;
+			}
+
+			// All records count
+			$allcount = $this->reportmodel->get_category_count($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
+
+			// Get  records
+			$users_record = $this->reportmodel->get_category_report($rowno,$rowperpage,$frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
+
+			// Pagination Configuration
+			$config['base_url'] = base_url().'report/category';
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $allcount;
+			$config['per_page'] = $rowperpage;
+			//Pagination Container tag
+			$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+			$config['full_tag_close'] = '</div>';
+
+			//First and last Link Text
+			$config['first_link'] = 'First';
+			$config['last_link'] = 'Last';
+
+			//First tag
+			$config['first_tag_open'] = '<span class="pagination-first-tag">';
+			$config['first_tag_close'] = '</span>';
+
+			//Last tag
+			$config['last_tag_open'] = '<span class="pagination-last-tag">';
+			$config['last_tag_close'] = '</span>';
+
+			//Next and Prev Link
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+
+			//Next and Prev Link Styling
+			$config['next_tag_open'] = '<span class="pagination-next-tag">';
+			$config['next_tag_close'] = '</span>';
+
+			$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+			$config['prev_tag_close'] = '</span>';
 
 
-		$datas['dfromDate'] = $frmDate;
-		$datas['dtoDate'] = $toDate;
-		$status=$this->input->post('status');
-		if ($status != ""){
-		 $datas['dstatus'] = $status;
-		} else {
-			 $datas['dstatus'] = "ALL";
-		}
-		$paguthi=$this->input->post('paguthi');
-	 	$ward_id=$this->input->post('ward_id');
-		$datas['res']=$this->reportmodel->get_meeting_report($frmDate,$toDate,$status,$paguthi,$ward_id);
+			//Current page tag
+			$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+			$config['cur_tag_close'] = '</strong>';
+
+
+			$config['num_tag_open'] = '<span class="pagination-number">';
+			$config['num_tag_close'] = '</span>';
+			// Initialize
+			$this->pagination->initialize($config);
+
+			$data['pagination'] = $this->pagination->create_links();
+			$data['result'] = $users_record;
+			$data['row'] = $rowno;
+			$data['allcount'] = $allcount;
+
 
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
-			$this->load->view('admin/report/meeting_report',$datas);
+			$this->load->view('admin/report/category_report',$data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
 		}
+	}
+
+
+
+	public function location($rowno=0)
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$data['paguthi'] = $this->usermodel->list_paguthi();
+		$frmDate=$this->input->post('frmDate');
+		$data['dfromDate'] = $frmDate;
+		$toDate=$this->input->post('toDate');
+		$data['dtoDate'] = $toDate;
+		$paguthi=$this->input->post('paguthi');
+		$data['dpaguthi'] = $paguthi;
+		$ward_id=$this->input->post('ward_id');
+
+		$rowperpage = 25;
+		if($rowno != 0){
+		$rowno = ($rowno-1) * $rowperpage;
+		}
+
+		// All records count
+		$allcount = $this->reportmodel->get_location_count($frmDate,$toDate,$paguthi,$ward_id);
+
+		// Get  records
+		$users_record = $this->reportmodel->get_location_report($rowno,$rowperpage,$frmDate,$toDate,$paguthi,$ward_id);
+
+		// Pagination Configuration
+		$config['base_url'] = base_url().'report/location';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		//Pagination Container tag
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+		$config['full_tag_close'] = '</div>';
+
+		//First and last Link Text
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+
+		//First tag
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+
+		//Last tag
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+
+		//Next and Prev Link
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+
+		//Next and Prev Link Styling
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+
+
+		//Current page tag
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+
+
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		// Initialize
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+		$data['allcount'] = $allcount;
+
+
+		if($user_type=='1' || $user_type=='2'){
+			$this->load->view('admin/header');
+			$this->load->view('admin/report/location_report',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function meetings($rowno=0)
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$datas['paguthi'] = $this->usermodel->list_paguthi();
+
+				$frmDate=$this->input->post('frmDate');
+				$toDate=$this->input->post('toDate');
+				$data['dfromDate'] = $frmDate;
+				$data['dtoDate'] = $toDate;
+				$status=$this->input->post('status');
+				$data['dstatus'] = $status;
+				$paguthi=$this->input->post('paguthi');
+			 	$ward_id=$this->input->post('ward_id');
+		// $datas['res']=$this->reportmodel->get_meeting_report($frmDate,$toDate,$status,$paguthi,$ward_id);
+				$rowperpage = 10;
+
+				// Row position
+				if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+				}
+
+				// All records count
+				$allcount = $this->reportmodel->get_meeting_count($frmDate,$toDate,$status,$paguthi,$ward_id);
+
+				// Get  records
+				$users_record = $this->reportmodel->get_meeting_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id);
+
+				// Pagination Configuration
+				$config['base_url'] = base_url().'report/meetings';
+				$config['use_page_numbers'] = TRUE;
+				$config['total_rows'] = $allcount;
+				$config['per_page'] = $rowperpage;
+				//Pagination Container tag
+				$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+				$config['full_tag_close'] = '</div>';
+
+				//First and last Link Text
+				$config['first_link'] = 'First';
+				$config['last_link'] = 'Last';
+
+				//First tag
+				$config['first_tag_open'] = '<span class="pagination-first-tag">';
+				$config['first_tag_close'] = '</span>';
+
+				//Last tag
+				$config['last_tag_open'] = '<span class="pagination-last-tag">';
+				$config['last_tag_close'] = '</span>';
+
+				//Next and Prev Link
+				$config['next_link'] = 'Next';
+				$config['prev_link'] = 'Prev';
+
+				//Next and Prev Link Styling
+				$config['next_tag_open'] = '<span class="pagination-next-tag">';
+				$config['next_tag_close'] = '</span>';
+
+				$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+				$config['prev_tag_close'] = '</span>';
+
+
+				//Current page tag
+				$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+				$config['cur_tag_close'] = '</strong>';
+
+
+				$config['num_tag_open'] = '<span class="pagination-number">';
+				$config['num_tag_close'] = '</span>';
+				// Initialize
+				$this->pagination->initialize($config);
+
+				$data['pagination'] = $this->pagination->create_links();
+				$data['result'] = $users_record;
+				$data['row'] = $rowno;
+				$data['allcount'] = $allcount;
+
+				if($user_type=='1' || $user_type=='2'){
+					$this->load->view('admin/header');
+					$this->load->view('admin/report/meeting_report',$data);
+					$this->load->view('admin/footer');
+				}else{
+					redirect('/');
+				}
 	}
 
 	public function meeting_update()
@@ -237,29 +405,86 @@ class Report extends CI_Controller {
 		}
 	}
 
-	public function birthday()
+	public function birthday($rowno=0)
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		//$datas['paguthi'] = $this->usermodel->list_paguthi();
-		$selMonth = "";
-		$selMonth=$this->input->post('month');
-		$getMonth=$this->uri->segment(3);
+		$data['paguthi'] = $this->usermodel->list_paguthi();
+		$data['res_year']=$this->reportmodel->get_birthday_wish_year();
+		$month_id=$this->input->post('month');
+		$year_id=$this->input->post('year_id');
 
-		if ($selMonth!=''){
-			$selMonth=$this->input->post('month');
-		}else if ($getMonth!=''){
-			$selMonth=$this->uri->segment(3);
-		}else{
-			$selMonth = date("m");
+
+		$data['searchMonth'] = $month_id;
+		// $data['res']=$this->reportmodel->get_birthday_report($selMonth);
+		$paguthi=$this->input->post('paguthi');
+		$ward_id=$this->input->post('ward_id');
+		$rowperpage = 10;
+
+		// Row position
+		if($rowno != 0){
+		$rowno = ($rowno-1) * $rowperpage;
 		}
-		$datas['searchMonth'] = $selMonth;
-		$datas['res']=$this->reportmodel->get_birthday_report($selMonth);
+
+		// All records count
+		$allcount = $this->reportmodel->get_birthday_count($year_id,$month_id,$paguthi,$ward_id);
+
+		// Get  records
+		$users_record = $this->reportmodel->get_birthday_report($rowno,$rowperpage,$year_id,$month_id,$paguthi,$ward_id);
+
+		// Pagination Configuration
+		$config['base_url'] = base_url().'report/birthday';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		//Pagination Container tag
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+		$config['full_tag_close'] = '</div>';
+
+		//First and last Link Text
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+
+		//First tag
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+
+		//Last tag
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+
+		//Next and Prev Link
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+
+		//Next and Prev Link Styling
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+
+
+		//Current page tag
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+
+
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		// Initialize
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+		$data['allcount'] = $allcount;
+
 
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
-			$this->load->view('admin/report/birthday_report',$datas);
+			$this->load->view('admin/report/birthday_report',$data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
@@ -574,7 +799,7 @@ class Report extends CI_Controller {
 			}
 
 			// All records count
-			$allcount = $this->reportmodel->getrecordCount($search_text);
+			$allcount = $this->reportmodel->get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id);
 
 			// Get records
 			$users_record = $this->reportmodel->constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id);
@@ -622,6 +847,7 @@ class Report extends CI_Controller {
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
 			$data['search'] = $search_text;
+			$data['allcount'] = $allcount;
 		// Load view
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/constituent_list',$data);
