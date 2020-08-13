@@ -1225,7 +1225,7 @@
 .left_col {
     /* background: #2A3F54; */
 
-      background: #31aa15;
+      /* background: #31aa15; */
 }
 
 .container {
@@ -1349,14 +1349,14 @@
 
 .menu_section h3 {
     padding-left: 23px;
-    color: #fff;
+    color: #3b3939;
     text-transform: uppercase;
     letter-spacing: .5px;
     font-weight: bold;
     font-size: 11px;
     margin-bottom: 0;
     margin-top: 0;
-    text-shadow: 1px 1px #000
+
 }
 
 .menu_section>ul {
@@ -1673,10 +1673,11 @@ body .container.body .right_col {
 body {
     /* color: #73879C; */
     color:#6c757d;
-    background: #31aa15;
-    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-    font-size: 13px;
-    font-weight: 400;
+
+    /* font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; */
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+
     line-height: 1.471
 }
 
@@ -1956,7 +1957,7 @@ a:focus {
 }
 
 .nav.side-menu>li>a:hover {
-    color: #F2F5F7 !important
+    /* color: #F2F5F7 !important */
 }
 
 .nav.side-menu>li>a:hover,
@@ -2043,15 +2044,16 @@ a:focus {
 }
 
 .nav li li.current-page a {
-    color: #fff
+    color:#3b3939;
 }
 
 .nav.side-menu>li.active>a {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
 
     /* background: linear-gradient(#334556, #2C4257), #2A3F54; */
-    background: linear-gradient(#31aa15, #31aa15), #31aa15;
-    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0
+    background-color: #ecf7ea;
+    color:#3b3939;
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0 */
 }
 
 .navbar-brand,
@@ -4073,7 +4075,7 @@ span.tag {
     margin-right: 5px;
     font-weight: 500;
     margin-bottom: 5px;
-    font-family: helvetica
+    
 }
 
 span.tag a {
@@ -4090,7 +4092,7 @@ span.tag a {
 .tagsinput input {
     width: 80px;
     margin: 0px;
-    font-family: helvetica;
+
     font-size: 13px;
     border: 1px solid transparent;
     padding: 3px;
@@ -4872,7 +4874,7 @@ ul.project_files li a i {
 }
 
 .view p {
-    font-family: Georgia, serif;
+
     font-style: italic;
     font-size: 12px;
     position: relative;
@@ -5052,7 +5054,7 @@ ul.project_files li a i {
     color: #666;
     background: rgba(243, 242, 243, 0.8);
     border: solid 2px rgba(195, 194, 196, 0.8);
-    font-family: sans-serif;
+
     font-size: 12px;
     text-align: center
 }

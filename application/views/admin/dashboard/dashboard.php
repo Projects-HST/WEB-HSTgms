@@ -20,215 +20,227 @@
 <div class="x_content">
 
 <div class="row">
-<div class="col-md-7">
-<h2>Dashboard </h2>
-</div>
-<div class="col-md-5">
-		<form id="result_form" action="<?php echo base_url(); ?>dashboard" method="post" enctype="multipart/form-data">
-			  <div class="item form-group">
-				 <label class="col-form-label col-md-6 col-sm-6 label-align">Select Area <span class="required">*</span></label>
-				 <div class="col-md-6 col-sm-6">
-						<select class="form-control" name="paguthi" id ="paguthi"  onchange="this.form.submit()">
-								<option value="All">OVER ALL</option>
+
+<div class="col-md-12">
+		<form id="result_form" action="<?php echo base_url(); ?>dashboard/index" method="post" enctype="multipart/form-data">
+			  <div class="form-group row">
+					<label class="col-form-label col-md-1 col-sm-6 ">From date</label>
+ 				 <div class="col-md-2">
+ 						<input type="text" class="form-control" name="from_date" id="from_date" value="<?php echo $from_date; ?>">
+ 				 </div>
+				 <label class="col-form-label col-md-1 col-sm-6 ">To date</label>
+				 <div class="col-md-2">
+					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>">
+					 </div>
+				 <label class="col-form-label col-md-2 col-sm-6 ">Select Office <span class="required">*</span></label>
+				 <div class="col-md-2 col-sm-6">
+						<select class="form-control" name="paguthi_id" id ="paguthi_id">
+								<option value="ALL">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
-								<option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
-							<?php } ?><script> $('#paguthi').val('<?php echo $search_paguthi; ?>');</script>
+								<option value="<?php echo $rows->paguthi_id;?>"><?php echo $rows->paguthi_name;?></option>
+							<?php } ?><script> $('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
 						</select>
 				 </div>
-				  <!--<div class="col-md-2 col-sm-2">
+				  <div class="col-md-2 col-sm-2">
 					 <button type="submit" class="btn btn-success">GO</button>
-				 </div>-->
+					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-danger">Reset</a>
+				 </div>
 			  </div>
 		 </form>
 </div>
 </div>
 <div class="clearfix"></div>
+<?php foreach($result_cons as $rows_cons){} ?>
+<div class="row mt_20">
+	<div class="col-md-3">
+		<div class="widget_box">
+			<div class="row">
+				<div class="col-3">
+						<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_1.png"></p>
+				</div>
+				<div class="col-9">
+					<div class="widget_title">
+						<p class="widget_heading">Total Constituent</p>
+						<p class="widget_count"><?= $rows_cons->total; ?></p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
 
+				<div class="col-9"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->malecount; ?></p></div>
+				<div class="col-9"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->femalecount; ?></p></div>
+				<div class="col-9"><p class="widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->others; ?></p></div>
+				<div class="col-9"><p class="widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->malevoter; ?></p></div>
+				<div class="col-9"><p class="widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->femalevoter; ?></p></div>
+				<div class="col-9"><p class="widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->maleaadhar; ?></p></div>
+				<div class="col-9"><p class="widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->femaleaadhar; ?></p></div>
+				<div class="col-9"><p class="widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->having_mobilenumber; ?></p></div>
+				<div class="col-9"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->having_email; ?></p></div>
+				<div class="col-9"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
+				<div class="col-3"><p class="widget_label"> <?= $rows_cons->having_whatsapp; ?></p></div>
+			</div>
 
-<div class="row">
-
-<div class="col-md-3  widget_tally_box">
-<div class="x_panel fixed_height_430">
-<div class="x_content">
-<div class="flex">
-	<div style="width:100%">
-		<center><img src="<?php echo base_url(); ?>assets/images/cm.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
-    padding: 4px;"></center>
-	</div>
-</div>
-<h4 class="name">Constituent Members</h4>
-<div class="flex">
-	<ul class="list-inline count2">
-		<li><h3><?php echo $result['con_count']; ?></h3></li>
-	</ul>
-</div>
-
-<div>
-	<ul class="list-inline widget_tally">
-	<li>
-		<p>
-			<span class="month">Total Male </span>
-			<span class="count"><?php echo $result['conm_count']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">Total Female </span>
-			<span class="count"><?php echo $result['conf_count']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">No. of Voter ID </span>
-			<span class="count"><?php echo $result['conv_count']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">No. of Aadhaar Card </span>
-			<span class="count"><?php echo $result['cona_count']; ?></span>
-		</p>
-	</li>
-</ul>
-</div>
-
-</div>
-</div>
-</div>
-
-
-
-<div class="col-md-3  widget_tally_box">
-<div class="x_panel fixed_height_430">
-<div class="x_content">
-<div class="flex">
-
-	<div style="width:100%">
-		<center><img src="<?php echo base_url(); ?>assets/images/meeting.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
-		padding: 4px;"></center>
-	</div>
-</div>
-<h4 class="name">Total <br>Meetings</h4>
-<div class="flex">
-	<ul class="list-inline count2">
-		<li><h3><?php echo $result['meet_count']; ?></h3></li>
-	</ul>
-</div>
-
-<div>
-	<ul class="list-inline widget_tally">
-	<li>
-		<p>
-			<span class="month">Meeting Requested </span>
-			<span class="count"><?php echo $result['meet_rcount']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">Meeting Completed </span>
-			<span class="count"><?php echo $result['meet_ccount']; ?></span>
-		</p>
-	</li>
-</ul>
-</div>
-
-</div>
-</div>
-</div>
-
-
-<div class="col-md-3  widget_tally_box">
-<div class="x_panel fixed_height_430">
-<div class="x_content">
-<div class="flex">
-	<div style="width:100%">
-		<center><img src="<?php echo base_url(); ?>assets/images/gl.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
-		padding: 4px;"></center>
-	</div>
-</div>
-<h4 class="name">Grievance</h4>
-<br>
-<div class="flex">
-	<ul class="list-inline count2">
-		<li><h3><?php echo $result['grev_count']; ?></h3></li>
-	</ul>
-</div>
-
-<div>
-	<ul class="list-inline widget_tally">
-	<li>
-		<p>
-			<span class="month">No. of Enquiry </span>
-			<span class="count"><?php echo $result['grev_ecount']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">No. of Petition </span>
-			<span class="count"><?php echo $result['grev_pcount']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">No. of Processing </span>
-			<span class="count"><?php echo $result['grev_processcount']; ?></span>
-		</p>
-	</li>
-	<li>
-		<p>
-			<span class="month">No. of Completed </span>
-			<span class="count"><?php echo $result['grev_completecount']; ?></span>
-		</p>
-	</li>
-</ul>
-</div>
-
-</div>
-</div>
-</div>
-
-
-<div class="col-md-3  widget_tally_box">
-<div class="x_panel fixed_height_430">
-<div class="x_content">
-<div class="flex">
-	<div style="width:100%">
-		<center><img src="<?php echo base_url(); ?>assets/images/interaction.png" class="img-circle" style="border: 1px solid rgba(52, 73, 94, 0.44);
-		padding: 4px;"></center>
+		</div>
 	</div>
 
-</div>
+	<div class="col-md-9">
+		<div class="row mb_30">
+			<div class="col-md-4">
+				<div class="widget_box widget_height">
+					<div class="row">
+						<div class="col-3">
+								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_2.png"></p>
+						</div>
+						<div class="col-9">
+							<div class="widget_title">
+								<p class="widget_heading">GRIEVANCE</p>
+								<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
+							<p class="widget_count"><?php echo $total_grievance=$row_gr_list->total;  ?></p>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
+							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> ( <?php echo round($row_grievenace->total/$total_grievance *100); ?>% )</p></div>
+							<div class="col-3"><p class="widget_label"> <?php echo  $row_grievenace->total; ?></p></div>
 
-<h4 class="name">Interaction Questions</h4>
-<div class="flex">
-	<ul class="list-inline count2">
-		<li><h3><?php echo $result['interaction_count']; ?></h3></li>
-	</ul>
-</div>
+						<?php } ?>
 
-<div>
-	<ul class="list-inline widget_tally">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="widget_box widget_height">
+					<div class="row">
+						<div class="col-3">
+								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_3.png"></p>
+						</div>
+						<div class="col-9">
+							<div class="widget_title">
+								<p class="widget_heading">Total Footfall</p>
+									<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
+								<p class="widget_count"><?php echo $row_gr_list->total;  ?></p>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
 
+							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
+						<div class="col-9"><p class="widget_label">New Footfall ( <?php echo round($row_gr_list->unique_count_percentage); ?>% )</p></div>
+						<div class="col-3"><p class="widget_label"> <?php echo $row_gr_list->unique_count; ?></p></div>
+						<div class="col-9"><p class="widget_label">Repeat Footfall ( <?php echo round($row_gr_list->repeat_count_percentage); ?>% )</p></div>
+						<div class="col-3"><p class="widget_label"> <?php echo $row_gr_list->repeat_count; ?></p></div>
+					<?php } ?>
+					</div>
+				</div>
+			</div>
+			<?php  foreach($grievance_report['mr_list'] as $row_mr_list){} ?>
+			<div class="col-md-4">
+				<div class="widget_box widget_height">
+					<div class="row">
+						<div class="col-3">
+								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_4.png"></p>
+						</div>
+						<div class="col-9">
+							<div class="widget_title">
+								<p class="widget_heading">Meeting</p>
+								<p class="widget_count"><?= $row_mr_list->total; ?></p>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-9"><p class="widget_label">meeting request </p></div>
+						<div class="col-3"><p class="widget_label"> <?= $row_mr_list->meeting_request_count; ?></p></div>
 
-	<?php if (count($interaction) >0) {
-			foreach($interaction as $rows){?>
-		<li>
-			<p>
-				<span class="month"><?php echo $rows->widgets_title;?> </span>
-				<span class="count"><?php echo $rows->tot_values;?></span>
-			</p>
-		</li>
-	<?php
-			}
-		}
-		?>
-</ul>
-</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-</div>
-</div>
-</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="widget_box widget_height">
+					<div class="row">
+						<div class="col-3">
+								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_5.png"></p>
+						</div>
+						<div class="col-9">
+							<div class="widget_title">
+								<p class="widget_heading">Total Volunteer</p>
+								<p class="widget_count"><?= $rows_cons->total; ?></p>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage);?>)</p></div>
+						<div class="col-3"><p class="widget_label"> <?= $rows_cons->no_of_cons; ?></p></div>
+						<div class="col-9"><p class="widget_label">Non constituent (<?= round($rows_cons->no_of_noncons_percentage); ?>%)</p></div>
+						<div class="col-3"><p class="widget_label"> <?= $rows_cons->no_of_noncons; ?></p></div>
+					</div>
+				</div>
+			</div>
+			<?php  foreach($grievance_report['br_list'] as $row_br_list){} ?>
+			<div class="col-md-4">
+				<div class="widget_box widget_height">
+					<div class="row">
+						<div class="col-3">
+								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_6.png"></p>
+						</div>
+						<div class="col-9">
+							<div class="widget_title">
+								<p class="widget_heading">letter greeting</p>
+								<p class="widget_count"><?= $row_br_list->birth_wish_count; ?></p>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
 
+						<div class="col-9"><p class="widget_label">Birthday ( 10% )</p></div>
+						<div class="col-3"><p class="widget_label"><?= $row_br_list->birth_wish_count; ?></p></div>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="widget_box widget_height">
+					<div class="row">
+						<div class="col-3">
+								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_7.png"></p>
+						</div>
+						<div class="col-9">
+							<div class="widget_title">
+								<p class="widget_heading">Total Videos</p>
+								<p class="widget_count">1000</p>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-9"><p class="widget_label">Total Male ( 10% )</p></div>
+						<div class="col-3"><p class="widget_label"> 20000</p></div>
+						<div class="col-9"><p class="widget_label">Total Female ( 10% )</p></div>
+						<div class="col-3"><p class="widget_label"> 20000</p></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -236,27 +248,16 @@
 <hr>
 
 <div class="row">
-<div class="col-md-12">
+<div class="col-md-8">
 <div class="x_panel">
-		<div id="chart_div" style="height:400px;"></div>
+	<div id="curve_chart" style="width: 100%; height: 500px"></div>
+
 	</div>
 </div>
 </div>
 <div class="clearfix"></div>
 
-<!-- <div class="row">
-<div class="col-md-6">
-<div class="x_panel">
-	<div id="chart_div1" style="height:400px;"></div>
-</div>
-</div>
 
-<div class="col-md-6">
-<div class="x_panel">
-		<div id="chart_div2" style="height:400px;"></div>
-</div>
-</div>
-</div> -->
 
 </div>
 </div>
@@ -265,76 +266,60 @@
 </div>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
+		google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+var data = google.visualization.arrayToDataTable([
+	['Week', 'Total', 'New','Repeated'],
+	<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
+		['<?= "week".'-' .$i; ?>',  <?= $rows_graph->total ;?>,<?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
+	<?php $i++; } ?>
 
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-          var data = google.visualization.arrayToDataTable([
-          ['Month', 'TOTAL', 'NEW', 'REPEATED'],
-          <?php
-			  if (count($footfall_result) >0) {
-				$i=1;
-				$rec_count = count($footfall_result);
-				foreach($footfall_result as $rows){
-					echo "['$rows->disp_month', $rows->total, $rows->new_grev, $rows->repeated_grev]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; }
-				$i++;
+	// ['2005',  1170,      460,112],
+	// ['2006',  660,       1120,200],
+	// ['2007',  1030,      540,300],
+]);
 
-				}
-			} else {
-				echo "['Nill', 0,0,0]";
-			}
-		?>
-        ]);
-        var options = {
-          title : 'FOOT FALL REPORT',
-          vAxis: {title: 'GRIEVANCE DETAILS',format: '0'},
-          hAxis: {title: 'MONTHS'},
-          seriesType: 'bars'
-		 };
+var options = {
+	title: 'FOOTFALL ',
+	curveType: 'function',
+	legend: { position: 'bottom' }
+};
 
+var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
+chart.draw(data, options);
+}
 
-		var data1 = google.visualization.arrayToDataTable([
-          ['Grievance', 'Grievance Type'],
-          ['Enquiry', <?php echo $grievance_result['gerv_ecount']; ?>],
-          ['Petition processing', <?php echo $grievance_result['gerv_ppcount']; ?>],
-          ['Petition completed', <?php echo $grievance_result['gerv_pccount']; ?>]
-        ]);
-		var options1 = {
-          title: 'GRIEVANCE PROGRESS REPORT'
-        };
+$.validator.addMethod("chkDates", function(value, element) {
+		var startDate = $('#from_date').val();
+		var datearray = startDate.split("-");
+		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
+		var endDate = $('#to_date').val();
+		var datearray = endDate.split("-");
+		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
+		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
+	}, "Please check dates");
+$('#from_date').datetimepicker({
+      format: 'DD-MM-YYYY'
+});
+$('#to_date').datetimepicker({
+      format: 'DD-MM-YYYY'
 
-        var data2 = google.visualization.arrayToDataTable([
-          ['MONTHS', 'MEETINGS'],
-		<?php
-			if (count($meeting_result) >0) {
-				$i=1;
-				$rec_count = count($meeting_result);
-				foreach($meeting_result as $rows){
-					echo "['$rows->month_year',  $rows->meeting_request]"; if ($i<$rec_count) { echo ",\n";} else {echo "\n"; }
-				$i++;
-				}
-			}else {
-				echo "['Nill', 0]";
-			}
-		?>
-        ]);
-        var options2 = {
-          title: 'CONSTITUENTS MEETING REPORT',
-          hAxis: {title: 'MONTHS'},
-          vAxis: {title: 'MEETING COUNT',minValue: 0,format: '0'}
-        };
+});
+$('#result_form').validate({
+     rules: {
+         paguthi_id:{required:true },
+				 from_date:{ required: function(element){
+            return $("#to_date").val().length > 0; }},
+				to_date:{ required: function(element){
+	         return $("#from_date").val().length > 0; },chkDates: "#from_date"},
+     },
+     messages: {
 
+         }
+ });
 
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-		// var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
-		// var chart2 = new google.visualization.AreaChart(document.getElementById('chart_div2'));
-        chart.draw(data, options);
-		// chart1.draw(data1, options1);
-		// chart2.draw(data2, options2);
-      }
     </script>

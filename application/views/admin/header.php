@@ -12,6 +12,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" href="images/favicon.ico" type="image/ico" />
       <title>GRIEVANCE MANAGEMENT SYSTEM </title>
+			<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -51,11 +52,11 @@
          <div class="main_container">
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
-                  <div class="navbar nav_title" style="border: 0;">
+                  <div class="navbar nav_title" style="border: 0;background-color:#31aa15;">
                      <a href="#" class="site_title" style="margin-top:9px;text-align:center;"> <span >GMS</span></a>
                   </div>
                   <div class="clearfix"></div>
-                  <div class="profile clearfix">
+                  <div class="profile clearfix menu_profile">
                      <div class="profile_pic">
 						<?php
 						if ($user_pic != '') {?>
@@ -71,7 +72,7 @@
                   </div>
 
 
-                  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu menu_bar">
 
                      <div class="menu_section">
                         <h3> MENU </h3>
@@ -161,7 +162,7 @@
                </div>
             </div>
             <div class="top_nav">
-               <div class="nav_menu">
+               <div class="nav_menu" style="padding-bottom:2px;">
                   <div class="nav toggle">
                      <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                   </div>
