@@ -1,54 +1,12 @@
 <?php $search_value = $this->session->userdata('search'); ?>
-<style type="text/css">
-.pagination-first-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-}
 
-.pagination-last-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-
-}
-.pagination-next-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-}
-
-.pagination-prev-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-
-}
-
-.pagination-current-tag{
-	color:#000000;
-	font-weight:bold;
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-number{
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-	color:#ffffff;
-
-}
-	</style>
 <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
                 <h2>List of constituent</h2> <span style="float:right;">
-			
+
 				<a class="btn btn-danger" style="margin-top:5px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
                <div class="clearfix"></div>
             </div>
@@ -137,6 +95,8 @@
 							<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
 							<a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 							<a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+							&nbsp;
+							<a title="REPLY" class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a>
 							</td>';
 				echo "</tr>";
 				$sno++;
@@ -168,25 +128,25 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Plant donation</h4>
+            <h4 class="modal-title" id="myModalLabel">Video link</h4>
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
          </div>
          <div class="modal-body">
-            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/plant_save" method="post" id="plant_form">
+            <form class="form-label-left input_mask" action="" method="post" id="constituent_video_form">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Plant name <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Video Title <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
-                    <input id="name_of_plant" class=" form-control" name="name_of_plant" type="text" value="">
+                    <input id="video_title" class=" form-control" name="video_title" type="text" value="">
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">No.of.Plant<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Link<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
-                    <input id="no_of_plant" class=" form-control" name="no_of_plant" type="text" value="">
-                    <input id="constituent_id" class=" form-control" name="constituent_id" type="hidden" value="">
+                    <input id="video_link" class=" form-control" name="video_link" type="text" value="" style="text-transform:lowercase;">
+                    <input id="video_constituent_id" class="form-control" name="video_constituent_id" type="hidden">
                  </div>
               </div>
                <div class="form-group row">
@@ -196,12 +156,66 @@
                   </div>
                </div>
             </form>
+						<table id="export_table" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+							 <thead>
+									<tr>
+										<th>S.no</th>
+										 <th>Title</th>
+										 <th>Video</th>
+										  <th>Updated at</th>
+											<th>Action</th>
+
+									</tr>
+							 </thead>
+							 <tbody id="table_video">
+
+
+							 </tbody>
+						</table>
          </div>
 
       </div>
    </div>
 </div>
 
+<div class="modal fade bs-example-modal-lg" id="update_video_model" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Video link</h4>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form class="form-label-left input_mask" action="" method="post" id="constituent_video_form_update">
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Video Title <span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-6 ">
+                    <input id="update_video_title" class=" form-control" name="update_video_title" type="text" value="">
+                 </div>
+              </div>
+              <div class="item form-group">
+                 <label class="col-form-label col-md-3 col-sm-3 label-align">Link<span class="required">*</span>
+                 </label>
+                 <div class="col-md-6 col-sm-6 ">
+                    <input id="update_video_link" class=" form-control" name="update_video_link" type="text" value="" style="text-transform:lowercase;">
+                    <input id="video_link_id" class="form-control" name="video_link_id" type="hidden" >
+                 </div>
+              </div>
+               <div class="form-group row">
+                  <div class="col-md-9 col-sm-9  offset-md-3">
+                     <button type="submit" class="btn btn-success">Save</button>
+
+                  </div>
+               </div>
+            </form>
+
+         </div>
+
+      </div>
+   </div>
+</div>
 
 <div class="modal fade bs-example-modal-lg" id="meeting_model" tabindex="-1" role="dialog" aria-hidden="true">
    <div class="modal-dialog modal-lg">
@@ -781,18 +795,65 @@ function give_voice_call(sel){
               }
       });
 
-$('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
 
-$(window).on('load', function(){
-  setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
-});
+			$('#constituent_video_form').validate({
+					 rules: {
+								 video_title:{required:true,maxlength:40},
+								 video_link:{required:true}
+					 },
+					 messages: {
+						 video_title:{required:"enter title"},
+						 video_link:{required:"enter  video link"}
+							 },
+    submitHandler: function(form) {
+    $.ajax({
+               url: "<?php echo base_url(); ?>constituent/save_video_link",
+               type: 'POST',
+               data: $('#constituent_video_form').serialize(),
+               dataType: "json",
+               success: function(response) {
+                  var stats=response.status;
+                   if (stats=="success") {
+										 alert(response.msg);
+										 location.reload();
+                 }else{
+									 alert(response.msg);
+                     }
+               }
+           });
+         }
+			 });
 
-function removeLoader(){
-    $( "#loadingDiv" ).fadeOut(500, function() {
-      // fadeOut complete. Remove the loading div
-      $( "#loadingDiv" ).remove(); //makes page more lightweight
-  });
-}
+
+			 $('#constituent_video_form_update').validate({
+			 		 rules: {
+			 					 video_title:{required:true,maxlength:40},
+			 					 video_link:{required:true}
+			 		 },
+			 		 messages: {
+			 			 video_title:{required:"enter title"},
+			 			 video_link:{required:"enter  video link"}
+			 				 },
+			 submitHandler: function(form) {
+			 $.ajax({
+			 				 url: "<?php echo base_url(); ?>constituent/update_video_link",
+			 				 type: 'POST',
+			 				 data: $('#constituent_video_form_update').serialize(),
+			 				 dataType: "json",
+			 				 success: function(response) {
+			 						var stats=response.status;
+			 						 if (stats=="success") {
+			 							 alert(response.msg);
+			 							 location.reload();
+			 					 }else{
+			 						 alert(response.msg);
+			 							 }
+			 				 }
+			 		 });
+			 	 }
+			  });
+
+
 function send_reply_constituent(sel){
 
   let const_id=sel;
@@ -824,4 +885,67 @@ function get_sms_text(sel){
     }
   });
 }
+
+
+function get_constituent_video(sel){
+  var c_id=sel;
+    $('#video_constituent_id').val(c_id);
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_constituent_video',
+    method:"POST",
+    data:{c_id:c_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      $('#plant_model').modal('show');
+      var stat=data.status;
+       $("#table_video").empty();
+      if(stat=="success"){
+      var res=data.res;
+      var len=res.length;
+      for (i = 1; i < len; i++) {
+          $('#table_video').append('<tr><td>'+i+'</td><td><a href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].video_link+'</td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+     }
+      }else{
+        $('#table_video').append('<tr><td colspan="6">No data</td></tr>');
+      }
+    }
+  });
+}
+
+function edit_video_constituent(sel){
+var v_id=sel;
+  $('#plant_model').modal('hide');
+
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/edit_video_constituent',
+    method:"POST",
+    data:{v_id:v_id},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+    ;
+      var stat=data.status;
+      if(stat=="success"){
+      $('#update_video_model').modal('show');
+      var res=data.res;
+      var len=res.length;
+      for (i = 0; i < len; i++) {
+        $('#video_link_id').val(res[i].id);
+        $('#update_video_link').val(res[i].video_link);
+        $('#update_video_title').val(res[i].video_title);
+
+     }
+      }else{
+      // $("#booth_address").empty();
+      }
+    }
+  });
+
+}
+
+
+
 </script>

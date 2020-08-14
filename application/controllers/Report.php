@@ -852,7 +852,82 @@ class Report extends CI_Controller {
 
 
 
+	function video($rowno=0){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
+			$paguthi = $this->input->post('paguthi');
+			$ward_id = $this->input->post('ward_id');
 
+			// Row per page
+			$rowperpage = 25;
+
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
+
+			// All records count
+			$allcount = $this->reportmodel->get_video_count($paguthi,$ward_id);
+
+			// Get records
+			$users_record = $this->reportmodel->get_video_report($rowno,$rowperpage,$paguthi,$ward_id);
+
+				// Pagination Configuration
+				$config['base_url'] = base_url().'report/video';
+				$config['use_page_numbers'] = TRUE;
+				$config['total_rows'] = $allcount;
+				$config['per_page'] = $rowperpage;
+
+
+				//Pagination Container tag
+				$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+				$config['full_tag_close'] = '</div>';
+
+				//First and last Link Text
+				$config['first_link'] = 'First';
+				$config['last_link'] = 'Last';
+
+				//First tag
+				$config['first_tag_open'] = '<span class="pagination-first-tag">';
+				$config['first_tag_close'] = '</span>';
+
+				//Last tag
+				$config['last_tag_open'] = '<span class="pagination-last-tag">';
+				$config['last_tag_close'] = '</span>';
+
+				//Next and Prev Link
+				$config['next_link'] = 'Next';
+				$config['prev_link'] = 'Prev';
+
+			//Next and Prev Link Styling
+				$config['next_tag_open'] = '<span class="pagination-next-tag">';
+				$config['next_tag_close'] = '</span>';
+				$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+				$config['prev_tag_close'] = '</span>';
+				//Current page tag
+				$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+				$config['cur_tag_close'] = '</strong>';
+				$config['num_tag_open'] = '<span class="pagination-number">';
+				$config['num_tag_close'] = '</span>';
+		// Initialize
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
+			$data['result'] = $users_record;
+			$data['row'] = $rowno;
+			$data['allcount'] = $allcount;
+			$data['paguthi_id']=$paguthi;
+
+		// Load view
+			$this->load->view('admin/header');
+			$this->load->view('admin/report/video_report',$data);
+			$this->load->view('admin/footer');
+
+			}else{
+				redirect('/');
+			}
+	}
 
 
 }

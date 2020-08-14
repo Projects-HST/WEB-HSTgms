@@ -92,39 +92,6 @@ class constituent extends CI_Controller {
 			redirect('/');
 		}
 	}
-	public function list_constituent_member_old()
-{
-			$user_id = $this->session->userdata('user_id');
-			$user_type = $this->session->userdata('user_type');
-			if($user_type=='1' || $user_type=='2'){
-			$config = array();
-			$config["base_url"] = base_url() . "constituent/list_constituent_member";
-			$config["total_rows"] = $this->constituentmodel->record_count();
-			$config["per_page"] = 10;
-			$config["uri_segment"] = 3;
-			$config['display_pages'] = FALSE;
-			$config['prev_link'] = 'Previous';
-			$config['next_link'] = 'Next';
-			$config['first_link'] = FALSE;
-			$config['last_link'] = FALSE;
-			$choice = $config["total_rows"] / $config["per_page"];
-			$config["num_links"] = round($choice);
-			$this->pagination->initialize($config);
-			$page = ($this->uri->segment(3))? $this->uri->segment(3) : 0;
-			$data["res"] = $this->constituentmodel->fetch_data($config["per_page"], $page);
-			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
-			$data['res_constituency']=$this->mastermodel->get_active_constituency();
-			$data['res_seeker']=$this->mastermodel->get_active_seeker();
-			$data["links"] = $this->pagination->create_links();
-			$this->load->view('admin/header');
-			$this->load->view("admin/constituent/list_constituent_member", $data);
-			$this->load->view('admin/footer');
-		}else{
-			redirect('/');
-		}
-
-		}
-
 
 		public function search_member(){
 			$user_id = $this->session->userdata('user_id');
@@ -1098,7 +1065,7 @@ public function meetings($rowno=0)
 			}
 
 			// Row per page
-			$rowperpage = 250;
+			$rowperpage = 20;
 
 			// Row position
 			if($rowno != 0){
@@ -1548,6 +1515,62 @@ public function meetings($rowno=0)
 	}
 
 
+//------ Constituent Video -----//
+
+	public function get_constituent_video(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('c_id');
+			$data['res']=$this->constituentmodel->get_constituent_video($constituent_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+
+		}
+	}
+
+
+	public function save_video_link(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$constituent_id=$this->input->post('video_constituent_id');
+			$video_link=strtolower($this->db->escape_str($this->input->post('video_link')));
+			$video_title=strtoupper($this->db->escape_str($this->input->post('video_title')));
+			$data['res']=$this->constituentmodel->save_video_link($constituent_id,$video_title,$video_link,$user_id);
+			echo json_encode($data['res']);
+		}else{
+
+		}
+	}
+
+	public function update_video_link(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$video_link_id=$this->input->post('video_link_id');
+			 $video_link=strtolower($this->db->escape_str($this->input->post('update_video_link')));
+			$video_title=strtoupper($this->db->escape_str($this->input->post('update_video_title')));
+			$data['res']=$this->constituentmodel->update_video_link($video_link_id,$video_title,$video_link,$user_id);
+			echo json_encode($data['res']);
+		}else{
+
+		}
+	}
+
+	public function edit_video_constituent(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$v_id=$this->input->post('v_id');
+			$data['res']=$this->constituentmodel->edit_video_constituent($v_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+	//------ Constituent Video -----//
 
 
 

@@ -254,6 +254,10 @@
 
 	</div>
 </div>
+<div class="col-md-4">
+	<!-- <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+	<div class="elfsight-app-b71202ae-76b6-4648-b0ef-e159094d4f38"></div> -->
+</div>
 </div>
 <div class="clearfix"></div>
 

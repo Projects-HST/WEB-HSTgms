@@ -637,6 +637,50 @@ Class Reportmodel extends CI_Model
 	 		return $result[0]['allcount'];
 		 }
 
+
+		 function get_video_report($rowno,$rowperpage,$paguthi,$ward_id){
+			 $this->db->select('c.*,cv.video_title,cv.video_link,u.full_name as done_by,cv.updated_at');
+			 $this->db->from('constituent_video as cv');
+		 	 $this->db->join('constituent as c', 'c.id = cv.constituent_id', 'left');
+			 $this->db->join('user_master as u', 'cv.updated_by = u.id', 'left');
+			 if(empty($paguthi)){
+
+			 }else{
+				 $this->db->where('c.paguthi_id',$paguthi);
+			 }
+			 if(empty($ward_id)){
+
+			 }else{
+				 $this->db->where('c.ward_id',$ward_id);
+			 }
+
+			 // echo $this->db->get_compiled_select();
+			 // exit;
+			 $this->db->limit($rowperpage, $rowno);
+			 $query = $this->db->get();
+			 return $query->result_array();
+		 }
+
+		 function get_video_count($paguthi,$ward_id){
+			 $this->db->select('count(cv.id) as allcount');
+			 $this->db->from('constituent_video as cv');
+		 	 $this->db->join('constituent as c', 'c.id = cv.constituent_id', 'left');
+			 $this->db->join('user_master as u', 'cv.updated_by = u.id', 'left');
+			 if(empty($paguthi)){
+
+			 }else{
+				 $this->db->where('c.paguthi_id',$paguthi);
+			 }
+			 if(empty($ward_id)){
+
+			 }else{
+				 $this->db->where('c.ward_id',$ward_id);
+			 }
+			 $query = $this->db->get();
+	 		$result = $query->result_array();
+	 		return $result[0]['allcount'];
+		 }
+
 		 function get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id){
 			 	$this->db->select('count(c.id) as allcount');
 				$this->db->from('constituent as c');

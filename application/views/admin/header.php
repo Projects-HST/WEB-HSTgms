@@ -67,7 +67,7 @@
                      </div>
                      <div class="profile_info">
 
-                        <h2 style="margin-top:9px;text-align:center;"><?php echo $this->session->userdata('name');?></h2>
+                        <h2 style="margin-top:5px;text-align:center;"><?php echo $this->session->userdata('name');?></h2>
                      </div>
                   </div>
 
@@ -145,6 +145,7 @@
 																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>
 																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes report</a></li>
 																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent report</a></li>
+																<li><a href="<?php echo base_url(); ?>report/video">Video Report</a></li>
 																<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
                               </ul>
                            </li>
@@ -164,8 +165,12 @@
             <div class="top_nav">
                <div class="nav_menu" style="padding-bottom:2px;">
                   <div class="nav toggle">
-                     <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                     <!-- <a id="menu_toggle"><i class="fa fa-bars"></i></a> -->
+										 <p class="gms_title">Grievance management system</p>
                   </div>
+									<!-- <div class="">
+										<p>GMS</p>
+									</div> -->
                   <nav class="nav navbar-nav">
                      <ul class=" navbar-right">
                         <li class="nav-item dropdown open" style="padding-left: 15px;">

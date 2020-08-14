@@ -15,8 +15,17 @@ button {text-transform: uppercase;}
   font-size: 15px;
   font-weight: 900;
 }
+.toggle{
+  width:auto;
+}
 .handle_symbol{
   cursor: pointer;
+}
+.gms_title{
+  font-size: 25px;
+  color: #fff;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 h4{
   font-size: 16px;
@@ -160,6 +169,7 @@ hr{
 .widget_box{
   background-color: #fff;
   padding: 10px 10px 10px 10px;
+  box-shadow: 5px 5px 5px 5px #dadadabd;
 }
 .widget_heading{
   color: #000;
@@ -190,7 +200,7 @@ p{
       margin-top: 20px;
 }
 .widget_height{
-  height: 250px;
+  height: 251px;
 }
 .widget_label{
   color: #000;

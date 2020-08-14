@@ -351,6 +351,30 @@ Class Constituentmodel extends CI_Model
 	}
 
 
+	function edit_video_constituent($v_id,$user_id){
+		$select="SELECT * FROM constituent_video where id='$v_id'";
+		$res_select   = $this->db->query($select);
+		if($res_select->num_rows()==0){
+		 $data=array("status"=>"error");
+		 }else{
+				 $data=array("status"=>"success","res"=>$res_select->result());
+		 }
+		 return $data;
+	}
+
+
+	function update_video_link($video_link_id,$video_title,$video_link,$user_id){
+		$query="UPDATE constituent_video SET video_title='$video_title',video_link='$video_link',updated_at=NOW(),updated_by='$user_id' where id='$video_link_id'";
+		$result   = $this->db->query($query);
+		if($result){
+				$data=array("status"=>"success","msg"=>"Video link updated Successfully","class"=>"alert alert-success");
+			}else{
+				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+			}
+			 return $data;
+	}
+
+
 	function save_meeting_request($constituent_id,$meeting_title,$meeting_detail,$meeting_date,$meeting_status,$user_id){
 		$insert="INSERT INTO meeting_request(constituent_id,meeting_title,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_title','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
 		$result   = $this->db->query($insert);
@@ -995,6 +1019,39 @@ Class Constituentmodel extends CI_Model
 		return $query->result_array();
 	}
 
+
+//------ Constituent Video -----//
+	function get_constituent_video($constituent_id,$user_id){
+		$query="SELECT * FROM constituent_video where constituent_id='$constituent_id' order by id desc";
+		$result=$this->db->query($query);
+		if($result->num_rows()==0){
+ 		$data=array("status"=>"error");
+ 		}else{
+ 			$data=array("status"=>"success","res"=>$result->result());
+ 		}
+ 	return $data;
+	}
+
+
+		function save_video_link($constituent_id,$video_title,$video_link,$user_id){
+			$select="SELECT * FROM constituent_video Where video_title='$video_title' and constituent_id='$constituent_id'";
+				$result=$this->db->query($select);
+				if($result->num_rows()==0){
+						$insert="INSERT INTO constituent_video (constituent_id,video_title,video_link,status,updated_at,updated_by) VALUES ('$constituent_id','$video_title','$video_link','ACTIVE',NOW(),'$user_id')";
+						$result=$this->db->query($insert);
+						if($result){
+							$data=array("status"=>"success","msg"=>"Video added Successfully","class"=>"alert alert-success");
+						}else{
+							$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						}
+
+				}else{
+					$data=array("status"=>"error","msg"=>"Video added exists","class"=>"alert alert-danger");
+				}
+				return $data;
+		}
+
+//------ Constituent Video -----//
 
 }
 ?>
