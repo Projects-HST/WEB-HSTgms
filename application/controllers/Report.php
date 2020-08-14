@@ -682,20 +682,12 @@ class Report extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_festival']=$this->mastermodel->get_active_festival();
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
-			// Search text
-			$search_text = "";
-			if($this->input->post('submit') != NULL ){
-				$search_text = $this->input->post('search');
-				$this->session->set_userdata(array("search"=>$search_text));
-			}else{
-				if($this->session->userdata('search') != NULL){
-				$search_text = $this->session->userdata('search');
-				}
-			}
-				$paguthi = $this->input->post('paguthi');
-				$religion_id = $this->input->post('religion_id');
-				$ward_id = $this->input->post('ward_id');
-				$data['festival_id']=$religion_id;
+			$data['res_year'] = $this->reportmodel->get_festival_year();
+			$year_id = $this->input->post('year_id');
+			$paguthi = $this->input->post('paguthi');
+			$religion_id = $this->input->post('religion_id');
+			$ward_id = $this->input->post('ward_id');
+			$data['festival_id']=$religion_id;
 			// Row per page
 			$rowperpage = 25;
 
@@ -705,10 +697,10 @@ class Report extends CI_Controller {
 			}
 
 			// All records count
-			$allcount = $this->reportmodel->getrecordCount($search_text);
+			$allcount = $this->reportmodel->get_festival_count($year_id,$religion_id,$paguthi,$ward_id);
 
 			// Get records
-			$users_record = $this->reportmodel->fetch_festival_wishes_report($rowno,$rowperpage,$search_text,$paguthi,$ward_id,$religion_id);
+			$users_record = $this->reportmodel->fetch_festival_wishes_report($rowno,$rowperpage,$year_id,$paguthi,$ward_id,$religion_id);
 
 				// Pagination Configuration
 				$config['base_url'] = base_url().'report/festival_wishes_report';
@@ -752,7 +744,7 @@ class Report extends CI_Controller {
 			$data['pagination'] = $this->pagination->create_links();
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
-			$data['search'] = $search_text;
+			$data['allcount'] = $allcount;
 		// Load view
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/festival_wishes_report',$data);

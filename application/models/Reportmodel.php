@@ -578,7 +578,7 @@ Class Reportmodel extends CI_Model
 		 }
 
 
-		 function fetch_festival_wishes_report($rowno,$rowperpage,$search="",$paguthi,$ward_id,$religion_id) {
+		 function fetch_festival_wishes_report($rowno,$rowperpage,$year_id,$paguthi,$ward_id,$religion_id) {
  			$this->db->select('c.*,fm.festival_name,fw.updated_at as sent_on');
  			$this->db->from('festival_wishes as fw');
 			$this->db->join('festival_master as fm', 'fm.id = fw.festival_id', 'left');
@@ -586,7 +586,7 @@ Class Reportmodel extends CI_Model
  			if(empty($religion_id)){
 
  			}else{
- 				$this->db->or_where('fm.id',$religion_id);
+ 				$this->db->where('fm.id',$religion_id);
  			}
  			if(empty($paguthi)){
 
@@ -598,6 +598,11 @@ Class Reportmodel extends CI_Model
  			}else{
  				$this->db->where('c.ward_id',$ward_id);
  			}
+			if(empty($year_id)){
+					$this->db->where('DATE(fw.updated_at) >= last_day(now()) + interval 1 day - interval 3 month');
+			}else{
+				$this->db->where('YEAR(fw.updated_at) >=',$year_id);
+			}
  			// echo $this->db->get_compiled_select(); // before $this->db->get();
  			// exit;
  			$this->db->limit($rowperpage, $rowno);
@@ -605,6 +610,32 @@ Class Reportmodel extends CI_Model
  			return $query->result_array();
 
  		 }
+
+		 function get_festival_count($year_id,$religion_id,$paguthi,$ward_id){
+			 $this->db->select('count(c.id) as allcount');
+			 $this->db->from('festival_wishes as fw');
+		 $this->db->join('festival_master as fm', 'fm.id = fw.festival_id', 'left');
+		 $this->db->join('constituent as c', 'c.id = fw.constituent_id', 'left');
+			 if(empty($religion_id)){
+
+			 }else{
+				 $this->db->or_where('fm.id',$religion_id);
+			 }
+			 if(empty($paguthi)){
+
+			 }else{
+				 $this->db->where('c.paguthi_id',$paguthi);
+			 }
+			 if(empty($ward_id)){
+
+			 }else{
+				 $this->db->where('c.ward_id',$ward_id);
+			 }
+			 $query = $this->db->get();
+	 		$result = $query->result_array();
+
+	 		return $result[0]['allcount'];
+		 }
 
 		 function get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id){
 			 	$this->db->select('count(c.id) as allcount');
@@ -706,6 +737,12 @@ Class Reportmodel extends CI_Model
 
 	function get_birthday_wish_year(){
 		$query="SELECT YEAR(created_at)  as year_name FROM consitutent_birthday_wish GROUP BY year_name";
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+
+	function get_festival_year(){
+		$query="SELECT YEAR(updated_at)  as year_name FROM festival_wishes GROUP BY year_name";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}

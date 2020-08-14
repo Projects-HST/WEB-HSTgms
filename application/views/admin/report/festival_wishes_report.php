@@ -18,6 +18,15 @@
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>report/festival_wishes_report" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
+        <div class="col-md-2 col-sm-4">
+         <select class="form-control" name="year_id" id="year_id">
+           
+           <?php foreach($res_year as $rows_year){ ?>
+             <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
+         <?php  } ?>
+         </select>
+         <script>$('#religion_id').val('<?php echo $festival_id; ?>')</script>
+       </div>
 			   <div class="col-md-2 col-sm-4">
           <select class="form-control" name="religion_id" id="religion_id">
             <option value="">--Select--</option>
@@ -45,12 +54,19 @@
 						<a href="<?php echo base_url(). "report/festival_wishes_report"; ?>" class="btn btn-danger">Clear All</a>
 
 				  </div>
-						<?php if(!empty($result)){ ?>
-				  <div class="col-md-3 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
-				<?php } ?>
+
 			</div>
 				</form>
 			<div class="col-md-12 col-sm-12" style="overflow-x: scroll;">
+        <div class="x_panel">
+        <div class="col-md-12 col-sm-12" style="padding:0px;">
+           <div class="col-md-3 col-sm-3">
+              <h2>Search Result</h2>
+              Total records <?php echo $allcount; ?>
+           </div>
+           <div class="col-md-3 col-sm-3"></div>
+           <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+        </div>
 			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
 			<tr>
 				<th>S.no</th>
@@ -75,6 +91,7 @@
 			<?php $sno++;	} ?>
 		</table>
 		</div>
+    </div>
 
 		<div class="col-md-12 col-sm-12" style="padding:0px;">
 			  <div class="col-md-3 col-sm-3"></div>
