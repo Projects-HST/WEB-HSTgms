@@ -175,7 +175,14 @@ Class Dashboardmodel extends CI_Model
 			$result_4=$res_4->result();
 
 
-			$data = array('seeker_list' => $result_1,'gr_list'=> $result_2,'mr_list'=>$result_3,'br_list'=>$result_4);
+		 	$query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name FROM constituent_video as cv
+			left join constituent as c on c.id=cv.constituent_id
+			LEFT JOIN paguthi as p on p.id=c.paguthi_id $quer_paguthi_cons GROUP by c.paguthi_id ";
+			$res_5=$this->db->query($query_5);
+			$result_5=$res_5->result();
+
+
+			$data = array('seeker_list' => $result_1,'gr_list'=> $result_2,'mr_list'=>$result_3,'br_list'=>$result_4,'cv_list'=>$result_5);
 			return $data;
 
 	}

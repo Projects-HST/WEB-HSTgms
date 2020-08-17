@@ -187,7 +187,7 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage);?>)</p></div>
+						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage);?>%)</p></div>
 						<div class="col-3"><p class="widget_label"> <?= $rows_cons->no_of_cons; ?></p></div>
 						<div class="col-9"><p class="widget_label">Non constituent (<?= round($rows_cons->no_of_noncons_percentage); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label"> <?= $rows_cons->no_of_noncons; ?></p></div>
@@ -211,7 +211,7 @@
 					<hr>
 					<div class="row">
 
-						<div class="col-9"><p class="widget_label">Birthday ( 10% )</p></div>
+						<div class="col-9"><p class="widget_label">Birthday </p></div>
 						<div class="col-3"><p class="widget_label"><?= $row_br_list->birth_wish_count; ?></p></div>
 
 					</div>
@@ -226,16 +226,20 @@
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Total Videos</p>
-								<p class="widget_count">1000</p>
+								<p class="widget_count">	<?php $sum = 0; if(empty($grievance_report['cv_list'])){ 	}else{  foreach($grievance_report['cv_list'] as $rows_vi_lits){ $sum += $rows_vi_lits->cnt_video;  }} echo $sum; ?></p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Total Male ( 10% )</p></div>
-						<div class="col-3"><p class="widget_label"> 20000</p></div>
-						<div class="col-9"><p class="widget_label">Total Female ( 10% )</p></div>
-						<div class="col-3"><p class="widget_label"> 20000</p></div>
+						<?php if(empty($grievance_report['cv_list'])){
+
+					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
+						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->paguthi_name; ?></p></div>
+						<div class="col-3"><p class="widget_label"><?= $rows_vi_lits->cnt_video; ?> </p></div>
+					<?php }	} ?>
+
+
 					</div>
 				</div>
 			</div>
