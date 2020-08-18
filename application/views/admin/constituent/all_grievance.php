@@ -5,7 +5,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
 					 <div class="">
-							<h2><i class="fa fa-file-word-o"></i> list of grievance</h2>
+							<h2> list of grievance</h2>
 
 					 </div>
                <div class="x_content">

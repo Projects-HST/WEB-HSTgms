@@ -22,7 +22,7 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="year_id" class="form-control">
-              
+
               <?php foreach($res_year as $row_year){ ?>
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
@@ -130,6 +130,8 @@
    </div>
 </div>
 <script type="text/javascript">
+$('#reportmenu').addClass('active');
+$('.reportmenu').css('display','block');
 function get_paguthi(sel){
   var paguthi_id=sel.value;
   $.ajax({

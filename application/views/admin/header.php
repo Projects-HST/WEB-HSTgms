@@ -75,7 +75,7 @@
                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu menu_bar">
 
                      <div class="menu_section">
-                        <h3> MENU </h3>
+
 
                         <ul class="nav side-menu">
                            <li id="dashboardmenu"><a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/Dashboard.png" class="img-responsive menu_img"></i> Dashboard</span></a></li>
@@ -133,9 +133,9 @@
                               </ul>
                            </li>
 						<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"></i> Banners</span></a></li>
-                           <li>
+                           <li id="reportmenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
-                              <ul class="nav child_menu">
+                              <ul class="nav child_menu reportmenu">
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/category">Grievance Category</a></li>
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->

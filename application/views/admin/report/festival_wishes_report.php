@@ -121,6 +121,8 @@
 
 
 <script type="text/javascript">
+$('#reportmenu').addClass('active');
+$('.reportmenu').css('display','block');
    function get_paguthi(sel){
      var paguthi_id=sel.value;
      $.ajax({

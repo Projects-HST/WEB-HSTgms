@@ -7,7 +7,7 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-			
+
 		<form id="report_form" action="<?php echo base_url(); ?>report/staff" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
@@ -19,7 +19,7 @@
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
 				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
+					 <button type="submit" class="btn btn-success">SEARCH</button>
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
@@ -55,22 +55,24 @@
       </div>
 
 
-        
+
    </div>
 </div>
 <script type="text/javascript">
+$('#reportmenu').addClass('active');
+$('.reportmenu').css('display','block');
 $.validator.addMethod("chkDates", function(value, element) {
-		var startDate = $('#frmDate').val();		
+		var startDate = $('#frmDate').val();
 		var datearray = startDate.split("-");
 		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-		
-		var endDate = $('#toDate').val();		
+
+		var endDate = $('#toDate').val();
 		var datearray = endDate.split("-");
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
 	}, "Please check dates");
-	
+
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });
