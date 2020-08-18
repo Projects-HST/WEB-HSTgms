@@ -34,7 +34,7 @@ th{
       <label class="col-form-label col-md-1 col-sm-1 ">Status <span class="required">*</span></label>
     <div class="col-md-2 col-sm-2">
       <select class="form-control" name="status" id ="status" >
-        <option value="ALL">ALL</option>
+        <option value="">ALL</option>
         <option value="REQUESTED">REQUESTED</option>
         <option value="PROCESSING">PROCESSING</option>
         <!-- <option value="COMPLETED">COMPLETED</option> -->
