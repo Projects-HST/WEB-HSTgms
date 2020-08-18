@@ -914,29 +914,49 @@ public function list_grievance_reply($rowno=0){
 
 ################## Constituent voice call ##############
 
-public function birthday()
+public function birthday($rowno=0)
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		//$datas['paguthi'] = $this->usermodel->list_paguthi();
-		$selMonth = "";
 		$selMonth=$this->input->post('month');
-		$getMonth=$this->uri->segment(3);
-
-		if ($selMonth!=''){
-			$selMonth=$this->input->post('month');
-		}else if ($getMonth!=''){
-			$selMonth=$this->uri->segment(3);
-		}else{
-			$selMonth = date("m");
+		$rowperpage = 20;
+		if($rowno != 0){
+			$rowno = ($rowno-1) * $rowperpage;
 		}
-		$datas['searchMonth'] = $selMonth;
-		$datas['res']=$this->constituentmodel->get_birthday_report($selMonth);
-
+	  $allcount = $this->constituentmodel->get_all_birtday_count($selMonth);
+		$users_record=$this->constituentmodel->get_birthday_report($rowno,$rowperpage,$selMonth);
+		$config['base_url'] = base_url().'constituent/birthday';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+		$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+		$config['full_tag_close'] = '</div>';
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['first_tag_open'] = '<span class="pagination-first-tag">';
+		$config['first_tag_close'] = '</span>';
+		$config['last_tag_open'] = '<span class="pagination-last-tag">';
+		$config['last_tag_close'] = '</span>';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$config['next_tag_open'] = '<span class="pagination-next-tag">';
+		$config['next_tag_close'] = '</span>';
+		$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+		$config['prev_tag_close'] = '</span>';
+		$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+		$config['cur_tag_close'] = '</strong>';
+		$config['num_tag_open'] = '<span class="pagination-number">';
+		$config['num_tag_close'] = '</span>';
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+		$data['allcount']=$allcount;
+		$data['month_id']=$selMonth;
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
-			$this->load->view('admin/constituent/birthday_report',$datas);
+			$this->load->view('admin/constituent/birthday_report',$data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
@@ -948,11 +968,9 @@ public function birthday()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$searchMonth=$this->uri->segment(3);
-		$constituent_id=base64_decode($this->uri->segment(4))/98765;
-
-		$datas['res']=$this->constituentmodel->birthday_update($constituent_id,$user_id,$searchMonth);
-
+		$constituent_id=base64_decode($this->uri->segment(3))/98765;
+		$data['res']=$this->constituentmodel->birthday_update($constituent_id,$user_id);
+		redirect('constituent/birthday');
 
 	}
 

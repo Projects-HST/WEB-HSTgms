@@ -681,66 +681,103 @@ Class Constituentmodel extends CI_Model
 	################## Constituent Profile view only ##############
 
 
-	function get_birthday_report($selMonth)
-	{
-				$year = date("Y");
-				$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-				$resultset=$this->db->query($query);
-				if($resultset->num_rows()>0){
-					foreach ($resultset->result() as $rows)
-					{
-						$const_id = $rows->id;
-						$full_name = $rows->full_name;
-						$dob = $rows->dob;
-						$mobile_no = $rows->mobile_no;
-						$door_no = $rows->door_no;
-						$address = $rows->address;
-						$pin_code = $rows->pin_code;
+	function get_all_birtday_count($selMonth){
+		$this->db->select('count(c.id) as allcount');
+		$this->db->from('constituent as c');
+		$this->db->join('consitutent_birthday_wish as bw', 'c.id = bw.constituent_id', 'left outer');
+		if(empty($selMonth)){
+			$month = date("m");
+			$this->db->where('MONTH(c.dob)=', $month);
+		}else{
 
-						$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-						$subQuery_result = $this->db->query($subQuery);
-						if($subQuery_result->num_rows()>0){
-							foreach ($subQuery_result->result() as $rows1)
-							{
-								$birth_id = $rows1->constituent_id;
-							}
-						}else{
-							$birth_id = '';
-						}
-						if ($const_id == $birth_id){
-							 $birth_wish = 'Send';
-						} else {
-							 $birth_wish = 'NotSend';
-						}
-						$contData[]  = (object) array(
-								"const_id" => $const_id,
-								"full_name" => $full_name,
-								"dob" => $dob,
-								"mobile_no" => $mobile_no,
-								"door_no" => $door_no,
-								"address" => $address,
-								"pin_code" => $pin_code,
-								"birth_wish_status" => $birth_wish,
-						);
-					}
-				}else {
-						$contData = array();
-				}
-		return $contData;
+			$this->db->where('MONTH(c.dob)=', $selMonth);
+		}
+
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
 	}
 
-	function birthday_update($constituent_id,$user_id,$searchMonth)
+
+	function get_birthday_report($rowno,$rowperpage,$selMonth)
 	{
+
+		$this->db->select('bw.id as wish_id,c.*');
+		$this->db->from('constituent as c');
+		$this->db->join('consitutent_birthday_wish as bw', 'c.id = bw.constituent_id', 'left outer');
+
+		if(empty($selMonth)){
+			$month = date("m");
+			$this->db->where('MONTH(c.dob)=', $month);
+
+		}else{
+
+			$this->db->where('MONTH(c.dob)=', $selMonth);
+		}
+
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$this->db->limit($rowperpage, $rowno);
+		$query = $this->db->get();
+		return $query->result_array();
+
+				// $year = date("Y");
+				// $query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
+				// $resultset=$this->db->query($query);
+				// if($resultset->num_rows()>0){
+				// 	foreach ($resultset->result() as $rows)
+				// 	{
+				// 		$const_id = $rows->id;
+				// 		$full_name = $rows->full_name;
+				// 		$dob = $rows->dob;
+				// 		$mobile_no = $rows->mobile_no;
+				// 		$door_no = $rows->door_no;
+				// 		$address = $rows->address;
+				// 		$pin_code = $rows->pin_code;
+				//
+				// 		$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
+				// 		$subQuery_result = $this->db->query($subQuery);
+				// 		if($subQuery_result->num_rows()>0){
+				// 			foreach ($subQuery_result->result() as $rows1)
+				// 			{
+				// 				$birth_id = $rows1->constituent_id;
+				// 			}
+				// 		}else{
+				// 			$birth_id = '';
+				// 		}
+				// 		if ($const_id == $birth_id){
+				// 			 $birth_wish = 'Send';
+				// 		} else {
+				// 			 $birth_wish = 'NotSend';
+				// 		}
+				// 		$contData[]  = (object) array(
+				// 				"const_id" => $const_id,
+				// 				"full_name" => $full_name,
+				// 				"dob" => $dob,
+				// 				"mobile_no" => $mobile_no,
+				// 				"door_no" => $door_no,
+				// 				"address" => $address,
+				// 				"pin_code" => $pin_code,
+				// 				"birth_wish_status" => $birth_wish,
+				// 		);
+				// 	}
+				// }else {
+				// 		$contData = array();
+				// }
+		// return $contData;
+	}
+
+	function birthday_update($constituent_id,$user_id)
+	{
+
 			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at) VALUES ('$constituent_id','Send','$user_id',NOW())";
 			$result=$this->db->query($insert);
-
-			if ($result) {
-               $this->session->set_flashdata('msg', 'You have just updated the birthday wishes!');
-				redirect(base_url().'constituent/birthday/'.$searchMonth);
-            } else {
-               $this->session->set_flashdata('msg', 'Failed to Add');
-				redirect(base_url().'constituent/birthday/'.$searchMonth);
-            }
+			if($result){
+				$data = array('status' =>'success');
+			} else {
+				$data = array('status' =>'failure');
+			}
+			return $data;
 
 	}
 
