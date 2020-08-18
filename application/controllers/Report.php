@@ -688,6 +688,7 @@ class Report extends CI_Controller {
 			$religion_id = $this->input->post('religion_id');
 			$ward_id = $this->input->post('ward_id');
 			$data['festival_id']=$religion_id;
+			$data['year_id']=$year_id;
 			// Row per page
 			$rowperpage = 25;
 

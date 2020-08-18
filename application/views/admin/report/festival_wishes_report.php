@@ -25,7 +25,7 @@
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
          <?php  } ?>
          </select>
-         <script>$('#religion_id').val('<?php echo $festival_id; ?>')</script>
+         <script>$('#year_id').val('<?php echo $year_id; ?>')</script>
        </div>
 			   <div class="col-md-2 col-sm-4">
           <select class="form-control" name="religion_id" id="religion_id">

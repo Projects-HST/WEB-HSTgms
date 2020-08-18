@@ -601,7 +601,7 @@ Class Reportmodel extends CI_Model
 			if(empty($year_id)){
 					$this->db->where('DATE(fw.updated_at) >= last_day(now()) + interval 1 day - interval 3 month');
 			}else{
-				$this->db->where('YEAR(fw.updated_at) >=',$year_id);
+				$this->db->where('YEAR(fw.updated_at) =',$year_id);
 			}
  			// echo $this->db->get_compiled_select(); // before $this->db->get();
  			// exit;

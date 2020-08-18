@@ -37,7 +37,7 @@
                      <th>Mobile</th>
 					 				 	<th>Paguthi</th>
                      <th>Meeting</th>
-                     <th>interaction</th>
+                     <!-- <th>interaction</th> -->
                      <!-- <th>plant</th> -->
                      <th>Grievance</th>
                      <th>Action</th>
@@ -79,11 +79,11 @@
 				echo "<td>".$data['mobile_no']."</td>";
 				echo "<td>".$paguthi_name."</td>";
 				echo '<td><a title="VIEW " class="badge badge-add handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
-				if ($int_status == "Y"){
-					echo '<td><a class="badge badge-view" href="'.base_url().'constituent/get_interaction_response_edit/'. base64_encode($const_id*98765).'" title="INTERACTION VIEW">VIEW</i></a></td>';
-				} else {
-					echo '<td><a class="badge badge-add" href="'.base_url().'constituent/add_interaction_response/'. base64_encode($const_id*98765).'" title="INTERACTION ADD">ADD</i></a></td>';
-				}
+				// if ($int_status == "Y"){
+				// 	echo '<td><a class="badge badge-view" href="'.base_url().'constituent/get_interaction_response_edit/'. base64_encode($const_id*98765).'" title="INTERACTION VIEW">VIEW</i></a></td>';
+				// } else {
+				// 	echo '<td><a class="badge badge-add" href="'.base_url().'constituent/add_interaction_response/'. base64_encode($const_id*98765).'" title="INTERACTION ADD">ADD</i></a></td>';
+				// }
 				// if ($plt_status == "Y"){
 				// 	echo '<td><a class="badge badge-view handle_symbol" onclick="view_donation('.$const_id.')">VIEW</i></a></td>';
 				// } else {
