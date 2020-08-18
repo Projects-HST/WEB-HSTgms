@@ -94,7 +94,7 @@
              <tbody>
                <?php
 			    if (count($result) >0) {
-					$i=1;
+					$i = $row+1;
 					foreach($result as $rows){
 
 			   ?>

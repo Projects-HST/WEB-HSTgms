@@ -705,66 +705,23 @@ Class Constituentmodel extends CI_Model
 		$this->db->select('bw.id as wish_id,c.*');
 		$this->db->from('constituent as c');
 		$this->db->join('consitutent_birthday_wish as bw', 'c.id = bw.constituent_id', 'left outer');
+		$this->db->where('MONTH(c.dob)=', $selMonth);
 
-		if(empty($selMonth)){
-			$month = date("m");
-			$this->db->where('MONTH(c.dob)=', $month);
+		// if(empty($selMonth)){
+		// 	$month = date("m");
+		// 	$this->db->where('MONTH(c.dob)=', $month);
+		// 	// $this->db->where('MONTH(c.dob)=', $selMonth);
+		//
+		// }else{
+		// 	$this->db->where('MONTH(c.dob)=', $selMonth);
+		// }
 
-		}else{
 
-			$this->db->where('MONTH(c.dob)=', $selMonth);
-		}
-
+		$this->db->limit($rowperpage, $rowno);
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
 		// exit;
-		$this->db->limit($rowperpage, $rowno);
 		$query = $this->db->get();
 		return $query->result_array();
-
-				// $year = date("Y");
-				// $query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-				// $resultset=$this->db->query($query);
-				// if($resultset->num_rows()>0){
-				// 	foreach ($resultset->result() as $rows)
-				// 	{
-				// 		$const_id = $rows->id;
-				// 		$full_name = $rows->full_name;
-				// 		$dob = $rows->dob;
-				// 		$mobile_no = $rows->mobile_no;
-				// 		$door_no = $rows->door_no;
-				// 		$address = $rows->address;
-				// 		$pin_code = $rows->pin_code;
-				//
-				// 		$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				// 		$subQuery_result = $this->db->query($subQuery);
-				// 		if($subQuery_result->num_rows()>0){
-				// 			foreach ($subQuery_result->result() as $rows1)
-				// 			{
-				// 				$birth_id = $rows1->constituent_id;
-				// 			}
-				// 		}else{
-				// 			$birth_id = '';
-				// 		}
-				// 		if ($const_id == $birth_id){
-				// 			 $birth_wish = 'Send';
-				// 		} else {
-				// 			 $birth_wish = 'NotSend';
-				// 		}
-				// 		$contData[]  = (object) array(
-				// 				"const_id" => $const_id,
-				// 				"full_name" => $full_name,
-				// 				"dob" => $dob,
-				// 				"mobile_no" => $mobile_no,
-				// 				"door_no" => $door_no,
-				// 				"address" => $address,
-				// 				"pin_code" => $pin_code,
-				// 				"birth_wish_status" => $birth_wish,
-				// 		);
-				// 	}
-				// }else {
-				// 		$contData = array();
-				// }
-		// return $contData;
 	}
 
 	function birthday_update($constituent_id,$user_id)

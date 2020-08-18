@@ -65,10 +65,10 @@
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1;
+               <?php 	$sno = $row+1;
                foreach($result as $rows){ ?>
                 <tr>
-                <td><?php echo $i; ?></td>
+                <td><?php echo $sno; ?></td>
                 <td><?php echo $rows['full_name']; ?></td>
                 <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
                 <td><?php echo $rows['mobile_no']; ?></td>
@@ -80,7 +80,7 @@
               <?php  } ?></td>
                 <!-- <td></td> -->
                 </tr>
-				          <?php  $i++; }  ?>
+				          <?php  $sno++; }  ?>
              </tbody>
           </table>
           <div class="col-md-12 col-sm-12" style="padding:0px;">

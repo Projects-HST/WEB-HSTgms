@@ -919,7 +919,16 @@ public function birthday($rowno=0)
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$selMonth=$this->input->post('month');
+				if($this->input->post('month')){
+  			setcookie('pagination_limit',$this->input->post('month'));
+  			$selMonth = $this->input->post('month');
+				}elseif($this->input->cookie('pagination_limit')){
+  				$selMonth = $this->input->cookie('pagination_limit', true);
+				}else{
+					$selMonth = date("m");
+				}
+
+		$data['month_id']=$selMonth;
 		$rowperpage = 20;
 		if($rowno != 0){
 			$rowno = ($rowno-1) * $rowperpage;
@@ -927,6 +936,8 @@ public function birthday($rowno=0)
 	  $allcount = $this->constituentmodel->get_all_birtday_count($selMonth);
 		$users_record=$this->constituentmodel->get_birthday_report($rowno,$rowperpage,$selMonth);
 		$config['base_url'] = base_url().'constituent/birthday';
+		// $config['page_query_string'] = TRUE;
+
 		$config['use_page_numbers'] = TRUE;
 		$config['total_rows'] = $allcount;
 		$config['per_page'] = $rowperpage;
@@ -953,7 +964,7 @@ public function birthday($rowno=0)
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
 		$data['allcount']=$allcount;
-		$data['month_id']=$selMonth;
+
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/birthday_report',$data);

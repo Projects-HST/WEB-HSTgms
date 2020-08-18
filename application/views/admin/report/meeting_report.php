@@ -90,7 +90,7 @@ th{
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1; foreach($result as $rows){ ?>
+               <?php $i = $row+1; foreach($result as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
                     <td><?php echo date('d-m-Y', strtotime($rows['meeting_date'])); ?></td>
