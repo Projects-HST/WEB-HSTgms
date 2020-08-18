@@ -22,11 +22,12 @@
              <label class="col-form-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
-               <option value="ALL">ALL</option>
+               <option value="">ALL</option>
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                <?php } ?>
-             </select><script> $('#paguthi').val('<?php echo $paguthi_id; ?>');</script>
+             </select>
+             <script> $('#paguthi').val('<?php echo $paguthi_id; ?>');</script>
            </div>
            <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
           <div class="col-md-2 col-sm-2">

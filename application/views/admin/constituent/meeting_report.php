@@ -2,47 +2,7 @@
 th{
 	width:200px;
 }
-.pagination-first-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-}
 
-.pagination-last-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-
-}
-.pagination-next-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-}
-
-.pagination-prev-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-
-}
-
-.pagination-current-tag{
-	color:#000000;
-	font-weight:bold;
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-number{
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-	color:#ffffff;
-
-}
 	</style>
   <div  class="right_col" role="main">
    <div class="">
@@ -86,6 +46,11 @@ th{
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
+			<div class="col-md-12 col-sm-12" style="padding:0px;">
+				 <div class="col-md-3 col-sm-3"></div>
+				 <div class="col-md-3 col-sm-3"></div>
+				 <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+		 </div>
           <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>

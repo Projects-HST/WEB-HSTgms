@@ -25,7 +25,7 @@
              <label class="control-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
-               <option value="ALL">ALL</option>
+               <option value="">ALL</option>
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                <?php } ?>

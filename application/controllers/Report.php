@@ -53,7 +53,7 @@ class Report extends CI_Controller {
 		$users_record = $this->reportmodel->get_status_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id);
 
 		// Pagination Configuration
-		$config['base_url'] = base_url().'dashboard/searchresult';
+		$config['base_url'] = base_url().'report/status';
 		$config['use_page_numbers'] = TRUE;
 		$config['total_rows'] = $allcount;
 		$config['per_page'] = $rowperpage;
@@ -480,7 +480,7 @@ class Report extends CI_Controller {
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
 		$data['allcount'] = $allcount;
-
+		$data['year_id']=$year_id;
 
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');

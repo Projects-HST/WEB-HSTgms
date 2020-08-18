@@ -1,47 +1,5 @@
 <?php $search_value = $this->session->userdata('search'); ?>
-<style type="text/css">
-.pagination-first-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-}
 
-.pagination-last-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-
-}
-.pagination-next-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-}
-
-.pagination-prev-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-
-}
-
-.pagination-current-tag{
-	color:#000000;
-	font-weight:bold;
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-number{
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-	color:#ffffff;
-
-}
-	</style>
 <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -106,7 +64,7 @@
 			foreach($result as $data){ ?>
         <tr>
           <td><?php echo $sno; ?></td>
-          <td><?php echo $data['full_name']; ?><?php echo $data['paguthi_id']; ?></td>
+          <td><?php echo $data['full_name']; ?></td>
 
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['address']; ?></td>

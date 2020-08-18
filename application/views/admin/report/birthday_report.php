@@ -22,11 +22,12 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="year_id" class="form-control">
-
+              <option value="">--Select --</option>
               <?php foreach($res_year as $row_year){ ?>
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
             </select>
+            <script>$('#year_id').val('<?php echo $year_id; ?>');</script>
            </div>
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
@@ -103,7 +104,7 @@
                     <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
                     <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
-                    <td><?php echo $rows['created_at']; ?></td>
+                    <td><?php echo date("d-m-Y H:i", strtotime($rows['created_at'])); ?></td>
 
                  </tr>
 				<?php $i++; } } ?>

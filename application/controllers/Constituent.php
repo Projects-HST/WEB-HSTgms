@@ -1292,9 +1292,9 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
-			$search_text = "";
+			$search = "";
 			if($this->input->post('submit') != NULL ){
-				$search_text = $this->input->post('search');
+				$search = $this->input->post('search');
 
 			}else{
 				if($this->session->userdata('search') != NULL){
@@ -1310,13 +1310,13 @@ public function meetings($rowno=0)
 			}
 
 			// All records count
-			$allcount = $this->constituentmodel->getrecordCount($search_text);
+			$allcount = $this->constituentmodel->get_all_grievance_count($search);
 
 			// Get records
-			$users_record = $this->constituentmodel->all_grievance($rowno,$rowperpage,$search_text);
+			$users_record = $this->constituentmodel->all_grievance($rowno,$rowperpage,$search);
 
 			// Pagination Configuration
-			$config['base_url'] = base_url().'constituent/all_grievenace';
+			$config['base_url'] = base_url().'constituent/all_grievance';
 			$config['use_page_numbers'] = TRUE;
 			$config['total_rows'] = $allcount;
 			$config['per_page'] = $rowperpage;
@@ -1350,7 +1350,8 @@ public function meetings($rowno=0)
 			$data['pagination'] = $this->pagination->create_links();
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
-			$data['search'] = $search_text;
+			$data['search'] = $search;
+			$data['allcount'] = $allcount;
 			// Load view
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/all_grievance',$data);
@@ -1535,7 +1536,7 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$constituent_id=$this->input->post('video_constituent_id');
-			$video_link=strtolower($this->db->escape_str($this->input->post('video_link')));
+			$video_link=$this->db->escape_str($this->input->post('video_link'));
 			$video_title=strtoupper($this->db->escape_str($this->input->post('video_title')));
 			$data['res']=$this->constituentmodel->save_video_link($constituent_id,$video_title,$video_link,$user_id);
 			echo json_encode($data['res']);
@@ -1549,7 +1550,7 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$video_link_id=$this->input->post('video_link_id');
-			 $video_link=strtolower($this->db->escape_str($this->input->post('update_video_link')));
+			 $video_link=$this->db->escape_str($this->input->post('update_video_link'));
 			$video_title=strtoupper($this->db->escape_str($this->input->post('update_video_title')));
 			$data['res']=$this->constituentmodel->update_video_link($video_link_id,$video_title,$video_link,$user_id);
 			echo json_encode($data['res']);

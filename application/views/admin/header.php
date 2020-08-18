@@ -88,7 +88,7 @@
                                   <li id="seekermenu"><a href="<?php echo base_url(); ?>masters/seeker">Seeker type</a></li>
                                   <li id="grievancemeenu"><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
                                   <li id="smsmenu"><a href="<?php echo base_url(); ?>masters/sms_template">SMS template</a></li>
-                                  <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li>
+                                  <!-- <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li> -->
                                   <!-- <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li> -->
 																	<li><a href="<?php echo base_url(); ?>masters/festival">Festival</a></li>
                                 </ul>

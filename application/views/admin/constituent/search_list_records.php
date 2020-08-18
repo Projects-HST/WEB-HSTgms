@@ -145,7 +145,7 @@
                  <label class="col-form-label col-md-3 col-sm-3 label-align">Link<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
-                    <input id="video_link" class=" form-control" name="video_link" type="text" value="" style="text-transform:lowercase;">
+                    <input id="video_link" class=" form-control" name="video_link" type="text" value="" style="text-transform:none;">
                     <input id="video_constituent_id" class="form-control" name="video_constituent_id" type="hidden">
                  </div>
               </div>
@@ -159,9 +159,10 @@
 						<table id="export_table" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
 							 <thead>
 									<tr>
-										<th>S.no</th>
+
 										 <th>Title</th>
-										 <th>Video</th>
+                     <!-- <th>link</th> -->
+
 										  <th>Updated at</th>
 											<th>Action</th>
 
@@ -199,7 +200,7 @@
                  <label class="col-form-label col-md-3 col-sm-3 label-align">Link<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
-                    <input id="update_video_link" class=" form-control" name="update_video_link" type="text" value="" style="text-transform:lowercase;">
+                    <input id="update_video_link" class=" form-control" name="update_video_link" type="text" value="" style="text-transform:none;">
                     <input id="video_link_id" class="form-control" name="video_link_id" type="hidden" >
                  </div>
               </div>
@@ -902,10 +903,12 @@ function get_constituent_video(sel){
       var stat=data.status;
        $("#table_video").empty();
       if(stat=="success"){
+
       var res=data.res;
       var len=res.length;
-      for (i = 1; i < len; i++) {
-          $('#table_video').append('<tr><td>'+i+'</td><td><a href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].video_link+'</td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+      for (i = 0; i < len; i++) {
+
+          $('#table_video').append('<tr><td><a href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
      }
       }else{
         $('#table_video').append('<tr><td colspan="6">No data</td></tr>');

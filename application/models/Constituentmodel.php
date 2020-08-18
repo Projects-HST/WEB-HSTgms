@@ -945,6 +945,27 @@ Class Constituentmodel extends CI_Model
 		return $result[0]['allcount'];
 	}
 
+	function get_all_grievance_count($search){
+		$this->db->select('count(g.id) as allcount');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
+		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		if(empty($search)){
+
+		}else{
+			$this->db->or_where('g.reference_note',$search);
+			$this->db->or_where('g.petition_enquiry_no',$search);
+			$this->db->or_where('c.full_name',$search);
+		}
+
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
 
 	function all_grievance($rowno,$rowperpage,$search=""){
 		$this->db->select('g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
@@ -1022,7 +1043,8 @@ Class Constituentmodel extends CI_Model
 
 //------ Constituent Video -----//
 	function get_constituent_video($constituent_id,$user_id){
-		$query="SELECT * FROM constituent_video where constituent_id='$constituent_id' order by id desc";
+		$query="SELECT id,constituent_id
+,video_title,video_link,DATE_FORMAT(updated_at,'%d-%m-%Y %H:%i') as updated_at FROM constituent_video where constituent_id='$constituent_id' order by id desc";
 		$result=$this->db->query($query);
 		if($result->num_rows()==0){
  		$data=array("status"=>"error");

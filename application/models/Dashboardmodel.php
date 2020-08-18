@@ -161,8 +161,9 @@ Class Dashboardmodel extends CI_Model
 			$res_2=$this->db->query($query_2);
 			$result_2=$res_2->result();
 
-			$query_3="SELECT count(*) as total,
-						IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0')  AS meeting_request_count
+			$query_3="SELECT IFNULL(count(*),'0') as total,
+						IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0')  AS meeting_request_count,
+            IFNULL(IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage
 						FROM meeting_request as mr
             left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_mr_date";
 			$res_3=$this->db->query($query_3);
@@ -218,11 +219,12 @@ Class Dashboardmodel extends CI_Model
 		}
 
 
-		$query="SELECT WEEK(g.grievance_date) AS week_name,count(*) as total,
+	 	$query="SELECT WEEK(g.grievance_date) AS week_name,count(*) as total,
 		sum(case when g.repeated_status = 'N' then 1 else 0 end) AS unique_count,
 		sum(case when g.repeated_status = 'R' then 1 else 0 end) AS repeat_count
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_date";
+	
 		$res=$this->db->query($query);
 		return $result=$res->result();
 	}

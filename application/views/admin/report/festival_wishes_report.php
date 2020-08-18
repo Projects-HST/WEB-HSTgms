@@ -20,7 +20,7 @@
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
         <div class="col-md-2 col-sm-4">
          <select class="form-control" name="year_id" id="year_id">
-           
+
            <?php foreach($res_year as $rows_year){ ?>
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
          <?php  } ?>
@@ -85,7 +85,7 @@
 					<td><?php echo $data['festival_name']; ?></td>
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['address']; ?></td>
-          <td><?php echo $data['sent_on']; ?>
+          <td><?php echo date("d-m-Y H:i", strtotime($data['sent_on'])); ?>
         </td>
         </tr>
 			<?php $sno++;	} ?>

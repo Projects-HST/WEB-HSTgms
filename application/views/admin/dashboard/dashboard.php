@@ -26,16 +26,16 @@
 			  <div class="form-group row">
 					<label class="col-form-label col-md-1 col-sm-6 ">From date</label>
  				 <div class="col-md-2">
- 						<input type="text" class="form-control" name="from_date" id="from_date" value="<?php echo $from_date; ?>">
+ 						<input type="text" class="form-control" name="from_date" id="from_date" value="<?php echo $from_date; ?>" placeholder="DD-MM-YYYY">
  				 </div>
 				 <label class="col-form-label col-md-1 col-sm-6 ">To date</label>
 				 <div class="col-md-2">
-					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>">
+					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>" placeholder="DD-MM-YYYY">
 					 </div>
 				 <label class="col-form-label col-md-2 col-sm-6 ">Select Office <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-6">
 						<select class="form-control" name="paguthi_id" id ="paguthi_id">
-								<option value="ALL">ALL</option>
+								<option value="">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 								<option value="<?php echo $rows->paguthi_id;?>"><?php echo $rows->paguthi_name;?></option>
 							<?php } ?><script> $('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
@@ -162,7 +162,7 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">meeting request </p></div>
+						<div class="col-9"><p class="widget_label">meeting request (<?= round($row_mr_list->mr_percentage); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label"> <?= $row_mr_list->meeting_request_count; ?></p></div>
 
 					</div>
@@ -254,7 +254,10 @@
 <div class="row">
 <div class="col-md-8">
 <div class="x_panel">
-	<div id="curve_chart" style="width: 100%; height: 500px"></div>
+	<?php if(empty($footfall_result)){  }else{ ?>
+		<div id="curve_chart" style="width: 100%; height: 500px"></div>
+	<?php } ?>
+
 
 	</div>
 </div>
@@ -289,7 +292,7 @@ var data = google.visualization.arrayToDataTable([
 ]);
 
 var options = {
-	title: 'FOOTFALL ',
+	title: 'FOOTFALL GRAPH',
 	curveType: 'function',
 	legend: { position: 'bottom' }
 };
@@ -319,7 +322,7 @@ $('#to_date').datetimepicker({
 });
 $('#result_form').validate({
      rules: {
-         paguthi_id:{required:true },
+         // paguthi_id:{required:true },
 				 from_date:{ required: function(element){
             return $("#to_date").val().length > 0; }},
 				to_date:{ required: function(element){

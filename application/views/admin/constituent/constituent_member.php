@@ -48,7 +48,7 @@
                             <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER">
                          </p>
                       </div>
-                      <label class="control-label col-md-2 col-sm-3 voter_section">Serial no <span class="required">*</span></label>
+                      <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
                       <div class="col-md-4 col-sm-9 voter_section">
                         <input type="text" name="serial_no" id="serial_no" class="form-control">
                       </div>
