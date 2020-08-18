@@ -35,6 +35,7 @@ th{
     <div class="col-md-2 col-sm-2">
       <select class="form-control" name="status" id ="status" >
         <option value="ALL">ALL</option>
+        <option value="REQUESTED">REQUESTED</option>
         <option value="PROCESSING">PROCESSING</option>
         <!-- <option value="COMPLETED">COMPLETED</option> -->
         <option value="REJECTED">REJECTED</option>
