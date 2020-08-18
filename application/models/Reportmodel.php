@@ -354,12 +354,19 @@ Class Reportmodel extends CI_Model
 
 	function get_staff_report($frmDate,$toDate)
 	{
-		$dateTime1 = new DateTime($frmDate);
-		$from_date=date_format($dateTime1,'Y-m-d' );
 
-		$dateTime2 = new DateTime($toDate);
-		$to_date=date_format($dateTime2,'Y-m-d' );
 
+		if(empty($frmDate)){
+			$query_where="where ct.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+		}else{
+			$dateTime1 = new DateTime($frmDate);
+			$from_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($toDate);
+			$to_date=date_format($dateTime2,'Y-m-d' );
+
+			$query_where="WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date'";
+		}
 		$query="SELECT
 				um.id,
 				um.full_name,
@@ -368,7 +375,7 @@ Class Reportmodel extends CI_Model
 				COUNT( CASE WHEN ct.status = 'INACTIVE' THEN 1 END ) AS inactive
 				FROM constituent AS	ct
 				LEFT JOIN user_master AS um ON um.id = ct.created_by
-				WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date' GROUP BY ct.created_by";
+				$query_where GROUP BY ct.created_by";
 		//echo $query;
 		$resultset=$this->db->query($query);
 		return $resultset->result();
@@ -780,13 +787,13 @@ Class Reportmodel extends CI_Model
 
 
 	function get_birthday_wish_year(){
-		$query="SELECT YEAR(created_at)  as year_name FROM consitutent_birthday_wish GROUP BY year_name";
+		$query="SELECT YEAR(created_at)  as year_name FROM consitutent_birthday_wish GROUP BY year_name ORDER BY year_name desc";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
 
 	function get_festival_year(){
-		$query="SELECT YEAR(updated_at)  as year_name FROM festival_wishes GROUP BY year_name";
+		$query="SELECT YEAR(updated_at)  as year_name FROM festival_wishes GROUP BY year_name ORDER BY year_name desc";
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}

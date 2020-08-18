@@ -25,7 +25,12 @@
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
          <?php  } ?>
          </select>
-         <script>$('#year_id').val('<?php echo $year_id; ?>')</script>
+         <?php if(empty($year_id)){
+
+         }else{ ?>
+           <script>$('#year_id').val('<?php echo $year_id; ?>')</script>
+         <?php } ?>
+
        </div>
 			   <div class="col-md-2 col-sm-4">
           <select class="form-control" name="religion_id" id="religion_id">

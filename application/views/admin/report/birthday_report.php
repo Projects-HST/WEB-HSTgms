@@ -22,12 +22,17 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="year_id" class="form-control">
-              <option value="">--Select --</option>
+              
               <?php foreach($res_year as $row_year){ ?>
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
             </select>
-            <script>$('#year_id').val('<?php echo $year_id; ?>');</script>
+            <?php if(empty($year_id)){
+
+            }else{ ?>
+              <script>$('#year_id').val('<?php echo $year_id; ?>')</script>
+            <?php } ?>
+
            </div>
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
