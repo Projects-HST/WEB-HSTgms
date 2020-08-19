@@ -1,47 +1,5 @@
 <?php $search_value = $this->session->userdata('search'); ?>
-<style type="text/css">
-.pagination-first-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-}
-
-.pagination-last-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-
-}
-.pagination-next-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-}
-
-.pagination-prev-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-
-}
-
-.pagination-current-tag{
-	color:#000000;
-	font-weight:bold;
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-number{
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-	color:#ffffff;
-
-}
-	</style>
+<
 <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -62,13 +20,13 @@
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
 
       <div class="col-md-2 col-sm-4">
-              <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+              <select class="form-control" name="c_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                 <option value="">ALL</option>
                 <?php foreach($paguthi as $rows){ ?>
                 <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                 <?php } ?>
               </select>
-						<script>$('#paguthi').val('<?php echo $set_paguthi; ?>');</script>
+						<script>$('#paguthi').val('<?php echo $c_paguthi; ?>');</script>
         </div>
           <div class="col-md-2 col-sm-4">
             <select class="form-control" name="ward_id" id ="ward_id" >
@@ -78,15 +36,15 @@
 
 					<div class="col-md-4 col-sm-4">
 						<div class="form-group" style="margin-top:10px;">
-							<input class="" name="whatsapp_no" type="checkbox" value="1" <?php if($whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp &nbsp;
-							<input class="" name="mobile_no" type="checkbox" value="1" <?php if($mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Mobile No &nbsp;
-							<input class="" name="email_id" type="checkbox" value="1" <?php if($email_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; Email id &nbsp;
+							<input class="" name="c_whatsapp_no" type="checkbox" value="1" <?php if($c_whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp &nbsp;
+							<input class="" name="c_mobile_no" type="checkbox" value="1" <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Mobile No &nbsp;
+							<input class="" name="c_email_id" type="checkbox" value="1" <?php if($c_email_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; Email id &nbsp;
 						</div>
 
           </div>
 				  <div class="col-md-4 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 
-						<a href="<?php echo base_url(). "report/constituent_list"; ?>" class="btn btn-danger">Clear All</a>
+						<a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
 
 				  </div>
 

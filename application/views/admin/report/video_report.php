@@ -21,7 +21,7 @@
         <div class="form-group row ">
              <label class="col-form-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
-             <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+             <select class="form-control" name="v_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="">ALL</option>
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
@@ -31,12 +31,13 @@
            </div>
            <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
           <div class="col-md-2 col-sm-2">
-             <select class="form-control" name="ward_id" id ="ward_id" >
+             <select class="form-control" name="v_ward_id" id ="ward_id" >
                <option value=""></option>
              </select>
           </div>
           <div class="col-md-2 col-sm-2">
-            <button type="submit" class="btn btn-success">SEARCH</button>
+            <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
           </div>
 
          </div>

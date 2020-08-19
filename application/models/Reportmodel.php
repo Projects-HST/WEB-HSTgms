@@ -430,7 +430,7 @@ Class Reportmodel extends CI_Model
 		}else{
 			$this->db->where('MONTH(bw.created_at)',$month_id);
 		}
-		if(empty($paguthi) && $paguthi=='ALL'){
+		if(empty($paguthi) || $paguthi=="ALL"){
 
 		}else{
 			$this->db->where('c.paguthi_id',$paguthi);

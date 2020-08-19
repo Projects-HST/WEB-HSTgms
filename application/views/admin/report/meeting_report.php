@@ -25,15 +25,15 @@ th{
       <div class="form-group row ">
         <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
         <div class="col-md-2 col-sm-2">
-           <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="s_frmDate" value="<?php echo $dfromDate; ?>">
+           <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="m_frmDate" value="<?php echo $m_frmDate; ?>">
         </div>
         <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
       <div class="col-md-2 col-sm-2">
-       <input type="text" class="form-control" placeholder="To Date" id="toDate" name="s_toDate" value="<?php echo $dtoDate; ?>">
+       <input type="text" class="form-control" placeholder="To Date" id="toDate" name="m_toDate" value="<?php echo $m_toDate; ?>">
       </div>
       <label class="col-form-label col-md-1 col-sm-1 ">Status <span class="required">*</span></label>
     <div class="col-md-2 col-sm-2">
-      <select class="form-control" name="status" id ="status" >
+      <select class="form-control" name="m_status" id ="status" >
         <option value="">ALL</option>
         <option value="REQUESTED">REQUESTED</option>
         <option value="PROCESSING">PROCESSING</option>
@@ -42,27 +42,28 @@ th{
         <option value="FAILURE">FAILURE</option>
         <option value="ONHOLD">ONHOLD</option>
         <option value="COMPLETED">COMPLETED</option>
-      </select><script> $('#status').val('<?php echo $dstatus; ?>');</script>
+      </select><script> $('#status').val('<?php echo $m_status; ?>');</script>
     </div>
       </div>
       <div class="form-group row ">
            <label class="control-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
            <div class="col-md-2 col-sm-9 ">
-           <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+           <select class="form-control" name="m_paguthi" id ="paguthi" onchange="get_paguthi(this);">
              <option value="ALL">ALL</option>
              <?php foreach($paguthi as $rows){ ?>
              <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
              <?php } ?>
-           </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+           </select><script> $('#paguthi').val('<?php echo $m_paguthi; ?>');</script>
          </div>
          <label class="col-form-label col-md-1 col-sm-3">Ward</label>
         <div class="col-md-2 col-sm-2">
-           <select class="form-control" name="ward_id" id ="ward_id" >
+           <select class="form-control" name="m_ward_id" id ="ward_id" >
              <option value=""></option>
            </select>
         </div>
         <div class="col-md-2 col-sm-2">
           <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+          <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
         </div>
 
        </div>
@@ -171,7 +172,7 @@ $.validator.addMethod("chkDates", function(value, element) {
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
-	}, "Please check dates");
+	}, "Fom date cannot be greater than To date");
 
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
@@ -183,12 +184,15 @@ $('#toDate').datetimepicker({
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-         frmDate:{required:true},
-         toDate:{required:true, chkDates: "#frmDate"}
+
+             m_frmDate:{ required: function(element){
+                return $("#toDate").val().length > 0; }},
+            m_toDate:{ required: function(element){
+               return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
      },
      messages: {
-           frmDate: { required:"Select From Date"},
-           toDate: { required:"Select To Date"}
+           m_frmDate: { required:"Select From Date"},
+           m_toDate: { required:"Select To Date"}
          }
  });
  </script>

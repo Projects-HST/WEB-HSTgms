@@ -21,22 +21,20 @@
         <div class="form-group row ">
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
-            <select id="year_id" name="year_id" class="form-control">
+            <select id="year_id" name="b_year_id" class="form-control">
 
               <?php foreach($res_year as $row_year){ ?>
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
             </select>
-            <?php if(empty($year_id)){
 
-            }else{ ?>
-              <script>$('#year_id').val('<?php echo $year_id; ?>')</script>
-            <?php } ?>
+              <script>$('#year_id').val('<?php echo $b_year_id; ?>')</script>
+
 
            </div>
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
-            <select id="month" name="month" class="form-control">
+            <select id="month" name="b_month" class="form-control">
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -50,39 +48,36 @@
               <option value="11">November</option>
               <option value="12">December</option>
             </select>
-            <?php if(empty($searchMonth)){
 
-            }else{ ?>
-              <script> $('#month').val('<?php echo $searchMonth; ?>');</script>
-            <?php } ?>
+              <script> $('#month').val('<?php echo $b_month; ?>');</script>
+
 
            </div>
         </div>
         <div class="form-group row ">
              <label class="control-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
-             <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+             <select class="form-control" name="b_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="ALL">ALL</option>
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                <?php } ?>
              </select>
-             <?php if(empty($dpaguthi)){
 
-             }else{ ?>
-               <script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
-             <?php } ?>
+               <script> $('#paguthi').val('<?php echo $b_paguthi; ?>');</script>
+
 
 
            </div>
            <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
           <div class="col-md-2 col-sm-2">
-             <select class="form-control" name="ward_id" id ="ward_id" >
+             <select class="form-control" name="b_ward_id" id ="ward_id" >
                <option value=""></option>
              </select>
           </div>
           <div class="col-md-2 col-sm-2">
-            <button type="submit" class="btn btn-success">SEARCH</button>
+            <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
           </div>
 
          </div>
@@ -178,12 +173,12 @@ function get_paguthi(sel){
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-         year_id:{required:true},
-         toDate:{required:true}
+         b_year_id:{required:true},
+         b_month:{required:true}
      },
      messages: {
-           frmDate: { required:"Select From Date"},
-           toDate: { required:"Select To Date"}
+           b_year_id: { required:"Select From year"},
+           b_month: { required:"Select month"}
          }
  });
  </script>

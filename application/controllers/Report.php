@@ -358,17 +358,48 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$frmDate="";
+		$toDate="";
+		$status="";
+		$paguthi="";
+		$ward_id="";
+		if($this->input->post('submit') != NULL ){
+			$frmDate=$this->input->post('m_frmDate');
+			$toDate=$this->input->post('m_toDate');
+			$status=$this->input->post('m_status');
+			$paguthi=$this->input->post('m_paguthi');
+			$ward_id=$this->input->post('m_ward_id');
+		 $status_session_array=$this->session->set_userdata(array(
+			 "m_frmDate"=>$frmDate,
+			 "m_toDate"=>$toDate,
+			 "m_paguthi"=>$paguthi,
+			 "m_ward_id"=>$ward_id,
+			 "m_status"=>$status
+		 ));
+	 }else{
+		 if($this->session->userdata('m_frmDate') != NULL){
+				$frmDate = $this->session->userdata('m_frmDate');
+		 }
+		 if($this->session->userdata('m_toDate') != NULL){
+			$toDate = $this->session->userdata('m_toDate');
+		}
+		if($this->session->userdata('m_paguthi') != NULL){
+			$paguthi = $this->session->userdata('m_paguthi');
+		}
+		if($this->session->userdata('m_ward_id') != NULL){
+			$ward_id = $this->session->userdata('m_ward_id');
+		}
+		if($this->session->userdata('m_status') != NULL){
+			$status = $this->session->userdata('m_status');
+		}
+	 }
+	 $data['m_frmDate']=$frmDate;
+	 $data['m_toDate']=$toDate;
+	 $data['m_paguthi']=$paguthi;
+	 $data['m_ward_id']=$ward_id;
+	 $data['m_status']=$status;
 
-				$frmDate=$this->input->post('frmDate');
-				$toDate=$this->input->post('toDate');
-				$data['dfromDate'] = $frmDate;
-				$data['dtoDate'] = $toDate;
-				$status=$this->input->post('status');
-				$data['dstatus'] = $status;
-				$paguthi=$this->input->post('paguthi');
-			 	$ward_id=$this->input->post('ward_id');
-		// $datas['res']=$this->reportmodel->get_meeting_report($frmDate,$toDate,$status,$paguthi,$ward_id);
-				$rowperpage = 10;
+				$rowperpage = 20;
 
 				// Row position
 				if($rowno != 0){
@@ -490,15 +521,44 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$data['paguthi'] = $this->usermodel->list_paguthi();
 		$data['res_year']=$this->reportmodel->get_birthday_wish_year();
-		$month_id=$this->input->post('month');
-		$year_id=$this->input->post('year_id');
+		$month_id="";
+		$year_id="";
+		$paguthi="";
+		$ward_id="";
+		if($this->input->post('submit') != NULL ){
+			$month_id=$this->input->post('b_month');
+			$year_id=$this->input->post('b_year_id');
+			$paguthi=$this->input->post('b_paguthi');
+			$ward_id=$this->input->post('b_ward_id');
+		 $status_session_array=$this->session->set_userdata(array(
+			 "m_frmDate"=>$month_id,
+			 "m_toDate"=>$year_id,
+			 "m_paguthi"=>$paguthi,
+			 "m_ward_id"=>$ward_id
+		 ));
+	 }else{
+		 if($this->session->userdata('b_month') != NULL){
+				$month_id = $this->session->userdata('b_month');
+		 }
+		 if($this->session->userdata('b_year_id') != NULL){
+			$year_id = $this->session->userdata('b_year_id');
+		}
+		if($this->session->userdata('b_paguthi') != NULL){
+			$paguthi = $this->session->userdata('b_paguthi');
+		}
+		if($this->session->userdata('b_ward_id') != NULL){
+			$ward_id = $this->session->userdata('b_ward_id');
+		}
+
+	 }
+	 $data['b_month']=$month_id;
+	 $data['b_year_id']=$year_id;
+	 $data['m_paguthi']=$paguthi;
+	 $data['m_ward_id']=$ward_id;
 
 
-		$data['searchMonth'] = $month_id;
-		// $data['res']=$this->reportmodel->get_birthday_report($selMonth);
-		$paguthi=$this->input->post('paguthi');
-		$ward_id=$this->input->post('ward_id');
-		$rowperpage = 10;
+
+		$rowperpage = 20;
 
 		// Row position
 		if($rowno != 0){
@@ -558,7 +618,7 @@ class Report extends CI_Controller {
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
 		$data['allcount'] = $allcount;
-		$data['year_id']=$year_id;
+
 
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
@@ -761,14 +821,42 @@ class Report extends CI_Controller {
 			$data['res_festival']=$this->mastermodel->get_active_festival();
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
 			$data['res_year'] = $this->reportmodel->get_festival_year();
-			$year_id = $this->input->post('year_id');
-			$paguthi = $this->input->post('paguthi');
-			$religion_id = $this->input->post('religion_id');
-			$ward_id = $this->input->post('ward_id');
-			$data['festival_id']=$religion_id;
-			$data['year_id']=$year_id;
+			$religion_id="";
+			$year_id="";
+			$paguthi="";
+			$ward_id="";
+			if($this->input->post('submit') != NULL ){
+				$year_id = $this->input->post('f_year_id');
+				$paguthi = $this->input->post('f_paguthi');
+				$religion_id = $this->input->post('f_religion_id');
+				$ward_id = $this->input->post('f_ward_id');
+			 $status_session_array=$this->session->set_userdata(array(
+				 "f_year_id"=>$year_id,
+				 "f_religion_id"=>$religion_id,
+				 "f_paguthi"=>$paguthi,
+				 "f_ward_id"=>$ward_id
+			 ));
+		 }else{
+			 if($this->session->userdata('f_year_id') != NULL){
+					$year_id = $this->session->userdata('f_year_id');
+			 }
+			 if($this->session->userdata('f_religion_id') != NULL){
+				$religion_id = $this->session->userdata('f_religion_id');
+			}
+			if($this->session->userdata('f_paguthi') != NULL){
+				$paguthi = $this->session->userdata('f_paguthi');
+			}
+			if($this->session->userdata('f_ward_id') != NULL){
+				$ward_id = $this->session->userdata('f_ward_id');
+			}
+
+		 }
+		 $data['f_year_id']=$year_id;
+		 $data['f_religion_id']=$religion_id;
+		 $data['f_paguthi']=$paguthi;
+		 $data['f_ward_id']=$ward_id;
 			// Row per page
-			$rowperpage = 25;
+			$rowperpage = 20;
 
 			// Row position
 			if($rowno != 0){
@@ -840,26 +928,47 @@ class Report extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
-			// Search text
-			$search_text = "";
-			if($this->input->post('submit') != NULL ){
-				$search_text = $this->input->post('search');
-				$this->session->set_userdata(array("search"=>$search_text));
-			}else{
-				if($this->session->userdata('search') != NULL){
-				$search_text = $this->session->userdata('search');
+				$paguthi="";
+				$ward_id="";
+				$whatsapp_no="";
+				$mobile_no="";
+				$email_id="";
+				if($this->input->post('submit') != NULL ){
+					$paguthi = $this->input->post('c_paguthi');
+					$ward_id = $this->input->post('c_ward_id');
+					$whatsapp_no = $this->input->post('c_whatsapp_no');
+					$mobile_no = $this->input->post('c_mobile_no');
+					$email_id = $this->input->post('c_email_id');
+				 $status_session_array=$this->session->set_userdata(array(
+					 "c_whatsapp_no"=>$whatsapp_no,
+					 "c_mobile_no"=>$mobile_no,
+					 "c_email_id"=>$email_id,
+					 "c_paguthi"=>$paguthi,
+					 "c_ward_id"=>$ward_id
+				 ));
+			 }else{
+				 if($this->session->userdata('c_email_id') != NULL){
+						$email_id = $this->session->userdata('c_email_id');
+				 }
+				 if($this->session->userdata('c_mobile_no') != NULL){
+						$mobile_no = $this->session->userdata('c_mobile_no');
+				 }
+				 if($this->session->userdata('c_whatsapp_no') != NULL){
+					$whatsapp_no = $this->session->userdata('c_whatsapp_no');
 				}
-			}
-				$paguthi = $this->input->post('paguthi');
-				$ward_id = $this->input->post('ward_id');
+				if($this->session->userdata('c_paguthi') != NULL){
+					$paguthi = $this->session->userdata('c_paguthi');
+				}
+				if($this->session->userdata('c_ward_id') != NULL){
+					$ward_id = $this->session->userdata('c_ward_id');
+				}
 
-				$whatsapp_no = $this->input->post('whatsapp_no');
-				$mobile_no = $this->input->post('mobile_no');
-				$email_id = $this->input->post('email_id');
-				$data['whatsapp_no']=$whatsapp_no;
-				$data['set_paguthi']=$paguthi;
-				$data['mobile_no']=$mobile_no;
-				$data['email_id']=$email_id;
+			 }
+			 $data['c_email_id']=$email_id;
+			 $data['c_mobile_no']=$mobile_no;
+			 $data['c_whatsapp_no']=$whatsapp_no;
+			 $data['f_paguthi']=$paguthi;
+			 $data['f_ward_id']=$ward_id;
 
 			// Row per page
 			$rowperpage = 25;
@@ -917,7 +1026,6 @@ class Report extends CI_Controller {
 			$data['pagination'] = $this->pagination->create_links();
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
-			$data['search'] = $search_text;
 			$data['allcount'] = $allcount;
 		// Load view
 			$this->load->view('admin/header');
@@ -936,11 +1044,31 @@ class Report extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
-			$paguthi = $this->input->post('paguthi');
-			$ward_id = $this->input->post('ward_id');
+			$paguthi="";
+			$ward_id="";
+			if($this->input->post('submit') != NULL ){
+				$paguthi = $this->input->post('v_paguthi');
+				$ward_id = $this->input->post('v_ward_id');
+			 $status_session_array=$this->session->set_userdata(array(
+				 "v_paguthi"=>$paguthi,
+				 "v_ward_id"=>$ward_id
+			 ));
+		 }else{
+
+			if($this->session->userdata('v_paguthi') != NULL){
+				$paguthi = $this->session->userdata('v_paguthi');
+			}
+			if($this->session->userdata('v_ward_id') != NULL){
+				$ward_id = $this->session->userdata('v_ward_id');
+			}
+
+		 }
+
+		 $data['v_paguthi']=$paguthi;
+		 $data['v_ward_id']=$ward_id;
 
 			// Row per page
-			$rowperpage = 25;
+			$rowperpage = 20;
 
 			// Row position
 			if($rowno != 0){
@@ -1015,7 +1143,8 @@ class Report extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id');
+		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
+		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id');
 		$this->session->unset_userdata($array_items);
 		redirect($_SERVER['HTTP_REFERER']);
 	}

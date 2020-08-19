@@ -19,7 +19,7 @@
 			 <form method='post' action="<?= base_url() ?>report/festival_wishes_report" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
         <div class="col-md-2 col-sm-4">
-         <select class="form-control" name="year_id" id="year_id">
+         <select class="form-control" name="f_year_id" id="year_id">
 
            <?php foreach($res_year as $rows_year){ ?>
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
@@ -28,21 +28,21 @@
          <?php if(empty($year_id)){
 
          }else{ ?>
-           <script>$('#year_id').val('<?php echo $year_id; ?>')</script>
+           <script>$('#year_id').val('<?php echo $f_year_id; ?>')</script>
          <?php } ?>
 
        </div>
 			   <div class="col-md-2 col-sm-4">
-          <select class="form-control" name="religion_id" id="religion_id">
+          <select class="form-control" name="f_religion_id" id="religion_id">
             <option value="">--Select--</option>
             <?php foreach($res_festival as $rows_festival){ ?>
               <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
           <?php  } ?>
           </select>
-          <script>$('#religion_id').val('<?php echo $festival_id; ?>')</script>
+          <script>$('#religion_id').val('<?php echo $f_religion_id; ?>')</script>
         </div>
       <div class="col-md-2 col-sm-4">
-              <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+              <select class="form-control" name="f_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                 <option value="">ALL</option>
                 <?php foreach($paguthi as $rows){ ?>
                 <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
@@ -50,13 +50,13 @@
               </select>
         </div>
           <div class="col-md-2 col-sm-4">
-            <select class="form-control" name="ward_id" id ="ward_id" >
+            <select class="form-control" name="f_ward_id" id ="ward_id" >
               <option value=""></option>
             </select>
           </div>
-				  <div class="col-md-3 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
-
-						<a href="<?php echo base_url(). "report/festival_wishes_report"; ?>" class="btn btn-danger">Clear All</a>
+				  <div class="col-md-3 col-sm-2">
+            <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
 
 				  </div>
 
