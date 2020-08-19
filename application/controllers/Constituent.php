@@ -14,6 +14,8 @@ class constituent extends CI_Controller {
 			$this->load->library('pagination');
 			$this->load->helper('form');
 			$this->load->model('reportmodel');
+			$this->load->helper('cookie');
+
 
  }
 
@@ -1336,14 +1338,20 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
-			if($this->input->post('search')){
-					setcookie('search',$this->input->post('search'));
-					$search = $this->input->post('search');
-			}elseif($this->input->cookie('search')){
-					$search = $this->input->cookie('search', true);
-			}else{
-					$search = "";
-			}
+				if($this->input->post('submit') == true ){
+					if($this->input->post('a_search')){
+							setcookie('a_search',$this->input->post('a_search'));
+							$search = $this->input->post('a_search');
+					}elseif($this->input->cookie('a_search')){
+							$search = $this->input->cookie('a_search', true);
+					}else{
+							$search = "";
+					}
+				}else{
+					setcookie('a_search','');
+					$search='';
+				}
+
 			// Row per page
 			$rowperpage = 25;
 
@@ -1412,13 +1420,18 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
-			if($this->input->post('search')){
-					setcookie('search',$this->input->post('search'));
-					$search_text = $this->input->post('search');
-			}elseif($this->input->cookie('search')){
-					$search_text = $this->input->cookie('search', true);
+			if($this->input->post('submit') == true ){
+				if($this->input->post('a_search')){
+						setcookie('a_search',$this->input->post('a_search'));
+						$search = $this->input->post('a_search');
+				}elseif($this->input->cookie('a_search')){
+						$search = $this->input->cookie('a_search', true);
+				}else{
+						$search = "";
+				}
 			}else{
-					$search_text = "";
+				setcookie('a_search','');
+				$search='';
 			}
 			// Row per page
 			$rowperpage = 25;
@@ -1487,13 +1500,18 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
-			if($this->input->post('search')){
-					setcookie('search',$this->input->post('search'));
-					$search_text = $this->input->post('search');
-			}elseif($this->input->cookie('search')){
-					$search_text = $this->input->cookie('search', true);
+			if($this->input->post('submit') == true ){
+				if($this->input->post('a_search')){
+						setcookie('a_search',$this->input->post('a_search'));
+						$search = $this->input->post('a_search');
+				}elseif($this->input->cookie('a_search')){
+						$search = $this->input->cookie('a_search', true);
+				}else{
+						$search = "";
+				}
 			}else{
-					$search_text = "";
+				setcookie('a_search','');
+				$search='';
 			}
 			// Row per page
 			$rowperpage = 25;
