@@ -14,11 +14,11 @@
       <div class="form-group row ">
       <label class="col-form-label col-md-2 col-sm-1">From <span class="required">*</span></label>
       <div class="col-md-2 col-sm-2">
-         <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+         <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="g_frmDate" value="<?php echo $g_frmDate; ?>">
       </div>
       <label class="col-form-label col-md-2 col-sm-2">To <span class="required">*</span></label>
      <div class="col-md-2 col-sm-2">
-      <input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+      <input type="text" class="form-control" placeholder="To Date" id="toDate" name="g_toDate" value="<?php echo $g_toDate; ?>">
      </div>
       </div>
 
@@ -26,16 +26,16 @@
       <div class="form-group row ">
            <label class="control-label col-md-2 col-sm-3 "> Category<span class="required">*</span></label>
            <div class="col-md-2 col-sm-9 ">
-             <select class="form-control" name="category" id ="category" onchange="get_sub_category(this)">
-               <option value="ALL">ALL</option>
+             <select class="form-control" name="g_category" id ="category" onchange="get_sub_category(this)">
+               <option value="">ALL</option>
                <?php foreach($category as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->grievance_name;?></option>
                <?php } ?>
-             </select><script> $('#category').val('<?php echo $dcategory; ?>');</script>
+             </select><script> $('#category').val('<?php echo $g_category; ?>');</script>
          </div>
          <label class="control-label col-md-2 col-sm-3 ">Sub Category</label>
          <div class="col-md-2 col-sm-9 ">
-           <select class="form-control" id="sub_category_id" name="sub_category_id">
+           <select class="form-control" id="sub_category_id" name="g_sub_category_id">
                 <option value="">-SELECT--</option>
            </select>
 
@@ -48,21 +48,22 @@
           <div class="form-group row ">
                <label class="control-label col-md-2 col-sm-3 ">Office<span class="required">*</span></label>
                <div class="col-md-2 col-sm-9 ">
-               <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
-                 <option value="ALL">ALL</option>
+               <select class="form-control" name="g_paguthi" id ="paguthi" onchange="get_paguthi(this);">
+                 <option value="">ALL</option>
                  <?php foreach($paguthi as $rows){ ?>
                  <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                  <?php } ?>
-               </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+               </select><script> $('#paguthi').val('<?php echo $g_paguthi; ?>');</script>
              </div>
              <label class="col-form-label col-md-2 col-sm-3">Ward</label>
             <div class="col-md-2 col-sm-2">
-               <select class="form-control" name="ward_id" id ="ward_id" >
+               <select class="form-control" name="g_ward_id" id ="ward_id" >
                  <option value=""></option>
                </select>
             </div>
             <div class="col-md-2 col-sm-2">
-              <button type="submit" class="btn btn-success">SEARCH</button>
+              <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+              <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
             </div>
 
            </div>
@@ -204,14 +205,14 @@ function get_sub_category(sel){
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-       frmDate:{ required: function(element){
+       g_frmDate:{ required: function(element){
           return $("#toDate").val().length > 0; }},
-      toDate:{ required: function(element){
+      g_toDate:{ required: function(element){
          return $("#frmDate").val().length > 0; },chkDates: "#frmDate"}
      },
      messages: {
-           frmDate: { required:"Select From Date"},
-           toDate: { required:"Select To Date"}
+           g_frmDate: { required:"Select From Date"},
+           g_toDate: { required:"Select To Date"}
          }
  });
  </script>

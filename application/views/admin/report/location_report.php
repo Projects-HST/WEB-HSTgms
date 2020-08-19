@@ -14,31 +14,32 @@
           <div class="form-group row ">
             <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
             <div class="col-md-2 col-sm-2">
-               <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+               <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="l_frmDate" value="<?php echo $l_frmDate; ?>">
             </div>
             <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
           <div class="col-md-2 col-sm-2">
-           <input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+           <input type="text" class="form-control" placeholder="To Date" id="toDate" name="l_toDate" value="<?php echo $l_toDate; ?>">
           </div>
           </div>
         <div class="form-group row ">
              <label class="control-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
-             <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+             <select class="form-control" name="l_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="">ALL</option>
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                <?php } ?>
-             </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+             </select><script> $('#paguthi').val('<?php echo $l_paguthi; ?>');</script>
            </div>
            <label class="col-form-label col-md-1 col-sm-3">Ward</label>
           <div class="col-md-2 col-sm-2">
-             <select class="form-control" name="ward_id" id ="ward_id" >
+             <select class="form-control" name="l_ward_id" id ="ward_id" >
                <option value=""></option>
              </select>
           </div>
           <div class="col-md-2 col-sm-2">
-            <button type="submit" class="btn btn-success">SEARCH</button>
+            <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
           </div>
 
          </div>
@@ -154,15 +155,15 @@ $.validator.addMethod("chkDates", function(value, element) {
 $('#report_form').validate({ // initialize the plugin
   rules: {
 
-      frmDate:{ required: function(element){
+      l_frmDate:{ required: function(element){
          return $("#toDate").val().length > 0; }},
-     toDate:{ required: function(element){
+     l_toDate:{ required: function(element){
         return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
         paguthi:{required:true }
   },
      messages: {
-           frmDate: { required:"Select From Date"},
-           toDate: { required:"Select To Date"},
+           l_frmDate: { required:"Select From Date"},
+           l_toDate: { required:"Select To Date"},
 		   paguthi: { required:"Select Location"}
          }
  });

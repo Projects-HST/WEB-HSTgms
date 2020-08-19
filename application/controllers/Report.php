@@ -126,20 +126,51 @@ class Report extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$data['category'] = $this->usermodel->list_category();
 		$data['paguthi'] = $this->usermodel->list_paguthi();
-
-			$frmDate=$this->input->post('frmDate');
-			$data['dfromDate'] = $frmDate;
-			$toDate=$this->input->post('toDate');
-			$data['dtoDate'] = $toDate;
-			$category=$this->input->post('category');
-			if ($category != ""){
-			 $data['dcategory'] = $category;
-			} else {
-			  $data['dcategory'] = "ALL";
+		$frmDate="";
+		$toDate="";
+		$category="";
+		$sub_category_id="";
+		$paguthi="";
+		$ward_id="";
+			if($this->input->post('submit') != NULL ){
+ 			 $frmDate=$this->input->post('g_frmDate');
+ 			 $toDate=$this->input->post('g_toDate');
+ 			 $category=$this->input->post('g_category');
+			 $sub_category_id=$this->input->post('g_sub_category_id');
+ 			 $paguthi=$this->input->post('g_paguthi');
+ 			 $ward_id=$this->input->post('g_ward_id');
+ 			 $status_session_array=$this->session->set_userdata(array(
+ 				 "g_frmDate"=>$frmDate,
+ 				 "g_toDate"=>$toDate,
+ 				 "g_category"=>$category,
+				 "g_sub_category_id"=>$sub_category_id,
+ 				 "g_paguthi"=>$paguthi,
+ 				 "g_ward_id"=>$ward_id
+ 			 ));
+ 		 }else{
+ 			 if($this->session->userdata('g_frmDate') != NULL){
+ 			 		$frmDate = $this->session->userdata('g_frmDate');
+ 			 }
+ 			 if($this->session->userdata('g_toDate') != NULL){
+ 				$toDate = $this->session->userdata('g_toDate');
+ 			}
+ 			if($this->session->userdata('g_category') != NULL){
+ 		 		$category = $this->session->userdata('g_category');
+ 		 	}
+			if($this->session->userdata('g_sub_category_id') != NULL){
+				$sub_category_id = $this->session->userdata('g_sub_category_id');
 			}
-			$sub_category_id=$this->input->post('sub_category_id');
-			$paguthi=$this->input->post('paguthi');
-			$ward_id=$this->input->post('ward_id');
+ 			if($this->session->userdata('g_paguthi') != NULL){
+ 		 		$paguthi = $this->session->userdata('g_paguthi');
+ 		 	}
+ 			if($this->session->userdata('g_ward_id') != NULL){
+ 		 		$ward_id = $this->session->userdata('g_ward_id');
+ 		 	}
+ 		 }
+		 $data['g_paguthi']=$paguthi;
+		 $data['g_category']=$category;
+		 $data['g_frmDate']=$frmDate;
+		 $data['g_toDate']=$toDate;
 
 			$rowperpage = 25;
 			if($rowno != 0){
@@ -218,13 +249,39 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$data['paguthi'] = $this->usermodel->list_paguthi();
-		$frmDate=$this->input->post('frmDate');
-		$data['dfromDate'] = $frmDate;
-		$toDate=$this->input->post('toDate');
-		$data['dtoDate'] = $toDate;
-		$paguthi=$this->input->post('paguthi');
-		$data['dpaguthi'] = $paguthi;
-		$ward_id=$this->input->post('ward_id');
+		$frmDate="";
+		$toDate="";
+		$paguthi="";
+		$ward_id="";
+		if($this->input->post('submit') != NULL ){
+			$frmDate=$this->input->post('l_frmDate');
+  		$toDate=$this->input->post('l_toDate');
+  		$paguthi=$this->input->post('l_paguthi');
+  		$ward_id=$this->input->post('l_ward_id');
+		 $status_session_array=$this->session->set_userdata(array(
+			 "l_frmDate"=>$frmDate,
+			 "l_toDate"=>$toDate,
+			 "l_paguthi"=>$paguthi,
+			 "l_ward_id"=>$ward_id
+		 ));
+	 }else{
+		 if($this->session->userdata('l_frmDate') != NULL){
+				$frmDate = $this->session->userdata('l_frmDate');
+		 }
+		 if($this->session->userdata('l_toDate') != NULL){
+			$toDate = $this->session->userdata('l_toDate');
+		}
+		if($this->session->userdata('l_paguthi') != NULL){
+			$paguthi = $this->session->userdata('l_paguthi');
+		}
+		if($this->session->userdata('l_ward_id') != NULL){
+			$ward_id = $this->session->userdata('l_ward_id');
+		}
+	 }
+	 $data['l_frmDate']=$frmDate;
+	 $data['l_toDate']=$toDate;
+	 $data['l_paguthi']=$paguthi;
+	 $data['l_ward_id']=$ward_id;
 
 		$rowperpage = 25;
 		if($rowno != 0){
@@ -958,7 +1015,7 @@ class Report extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status');
+		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id');
 		$this->session->unset_userdata($array_items);
 		redirect($_SERVER['HTTP_REFERER']);
 	}

@@ -166,31 +166,16 @@ $('.reportmenu').css('display','block');
    $('#report_form').validate({ // initialize the plugin
      rules: {
 
-         frmDate:{ required: function(element){
+         s_frmDate:{ required: function(element){
             return $("#toDate").val().length > 0; }},
-        toDate:{ required: function(element){
+          s_toDate:{ required: function(element){
            return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
      },
         messages: {
-              frmDate: { required:"Select From Date"},
-              toDate: { required:"Select To Date"}
+              s_frmDate: { required:"Select From Date"},
+              s_toDate: { required:"Select To Date"}
             }
     });
-
-// function reset_search(){
-//   alert("hi");
-//   var sample_id="1";
-//   $.ajax({
-//    url:'<?php echo base_url(); ?>report/reset_search',
-//    cache: false,
-//    success:function(data)
-//    {
-//      alert(data);
-//      location.reload();
-//    }
-//
-//  });
-// }
 
 
 </script>
