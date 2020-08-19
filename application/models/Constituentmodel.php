@@ -938,10 +938,8 @@ Class Constituentmodel extends CI_Model
 		}else{
 			$first=date("Y-m-d", strtotime($frmDate));
 			$second=date("Y-m-d", strtotime($toDate));
-
 			$where="(`A`.`meeting_date` >= '$first' AND `A`.`meeting_date` <= '$second')";
 			$this->db->or_where($where);
-
 		}
 		$query = $this->db->get();
 		$result = $query->result_array();
