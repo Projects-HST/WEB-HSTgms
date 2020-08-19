@@ -493,7 +493,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
                         type: "post"
                      }
                     },
-            profile_pic:{required:false,extension:'jpe?g,png', filesize: 1000 }
+            profile_pic:{required:false,extension:'jpe?g,png', filesize: 1000000 }
         },
         messages: {
           paguthi_id:{required:"select paguthi" },
