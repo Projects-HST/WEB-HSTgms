@@ -1423,15 +1423,15 @@ public function meetings($rowno=0)
 			if($this->input->post('submit') == true ){
 				if($this->input->post('a_search')){
 						setcookie('a_search',$this->input->post('a_search'));
-						$search = $this->input->post('a_search');
+						$search_text = $this->input->post('a_search');
 				}elseif($this->input->cookie('a_search')){
-						$search = $this->input->cookie('a_search', true);
+						$search_text = $this->input->cookie('a_search', true);
 				}else{
-						$search = "";
+						$search_text = "";
 				}
 			}else{
 				setcookie('a_search','');
-				$search='';
+				$search_text='';
 			}
 			// Row per page
 			$rowperpage = 25;
@@ -1503,15 +1503,15 @@ public function meetings($rowno=0)
 			if($this->input->post('submit') == true ){
 				if($this->input->post('a_search')){
 						setcookie('a_search',$this->input->post('a_search'));
-						$search = $this->input->post('a_search');
+						$search_text = $this->input->post('a_search');
 				}elseif($this->input->cookie('a_search')){
-						$search = $this->input->cookie('a_search', true);
+						$search_text = $this->input->cookie('a_search', true);
 				}else{
-						$search = "";
+						$search_text = "";
 				}
 			}else{
 				setcookie('a_search','');
-				$search='';
+				$search_text='';
 			}
 			// Row per page
 			$rowperpage = 25;
