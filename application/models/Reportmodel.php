@@ -43,8 +43,9 @@ Class Reportmodel extends CI_Model
 			$this->db->where('g.grievance_date <=', $to_date);
 		}
 
-		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// echo $this->db->get_compiled_select();
 		// exit;
+
 		$this->db->limit($rowperpage, $rowno);
 		$query = $this->db->get();
 		return $query->result_array();
@@ -71,7 +72,7 @@ Class Reportmodel extends CI_Model
 		if(empty($status) || $status=='ALL'){
 
 		}else{
-			$this->db->where('g.status',$ward_id);
+			$this->db->where('g.status',$status);
 		}
 		if(empty($frmDate)){
 				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
@@ -84,6 +85,7 @@ Class Reportmodel extends CI_Model
 			$this->db->where('g.grievance_date >=', $from_date);
 			$this->db->where('g.grievance_date <=', $to_date);
 		}
+
 
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
 		// exit;

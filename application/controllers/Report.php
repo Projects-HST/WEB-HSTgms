@@ -20,25 +20,42 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$data['paguthi'] = $this->usermodel->list_paguthi();
-
-
-		 $frmDate=$this->input->post('frmDate');
-		 $data['dfromDate'] = $frmDate;
-		 $toDate=$this->input->post('toDate');
-		 $data['dtoDate'] = $toDate;
-		 $status=$this->input->post('status');
-		 if ($status != ""){
-			$data['dstatus'] = $status;
-		 } else {
-			  $data['dstatus'] = "ALL";
+		 $frmDate="";
+		 $toDate="";
+		 $status="";
+		 $paguthi="";
+		 $ward_id="";
+		 if($this->input->post('submit') != NULL ){
+			 $frmDate=$this->input->post('s_frmDate');
+			 $toDate=$this->input->post('s_toDate');
+			 $status=$this->input->post('s_status');
+			 $paguthi=$this->input->post('s_paguthi');
+			 $ward_id=$this->input->post('s_ward_id');
+			 $status_session_array=$this->session->set_userdata(array(
+				 "s_frmDate"=>$frmDate,
+				 "s_toDate"=>$toDate,
+				 "s_status"=>$status,
+				 "s_paguthi"=>$paguthi,
+				 "s_ward_id"=>$ward_id
+			 ));
+		 }else{
+			 if($this->session->userdata('s_frmDate') != NULL){
+			 $frmDate = $this->session->userdata('s_frmDate');
+			 }
+			 if($this->session->userdata('s_toDate') != NULL){
+			$toDate = $this->session->userdata('s_toDate');
+			}
+			if($this->session->userdata('s_status') != NULL){
+		 		$status = $this->session->userdata('s_status');
+		 	}
+			if($this->session->userdata('s_paguthi') != NULL){
+		 		$paguthi = $this->session->userdata('s_paguthi');
+		 	}
+			if($this->session->userdata('s_ward_id') != NULL){
+		 		$ward_id = $this->session->userdata('s_ward_id');
+		 	}
 		 }
-		 $paguthi=$this->input->post('paguthi');
-		 $ward_id=$this->input->post('ward_id');
-		 if ($paguthi != ""){
-			 $data['dpaguthi'] = $paguthi;
-		 } else {
-			  $data['dpaguthi'] = "ALL";
-		 }
+
 		$rowperpage = 25;
 
 		// Row position
@@ -88,6 +105,10 @@ class Report extends CI_Controller {
 		$data['result'] = $users_record;
 		$data['total_records'] = $allcount;
 		$data['row'] = $rowno;
+		$data['dfromDate'] = $frmDate;
+		$data['dtoDate'] = $toDate;
+		$data['status'] = $status;
+		$data['dpaguthi'] = $paguthi;
 	 if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/status_report',$data);
@@ -931,8 +952,15 @@ class Report extends CI_Controller {
 	}
 
 
-	public function sample($rowno=0){
 
+
+	public function reset_search(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status');
+		$this->session->unset_userdata($array_items);
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 }

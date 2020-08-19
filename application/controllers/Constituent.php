@@ -1361,18 +1361,16 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
-				if($this->input->post('submit') == true ){
-					if($this->input->post('a_search')){
-							setcookie('a_search',$this->input->post('a_search'));
-							$search = $this->input->post('a_search');
-					}elseif($this->input->cookie('a_search')){
-							$search = $this->input->cookie('a_search', true);
-					}else{
-							$search = "";
-					}
+
+				$search = "";
+				// $this->session->unset_userdata('a_search');
+				if($this->input->post('submit') != NULL ){
+				  $search = $this->input->post('a_search');
+				  $this->session->set_userdata(array("a_search"=>$search));
 				}else{
-					setcookie('a_search','');
-					$search='';
+				  if($this->session->userdata('a_search') != NULL){
+					$search = $this->session->userdata('a_search');
+				  }
 				}
 
 			// Row per page
@@ -1424,7 +1422,7 @@ public function meetings($rowno=0)
 			$data['pagination'] = $this->pagination->create_links();
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
-			$data['search'] = $search;
+			$data['search']=$search;
 			$data['allcount'] = $allcount;
 			// Load view
 			$this->load->view('admin/header');
@@ -1442,19 +1440,14 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
-			// Search text
-			if($this->input->post('submit') == true ){
-				if($this->input->post('p_search')){
-						setcookie('p_search',$this->input->post('p_search'));
-						$search_text = $this->input->post('p_search');
-				}elseif($this->input->cookie('p_search')){
-						$search_text = $this->input->cookie('p_search', true);
-				}else{
-						$search_text = "";
-				}
+			$search_text="";
+			if($this->input->post('submit') != NULL ){
+				$search_text = $this->input->post('p_search');
+				$this->session->set_userdata(array("p_search"=>$search_text));
 			}else{
-				setcookie('p_search','');
-				$search_text='';
+				if($this->session->userdata('p_search') != NULL){
+				$search_text = $this->session->userdata('p_search');
+				}
 			}
 			// Row per page
 			$rowperpage = 25;
@@ -1523,19 +1516,14 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
-			// Search text
-			if($this->input->post('submit') == true ){
-				if($this->input->post('e_search')){
-						setcookie('e_search',$this->input->post('e_search'));
-						$search_text = $this->input->post('e_search');
-				}elseif($this->input->cookie('e_search')){
-						$search_text = $this->input->cookie('e_search', true);
-				}else{
-						$search_text = "";
-				}
+			$search_text="";
+			if($this->input->post('submit') != NULL ){
+				$search_text = $this->input->post('e_search');
+				$this->session->set_userdata(array("e_search"=>$search_text));
 			}else{
-				setcookie('a_search','');
-				$search_text='';
+				if($this->session->userdata('e_search') != NULL){
+				$search_text = $this->session->userdata('e_search');
+				}
 			}
 			// Row per page
 			$rowperpage = 25;

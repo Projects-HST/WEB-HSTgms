@@ -25,11 +25,11 @@ th{
       <div class="form-group row ">
         <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
         <div class="col-md-2 col-sm-2">
-           <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+           <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="s_frmDate" value="<?php echo $dfromDate; ?>">
         </div>
         <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
       <div class="col-md-2 col-sm-2">
-       <input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+       <input type="text" class="form-control" placeholder="To Date" id="toDate" name="s_toDate" value="<?php echo $dtoDate; ?>">
       </div>
       <label class="col-form-label col-md-1 col-sm-1 ">Status <span class="required">*</span></label>
     <div class="col-md-2 col-sm-2">
@@ -62,7 +62,7 @@ th{
            </select>
         </div>
         <div class="col-md-2 col-sm-2">
-          <button type="submit" class="btn btn-success">SEARCH</button>
+          <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
         </div>
 
        </div>
