@@ -25,17 +25,17 @@ th{
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="">
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="">
 				 </div>
          <div class="col-md-2 col-sm-4">
-            <input class="form-control" id="search" name="search" type="text" placeholder="Search Full name " value="<?= $search ?>" />
+            <input class="form-control" id="search" name="search" type="text" placeholder="Search Full name " value="" />
           </div>
 				 <div class="col-md-1 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>
+					 <input type="submit" name="submit" class="btn btn-success" value="Search">
 				 </div>
          <div class="col-md-2 col-sm-2">
           <a href="<?php echo base_url(). "constituent/meetings"; ?>" class="btn btn-danger">Clear All</a>

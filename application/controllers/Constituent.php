@@ -993,27 +993,49 @@ public function meetings($rowno=0)
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$frmDate = "";
-		$toDate = "";
-		$frmDate=$this->input->post('frmDate');
-		$getfrmDate=$this->uri->segment(3);
-		$toDate=$this->input->post('toDate');
-		$gettoDate=$this->uri->segment(4);
-		if ($frmDate!=''){
-			$frmDate=$this->input->post('frmDate');
-		}else if ($getfrmDate!=''){
-			$frmDate=$this->uri->segment(3);
+
+
+
+		if($this->input->post('submit') == true ){
+
+			if($this->input->post('frmDate')){
+					setcookie('m_frmDate',$this->input->post('frmDate'));
+					$frmDate=$this->input->post('frmDate');
+			}elseif($this->input->cookie('m_frmDate')){
+					$frmDate = $this->input->cookie('m_frmDate', true);
+			}else{
+					$frmDate = "";
+			}
+
+			if($this->input->post('toDate')){
+					setcookie('m_toDate',$this->input->post('toDate'));
+					$toDate=$this->input->post('toDate');
+			}elseif($this->input->cookie('m_frmDate')){
+					$toDate = $this->input->cookie('m_toDate', true);
+			}else{
+					// $toDate = "";
+			}
+
+			if($this->input->post('search')){
+					setcookie('m_search',$this->input->post('search'));
+					$search_text=$this->input->post('search');
+			}elseif($this->input->cookie('m_search')){
+					$search_text = $this->input->cookie('m_search', true);
+			}else{
+					$search_text = "";
+			}
+
+		}else{
+			setcookie('m_frmDate','');
+			setcookie('m_toDate','');
+			setcookie('m_search','');
+			$frmDate='';
+			$toDate = "";
+			$search_text='';
 		}
-		if ($toDate!=''){
-			$toDate=$this->input->post('toDate');
-		}else if ($gettoDate!=''){
-			$toDate=$this->uri->segment(4);
-		}
-		$datas['dfromDate'] = $frmDate;
-		$datas['dtoDate'] = $toDate;
-		$datas['res_sms']=$this->mastermodel->get_active_template();
-		$search_text = "";
-		$search_text = $this->input->post('search');
+
+
+		$data['res_sms']=$this->mastermodel->get_active_template();
 		$rowperpage = 20;
 		if($rowno != 0){
 			$rowno = ($rowno-1) * $rowperpage;
@@ -1043,13 +1065,14 @@ public function meetings($rowno=0)
 		$config['num_tag_open'] = '<span class="pagination-number">';
 		$config['num_tag_close'] = '</span>';
 		$this->pagination->initialize($config);
-		$datas['pagination'] = $this->pagination->create_links();
-		$datas['result'] = $users_record;
-		$datas['row'] = $rowno;
-		$datas['search'] = $search_text;
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+		$data['search'] = $search_text;
+
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
-			$this->load->view('admin/constituent/meeting_report',$datas);
+			$this->load->view('admin/constituent/meeting_report',$data);
 			$this->load->view('admin/footer');
 		}else{
 			redirect('/');
@@ -1252,10 +1275,10 @@ public function meetings($rowno=0)
 			}
 
 			// All records count
-			$allcount = $this->constituentmodel->festival_wishes_count($search_text,$paguthi,$ward_id,$religion_id);
+			$allcount = $this->constituentmodel->festival_wishes_count($paguthi,$ward_id,$religion_id);
 
 			// Get records
-			$users_record = $this->constituentmodel->fetch_festival_data($rowno,$rowperpage,$search_text,$paguthi,$ward_id,$religion_id);
+			$users_record = $this->constituentmodel->fetch_festival_data($rowno,$rowperpage,$paguthi,$ward_id,$religion_id);
 
 			// Pagination Configuration
 			$config['base_url'] = base_url().'constituent/festival_wishes';
@@ -1299,7 +1322,7 @@ public function meetings($rowno=0)
 		$data['pagination'] = $this->pagination->create_links();
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
-		$data['search'] = $search_text;
+
 		$data['allcount'] = $allcount;
 		// Load view
 			$this->load->view('admin/header');

@@ -971,7 +971,7 @@ Class Constituentmodel extends CI_Model
 			$this->db->or_where('c.full_name',$search);
 		}
 
-		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result[0]['allcount'];
@@ -1093,7 +1093,7 @@ Class Constituentmodel extends CI_Model
 //------ Constituent Video -----//
 
 
-	function fetch_festival_data($rowno,$rowperpage,$search="",$paguthi,$ward_id,$religion_id) {
+	function fetch_festival_data($rowno,$rowperpage,$paguthi,$ward_id,$religion_id) {
 			$this->db->select('c.*,f.constituent_id as sent_status,f.festival_id as sent_festival_id');
 			$this->db->from('constituent as c');
 
@@ -1130,7 +1130,7 @@ Class Constituentmodel extends CI_Model
 	 }
 
 
-	 function festival_wishes_count($search_text,$paguthi,$ward_id,$religion_id){
+	 function festival_wishes_count($paguthi,$ward_id,$religion_id){
 		 $this->db->select('count(c.id) as allcount');
 		 $this->db->from('constituent as c');
 

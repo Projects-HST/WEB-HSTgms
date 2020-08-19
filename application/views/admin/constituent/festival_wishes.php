@@ -65,7 +65,6 @@
         <tr>
           <td><?php echo $sno; ?></td>
           <td><?php echo $data['full_name']; ?></td>
-
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['address']; ?></td>
           <td><?php if(empty($festival_id)){
