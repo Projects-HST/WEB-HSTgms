@@ -640,7 +640,7 @@ Class Constituentmodel extends CI_Model
 
 	function get_constituent_profile($constituent_id){
 		$id=base64_decode($constituent_id)/98765;
-		$query="SELECT c.*,ct.constituency_name,c.full_name,p.paguthi_name,w.ward_name,b.booth_name,b.booth_address,r.religion_name from constituent as c 
+		$query="SELECT c.*,ct.constituency_name,c.full_name,p.paguthi_name,w.ward_name,b.booth_name,b.booth_address,r.religion_name from constituent as c
 		left join constituency as ct on ct.id=c.constituency_id
 		left join paguthi as p on p.id=c.paguthi_id
 		left join ward as w on w.id=c.ward_id
@@ -972,9 +972,11 @@ Class Constituentmodel extends CI_Model
 		if(empty($search)){
 
 		}else{
-			$this->db->or_like('g.reference_note',$search,'both');
-			$this->db->or_like('g.petition_enquiry_no',$search,'both');
-			$this->db->or_like('c.full_name',$search,'both');
+			// $this->db->or_like('g.reference_note',$search,'both');
+			// $this->db->or_like('g.petition_enquiry_no',$search,'both');
+			// $this->db->or_like('c.full_name',$search,'both');
+			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
+			$this->db->where($where);
 		}
 		$this->db->order_by("g.id", "desc");
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
@@ -996,9 +998,11 @@ Class Constituentmodel extends CI_Model
 		if(empty($search)){
 
 		}else{
-			$this->db->or_like('g.reference_note',$search);
-			$this->db->or_like('g.petition_enquiry_no',$search);
-			$this->db->or_like('c.full_name',$search);
+			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
+			$this->db->where($where);
+			// $this->db->or_like('g.reference_note',$search);
+			// $this->db->or_like('g.petition_enquiry_no',$search);
+			// $this->db->or_like('c.full_name',$search);
 		}
 		$this->db->where('g.grievance_type','P');
 		$this->db->order_by("g.id", "desc");
@@ -1018,14 +1022,17 @@ Class Constituentmodel extends CI_Model
 		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
 		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		$this->db->where('g.grievance_type','E');
 		if(empty($search)){
 
 		}else{
-			$this->db->or_like('g.reference_note',$search);
-			$this->db->or_like('g.petition_enquiry_no',$search);
-			$this->db->or_like('c.full_name',$search);
+			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
+			$this->db->where($where);
+
+			// $this->db->or_like('g.petition_enquiry_no',$search);
+			// $this->db->or_like('c.full_name',$search);
 		}
-		$this->db->where('g.grievance_type','E');
+
 		$this->db->order_by("g.id", "desc");
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
 		// exit;
