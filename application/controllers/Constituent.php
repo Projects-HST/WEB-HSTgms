@@ -1421,16 +1421,16 @@ public function meetings($rowno=0)
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
 			if($this->input->post('submit') == true ){
-				if($this->input->post('a_search')){
-						setcookie('a_search',$this->input->post('a_search'));
-						$search_text = $this->input->post('a_search');
-				}elseif($this->input->cookie('a_search')){
-						$search_text = $this->input->cookie('a_search', true);
+				if($this->input->post('p_search')){
+						setcookie('p_search',$this->input->post('p_search'));
+						$search_text = $this->input->post('p_search');
+				}elseif($this->input->cookie('p_search')){
+						$search_text = $this->input->cookie('p_search', true);
 				}else{
 						$search_text = "";
 				}
 			}else{
-				setcookie('a_search','');
+				setcookie('p_search','');
 				$search_text='';
 			}
 			// Row per page
@@ -1501,11 +1501,11 @@ public function meetings($rowno=0)
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
 			if($this->input->post('submit') == true ){
-				if($this->input->post('a_search')){
-						setcookie('a_search',$this->input->post('a_search'));
-						$search_text = $this->input->post('a_search');
-				}elseif($this->input->cookie('a_search')){
-						$search_text = $this->input->cookie('a_search', true);
+				if($this->input->post('e_search')){
+						setcookie('e_search',$this->input->post('e_search'));
+						$search_text = $this->input->post('e_search');
+				}elseif($this->input->cookie('e_search')){
+						$search_text = $this->input->cookie('e_search', true);
 				}else{
 						$search_text = "";
 				}
