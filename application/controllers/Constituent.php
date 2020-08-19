@@ -1414,11 +1414,11 @@ public function meetings($rowno=0)
 			// Search text
 			if($this->input->post('search')){
 					setcookie('search',$this->input->post('search'));
-					$search = $this->input->post('search');
+					$search_text = $this->input->post('search');
 			}elseif($this->input->cookie('search')){
-					$search = $this->input->cookie('search', true);
+					$search_text = $this->input->cookie('search', true);
 			}else{
-					$search = "";
+					$search_text = "";
 			}
 			// Row per page
 			$rowperpage = 25;
@@ -1489,11 +1489,11 @@ public function meetings($rowno=0)
 			// Search text
 			if($this->input->post('search')){
 					setcookie('search',$this->input->post('search'));
-					$search = $this->input->post('search');
+					$search_text = $this->input->post('search');
 			}elseif($this->input->cookie('search')){
-					$search = $this->input->cookie('search', true);
+					$search_text = $this->input->cookie('search', true);
 			}else{
-					$search = "";
+					$search_text = "";
 			}
 			// Row per page
 			$rowperpage = 25;
