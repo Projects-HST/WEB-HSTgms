@@ -931,4 +931,8 @@ class Report extends CI_Controller {
 	}
 
 
+	public function sample($rowno=0){
+
+	}
+
 }

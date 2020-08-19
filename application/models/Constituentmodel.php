@@ -1058,6 +1058,50 @@ Class Constituentmodel extends CI_Model
 	}
 
 
+	function get_enquiry_search_count($search_text){
+		$this->db->select('count(g.id) as allcount');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
+		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		$this->db->where('g.grievance_type','E');
+		if(empty($search_text)){
+
+		}else{
+			$where="(`g`.`reference_note` = '$search_text' OR `g`.`petition_enquiry_no` LIKE '%$search_text%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search_text%' ESCAPE '!') ";
+			$this->db->where($where);
+		}
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+
+	function get_petition_search_count($search_text){
+		$this->db->select('count(g.id) as allcount');
+		$this->db->from('grievance as g');
+		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
+		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
+		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		$this->db->where('g.grievance_type','P');
+		if(empty($search_text)){
+
+		}else{
+			$where="(`g`.`reference_note` = '$search_text' OR `g`.`petition_enquiry_no` LIKE '%$search_text%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search_text%' ESCAPE '!') ";
+			$this->db->where($where);
+		}
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+
+
 //------ Constituent Video -----//
 	function get_constituent_video($constituent_id,$user_id){
 		$query="SELECT id,constituent_id

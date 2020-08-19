@@ -1465,7 +1465,7 @@ public function meetings($rowno=0)
 			}
 
 			// All records count
-			$allcount = $this->constituentmodel->getrecordCount($search_text);
+			$allcount = $this->constituentmodel->get_petition_search_count($search_text);
 
 			// Get records
 			$users_record = $this->constituentmodel->all_petition($rowno,$rowperpage,$search_text);
@@ -1506,6 +1506,7 @@ public function meetings($rowno=0)
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
 			$data['search'] = $search_text;
+			$data['allcount'] = $allcount;
 			// Load view
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/all_petition',$data);
@@ -1545,7 +1546,7 @@ public function meetings($rowno=0)
 			}
 
 			// All records count
-			$allcount = $this->constituentmodel->getrecordCount($search_text);
+			$allcount = $this->constituentmodel->get_enquiry_search_count($search_text);
 
 			// Get records
 			$users_record = $this->constituentmodel->all_enquiry($rowno,$rowperpage,$search_text);
