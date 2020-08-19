@@ -29,7 +29,7 @@
                            <img class="img-responsive avatar-view" style="width:150px;" src="<?php echo base_url(); ?>assets/constituent/<?php echo $pic;  ?>" alt="Avatar" title="Change the avatar">
                         </div>
                      </div>
-                     <h4 style="text-align:center;margin-top:15px;"><?php echo $rows->full_name; ?></h4>
+                     <h4 style="text-align:left;margin-top:15px;"><?php echo $rows->full_name; ?></h4>
                      <ul class="list-unstyled user_data">
                        <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
                        <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->pin_code; ?></li>

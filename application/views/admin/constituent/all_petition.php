@@ -1,47 +1,5 @@
 <?php $search_value = $this->session->userdata('search'); ?>
-<style type="text/css">
-.pagination-first-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-}
 
-.pagination-last-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-
-}
-.pagination-next-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-}
-
-.pagination-prev-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-
-}
-
-.pagination-current-tag{
-	color:#000000;
-	font-weight:bold;
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-number{
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-	color:#ffffff;
-
-}
-	</style>
   <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -86,7 +44,7 @@
                           </tr>
                        </thead>
                        <tbody>
-                         <?php $i=1; foreach($result as $rows){ ?>
+                         <?php $i= $row+1; foreach($result as $rows){ ?>
                            <tr>
                              <td><?php echo $i; ?></td>
                              <td><?php echo $rows['full_name']; ?></td>

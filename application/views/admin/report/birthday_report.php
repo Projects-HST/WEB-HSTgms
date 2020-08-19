@@ -49,7 +49,13 @@
               <option value="10">October</option>
               <option value="11">November</option>
               <option value="12">December</option>
-            </select><script> $('#month').val('<?php echo $searchMonth; ?>');</script>
+            </select>
+            <?php if(empty($searchMonth)){
+
+            }else{ ?>
+              <script> $('#month').val('<?php echo $searchMonth; ?>');</script>
+            <?php } ?>
+
            </div>
         </div>
         <div class="form-group row ">
@@ -60,7 +66,14 @@
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                <?php } ?>
-             </select><script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+             </select>
+             <?php if(empty($dpaguthi)){
+
+             }else{ ?>
+               <script> $('#paguthi').val('<?php echo $dpaguthi; ?>');</script>
+             <?php } ?>
+
+
            </div>
            <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
           <div class="col-md-2 col-sm-2">

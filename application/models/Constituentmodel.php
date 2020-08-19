@@ -640,8 +640,8 @@ Class Constituentmodel extends CI_Model
 
 	function get_constituent_profile($constituent_id){
 		$id=base64_decode($constituent_id)/98765;
-		$query="SELECT c.*,ct.constituency_name,p.paguthi_name,w.ward_name,b.booth_name,b.booth_address,r.religion_name FROM constituent as c
-		left join constituency as ct on ct.id-c.constituency_id
+		$query="SELECT c.*,ct.constituency_name,c.full_name,p.paguthi_name,w.ward_name,b.booth_name,b.booth_address,r.religion_name from constituent as c 
+		left join constituency as ct on ct.id=c.constituency_id
 		left join paguthi as p on p.id=c.paguthi_id
 		left join ward as w on w.id=c.ward_id
 		left join booth as b on b.id=c.booth_id
@@ -972,9 +972,9 @@ Class Constituentmodel extends CI_Model
 		if(empty($search)){
 
 		}else{
-			$this->db->or_where('g.reference_note',$search);
-			$this->db->or_where('g.petition_enquiry_no',$search);
-			$this->db->or_where('c.full_name',$search);
+			$this->db->or_like('g.reference_note',$search,'both');
+			$this->db->or_like('g.petition_enquiry_no',$search,'both');
+			$this->db->or_like('c.full_name',$search,'both');
 		}
 		$this->db->order_by("g.id", "desc");
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
@@ -996,11 +996,11 @@ Class Constituentmodel extends CI_Model
 		if(empty($search)){
 
 		}else{
-			$this->db->or_where('g.reference_note',$search);
-			$this->db->or_where('g.petition_enquiry_no',$search);
-			$this->db->or_where('c.full_name',$search);
+			$this->db->or_like('g.reference_note',$search);
+			$this->db->or_like('g.petition_enquiry_no',$search);
+			$this->db->or_like('c.full_name',$search);
 		}
-		$this->db->or_where('g.grievance_type','P');
+		$this->db->where('g.grievance_type','P');
 		$this->db->order_by("g.id", "desc");
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
 		// exit;
@@ -1021,11 +1021,11 @@ Class Constituentmodel extends CI_Model
 		if(empty($search)){
 
 		}else{
-			$this->db->or_where('g.reference_note',$search);
-			$this->db->or_where('g.petition_enquiry_no',$search);
-			$this->db->or_where('c.full_name',$search);
+			$this->db->or_like('g.reference_note',$search);
+			$this->db->or_like('g.petition_enquiry_no',$search);
+			$this->db->or_like('c.full_name',$search);
 		}
-		$this->db->or_where('g.grievance_type','E');
+		$this->db->where('g.grievance_type','E');
 		$this->db->order_by("g.id", "desc");
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
 		// exit;
@@ -1068,6 +1068,73 @@ Class Constituentmodel extends CI_Model
 		}
 
 //------ Constituent Video -----//
+
+
+	function fetch_festival_data($rowno,$rowperpage,$search="",$paguthi,$ward_id,$religion_id) {
+			$this->db->select('c.*,f.constituent_id as sent_status,f.festival_id as sent_festival_id');
+			$this->db->from('constituent as c');
+
+
+			if(empty($religion_id)){
+				$this->db->join('festival_wishes as f', 'f.constituent_id = c.id', 'left');
+			}else{
+				$this->db->join('festival_wishes as f', 'f.constituent_id = c.id and f.festival_id='.$religion_id, 'left');
+				$this->db->join('festival_master as fm', 'fm.religion_id = c.religion_id', 'left');
+				// $this->db->or_where('fm.id',$religion_id);
+				$this->db->where('fm.id',$religion_id);
+
+			}
+			if(empty($paguthi)){
+
+			}else{
+				$this->db->where('c.paguthi_id',$paguthi);
+			}
+			if(empty($ward_id)){
+
+			}else{
+				$this->db->where('c.ward_id',$ward_id);
+			}
+
+
+
+			$this->db->group_by('c.id');
+			// echo $this->db->get_compiled_select(); // before $this->db->get();
+			// exit;
+			$this->db->limit($rowperpage, $rowno);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	 }
+
+
+	 function festival_wishes_count($search_text,$paguthi,$ward_id,$religion_id){
+		 $this->db->select('count(c.id) as allcount');
+		 $this->db->from('constituent as c');
+
+
+		 if(empty($religion_id)){
+			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id', 'left');
+		 }else{
+			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id and f.festival_id='.$religion_id, 'left');
+			 $this->db->join('festival_master as fm', 'fm.religion_id = c.religion_id', 'left');
+			 // $this->db->or_where('fm.id',$religion_id);
+			 $this->db->where('fm.id',$religion_id);
+
+		 }
+		 if(empty($paguthi)){
+
+		 }else{
+			 $this->db->where('c.paguthi_id',$paguthi);
+		 }
+		 if(empty($ward_id)){
+
+		 }else{
+			 $this->db->where('c.ward_id',$ward_id);
+		 }
+		 $query = $this->db->get();
+		 $result = $query->result_array();
+		 return $result[0]['allcount'];
+	 }
 
 }
 ?>

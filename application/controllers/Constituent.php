@@ -1212,18 +1212,33 @@ public function meetings($rowno=0)
 			$data['res_festival']=$this->mastermodel->get_active_festival();
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
 			// Search text
-			$search_text = "";
-			if($this->input->post('submit') != NULL ){
-				$search_text = $this->input->post('search');
-				$this->session->set_userdata(array("search"=>$search_text));
+			if($this->input->post('religion_id')){
+					setcookie('religion_id',$this->input->post('religion_id'));
+					$religion_id = $this->input->post('religion_id');
+			}elseif($this->input->cookie('religion_id')){
+					$religion_id = $this->input->cookie('religion_id', true);
 			}else{
-				if($this->session->userdata('search') != NULL){
-				$search_text = $this->session->userdata('search');
-				}
+					$religion_id = "";
 			}
-				$paguthi = $this->input->post('paguthi');
-				$religion_id = $this->input->post('religion_id');
-				$ward_id = $this->input->post('ward_id');
+			if($this->input->post('paguthi')){
+					setcookie('paguthi',$this->input->post('paguthi'));
+					$paguthi = $this->input->post('paguthi');
+			}elseif($this->input->cookie('paguthi')){
+					$paguthi = $this->input->cookie('paguthi', true);
+			}else{
+					$paguthi = "";
+			}
+
+			if($this->input->post('ward_id')){
+					setcookie('ward_id',$this->input->post('ward_id'));
+					$ward_id = $this->input->post('ward_id');
+			}elseif($this->input->cookie('ward_id')){
+					$ward_id = $this->input->cookie('ward_id', true);
+			}else{
+					$ward_id = "";
+			}
+
+
 				$data['festival_id']=$religion_id;
 				$data['paguthi_id']=$paguthi;
 			// Row per page
@@ -1235,10 +1250,10 @@ public function meetings($rowno=0)
 			}
 
 			// All records count
-			$allcount = $this->reportmodel->getrecordCount($search_text);
+			$allcount = $this->constituentmodel->festival_wishes_count($search_text,$paguthi,$ward_id,$religion_id);
 
 			// Get records
-			$users_record = $this->reportmodel->fetch_festival_data($rowno,$rowperpage,$search_text,$paguthi,$ward_id,$religion_id);
+			$users_record = $this->constituentmodel->fetch_festival_data($rowno,$rowperpage,$search_text,$paguthi,$ward_id,$religion_id);
 
 			// Pagination Configuration
 			$config['base_url'] = base_url().'constituent/festival_wishes';
@@ -1283,6 +1298,7 @@ public function meetings($rowno=0)
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
 		$data['search'] = $search_text;
+		$data['allcount'] = $allcount;
 		// Load view
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/festival_wishes',$data);
@@ -1320,15 +1336,13 @@ public function meetings($rowno=0)
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
-			// Search text
-			$search = "";
-			if($this->input->post('submit') != NULL ){
-				$search = $this->input->post('search');
-
+			if($this->input->post('search')){
+					setcookie('search',$this->input->post('search'));
+					$search = $this->input->post('search');
+			}elseif($this->input->cookie('search')){
+					$search = $this->input->cookie('search', true);
 			}else{
-				if($this->session->userdata('search') != NULL){
-
-				}
+					$search = "";
 			}
 			// Row per page
 			$rowperpage = 25;
@@ -1398,14 +1412,13 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
-			$search_text = "";
-			if($this->input->post('submit') != NULL ){
-				$search_text = $this->input->post('search');
-
+			if($this->input->post('search')){
+					setcookie('search',$this->input->post('search'));
+					$search = $this->input->post('search');
+			}elseif($this->input->cookie('search')){
+					$search = $this->input->cookie('search', true);
 			}else{
-				if($this->session->userdata('search') != NULL){
-
-				}
+					$search = "";
 			}
 			// Row per page
 			$rowperpage = 25;
@@ -1474,14 +1487,13 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			// Search text
-			$search_text = "";
-			if($this->input->post('submit') != NULL ){
-				$search_text = $this->input->post('search');
-
+			if($this->input->post('search')){
+					setcookie('search',$this->input->post('search'));
+					$search = $this->input->post('search');
+			}elseif($this->input->cookie('search')){
+					$search = $this->input->cookie('search', true);
 			}else{
-				if($this->session->userdata('search') != NULL){
-
-				}
+					$search = "";
 			}
 			// Row per page
 			$rowperpage = 25;
