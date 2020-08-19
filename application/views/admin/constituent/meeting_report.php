@@ -66,7 +66,7 @@ th{
                 </tr>
              </thead>
              <tbody>
-               <?php $i=1;
+               <?php $i=$row+1;
 			   foreach($result as $rows){
 					$meeting_status = $rows['meeting_status'];?>
                  <tr>

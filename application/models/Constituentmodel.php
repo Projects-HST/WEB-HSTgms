@@ -745,25 +745,26 @@ Class Constituentmodel extends CI_Model
 		$this->db->from('meeting_request as A');
 		$this->db->join('constituent as B', 'B.id = A.constituent_id', 'left');
 		$this->db->join('user_master as C', 'C.id = A.created_by', 'left');
+		if(empty($search_text)){
+
+		}else{
+			$this->db->or_like('B.full_name',$search_text);
+		}
 		if(empty($frmDate)){
 
 		}else{
 			$first=date("Y-m-d", strtotime($frmDate));
-			$this->db->where('A.meeting_date >=', $first);
-		}
-		if(empty($toDate)){
-
-		}else{
 			$second=date("Y-m-d", strtotime($toDate));
-			$this->db->where('A.meeting_date <=', $second);
-		}
-		if(empty($search_text)){
 
-		}else{
-			$this->db->or_where('C.full_name',$search_text);
+			$where="(`A`.`meeting_date` >= '$first' AND `A`.`meeting_date` <= '$second')";
+			$this->db->or_where($where);
+
 		}
+
+
 		$this->db->order_by("A.id", "desc");
-
+			// echo $this->db->get_compiled_select(); // before $this->db->get();
+			// exit;
 		$this->db->limit($rowperpage, $rowno);
 		$query = $this->db->get();
 		return $query->result_array();
