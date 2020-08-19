@@ -923,9 +923,26 @@ Class Constituentmodel extends CI_Model
 		return $result[0]['allcount'];
 	}
 
-	function get_meeting_count(){
-		$this->db->select('count(*) as allcount');
-		$this->db->from('meeting_request');
+	function get_meeting_count($search_text,$frmDate,$toDate){
+		$this->db->select('count(A.id) as allcount');
+		$this->db->from('meeting_request as A');
+		$this->db->join('constituent as B', 'B.id = A.constituent_id', 'left');
+		$this->db->join('user_master as C', 'C.id = A.created_by', 'left');
+		if(empty($search_text)){
+
+		}else{
+			$this->db->or_like('B.full_name',$search_text);
+		}
+		if(empty($frmDate)){
+
+		}else{
+			$first=date("Y-m-d", strtotime($frmDate));
+			$second=date("Y-m-d", strtotime($toDate));
+
+			$where="(`A`.`meeting_date` >= '$first' AND `A`.`meeting_date` <= '$second')";
+			$this->db->or_where($where);
+
+		}
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result[0]['allcount'];

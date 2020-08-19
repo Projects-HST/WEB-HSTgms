@@ -1014,11 +1014,11 @@ public function meetings($rowno=0)
 		$datas['res_sms']=$this->mastermodel->get_active_template();
 		$search_text = "";
 		$search_text = $this->input->post('search');
-		$rowperpage = 10;
+		$rowperpage = 20;
 		if($rowno != 0){
 			$rowno = ($rowno-1) * $rowperpage;
 		}
-		$allcount = $this->constituentmodel->get_meeting_count($search_text);
+		$allcount = $this->constituentmodel->get_meeting_count($search_text,$frmDate,$toDate);
 		$users_record=$this->constituentmodel->get_meeting_report($rowno,$rowperpage,$search_text,$frmDate,$toDate);
 		$config['base_url'] = base_url().'constituent/meetings';
 		$config['use_page_numbers'] = TRUE;
