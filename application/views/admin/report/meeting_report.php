@@ -23,11 +23,11 @@ th{
 	<?php endif; ?>
 		<form id="report_form" action="<?php echo base_url(); ?>report/meetings" method="post" enctype="multipart/form-data">
       <div class="form-group row ">
-        <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
+        <label class="col-form-label col-md-1 col-sm-1 ">From </label>
         <div class="col-md-2 col-sm-2">
            <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="m_frmDate" value="<?php echo $m_frmDate; ?>">
         </div>
-        <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
+        <label class="col-form-label col-md-1 col-sm-1 ">To </label>
       <div class="col-md-2 col-sm-2">
        <input type="text" class="form-control" placeholder="To Date" id="toDate" name="m_toDate" value="<?php echo $m_toDate; ?>">
       </div>
@@ -47,7 +47,7 @@ th{
            <label class="control-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
            <div class="col-md-2 col-sm-9 ">
            <select class="form-control" name="m_paguthi" id ="paguthi" onchange="get_paguthi(this);">
-             <option value="ALL">ALL</option>
+             <option value="">ALL</option>
              <?php foreach($paguthi as $rows){ ?>
              <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
              <?php } ?>
