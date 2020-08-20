@@ -16,18 +16,18 @@
 						</div>
 						<?php  }  ?>
             <div class="x_content">
-			 <form method='post' action="<?= base_url() ?>report/festival_wishes_report" >
+			 <form method='post' action="<?= base_url() ?>report/festival_wishes_report"  id="report_form">
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
         <div class="col-md-2 col-sm-4">
          <select class="form-control" name="f_year_id" id="year_id">
-
+             <option value="">--Select--</option>
            <?php foreach($res_year as $rows_year){ ?>
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
          <?php  } ?>
          </select>
 
            <script>$('#year_id').val('<?php echo $f_year_id; ?>')</script>
-      
+
 
        </div>
 			   <div class="col-md-2 col-sm-4">
@@ -150,4 +150,14 @@ $('.reportmenu').css('display','block');
    		}
    	});
    }
+   $('#report_form').validate({ // initialize the plugin
+        rules: {
+            f_year_id:{required:true},
+            f_religion_id:{required:true}
+        },
+        messages: {
+              f_year_id: { required:"Select From year"},
+              f_religion_id: { required:"Select Festival"}
+            }
+    });
 </script>
