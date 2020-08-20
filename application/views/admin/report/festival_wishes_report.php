@@ -5,7 +5,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List of constituent</h2>
+               <h2>Festival Report</h2>
                <div class="clearfix"></div>
             </div>
 						<?php if($this->session->flashdata('msg')) {
@@ -20,7 +20,7 @@
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
         <div class="col-md-2 col-sm-4">
          <select class="form-control" name="f_year_id" id="year_id">
-             <option value="">--Select--</option>
+             <option value="">Select year</option>
            <?php foreach($res_year as $rows_year){ ?>
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
          <?php  } ?>
@@ -32,7 +32,7 @@
        </div>
 			   <div class="col-md-2 col-sm-4">
           <select class="form-control" name="f_religion_id" id="religion_id">
-            <option value="">--Select--</option>
+            <option value="">Select month</option>
             <?php foreach($res_festival as $rows_festival){ ?>
               <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
           <?php  } ?>

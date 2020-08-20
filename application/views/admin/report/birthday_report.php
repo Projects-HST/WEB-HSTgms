@@ -22,7 +22,7 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="b_year_id" class="form-control">
-              <option value="">-SELECT--</option>
+              <option value="">SELECT YEAR</option>
               <?php foreach($res_year as $row_year){ ?>
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
@@ -35,7 +35,7 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="month" name="b_month" class="form-control">
-              <option value="">-SELECT--</option>
+              <option value="">SELECT MONTH</option>
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -59,7 +59,7 @@
              <label class="control-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="b_paguthi" id ="paguthi" onchange="get_paguthi(this);">
-               <option value="ALL">ALL</option>
+               <option value="">ALL</option>
                <?php foreach($paguthi as $rows){ ?>
                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                <?php } ?>
