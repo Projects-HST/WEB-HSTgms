@@ -753,11 +753,10 @@ Class Constituentmodel extends CI_Model
 		if(empty($frmDate)){
 
 		}else{
-			$first=date("Y-m-d", strtotime($frmDate));
-			$second=date("Y-m-d", strtotime($toDate));
-
-			$where="(`A`.`meeting_date` >= '$first' AND `A`.`meeting_date` <= '$second')";
-			$this->db->or_where($where);
+			$from_date=date("Y-m-d", strtotime($frmDate) );
+			$to_date=date("Y-m-d", strtotime($toDate) );
+			$this->db->where('DATE(A.created_at) >=', $from_date);
+			$this->db->where('DATE(A.created_at) <=', $to_date);
 
 		}
 
@@ -936,10 +935,14 @@ Class Constituentmodel extends CI_Model
 		if(empty($frmDate)){
 
 		}else{
-			$first=date("Y-m-d", strtotime($frmDate));
-			$second=date("Y-m-d", strtotime($toDate));
-			$where="(`A`.`meeting_date` >= '$first' AND `A`.`meeting_date` <= '$second')";
-			$this->db->or_where($where);
+			// $first=date("Y-m-d", strtotime($frmDate));
+			// $second=date("Y-m-d", strtotime($toDate));
+			// $where="(`A`.`created_at` >= '$first' AND `A`.`created_at` <= '$second')";
+			// $this->db->or_where($where);
+			$from_date=date("Y-m-d", strtotime($frmDate) );
+			$to_date=date("Y-m-d", strtotime($toDate) );
+			$this->db->where('DATE(A.created_at) >=', $from_date);
+			$this->db->where('DATE(A.created_at) <=', $to_date);
 		}
 		$query = $this->db->get();
 		$result = $query->result_array();

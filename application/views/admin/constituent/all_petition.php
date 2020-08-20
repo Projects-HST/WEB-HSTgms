@@ -11,11 +11,11 @@
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_petition" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
-										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="p_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?= $search ?>" /></div>
+										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="p_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?= $p_search; ?>" /></div>
 										<div class="col-md-3 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
-											<?php if ($search_value!='') { ?>
-											<a href="<?php echo base_url(). "constituent/all_petition"; ?>" class="btn btn-danger">Clear All</a>
-											<?php } ?>
+
+										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Reset</a>
+
 										</div>
 										<div class="col-md-5 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
 								</div>
@@ -232,6 +232,9 @@
 
 </style>
 <script>
+$('#grievance_menu').addClass('active');
+$('.grievance_menu').css('display','block');
+$('#list_grievance_reply_menu').addClass('active');
 $(document).ready(function () {
     $('#example_2').DataTable({
       "scrollX": true,
@@ -257,9 +260,7 @@ $(document).ready(function () {
     });
 });
 
-   $('#grievance_menu').addClass('active');
-   $('.grievance_menu').css('display','none');
-   $('#list_grievance_menu').addClass('active');
+
    $('#update_meeting_form').validate({
         rules: {
             sms_id:{required:true },

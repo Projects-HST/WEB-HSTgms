@@ -25,20 +25,20 @@ th{
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="mr_frmDate" value="<?php echo $mr_frmDate; ?>">
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="mr_toDate" value="<?php echo $mr_toDate; ?>">
 				 </div>
          <div class="col-md-2 col-sm-4">
-            <input class="form-control" id="search" name="search" type="text" placeholder="Search Full name " value="" />
+            <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search Full name " value="<?php echo $mr_search; ?>" />
           </div>
 				 <div class="col-md-1 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="Search">
 				 </div>
          <div class="col-md-2 col-sm-2">
-          <a href="<?php echo base_url(). "constituent/meetings"; ?>" class="btn btn-danger">Clear All</a>
+          <a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear All</a>
         </div>
 
 			  </div>
