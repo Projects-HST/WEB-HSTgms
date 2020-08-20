@@ -12,11 +12,11 @@
 		<form id="report_form" action="<?php echo base_url(); ?>report/location" method="post" enctype="multipart/form-data">
 
           <div class="form-group row ">
-            <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
+            <label class="col-form-label col-md-1 col-sm-1 ">From </label>
             <div class="col-md-2 col-sm-2">
                <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="l_frmDate" value="<?php echo $l_frmDate; ?>">
             </div>
-            <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
+            <label class="col-form-label col-md-1 col-sm-1 ">To</label>
           <div class="col-md-2 col-sm-2">
            <input type="text" class="form-control" placeholder="To Date" id="toDate" name="l_toDate" value="<?php echo $l_toDate; ?>">
           </div>

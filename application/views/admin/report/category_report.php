@@ -8,15 +8,15 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-		<form id="report_form" action="<?php echo base_url(); ?>report/category" method="post" enctype="multipart/form-data" class="">
+		<form id="report_form" action="<?php echo base_url(); ?>report/category" method="post" enctype="multipart/form-data">
 
 
       <div class="form-group row ">
-      <label class="col-form-label col-md-2 col-sm-1">From <span class="required">*</span></label>
+      <label class="col-form-label col-md-2 col-sm-1">From</label>
       <div class="col-md-2 col-sm-2">
          <input type="text" class="form-control" placeholder="From Date" id="frmDate" name="g_frmDate" value="<?php echo $g_frmDate; ?>">
       </div>
-      <label class="col-form-label col-md-2 col-sm-2">To <span class="required">*</span></label>
+      <label class="col-form-label col-md-2 col-sm-2">To</label>
      <div class="col-md-2 col-sm-2">
       <input type="text" class="form-control" placeholder="To Date" id="toDate" name="g_toDate" value="<?php echo $g_toDate; ?>">
      </div>
@@ -39,7 +39,7 @@
                 <option value="">-SELECT--</option>
            </select>
 
-           </select><script> $('#sub_category_id').val('<?php echo $dcategory; ?>');</script>
+           </select>
        </div>
 
        </div>
@@ -156,17 +156,7 @@ function get_paguthi(sel){
 	});
 }
 
-$.validator.addMethod("chkDates", function(value, element) {
-		var startDate = $('#frmDate').val();
-		var datearray = startDate.split("-");
-		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
-		var endDate = $('#toDate').val();
-		var datearray = endDate.split("-");
-		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-
-		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
-	}, "Fom date cannot be greater than To date");
 
 
 $('#frmDate').datetimepicker({
@@ -203,7 +193,7 @@ function get_sub_category(sel){
   });
 }
 
-$('#report_form').validate({ // initialize the plugin
+$('#report_form').validate({
      rules: {
        g_frmDate:{ required: function(element){
           return $("#toDate").val().length > 0; }},
@@ -215,4 +205,6 @@ $('#report_form').validate({ // initialize the plugin
            g_toDate: { required:"Select To Date"}
          }
  });
+
+
  </script>
