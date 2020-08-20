@@ -36,12 +36,10 @@ th{
       <select class="form-control" name="m_status" id ="status" >
         <option value="">ALL</option>
         <option value="REQUESTED">REQUESTED</option>
-        <option value="PROCESSING">PROCESSING</option>
-        <!-- <option value="COMPLETED">COMPLETED</option> -->
-        <option value="REJECTED">REJECTED</option>
-        <option value="FAILURE">FAILURE</option>
-        <option value="ONHOLD">ONHOLD</option>
+        <option value="PENDING">PENDING</option>
         <option value="COMPLETED">COMPLETED</option>
+        <option value="REJECTED">REJECTED</option>
+        <option value="SCHEDULED">SCHEDULED</option>
       </select><script> $('#status').val('<?php echo $m_status; ?>');</script>
     </div>
       </div>
