@@ -282,10 +282,12 @@ Class Reportmodel extends CI_Model
 
 					$this->db->where('DATE(mr.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
 		}else{
-			$dateTime1 = new DateTime($frmDate);
-			$from_date=date_format($dateTime1,'Y-m-d' );
-			$dateTime2 = new DateTime($toDate);
-			$to_date=date_format($dateTime2,'Y-m-d' );
+			// $dateTime1 = new DateTime($frmDate);
+			// $from_date=date_format($dateTime1,'Y-m-d' );
+			// $dateTime2 = new DateTime($toDate);
+			// $to_date=date_format($dateTime2,'Y-m-d' );
+			$from_date=date("Y-m-d", strtotime($frmDate) );
+			$to_date=date("Y-m-d", strtotime($toDate) );
 			$this->db->where('DATE(mr.created_at) >=', $from_date);
 			$this->db->where('DATE(mr.created_at) <=', $to_date);
 		}
@@ -323,10 +325,13 @@ Class Reportmodel extends CI_Model
 
 					$this->db->where('DATE(mr.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
 		}else{
-			$dateTime1 = new DateTime($frmDate);
-			$from_date=date_format($dateTime1,'Y-m-d' );
-			$dateTime2 = new DateTime($toDate);
-			$to_date=date_format($dateTime2,'Y-m-d' );
+			$from_date=date("Y-m-d", strtotime($frmDate) );
+			$to_date=date("Y-m-d", strtotime($toDate) );
+
+			// $dateTime1 = new DateTime($frmDate);
+			// $from_date=date_format($dateTime1,'Y-m-d' );
+			// $dateTime2 = new DateTime($toDate);
+			// $to_date=date_format($dateTime2,'Y-m-d' );
 			$this->db->where('DATE(mr.created_at) >=', $from_date);
 			$this->db->where('DATE(mr.created_at) <=', $to_date);
 		}

@@ -88,7 +88,8 @@ th{
                   <th>Phone</th>
                   <th>Details</th>
                   <th>Status</th>
-                  <th>Created</th>
+                  <th>Created by</th>
+                  <th>Created at</th>
                 </tr>
              </thead>
              <tbody>
@@ -110,6 +111,7 @@ th{
                     <?php } ?>
 
                     <td><?php  echo $rows['created_by']; ?></td>
+                    <td><?php  echo  date("d-m-Y", strtotime($rows['created_at']) ); ?></td>
                  </tr>
             <?php $i++; } ?>
              </tbody>
