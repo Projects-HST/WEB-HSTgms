@@ -463,7 +463,7 @@ $('input[name=interaction_section]').click(function(){
 });
 
 $.validator.addMethod('filesize', function(value, element, arg) {
-  
+
   return this.optional(element) || element.files[0].size <= arg;
   });
 
@@ -483,7 +483,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           door_no:{required:true },
           address:{required:true,maxlength:240 },
           pin_code:{required:true,digits:true,maxlength:6,minlength:6 },
-          email_id:{required:true ,email:true,maxlength:80},
+          email_id:{required:false ,email:true,maxlength:80},
           serial_no:{required:false,
             remote: {
                       url: "<?php echo base_url(); ?>constituent/checkserialno",
