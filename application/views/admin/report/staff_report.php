@@ -84,8 +84,9 @@ $('#toDate').datetimepicker({
 $('#report_form').validate({ // initialize the plugin
      rules: {
 
-         frmDate:{ required: function(element){
-            return $("#toDate").val().length > 0; }},
+         // frmDate:{ required: function(element){
+         //    return $("#toDate").val().length > 0; }},
+            frmDate:{ required:true},
           toDate:{ required: function(element){
            return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
      },
