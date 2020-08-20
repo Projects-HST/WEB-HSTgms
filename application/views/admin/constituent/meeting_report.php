@@ -23,11 +23,11 @@ th{
               <?php  }  ?>
 		<form id="report_form" action="<?php echo base_url(); ?>constituent/meetings" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
+				 <label class="col-form-label col-md-1 col-sm-1 label-align">From </label>
 				 <div class="col-md-2 col-sm-2">
 						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="mr_frmDate" value="<?php echo $mr_frmDate; ?>">
 				 </div>
-				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
+				  <label class="col-form-label col-md-1 col-sm-1 label-align">To </label>
 				 <div class="col-md-2 col-sm-2">
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="mr_toDate" value="<?php echo $mr_toDate; ?>">
 				 </div>
