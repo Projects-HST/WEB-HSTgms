@@ -22,7 +22,7 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="b_year_id" class="form-control">
-
+              <option value="">-SELECT--</option>
               <?php foreach($res_year as $row_year){ ?>
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
@@ -35,6 +35,7 @@
           <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="month" name="b_month" class="form-control">
+              <option value="">-SELECT--</option>
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>

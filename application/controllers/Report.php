@@ -357,7 +357,7 @@ class Report extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$data['paguthi'] = $this->usermodel->list_paguthi();
 		$frmDate="";
 		$toDate="";
 		$status="";
@@ -553,8 +553,8 @@ class Report extends CI_Controller {
 	 }
 	 $data['b_month']=$month_id;
 	 $data['b_year_id']=$year_id;
-	 $data['m_paguthi']=$paguthi;
-	 $data['m_ward_id']=$ward_id;
+	 $data['b_paguthi']=$paguthi;
+	 $data['b_ward_id']=$ward_id;
 
 
 
@@ -967,8 +967,8 @@ class Report extends CI_Controller {
 			 $data['c_email_id']=$email_id;
 			 $data['c_mobile_no']=$mobile_no;
 			 $data['c_whatsapp_no']=$whatsapp_no;
-			 $data['f_paguthi']=$paguthi;
-			 $data['f_ward_id']=$ward_id;
+			 $data['c_paguthi']=$paguthi;
+			 $data['c_ward_id']=$ward_id;
 
 			// Row per page
 			$rowperpage = 25;
@@ -1144,7 +1144,7 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
-		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id');
+		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id','l_paguthi','l_ward_id','l_frmDate','l_toDate');
 		$this->session->unset_userdata($array_items);
 		redirect($_SERVER['HTTP_REFERER']);
 	}

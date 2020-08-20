@@ -71,7 +71,7 @@ $.validator.addMethod("chkDates", function(value, element) {
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
-	}, "Please check dates");
+	}, "Fom date cannot be greater than To date");
 
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
@@ -83,8 +83,11 @@ $('#toDate').datetimepicker({
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-         frmDate:{required:true},
-         toDate:{required:true, chkDates: "#frmDate"}
+
+         frmDate:{ required: function(element){
+            return $("#toDate").val().length > 0; }},
+          toDate:{ required: function(element){
+           return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
      },
      messages: {
            frmDate: { required:"Select From Date"},

@@ -25,11 +25,9 @@
              <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
          <?php  } ?>
          </select>
-         <?php if(empty($year_id)){
 
-         }else{ ?>
            <script>$('#year_id').val('<?php echo $f_year_id; ?>')</script>
-         <?php } ?>
+      
 
        </div>
 			   <div class="col-md-2 col-sm-4">
@@ -48,6 +46,7 @@
                 <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                 <?php } ?>
               </select>
+                <script>$('#paguthi').val('<?php echo $f_paguthi; ?>')</script>
         </div>
           <div class="col-md-2 col-sm-4">
             <select class="form-control" name="f_ward_id" id ="ward_id" >
