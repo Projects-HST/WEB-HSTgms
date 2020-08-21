@@ -1,3 +1,9 @@
+<style>
+#dashboardmenu a{
+	color:#31aa15;
+	font-weight: 600;
+}
+</style>
 <div class="right_col" role="main" style="min-height: 1284px;">
 
 	<form id="search_form" action="<?php echo base_url(); ?>dashboard/searchresult" method="post" enctype="multipart/form-data">
@@ -66,7 +72,7 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row" style="height:700px;">
+			<div class="row" style="height:720px;">
 
 				<div class="col-9"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
 				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
