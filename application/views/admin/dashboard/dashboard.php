@@ -24,7 +24,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number" required>
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit" style="padding:12px;">Go!</button>
+					<button class="btn btn-default" type="submit" style="padding: 15px 10px 13px 10px;">Go</button>
 				</span>
 			</div>
 			</div>
@@ -42,16 +42,16 @@
 <div class="col-md-12">
 		<form id="result_form" action="<?php echo base_url(); ?>dashboard/index" method="post" enctype="multipart/form-data">
 			  <div class="form-group row">
-					<label class="col-form-label col-md-1 col-sm-6 text-right">From</label>
+					<label class="col-form-label col-md-1 col-sm-6 text-left">From</label>
  				 <div class="col-md-2">
  						<input type="text" class="form-control" name="from_date" id="from_date" value="<?php echo $from_date; ?>" placeholder="DD-MM-YYYY">
  				 </div>
-				 <label class="col-form-label col-md-1 col-sm-6 text-right">To</label>
+				 <label class="col-form-label col-md-1 col-sm-6 text-left">To</label>
 				 <div class="col-md-2">
 					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>" placeholder="DD-MM-YYYY">
 					 </div>
-				 <label class="col-form-label col-md-1 col-sm-6 text-right">Office <span class="required">*</span></label>
-				 <div class="col-md-2 col-sm-6">
+				 <label class="col-form-label col-md-1 col-sm-6 text-left">Office <span class="required">*</span></label>
+				 <div class="col-md-3 col-sm-6">
 						<select class="form-control" name="paguthi_id" id ="paguthi_id">
 								<option value="">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
@@ -59,9 +59,9 @@
 							<?php } ?><script> $('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
 						</select>
 				 </div>
-				  <div class="col-md-2 col-sm-2 text-center">
-					 <button type="submit" class="btn btn-success">GO</button>
-					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white">Reset</a>
+				  <div class="col-md-2 col-sm-2 text-right">
+					 <button type="submit" class="btn btn-success">FIND</button>
+					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white">CLEAR</a>
 				 </div>
 
 
@@ -319,9 +319,11 @@
 
 
 <div class="clearfix"></div>
-
+	<?php if(empty($footfall_result)){  }else{ ?>
+<hr>
+<p class="graph_title">FOOTFALL GRAPH</p>
 <div class="row">
-		<?php if(empty($footfall_result)){  }else{ ?>
+
 <div class="col-md-12">
 <div class="x_panel">
 
@@ -332,12 +334,13 @@
 	</div>
 
 </div>
-	<?php } ?>
-<div class="col-md-4">
-	<!-- <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-	<div class="elfsight-app-b71202ae-76b6-4648-b0ef-e159094d4f38"></div> -->
+
+<!-- <div class="col-md-4">
+	<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+	<div class="elfsight-app-b71202ae-76b6-4648-b0ef-e159094d4f38"></div>
+</div> -->
 </div>
-</div>
+<?php } ?>
 <div class="clearfix"></div>
 
 
@@ -364,7 +367,7 @@ var data = google.visualization.arrayToDataTable([
 ]);
 
 var options = {
-	title: 'FOOTFALL GRAPH',
+	title: '',
 	curveType: 'function',
 	legend: { position: 'bottom' }
 };
