@@ -158,7 +158,7 @@ hr{
 }
 .nav.side-menu>li>a, .nav.child_menu>li>a{
   color:#3b3939;
-  font-weight: 600;
+  font-weight: 400;
 }
 .nav_menu {
     background: #31aa15;
@@ -173,14 +173,14 @@ hr{
 }
 .widget_heading{
   color: #000;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   text-align: right;
   margin: 10px 0px 0px 0px;
 }
 .widget_count{
   color: #000;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 600;
   text-align: right;
   margin: 10px 0px 0px 0px;
@@ -200,7 +200,7 @@ p{
       margin-top: 20px;
 }
 .widget_height{
-  height: 251px;
+  height: 253px;
 }
 .widget_label{
   color: #000;
@@ -241,4 +241,10 @@ border:1px solid #eeeeee;
 }
 .pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
 color:#ffffff;
+}
+.nav.side-menu>li.active>a{
+  font-weight: 600;
+}
+.widget_value{
+  text-align: right;
 }

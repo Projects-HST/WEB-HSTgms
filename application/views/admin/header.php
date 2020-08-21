@@ -53,7 +53,7 @@
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;background-color:#31aa15;">
-                     <a href="#" class="site_title" style="margin-top:9px;text-align:center;"> <span >GMS</span></a>
+                     <a href="#" class="site_title" style="margin-top:0px;text-align:center;background-color: #1e8c05;"> <span >GMS</span></a>
                   </div>
                   <div class="clearfix"></div>
                   <div class="profile clearfix menu_profile">

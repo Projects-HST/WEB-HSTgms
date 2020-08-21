@@ -66,28 +66,28 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row" style="height:425px;">
+			<div class="row" style="height:700px;">
 
 				<div class="col-9"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->malecount; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
 				<div class="col-9"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->femalecount; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->femalecount; ?></p></div>
 				<div class="col-9"><p class="widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->others; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->others; ?></p></div>
 				<div class="col-9"><p class="widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->malevoter; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->malevoter; ?></p></div>
 				<div class="col-9"><p class="widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->femalevoter; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->femalevoter; ?></p></div>
 				<div class="col-9"><p class="widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->maleaadhar; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->maleaadhar; ?></p></div>
 				<div class="col-9"><p class="widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->femaleaadhar; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->femaleaadhar; ?></p></div>
 				<div class="col-9"><p class="widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->having_mobilenumber; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->having_mobilenumber; ?></p></div>
 				<div class="col-9"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->having_email; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->having_email; ?></p></div>
 				<div class="col-9"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label"> <?= $rows_cons->having_whatsapp; ?></p></div>
+				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div>
 			</div>
 
 		</div>
@@ -113,7 +113,7 @@
 					<div class="row">
 				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
 							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100); ?>%)</p></div>
-							<div class="col-3"><p class="widget_label"> <?php echo  $row_grievenace->total; ?></p></div>
+							<div class="col-3"><p class="widget_label widget_value"> <?php echo  $row_grievenace->total; ?></p></div>
 
 						<?php } ?>
 
@@ -139,9 +139,9 @@
 
 							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
 						<div class="col-9"><p class="widget_label">New Footfall (<?php echo round($row_gr_list->unique_count_percentage); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label"> <?php echo $row_gr_list->unique_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?php echo $row_gr_list->unique_count; ?></p></div>
 						<div class="col-9"><p class="widget_label">Repeat Footfall (<?php echo round($row_gr_list->repeat_count_percentage); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label"> <?php echo $row_gr_list->repeat_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?php echo $row_gr_list->repeat_count; ?></p></div>
 					<?php } ?>
 					</div>
 				</div>
@@ -167,7 +167,7 @@
 					<hr>
 					<div class="row">
 						<div class="col-9"><p class="widget_label">meeting request (<?= round($row_mr_list->mr_percentage); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label"> <?= $row_mr_list->meeting_request_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= $row_mr_list->meeting_request_count; ?></p></div>
 
 					</div>
 				</div>
@@ -188,9 +188,9 @@
 					<hr>
 					<div class="row">
 						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage);?>%)</p></div>
-						<div class="col-3"><p class="widget_label"> <?= $rows_cons->no_of_cons; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->no_of_cons; ?></p></div>
 						<div class="col-9"><p class="widget_label">Non constituent (<?= round($rows_cons->no_of_noncons_percentage); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label"> <?= $rows_cons->no_of_noncons; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->no_of_noncons; ?></p></div>
 					</div>
 				</div>
 			</div>
@@ -218,7 +218,7 @@
 					<div class="row">
 
 						<div class="col-9"><p class="widget_label">Birthday </p></div>
-						<div class="col-3"><p class="widget_label"><?= $row_br_list->birth_wish_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= $row_br_list->birth_wish_count; ?></p></div>
 
 					</div>
 				</div>
@@ -242,7 +242,7 @@
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
 						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->paguthi_name; ?></p></div>
-						<div class="col-3"><p class="widget_label"><?= $rows_vi_lits->cnt_video; ?> </p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= $rows_vi_lits->cnt_video; ?> </p></div>
 					<?php }	} ?>
 
 
