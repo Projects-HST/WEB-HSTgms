@@ -58,7 +58,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">Notification</label>
 						<div class="col-md-4 col-sm-4">
-							<label class="col-form-label label-align"><input type="radio" id="notify" name="notify" value='Y'>Yes  &nbsp;<input type="radio" id="notify" name="notify" value='N' checked>No</label>
+							<label class="col-form-label label-align"><input type="radio" id="notify" name="notify" value='Y'> Yes  &nbsp;<input type="radio" id="notify" name="notify" value='N' checked> No </label>
 						</div>
 					</div>
                   <div class="item form-group">

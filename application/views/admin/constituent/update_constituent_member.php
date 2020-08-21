@@ -51,9 +51,9 @@
                      <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
                      <div class="col-md-4 col-sm-9 ">
                          <p>
-                           VOTER:
-                           <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER" checked="" required=""> NON-VOTER:
-                           <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER">
+                           <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER" checked="" required=""> VOTER &nbsp;
+                             <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER"> NON-VOTER
+
                         </p>
                      </div>
                      <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
@@ -129,9 +129,9 @@
                         <label class="control-label col-md-2 col-sm-3 ">Party member</label>
                         <div class="col-md-4 col-sm-9 ">
                            <p>
-                             YES:
-                             <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" <?php echo ($rows->party_member_status=='Y') ? 'checked="checked"':'';?>> NO:
-                             <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" <?php echo ($rows->party_member_status=='N') ? 'checked="checked"':'';?>>
+                            <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" <?php echo ($rows->party_member_status=='Y') ? 'checked="checked"':'';?>> YES &nbsp;
+                                <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" <?php echo ($rows->party_member_status=='N') ? 'checked="checked"':'';?>>NO
+
                           </p>
 
                         </div>
@@ -223,9 +223,9 @@
                          <label class="control-label col-md-2 col-sm-3 ">Voter id status</label>
                        <div class="col-md-4 col-sm-9 ">
                           <p>
-                            YES:
-                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_statu_y" value="Y" <?php echo ($rows->voter_id_status=='Y') ? 'checked="checked"':'';?>> NO:
-                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_status_n" value="N" <?php echo ($rows->voter_id_status=='N') ? 'checked="checked"':'';?>>
+                          <input type="radio" class="flat" name="voter_id_status" id="voter_id_statu_y" value="Y" <?php echo ($rows->voter_id_status=='Y') ? 'checked="checked"':'';?>>  YES &nbsp;
+                            <input type="radio" class="flat" name="voter_id_status" id="voter_id_status_n" value="N" <?php echo ($rows->voter_id_status=='N') ? 'checked="checked"':'';?>> NO
+
                          </p>
                        </div>
                         <label class="control-label col-md-2 col-sm-3 voter_id_box">Voter id no</label>
@@ -237,9 +237,9 @@
                           <label class="control-label col-md-2 col-sm-3 ">aadhaar status <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-9 ">
                            <p>
-                             YES:
-                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" <?php echo ($rows->aadhaar_status=='Y') ? 'checked="checked"':'';?>> NO:
-                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_n" value="N" <?php echo ($rows->aadhaar_status=='N') ? 'checked="checked"':'';?>>
+                            <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" <?php echo ($rows->aadhaar_status=='Y') ? 'checked="checked"':'';?>> YES &nbsp;
+                            <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_n" value="N" <?php echo ($rows->aadhaar_status=='N') ? 'checked="checked"':'';?>>  NO
+
                           </p>
                         </div>
 
