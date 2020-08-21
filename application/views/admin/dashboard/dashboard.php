@@ -52,7 +52,7 @@
 <div class="clearfix"></div>
 <?php foreach($result_cons as $rows_cons){} ?>
 <div class="row mt_20">
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="widget_box">
 			<div class="row">
 				<div class="col-3">
@@ -93,9 +93,9 @@
 		</div>
 	</div>
 
-	<div class="col-md-9">
+	<div class="col-md-8">
 		<div class="row mb_30">
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
@@ -120,7 +120,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
@@ -146,8 +146,12 @@
 					</div>
 				</div>
 			</div>
+
+		</div>
+
+		<div class="row mb_30">
 			<?php  foreach($grievance_report['mr_list'] as $row_mr_list){} ?>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
@@ -168,11 +172,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="clearfix"></div>
-		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
@@ -194,8 +194,14 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+
+		<div class="clearfix"></div>
+		<div class="row mb_30">
+
 			<?php  foreach($grievance_report['br_list'] as $row_br_list){} ?>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
@@ -217,7 +223,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
