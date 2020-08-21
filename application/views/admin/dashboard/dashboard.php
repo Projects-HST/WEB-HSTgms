@@ -73,8 +73,51 @@
 			</div>
 			<hr>
 			<div class="row" style="height:720px;">
+				<div class="col-12">
+					<div class="label_box">
+							<div class="c_widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</div>
+							<div class="c_widget_value"><?= $rows_cons->malecount; ?></div>
+					</div>
 
-				<div class="col-9 lh"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
+					<div class="label_box">
+						<div class="c_widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->femalecount; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->others; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->malevoter; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->femalevoter; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->maleaadhar; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->femaleaadhar; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->having_mobilenumber; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->having_email; ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</div>
+						<div class="c_widget_value"><?= $rows_cons->having_whatsapp; ?></div>
+					</div>
+				</div>
+
+				<!-- <div class="col-9 lh"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
 				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
 				<div class="col-9 lh"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
 				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalecount; ?></p></div>
@@ -93,7 +136,7 @@
 				<div class="col-9 lh"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
 				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_email; ?></p></div>
 				<div class="col-9 lh"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div> -->
 			</div>
 
 		</div>
