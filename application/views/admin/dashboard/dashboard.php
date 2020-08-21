@@ -24,7 +24,7 @@
 <div class="col-md-12">
 		<form id="result_form" action="<?php echo base_url(); ?>dashboard/index" method="post" enctype="multipart/form-data">
 			  <div class="form-group row">
-					<label class="col-form-label col-md-1 col-sm-6 ">From date</label>
+					<label class="col-form-label col-md-2 col-sm-6 ">From date</label>
  				 <div class="col-md-2">
  						<input type="text" class="form-control" name="from_date" id="from_date" value="<?php echo $from_date; ?>" placeholder="DD-MM-YYYY">
  				 </div>
@@ -32,7 +32,7 @@
 				 <div class="col-md-2">
 					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>" placeholder="DD-MM-YYYY">
 					 </div>
-				 <label class="col-form-label col-md-2 col-sm-6 ">Select Office <span class="required">*</span></label>
+				 <label class="col-form-label col-md-1 col-sm-6 ">Office <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-6">
 						<select class="form-control" name="paguthi_id" id ="paguthi_id">
 								<option value="">ALL</option>
