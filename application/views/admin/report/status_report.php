@@ -20,8 +20,6 @@
                      <div class="col-md-2 col-sm-2">
                         <input type="text" class="form-control" placeholder="To Date" id="toDate" name="s_toDate" value="<?php echo $dtoDate; ?>">
                      </div>
-                  </div>
-                  <div class="item form-group">
                      <label class="col-form-label col-md-1 col-sm-2 ">Status <span class="required">*</span></label>
                      <div class="col-md-2 col-sm-2">
                         <select class="form-control" name="s_status" id ="status" >
@@ -35,6 +33,9 @@
                         </select>
                         <script> $('#status').val('<?php echo $status; ?>');</script>
                      </div>
+                  </div>
+                  <div class="item form-group">
+
                      <label class="col-form-label col-md-1 col-sm-2 ">Office <span class="required">*</span></label>
                      <div class="col-md-2 col-sm-2">
                         <select class="form-control" name="s_paguthi" id ="paguthi" onchange="get_paguthi(this);">
@@ -51,7 +52,8 @@
                            <option value=""></option>
                         </select>
                      </div>
-                     <div class="col-md-2 col-sm-2">
+                      <label class="col-form-label col-md-1 col-sm-2 ">&nbsp;</label>
+                     <div class="col-md-3 col-sm-2">
                        <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
                        <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
                      </div>

@@ -36,6 +36,10 @@ button {text-transform: uppercase;}
   font-size: 15px;
   font-weight: 900;
 }
+.btn-white{
+  background: #fff;
+  border:  1px solid #d8d5d5;
+}
 .toggle{
   width:auto;
 }

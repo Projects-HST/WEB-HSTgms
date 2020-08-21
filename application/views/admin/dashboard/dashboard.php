@@ -61,7 +61,7 @@
 				 </div>
 				  <div class="col-md-2 col-sm-2 text-center">
 					 <button type="submit" class="btn btn-success">GO</button>
-					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-danger">Reset</a>
+					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white">Reset</a>
 				 </div>
 
 
