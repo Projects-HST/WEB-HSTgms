@@ -30,11 +30,11 @@
 <div class="col-md-12">
 		<form id="result_form" action="<?php echo base_url(); ?>dashboard/index" method="post" enctype="multipart/form-data">
 			  <div class="form-group row">
-					<label class="col-form-label col-md-2 col-sm-6 ">From date</label>
+					<label class="col-form-label col-md-1 col-sm-6 ">From</label>
  				 <div class="col-md-2">
  						<input type="text" class="form-control" name="from_date" id="from_date" value="<?php echo $from_date; ?>" placeholder="DD-MM-YYYY">
  				 </div>
-				 <label class="col-form-label col-md-1 col-sm-6 ">To date</label>
+				 <label class="col-form-label col-md-1 col-sm-6 ">To</label>
 				 <div class="col-md-2">
 					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>" placeholder="DD-MM-YYYY">
 					 </div>
@@ -47,10 +47,12 @@
 							<?php } ?><script> $('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
 						</select>
 				 </div>
-				  <div class="col-md-2 col-sm-2">
+				  <div class="col-md-2 col-sm-2 text-center">
 					 <button type="submit" class="btn btn-success">GO</button>
 					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-danger">Reset</a>
 				 </div>
+
+
 			  </div>
 		 </form>
 </div>
@@ -72,7 +74,7 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row" style="height:720px;">
+			<div class="row" style="height:620px;">
 				<div class="col-12">
 					<div class="label_box">
 							<div class="c_widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</div>

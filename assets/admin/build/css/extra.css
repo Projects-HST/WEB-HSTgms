@@ -33,7 +33,7 @@ h4{
 
 }
 .col-form-label{
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
 }
 a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
@@ -223,7 +223,7 @@ p{
       margin-top: 20px;
 }
 .widget_height{
-  height: 253px;
+  height: 220px;
 }
 .widget_label{
   color: #000;
