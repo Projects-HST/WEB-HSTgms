@@ -1,10 +1,10 @@
 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <div  class="right_col" role="main">
    <div class="">
-   
+
       <div class="clearfix"></div>
 	<div class="row">
-	
+
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
@@ -46,7 +46,7 @@
                      <div class="col-md-8 col-sm-8 ">
 					 <textarea name="news_details" class="form-control" rows="10" cols="80" id="news_details" placeholder="News Details" style="text-transform: uppercase;"></textarea>
 					 <script>CKEDITOR.replace( 'news_details' ); </script>
-                  
+
                      </div>
                   </div>
 					<div class="item form-group">
@@ -56,9 +56,9 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align">Notofication</label>
+						<label class="col-form-label col-md-3 col-sm-3 label-align">Notification</label>
 						<div class="col-md-4 col-sm-4">
-							<label class="col-form-label label-align"><input type="radio" id="notify" name="notify" value='Y'>Yes <input type="radio" id="notify" name="notify" value='N' checked>No</label>
+							<label class="col-form-label label-align"><input type="radio" id="notify" name="notify" value='Y'>Yes  &nbsp;<input type="radio" id="notify" name="notify" value='N' checked>No</label>
 						</div>
 					</div>
                   <div class="item form-group">
@@ -84,7 +84,7 @@
 
 	</div>
 	</div>
-	
+
    </div>
 </div>
 <script type="text/javascript">
@@ -94,13 +94,13 @@
 	$('#news_menu').addClass('active');
 	$('.news_menu').css('display','block');
 	$('#create_news_menu').addClass('active current-page');
-   
+
 $.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');
 
-	var dateToday = new Date(); 
-	
+	var dateToday = new Date();
+
 	$('#news_date').datetimepicker({
 			format: 'DD-MM-YYYY',
 			minDate: dateToday
@@ -114,7 +114,7 @@ $.validator.addMethod('filesize', function (value, element, param) {
 			news_date:{required:true},
 			news_title: { required: true },
 			news_details:{
-			 required: function() 
+			 required: function()
 				{
 					CKEDITOR.instances.news_details.updateElement();
 				}
@@ -129,7 +129,7 @@ $.validator.addMethod('filesize', function (value, element, param) {
 				 news_details:{
 					required:"Enter News Details"
 				 },
-				
+
 				news_pic:{
 					  required:"Select News Picture",
 					  accept:"Please upload .jpg or .png .",
@@ -138,6 +138,6 @@ $.validator.addMethod('filesize', function (value, element, param) {
 				status:"Select Status"
 		}
 	});
-	
-	
+
+
  </script>

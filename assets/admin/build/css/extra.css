@@ -172,7 +172,7 @@ hr{
   border-radius: 5px;
   background-color: #fff;
   padding: 10px 10px 10px 10px;
-  box-shadow: 5px 5px 5px 5px #dadadabd;
+      border: 1px solid #E6E9ED;
 }
 .widget_heading{
   color: #000;

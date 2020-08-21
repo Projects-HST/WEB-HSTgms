@@ -74,26 +74,26 @@
 			<hr>
 			<div class="row" style="height:720px;">
 
-				<div class="col-9"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
-				<div class="col-9"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->femalecount; ?></p></div>
-				<div class="col-9"><p class="widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->others; ?></p></div>
-				<div class="col-9"><p class="widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->malevoter; ?></p></div>
-				<div class="col-9"><p class="widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->femalevoter; ?></p></div>
-				<div class="col-9"><p class="widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->maleaadhar; ?></p></div>
-				<div class="col-9"><p class="widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->femaleaadhar; ?></p></div>
-				<div class="col-9"><p class="widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->having_mobilenumber; ?></p></div>
-				<div class="col-9"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->having_email; ?></p></div>
-				<div class="col-9"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
-				<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalecount; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->others; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malevoter; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalevoter; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->maleaadhar; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femaleaadhar; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_mobilenumber; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_email; ?></p></div>
+				<div class="col-9 lh"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
+				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div>
 			</div>
 
 		</div>
@@ -261,7 +261,6 @@
 
 
 <div class="clearfix"></div>
-<hr>
 
 <div class="row">
 		<?php if(empty($footfall_result)){  }else{ ?>
