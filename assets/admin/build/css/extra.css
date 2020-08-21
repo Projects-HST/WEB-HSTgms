@@ -6,6 +6,12 @@
 body{
   text-transform: uppercase;
 }
+th{
+  font-size: 14px;
+}
+td{
+  font-size: 13px;
+}
 input {text-transform: uppercase;}
 textarea {text-transform: uppercase;}
 select {text-transform: uppercase;}
