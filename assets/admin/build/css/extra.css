@@ -191,7 +191,7 @@ hr{
 .c_widget_label{
   width:80%;
   color: #000;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   padding: 5px 5px 5px 0px;
 }
@@ -199,7 +199,7 @@ hr{
   width: 20%;
   text-align: right;
   color: #000;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   padding: 5px 5px 5px 0px;
 }
@@ -227,7 +227,7 @@ p{
 }
 .widget_label{
   color: #000;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   /* padding: 10px; */
   padding: 5px 5px 5px 0px;
