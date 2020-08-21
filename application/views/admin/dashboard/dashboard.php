@@ -259,7 +259,7 @@
 
 <div class="row">
 		<?php if(empty($footfall_result)){  }else{ ?>
-<div class="col-md-8">
+<div class="col-md-12">
 <div class="x_panel">
 
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
