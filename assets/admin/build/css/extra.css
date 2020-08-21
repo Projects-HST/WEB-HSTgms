@@ -12,6 +12,9 @@ th{
 td{
   font-size: 13px;
 }
+.fa{
+  font-size: 14px;
+}
 input {text-transform: uppercase;}
 textarea {text-transform: uppercase;}
 select {text-transform: uppercase;}
