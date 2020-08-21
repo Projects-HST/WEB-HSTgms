@@ -8,14 +8,14 @@
 
 	<div class="row">
 		<div class="col-3">
-			<p class="dash_title">Welcome To Dashboard !</p>
+			<p class="dash_title">Welcome !</p>
 
 		</div>
 		<div class="col-6">
 		</div>
 		<div class="col-3">
 				<p class="dash_title text-right"><?php   date_default_timezone_set("Asia/Calcutta");
-				echo date('d-F-Y h:i:s'); ?> </p>
+				echo date('d-F-Y | h:i:s'); ?> </p>
 		</div>
 	</div>
 	<form id="search_form" action="<?php echo base_url(); ?>dashboard/searchresult" method="post" enctype="multipart/form-data">

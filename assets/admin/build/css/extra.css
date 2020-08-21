@@ -8,9 +8,15 @@ body{
 }
 .dash_title{
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.btn{
+  font-size: 13px;
+}
+.form-control{
+  border-radius: 5px;
 }
 th{
   font-size: 14px;
@@ -192,7 +198,7 @@ hr{
 .widget_heading{
   color: #000;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
   text-align: right;
   margin: 10px 0px 0px 0px;
 }
