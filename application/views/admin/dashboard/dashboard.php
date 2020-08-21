@@ -66,7 +66,7 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row">
+			<div class="row" style="height:425px;">
 
 				<div class="col-9"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
 				<div class="col-3"><p class="widget_label"> <?= $rows_cons->malecount; ?></p></div>
@@ -252,15 +252,18 @@
 <hr>
 
 <div class="row">
+		<?php if(empty($footfall_result)){  }else{ ?>
 <div class="col-md-8">
 <div class="x_panel">
-	<?php if(empty($footfall_result)){  }else{ ?>
+
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
-	<?php } ?>
+
 
 
 	</div>
+
 </div>
+	<?php } ?>
 <div class="col-md-4">
 	<!-- <script src="https://apps.elfsight.com/p/platform.js" defer></script>
 	<div class="elfsight-app-b71202ae-76b6-4648-b0ef-e159094d4f38"></div> -->
