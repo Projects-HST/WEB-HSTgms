@@ -6,8 +6,20 @@
 </style>
 <div class="right_col" role="main" style="min-height: 1284px;">
 
+	<div class="row">
+		<div class="col-3">
+			<p class="dash_title">Welcome To Dashboard !</p>
+
+		</div>
+		<div class="col-6">
+		</div>
+		<div class="col-3">
+				<p class="dash_title text-right"><?php   date_default_timezone_set("Asia/Calcutta");
+				echo date('d-F-Y h:i:s'); ?> </p>
+		</div>
+	</div>
 	<form id="search_form" action="<?php echo base_url(); ?>dashboard/searchresult" method="post" enctype="multipart/form-data">
-		<div class="title_left" style="padding-top:70px;">
+		<div class="title_left">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
 				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number" required>
@@ -20,7 +32,7 @@
 		</form>
 
 		<div class="clearfix"></div>
-<hr>
+
 <div class="row">
 <div class="col-md-12">
 <div class="x_content">
@@ -57,6 +69,7 @@
 		 </form>
 </div>
 </div>
+<hr>
 <div class="clearfix"></div>
 <?php foreach($result_cons as $rows_cons){} ?>
 <div class="row mt_20">

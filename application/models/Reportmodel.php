@@ -630,21 +630,26 @@ Class Reportmodel extends CI_Model
 			 $this->db->from('festival_wishes as fw');
 		 $this->db->join('festival_master as fm', 'fm.id = fw.festival_id', 'left');
 		 $this->db->join('constituent as c', 'c.id = fw.constituent_id', 'left');
-			 if(empty($religion_id)){
+		 if(empty($religion_id)){
 
-			 }else{
-				 $this->db->or_where('fm.id',$religion_id);
-			 }
-			 if(empty($paguthi)){
+		 }else{
+			 $this->db->where('fm.id',$religion_id);
+		 }
+		 if(empty($paguthi)){
 
-			 }else{
-				 $this->db->where('c.paguthi_id',$paguthi);
-			 }
-			 if(empty($ward_id)){
+		 }else{
+			 $this->db->where('c.paguthi_id',$paguthi);
+		 }
+		 if(empty($ward_id)){
 
-			 }else{
-				 $this->db->where('c.ward_id',$ward_id);
-			 }
+		 }else{
+			 $this->db->where('c.ward_id',$ward_id);
+		 }
+		 if(empty($year_id)){
+				 $this->db->where('DATE(fw.updated_at) >= last_day(now()) + interval 1 day - interval 3 month');
+		 }else{
+			 $this->db->where('YEAR(fw.updated_at) =',$year_id);
+		 }
 			 $query = $this->db->get();
 	 		$result = $query->result_array();
 
