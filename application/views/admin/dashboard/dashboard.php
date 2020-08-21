@@ -112,7 +112,7 @@
 					<hr>
 					<div class="row">
 				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
-							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> ( <?php echo round($row_grievenace->total/$total_grievance *100); ?>% )</p></div>
+							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100); ?>%)</p></div>
 							<div class="col-3"><p class="widget_label"> <?php echo  $row_grievenace->total; ?></p></div>
 
 						<?php } ?>
@@ -138,9 +138,9 @@
 					<div class="row">
 
 							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
-						<div class="col-9"><p class="widget_label">New Footfall ( <?php echo round($row_gr_list->unique_count_percentage); ?>% )</p></div>
+						<div class="col-9"><p class="widget_label">New Footfall (<?php echo round($row_gr_list->unique_count_percentage); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label"> <?php echo $row_gr_list->unique_count; ?></p></div>
-						<div class="col-9"><p class="widget_label">Repeat Footfall ( <?php echo round($row_gr_list->repeat_count_percentage); ?>% )</p></div>
+						<div class="col-9"><p class="widget_label">Repeat Footfall (<?php echo round($row_gr_list->repeat_count_percentage); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label"> <?php echo $row_gr_list->repeat_count; ?></p></div>
 					<?php } ?>
 					</div>
