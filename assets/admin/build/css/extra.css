@@ -312,9 +312,10 @@ hr{
 
 .active_txt{
   color:#6aa84e;
+  font-weight:bold;
 }
 
 .inactive_text{
   color:#cb2027;
-
+  font-weight:bold;
 }
