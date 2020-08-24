@@ -60,7 +60,7 @@
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6">
 		<?php $sgender = $rows->gender; ?>
-		<input type="radio" name="gender" value="M" <?php if($sgender =='M'){ echo "checked"; }?> style="margin-top:10px;"> &nbsp; Male &nbsp; <input type="radio" name="gender" value="F" <?php if($sgender =='F'){ echo "checked";} ?>> Female
+		<input type="radio" name="gender" value="M" <?php if($sgender =='M'){ echo "checked"; }?> style="margin-top:10px;"> Male &nbsp; <input type="radio" name="gender" value="F" <?php if($sgender =='F'){ echo "checked";} ?>> Female
 	</div>
 	</div>
 

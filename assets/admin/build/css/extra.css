@@ -26,7 +26,7 @@ td{
   font-size: 13px;
 }
 .fa{
-  font-size: 14px;
+  font-size: 16px;
 }
 input {text-transform: uppercase;}
 textarea {text-transform: uppercase;}
@@ -256,7 +256,7 @@ p{
       margin-top: 20px;
 }
 .widget_height{
-  height: 220px;
+  height: 160px;
 }
 .widget_label{
   color: #000;
@@ -308,4 +308,13 @@ color:#ffffff;
 hr{
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.active_txt{
+  color:#31aa15;
+}
+
+.inactive_text{
+  color:#f90404;
+
 }

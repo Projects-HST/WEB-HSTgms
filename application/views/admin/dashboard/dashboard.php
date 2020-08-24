@@ -1,7 +1,7 @@
 <style>
 #dashboardmenu a{
 	color:#31aa15;
-	font-weight: 600;
+	font-weight: 450;
 }
 </style>
 <div class="right_col" role="main" style="min-height: 1284px;">
@@ -87,7 +87,7 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row" style="height:620px;">
+			<div class="row" style="height:440px;">
 				<div class="col-12">
 					<div class="label_box">
 							<div class="c_widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</div>

@@ -2632,7 +2632,7 @@ table.countries_list td {
 }
 
 .dataTables_paginate a {
-    padding: 6px 9px !important;
+    padding: 9px 9px !important;
     background: #ddd !important;
     border-color: #ddd !important
 }
@@ -2713,12 +2713,14 @@ table.jambo_table tbody tr.selected td {
 
 .dataTables_info {
     width: 60%;
-    float: left
+    float: left;
+	padding-top:10px;
 }
 
 .dataTables_paginate {
     float: right;
-    text-align: right
+    text-align: right;
+	padding-top:10px;
 }
 
 table.dataTable th.focus,
