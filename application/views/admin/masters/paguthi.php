@@ -70,10 +70,10 @@
              <tbody>
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
-                    <td><?php echo $i; ?></td>
+                    <td style="text-align:center"><?php echo $i; ?></td>
                     <td><?php echo $rows->paguthi_name; ?></td>
                     <td><?php echo $rows->paguthi_short_name ;?></td>
-                    <td style="text-align:center"><?php if($rows->status=='ACTIVE'){ ?>
+                    <td><?php if($rows->status=='ACTIVE'){ ?>
 					<span class="active_txt">Active</span>
 						<?php  }else{ ?>
 					<span class="inactive_text">Inactive</span>
