@@ -118,7 +118,7 @@ function get_paguthi(sel){
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
-        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+        $('#ward_id').html('<option value="">-ALL--</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
 		   }

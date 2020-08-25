@@ -24,34 +24,34 @@
 	<?php endif; ?>
 <br>
 	<form method="post" action="<?php echo base_url(); ?>login/password_update" class="form-horizontal" enctype="multipart/form-data" id="frmPassword">
-	
-	
+
+
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Current Password <span class="required">*</span></label>
+		<label class="col-form-label col-md-3 col-sm-3 ">Current Password <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6">
 		<input type="password" placeholder="Enter Current Password" name="old_password" id="old_password" class="form-control" value="" maxlength="10"><span toggle="#old_password" class="fa fa-fw  fa-eye-slash field-icon-inner toggle-password"></span>
 	</div>
 	</div>
-	
+
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">New Password <span class="required">*</span></label>
+		<label class="col-form-label col-md-3 col-sm-3 ">New Password <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-6">
 			<input type="password" placeholder="Enter New Password" id="new_password" name="new_password" class="form-control input-sm" value="" maxlength="10"><span toggle="#new_password" class="fa fa-fw  fa-eye-slash field-icon-inner toggle-password"></span>
 	</div>
 	</div>
-	
+
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Confirm New Password <span class="required">*</span></label>
+		<label class="col-form-label col-md-3 col-sm-3 ">Confirm New Password <span class="required">*</span></label>
 	<div class="col-md-6 col-sm-">
 		<input type="password" placeholder="Confirm New Password" id="retype_password" name="retype_password" class="form-control input-sm" value="" maxlength="10"><span toggle="#retype_password" class="fa fa-fw  fa-eye-slash field-icon-inner toggle-password"></span>
 	</div>
 	</div>
-	
+
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+		<label class="col-form-label col-md-3 col-sm-3 "></label>
 		<div class="col-md-6 col-sm-6" style="font-size:10px;color:#ed0404;font-weight:bold;">NOTE: PASSWORD SAVED AS CAPITAL LETER</div>
 	</div>
-	
+
 	<div class="ln_solid"></div>
 	<div class="item form-group">
 	<div class="col-md-6 col-sm-6 offset-md-3">
@@ -80,7 +80,7 @@
     input.attr("type", "password");
   }
 });
- 
+
   $("#frmPassword").validate({
          rules: {
              old_password:{

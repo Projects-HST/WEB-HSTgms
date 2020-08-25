@@ -51,7 +51,7 @@
 
 
 	<div class="clearfix"></div>
-	<div class="row">
+	<!-- <div class="row">
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
@@ -89,11 +89,79 @@
             </div>
          </div>
       </div>
-	</div>
+	</div> -->
+
+
+  <div class="row">
+
+      <div class="col-md-12 col-sm-12 ">
+         <div class="x_panel">
+            <div class="x_title">
+               <h2>View Gallery</h2>
+               <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+      <?php if(empty($res)){
+          echo "No Banner Found";
+        }else{
+          foreach($res as $rows){ ?>
+          <div class="col-lg-3" style="margin-bottom:25px;">
+          <div id="thumbnail">
+            <img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:225px;height:129px;">
+              <a id="edit" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" data-toggle="tooltip" title="EDIT" style="cursor:pointer"><i class="fa fa-edit" style="font-size:20px;"></i></a>
+            <a id="close" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"></a>
+
+            </a>
+          </div>
+        </div>
+        <?php
+          }
+        } ?>
+            </div>
+         </div>
+      </div>
+
+
+  </div>
 
 	</div>
    </div>
+   <style>
+   .thumbnail {
+           position: relative;
+           width: 200px;
+           height: 300px;
+       }
 
+       .thumbnail img {
+           width: 100%;
+           height: 100%;
+       }
+
+       #close {
+           display: block;
+           position: absolute;
+           width: 25px;
+           height: 25px;
+           top: -10px;
+           left: 250px;
+           background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
+           background-size: 100% 100%;
+           background-repeat: no-repeat;
+       }
+       #edit {
+           display: block;
+           position: absolute;
+           width: 25px;
+           height: 25px;
+           top: -10px;
+           left: 225px;
+           /* background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
+           background-size: 100% 100%;
+           background-repeat: no-repeat; */
+       }
+   }
+   </style>
 <script type="text/javascript">
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)

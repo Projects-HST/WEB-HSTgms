@@ -199,6 +199,7 @@ table {
 .badge-reference{
   color: #2573ba !important;
   font-weight:bold;
+  font-size: 13px;
 }
 
 .badge-view{

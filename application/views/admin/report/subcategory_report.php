@@ -8,18 +8,18 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-			
+
 		<form id="report_form" action="<?php echo base_url(); ?>report/sub_category" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				 <label class="col-form-label col-md-1 col-sm-1 label-align">From <span class="required">*</span></label>
+				 <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
 				 </div>
-				  <label class="col-form-label col-md-1 col-sm-1 label-align">To <span class="required">*</span></label>
+				  <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
 				 </div>
-				  <label class="col-form-label col-md-2 col-sm-2 label-align">Sub Category <span class="required">*</span></label>
+				  <label class="col-form-label col-md-2 col-sm-2 ">Sub Category <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 						<select class="form-control" name="sub_category" id ="sub_category" >
 							<option value="ALL">ALL</option>
@@ -29,7 +29,7 @@
 						</select><script> $('#sub_category').val('<?php echo $dsub_category; ?>');</script>
 				 </div>
 				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>					 
+					 <button type="submit" class="btn btn-success">SEARCH</button>
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
@@ -72,16 +72,16 @@
       </div>
 
 
-        
+
    </div>
 </div>
 <script type="text/javascript">
 $.validator.addMethod("chkDates", function(value, element) {
-		var startDate = $('#frmDate').val();		
+		var startDate = $('#frmDate').val();
 		var datearray = startDate.split("-");
 		var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-		
-		var endDate = $('#toDate').val();		
+
+		var endDate = $('#toDate').val();
 		var datearray = endDate.split("-");
 		var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
 

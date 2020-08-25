@@ -31,7 +31,8 @@ th{
 				 <div class="col-md-2 col-sm-2">
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="mr_toDate" value="<?php echo $mr_toDate; ?>">
 				 </div>
-         <div class="col-md-3 col-sm-4">
+				 <label class="col-form-label col-md-1 col-sm-1 label-align">Full name </label>
+         <div class="col-md-2 col-sm-4">
             <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search Full name " value="<?php echo $mr_search; ?>" />
           </div>
 				 <div class="col-md-3 col-sm-2">

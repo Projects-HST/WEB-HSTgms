@@ -43,7 +43,7 @@
                       <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
                       <div class="col-md-4 col-sm-9 ">
                           <p>
-                            <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER" checked="" required="">  VOTER &nbsp;
+                            <input type="radio" class="flat " name="voter_status" id="voter_status_y" value="VOTER" checked="" required="">  VOTER &nbsp;
                             <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER"> NON-VOTER
 
                          </p>
@@ -232,10 +232,16 @@
                           </div>
 
                         </div> -->
+
+                                      <div class="form-group">
+                                         <div class="col-md-9 col-sm-9  offset-md-3">
+                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                         </div>
+                                      </div>
             </div>
          </div>
 
-         <div class="x_panel" class="interaction_div">
+         <!-- <div class="x_panel" class="interaction_div">
             <div class="x_title interaction_div" >
                <h2>Interaction information</h2>
                <div class="clearfix"></div>
@@ -256,13 +262,8 @@
 
                </div>
 
-              <div class="form-group">
-                 <div class="col-md-9 col-sm-9  offset-md-3">
-                    <button type="submit" class="btn btn-success">SAVE</button>
-                 </div>
-              </div>
             </div>
-         </div>
+         </div> -->
 
 
 

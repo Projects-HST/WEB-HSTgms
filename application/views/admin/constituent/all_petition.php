@@ -35,7 +35,7 @@
                              <th>paguthi</th>
                              <th>seeker</th>
                              <!-- <th>category</th> -->
-                             <th>sub category</th>
+                             <!-- <th>sub category</th> -->
                              <th>petition no</th>
                              <th>reference</th>
                              <th>status</th>
@@ -51,7 +51,7 @@
                              <td><?php echo $rows['paguthi_name']; ?></td>
                              <td><?php echo $rows['seeker_info']; ?></td>
                              <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
-                             <td><?php echo $rows['sub_category_name']; ?></td>
+                             <!-- <td><?php echo $rows['sub_category_name']; ?></td> -->
                              <td><?php echo $rows['petition_enquiry_no']; ?></td>
                              <td><?php if(empty($rows['reference_note'])){ ?>
                                <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')">Set reference</a>
@@ -70,7 +70,7 @@
                               <td><?php $status= $rows['status'];  ?>
                                 <a class="badge-<?= $status ?> handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')"><?php echo $status; ?></a>
                               </td>
-                             <td><?php echo date('d-m-Y H:i:s', strtotime($rows['updated_at'])); ?></td>
+                             <td><?php echo date('d-m-Y', strtotime($rows['updated_at'])); ?></td>
                              <td>
                                <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                &nbsp;

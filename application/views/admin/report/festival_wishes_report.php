@@ -18,46 +18,59 @@
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>report/festival_wishes_report"  id="report_form">
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
-        <div class="col-md-2 col-sm-4">
-         <select class="form-control" name="f_year_id" id="year_id">
-             <option value="">Select year</option>
-           <?php foreach($res_year as $rows_year){ ?>
-             <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
-         <?php  } ?>
-         </select>
-
-           <script>$('#year_id').val('<?php echo $f_year_id; ?>')</script>
-
-
-       </div>
-			   <div class="col-md-2 col-sm-4">
-          <select class="form-control" name="f_religion_id" id="religion_id">
-            <option value="">Select month</option>
-            <?php foreach($res_festival as $rows_festival){ ?>
-              <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
-          <?php  } ?>
-          </select>
-          <script>$('#religion_id').val('<?php echo $f_religion_id; ?>')</script>
-        </div>
-      <div class="col-md-2 col-sm-4">
-              <select class="form-control" name="f_paguthi" id ="paguthi" onchange="get_paguthi(this);">
-                <option value="">ALL</option>
-                <?php foreach($paguthi as $rows){ ?>
-                <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
-                <?php } ?>
-              </select>
-                <script>$('#paguthi').val('<?php echo $f_paguthi; ?>')</script>
-        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-md-2 col-sm-2 ">Select year <span class="required">*</span></label>
           <div class="col-md-2 col-sm-4">
-            <select class="form-control" name="f_ward_id" id ="ward_id" >
-              <option value=""></option>
-            </select>
-          </div>
-				  <div class="col-md-3 col-sm-2">
-            <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
-            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
+           <select class="form-control" name="f_year_id" id="year_id">
+               <option value="">Select year</option>
+             <?php foreach($res_year as $rows_year){ ?>
+               <option value="<?php echo $rows_year->year_name; ?>"><?php echo $rows_year->year_name; ?></option>
+           <?php  } ?>
+           </select>
 
-				  </div>
+             <script>$('#year_id').val('<?php echo $f_year_id; ?>')</script>
+
+
+         </div>
+         <label class="col-form-label col-md-2 col-sm-2 ">Select Month <span class="required">*</span></label>
+           <div class="col-md-2 col-sm-4">
+            <select class="form-control" name="f_religion_id" id="religion_id">
+              <option value="">Select month</option>
+              <?php foreach($res_festival as $rows_festival){ ?>
+                <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
+            <?php  } ?>
+            </select>
+            <script>$('#religion_id').val('<?php echo $f_religion_id; ?>')</script>
+          </div>
+        </div>
+
+<div class="form-group row">
+  <label class="col-form-label col-md-2 col-sm-2 ">Office</label>
+  <div class="col-md-2 col-sm-4">
+          <select class="form-control" name="f_paguthi" id ="paguthi" onchange="get_paguthi(this);">
+            <option value="">ALL</option>
+            <?php foreach($paguthi as $rows){ ?>
+            <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
+            <?php } ?>
+          </select>
+            <script>$('#paguthi').val('<?php echo $f_paguthi; ?>')</script>
+    </div>
+      <label class="col-form-label col-md-2 col-sm-2 ">ward</label>
+    <div class="col-md-2 col-sm-4">
+      <select class="form-control" name="f_ward_id" id ="ward_id" >
+        <option value=""></option>
+      </select>
+    </div>
+    <div class="col-md-3 col-sm-2">
+      <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+      <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
+
+    </div>
+
+</div>
+
+
+
 
 			</div>
 				</form>
@@ -138,7 +151,7 @@ $('.reportmenu').css('display','block');
    		   if(stat=="success"){
    		   var res=data.res;
    		   var len=res.length;
-           $('#ward_id').html('<option value="">-SELECT ward --</option>');
+           $('#ward_id').html('<option value="">-ALL --</option>');
    		   for (i = 0; i < len; i++) {
    		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
    		   }

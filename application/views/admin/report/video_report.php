@@ -19,7 +19,7 @@
 		<form id="report_form" action="<?php echo base_url(); ?>report/video" method="post" enctype="multipart/form-data">
 
         <div class="form-group row ">
-             <label class="col-form-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
+             <label class="col-form-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="v_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="">ALL</option>
@@ -29,7 +29,7 @@
              </select>
              <script> $('#paguthi').val('<?php echo $paguthi_id; ?>');</script>
            </div>
-           <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
+           <label class="col-form-label col-md-1 col-sm-3 ">Ward</label>
           <div class="col-md-2 col-sm-2">
              <select class="form-control" name="v_ward_id" id ="ward_id" >
                <option value=""></option>
@@ -119,7 +119,7 @@ function get_paguthi(sel){
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
-        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+        $('#ward_id').html('<option value="">-All --</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
 		   }

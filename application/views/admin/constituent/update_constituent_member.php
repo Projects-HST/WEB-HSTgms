@@ -276,21 +276,22 @@
                              </div>
 
                         </div>
+                        <div class="x_content">
+                            <div class="form-group">
+                             <div class="col-md-9 col-sm-9  offset-md-3">
+                                <button type="submit" class="btn btn-success">Update</button>
+                             </div>
+                          </div>
+                        </div>
 
 
             </div>
          </div>
 
-         <div class="x_panel" class="interaction_div">
+         <!-- <div class="x_panel" class="interaction_div">
 
-            <div class="x_content">
-                <div class="form-group">
-                 <div class="col-md-9 col-sm-9  offset-md-3">
-                    <button type="submit" class="btn btn-success">Update</button>
-                 </div>
-              </div>
-            </div>
-         </div>
+
+         </div> -->
 
 
 

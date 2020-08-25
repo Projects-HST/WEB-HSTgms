@@ -30,43 +30,43 @@
 
 
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span></label>
-	<div class="col-md-6 col-sm-6 ">
+		<label class="col-form-label col-md-2 col-sm-3 ">Name <span class="required">*</span></label>
+	<div class="col-md-4 col-sm-6 ">
 		<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
 	</div>
 	</div>
 	<?php if ($user_type == '1'){?>
 		<div class="item form-group">
-			<label class="col-form-label col-md-3 col-sm-3 label-align">Phone Number <span class="required">*</span></label>
-		<div class="col-md-6 col-sm-6 ">
+			<label class="col-form-label col-md-2 col-sm-3 ">Phone Number <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-6 ">
 			<input type="text" id="phone" name="phone" class="form-control" placeholder="PHONE NUMBER" value="<?php echo $rows->phone_number; ?>" maxlength='10'>
 		</div>
 		</div>
 		<div class="item form-group">
-			<label class="col-form-label col-md-3 col-sm-3 label-align">Email ID <span class="required">*</span></label>
-		<div class="col-md-6 col-sm-6 ">
+			<label class="col-form-label col-md-2 col-sm-3 ">Email ID <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-6 ">
 			<input type="text" id="email" name="email" class="form-control" placeholder="Email Id" value="<?php echo $rows->email_id; ?>" maxlength='30'>
 		</div>
 		</div>
 	<?php } ?>
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Address <span class="required">*</span></label>
-	<div class="col-md-6 col-sm-6 ">
+		<label class="col-form-label col-md-2 col-sm-3 ">Address <span class="required">*</span></label>
+	<div class="col-md-4 col-sm-6 ">
 		<textarea id="address" name="address" rows="3" class="form-control"><?php echo $rows->address; ?></textarea>
 	</div>
 	</div>
 
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Gender <span class="required">*</span></label>
-	<div class="col-md-6 col-sm-6">
+		<label class="col-form-label col-md-2 col-sm-3 ">Gender <span class="required">*</span></label>
+	<div class="col-md-4 col-sm-6">
 		<?php $sgender = $rows->gender; ?>
 		<input type="radio" name="gender" value="M" <?php if($sgender =='M'){ echo "checked"; }?> style="margin-top:10px;"> Male &nbsp; <input type="radio" name="gender" value="F" <?php if($sgender =='F'){ echo "checked";} ?>> Female
 	</div>
 	</div>
 
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Profile Picture</label>
-	<div class="col-md-6 col-sm-6 ">
+		<label class="col-form-label col-md-2 col-sm-3 ">Profile Picture</label>
+	<div class="col-md-4 col-sm-6 ">
 		<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" >
 		<div class="profile_pic">
 		<?php
@@ -80,7 +80,7 @@
 	</div>
 	<div class="ln_solid"></div>
 	<div class="item form-group">
-	<div class="col-md-6 col-sm-6 offset-md-3">
+	<div class="col-md-4 col-sm-6 offset-md-3">
 			<input type="hidden" name="user_id" value="<?php echo $rows->id; ?>">
 			<input type="hidden" name="user_old_pic" value="<?php echo $rows->profile_pic; ?>">
 		<button type="submit" class="btn btn-success">SAVE</button>

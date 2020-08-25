@@ -19,7 +19,7 @@
 		<form id="report_form" action="<?php echo base_url(); ?>report/birthday" method="post" enctype="multipart/form-data">
 
         <div class="form-group row ">
-          <label class="col-form-label col-md-2 col-sm-2 label-align">Select Year <span class="required">*</span></label>
+          <label class="col-form-label col-md-2 col-sm-2 ">Select Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="b_year_id" class="form-control">
               <option value="">SELECT YEAR</option>
@@ -32,7 +32,7 @@
 
 
            </div>
-          <label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
+          <label class="col-form-label col-md-2 col-sm-2 ">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="month" name="b_month" class="form-control">
               <option value="">SELECT MONTH</option>
@@ -56,7 +56,7 @@
            </div>
         </div>
         <div class="form-group row ">
-             <label class="control-label col-md-2 col-sm-3 label-align">Office<span class="required">*</span></label>
+             <label class="control-label col-md-2 col-sm-3 ">Office<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="b_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="">ALL</option>
@@ -70,7 +70,7 @@
 
 
            </div>
-           <label class="col-form-label col-md-2 col-sm-3 label-align">Ward</label>
+           <label class="col-form-label col-md-2 col-sm-3 ">Ward</label>
           <div class="col-md-2 col-sm-2">
              <select class="form-control" name="b_ward_id" id ="ward_id" >
                <option value=""></option>
@@ -157,7 +157,7 @@ function get_paguthi(sel){
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
-        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+        $('#ward_id').html('<option value="">-ALL--</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
 		   }
@@ -178,7 +178,7 @@ $('#report_form').validate({ // initialize the plugin
          b_month:{required:true}
      },
      messages: {
-           b_year_id: { required:"Select From year"},
+           b_year_id: { required:"Select year"},
            b_month: { required:"Select month"}
          }
  });
