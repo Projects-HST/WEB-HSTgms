@@ -79,7 +79,7 @@ th{
 					<td><?php echo $rows['mobile_no']; ?></td>
 					<td><?php echo $rows['meeting_detail']; ?></td>
 					<!-- <td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows['id']*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td> -->
-          <td><a href="#" onclick="meeting_status_update('<?php echo base64_encode($rows['id']*98765); ?>','<?php echo $meeting_status; ?>','<?php echo $rows['constituent_id']; ?>')" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows['meeting_status']; ?></a></td>
+          <td><a href="#" onclick="meeting_status_update('<?php echo base64_encode($rows['id']*98765); ?>','<?php echo $meeting_status; ?>','<?php echo $rows['constituent_id']; ?>')" class="badge-<?= $meeting_status ?>"><?php  echo $rows['meeting_status']; ?></a></td>
 					 <td><?php  echo $rows['created_by']; ?></td>
 					 <td><?php  echo $rows['created_at']; ?></td>
                  </tr>

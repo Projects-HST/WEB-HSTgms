@@ -11,7 +11,7 @@
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_interaction_question" method="post" enctype="multipart/form-data">
                  <?php foreach($res as $rows){} ?>
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">widgets title <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 ">widgets title <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
                        <input id="widgets_title" class=" form-control" name="widgets_title" type="text" value="<?php echo  $rows->widgets_title; ?>">
@@ -19,7 +19,7 @@
                  </div>
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Interaction question<span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Interaction question<span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <textarea name="interaction_text" id="interaction_text" class="form-control"><?php echo  $rows->interaction_text; ?></textarea>
@@ -28,7 +28,7 @@
                   </div>
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status" id="status">

@@ -3,7 +3,7 @@
 
 <div  class="right_col" role="main">
    <div class="">
-   
+
    <div class="clearfix"></div>
 	<div class="row">
 
@@ -18,7 +18,7 @@
                <form id="myformsection" action="<?php echo base_url(); ?>news/update_news" method="post" enctype="multipart/form-data">
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Constituency <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Constituency <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-4 ">
                         <select class="form-control" name="constituency_id" id="constituency_id">
@@ -30,7 +30,7 @@
                      </div>
                   </div>
 					<div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">News Date <span class="required">*</span></label>
+                     <label class="col-form-label col-md-3 col-sm-3 ">News Date <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">
 						<input type="text" class="form-control" id="news_old_date" name="news_old_date" value="<?php $date=date_create($rows->news_date);echo date_format($date,"d-m-Y");  ?>" disabled>
                      </div>
@@ -39,29 +39,29 @@
                      </div>
                   </div>
 				  <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">News Title <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">News Title <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-4">
                          <input type="text" name="news_title" id="news_title" class="form-control" value="<?php echo $rows->title; ?>" maxlength="200">
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">News Details <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">News Details <span class="required">*</span>
                      </label>
                      <div class="col-md-8 col-sm-8 ">
 					 <textarea name="news_details" class="form-control" rows="10" cols="80" id="news_details" placeholder="News Details" style="text-transform: uppercase;"><?php echo $rows->details; ?></textarea>
 					 <script>CKEDITOR.replace( 'news_details' );</script>
-                  
+
                      </div>
                   </div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align">News Picture </label>
+						<label class="col-form-label col-md-3 col-sm-3 ">News Picture </label>
 						<div class="col-md-4 col-sm-4">
 							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" ><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+						<label class="col-form-label col-md-3 col-sm-3 "></label>
 						<div class="col-md-6 col-sm-6">
 							<?php
 							$image_file_name  = trim($rows->image_file_name );
@@ -73,7 +73,7 @@
 						</div>
 					</div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-4">
                         <select class="form-control" name="status" id="status">
@@ -94,7 +94,7 @@
             </div>
          </div>
       </div>
-	  
+
 	</div>
 	</div>
 
@@ -105,14 +105,14 @@
    $('#news_menu').addClass('active');
    $('.news_menu').css('display','block');
    $('#list_news_menu').addClass('active current-page');
-   
+
 $.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');
 
 
-var dateToday = new Date(); 
-	
+var dateToday = new Date();
+
 	$('#news_date').datetimepicker({
 			format: 'DD-MM-YYYY',
 			minDate: dateToday
@@ -125,7 +125,7 @@ var dateToday = new Date();
 			constituency_id: { required: true },
 			news_title: { required: true },
 			news_details:{
-			 required: function() 
+			 required: function()
 				{
 					CKEDITOR.instances.news_details.updateElement();
 				}
@@ -139,7 +139,7 @@ var dateToday = new Date();
 				 news_details:{
 					required:"Enter News Details"
 				 },
-				
+
 				news_pic:{
 					  required:"Select News Picture",
 					  accept:"Please upload .jpg or .png .",
@@ -148,6 +148,6 @@ var dateToday = new Date();
 				status:"Select Status"
 		}
 	});
-	
-	
+
+
  </script>

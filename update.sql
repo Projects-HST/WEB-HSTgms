@@ -39,3 +39,6 @@ CREATE TABLE `constituent_video` (
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+ALTER TABLE `constituent`  ADD `voter_status` VARCHAR(10) NOT NULL  AFTER `voter_id_status`;

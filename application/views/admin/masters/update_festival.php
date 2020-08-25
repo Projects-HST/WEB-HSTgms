@@ -12,7 +12,7 @@
 
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_festival" method="post" enctype="multipart/form-data">
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">religion name <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 ">religion name <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
                        <select class="form-control" name="religion_id" id="religion_id">
@@ -24,7 +24,7 @@
                     </div>
                  </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Festival name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Festival name <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                        <input type="hidden" name="fm_id" value="<?php echo $rows->id; ?>">
@@ -33,7 +33,7 @@
                   </div>
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status">

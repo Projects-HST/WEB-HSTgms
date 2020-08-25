@@ -27,7 +27,7 @@
 	<form method="post" action="<?php echo base_url(); ?>users/update_user" class="form-horizontal" enctype="multipart/form-data" id="profile">
 
 	<div class="item form-group">
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Role <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Role <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<select class="form-control" name="role" id="role">
 				<option value="">Select</option>
@@ -36,7 +36,7 @@
 				<?php } ?>
 			</select><script> $('#role').val('<?php echo $rows->role_id; ?>');</script>
 		</div>
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Paguthi <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Paguthi <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<select class="form-control" name="paguthi" id="paguthi">
 				<option value="">Select</option>
@@ -48,22 +48,22 @@
 	</div>
 	<div class="item form-group">
 
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Name <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Name <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
 		</div>
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Eamil ID <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Eamil ID <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" value="<?php echo $rows->email_id; ?>" maxlength='30'>
 		</div>
 	</div>
 		<div class="item form-group">
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Gender <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Gender <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<?php $sgender = $rows->gender; ?>
 		<input type="radio" name="gender" value="M" <?php if($sgender =='M'){ echo "checked"; }?> style="margin-top:10px;"> &nbsp; Male &nbsp; <input type="radio" name="gender" value="F" <?php if($sgender =='F'){ echo "checked";} ?>> Female
 		</div>
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Phone Number <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Phone Number <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" value="<?php echo $rows->phone_number; ?>" maxlength='10'>
 		</div>
@@ -74,7 +74,7 @@
 		<div class="col-md-6 col-sm-6"></div>
 	</div>
 	<div class="item form-group">
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Address <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Address <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<textarea id="address" name="address" rows="3" class="form-control" maxlength='150'><?php echo $rows->address; ?></textarea>
 		</div>
@@ -89,14 +89,14 @@
 		</div></div>
 	</div>
 	<div class="item form-group">
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Profile Picture <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Profile Picture <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<input type="file" id="new_profile_pic" class="form-control" name="new_profile_pic" title="Please select image" accept="image/*" >
 		</div>
 		<div class="col-md-6 col-sm-6"></div>
 	</div>
 	<div class="item form-group">
-		<label class="col-form-label col-md-2 col-sm-2 label-align">Status <span class="required">*</span></label>
+		<label class="col-form-label col-md-2 col-sm-2 ">Status <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<select class="form-control" name="status" id="status">
 				<option value="">SELECT</option>

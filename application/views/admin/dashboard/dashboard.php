@@ -1,14 +1,14 @@
 <style>
 #dashboardmenu a{
 	color:#31aa15;
-	font-weight: 450;
+	font-weight: bold;
 }
 </style>
 <div class="right_col" role="main" style="min-height: 1284px;">
 
 	<div class="row">
 		<div class="col-3">
-			<p class="dash_title">Welcome !</p>
+			<p class="dash_title fnt_15" >Welcome !</p>
 
 		</div>
 		<div class="col-6">

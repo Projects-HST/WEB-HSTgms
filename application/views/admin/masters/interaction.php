@@ -10,7 +10,7 @@
             <div class="x_content">
                <form id="master_form" action="<?php echo base_url(); ?>masters/create_interaction_question" method="post" enctype="multipart/form-data">
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">widgets title <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 ">widgets title <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
                        <input id="widgets_title" class=" form-control" name="widgets_title" type="text" value="">
@@ -18,7 +18,7 @@
                  </div>
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Interaction question<span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Interaction question<span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <textarea name="interaction_text" id="interaction_text" class="form-control"></textarea>
@@ -26,7 +26,7 @@
                   </div>
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status">

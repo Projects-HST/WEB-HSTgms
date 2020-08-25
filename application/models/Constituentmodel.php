@@ -11,7 +11,7 @@ Class Constituentmodel extends CI_Model
 
 ####################  Constituent member ####################
 
-	function create_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$user_id){
+	function create_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id){
 		// $select="SELECT * FROM constituent where serial_no='$serial_no'";
 		// $res_select   = $this->db->query($select);
 		// if($res_select->num_rows()==0){
@@ -25,7 +25,7 @@ Class Constituentmodel extends CI_Model
 		}else{
 			$voter_no=$voter_id_no;
 		}
-		$query="INSERT INTO constituent (constituency_id,paguthi_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$user_id',NOW())";
+		$query="INSERT INTO constituent (constituency_id,paguthi_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW())";
 		$result=$this->db->query($query);
 		 $last_id=$this->db->insert_id();
 
@@ -49,7 +49,7 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-			function update_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$constituent_id){
+			function update_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id){
 				if($aadhaar_status=='N'){
 					$aadhar_id_no=' ';
 				}else{
@@ -61,7 +61,7 @@ Class Constituentmodel extends CI_Model
 					$voter_no=$voter_id_no;
 				}
 				$id=base64_decode($constituent_id)/98765;
-				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id',voter_status='$voter_status' where id='$id'";
 
 					$result=$this->db->query($update);
 					if($result){

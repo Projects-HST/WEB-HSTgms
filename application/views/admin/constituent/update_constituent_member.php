@@ -51,8 +51,8 @@
                      <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
                      <div class="col-md-4 col-sm-9 ">
                          <p>
-                           <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER" checked="" required=""> VOTER &nbsp;
-                             <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER"> NON-VOTER
+                           <input type="radio" class="flat" name="voter_status" id="voter_status_y" value="VOTER"  <?php echo ($rows->voter_status=='VOTER') ? 'checked="checked"':'';?>> VOTER &nbsp;
+                             <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER" <?php echo ($rows->voter_status=='NON-VOTER') ? 'checked="checked"':'';?>> NON-VOTER
 
                         </p>
                      </div>
@@ -136,6 +136,7 @@
 
                         </div>
                       </div>
+                      <div class="clearfix"></div>
             </div>
          </div>
 
@@ -219,7 +220,8 @@
                         </div>
 
                    </div>
-                    <div class="form-group row ">
+                   <div class="clearfix"></div>
+                    <div class="form-group row voter_section">
                          <label class="control-label col-md-2 col-sm-3 ">Voter id status</label>
                        <div class="col-md-4 col-sm-9 ">
                           <p>
@@ -233,6 +235,7 @@
                         <input type="text" name="voter_id_no" id="voter_id_no" class="form-control" value="<?php echo $rows->voter_id_no; ?>">
                        </div>
                      </div>
+                     <div class="clearfix"></div>
                      <div class="form-group row ">
                           <label class="control-label col-md-2 col-sm-3 ">aadhaar status <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-9 ">
@@ -296,6 +299,7 @@
    </div>
 </div>
 <style>
+
 .mb_20{
   margin-bottom: 20px;
 }
@@ -316,6 +320,11 @@
 <?php }
 if($rows->constituency_id=='0'){
   echo "<style>.voter_section{display:none;}.hide_part{display:none;}</style>";
+}else{
+
+}
+if($rows->voter_status=='NON-VOTER'){
+  echo "<style>.voter_section{display:none;}</style>";
 }else{
 
 }

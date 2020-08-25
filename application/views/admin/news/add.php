@@ -18,7 +18,7 @@
                <form id="myformsection" action="<?php echo base_url(); ?>news/add_news" method="post" enctype="multipart/form-data">
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Constituency <span class="required">*</span></label>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Constituency <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4 ">
                         <select class="form-control" name="constituency_id" id="constituency_id">
                        <option value="">-SELECT--</option>
@@ -29,20 +29,20 @@
                      </div>
                   </div>
 				  <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">News Date <span class="required">*</span></label>
+                     <label class="col-form-label col-md-3 col-sm-3 ">News Date <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">
 						<input type="text" class="form-control" id="news_date" name="news_date">
                      </div>
                   </div>
 				  <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">News Title <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">News Title <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-4">
                          <input type="text" name="news_title" id="news_title" class="form-control" maxlength="200">
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">News Details <span class="required">*</span></label>
+                     <label class="col-form-label col-md-3 col-sm-3 ">News Details <span class="required">*</span></label>
                      <div class="col-md-8 col-sm-8 ">
 					 <textarea name="news_details" class="form-control" rows="10" cols="80" id="news_details" placeholder="News Details" style="text-transform: uppercase;"></textarea>
 					 <script>CKEDITOR.replace( 'news_details' ); </script>
@@ -50,19 +50,19 @@
                      </div>
                   </div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align">News Picture <span class="required">*</span></label>
+						<label class="col-form-label col-md-3 col-sm-3 ">News Picture <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
 							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" ><span class="required" style="font-size:11px;font-weight:normal;">&nbsp;1400 * 800 px</span>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align">Notification</label>
+						<label class="col-form-label col-md-3 col-sm-3 ">Notification</label>
 						<div class="col-md-4 col-sm-4">
-							<label class="col-form-label label-align"><input type="radio" id="notify" name="notify" value='Y'> Yes  &nbsp;<input type="radio" id="notify" name="notify" value='N' checked> No </label>
+							<label class="col-form-label "><input type="radio" id="notify" name="notify" value='Y'> Yes  &nbsp;<input type="radio" id="notify" name="notify" value='N' checked> No </label>
 						</div>
 					</div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span></label>
+                     <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">
                         <select class="form-control" name="status">
                           <option value="ACTIVE">ACTIVE</option>

@@ -18,7 +18,7 @@
 
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_constituency" method="post" enctype="multipart/form-data">
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Constituency name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Constituency name <span class="required">*</span>
                      </label>
                      <?php foreach($res as $rows){} ?>
                      <div class="col-md-6 col-sm-6 ">

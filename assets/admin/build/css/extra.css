@@ -7,11 +7,14 @@ body{
   text-transform: uppercase;
 }
 .dash_title{
-  font-size: 13px;
+
   font-weight: 600;
   margin-top: 10px;
   margin-bottom: 15px;
   color: #000;
+}
+.fnt_15{
+  font-size: 15px;
 }
 .btn{
   font-size: 13px;
@@ -140,37 +143,48 @@ table {
 
 .badge-ACTIVE{
     color:#6aa84e !important;
+    font-weight:bold;
 }
 .badge-INACTIVE{
     color:#cb2027 !important;
+    font-weight:bold;
 }
 .badge-REQUESTED{
     color:#f47421 !important;
+    font-weight:bold;
 }
 
 .badge-SCHEDULED{
     color: #e9b320 !important;
+    font-weight:bold;
 }
 .badge-REJECTED{
     color: #ed1f24 !important;
+    font-weight:bold;
 }
 .badge-COMPLETED{
     color:#6dbe45 !important;
+    font-weight:bold;
 }
 .badge-PENDING{
     color:#fdc010 !important;
+    font-weight:bold;
 }
 .badge-PROCESSING{
     color:#9b258f !important;
+    font-weight:bold;
 }
 .badge-FAILURE{
     color: #ed1f24 !important;
+    font-weight:bold;
 }
 .badge-ONHOLD{
     color: #0095be !important;
+    font-weight:bold;
 }
 .badge-{
   color:#fdc010 !important;
+  font-weight:bold;
 }
 
 

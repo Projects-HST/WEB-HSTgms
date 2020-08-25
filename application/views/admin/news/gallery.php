@@ -3,10 +3,10 @@
 <?php   foreach($res as $res_news){} ?>
 <div  class="right_col" role="main">
    <div class="">
-   
+
       <div class="clearfix"></div>
 	<div class="row">
-	
+
       <div class="col-md-12 col-sm-12 ">
 		<?php if($this->session->flashdata('msg')): ?>
 				<div class="alert alert-success alert-dismissible " role="alert">
@@ -15,7 +15,7 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 				</div>
 			<?php endif; ?>
-			
+
          <div class="x_panel">
             <div class="x_title">
                <h2>Add Gallery</h2>
@@ -27,14 +27,14 @@
 
                <form method="post" action="<?php echo base_url(); ?>news/add_update_gallery" class="form-horizontal" enctype="multipart/form-data">
 
-                  
+
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align">Select Photos <span class="required">*</span></label>
+						<label class="col-form-label col-md-3 col-sm-3 ">Select Photos <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
 							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" multiple required><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
-                  
+
                   <div class="item form-group">
                      <div class="col-md-6 col-sm-6 offset-md-3">
 						<input type="hidden" name="news_id" value=<?php echo $res_news->id;  ?>>
@@ -48,11 +48,11 @@
 
 
 	</div>
-	
-	
-	
+
+
+
 	<div class="row">
-	
+
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
@@ -80,9 +80,9 @@
 
 
 	</div>
-	
+
 	</div>
-	
+
    </div>
 </div>
 <style>
@@ -114,7 +114,7 @@
 	$('#news_menu').addClass('active');
    $('.news_menu').css('display','block');
    $('#list_news_menu').addClass('active current-page')
-   
+
     function delgal(news_gal_id) {
         $.ajax({
             type: "POST",

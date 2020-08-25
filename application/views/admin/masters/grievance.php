@@ -12,7 +12,7 @@
 
                <form id="master_form" action="<?php echo base_url(); ?>masters/create_grievance" method="post" enctype="multipart/form-data">
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Seeker <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 ">Seeker <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
                        <select class="form-control" name="seeker_id" id="seeker_id">
@@ -24,7 +24,7 @@
                     </div>
                  </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">Grievance type name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Grievance type name <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <input id="grievance_name" class=" form-control" name="grievance_name" type="text" value="">
@@ -32,7 +32,7 @@
                   </div>
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
                      <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="status">
