@@ -1,5 +1,9 @@
 <?php $search_value = $this->session->userdata('search'); ?>
-
+<style>
+td{
+  width: 100px;
+}
+</style>
   <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -111,7 +115,7 @@
 
 
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">set reference<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">set reference<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="reference_note" class=" form-control" name="reference_note">
@@ -141,7 +145,7 @@
          <div class="modal-body">
             <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/update_grievance_status" method="post" id="update_meeting_form">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">status <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">status <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="status" name="status">
@@ -156,7 +160,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS type <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="sms_id" name="sms_id" onchange="get_sms_text(this)">
@@ -168,7 +172,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS text<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
                     <textarea id="sms_text" class=" form-control" name="sms_text" rows="5"></textarea>
@@ -199,7 +203,7 @@
             <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/reply_grievance_text" method="post" id="reply_form">
 
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS type <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
@@ -211,7 +215,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS text<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
                     <textarea id="reply_sms_text" class=" form-control" name="reply_sms_text" rows="5"></textarea>

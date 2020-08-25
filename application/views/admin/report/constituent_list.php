@@ -18,8 +18,9 @@
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>report/constituent_list" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
+         <div class="form-group row">
         <label class="col-form-label col-md-1 col-sm-3 ">Office</label>
-      <div class="col-md-2 col-sm-4">
+      <div class="col-md-3 col-sm-4">
               <select class="form-control" name="c_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                 <option value="">ALL</option>
                 <?php foreach($paguthi as $rows){ ?>
@@ -29,22 +30,28 @@
 						<script>$('#paguthi').val('<?php echo $c_paguthi; ?>');</script>
         </div>
         <label class="col-form-label col-md-1 col-sm-3 ">ward</label>
-          <div class="col-md-2 col-sm-4">
+          <div class="col-md-3 col-sm-4">
             <select class="form-control" name="ward_id" id ="ward_id" >
               <option value=""></option>
             </select>
           </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group" style="margin-top:10px;">
-              <input class="" name="c_whatsapp_no" type="checkbox" value="1" <?php if($c_whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp &nbsp;
-              <input class="" name="c_mobile_no" type="checkbox" value="1" <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Mobile No &nbsp;
-              <input class="" name="c_email_id" type="checkbox" value="1" <?php if($c_email_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; Email id &nbsp;
-            </div>
-
           </div>
-          <div class="col-md-2 col-sm-2">
-          <input class="btn btn-success" type='submit' name='submit' value='Search'>
-           <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
+
+         <div class="form-group row">
+             <label class="col-form-label col-md-1 col-sm-3 ">&nbsp;</label>
+           <div class="col-md-4 col-sm-4">
+             <div class="form-group" style="margin-top:10px;">
+               <input class="" name="c_whatsapp_no" type="checkbox" value="1" <?php if($c_whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp &nbsp;
+               <input class="" name="c_mobile_no" type="checkbox" value="1" <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Mobile No &nbsp;
+               <input class="" name="c_email_id" type="checkbox" value="1" <?php if($c_email_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; Email id &nbsp;
+             </div>
+
+           </div>
+           <div class="col-md-4 col-sm-2">
+           <input class="btn btn-success" type='submit' name='submit' value='Search'>
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
+          </div>
+
          </div>
 
 

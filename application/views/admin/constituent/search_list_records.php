@@ -135,14 +135,14 @@
          <div class="modal-body">
             <form class="form-label-left input_mask" action="" method="post" id="constituent_video_form">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Video Title <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Video Title <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
                     <input id="video_title" class=" form-control" name="video_title" type="text" value="">
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Link<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Link<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
                     <input id="video_link" class=" form-control" name="video_link" type="text" value="" style="text-transform:none;">
@@ -190,14 +190,14 @@
          <div class="modal-body">
             <form class="form-label-left input_mask" action="" method="post" id="constituent_video_form_update">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Video Title <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Video Title <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
                     <input id="update_video_title" class=" form-control" name="update_video_title" type="text" value="">
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Link<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Link<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
                     <input id="update_video_link" class=" form-control" name="update_video_link" type="text" value="" style="text-transform:none;">
@@ -229,21 +229,21 @@
          <div class="modal-body">
             <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/save_meeting_request" method="post" id="meeting_form">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting status <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="meeting_status" class=" form-control" name="meeting_status" type="text" value="REQUESTED" readonly>
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting Title <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting Title <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="meeting_title" class=" form-control" name="meeting_title" type="text">
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Requested On
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Requested On
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <!-- <input id="meeting_date" class=" form-control" name="meeting_date" type="text"> -->
@@ -251,7 +251,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting details<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting details<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
                     <textarea id="meeting_detail" class=" form-control" name="meeting_detail" rows="5"></textarea>
@@ -302,28 +302,28 @@
          <div class="modal-body">
             <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/update_meeting_request" method="post" id="update_meeting_form">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting status <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="update_meeting_status" class=" form-control" name="update_meeting_status" type="text" value="REQUESTED" readonly>
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting title <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting title <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="update_meeting_title" class=" form-control" name="update_meeting_title" type="text">
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting date <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting date <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                     <input id="update_meeting_date" class=" form-control" name="update_meeting_date" type="text">
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting details<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting details<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
                     <textarea id="update_meeting_detail" class=" form-control" name="update_meeting_detail" rows="5"></textarea>
@@ -353,7 +353,7 @@
             <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/send_reply_constituent_text" method="post" id="reply_form">
 
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS type <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
@@ -365,7 +365,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS text<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
                     <textarea id="reply_sms_text" class=" form-control" name="reply_sms_text" rows="5"></textarea>
@@ -404,7 +404,7 @@
                      <input type="radio" class="flat" name="grievance_type" id="grievance_type_e" value="E" checked="" required="">
                   </p>
                  </div>
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">constituencyt<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">constituencyt<span class="required">*</span>
                  </label>
                  <div class="col-md-4 col-sm-6 ">
                    <select class="form-control" name="constituency_id" id="constituency_id">

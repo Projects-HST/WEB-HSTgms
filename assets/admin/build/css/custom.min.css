@@ -1684,7 +1684,9 @@ body {
 select option{
   font-family: 'Josefin Sans', sans-serif;
 }
-
+select{
+  font-family: 'Josefin Sans', sans-serif;
+}
 .main_container .top_nav {
     display: block;
     margin-left: 230px

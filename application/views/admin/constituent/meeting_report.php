@@ -23,15 +23,15 @@ th{
               <?php  }  ?>
 		<form id="report_form" action="<?php echo base_url(); ?>constituent/meetings" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				 <label class="col-form-label col-md-1 col-sm-1 label-align">From </label>
+				 <label class="col-form-label col-md-1 col-sm-1 ALL">From </label>
 				 <div class="col-md-2 col-sm-2">
 						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="mr_frmDate" value="<?php echo $mr_frmDate; ?>">
 				 </div>
-				  <label class="col-form-label col-md-1 col-sm-1 label-align">To </label>
+				  <label class="col-form-label col-md-1 col-sm-1 ALL">To </label>
 				 <div class="col-md-2 col-sm-2">
 					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="mr_toDate" value="<?php echo $mr_toDate; ?>">
 				 </div>
-				 <label class="col-form-label col-md-1 col-sm-1 label-align">Full name </label>
+				 <label class="col-form-label col-md-1 col-sm-1 ALL">name </label>
          <div class="col-md-2 col-sm-4">
             <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search Full name " value="<?php echo $mr_search; ?>" />
           </div>
@@ -112,7 +112,7 @@ th{
          <div class="modal-body">
             <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/save_meeting_request_status" method="post" id="meeting_form">
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting status <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting status <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
 
@@ -127,7 +127,7 @@ th{
 
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Send SMS
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Send SMS
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <input type="hidden" class="form-control"  id="meeting_id" name="meeting_id">
@@ -138,7 +138,7 @@ th{
               </div>
 
 							<div class="item form-group meet_date">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting Date<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">Meeting Date<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
 									 <input type="text" class="form-control"  id="meeting_date" name="meeting_date">
@@ -146,7 +146,7 @@ th{
               </div>
 
               <div class="item form-group show_sms">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS type <span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS type <span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
@@ -158,7 +158,7 @@ th{
                  </div>
               </div>
               <div class="item form-group show_sms">
-                 <label class="col-form-label col-md-3 col-sm-3 label-align">SMS text<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">SMS text<span class="required">*</span>
                  </label>
                  <div class="col-md-9 col-sm-9 ">
                     <textarea id="reply_sms_text" class=" form-control" name="reply_sms_text" rows="5"></textarea>
