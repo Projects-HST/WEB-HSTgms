@@ -105,14 +105,16 @@
           echo "No Banner Found";
         }else{
           foreach($res as $rows){ ?>
-          <div class="col-lg-3" style="margin-bottom:25px;">
+          <div class="col-lg-4" style="margin-bottom:25px;">
           <div id="thumbnail">
-            <img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:225px;height:129px;">
+            <img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:300px;height:129px;">
               <a id="edit" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" data-toggle="tooltip" title="EDIT" style="cursor:pointer"><i class="fa fa-edit" style="font-size:20px;"></i></a>
             <a id="close" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"></a>
 
             </a>
           </div>
+            <p class="text-center"><a href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" class="badge-<?= $rows->status ?> "><?= $rows->status ?></a></p>
+
         </div>
         <?php
           }
@@ -143,8 +145,8 @@
            position: absolute;
            width: 25px;
            height: 25px;
-           top: -10px;
-           left: 250px;
+           top: 15px;
+           left: 300px;
            background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
            background-size: 100% 100%;
            background-repeat: no-repeat;
@@ -155,7 +157,7 @@
            width: 25px;
            height: 25px;
            top: -10px;
-           left: 225px;
+           left: 300px;
            /* background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
            background-size: 100% 100%;
            background-repeat: no-repeat; */

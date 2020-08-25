@@ -1,3 +1,8 @@
+<style>
+th{
+  width:250px;
+}
+</style>
 <div class="right_col" role="main" style="min-height: 907px;">
    <div class="">
       <div class="page-title">
@@ -31,7 +36,7 @@
                      </div>
                      <h4 style="text-align:left;margin-top:15px;"><?php echo $rows->full_name; ?></h4>
                      <ul class="list-unstyled user_data">
-                       <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
+                       <li style="  word-wrap: break-word;"><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
                        <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->pin_code; ?></li>
 
 
@@ -70,7 +75,7 @@
                     </div>
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                           <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="" aria-selected="false">Meeting and plant</a></li>
+                           <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="" aria-selected="false">Meeting</a></li>
                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance details</a></li>
                            <!-- <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false" class="active" aria-selected="true">Meeting and plant</a></li> -->
                         </ul>
@@ -106,7 +111,7 @@
                                       <th>Meeting details</th>
 									   <th>Meeting date</th>
                                       <th>status</th>
-                                      <th>updated at</th>
+                                      <th>updated</th>
 
                                    </tr>
                                 </thead>
@@ -118,7 +123,7 @@
 									  <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
                                       <td><?php echo $rows_meeting->meeting_status; ?></td>
 
-                                     <td><?php echo date('d-m-Y H:i:s', strtotime($rows_meeting->updated_at)); ?></td>
+                                     <td><?php echo date('d-m-Y', strtotime($rows_meeting->updated_at)); ?></td>
 
                                       </tr>
                                 <?php $i++; } ?>
