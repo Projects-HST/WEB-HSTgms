@@ -121,7 +121,7 @@ th{
                                       <td><?php echo $i; ?></td>
                                       <td><?php echo $rows_meeting->meeting_detail; ?></td>
 									  <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
-                                      <td><?php echo $rows_meeting->meeting_status; ?></td>
+                                      <td class="badge-<?php echo $rows_meeting->meeting_status; ?>"><?php echo $rows_meeting->meeting_status; ?></td>
 
                                      <td><?php echo date('d-m-Y', strtotime($rows_meeting->updated_at)); ?></td>
 
@@ -156,8 +156,8 @@ th{
                                       <td><?php echo $rows_grievance->sub_category_name; ?></td>
                                       <td><?php echo $rows_grievance->petition_enquiry_no; ?></td>
                                       <td><?php echo $status= $rows_grievance->reference_note; ?></td>
-                                      <td><?php echo $status= $rows_grievance->status; ?></td>
-									   <td><?php echo date('d-m-Y H:i:s', strtotime($rows_grievance->updated_at)); ?></td>
+                                      <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $status= $rows_grievance->status; ?></td>
+									   <td><?php echo date('d-m-Y', strtotime($rows_grievance->updated_at)); ?></td>
 
 
                                       </tr>
