@@ -1681,6 +1681,9 @@ body {
 
     line-height: 1.471
 }
+select option{
+  font-family: 'Josefin Sans', sans-serif;
+}
 
 .main_container .top_nav {
     display: block;

@@ -163,7 +163,9 @@ Class Dashboardmodel extends CI_Model
 
 			$query_3="SELECT IFNULL(count(*),'0') as total,
 						IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0')  AS meeting_request_count,
-            IFNULL(IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage
+            IFNULL(IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage,
+						IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0')  AS meeting_complete_count,
+						IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
 						FROM meeting_request as mr
             left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_mr_date";
 			$res_3=$this->db->query($query_3);
@@ -178,12 +180,16 @@ Class Dashboardmodel extends CI_Model
 
 		 	$query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name FROM constituent_video as cv
 			left join constituent as c on c.id=cv.constituent_id
-			LEFT JOIN paguthi as p on p.id=c.paguthi_id $quer_paguthi_cons GROUP by c.paguthi_id  
+			LEFT JOIN paguthi as p on p.id=c.paguthi_id $quer_paguthi_cons GROUP by c.paguthi_id
 			ORDER BY cnt_video DESC LIMIT 2";
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();
 
-			$data = array('seeker_list' => $result_1,'gr_list'=> $result_2,'mr_list'=>$result_3,'br_list'=>$result_4,'cv_list'=>$result_5);
+			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw";
+			$res_6=$this->db->query($query_6);
+			$result_6=$res_6->result();
+
+			$data = array('seeker_list' => $result_1,'gr_list'=> $result_2,'mr_list'=>$result_3,'br_list'=>$result_4,'cv_list'=>$result_5,'fw_list'=>$result_6);
 			return $data;
 
 	}
@@ -224,7 +230,7 @@ Class Dashboardmodel extends CI_Model
 		sum(case when g.repeated_status = 'R' then 1 else 0 end) AS repeat_count
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_date";
-	
+
 		$res=$this->db->query($query);
 		return $result=$res->result();
 	}

@@ -44,8 +44,21 @@ class Dashboard extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
-			$search_text=$this->input->post('keyword');
-			$data['keyword']=$search_text;
+			$search_text='';
+			if($this->input->post('submit') != NULL ){
+				$search_text=$this->input->post('d_keyword');
+				$status_session_array=$this->session->set_userdata(array(
+					"d_keyword"=>$search_text
+				));
+			}else{
+				if($this->session->userdata('d_keyword') != NULL){
+				$search_text = $this->session->userdata('d_keyword');
+				}
+			}
+			// echo $search_text;
+			// exit;
+			$data['d_keyword']=$search_text;
+
 			$rowperpage = 25;
 
 			// Row position
@@ -95,7 +108,7 @@ class Dashboard extends CI_Controller {
 			$data['result'] = $users_record;
 			$data['total_records'] = $allcount;
 			$data['row'] = $rowno;
-			$data['search'] = $search_text;
+
 
 			$this->load->view('admin/header');
 			$this->load->view('admin/dashboard/search_result',$data);

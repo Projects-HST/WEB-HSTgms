@@ -1,46 +1,6 @@
 <style type="text/css">
 
-.pagination-first-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-}
 
-.pagination-last-tag{
-	border:1px solid #eeeeee;
-	padding:10px;
-	background:#31aa15;
-
-}
-.pagination-next-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-}
-
-.pagination-prev-tag{
-	padding:10px;
-	border:1px solid #eeeeee;
-	background:#31aa15;
-
-}
-
-.pagination-current-tag{
-	color:#000000;
-	font-weight:bold;
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-number{
-	padding:10px;
-	border:1px solid #eeeeee;
-}
-
-.pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-	color:#ffffff;
-
-}
 	</style>
   <div  class="right_col" role="main">
    <div class="">
@@ -48,9 +8,10 @@
 		<div class="title_left" style="padding-top:70px;">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number" value="<?php echo $keyword;?>">
+				<input type="text" class="form-control" name="d_keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number" value="<?php echo $d_keyword;?>">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit" style="padding:12px;">Go!</button>
+					<input type="submit" class="btn btn-default" name="submit"  style="padding: 15px 10px 13px 10px;background-color: #31aa15;
+    color: #fff;    font-weight: 600;" value="Go!">
 				</span>
 			</div>
 			</div>
@@ -58,7 +19,7 @@
 		</form>
 
 		<div class="clearfix"></div>
-		
+
 
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
@@ -89,19 +50,19 @@
                   </tr>
                </thead>
                <tbody>
-                  <?php $i=1; foreach($result as $rows){ ?>
+                  <?php $i=$row+1; foreach($result as $rows){ ?>
                   <tr>
                      <td><?php echo $i; ?></td>
                      <td><?php echo $rows['full_name']; ?></td>
-					 <td><?php echo $rows['paguthi_name']; ?></td>
-					 <td><?php echo $rows['serial_no'] ;?></td>
+										 <td><?php echo $rows['paguthi_name']; ?></td>
+										 <td><?php echo $rows['serial_no'] ;?></td>
                      <td><?php echo $rows['mobile_no'] ;?></td>
                      <td><?php echo $rows['voter_id_no'] ;?></td>
                      <td><?php echo $rows['aadhaar_no'] ;?></td>
                      <td><?php if($rows['status']=='ACTIVE'){ ?>
-                        <span class="badge badge-success">Active</span>
+                        <span class="badge-<?= $rows['status'] ?>">Active</span>
                         <?php  }else{ ?>
-                        <span class="badge badge-danger">Inactive</span>
+                        <span class="badge-<?= $rows['status'] ?>">Inactive</span>
                         <?php   } ?>
                      </td>
                   </tr>

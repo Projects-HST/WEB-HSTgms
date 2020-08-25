@@ -1222,36 +1222,33 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_festival']=$this->mastermodel->get_active_festival();
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
-			// Search text
-			if($this->input->post('religion_id')){
-					setcookie('religion_id',$this->input->post('religion_id'));
-					$religion_id = $this->input->post('religion_id');
-			}elseif($this->input->cookie('religion_id')){
-					$religion_id = $this->input->cookie('religion_id', true);
-			}else{
-					$religion_id = "";
-			}
-			if($this->input->post('paguthi')){
-					setcookie('paguthi',$this->input->post('paguthi'));
-					$paguthi = $this->input->post('paguthi');
-			}elseif($this->input->cookie('paguthi')){
-					$paguthi = $this->input->cookie('paguthi', true);
-			}else{
-					$paguthi = "";
-			}
 
-			if($this->input->post('ward_id')){
-					setcookie('ward_id',$this->input->post('ward_id'));
-					$ward_id = $this->input->post('ward_id');
-			}elseif($this->input->cookie('ward_id')){
-					$ward_id = $this->input->cookie('ward_id', true);
-			}else{
-					$ward_id = "";
-			}
+			 $religion_id="";
+	 		 $paguthi="";
+	 		 $ward_id="";
+	 		 if($this->input->post('submit') != NULL ){
+	 			 $religion_id=$this->input->post('cf_religion_id');
+	 			 $paguthi=$this->input->post('cf_paguthi');
+	 			 $ward_id=$this->input->post('cf_ward_id');
+	 			 $status_session_array=$this->session->set_userdata(array(
+	 				 "cf_religion_id"=>$religion_id,
+	 				 "cf_paguthi"=>$paguthi,
+	 				 "cf_ward_id"=>$ward_id
+	 			 ));
+	 		 }else{
+	 			 if($this->session->userdata('cf_religion_id') != NULL){
+	 			 $religion_id = $this->session->userdata('cf_religion_id');
+	 			 }
+	 			 if($this->session->userdata('cf_paguthi') != NULL){
+	 			$paguthi = $this->session->userdata('cf_paguthi');
+	 			}
+	 			if($this->session->userdata('cf_ward_id') != NULL){
+	 		 		$ward_id = $this->session->userdata('cf_ward_id');
+	 		 	}
 
-
-				$data['festival_id']=$religion_id;
-				$data['paguthi_id']=$paguthi;
+	 		 }
+			 $data['cf_religion_id']=$religion_id;
+			 $data['cf_paguthi']=$paguthi;
 			// Row per page
 			$rowperpage = 25;
 
@@ -1328,6 +1325,8 @@ public function meetings($rowno=0)
 		$user_type=$this->session->userdata('user_type');
 
 		$this->session->unset_userdata('search');
+		$this->session->unset_userdata('paguthi');
+		$this->session->unset_userdata('religion_id');
 		redirect(base_url()."constituent/festival_wishes");
 	}
 

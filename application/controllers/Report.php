@@ -1144,7 +1144,7 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
-		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id','l_paguthi','l_ward_id','l_frmDate','l_toDate','mr_frmDate','mr_toDate','mr_search','a_search','e_search','p_search');
+		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id','l_paguthi','l_ward_id','l_frmDate','l_toDate','mr_frmDate','mr_toDate','mr_search','a_search','e_search','p_search','cf_religion_id','cf_paguthi','cf_ward_id');
 		$this->session->unset_userdata($array_items);
 		redirect($_SERVER['HTTP_REFERER']);
 	}

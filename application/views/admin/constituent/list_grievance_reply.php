@@ -32,7 +32,7 @@ th{
               </tr>
            </thead>
            <tbody>
-             <?php $i=1; foreach($res as $rows){ ?>
+             <?php $i=$row+1; foreach($res as $rows){ ?>
                <tr>
                  <td><?php echo $i; ?></td>
                  <td><?php echo $rows['full_name']; ?></td>

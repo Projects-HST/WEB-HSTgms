@@ -19,31 +19,32 @@
 			 <form method='post' action="<?= base_url() ?>constituent/festival_wishes" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
 			   <div class="col-md-2 col-sm-4">
-          <select class="form-control" name="religion_id" id="religion_id">
+          <select class="form-control" name="cf_religion_id" id="religion_id">
             <option value="">--Select--</option>
             <?php foreach($res_festival as $rows_festival){ ?>
               <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
           <?php  } ?>
           </select>
-          <script>$('#religion_id').val('<?php echo $festival_id; ?>')</script>
+          <script>$('#religion_id').val('<?php echo $cf_religion_id; ?>')</script>
         </div>
       <div class="col-md-2 col-sm-4">
-              <select class="form-control" name="paguthi" id ="paguthi" onchange="get_paguthi(this);">
+              <select class="form-control" name="cf_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                 <option value="">ALL</option>
                 <?php foreach($paguthi as $rows){ ?>
                 <option value="<?php echo $rows->id;?>"><?php echo $rows->paguthi_name;?></option>
                 <?php } ?>
               </select>
-							<script>$('#paguthi').val('<?php echo $paguthi_id; ?>')</script>
+							<script>$('#paguthi').val('<?php echo $cf_paguthi; ?>')</script>
         </div>
           <div class="col-md-2 col-sm-4">
-            <select class="form-control" name="ward_id" id ="ward_id" >
+            <select class="form-control" name="cf_ward_id" id ="ward_id" >
               <option value=""></option>
             </select>
           </div>
-				  <div class="col-md-3 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
+				  <div class="col-md-3 col-sm-2">
+            <input class="btn btn-success" type='submit' name='submit' value='Search'>
 
-						<a href="<?php echo base_url(). "constituent/reset_search"; ?>" class="btn btn-danger">Clear All</a>
+						<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear All</a>
 
 				  </div>
 				  <div class="col-md-3 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>

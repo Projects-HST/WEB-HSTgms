@@ -6,25 +6,26 @@
 </style>
 <div class="right_col" role="main" style="min-height: 1284px;">
 
-	<div class="row">
-		<div class="col-3">
+	<div class="col-md-12">
+		<div class="col-md-3">
 			<p class="dash_title fnt_15" >Welcome !</p>
-
 		</div>
-		<div class="col-6">
+		<div class="col-md-6">
 		</div>
-		<div class="col-3">
+		<div class="col-md-3">
 				<p class="dash_title text-right"><?php   date_default_timezone_set("Asia/Calcutta");
 				echo date('d-F-Y | h:i:s'); ?> </p>
 		</div>
 	</div>
+
 	<form id="search_form" action="<?php echo base_url(); ?>dashboard/searchresult" method="post" enctype="multipart/form-data">
 		<div class="title_left">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number" required>
+				<input type="text" class="form-control" name="d_keyword" id="keyword" placeholder="Search for Name,Phone number,Voter ID,Aadhaar Card number" required>
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit" style="padding: 15px 10px 13px 10px;">Go</button>
+					<input class="btn btn-default" type="submit" name="submit" style="padding: 15px 10px 13px 10px;background-color: #31aa15;
+    color: #fff;    font-weight: 600;" value="GO!">
 				</span>
 			</div>
 			</div>
@@ -90,44 +91,44 @@
 			<div class="row" style="height:440px;">
 				<div class="col-12">
 					<div class="label_box">
-							<div class="c_widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</div>
+							<div class="c_widget_label">Total Male (<?= round($rows_cons->malepercenatge,2); ?>%)</div>
 							<div class="c_widget_value"><?= $rows_cons->malecount; ?></div>
 					</div>
 
 					<div class="label_box">
-						<div class="c_widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</div>
+						<div class="c_widget_label">Total Female (<?= round($rows_cons->femalepercenatge,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->femalecount; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</div>
+						<div class="c_widget_label">Total Others (<?= round($rows_cons->otherpercenatge,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->others; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</div>
+						<div class="c_widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->malevoter; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</div>
+						<div class="c_widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->femalevoter; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</div>
+						<div class="c_widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->maleaadhar; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</div>
+						<div class="c_widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->femaleaadhar; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</div>
+						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->having_mobilenumber; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</div>
+						<div class="c_widget_label">Having Email id (<?= round($rows_cons->email_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->having_email; ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</div>
+						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= $rows_cons->having_whatsapp; ?></div>
 					</div>
 				</div>
@@ -176,7 +177,7 @@
 					<hr>
 					<div class="row">
 				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
-							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100); ?>%)</p></div>
+							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100,2); ?>%)</p></div>
 							<div class="col-3"><p class="widget_label widget_value"> <?php echo  $row_grievenace->total; ?></p></div>
 
 						<?php } ?>
@@ -202,9 +203,9 @@
 					<div class="row">
 
 							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
-						<div class="col-9"><p class="widget_label">New Footfall (<?php echo round($row_gr_list->unique_count_percentage); ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">New Footfall (<?php echo round($row_gr_list->unique_count_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?php echo $row_gr_list->unique_count; ?></p></div>
-						<div class="col-9"><p class="widget_label">Repeat Footfall (<?php echo round($row_gr_list->repeat_count_percentage); ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Repeat Footfall (<?php echo round($row_gr_list->repeat_count_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?php echo $row_gr_list->repeat_count; ?></p></div>
 					<?php } ?>
 					</div>
@@ -230,8 +231,10 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">meeting request (<?= round($row_mr_list->mr_percentage); ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">meeting request (<?= round($row_mr_list->mr_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= $row_mr_list->meeting_request_count; ?></p></div>
+						<div class="col-9"><p class="widget_label">meeting completed (<?= round($row_mr_list->mc_percentage,2); ?>%)</p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= $row_mr_list->meeting_complete_count; ?></p></div>
 
 					</div>
 				</div>
@@ -251,9 +254,9 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage);?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage,2);?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->no_of_cons; ?></p></div>
-						<div class="col-9"><p class="widget_label">Non constituent (<?= round($rows_cons->no_of_noncons_percentage); ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Non constituent (<?= round($rows_cons->no_of_noncons_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->no_of_noncons; ?></p></div>
 					</div>
 				</div>
@@ -265,6 +268,7 @@
 		<div class="row mb_30">
 
 			<?php  foreach($grievance_report['br_list'] as $row_br_list){} ?>
+				<?php  foreach($grievance_report['fw_list'] as $row_fw_list){} ?>
 			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
@@ -283,6 +287,8 @@
 
 						<div class="col-9"><p class="widget_label">Birthday </p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= $row_br_list->birth_wish_count; ?></p></div>
+						<div class="col-9"><p class="widget_label">festival </p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= $row_fw_list->total; ?></p></div>
 
 					</div>
 				</div>
