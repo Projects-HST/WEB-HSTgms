@@ -10,7 +10,7 @@ body{
   font-size: 13px;
   font-weight: 600;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: #000;
 }
 .btn{
@@ -21,12 +21,16 @@ body{
 }
 th{
   font-size: 14px;
+  text-align: left;
 }
 td{
   font-size: 13px;
+  text-align: left;
+  color: #495057 ;
 }
 .fa{
   font-size: 16px;
+  color: #343a40;
 }
 input {text-transform: uppercase;}
 textarea {text-transform: uppercase;}
@@ -61,7 +65,10 @@ h4{
 .col-form-label{
   font-size: 13px;
   font-weight: 500;
+  color: #343a40;
 }
+option{font-size:15px;}
+
 a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
   color: #fff !important;
 }
@@ -130,10 +137,53 @@ table {
     background-color: #cb2027;
     color:#fff;
 }
-.badge-add{
-  background-color: #4696d1;
-  color:#fff !important;
+
+.badge-ACTIVE{
+    color:#6aa84e !important;
 }
+.badge-INACTIVE{
+    color:#cb2027 !important;
+}
+.badge-REQUESTED{
+    color:#f47421 !important;
+}
+
+.badge-SCHEDULED{
+    color: #e9b320 !important;
+}
+.badge-REJECTED{
+    color: #ed1f24 !important;
+}
+.badge-COMPLETED{
+    color:#6dbe45 !important;
+}
+.badge-PENDING{
+    color:#fdc010 !important;
+}
+.badge-PROCESSING{
+    color:#9b258f !important;
+}
+.badge-FAILURE{
+    color: #ed1f24 !important;
+}
+.badge-ONHOLD{
+    color: #0095be !important;
+}
+.badge-{
+  color:#fdc010 !important;
+}
+
+
+.badge-meeting{
+  color:#85cbd3 !important;
+}
+.badge-grievance{
+  color:#cb2027 !important;
+}
+.badge-reference{
+  color: #2573ba !important;
+}
+
 .badge-view{
   background-color: #fdbb34;
   color:#fff !important;
@@ -142,18 +192,8 @@ table {
   background-color:#efad4d;
   color:#fff !important;
 }
-.badge-reference{
-  background-color:#807f7f;
-  color:#fff !important;
-}
-.badge-processing{
-  background-color:#f49025;
-  color:#fff !important;
-}
-.badge-completed{
-  background-color:#6aa84e;
-  color:#fff !important;
-}
+
+
 hr{
   background-color:#fff;
 }

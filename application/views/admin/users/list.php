@@ -9,7 +9,7 @@
             </div>
             <div class="x_content">
 			<div class="col-md-12 col-sm-12 ">
-			
+
 			<?php if($this->session->flashdata('msg')): ?>
 				<div class="alert alert-success alert-dismissible " role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -17,7 +17,7 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 				</div>
 			<?php endif; ?>
-             
+
           <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
@@ -38,9 +38,9 @@
 					 <td><?php echo $rows->email_id; ?></td>
 					 <td><?php echo $rows->paguthi_name; ?></td>
                     <td><?php if($rows->status=='ACTIVE'){ ?>
-                            <span class="badge badge-success">ACTIVE</span>
+                            <span class="badge-<?= $rows->status ?>">ACTIVE</span>
                             <?php  }else{ ?>
-                              <span class="badge badge-danger">INACTIVE</span>
+                              <span class="badge-<?= $rows->status ?> ">INACTIVE</span>
                             <?php   } ?>
                     </td>
                     <td><a href="<?php echo base_url(); ?>users/edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
@@ -59,7 +59,7 @@
       </div>
 
 
-        
+
    </div>
 </div>
 <script type="text/javascript">

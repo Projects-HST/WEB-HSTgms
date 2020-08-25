@@ -62,7 +62,7 @@ th{
           <label class="col-form-label col-md-1 col-sm-2 ">&nbsp;</label>
         <div class="col-md-3 col-sm-2">
           <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
-          <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
+          <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
         </div>
 
        </div>
@@ -101,13 +101,10 @@ th{
                     <td><?php echo $rows['meeting_detail']; ?></td>
 
                     <?php
-                    $meeting_status = $rows['meeting_status'];
-                    if ($meeting_status == 'REQUESTED'){ ?>
-                    <td style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $meeting_status; ?></td>
-                    <!--<td><a href="<?php echo base_url(); ?>report/meeting_update/<?php echo base64_encode($rows['id']*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows['meeting_status']; ?></a></td>-->
-                    <?php } else { ?>
-                    <td style="font-size:13px;font-weight:bold;color:#1fae03;"><?php  echo $meeting_status; ?></td>
-                    <?php } ?>
+                    $meeting_status = $rows['meeting_status']; ?>
+
+                    <td class="badge-<?= $meeting_status ?>"><?php  echo $meeting_status; ?></td>
+
 
                     <td><?php  echo $rows['created_by']; ?></td>
                     <td><?php  echo  date("d-m-Y", strtotime($rows['created_at']) ); ?></td>

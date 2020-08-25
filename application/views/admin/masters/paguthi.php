@@ -59,27 +59,27 @@
           <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr style="text-align:center;">
-                   <th style="width:7%;">S.no</th>
-                   <th style="width:40%;">paguthi</th>
-                   <th style="width:23%;">short name</th>
-                   <th style="width:15%;">status</th>
-                   <th style="width:15%;">Action</th>
+                   <th>S.no</th>
+                   <th>paguthi</th>
+                   <th>short name</th>
+                   <th>status</th>
+                   <th>Action</th>
 
                 </tr>
              </thead>
              <tbody>
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
-                    <td style="text-align:center"><?php echo $i; ?></td>
+                    <td><?php echo $i; ?></td>
                     <td><?php echo $rows->paguthi_name; ?></td>
                     <td><?php echo $rows->paguthi_short_name ;?></td>
                     <td><?php if($rows->status=='ACTIVE'){ ?>
-					<span class="active_txt">Active</span>
+					<span class="badge-<?= $rows->status ?>">Active</span>
 						<?php  }else{ ?>
-					<span class="inactive_text">Inactive</span>
+					<span class="badge-<?= $rows->status ?>">Inactive</span>
 						<?php   } ?>
                     </td>
-                    <td style="text-align:center"><a title="EDIT" href="<?php echo base_url(); ?>masters/get_paguthi_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
+                    <td><a title="EDIT" href="<?php echo base_url(); ?>masters/get_paguthi_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
 
 
                  </tr>

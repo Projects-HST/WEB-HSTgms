@@ -39,7 +39,7 @@
           </div>
           <div class="col-md-3 col-sm-2">
             <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
-            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
           </div>
 
          </div>
@@ -78,7 +78,7 @@
                     <td><?php echo $rows['full_name']; ?></td>
                     <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo $rows['grievance_name']; ?></td>
-                    <td><?php  echo $rows['status']; ?></td>
+                    <td class="badge-<?= $rows['status'] ?>"><?php  echo $rows['status']; ?></td>
                     <td><?php  echo $rows['created_by']; ?></td>
                  </tr>
                  <?php $i++; } ?>

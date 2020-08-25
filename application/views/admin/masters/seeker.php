@@ -68,9 +68,9 @@
                     <td><?php echo $rows->seeker_info; ?></td>
 
                     <td><?php if($rows->status=='ACTIVE'){ ?>
-                            <span class="badge badge-success">Active</span>
+                            <span class="badge-<?= $rows->status ?>">Active</span>
                             <?php  }else{ ?>
-                              <span class="badge badge-danger">Inactive</span>
+                              <span class="badge-<?= $rows->status ?>">Inactive</span>
                             <?php   } ?>
                     </td>
                     <td><a title="EDIT" href="<?php echo base_url(); ?>masters/get_seeker_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>

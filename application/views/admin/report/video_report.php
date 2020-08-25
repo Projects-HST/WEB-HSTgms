@@ -37,7 +37,7 @@
           </div>
           <div class="col-md-3 col-sm-2">
             <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
-            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">Reset</a>
+            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
           </div>
 
          </div>

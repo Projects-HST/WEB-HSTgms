@@ -78,7 +78,7 @@
 				echo "<td>".$data['full_name']."</td>";
 				echo "<td>".$data['mobile_no']."</td>";
 				echo "<td>".$paguthi_name."</td>";
-				echo '<td><a title="VIEW " class="badge badge-add handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
+				echo '<td><a title="VIEW " class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
 				// if ($int_status == "Y"){
 				// 	echo '<td><a class="badge badge-view" href="'.base_url().'constituent/get_interaction_response_edit/'. base64_encode($const_id*98765).'" title="INTERACTION VIEW">VIEW</i></a></td>';
 				// } else {
@@ -89,7 +89,7 @@
 				// } else {
 				// 	echo '<td><a class="badge badge-add handle_symbol" onclick="add_plant_donation('.$const_id.')">ADD</i></a></td>';
 				// }
-				echo '<td><a  class="badge badge-add handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
+				echo '<td><a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
 				echo '<td>	<a title="EDIT" id="EDIT" href="'. base_url().'constituent/get_constituent_member_edit/'.base64_encode($const_id*98765).'"><i class="fa fa-edit"></i></a>&nbsp;
 							<a title="DOCUMENTS" href="'.base_url().'constituent/get_list_document/'.base64_encode($const_id*98765).'"><i class="fa fa-file-word-o"></i></a>&nbsp;
 							<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;

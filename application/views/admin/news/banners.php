@@ -1,6 +1,6 @@
 <div  class="right_col" role="main">
    <div class="">
-   
+
     <div class="clearfix"></div>
 	<div class="row">
       <div class="col-md-12 col-sm-12 ">
@@ -48,8 +48,8 @@
          </div>
       </div>
 	</div>
-	
-	
+
+
 	<div class="clearfix"></div>
 	<div class="row">
       <div class="col-md-12 col-sm-12 ">
@@ -59,7 +59,7 @@
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
-			
+
               <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>
@@ -76,9 +76,9 @@
                     <td><?php echo $i; ?></td>
                     <td><img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:200px;height:114px;">
                     <td><?php if($rows->status=='ACTIVE'){ ?>
-						<span class="badge badge-success">Active</span>
+						<span class="badge-<?= $rows->status ?>">Active</span>
 						<?php  }else{ ?>
-						  <span class="badge badge-danger">Inactive</span>
+						  <span class="badge-<?= $rows->status ?>">Inactive</span>
 						<?php   } ?>
                     </td>
                 <td><a title="EDIT BANNER" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit" style="font-size:20px;"></i></a>&nbsp;&nbsp;<a title="DELETE BANNER" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"  style="font-size:20px;"></i></a></td>
@@ -98,7 +98,7 @@
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');
-	
+
 	$('#banners').validate({
 		rules: {
 			banner_image:{required:true,accept: "jpg,jpeg,png",filesize: 1048576},

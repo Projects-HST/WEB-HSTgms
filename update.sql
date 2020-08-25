@@ -28,3 +28,14 @@ CREATE TABLE `festival_wishes` (
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE `constituent_video` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `constituent_id` int(11) NOT NULL,
+  `video_title` varchar(40) NOT NULL,
+  `video_link` text NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

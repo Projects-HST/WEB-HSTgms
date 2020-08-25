@@ -54,11 +54,11 @@
                              <td><?php echo $rows['sub_category_name']; ?></td>
                              <td><?php echo $rows['petition_enquiry_no']; ?></td>
                              <td><?php if(empty($rows['reference_note'])){ ?>
-                               <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')">Set reference</a>
+                               <a class="badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')">Set reference</a>
                             <?php }else{ ?>
-                              <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')"><?php echo $rows['reference_note']; ?></a>
+                              <a class="badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')"><?php echo $rows['reference_note']; ?></a>
                             <?php } ?></td>
-                             <td><?php $status= $rows['status'];
+                             <!-- <td><?php $status= $rows['status'];
                                  if($status=='COMPLETED'){ ?>
                                    <a class="badge badge-completed handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')">COMPLETED</a>
                                <?php  }else if($status=='ONHOLD'){ ?>
@@ -66,7 +66,10 @@
                                  <?php }else{ ?>
                                    <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')"><?php echo $status; ?></a>
                                  <?php  }
-                              ?></td>
+                              ?></td> -->
+                              <td><?php $status= $rows['status'];  ?>
+                                <a class="badge-<?= $status ?> handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')"><?php echo $status; ?></a>
+                              </td>
                              <td><?php echo date('d-m-Y H:i:s', strtotime($rows['updated_at'])); ?></td>
                              <td>
                                <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
