@@ -21,13 +21,13 @@
                      <label class="col-form-label col-md-3 col-sm-3 ">Constituency name <span class="required">*</span>
                      </label>
                      <?php foreach($res as $rows){} ?>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <input id="constituency_name" class="date-picker form-control" name="constituency_name" type="text" value="<?php echo $rows->constituency_name; ?>">
                      </div>
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Update</button>
                      </div>
                   </div>

@@ -14,7 +14,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">sub category name <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <input id="grievance_name" class=" form-control" name="sub_category_name" type="text" value="<?php echo $rows->sub_category_name;  ?>">
                         <input id="sub_category_id" class="form-control" name="sub_category_id" type="hidden" value="<?php echo $this->uri->segment(3); ?>">
                         <input id="grievance_id" class="form-control" name="grievance_id" type="hidden" value="<?php echo base64_encode($rows->grievance_id*98765); ?>">
@@ -24,7 +24,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <select class="form-control" name="status">
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
@@ -34,7 +34,7 @@
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Update </button>
                      </div>
                   </div>

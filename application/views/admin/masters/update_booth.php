@@ -15,7 +15,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">booth name <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <input id="booth_name" class=" form-control" name="booth_name" type="text" value="<?php echo $rows->booth_name; ?>">
                         <input id="ward_id" class=" form-control" name="ward_id" type="hidden" value="<?php echo base64_encode($rows->ward_id*98765); ?>">
                           <input id="booth_id" class=" form-control" name="booth_id" type="hidden" value="<?php echo base64_encode($rows->id*98765); ?>">
@@ -24,7 +24,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">booth address <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <textarea name="booth_address" id="booth_address" class="form-control"><?php echo $rows->booth_address; ?></textarea>
                      </div>
                   </div>
@@ -32,7 +32,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <select class="form-control" name="status" id="status">
                           <option value="ACTIVE">ACTIVE</option>
                             <option value="INACTIVE">INACTIVE</option>
@@ -42,7 +42,7 @@
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Update</button>
                      </div>
                   </div>

@@ -190,12 +190,15 @@ table {
 
 .badge-meeting{
   color:#85cbd3 !important;
+  font-weight:bold;
 }
 .badge-grievance{
   color:#cb2027 !important;
+  font-weight:bold;
 }
 .badge-reference{
   color: #2573ba !important;
+  font-weight:bold;
 }
 
 .badge-view{

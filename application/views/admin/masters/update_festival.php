@@ -14,7 +14,7 @@
                  <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 ">religion name <span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 ">
+                    <div class="col-md-4 col-sm-6 ">
                        <select class="form-control" name="religion_id" id="religion_id">
                           <?php foreach($res_religion as $rows_religion){ ?>
                           <option value="<?php echo $rows_religion->id; ?>"><?php echo $rows_religion->religion_name; ?></option>
@@ -26,7 +26,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">Festival name <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                        <input type="hidden" name="fm_id" value="<?php echo $rows->id; ?>">
                         <input id="festival_name" class=" form-control" name="festival_name" type="text" value="<?php echo $rows->festival_name;  ?>">
                      </div>
@@ -35,7 +35,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <select class="form-control" name="status">
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
@@ -45,7 +45,7 @@
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Update</button>
                      </div>
                   </div>

@@ -12,7 +12,7 @@
                  <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 ">SMS type <span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 ">
+                    <div class="col-md-4 col-sm-6 ">
                        <select class="form-control" name="template_type" id="template_type">
                          <option value="GENERAL">GENERAL</option>
                          <option value="REPLY">REPLY</option>
@@ -22,7 +22,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">sms title <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <input id="sms_title" class=" form-control" name="sms_title" type="text" value="">
 
                      </div>
@@ -30,7 +30,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">sms text  <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <textarea name="sms_text" id="sms_text" class="form-control"></textarea>
                      </div>
                   </div>
@@ -38,7 +38,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <select class="form-control" name="status">
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
@@ -47,7 +47,7 @@
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Create</button>
                      </div>
                   </div>

@@ -12,7 +12,7 @@
                  <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 ">widgets title <span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 ">
+                    <div class="col-md-4 col-sm-6 ">
                        <input id="widgets_title" class=" form-control" name="widgets_title" type="text" value="">
                     </div>
                  </div>
@@ -20,7 +20,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">Interaction question<span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <textarea name="interaction_text" id="interaction_text" class="form-control"></textarea>
                      </div>
                   </div>
@@ -28,7 +28,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <select class="form-control" name="status">
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
@@ -37,7 +37,7 @@
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Create</button>
                      </div>
                   </div>

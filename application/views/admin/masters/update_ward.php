@@ -14,7 +14,7 @@
                  <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 ">Paguthi name <span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 ">
+                    <div class="col-md-4 col-sm-6 ">
                        <select class="form-control" name="paguthi_id" id="paguthi_id">
                           <?php foreach($res_paguthi as $rows_paguthi){ ?>
                           <option value="<?php echo $rows_paguthi->id; ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
@@ -26,7 +26,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">ward name <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <input id="ward_name" class=" form-control" name="ward_name" type="text" value="<?php echo $rows->ward_name; ?>">
                         <input id="ward_id" class=" form-control" name="ward_id" type="hidden" value="<?php echo base64_encode($rows->id*98765); ?>">
                      </div>
@@ -35,7 +35,7 @@
                   <div class="item form-group">
                      <label class="col-form-label col-md-3 col-sm-3 ">status <span class="required">*</span>
                      </label>
-                     <div class="col-md-6 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <select class="form-control" name="status" id="status">
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
@@ -45,7 +45,7 @@
                   </div>
                   <div class="ln_solid"></div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-3">
                         <button type="submit" class="btn btn-success">Update</button>
                      </div>
                   </div>
