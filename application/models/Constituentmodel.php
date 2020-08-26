@@ -811,49 +811,50 @@ Class Constituentmodel extends CI_Model
 
 
 // Fetch records
-	public function getConstituent($rowno,$rowperpage,$search="") {
+	public function getConstituent($rowno,$rowperpage,$search_text="") {
 
 		$this->db->select('c.*,p.paguthi_name');
 		$this->db->from('constituent as c');
 			$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
 
-		if($search != ''){
-				$this->db->like('full_name', $search);
-				$this->db->or_like('father_husband_name', $search);
-				$this->db->or_like('guardian_name', $search);
-				$this->db->or_like('mobile_no', $search);
-				$this->db->or_like('whatsapp_no', $search);
-				$this->db->or_like('address', $search);
-				$this->db->or_like('pin_code', $search);
-				$this->db->or_like('email_id', $search);
-				$this->db->or_like('voter_id_no', $search);
-				$this->db->or_like('aadhaar_no', $search);
-				$this->db->or_like('serial_no', $search);
+		if($search_text != ''){
+				$this->db->or_like('full_name', $search_text);
+				// $this->db->or_like('father_husband_name', $search);
+				// $this->db->or_like('guardian_name', $search);
+				$this->db->or_like('mobile_no', $search_text);
+				// $this->db->or_like('whatsapp_no', $search);
+				// $this->db->or_like('address', $search);
+				// $this->db->or_like('pin_code', $search);
+				// $this->db->or_like('email_id', $search_text);
+				$this->db->or_like('voter_id_no', $search_text);
+				$this->db->or_like('aadhaar_no', $search_text);
+				$this->db->or_like('serial_no', $search_text);
 		}
 		$this->db->limit($rowperpage, $rowno);
+		echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 
 		return $query->result_array();
   }
 
   // Select total records
-	public function getConstituentcount($search = '') {
+	public function getConstituentcount($search_text = '') {
 
 		$this->db->select('count(*) as allcount');
 		$this->db->from('constituent');
 
 		if($search != ''){
-				$this->db->like('full_name', $search);
-				$this->db->or_like('father_husband_name', $search);
-				$this->db->or_like('guardian_name', $search);
-				$this->db->or_like('mobile_no', $search);
-				$this->db->or_like('whatsapp_no', $search);
-				$this->db->or_like('address', $search);
-				$this->db->or_like('pin_code', $search);
-				$this->db->or_like('email_id', $search);
-				$this->db->or_like('voter_id_no', $search);
-				$this->db->or_like('aadhaar_no', $search);
-				$this->db->or_like('serial_no', $search);
+			$this->db->or_like('full_name', $search_text);
+			// $this->db->or_like('father_husband_name', $search);
+			// $this->db->or_like('guardian_name', $search);
+			$this->db->or_like('mobile_no', $search_text);
+			// $this->db->or_like('whatsapp_no', $search);
+			// $this->db->or_like('address', $search);
+			// $this->db->or_like('pin_code', $search);
+			// $this->db->or_like('email_id', $search_text);
+			$this->db->or_like('voter_id_no', $search_text);
+			$this->db->or_like('aadhaar_no', $search_text);
+			$this->db->or_like('serial_no', $search_text);
 		}
 
 		$query = $this->db->get();
