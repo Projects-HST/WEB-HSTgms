@@ -308,9 +308,9 @@ function moneyFormatIndia($num) {
 					<hr>
 					<div class="row">
 
-						<div class="col-9"><p class="widget_label">Birthday </p></div>
+						<div class="col-9"><p class="widget_label">Birthday (<?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2);?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
-						<div class="col-9"><p class="widget_label">festival </p></div>
+						<div class="col-9"><p class="widget_label">festival (<?=  round($row_fw_list->total/ $rows_cons->total *100,2);?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_fw_list->total); ?></p></div>
 
 					</div>
@@ -334,7 +334,7 @@ function moneyFormatIndia($num) {
 						<?php if(empty($grievance_report['cv_list'])){
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
-						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->paguthi_name; ?></p></div>
+						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->paguthi_name; ?> (<?=  round($rows_vi_lits->cnt_video/ $rows_cons->total *100,2);?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
 
