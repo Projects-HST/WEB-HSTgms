@@ -38,7 +38,7 @@ th{
                  <td><?php echo $i; ?></td>
                  <td><?php echo $rows['full_name']; ?></td>
                  <td><?php echo $rows['sms_text']; ?></td>
-                 <td><?php echo date("d-m-Y h:i", strtotime($rows['created_at'])); ?></td>
+                 <td><?php echo date("d-m-Y", strtotime($rows['created_at'])); ?></td>
                  <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
                  <td><?php echo $rows['sent_by']; ?></td>
 
