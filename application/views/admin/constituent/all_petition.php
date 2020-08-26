@@ -21,9 +21,17 @@ td{
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Reset</a>
 
 										</div>
-										<div class="col-md-5 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+
 								</div>
 									</form>
+                    <div class="ln_solid"></div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 ">
+                <div class="col-md-12 col-sm-12" style="padding:0px;">
+                   <div class="col-md-3 col-sm-3"></div>
+                   <div class="col-md-3 col-sm-3"></div>
+                   <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+               </div>
                    <?php if($this->session->flashdata('msg')) {
                       $message = $this->session->flashdata('msg');?>
                    <div class="<?php echo $message['class'] ?> alert-dismissible">

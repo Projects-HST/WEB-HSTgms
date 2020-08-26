@@ -55,7 +55,7 @@ button {text-transform: uppercase;}
   cursor: pointer;
 }
 .gms_title{
-  font-size: 25px;
+  font-size: 20px;
   color: #fff;
   padding-top: 15px;
   padding-left: 20px;
@@ -208,7 +208,8 @@ table {
 }
 .badge-download{
 
-  color:#000 !important;
+  color: #0e6ea7 !important;
+  font-weight:bold;
 }
 
 
@@ -376,4 +377,7 @@ hr{
 .inactive_text{
   color:#cb2027;
   font-weight:bold;
+}
+.x_title h2{
+  color:#000;
 }

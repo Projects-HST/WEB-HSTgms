@@ -18,7 +18,7 @@
 
 		<form id="report_form" action="<?php echo base_url(); ?>constituent/birthday" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				<label class="col-form-label col-md-2 col-sm-2 label-align">Select Month <span class="required">*</span></label>
+				<label class="col-form-label col-md-2 col-sm-2">Select Month <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 					<select id="month_id" name="month" class="form-control">
 						<option value="01">January</option>
