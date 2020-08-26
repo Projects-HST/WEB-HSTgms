@@ -10,8 +10,9 @@ Class Dashboardmodel extends CI_Model
 
 
 	function list_paguthi(){
-		$query="SELECT c.paguthi_id,p.paguthi_name  FROM constituent as c
-		left join paguthi as p on p.id=c.paguthi_id GROUP by paguthi_id";
+		// $query="SELECT c.paguthi_id,p.paguthi_name  FROM constituent as c
+		// left join paguthi as p on p.id=c.paguthi_id GROUP by paguthi_id";
+		$query="SELECT id as paguthi_id,paguthi_name  FROM paguthi where status='ACTIVE'";
 		$res=$this->db->query($query);
 		return $result=$res->result();
 	}
