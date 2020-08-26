@@ -126,7 +126,7 @@ function moneyFormatIndia($num) {
 						<div class="c_widget_label">Total Others (<?= round($rows_cons->otherpercenatge,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->others); ?></div>
 					</div>
-					<div class="label_box">
+					<!-- <div class="label_box">
 						<div class="c_widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->malevoter); ?></div>
 					</div>
@@ -141,7 +141,7 @@ function moneyFormatIndia($num) {
 					<div class="label_box">
 						<div class="c_widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->femaleaadhar); ?></div>
-					</div>
+					</div> -->
 					<div class="label_box">
 						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_mobilenumber); ?></div>
