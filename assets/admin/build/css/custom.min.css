@@ -1676,16 +1676,22 @@ body {
     color:#6c757d;
 
     /* font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; */
-    font-family: 'Josefin Sans', sans-serif;
+    /* font-family: 'Josefin Sans', sans-serif; */
+    font-family: 'Heebo', sans-serif;
+
     font-size: 13px;
 
     line-height: 1.471
 }
 select option{
-  font-family: 'Josefin Sans', sans-serif;
+  /* font-family: 'Josefin Sans', sans-serif; */
+  font-family: 'Heebo', sans-serif;
+
 }
 select{
-  font-family: 'Josefin Sans', sans-serif;
+  /* font-family: 'Josefin Sans', sans-serif; */
+  font-family: 'Heebo', sans-serif;
+
 }
 .main_container .top_nav {
     display: block;

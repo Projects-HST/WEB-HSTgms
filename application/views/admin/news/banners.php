@@ -107,13 +107,27 @@
           foreach($res as $rows){ ?>
           <div class="col-lg-4" style="margin-bottom:25px;">
           <div id="thumbnail">
-            <img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:300px;height:129px;">
-              <a id="edit" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" data-toggle="tooltip" title="EDIT" style="cursor:pointer"><i class="fa fa-edit" style="font-size:20px;"></i></a>
-            <a id="close" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"></a>
+            <img src="<?php echo base_url(); ?>assets/banners/<?php echo $rows->banner_image_name; ?>" class="img-responsive" style="width:100%;height:180px;">
+
+
 
             </a>
           </div>
-            <p class="text-center"><a href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" class="badge-<?= $rows->status ?> "><?= $rows->status ?></a></p>
+            <!-- <p class="text-left">
+              <a href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" class="badge-<?= $rows->status ?> "><?= $rows->status ?></a> -->
+              <br>
+            <div class="row mb_20">
+              <div class="col-6">
+                <p class="text-left">
+                  <a href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" class="badge-<?= $rows->status ?> "><?= $rows->status ?></a></p>
+              </div>
+              <div class="col-6 text-right">
+                <p>
+                  <a id="edit" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" data-toggle="tooltip" title="EDIT" style="cursor:pointer"><i class="fa fa-edit"></i></a>
+                <a id="edit" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"><i class="fa fa-trash-o"></i></a></p>
+                </p>
+              </div>
+            </div>
 
         </div>
         <?php
@@ -140,28 +154,7 @@
            height: 100%;
        }
 
-       #close {
-           display: block;
-           position: absolute;
-           width: 25px;
-           height: 25px;
-           top: 15px;
-           left: 300px;
-           background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
-           background-size: 100% 100%;
-           background-repeat: no-repeat;
-       }
-       #edit {
-           display: block;
-           position: absolute;
-           width: 25px;
-           height: 25px;
-           top: -10px;
-           left: 300px;
-           /* background: url(<?php echo base_url(); ?>assets/images/delete_icon.png);
-           background-size: 100% 100%;
-           background-repeat: no-repeat; */
-       }
+
    }
    </style>
 <script type="text/javascript">
