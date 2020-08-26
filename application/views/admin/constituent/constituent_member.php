@@ -30,7 +30,7 @@
                      <label class="control-label col-md-2 col-sm-3 hide_part">Paguthi <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 hide_part">
                        <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi(this);">
-                         <option value="">--SELECT--</option>
+                         <option value="">SELECT</option>
                          <?php foreach($res_paguthi as $rows_paguthi){ ?>
                             <option value="<?php echo $rows_paguthi->id ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
                         <?php } ?>
@@ -68,7 +68,7 @@
                       <label class="control-label col-md-2 col-sm-3 ">booth <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
-                          <option value="">--Select--</option>
+                          <option value="">Select</option>
                           <?php foreach($res_booth as $rows_booth){ ?>
                             <option value="<?php echo $rows_booth->id; ?>"><?php echo $rows_booth->booth_name; ?></option>
                         <?php  } ?>
@@ -232,9 +232,9 @@
                           </div>
 
                         </div> -->
-
+                      <br>  <hr><br>
                                       <div class="form-group">
-                                         <div class="col-md-9 col-sm-9  offset-md-3">
+                                         <div class="col-md-9 col-sm-9  offset-md-2">
                                             <button type="submit" class="btn btn-success">SAVE</button>
                                          </div>
                                       </div>
@@ -330,7 +330,7 @@ function get_paguthi(sel){
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
-        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+        $('#ward_id').html('<option value="">SELECT ward</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
 		   }
@@ -359,7 +359,7 @@ function get_booth(sel){
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
-       $('#booth_id').html('<option value="">-SELECT BOOTH --</option>');
+       $('#booth_id').html('<option value="">SELECT BOOTH</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].booth_name).appendTo('#booth_id');
 		   }

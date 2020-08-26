@@ -68,7 +68,7 @@
 		<label class="col-form-label col-md-2 col-sm-3 ">Profile Picture</label>
 	<div class="col-md-4 col-sm-6 ">
 		<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" >
-		<div class="profile_pic">
+		<div class="" style="width:90%;margin-top:5px;">
 		<?php
 		if ($user_pic != '') {?>
 			<img src="<?php echo base_url(); ?>assets/users/<?php echo $user_pic;?>" class="img-responsive profile_img" style="width:150px;">
@@ -80,7 +80,7 @@
 	</div>
 	<div class="ln_solid"></div>
 	<div class="item form-group">
-	<div class="col-md-4 col-sm-6 offset-md-3">
+	<div class="col-md-4 col-sm-6 offset-md-2">
 			<input type="hidden" name="user_id" value="<?php echo $rows->id; ?>">
 			<input type="hidden" name="user_old_pic" value="<?php echo $rows->profile_pic; ?>">
 		<button type="submit" class="btn btn-success">SAVE</button>

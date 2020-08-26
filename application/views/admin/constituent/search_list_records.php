@@ -219,7 +219,7 @@
 </div>
 
 <div class="modal fade bs-example-modal-lg" id="meeting_model" tabindex="-1" role="dialog" aria-hidden="true">
-   <div class="modal-dialog modal-lg">
+   <div class="modal-dialog" style="max-width:1000px;">
       <div class="modal-content">
          <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">Meeting request</h4>
@@ -268,7 +268,7 @@
                <thead>
                   <tr>
                     <th>title</th>
-                     <th style="width:400px !important;">Meeting details</th>
+                     <th style="width:200px !important;">Meeting details</th>
                      <th>Schedule on</th>
                      <th>status</th>
                      <th>requested at</th>
@@ -357,7 +357,7 @@
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
-                     <option value="">--Sms template--</option>
+                     <option value="">Sms template</option>
                      <?php foreach($res_sms as $rows_sms){ ?>
                        <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
                      <?php } ?>
@@ -408,7 +408,7 @@
                  </label>
                  <div class="col-md-4 col-sm-6 ">
                    <select class="form-control" name="constituency_id" id="constituency_id">
-                       <option value="">-SELECT--</option>
+                       <option value="">SELECT</option>
                      <?php foreach($res_constituency as $rows_constituency){ ?>
 
                     <?php } ?>
@@ -421,7 +421,7 @@
                 <div class="col-md-4 col-sm-6 ">
                   <label>paguthi   <span class="required">*</span></label>
                   <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_petition_no(this)">
-                      <option value="">-SELECT--</option>
+                      <option value="">SELECT</option>
                     <?php foreach($res_paguthi as $rows_paguthi){ ?>
                        <option value="<?php echo $rows_paguthi->id; ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
                   <?php  } ?>
@@ -443,7 +443,7 @@
                 <div class="col-md-4 col-sm-6 ">
                   <label>seeker type  <span class="required">*</span></label>
                   <select class="form-control" id="seeker_id" name="seeker_id" onchange="get_grievance(this)">
-                    <option value="">-SELECT--</option>
+                    <option value="">SELECT</option>
                     <?php foreach($res_seeker as $rows_seeker){ ?>
                        <option value="<?php echo $rows_seeker->id; ?>"><?php echo $rows_seeker->seeker_info; ?></option>
                   <?php  } ?>
@@ -453,13 +453,13 @@
                 <div class="col-md-4 col-sm-6 ">
                   <label>grievance type  <span class="required">*</span></label>
                   <select class="form-control" id="grievance_id" name="grievance_id" onchange="get_sub_category(this)">
-                     <option value="">--select--</option>
+                     <option value="">select</option>
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
                   <label>grievance sub category  <span class="required">*</span></label>
                   <select class="form-control" id="sub_category_id" name="sub_category_id">
-                       <option value="">-SELECT--</option>
+                       <option value="">SELECT</option>
                   </select>
                 </div>
               </div>
@@ -670,7 +670,7 @@ $.ajax({
         $("#grievance_id").empty();
     var res=data.res;
     var len=res.length;
-       $('#grievance_id').html('<option value="">-SELECT --</option>');
+       $('#grievance_id').html('<option value="">SELECT</option>');
     for (i = 0; i < len; i++) {
     $('<option>').val(res[i].id).text(res[i].grievance_name).appendTo('#grievance_id');
    }
@@ -697,7 +697,7 @@ function get_sub_category(sel){
           $("#sub_category_id").empty();
       var res=data.res;
       var len=res.length;
-       $('#sub_category_id').html('<option value="">-SELECT  --</option>');
+       $('#sub_category_id').html('<option value="">SELECT </option>');
       for (i = 0; i < len; i++) {
       $('<option>').val(res[i].id).text(res[i].sub_category_name).appendTo('#sub_category_id');
      }

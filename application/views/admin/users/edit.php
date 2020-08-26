@@ -110,7 +110,7 @@
 	<div class="ln_solid"></div>
 
 	<div class="item form-group">
-	<div class="col-md-6 col-sm-6 offset-md-3">
+	<div class="col-md-6 col-sm-6 offset-md-2">
 			<input type="hidden" name="staff_id" value="<?php echo $rows->id; ?>">
 			<input type="hidden" name="user_old_pic" value="<?php echo $rows->profile_pic; ?>">
 		<button type="submit" class="btn btn-success">UPDATE</button>

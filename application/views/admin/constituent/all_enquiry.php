@@ -165,7 +165,7 @@ td{
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="sms_id" name="sms_id" onchange="get_sms_text(this)">
-                     <option value="">--Sms template--</option>
+                     <option value="">Sms template</option>
                      <?php foreach($res_sms as $rows_sms){ ?>
                        <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
                      <?php } ?>
@@ -208,7 +208,7 @@ td{
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="reply_sms_id" name="reply_sms_id" onchange="get_sms_text(this)">
-                     <option value="">--Sms template--</option>
+                     <option value="">Sms template</option>
                      <?php foreach($res_sms as $rows_sms){ ?>
                        <option value="<?php echo $rows_sms->id; ?>"><?php echo $rows_sms->sms_title; ?></option>
                      <?php } ?>

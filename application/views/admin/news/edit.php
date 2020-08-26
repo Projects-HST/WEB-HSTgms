@@ -22,7 +22,7 @@
                      </label>
                      <div class="col-md-4 col-sm-4 ">
                         <select class="form-control" name="constituency_id" id="constituency_id">
-                       <option value="">-SELECT--</option>
+                       <option value="">SELECT</option>
                      <?php foreach($res_constituency as $rows_constituency){ ?>
 							<option value="<?php echo $rows_constituency->id ?>"><?php echo $rows_constituency->constituency_name; ?></option>
 					 <?php } ?>

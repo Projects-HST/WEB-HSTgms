@@ -276,9 +276,10 @@
                              </div>
 
                         </div>
+                          <br>  <hr><br>
                         <div class="x_content">
                             <div class="form-group">
-                             <div class="col-md-9 col-sm-9  offset-md-3">
+                             <div class="col-md-9 col-sm-9  offset-md-2">
                                 <button type="submit" class="btn btn-success">Update</button>
                              </div>
                           </div>
@@ -360,7 +361,7 @@ function get_paguthi(){
 		   if(stat=="success"){
 		   var res=data.res;
 		   var len=res.length;
-        $('#ward_id').html('<option value="">-SELECT ward --</option>');
+        $('#ward_id').html('<option value="">SELECT ward</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
 		   }
@@ -390,7 +391,7 @@ function get_booth(sel){
 
 		   var res=data.res;
 		   var len=res.length;
-       $('#booth_id').html('<option value="">-SELECT BOOTH --</option>');
+       $('#booth_id').html('<option value="">SELECT BOOTH</option>');
 		   for (i = 0; i < len; i++) {
 		   $('<option>').val(res[i].id).text(res[i].booth_name).appendTo('#booth_id');
 		   }

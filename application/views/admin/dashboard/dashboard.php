@@ -72,6 +72,29 @@
 </div>
 <hr>
 <div class="clearfix"></div>
+<?php
+function moneyFormatIndia($num) {
+    $explrestunits = "" ;
+    if(strlen($num)>3) {
+        $lastthree = substr($num, strlen($num)-3, strlen($num));
+        $restunits = substr($num, 0, strlen($num)-3);
+        $restunits = (strlen($restunits)%2 == 1)?"0".$restunits:$restunits;
+        $expunit = str_split($restunits, 2);
+        for($i=0; $i<sizeof($expunit); $i++) {
+
+            if($i==0) {
+                $explrestunits .= (int)$expunit[$i].",";
+            } else {
+                $explrestunits .= $expunit[$i].",";
+            }
+        }
+        $thecash = $explrestunits.$lastthree;
+    } else {
+        $thecash = $num;
+    }
+    return $thecash;
+}
+?>
 <?php foreach($result_cons as $rows_cons){} ?>
 <div class="row mt_20">
 	<div class="col-md-4">
@@ -83,7 +106,7 @@
 				<div class="col-9">
 					<div class="widget_title">
 						<p class="widget_heading">Total Constituent</p>
-						<p class="widget_count"><?= $rows_cons->total; ?></p>
+						<p class="widget_count"><?= moneyFormatIndia($rows_cons->total); ?></p>
 					</div>
 				</div>
 			</div>
@@ -92,44 +115,44 @@
 				<div class="col-12">
 					<div class="label_box">
 							<div class="c_widget_label">Total Male (<?= round($rows_cons->malepercenatge,2); ?>%)</div>
-							<div class="c_widget_value"><?= $rows_cons->malecount; ?></div>
+							<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->malecount); ?></div>
 					</div>
 
 					<div class="label_box">
 						<div class="c_widget_label">Total Female (<?= round($rows_cons->femalepercenatge,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->femalecount; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->femalecount); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Total Others (<?= round($rows_cons->otherpercenatge,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->others; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->others); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->malevoter; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->malevoter); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->femalevoter; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->femalevoter); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->maleaadhar; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->maleaadhar); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->femaleaadhar; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->femaleaadhar); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->having_mobilenumber; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_mobilenumber); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Having Email id (<?= round($rows_cons->email_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->having_email; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_email); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= $rows_cons->having_whatsapp; ?></div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp); ?></div>
 					</div>
 				</div>
 
@@ -170,7 +193,7 @@
 							<div class="widget_title">
 								<p class="widget_heading">GRIEVANCE</p>
 								<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
-							<p class="widget_count"><?php echo $total_grievance=$row_gr_list->total;  ?></p>
+							<p class="widget_count"><?php echo moneyFormatIndia($total_grievance=$row_gr_list->total);  ?></p>
 							</div>
 						</div>
 					</div>
@@ -178,7 +201,7 @@
 					<div class="row">
 				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
 							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100,2); ?>%)</p></div>
-							<div class="col-3"><p class="widget_label widget_value"> <?php echo  $row_grievenace->total; ?></p></div>
+							<div class="col-3"><p class="widget_label widget_value"> <?php echo  moneyFormatIndia($row_grievenace->total); ?></p></div>
 
 						<?php } ?>
 
@@ -195,7 +218,7 @@
 							<div class="widget_title">
 								<p class="widget_heading">Total Footfall</p>
 									<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
-								<p class="widget_count"><?php echo $row_gr_list->total;  ?></p>
+								<p class="widget_count"><?php echo moneyFormatIndia($row_gr_list->total);  ?></p>
 							</div>
 						</div>
 					</div>
@@ -204,9 +227,9 @@
 
 							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
 						<div class="col-9"><p class="widget_label">New Footfall (<?php echo round($row_gr_list->unique_count_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?php echo $row_gr_list->unique_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?php echo moneyFormatIndia($row_gr_list->unique_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">Repeat Footfall (<?php echo round($row_gr_list->repeat_count_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?php echo $row_gr_list->repeat_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?php echo moneyFormatIndia($row_gr_list->repeat_count); ?></p></div>
 					<?php } ?>
 					</div>
 				</div>
@@ -225,16 +248,16 @@
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Meeting</p>
-								<p class="widget_count"><?= $row_mr_list->total; ?></p>
+								<p class="widget_count"><?= moneyFormatIndia($row_mr_list->total); ?></p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 						<div class="col-9"><p class="widget_label">meeting request (<?= round($row_mr_list->mr_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?= $row_mr_list->meeting_request_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($row_mr_list->meeting_request_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">meeting completed (<?= round($row_mr_list->mc_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?= $row_mr_list->meeting_complete_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($row_mr_list->meeting_complete_count); ?></p></div>
 
 					</div>
 				</div>
@@ -248,16 +271,16 @@
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Total Volunteer</p>
-								<p class="widget_count"><?= $rows_cons->total; ?></p>
+								<p class="widget_count"><?= moneyFormatIndia($rows_cons->total); ?></p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 						<div class="col-9"><p class="widget_label">Constituent (<?=  round($rows_cons->no_of_cons_percentage,2);?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->no_of_cons; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_cons); ?></p></div>
 						<div class="col-9"><p class="widget_label">Non constituent (<?= round($rows_cons->no_of_noncons_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?= $rows_cons->no_of_noncons; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_noncons); ?></p></div>
 					</div>
 				</div>
 			</div>
@@ -278,7 +301,7 @@
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">letter greeting</p>
-								<p class="widget_count"><?= $rows_cons->total; ?></p>
+								<p class="widget_count"><?= moneyFormatIndia($rows_cons->total); ?></p>
 							</div>
 						</div>
 					</div>
@@ -286,9 +309,9 @@
 					<div class="row">
 
 						<div class="col-9"><p class="widget_label">Birthday </p></div>
-						<div class="col-3"><p class="widget_label widget_value"><?= $row_br_list->birth_wish_count; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">festival </p></div>
-						<div class="col-3"><p class="widget_label widget_value"><?= $row_fw_list->total; ?></p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_fw_list->total); ?></p></div>
 
 					</div>
 				</div>
@@ -302,7 +325,7 @@
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Total Videos</p>
-								<p class="widget_count">	<?php $sum = 0; if(empty($grievance_report['cv_list'])){ 	}else{  foreach($grievance_report['cv_list'] as $rows_vi_lits){ $sum += $rows_vi_lits->cnt_video;  }} echo $sum; ?></p>
+								<p class="widget_count">	<?php $sum = 0; if(empty($grievance_report['cv_list'])){ 	}else{  foreach($grievance_report['cv_list'] as $rows_vi_lits){ $sum += $rows_vi_lits->cnt_video;  }} echo moneyFormatIndia($sum); ?></p>
 							</div>
 						</div>
 					</div>
@@ -312,7 +335,7 @@
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
 						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->paguthi_name; ?></p></div>
-						<div class="col-3"><p class="widget_label widget_value"><?= $rows_vi_lits->cnt_video; ?> </p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
 
 

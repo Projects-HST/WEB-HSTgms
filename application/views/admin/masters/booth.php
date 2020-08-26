@@ -77,9 +77,9 @@
                     <td><?php echo $rows->booth_name; ?></td>
                     <td><?php echo $rows->booth_address ;?></td>
                     <td><?php if($rows->status=='ACTIVE'){ ?>
-                            <span class="badge badge-success">Active</span>
+                            <span class="badge-<?= $rows->status ?>">Active</span>
                             <?php  }else{ ?>
-                              <span class="badge badge-danger">Inactive</span>
+                              <span class="badge-<?= $rows->status ?>">Inactive</span>
                             <?php   } ?>
                     </td>
                 <td>

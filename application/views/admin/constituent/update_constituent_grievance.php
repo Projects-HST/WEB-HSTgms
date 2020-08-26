@@ -33,7 +33,7 @@
                <div class="col-md-4 col-sm-6 ">
                  <label>seeker type</label>
                  <select class="form-control" id="seeker_id" name="seeker_id" onchange="get_grievance(this)">
-                   <option value="">-SELECT--</option>
+                   <option value="">SELECT</option>
                    <?php foreach($res_seeker as $rows_seeker){ ?>
                       <option value="<?php echo $rows_seeker->id; ?>"><?php echo $rows_seeker->seeker_info; ?></option>
                  <?php  } ?>
@@ -114,7 +114,7 @@ $.ajax({
         $("#grievance_id").empty();
     var res=data.res;
     var len=res.length;
-       $('#grievance_id').html('<option value="">-SELECT --</option>');
+       $('#grievance_id').html('<option value="">SELECT</option>');
     for (i = 0; i < len; i++) {
     $('<option>').val(res[i].id).text(res[i].grievance_name).appendTo('#grievance_id');
    }
@@ -141,7 +141,7 @@ function get_sub_category(sel){
           $("#sub_category_id").empty();
       var res=data.res;
       var len=res.length;
-       $('#sub_category_id').html('<option value="">-SELECT  --</option>');
+       $('#sub_category_id').html('<option value="">SELECT</option>');
       for (i = 0; i < len; i++) {
       $('<option>').val(res[i].id).text(res[i].sub_category_name).appendTo('#sub_category_id');
      }

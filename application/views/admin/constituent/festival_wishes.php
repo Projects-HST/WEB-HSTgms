@@ -22,7 +22,7 @@
            <label class="col-form-label col-md-2 col-sm-3 ">Select festival</label>
           <div class="col-md-3 col-sm-4">
            <select class="form-control" name="cf_religion_id" id="religion_id">
-             <option value="">--Select--</option>
+             <option value="">Select</option>
              <?php foreach($res_festival as $rows_festival){ ?>
                <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
            <?php  } ?>
