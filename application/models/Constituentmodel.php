@@ -815,20 +815,41 @@ Class Constituentmodel extends CI_Model
 
 		$this->db->select('c.*,p.paguthi_name');
 		$this->db->from('constituent as c');
-			$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
+		$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
+		
+$search_key_1 = '';
+$search_key_2 = '';
 
 		if($search_text != ''){
-				$this->db->or_like('full_name', $search_text);
+			
+			$search_key = (explode(",",$search_text));
+			$search_key_count = count($search_key);
+			
+			if ($search_key_count >=0){
+				echo $search_key_1 = $search_key[0];
+			}
+
+			if ($search_key_count >=1) {
+				echo $search_key_2 = $search_key[1];
+			}
+			//exit;		
+			if ($search_key_1 != ''){
+				$this->db->or_like('full_name', $search_key_1);
 				// $this->db->or_like('father_husband_name', $search);
 				// $this->db->or_like('guardian_name', $search);
-				$this->db->or_like('mobile_no', $search_text);
+				$this->db->or_like('mobile_no', $search_key_1);
 				// $this->db->or_like('whatsapp_no', $search);
 				// $this->db->or_like('address', $search);
 				// $this->db->or_like('pin_code', $search);
 				// $this->db->or_like('email_id', $search_text);
-				$this->db->or_like('voter_id_no', $search_text);
-				$this->db->or_like('aadhaar_no', $search_text);
-				$this->db->or_like('serial_no', $search_text);
+				$this->db->or_like('voter_id_no', $search_key_1);
+				$this->db->or_like('aadhaar_no', $search_key_1);
+				$this->db->or_like('serial_no', $search_key_1);
+			}
+			if ($search_key_2 != ''){
+				 $this->db->like('address', $search_key_2);
+			}
+			
 		}
 		$this->db->limit($rowperpage, $rowno);
 		// echo $this->db->get_compiled_select(); exit;
