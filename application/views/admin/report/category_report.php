@@ -39,7 +39,7 @@ th{
                             <label class="control-label col-md-2 col-sm-3">Sub Category</label>
                             <div class="col-md-2 col-sm-9">
                                 <select class="form-control" id="sub_category_id" name="g_sub_category_id">
-                                    <option value="">-ALL--</option>
+                                    <option value="">ALL</option>
                                 </select>
                             </div>
                         </div>
@@ -172,7 +172,7 @@ th{
                     $("#sub_category_id").empty();
                     var res = data.res;
                     var len = res.length;
-                    $("#sub_category_id").html('<option value="">-ALL  --</option>');
+                    $("#sub_category_id").html('<option value="">ALL</option>');
                     for (i = 0; i < len; i++) {
                         $("<option>").val(res[i].id).text(res[i].sub_category_name).appendTo("#sub_category_id");
                     }
