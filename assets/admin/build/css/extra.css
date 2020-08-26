@@ -36,6 +36,11 @@ td{
   color: #343a40;
 }
 input {text-transform: uppercase;}
+.control-label{
+  font-size: 13px;
+font-weight: 500;
+color: #343a40;
+}
 textarea {text-transform: uppercase;}
 select {text-transform: uppercase;}
 button {text-transform: uppercase;}
