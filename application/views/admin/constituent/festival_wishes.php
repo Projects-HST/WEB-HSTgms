@@ -86,13 +86,14 @@
           <td><?php echo $data['full_name']; ?></td>
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['address']; ?></td>
-          <td><?php if(empty($festival_id)){
+          <td><?php  if(empty($cf_religion_id)){
             echo "Select festival";
           }else{
-            if($data['sent_festival_id']==$festival_id){ ?>
+
+            if($data['sent_festival_id']==$cf_religion_id){ ?>
 
           <?php  }else{ ?>
-              <a href="#" onclick="send_festival('<?php echo $data['id']; ?>','<?php echo  $festival_id; ?>')">send</a>
+              <a href="#" onclick="send_festival('<?php echo $data['id']; ?>','<?php echo  $cf_religion_id; ?>')">send</a>
           <?php  }
           }
           ?>
