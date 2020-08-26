@@ -1,4 +1,8 @@
-<div class="right_col" role="main">
+<style type="text/css">
+th{
+  width:50px;
+  }</style>
+  <div class="right_col" role="main">
     <div class="">
         <div class="col-md-12 col-sm-12">
             <div class="x_panel">
