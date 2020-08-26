@@ -13,7 +13,7 @@
       <link rel="icon" href="images/favicon.ico" type="image/ico" />
       <title>GRIEVANCE MANAGEMENT SYSTEM </title>
 			<!-- <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet"> -->
-			<link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+			<!-- <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet"> -->
       <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.css" rel="stylesheet">

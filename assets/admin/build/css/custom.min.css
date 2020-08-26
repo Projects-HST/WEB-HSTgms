@@ -1677,7 +1677,7 @@ body {
 
     /* font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; */
     /* font-family: 'Josefin Sans', sans-serif; */
-    font-family: 'Heebo', sans-serif;
+    /* font-family: 'Heebo', sans-serif; */
     /* font-family: 'Roboto'; */
 
     font-size: 13px;
@@ -1686,12 +1686,12 @@ body {
 }
 select option{
   /* font-family: 'Josefin Sans', sans-serif; */
-  font-family: 'Heebo', sans-serif;
+  /* font-family: 'Heebo', sans-serif; */
 
 }
 select{
   /* font-family: 'Josefin Sans', sans-serif; */
-  font-family: 'Heebo', sans-serif;
+  /* font-family: 'Heebo', sans-serif; */
 
 }
 .main_container .top_nav {

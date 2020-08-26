@@ -13,6 +13,7 @@ th{
           <h2>list of grievance reply</h2>
 
        </div>
+       <div class="ln_solid"></div>
        <?php if($this->session->flashdata('msg')) {
           $message = $this->session->flashdata('msg');?>
        <div class="<?php echo $message['class'] ?> alert-dismissible">
