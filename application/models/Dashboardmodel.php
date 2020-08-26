@@ -43,10 +43,10 @@ Class Dashboardmodel extends CI_Model
 
 		   $query="SELECT
 			IFNULL(count(*),'0') AS total,
-			IFNULL(sum(case when constituency_id = '1' then 1 else 0 end),'0') AS no_of_cons,
-			IFNULL(sum(case when constituency_id = '1' then 1 else 0 end)/ count(*) *100,'0') as no_of_cons_percentage,
-      IFNULL(sum(case when constituency_id = '0' then 1 else 0 end),'0') AS no_of_noncons,
-			IFNULL(sum(case when constituency_id = '0' then 1 else 0 end)/ count(*) *100,'0') as no_of_noncons_percentage ,
+			IFNULL(sum(case when volunteer_status = 'YES' then 1 else 0 end),'0') AS no_of_volunteer,
+			IFNULL(sum(case when volunteer_status = 'YES' then 1 else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
+      IFNULL(sum(case when volunteer_status = 'NO' then 1 else 0 end),'0') AS no_of_nonvolunteer,
+			IFNULL(sum(case when volunteer_status = 'NO' then 1 else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage ,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end),'0') AS malecount,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end) / count(*) * 100,'0') as malepercenatge,
 			IFNULL(sum(case when gender = 'F' then 1 else 0 end),'0') AS femalecount,

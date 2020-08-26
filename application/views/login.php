@@ -57,7 +57,7 @@
 
 <section class="login_content">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
-	<h2>Forgot Password</h2>
+	<h1>Forgot Password</h1>
 	<div>
 		<input type="text" class="form-control"  name="user_name" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
