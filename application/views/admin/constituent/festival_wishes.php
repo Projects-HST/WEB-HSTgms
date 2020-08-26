@@ -90,10 +90,12 @@
             echo "Select festival";
           }else{
 
-            if($data['sent_festival_id']==$cf_religion_id){ ?>
+            if($data['sent_festival_id']==$cf_religion_id){
+              echo "SENT";
+              ?>
 
           <?php  }else{ ?>
-              <a href="#" onclick="send_festival('<?php echo $data['id']; ?>','<?php echo  $cf_religion_id; ?>')">send</a>
+              <a href="#" style="font-size:13px;font-weight:bold;color:#ee0606;" onclick="send_festival('<?php echo $data['id']; ?>','<?php echo  $cf_religion_id; ?>')">Not sent</a>
           <?php  }
           }
           ?>
