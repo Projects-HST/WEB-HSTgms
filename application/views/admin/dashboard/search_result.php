@@ -47,6 +47,7 @@
                      <th>Voter id</th>
                      <th>Aadhhar id</th>
                      <th>Status</th>
+										 <th>view</th>
                   </tr>
                </thead>
                <tbody>
@@ -65,6 +66,7 @@
                         <span class="badge-<?= $rows['status'] ?>">Inactive</span>
                         <?php   } ?>
                      </td>
+										 <td><a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?= base64_encode($rows['id']*98765); ?>"><i class="fa fa-eye"></i></a></td>
                   </tr>
                   <?php  $i++; } ?>
                </tbody>
