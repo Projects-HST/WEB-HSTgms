@@ -38,7 +38,7 @@ th{
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-1 col-sm-2">Office <span class="required">*</span></label>
+                            <label class="col-form-label col-md-1 col-sm-2">paguthi <span class="required">*</span></label>
                             <div class="col-md-2 col-sm-2">
                                 <select class="form-control" name="s_paguthi" id="paguthi" onchange="get_paguthi(this);">
                                     <option value="">ALL</option>

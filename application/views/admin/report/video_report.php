@@ -19,7 +19,7 @@
 		<form id="report_form" action="<?php echo base_url(); ?>report/video" method="post" enctype="multipart/form-data">
 
         <div class="form-group row ">
-             <label class="col-form-label col-md-1 col-sm-3 ">Office<span class="required">*</span></label>
+             <label class="col-form-label col-md-1 col-sm-3 ">paguthi<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="v_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="">ALL</option>

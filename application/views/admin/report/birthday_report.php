@@ -56,7 +56,7 @@
            </div>
         </div>
         <div class="form-group row ">
-             <label class="control-label col-md-2 col-sm-3 ">Office<span class="required">*</span></label>
+             <label class="control-label col-md-2 col-sm-3 ">paguthi<span class="required">*</span></label>
              <div class="col-md-2 col-sm-9 ">
              <select class="form-control" name="b_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                <option value="">ALL</option>

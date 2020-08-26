@@ -29,7 +29,7 @@
            </select>
            <script>$('#religion_id').val('<?php echo $cf_religion_id; ?>')</script>
          </div>
-         <label class="col-form-label col-md-2 col-sm-3 ">Select Office</label>
+         <label class="col-form-label col-md-2 col-sm-3 ">Select paguthi</label>
        <div class="col-md-3 col-sm-4">
                <select class="form-control" name="cf_paguthi" id ="paguthi" onchange="get_paguthi(this);">
                  <option value="">ALL</option>

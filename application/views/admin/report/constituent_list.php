@@ -17,7 +17,7 @@
                     <form method="post" action="<?= base_url() ?>report/constituent_list">
                         <div class="col-md-12 col-sm-12" style="padding: 0px;">
                             <div class="form-group row">
-                                <label class="col-form-label col-md-1 col-sm-3">Office</label>
+                                <label class="col-form-label col-md-1 col-sm-3">paguthi</label>
                                 <div class="col-md-3 col-sm-4">
                                     <select class="form-control" name="c_paguthi" id="paguthi" onchange="get_paguthi(this);">
                                         <option value="">ALL</option>

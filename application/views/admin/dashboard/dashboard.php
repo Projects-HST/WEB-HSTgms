@@ -51,7 +51,7 @@
 				 <div class="col-md-2">
 					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>" placeholder="DD-MM-YYYY">
 					 </div>
-				 <label class="col-form-label col-md-1 col-sm-6 text-left">Office <span class="required">*</span></label>
+				 <label class="col-form-label col-md-1 col-sm-6 text-left">paguthi <span class="required">*</span></label>
 				 <div class="col-md-3 col-sm-6">
 						<select class="form-control" name="paguthi_id" id ="paguthi_id">
 								<option value="">ALL</option>
