@@ -67,7 +67,7 @@
                 <tr>
                    <th>S.no</th>
                    <th>Seeker type</th>
-                   <th>Grievance name</th>
+                   <th>Grievance </th>
 
                    <th>status</th>
                    <th>Action</th>

@@ -65,8 +65,8 @@
              <thead>
                 <tr>
                    <th>S.no</th>
-                   <th>paguthi name</th>
-                   <th>ward name</th>
+                   <th>paguthi </th>
+                   <th>ward </th>
                    <th>status</th>
                    <th>Action</th>
 

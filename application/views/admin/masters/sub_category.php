@@ -55,8 +55,8 @@
                 <tr>
                    <th>S.no</th>
 
-                   <th>Grievance name</th>
-                   <th>Sub category name</th>
+                   <th>Grievance type</th>
+                   <th>Sub category type</th>
 
                    <th>status</th>
                    <th>Action</th>

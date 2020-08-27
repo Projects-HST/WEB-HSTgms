@@ -61,7 +61,7 @@
                 <tr style="text-align:center;">
                    <th>S.no</th>
                    <th>paguthi</th>
-                   <th>short name</th>
+                   <th>short form</th>
                    <th>status</th>
                    <th>Action</th>
 

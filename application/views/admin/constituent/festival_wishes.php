@@ -5,7 +5,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List of constituent</h2>
+               <h2>Festival wishes</h2>
                <div class="clearfix"></div>
             </div>
 						<?php if($this->session->flashdata('msg')) {
@@ -69,6 +69,7 @@
     			  <div class="col-md-3 col-sm-3"></div>
     			  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
     		</div>
+        <h2>Constituent List</h2>
 			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
 			<tr>
 				<th>S.no</th>

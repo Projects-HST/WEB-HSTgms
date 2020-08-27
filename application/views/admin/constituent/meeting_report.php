@@ -9,7 +9,7 @@ th{
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Meeting Requests</h2>
+               <h2>Meeting list</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -51,6 +51,7 @@ th{
 				 <div class="col-md-3 col-sm-3"></div>
 				 <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
 		 </div>
+		 <h2>constituent list</h2>
           <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
              <thead>
                 <tr>

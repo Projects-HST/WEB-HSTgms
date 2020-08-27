@@ -65,8 +65,8 @@
              <thead>
                 <tr>
                    <th>S.no</th>
-                   <th>Festival name</th>
-                   <th>religion name</th>
+                   <th>Festival </th>
+                   <th>religion </th>
                    <th>status</th>
                    <th>Action</th>
 

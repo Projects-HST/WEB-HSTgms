@@ -13,7 +13,7 @@
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_booth" method="post" enctype="multipart/form-data">
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">booth name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">booth  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="booth_name" class=" form-control" name="booth_name" type="text" value="<?php echo $rows->booth_name; ?>">

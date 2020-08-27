@@ -157,7 +157,7 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Setting.png" class="img-responsive menu_img"> Settings <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>login/profile">Profile</a></li>
-                                 <li><a href="<?php echo base_url(); ?>login/password">change Password</a></li>
+                                 <li><a href="<?php echo base_url(); ?>login/password">Change Password</a></li>
                               </ul>
                            </li>
                         </ul>
