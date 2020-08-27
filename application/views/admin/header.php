@@ -188,7 +188,7 @@
                            </a>
                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/profile"> Profile</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/password"> Password update</a>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/password"> change Password</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                            </div>
                         </li>
