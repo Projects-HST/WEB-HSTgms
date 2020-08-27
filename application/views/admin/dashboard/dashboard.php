@@ -301,7 +301,7 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">letter greeting</p>
-								<p class="widget_count"><?= moneyFormatIndia($rows_cons->total); ?></p>
+								<p class="widget_count"><?= moneyFormatIndia($row_fw_list->total+$row_br_list->birth_wish_count); ?></p>
 							</div>
 						</div>
 					</div>

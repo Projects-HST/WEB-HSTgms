@@ -11,7 +11,7 @@
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_sms_template" method="post" enctype="multipart/form-data">
                  <?php foreach($res as $rows){} ?>
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 ">SMS type <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 "> type <span class="required">*</span>
                     </label>
                     <div class="col-md-4 col-sm-6 ">
                        <select class="form-control" name="template_type" id="template_type">
@@ -22,7 +22,7 @@
                     </div>
                  </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">sms title <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 "> title <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="sms_title" class="form-control" name="sms_title" type="text" value="<?php echo $rows->sms_title; ?>">
@@ -30,7 +30,7 @@
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">sms text  <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 "> text  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <textarea name="sms_text" id="sms_text" class="form-control"><?php echo $rows->sms_text; ?></textarea>

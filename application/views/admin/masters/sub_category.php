@@ -11,7 +11,7 @@
                <form id="master_form" action="<?php echo base_url(); ?>masters/create_sub_category_name" method="post" enctype="multipart/form-data">
 
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">sub category name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">sub category  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="grievance_name" class=" form-control" name="sub_category_name" type="text" value="">

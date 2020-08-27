@@ -12,7 +12,7 @@
 <?php foreach($res as $rows){} ?>
                <form id="master_form" action="<?php echo base_url(); ?>masters/update_ward" method="post" enctype="multipart/form-data">
                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 ">Paguthi name <span class="required">*</span>
+                    <label class="col-form-label col-md-3 col-sm-3 ">Paguthi  <span class="required">*</span>
                     </label>
                     <div class="col-md-4 col-sm-6 ">
                        <select class="form-control" name="paguthi_id" id="paguthi_id">
@@ -24,7 +24,7 @@
                     </div>
                  </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">ward name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">ward  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="ward_name" class=" form-control" name="ward_name" type="text" value="<?php echo $rows->ward_name; ?>">

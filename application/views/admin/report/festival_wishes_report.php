@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Festival Report</h2>
+                    <h2>Festival wishes Report</h2>
                     <div class="clearfix"></div>
                 </div>
                 <?php if($this->session->flashdata('msg')) { $message = $this->session->flashdata('msg');?>

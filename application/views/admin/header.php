@@ -101,10 +101,10 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Constituent.png" class="img-responsive menu_img"> Constituent  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu constiituent_menu">
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
-                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member">List Constituent</a></li>
+                                 <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member"> Constituent List</a></li>
                                  <!-- <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li> -->
 
-								 <li id="constituent_meetings"><a href="<?php echo base_url(); ?>constituent/meetings">Meeting Request</a></li>
+								 <li id="constituent_meetings"><a href="<?php echo base_url(); ?>constituent/meetings">Meeting list</a></li>
 								 <li id="constituent_birthday"><a href="<?php echo base_url(); ?>constituent/birthday">Birthday Wishes</a></li>
 								 <li><a href="<?php echo base_url(); ?>constituent/festival_wishes">Festival wishes</a></li>
 
@@ -114,9 +114,9 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Grievance.png" class="img-responsive menu_img"> Grievance <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu grievance_menu">
                                  <!-- <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li> -->
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">All Grievance</a></li>
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_petition">ALL Petition</a></li>
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_enquiry">ALl Enquiry</a></li>
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">Grievance</a></li>
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_petition">Petition</a></li>
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_enquiry">Enquiry</a></li>
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
@@ -124,7 +124,7 @@
                            <li id="user_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/User.png" class="img-responsive menu_img"> Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu user_menu">
-                                 <li id="create_user"><a href="<?php echo base_url(); ?>users/add">Add user</a></li>
+                                 <li id="create_user"><a href="<?php echo base_url(); ?>users/add">Create user</a></li>
                                  <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
                               </ul>
                            </li>
@@ -132,8 +132,8 @@
 							<li id="news_menu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Newsfeeder.png" class="img-responsive menu_img"> News Feeder <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu news_menu">
-                                 <li id="create_news_menu"><a href="<?php echo base_url(); ?>news/add">Create Feeder</a></li>
-                                 <li id="list_news_menu"><a href="<?php echo base_url(); ?>news/list">List Feeder</a></li>
+                                 <li id="create_news_menu"><a href="<?php echo base_url(); ?>news/add">Create news Feeder</a></li>
+                                 <li id="list_news_menu"><a href="<?php echo base_url(); ?>news/list">List news Feeder</a></li>
                               </ul>
                            </li>
 						<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"></i> Banners</span></a></li>
@@ -157,7 +157,7 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Setting.png" class="img-responsive menu_img"> Settings <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>login/profile">Profile</a></li>
-                                 <li><a href="<?php echo base_url(); ?>login/password">Password update</a></li>
+                                 <li><a href="<?php echo base_url(); ?>login/password">change Password</a></li>
                               </ul>
                            </li>
                         </ul>

@@ -12,14 +12,14 @@
 
                <form id="master_form" action="<?php echo base_url(); ?>masters/create_paguthi" method="post" enctype="multipart/form-data">
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3">Paguthi name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3">Paguthi  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="constituency_name" class=" form-control" name="paguthi_name" type="text" value="">
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3">Paguthi short name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3">Paguthi short form <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="paguthi_short_name" class=" form-control" name="paguthi_short_name" type="text" value="">

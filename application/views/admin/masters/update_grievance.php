@@ -25,7 +25,7 @@
                     </div>
                  </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">Grievance type name <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Grievance type  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
                         <input id="grievance_name" class=" form-control" name="grievance_name" type="text" value="<?php echo $rows->grievance_name; ?>">

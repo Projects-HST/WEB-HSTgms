@@ -30,7 +30,7 @@
                      </div>
                   </div>
 					<div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">News Date <span class="required">*</span></label>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Date <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-4">
 						<input type="text" class="form-control" id="news_old_date" name="news_old_date" value="<?php $date=date_create($rows->news_date);echo date_format($date,"d-m-Y");  ?>" disabled>
                      </div>
@@ -39,14 +39,14 @@
                      </div>
                   </div>
 				  <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">News Title <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Title <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-4">
                          <input type="text" name="news_title" id="news_title" class="form-control" value="<?php echo $rows->title; ?>" maxlength="200">
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3 ">News Details <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3 ">Details <span class="required">*</span>
                      </label>
                      <div class="col-md-8 col-sm-8 ">
 					 <textarea name="news_details" class="form-control" rows="10" cols="80" id="news_details" placeholder="News Details" style="text-transform: uppercase;"><?php echo $rows->details; ?></textarea>
@@ -55,7 +55,7 @@
                      </div>
                   </div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 ">News Picture </label>
+						<label class="col-form-label col-md-3 col-sm-3 ">Picture </label>
 						<div class="col-md-4 col-sm-4">
 							<input type="file" id="news_pic" class="form-control" name="news_pic" title="Please select image" accept="image/*" ><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>

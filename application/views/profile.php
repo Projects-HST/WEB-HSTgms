@@ -12,7 +12,7 @@
 <div class="x_panel">
 
 <div class="x_title">
-	<h2>Profile Update</h2>
+	<h2>Profile</h2>
 	<div class="clearfix"></div>
 </div>
 
@@ -83,7 +83,7 @@
 	<div class="col-md-4 col-sm-6 offset-md-2">
 			<input type="hidden" name="user_id" value="<?php echo $rows->id; ?>">
 			<input type="hidden" name="user_old_pic" value="<?php echo $rows->profile_pic; ?>">
-		<button type="submit" class="btn btn-success">SAVE</button>
+		<button type="submit" class="btn btn-success">update</button>
 	</div>
 	</div>
 	</form>

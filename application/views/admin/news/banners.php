@@ -21,7 +21,7 @@
 			<br>
                <form method="post" action="<?php echo base_url(); ?>news/add_banner" class="form-horizontal" enctype="multipart/form-data" id="banners">
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 ">Select Banner <span class="required">*</span></label>
+						<label class="col-form-label col-md-3 col-sm-3 ">Banner images <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
 							<input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/*"><span class="required" style="font-size:11px;font-weight:normal;">&nbsp;1400 * 800 px</span>
 						</div>
