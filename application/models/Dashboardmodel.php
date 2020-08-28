@@ -17,12 +17,18 @@ Class Dashboardmodel extends CI_Model
 		return $result=$res->result();
 	}
 
-	function get_dashboard_result($paguthi_id,$from_date,$to_date){
+	function get_dashboard_result($paguthi_id,$office_id,$from_date,$to_date){
 
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi="";
 		}else{
 			$quer_paguthi="WHERE paguthi_id='$paguthi_id'";
+		}
+
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office="";
+		}else{
+			$quer_office="AND office_id='$office_id'";
 		}
 
 		if(empty($from_date)){
@@ -42,7 +48,7 @@ Class Dashboardmodel extends CI_Model
 		}
 
 
-		   $query="SELECT
+		  $query="SELECT
 			IFNULL(count(*),'0') AS total,
 			IFNULL(sum(case when volunteer_status = 'YES' then 1 else 0 end),'0') AS no_of_volunteer,
 			IFNULL(sum(case when volunteer_status = 'YES' then 1 else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
@@ -68,7 +74,8 @@ Class Dashboardmodel extends CI_Model
       IFNULL(sum(case when email_id != '' then 1 else 0 end) / count(*) * 100,'0') as email_percentage,
 			IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end),'0') AS having_whatsapp,
       IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end) / count(*) * 100,'0') as whatsapp_percentage
-			from  constituent $quer_paguthi $quer_date";
+			from  constituent $quer_paguthi $quer_office $quer_date";
+
 
 			$res=$this->db->query($query);
 			return $result=$res->result();
@@ -77,17 +84,30 @@ Class Dashboardmodel extends CI_Model
 
 
 
-	function get_grievance_report($paguthi_id,$from_date,$to_date)
+	function get_grievance_report($paguthi_id,$office_id,$from_date,$to_date)
 	{
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi="";
 		}else{
 			$quer_paguthi="WHERE g.paguthi_id='$paguthi_id'";
 		}
+
+		if($office_id=='ALL' || empty($office_id)){
+		$quer_office="";
+	}else{
+		$quer_office="AND g.office_id='$office_id'";
+	}
+
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi_cons="";
 		}else{
 			$quer_paguthi_cons="WHERE c.paguthi_id='$paguthi_id'";
+		}
+
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office_cons="";
+		}else{
+			$quer_office_cons="AND c.office_id='$office_id'";
 		}
 
 		if(empty($from_date)){
@@ -145,7 +165,7 @@ Class Dashboardmodel extends CI_Model
 						IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
 						IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count
 						FROM grievance as g
-						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_date
+						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date
 						GROUP BY seeker_type_id";
 
 			$res_1=$this->db->query($query_1);
@@ -157,7 +177,7 @@ Class Dashboardmodel extends CI_Model
 			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 			IFNULL(IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') / count(*) * 100,'0') AS repeat_count_percentage
 						FROM grievance as g
-						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_date";
+						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date";
 
 			$res_2=$this->db->query($query_2);
 			$result_2=$res_2->result();
@@ -168,25 +188,25 @@ Class Dashboardmodel extends CI_Model
 						IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0')  AS meeting_complete_count,
 						IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
 						FROM meeting_request as mr
-            left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_mr_date";
+            left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_office_cons $quer_mr_date";
 			$res_3=$this->db->query($query_3);
 			$result_3=$res_3->result();
 
 		 $query_4="SELECT IFNULL(count(*),'0') as birth_wish_count
 						FROM consitutent_birthday_wish as br
-						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_bw_date";
+						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_office_cons $quer_bw_date";
 			$res_4=$this->db->query($query_4);
 			$result_4=$res_4->result();
 
 
 		 	$query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name FROM constituent_video as cv
 			left join constituent as c on c.id=cv.constituent_id
-			LEFT JOIN paguthi as p on p.id=c.paguthi_id $quer_paguthi_cons GROUP by c.paguthi_id
+			LEFT JOIN paguthi as p on p.id=c.paguthi_id $quer_paguthi_cons $quer_office_cons GROUP by c.paguthi_id
 			ORDER BY cnt_video DESC LIMIT 2";
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();
 
-			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw";
+			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons";
 			$res_6=$this->db->query($query_6);
 			$result_6=$res_6->result();
 
@@ -195,13 +215,19 @@ Class Dashboardmodel extends CI_Model
 
 	}
 
-	function get_footfall_graph($paguthi_id,$from_date,$to_date)
+	function get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date)
 	{
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
-			$quer_paguthi="";
-		}else{
-			$quer_paguthi="WHERE c.paguthi_id='$paguthi_id'";
-		}
+				$quer_paguthi="";
+			}else{
+				$quer_paguthi="WHERE c.paguthi_id='$paguthi_id'";
+			}
+
+			if($office_id=='ALL' || empty($office_id)){
+				$quer_office="";
+			}else{
+				$quer_office="AND c.office_id='$office_id'";
+			}
 
 		if(empty($from_date)){
 
@@ -230,7 +256,7 @@ Class Dashboardmodel extends CI_Model
 		sum(case when g.repeated_status = 'N' then 1 else 0 end) AS unique_count,
 		sum(case when g.repeated_status = 'R' then 1 else 0 end) AS repeat_count
 		FROM grievance as g
-		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_date";
+		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date";
 
 		$res=$this->db->query($query);
 		return $result=$res->result();

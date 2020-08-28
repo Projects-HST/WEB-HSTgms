@@ -1149,4 +1149,19 @@ class Report extends CI_Controller {
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
+
+	function get_report()
+{
+
+    $this->load->dbutil();
+    $this->load->helper('file');
+    /* get the object   */
+    $report = $this->reportmodel->print_report();
+    $delimiter = ",";
+    $newline = "\r\n";
+    $new_report = $this->dbutil->csv_from_result($report, $delimiter, $newline);
+    write_file( 'application/third_party/file.csv', $new_report);
+    $this->load->view('report_success.php');
+}
+
 }

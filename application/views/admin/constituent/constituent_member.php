@@ -54,12 +54,16 @@
                       </div>
                     </div>
                    <div class="form-group row voter_section">
+                     <label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
+                     <div class="col-md-4 col-sm-9 ">
+                       <select class="form-control" name="office_id" id="office_id">
+                         <option value=""></option>
+                       </select>
+                     </div>
                       <label class="control-label col-md-2 col-sm-3 ">ward <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
-
                           <option value=""></option>
-
                         </select>
                       </div>
 
@@ -320,9 +324,10 @@
 
 
 function get_paguthi(sel){
+
   var paguthi_id=sel.value;
   $.ajax({
-		url:'<?php echo base_url(); ?>masters/get_active_ward',
+		url:'<?php echo base_url(); ?>masters/get_active_ward_office',
 		method:"POST",
 		data:{paguthi_id:paguthi_id},
 		dataType: "JSON",
@@ -331,24 +336,82 @@ function get_paguthi(sel){
 		{
 		   var stat=data.status;
 		   $("#ward_id").empty();
+       $("#office_id").empty();
        $("#booth_id").empty();
        $("#booth_address").empty();
 		   if(stat=="success"){
-		   var res=data.res;
-		   var len=res.length;
-        $('#ward_id').html('<option value="">SELECT ward</option>');
-		   for (i = 0; i < len; i++) {
-		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
-		   }
+         var res1=data.result_ward;
+         var res2=data.result_office;
+         if(res1.status=="success"){
+           var res=res1.res_ward;
+           var len=res.length;
+             $('#ward_id').html('<option value="">SELECT ward</option>');
+               for (i = 0; i < len; i++) {
+               $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
+               }
+         }else{
+           $("#ward_id").empty();
+           $("#booth_id").empty();
+           $("#booth_address").empty();
+         }
+         if(res2.status=="success"){
+           var res_office=res2.res_office;
+           var len_off=res_office.length;
+             $('#office_id').html('<option value="">SELECT office</option>');
+               for (j = 0; j < len_off; j++) {
+               $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
+               }
+         }else{
+           $("#office_id").empty();
+           $("#booth_id").empty();
+           $("#booth_address").empty();
+         }
+
+
+
 
 		   }else{
 		   $("#ward_id").empty();
+
         $("#booth_id").empty();
          $("#booth_address").empty();
 		   }
 		}
 	});
 }
+
+// function get_office(sel){
+//   var paguthi_id=sel.value;
+//   $.ajax({
+// 		url:'<?php echo base_url(); ?>masters/get_active_office',
+// 		method:"POST",
+// 		data:{paguthi_id:paguthi_id},
+// 		dataType: "JSON",
+// 		cache: false,
+// 		success:function(data)
+// 		{
+// 		   var stat=data.status;
+// 		   $("#ward_id").empty();
+//        $("#office_id").empty();
+//        $("#booth_id").empty();
+//        $("#booth_address").empty();
+// 		   if(stat=="success"){
+// 		   var res=data.res;
+// 		   var len=res.length;
+//         $('#ward_id').html('<option value="">SELECT office</option>');
+// 		   for (i = 0; i < len; i++) {
+// 		   $('<option>').val(res[i].id).text(res[i].office_name).appendTo('#office_id');
+// 		   }
+//
+// 		   }else{
+// 		   $("#ward_id").empty();
+//         $("#booth_id").empty();
+//          $("#booth_address").empty();
+//          $("#office_id").empty();
+// 		   }
+// 		}
+// 	});
+// }
 
 function get_booth(sel){
   var ward_id=sel.value;
@@ -480,6 +543,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
         rules: {
           paguthi_id:{required:true },
           ward_id:{required:true },
+          office_id:{required:true },
           booth_id:{required:false },
           full_name:{required:true,maxlength:80 },
           father_husband_name:{required:true,maxlength:80 },
@@ -514,6 +578,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
         messages: {
           paguthi_id:{required:"select paguthi" },
           ward_id:{required:"select ward" },
+          office_id:{required:"select office" },
           booth_id:{required:"select booth" },
           full_name:{required:"enter full name" },
           father_husband_name:{required:"Enter father or husband name" },

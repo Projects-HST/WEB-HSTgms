@@ -11,7 +11,7 @@ Class Constituentmodel extends CI_Model
 
 ####################  Constituent member ####################
 
-	function create_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id){
+	function create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id){
 		// $select="SELECT * FROM constituent where serial_no='$serial_no'";
 		// $res_select   = $this->db->query($select);
 		// if($res_select->num_rows()==0){
@@ -25,7 +25,7 @@ Class Constituentmodel extends CI_Model
 		}else{
 			$voter_no=$voter_id_no;
 		}
-		$query="INSERT INTO constituent (constituency_id,paguthi_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW())";
+		$query="INSERT INTO constituent (constituency_id,paguthi_id,office_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at) VALUES ('$constituency_id','$paguthi_id','$office_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW())";
 		$result=$this->db->query($query);
 		 $last_id=$this->db->insert_id();
 
@@ -49,7 +49,7 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-			function update_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id){
+			function update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id){
 				if($aadhaar_status=='N'){
 					$aadhar_id_no=' ';
 				}else{
@@ -61,7 +61,7 @@ Class Constituentmodel extends CI_Model
 					$voter_no=$voter_id_no;
 				}
 				$id=base64_decode($constituent_id)/98765;
-				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id',voter_status='$voter_status' where id='$id'";
+				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',office_id='$office_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id',voter_status='$voter_status' where id='$id'";
 
 					$result=$this->db->query($update);
 					if($result){
@@ -424,18 +424,28 @@ Class Constituentmodel extends CI_Model
 				}
 
 				if($petition_code){
-						$data=array("status"=>"success",'petition_code'=>$petition_code);
+						$data_peti=array("status"=>"success",'petition_code'=>$petition_code);
 
 				 }else{
-					 $data=array("status"=>"error");
+					 $data_peti=array("status"=>"error");
 				 }
 
+
+				 $query_1="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+				 $result_1=$this->db->query($query_1);
+					if($result_1->num_rows()==0){
+						$data_office=array("status"=>"error");
+					}else{
+						 $data_office=array("status"=>"success","res_office"=>$result_1->result());
+					}
+
+					$data=array("status"=>"success","pet_eny_no"=>$data_peti,"office_data"=>$data_office);
 				return $data;
 
 		}
 
 
-		function save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id){
+		function save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$office_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id){
 			$gr_date=date('Y-m-d');
 			$check="SELECT * FROM grievance WHERE petition_enquiry_no='$petition_enquiry_no'";
 			$res_check=$this->db->query($check);
@@ -448,7 +458,7 @@ Class Constituentmodel extends CI_Model
 					$repeated_status='R';
 				}
 
-				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
+				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PROCESSING','$user_id',NOW(),'$user_id',NOW())";
 				$res=$this->db->query($insert);
 				$last_id=$this->db->insert_id();
 				if(empty($filename)){
@@ -587,9 +597,9 @@ Class Constituentmodel extends CI_Model
 				return $data;
 		}
 
-		function update_grievance_data($grievance_id,$seeker_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id){
+		function update_grievance_data($grievance_id,$seeker_id,$office_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id){
 			$id=base64_decode($grievance_tb_id)/98765;
-			$update="UPDATE grievance SET seeker_type_id='$seeker_id',grievance_type_id='$grievance_id',sub_category_id='$sub_category_id',description='$description',reference_note='$reference_note',updated_at=NOW(),updated_by='$user_id' WHERE id='$id'";
+			$update="UPDATE grievance SET seeker_type_id='$seeker_id',office_id='$office_id',grievance_type_id='$grievance_id',sub_category_id='$sub_category_id',description='$description',reference_note='$reference_note',updated_at=NOW(),updated_by='$user_id' WHERE id='$id'";
 			$result=$this->db->query($update);
 			if($result){
 					$data=array("status"=>"success","msg"=>"Grievance updated Successfully","class"=>"alert alert-success");
@@ -811,56 +821,50 @@ Class Constituentmodel extends CI_Model
 
 
 // Fetch records
-	public function getConstituent($rowno,$rowperpage,$search_text="") {
+function getConstituent($rowno,$rowperpage,$search_text="") {
 
-		$this->db->select('c.*,p.paguthi_name');
-		$this->db->from('constituent as c');
-		$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
-		
-$search_key_1 = '';
-$search_key_2 = '';
+	$this->db->select('c.*,p.paguthi_name');
+	$this->db->from('constituent as c');
+	$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
 
-		if($search_text != ''){
-			
-			$search_key = (explode(",",$search_text));
-			$search_key_count = count($search_key);
-			
-			if ($search_key_count >=0){
-				$search_key_1 = trim($search_key[0]);
-			}
+			$search_key_1 = '';
+			$search_key_2 = '';
 
-			if ($search_key_count >1) {
-				$search_key_2 = trim($search_key[1]);
-			}
+	if($search_text != ''){
 
-			if ($search_key_2 != ''){
-				 $this->db->or_like('full_name', $search_key_1);
-				 $this->db->like('address', $search_key_2);
-			} else {
-				$this->db->or_like('full_name', $search_key_1);
-				// $this->db->or_like('father_husband_name', $search);
-				// $this->db->or_like('guardian_name', $search);
-				$this->db->or_like('mobile_no', $search_key_1);
-				// $this->db->or_like('whatsapp_no', $search);
-				// $this->db->or_like('address', $search);
-				// $this->db->or_like('pin_code', $search);
-				// $this->db->or_like('email_id', $search_text);
-				$this->db->or_like('voter_id_no', $search_key_1);
-				$this->db->or_like('aadhaar_no', $search_key_1);
-				$this->db->or_like('serial_no', $search_key_1);
-			}
-			
-			
+		$search_key = (explode(",",$search_text));
+		$search_key_count = count($search_key);
+
+		if ($search_key_count >=0){
+							$search_key_1 = trim(strtoupper($search_key[0]));
+					 }
+
+					if ($search_key_count >1) {
+							$search_key_2 = trim(strtoupper($search_key[1]));
+					}
+
+		if ($search_key_2 != ''){
+			 $this->db->like('full_name', $search_key_1,'after');
+			 $this->db->like('address', $search_key_2);
+		} else {
+			$this->db->or_like('full_name', $search_key_1,'after');
+			$this->db->or_like('mobile_no', $search_key_1);
+			$this->db->or_like('voter_id_no', $search_key_1);
+			$this->db->or_like('aadhaar_no', $search_key_1);
+			$this->db->or_like('serial_no', $search_key_1);
 		}
-		$this->db->limit($rowperpage, $rowno);
-		//echo $this->db->get_compiled_select(); exit;
-		$query = $this->db->get();
 
-		return $query->result_array();
-  }
+
+	}
+	$this->db->limit($rowperpage, $rowno);
+	// echo $this->db->get_compiled_select(); exit;
+	$query = $this->db->get();
+
+	return $query->result_array();
+}
 
   // Select total records
-	public function getConstituentcount($search_text = '') {
+	 function getConstituentcount($search_text = '') {
 
 		$this->db->select('count(*) as allcount');
 		$this->db->from('constituent');
@@ -913,29 +917,43 @@ $search_key_2 = '';
 
 	function getrecordconscount($search_text = '') {
 
-		$this->db->select('count(*) as allcount');
- 		$this->db->from('constituent');
+				$this->db->select('count(*) as allcount');
+				$this->db->from('constituent');
+				$search_key_1 = '';
+				$search_key_2 = '';
 
- 		if($search_text != ''){
- 			$this->db->or_like('full_name', $search_text);
- 			// $this->db->or_like('father_husband_name', $search);
- 			// $this->db->or_like('guardian_name', $search);
- 			$this->db->or_like('mobile_no', $search_text);
- 			// $this->db->or_like('whatsapp_no', $search);
- 			// $this->db->or_like('address', $search);
- 			// $this->db->or_like('pin_code', $search);
- 			// $this->db->or_like('email_id', $search_text);
- 			$this->db->or_like('voter_id_no', $search_text);
- 			$this->db->or_like('aadhaar_no', $search_text);
- 			$this->db->or_like('serial_no', $search_text);
- 		}
- 			// echo $this->db->get_compiled_select(); exit;
- 		$query = $this->db->get();
- 		$result = $query->result_array();
+				if($search_text != ''){
 
- 		return $result[0]['allcount'];
+				$search_key = (explode(",",$search_text));
+				$search_key_count = count($search_key);
+
+				if ($search_key_count >=0){
+						$search_key_1 = trim(strtoupper($search_key[0]));
+				}
+
+				if ($search_key_count >1) {
+						$search_key_2 = trim(strtoupper($search_key[1]));
+				}
+
+				if ($search_key_2 != ''){
+							$this->db->or_like('full_name', $search_key_1,'after');
+							$this->db->like('address', $search_key_2);
+				} else {
+						$this->db->or_like('full_name', $search_key_1,'after');
+						$this->db->or_like('mobile_no', $search_key_1);
+						$this->db->or_like('voter_id_no', $search_key_1);
+						$this->db->or_like('aadhaar_no', $search_key_1);
+						$this->db->or_like('serial_no', $search_key_1);
+				}
+
+
+				}
+				// echo $this->db->get_compiled_select(); exit;
+				$query = $this->db->get();
+				$result = $query->result_array();
+
+				return $result[0]['allcount'];
  }
-
 
 
 

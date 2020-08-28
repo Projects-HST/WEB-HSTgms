@@ -37,14 +37,14 @@
 			</div>
 		<?php endif; ?>
 	<div>
-		<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
+		<input type="text" name="username" id="username" class="form-control" placeholder="EMAIL ID" maxlength="50" style="margin-bottom:10px;">
 	</div>
 	<div>
 		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="10" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
 	</div>
-	<div>
-		<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Log in</button>
-		<a href="#signup" class="reset_pass"> Lost your password? </a>
+	<div class="text-center">
+	<p>	<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Log in</button></p>
+	<p>	<a href="#signup" class="reset_pass"> Lost your password? </a></p>
 	</div>
 	<div class="separator"></div>
 	</form>
@@ -61,9 +61,9 @@
 	<div>
 		<input type="text" class="form-control"  name="user_name" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
 	</div>
-	<div>
-		<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Submit</button>
-		<a href="#signin" class="reset_pass" style="text-transform: uppercase;"> Log in </a>
+	<div class="text-center">
+		<p><button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Submit</button></p>
+	<p>	<a href="#signin" class="reset_pass" style="text-transform: uppercase;"> Log in </a></p>
 	</div>
 
 	<div class="separator">

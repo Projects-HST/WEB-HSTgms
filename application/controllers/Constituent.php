@@ -195,6 +195,7 @@ class constituent extends CI_Controller {
 			$constituency_id=$this->input->post('constituency_id');
 			$paguthi_id=$this->input->post('paguthi_id');
 			$ward_id=$this->input->post('ward_id');
+			$office_id=$this->input->post('office_id');
 			$booth_id=$this->input->post('booth_id');
 			$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
 			$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
@@ -231,7 +232,7 @@ class constituent extends CI_Controller {
 				$profilepic = $uploaddir.$filename;
 				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 			}
-			$data=$this->constituentmodel->create_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id);
+			$data=$this->constituentmodel->create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");
@@ -248,6 +249,7 @@ class constituent extends CI_Controller {
 				$constituency_id=$this->input->post('constituency_id');
 				$paguthi_id=$this->input->post('paguthi_id');
 				$ward_id=$this->input->post('ward_id');
+				$office_id=$this->input->post('office_id');
 				$booth_id=$this->input->post('booth_id');
 				$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
 				$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
@@ -285,7 +287,7 @@ class constituent extends CI_Controller {
 					$profilepic = $uploaddir.$filename;
 					move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 				}
-				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id);
+				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id);
 				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 				$this->session->set_flashdata('msg', $messge);
 				redirect("constituent/list_constituent_member");
@@ -752,6 +754,7 @@ public function list_grievance_reply($rowno=0){
 			$constituent_id=$this->input->post('constituent_id');
 			$constituency_id=$this->input->post('constituency_id');
 			$paguthi_id=$this->input->post('paguthi_id');
+			$office_id=$this->input->post('office_id');
 			$seeker_id=$this->input->post('seeker_id');
 			$grievance_id=$this->input->post('grievance_id');
 			$sub_category_id=$this->input->post('sub_category_id');
@@ -772,7 +775,7 @@ public function list_grievance_reply($rowno=0){
 				 $profilepic = $uploaddir.$filename;
 				 move_uploaded_file($_FILES['doc_file_name']['tmp_name'], $profilepic);
 			 }
-			$data=$this->constituentmodel->save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id);
+			$data=$this->constituentmodel->save_grievance_data($constituent_id,$constituency_id,$paguthi_id,$office_id,$seeker_id,$grievance_id,$sub_category_id,$grievance_type,$petition_enquiry_no,$description,$grievance_date,$doc_name,$filename,$reference_note,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/all_grievance");
@@ -810,11 +813,12 @@ public function list_grievance_reply($rowno=0){
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('grievance_id');
 			$seeker_id=$this->input->post('seeker_id');
+			$office_id=$this->input->post('office_id');
 			$reference_note=strtoupper($this->db->escape_str($this->input->post('reference_note')));
 			$grievance_tb_id=$this->input->post('grievance_tb_id');
 			$sub_category_id=$this->input->post('sub_category_id');
 			$description=strtoupper($this->db->escape_str($this->input->post('description')));
-			$data=$this->constituentmodel->update_grievance_data($grievance_id,$seeker_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id);
+			$data=$this->constituentmodel->update_grievance_data($grievance_id,$seeker_id,$office_id,$reference_note,$sub_category_id,$grievance_tb_id,$description,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/all_grievance");

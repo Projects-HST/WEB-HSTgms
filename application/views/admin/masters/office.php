@@ -3,26 +3,27 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Create Paguthi</h2>
+               <h2>Create office</h2>
 
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
 
 
-               <form id="master_form" action="<?php echo base_url(); ?>masters/create_paguthi" method="post" enctype="multipart/form-data">
+               <form id="master_form" action="<?php echo base_url(); ?>masters/create_office" method="post" enctype="multipart/form-data">
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3">Paguthi  <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3">Office  <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
-                        <input id="constituency_name" class=" form-control" name="paguthi_name" type="text" value="">
+                        <input id="constituency_name" class=" form-control" name="office_name" type="text" value="">
+                        <input id="paguthi_id" class=" form-control" name="paguthi_id" type="hidden" value="<?php echo $this->uri->segment(3); ?>">
                      </div>
                   </div>
                   <div class="item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3">Paguthi short form <span class="required">*</span>
+                     <label class="col-form-label col-md-3 col-sm-3">Office short form <span class="required">*</span>
                      </label>
                      <div class="col-md-4 col-sm-6 ">
-                        <input id="paguthi_short_name" class=" form-control" name="paguthi_short_name" type="text" value="">
+                        <input id="paguthi_short_name" class=" form-control" name="office_short_form" type="text" value="">
                      </div>
                   </div>
                   <div class="item form-group">
@@ -60,7 +61,7 @@
              <thead>
                 <tr style="text-align:center;">
                    <th>S.no</th>
-                   <th>paguthi</th>
+                   <th>office</th>
                    <th>short form</th>
                    <th>status</th>
                    <th>Action</th>
@@ -71,8 +72,8 @@
                <?php $i=1; foreach($res as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo $rows->paguthi_name; ?></td>
-                    <td><?php echo $rows->paguthi_short_name ;?></td>
+                    <td><?php echo $rows->office_name; ?></td>
+                    <td><?php echo $rows->office_short_form ;?></td>
                     <td><?php if($rows->status=='ACTIVE'){ ?>
                     <span class="badge-<?= $rows->status ?>">Active</span>
                     <?php  }else{ ?>
@@ -80,8 +81,8 @@
                     <?php   } ?>
                     </td>
                     <td>
-                    <a title="EDIT" href="<?php echo base_url(); ?>masters/get_paguthi_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;
-                    <a title="ADD OFFICE" href="<?php echo base_url(); ?>masters/office/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-plus-square"></i></a></td>
+                    <a title="EDIT" href="<?php echo base_url(); ?>masters/get_office_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a> &nbsp;
+                  </td>
                  </tr>
 
             <?php  $i++; } ?>
@@ -100,23 +101,23 @@ $('.mastermenu').css('display','block');
 $('#paguthimenu').addClass('active');
 $('#master_form').validate({
      rules: {
-         paguthi_name:{required:true,maxlength:80,
+         office_name:{required:true,maxlength:40,
            remote: {
-                     url: "<?php echo base_url(); ?>masters/checkpaguthi",
+                     url: "<?php echo base_url(); ?>masters/checkoffice",
                      type: "post"
                   }
              },
-         paguthi_short_name:{required:true,maxlength:5,
+         office_short_form:{required:true,maxlength:4,
            remote: {
-                     url: "<?php echo base_url(); ?>masters/checkpaguthishort",
+                     url: "<?php echo base_url(); ?>masters/checkofficeshortname",
                      type: "post"
                   }
                  },
          status:{required:true }
      },
      messages: {
-           paguthi_name: { required:"enter the paguthi name",remote:"paguthi name already exist"},
-           paguthi_short_name: { required:"enter the paguthi short name",remote:"paguthi short name already exist"}
+           office_name: { required:"enter the office name",remote:"office name already exist"},
+           office_short_form: { required:"enter the office short form",remote:"office short form already exist"}
          }
  });
  </script>

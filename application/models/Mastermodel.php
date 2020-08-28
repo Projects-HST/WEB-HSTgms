@@ -179,6 +179,105 @@ Class Mastermodel extends CI_Model
 
 	#################### Ward ####################//
 
+	#################### Office ####################
+
+	function get_office($paguthi_id){
+		$id=base64_decode($paguthi_id)/98765;
+		$query="SELECT * FROM office where paguthi_id='$id' order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+
+	function checkoffice($office_name){
+		$select="SELECT * FROM office Where office_name='$office_name'";
+			$result=$this->db->query($select);
+			if($result->num_rows()>0){
+				echo "false";
+				}else{
+					echo "true";
+			}
+	}
+	function checkofficeshortname($office_short_form){
+		$select="SELECT * FROM office Where office_short_form='$office_short_form'";
+			$result=$this->db->query($select);
+			if($result->num_rows()>0){
+				echo "false";
+				}else{
+					echo "true";
+			}
+	}
+
+	function checkofficeexist($office_name,$office_id){
+		$select="SELECT * FROM office Where office_name='$office_name' and id!='$office_id'";
+			$result=$this->db->query($select);
+			if($result->num_rows()>0){
+				echo "false";
+				}else{
+					echo "true";
+			}
+	}
+
+	function checkofficeshortnameexist($office_short_form,$office_id){
+		$select="SELECT * FROM office Where office_short_form='$office_short_form' and id!='$office_id'";
+			$result=$this->db->query($select);
+			if($result->num_rows()>0){
+				echo "false";
+				}else{
+					echo "true";
+			}
+	}
+
+
+	function create_office($paguthi_id,$office_name,$office_short_form,$status,$user_id){
+			$id=base64_decode($paguthi_id)/98765;
+			$select="SELECT * FROM office where  office_name='$office_name'";
+			$result=$this->db->query($select);
+			if($result->num_rows()==0){
+					$insert="INSERT INTO office (paguthi_id,office_name,office_short_form,status,updated_at,updated_by) values('$id','$office_name','$office_short_form','$status',NOW(),'$user_id')";
+					$result=$this->db->query($insert);
+					if($result){
+						$data=array("status"=>"success","msg"=>"office created Successfully","class"=>"alert alert-success");
+					}else{
+						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					}
+
+			}else{
+				$data=array("status"=>"error","msg"=>"office already exists","class"=>"alert alert-danger");
+			}
+			return $data;
+	}
+
+
+	function get_office_edit($office_id){
+		$id=base64_decode($office_id)/98765;
+		$query="SELECT * FROM office where  id='$id'";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
+	function update_office($office_name,$office_short_form,$status,$user_id,$office_id){
+		$id=base64_decode($office_id)/98765;
+		$select="SELECT * FROM office where office_name='$office_name' and id!='$id'";
+		$result=$this->db->query($select);
+		if($result->num_rows()==0){
+				$update="UPDATE office set office_name='$office_name',office_short_form='$office_short_form',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+				$result=$this->db->query($update);
+				if($result){
+					$data=array("status"=>"success","msg"=>"office update Successfully","class"=>"alert alert-success");
+				}else{
+					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				}
+
+		}else{
+			$data=array("status"=>"error","msg"=>"office already exist to paguthi","class"=>"alert alert-danger");
+		}
+		return $data;
+	}
+
+	#################### Office ####################
+
+
 	#################### Booth ####################
 
 	function get_booth($ward_id){
@@ -187,7 +286,6 @@ Class Mastermodel extends CI_Model
 		$result=$this->db->query($query);
 		return $result->result();
 	}
-
 
 
 	function create_booth($booth_name,$booth_address,$status,$user_id,$ward_id){
@@ -644,6 +742,36 @@ Class Mastermodel extends CI_Model
 		return $data;
 	}
 
+	function get_active_office($paguthi_id){
+		$query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+	 $result=$this->db->query($query);
+	 if($result->num_rows()==0){
+		 $data=array("status"=>"error");
+	 }else{
+			 $data=array("status"=>"success","res"=>$result->result());
+	 }
+	 return $data;
+	}
+
+	function get_active_ward_office($paguthi_id){
+		$query_1="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+	 	$result_1=$this->db->query($query_1);
+		 if($result_1->num_rows()==0){
+			 $data_office=array("status"=>"error");
+		 }else{
+				$data_office=array("status"=>"success","res_office"=>$result_1->result());
+		 }
+		$query="SELECT * FROM ward WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+		$result=$this->db->query($query);
+		if($result->num_rows()==0){
+			$data_ward=array("status"=>"error");
+		}else{
+				$data_ward=array("status"=>"success","res_ward"=>$result->result());
+		}
+		$data=array("status"=>"success","result_ward"=>$data_ward,"result_office"=>$data_office);
+		return $data;
+
+	}
 
 	function get_active_booth($ward_id){
 		$query="SELECT * FROM booth where ward_id='$ward_id' and status='ACTIVE' order by id desc";

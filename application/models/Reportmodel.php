@@ -809,5 +809,10 @@ Class Reportmodel extends CI_Model
 		$resultset=$this->db->query($query);
 		return $resultset->result();
 	}
+
+	 function print_report()
+		{
+		    return $query = $this->db->query("SELECT banner_image_name FROM banners");
+		}
 }
 ?>

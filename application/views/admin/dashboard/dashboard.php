@@ -52,17 +52,35 @@
 					 <input type="text" class="form-control" name="to_date" id="to_date" value="<?php echo $to_date; ?>" placeholder="DD-MM-YYYY">
 					 </div>
 				 <label class="col-form-label col-md-1 col-sm-6 text-left">paguthi <span class="required">*</span></label>
-				 <div class="col-md-3 col-sm-6">
-						<select class="form-control" name="paguthi_id" id ="paguthi_id">
+				 <div class="col-md-2 col-sm-6">
+						<select class="form-control" name="paguthi_id" id ="paguthi_id" onchange="get_paguthi(this);">
 								<option value="">ALL</option>
 							<?php foreach($paguthi as $rows){ ?>
 								<option value="<?php echo $rows->paguthi_id;?>"><?php echo $rows->paguthi_name;?></option>
 							<?php } ?><script> $('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
 						</select>
 				 </div>
-				  <div class="col-md-2 col-sm-2 text-right">
-					 <button type="submit" class="btn btn-success">FIND</button>
-					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white">CLEAR</a>
+				 <label class="col-form-label col-md-1 col-sm-6 text-left">office <span class="required">*</span></label>
+				 <div class="col-md-2 col-sm-6">
+					 <select class="form-control" name="office_id" id="office_id">
+						 <?php
+						  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
+						 $result=$this->db->query($query);
+						 if($result->num_rows()==0){ ?>
+						 <option value=""></option>
+						 <?php 	}else{
+						 $res_office=$result->result();
+						 foreach($res_office as $rows_office){ ?>
+							 <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
+						 <?php   }		}    ?>
+					 </select>
+						<script>$('#office_id').val('<?php echo $office_id; ?>');</script>
+				 </div>
+				  </div>
+				 <div class="form-group row">
+				  <div class="col-md-12 col-sm-2 text-center">
+					 <button type="submit" class="btn btn-success btn-width">FIND</button>
+					 <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white btn-width">CLEAR</a>
 				 </div>
 
 
@@ -350,10 +368,12 @@ function moneyFormatIndia($num) {
 <div class="clearfix"></div>
 	<?php if(empty($footfall_result)){  }else{ ?>
 <hr>
-<p class="graph_title">FOOTFALL GRAPH</p>
+
 <div class="row">
 
 <div class="col-md-12">
+	<p class="graph_title text-left">FOOTFALL GRAPH </p>
+
 <div class="x_panel">
 
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
@@ -436,5 +456,31 @@ $('#result_form').validate({
 
          }
  });
+
+ function get_paguthi(sel) {
+		 var paguthi_id = sel.value;
+		 $.ajax({
+				 url: "<?php echo base_url(); ?>masters/get_active_office",
+				 method: "POST",
+				 data: { paguthi_id: paguthi_id },
+				 dataType: "JSON",
+				 cache: false,
+				 success: function (data) {
+						 var stat = data.status;
+						 $("#office_id").empty();
+
+						 if (stat == "success") {
+								 var res = data.res;
+								 var len = res.length;
+								 $("#office_id").html('<option value="">ALL</option>');
+								 for (i = 0; i < len; i++) {
+										 $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
+								 }
+						 } else {
+								 $("#office_id").empty();
+						 }
+				 },
+		 });
+ }
 
     </script>

@@ -82,7 +82,12 @@
 
 
                         <ul class="nav side-menu">
-                           <li id="dashboardmenu"><a href="<?php echo base_url(); ?>dashboard"><img src="<?php echo base_url(); ?>assets/images/icons/Dashboard.png" class="img-responsive menu_img"></i> Dashboard</span></a></li>
+                           <li id="dashboardmenu">
+														 <a href="<?php echo base_url(); ?>dashboard">
+															 <img src="<?php echo base_url(); ?>assets/images/icons/Dashboard.png"
+															 class="img-responsive menu_img">
+															  Dashboard</a>
+													 </li>
                            <li id="mastermenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Master.png" class="img-responsive menu_img"> Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu mastermenu">
@@ -136,7 +141,7 @@
                                  <li id="list_news_menu"><a href="<?php echo base_url(); ?>news/list">List news Feeder</a></li>
                               </ul>
                            </li>
-						<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"></i> Banners</span></a></li>
+						<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"> Banners</a></li>
                            <li id="reportmenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu reportmenu">
@@ -153,13 +158,13 @@
 																<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
                               </ul>
                            </li>
-                           <li>
+                           <!-- <li>
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Setting.png" class="img-responsive menu_img"> Settings <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu">
                                  <li><a href="<?php echo base_url(); ?>login/profile">Profile</a></li>
                                  <li><a href="<?php echo base_url(); ?>login/password">Change Password</a></li>
                               </ul>
-                           </li>
+                           </li> -->
                         </ul>
                      </div>
                   </div>

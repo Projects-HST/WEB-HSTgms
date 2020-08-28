@@ -13,6 +13,9 @@ body{
   margin-bottom: 15px;
   color: #000;
 }
+.btn-width{
+  width:120px;
+}
 .fnt_15{
   font-size: 15px;
 }
@@ -385,4 +388,18 @@ hr{
 }
 .x_title h2{
   color:#000;
+}
+.page-item.disabled .page-link{
+  color: #fff;
+  background-color: #31aa15  !important;
+}
+.dataTables_paginate a{
+  color: #fff;
+  background-color: #31aa15  !important;
+}
+.page-item.active .page-link{
+  font-weight: 700;
+}
+.page-link{
+  border: 1px solid #31aa15;
 }

@@ -429,14 +429,17 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
+                  <label>Office  <span class="required">*</span></label>
+                  <select class="form-control" name="office_id" id="office_id">
+                    <option value=""></option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-6 ">
                   <label>Petition no  <span class="required">*</span></label>
                   <input type="text" name="petition_enquiry_no" id="petition_enquiry_no" class="form-control" readonly>
                     <input type="hidden" name="constituent_id" id="g_constituent_id" class="form-control" readonly>
                 </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <label>Date</label>
-                    <input type="text" name="grievance_date" id="grievance_date" class="form-control" readonly value="<?php echo date('d-m-Y'); ?>">
-                </div>
+
               </div>
 
               <div class=" form-group row modal_row">
@@ -466,10 +469,14 @@
 
               <div class=" form-group row modal_row">
                 <div class="col-md-4 col-sm-6 ">
+                    <label>Date</label>
+                    <input type="text" name="grievance_date" id="grievance_date" class="form-control" readonly value="<?php echo date('d-m-Y'); ?>">
+                </div>
+                <div class="col-md-4 col-sm-6 ">
                   <label>set reference</label>
                   <input type="text" name="reference_note" id="reference_note" class="form-control">
                 </div>
-                <div class="col-md-8 col-sm-6 enquiry_box">
+                <div class="col-md-12 col-sm-6 enquiry_box">
                   <label>description</label>
                   <textarea class="form-control" name="description" id="description" ></textarea>
 
@@ -575,13 +582,34 @@ function get_petition_no(sel){
     cache: false,
     success:function(data)
     {
-          $('#petition_enquiry_no').val("");
-          var stat=data.status;
-      if(stat=="success"){
-          $('#petition_enquiry_no').val(data.petition_code);
-      }else{
-        $('#petition_enquiry_no').empty();
-      }
+        $('#petition_enquiry_no').val("");
+          $('#office_id').empty();
+        var stat=data.status;
+        if(stat=="success"){
+          var pet_status=data.pet_eny_no;
+          var eny_pet_stat=pet_status.status;
+          if(eny_pet_stat=="success"){
+            $('#petition_enquiry_no').val(pet_status.petition_code);
+          }else{
+
+          }
+          var off_res=data.office_data;
+          var stat_office=off_res.status;
+          if(stat_office=="success"){
+            var res_office=off_res.res_office;
+            var len_off=res_office.length;
+              $('#office_id').html('<option value="">SELECT office</option>');
+                for (j = 0; j < len_off; j++) {
+                  $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
+                }
+          }else{
+
+          }
+
+
+        }else{
+          $('#petition_enquiry_no').empty();
+        }
     }
   });
 
@@ -776,6 +804,7 @@ function give_voice_call(sel){
           rules: {
                 constituent_id:{required:true},
                 paguthi_id:{required:true},
+                office_id:{required:true},
                 constituency_id:{required:true},
                 seeker_id:{required:true},
                 grievance_id:{required:true},
@@ -788,6 +817,7 @@ function give_voice_call(sel){
           messages: {
             constituency_id:{required:"select constituency"},
             paguthi_id:{required:"select paguthi"},
+            office_id:{required:"select office"},
             seeker_id:{required:"select seeker"},
             grievance_id:{required:"select grievance"},
             doc_name:{required:"enter the document name"},

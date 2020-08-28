@@ -203,6 +203,102 @@ class Masters extends CI_Controller {
 
 	#################### ward ####################
 
+	#################### Office ####################
+
+	public function office()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$paguthi_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_office($paguthi_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/office',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+
+	}
+
+	public function checkoffice(){
+		$office_name=strtoupper($this->db->escape_str($this->input->post('office_name')));
+		$data=$this->mastermodel->checkoffice($office_name);
+	}
+	public function checkofficeshortname(){
+		$office_short_form=strtoupper($this->db->escape_str($this->input->post('office_short_form')));
+		$data=$this->mastermodel->checkofficeshortname($office_short_form);
+	}
+
+	public function checkofficeexist(){
+		$office_name=strtoupper($this->db->escape_str($this->input->post('office_name')));
+		$office_id=$this->uri->segment(3);
+		$data=$this->mastermodel->checkofficeexist($office_name,$office_id);
+	}
+
+	public function checkofficeshortnameexist(){
+		$office_short_form=strtoupper($this->db->escape_str($this->input->post('office_short_form')));
+		$office_id=$this->uri->segment(3);
+		$data=$this->mastermodel->checkofficeshortnameexist($office_short_form,$office_id);
+	}
+
+
+
+	public function create_office(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$paguthi_id=$this->input->post('paguthi_id');
+			$office_name=strtoupper($this->db->escape_str($this->input->post('office_name')));
+			$office_short_form=strtoupper($this->db->escape_str($this->input->post('office_short_form')));
+			$status=$this->input->post('status');
+			$data=$this->mastermodel->create_office($paguthi_id,$office_name,$office_short_form,$status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/office/$paguthi_id");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function get_office_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$office_id=$this->uri->segment(3);
+			$data['res']=$this->mastermodel->get_office_edit($office_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/masters/update_office',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function update_office(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$office_name=strtoupper($this->db->escape_str($this->input->post('office_name')));
+			$office_short_form=strtoupper($this->db->escape_str($this->input->post('office_short_form')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
+			$paguthi_id=$this->input->post('paguthi_id');
+			$office_id=$this->input->post('office_id');
+			$data=$this->mastermodel->update_office($office_name,$office_short_form,$status,$user_id,$office_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("masters/office/$paguthi_id");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+
+	#################### Office ####################
+
 	#################### Booth ####################
 	public function booth()
 	{
@@ -712,6 +808,21 @@ class Masters extends CI_Controller {
 	public function get_active_ward(){
 		$paguthi_id=$this->input->post('paguthi_id');
 		$data['res']=$this->mastermodel->get_active_ward($paguthi_id);
+		echo json_encode($data['res']);
+	}
+
+	public function get_active_office(){
+		$paguthi_id=$this->input->post('paguthi_id');
+		$data['res']=$this->mastermodel->get_active_office($paguthi_id);
+		echo json_encode($data['res']);
+	}
+
+
+
+
+	public function get_active_ward_office(){
+		$paguthi_id=$this->input->post('paguthi_id');
+		$data['res']=$this->mastermodel->get_active_ward_office($paguthi_id);
 		echo json_encode($data['res']);
 	}
 

@@ -10,6 +10,35 @@
 
            <form class="form-label-left input_mask" action="<?php echo base_url(); ?>constituent/update_grievance_data" method="post" enctype="multipart/form-data" id="grievance_form">
                <div class=" form-group row modal_row">
+                 <div class="col-md-4 col-sm-6 ">
+                   <label>Paguthi</label>
+                   <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_petition_no(this)" disabled>
+                       <option value="">SELECT</option>
+                     <?php foreach($res_paguthi as $rows_paguthi){ ?>
+                        <option value="<?php echo $rows_paguthi->id; ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
+                   <?php  } ?>
+
+                   </select>
+                   <script>$('#paguthi_id').val('<?php echo $con_row->paguthi_id; ?>');</script>
+                 </div>
+                 <div class="col-md-4 col-sm-6 ">
+                   <label>Office</label>
+                   <select class="form-control" name="office_id" id="office_id">
+                     <?php
+                       $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$con_row->paguthi_id' order by id desc";
+                     $result=$this->db->query($query);
+                     if($result->num_rows()==0){ ?>
+                     <option value=""></option>
+                     <?php 	}else{
+                     $res_office=$result->result();
+                     foreach($res_office as $rows_office){ ?>
+                       <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
+                     <?php   }		}    ?>
+                   </select>
+                   <script>$('#office_id').val('<?php echo $con_row->office_id; ?>');</script>
+                 </div>
+               </div>
+                  <div class=" form-group row modal_row">
 
                <div class="col-md-4 col-sm-6 ">
                  <label>Petition no</label>
