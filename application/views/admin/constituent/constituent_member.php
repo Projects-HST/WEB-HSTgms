@@ -43,8 +43,8 @@
                       <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
                       <div class="col-md-4 col-sm-9 ">
                           <p>
-                            <input type="radio" class="flat " name="voter_status" id="voter_status_y" value="VOTER" checked="" required="">  VOTER &nbsp;
-                            <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER"> NON-VOTER
+                            <input type="radio" class="flat " name="voter_status" id="voter_status_y" value="VOTER" >  VOTER &nbsp;
+                            <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER" checked="" required=""> NON-VOTER
 
                          </p>
                       </div>
@@ -69,7 +69,7 @@
 
                     </div>
                     <div class="form-group row voter_section">
-                      <label class="control-label col-md-2 col-sm-3 ">booth <span class="required">*</span></label>
+                      <label class="control-label col-md-2 col-sm-3 ">booth </label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
                           <option value="">Select</option>
@@ -80,7 +80,7 @@
 
                         </select>
                       </div>
-                       <label class="control-label col-md-2 col-sm-3 ">booth address <span class="required">*</span></label>
+                       <label class="control-label col-md-2 col-sm-3 ">booth address </label>
                        <div class="col-md-4 col-sm-9 ">
                         <textarea class="form-control" name="booth_address" id="booth_address" readonly></textarea>
                        </div>
@@ -122,9 +122,66 @@
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="full_name" id="full_name" class="form-control">
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name <span class="required">*</span></label>
+                     <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name </label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="father_husband_name" id="father_husband_name" class="form-control">
+                     </div>
+                  </div>
+                    <div class="form-group row ">
+                      <label class="control-label col-md-2 col-sm-3 ">DOB </label>
+                      <div class="col-md-4 col-sm-9 ">
+                        <input type="text" name="dob" id="dob" class="form-control">
+                      </div>
+                      <label class="control-label col-md-2 col-sm-3 ">Religion</label>
+                      <div class="col-md-4 col-sm-9 ">
+                        <select class="form-control" name="religion_id" id="religion_id">
+                          <option value="">SELECT</option>
+                   <?php foreach($res_religion as $rows_religion){ ?>
+                      <option value="<?php echo $rows_religion->id; ?>"><?php echo $rows_religion->religion_name; ?></option>
+                   <?php  } ?>
+
+                        </select>
+                      </div>
+
+                    </div>
+                      <div class="form-group row ">
+                        <label class="control-label col-md-2 col-sm-3 ">Gender</label>
+                        <div class="col-md-4 col-sm-9 ">
+                          <select class="form-control" name="gender" id="gender">
+                            <option value="">SELECT</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="T">Transgender</option>
+                          </select>
+                        </div>
+
+                      <label class="control-label col-md-2 col-sm-3 ">Door no </label>
+                      <div class="col-md-4 col-sm-9 ">
+                        <input type="text" name="door_no" id="door_no" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row ">
+
+                       <label class="control-label col-md-2 col-sm-3 ">address </label>
+                       <div class="col-md-4 col-sm-9 ">
+                         <textarea name="address" id="address" class="form-control"></textarea>
+                       </div>
+                       <label class="control-label col-md-2 col-sm-3 ">pincode </label>
+                       <div class="col-md-4 col-sm-9 ">
+                         <input type="text" name="pin_code" id="pin_code" class="form-control">
+                       </div>
+
+                    </div>
+
+                  <div class="form-group row ">
+                     <label class="control-label col-md-2 col-sm-3 ">Mobile no </label>
+                     <div class="col-md-4 col-sm-9 ">
+                       <input type="text" name="mobile_no" id="mobile_no" class="form-control" onblur="checkTextField(this);">
+                       <p id="copy_section"><input type="checkbox"  id="copy_value" style="margin-top:8px;"> &nbsp; <span>Same number to whatsapp</span></p>
+                     </div>
+                     <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
+                     <div class="col-md-4 col-sm-9 ">
+                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control">
                      </div>
                   </div>
                   <div class="form-group row ">
@@ -137,58 +194,7 @@
                        <input type="text" name="email_id" id="email_id" class="form-control">
                      </div>
                   </div>
-                  <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">Mobile no <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="mobile_no" id="mobile_no" class="form-control" onblur="checkTextField(this);">
-                       <p id="copy_section"><input type="checkbox"  id="copy_value"><span>Same number to whatsapp</span></p>
-                     </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control">
-                     </div>
-                  </div>
-                  <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">DOB <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="dob" id="dob" class="form-control">
-                     </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Door no <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="door_no" id="door_no" class="form-control">
-                     </div>
-                  </div>
-                  <div class="form-group row ">
-                    <label class="control-label col-md-2 col-sm-3 ">pincode <span class="required">*</span></label>
-                    <div class="col-md-4 col-sm-9 ">
-                      <input type="text" name="pin_code" id="pin_code" class="form-control">
-                    </div>
-                     <label class="control-label col-md-2 col-sm-3 ">address <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <textarea name="address" id="address" class="form-control"></textarea>
-                     </div>
 
-                  </div>
-                  <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">Religion</label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <select class="form-control" name="religion_id" id="religion_id">
-                  <?php foreach($res_religion as $rows_religion){ ?>
-                     <option value="<?php echo $rows_religion->id; ?>"><?php echo $rows_religion->religion_name; ?></option>
-                <?php  } ?>
-
-                       </select>
-                     </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Gender</label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <select class="form-control" name="gender" id="gender">
-                         <option value="M">Male</option>
-                         <option value="F">Female</option>
-                         <option value="T">Transgender</option>
-                       </select>
-                     </div>
-
-                   </div>
                     <div class="form-group row voter_section" id="">
                          <label class="control-label col-md-2 col-sm-3 ">Voter id status</label>
                        <div class="col-md-4 col-sm-9 ">
@@ -204,7 +210,7 @@
                        </div>
                      </div>
                      <div class="form-group row ">
-                          <label class="control-label col-md-2 col-sm-3 ">aadhaar status <span class="required">*</span></label>
+                          <label class="control-label col-md-2 col-sm-3 ">aadhaar status </label>
                         <div class="col-md-4 col-sm-9 ">
                            <p>
                              <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" > YES &nbsp;
@@ -226,7 +232,7 @@
                        </div>
 
                        <!-- <div class="form-group row ">
-                            <label class="control-label col-md-2 col-sm-3 ">Show interaction information <span class="required">*</span></label>
+                            <label class="control-label col-md-2 col-sm-3 ">Show interaction information </label>
                           <div class="col-md-4 col-sm-9 ">
                              <p>
                                YES:
@@ -294,6 +300,17 @@
    // $('#copy_section').change(function() {
    //     $("#whatsapp_no").val($("#mobile_no").val());
    //  });
+
+   $(document).ready(function(){
+    var voter_status=$("input[type=radio][name='voter_status']:checked").val();
+
+    if(voter_status == 'VOTER'){
+      $('.voter_section').show();
+    }else{
+      $('.voter_section').hide();
+    }
+});
+
     $("#copy_value").click(function() {
            var checked = $(this).is(':checked');
            if (checked) {
@@ -546,14 +563,14 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           office_id:{required:true },
           booth_id:{required:false },
           full_name:{required:true,maxlength:80 },
-          father_husband_name:{required:true,maxlength:80 },
+          father_husband_name:{required:false,maxlength:80 },
           guardian_name:{required:false,maxlength:80 },
-          mobile_no:{required:true,minlength:10,maxlength:10 },
+          mobile_no:{required:false,minlength:10,maxlength:10 },
           whatsapp_no:{required:false,minlength:10,maxlength:10  },
-          dob:{required:true,maxlength:10 },
-          door_no:{required:true },
-          address:{required:true,maxlength:240 },
-          pin_code:{required:true,digits:true,maxlength:6,minlength:6 },
+          dob:{required:false,maxlength:10 },
+          door_no:{required:false },
+          address:{required:false,maxlength:240 },
+          pin_code:{required:false,digits:true,maxlength:6,minlength:6 },
           email_id:{required:false ,email:true,maxlength:80},
           serial_no:{required:false,
             remote: {
@@ -561,13 +578,13 @@ $.validator.addMethod('filesize', function(value, element, arg) {
                       type: "post"
                    }
                   },
-            voter_id_no:{required:true,maxlength:20,
+            voter_id_no:{required:false,maxlength:20,
               remote: {
                         url: "<?php echo base_url(); ?>constituent/checkvoter_id_no",
                         type: "post"
                      }
                 },
-            aadhaar_no:{required:true,maxlength:12,
+            aadhaar_no:{required:false,maxlength:12,
               remote: {
                         url: "<?php echo base_url(); ?>constituent/checkaadhaar_no",
                         type: "post"

@@ -88,12 +88,14 @@
 				// 	echo '<td><a class="badge badge-view handle_symbol" onclick="view_donation('.$const_id.')">VIEW</i></a></td>';
 				// } else {
 				// 	echo '<td><a class="badge badge-add handle_symbol" onclick="add_plant_donation('.$const_id.')">ADD</i></a></td>';
+        	// <a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 				// }
 				echo '<td><a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
-				echo '<td>	<a title="EDIT" id="EDIT" href="'. base_url().'constituent/get_constituent_member_edit/'.base64_encode($const_id*98765).'"><i class="fa fa-edit"></i></a>&nbsp;
+				echo '<td>	<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
+        	     <a title="EDIT" id="EDIT" href="'. base_url().'constituent/get_constituent_member_edit/'.base64_encode($const_id*98765).'"><i class="fa fa-edit"></i></a>&nbsp;
 							<a title="DOCUMENTS" href="'.base_url().'constituent/get_list_document/'.base64_encode($const_id*98765).'"><i class="fa fa-file-word-o"></i></a>&nbsp;
-							<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
-							<a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
+
+
 							<a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
 							&nbsp;
 							<a title="VIDEO " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a>
@@ -408,7 +410,7 @@
                  </label>
                  <div class="col-md-4 col-sm-6 ">
                    <select class="form-control" name="constituency_id" id="constituency_id">
-                       <option value="">SELECT</option>
+                      
                      <?php foreach($res_constituency as $rows_constituency){ ?>
 
                     <?php } ?>
@@ -793,12 +795,10 @@ function give_voice_call(sel){
               }
       });
 
-      $.validator.addMethod('filesize', function (value, element,param) {
-        var size=element.files[0].size;
-        size=size/1024;
-        size=Math.round(size);
-        return this.optional(element) || size <=param ;
-      }, 'File size must be less than 1 MB');
+      $.validator.addMethod('filesize', function(value, element, arg) {
+
+        return this.optional(element) || element.files[0].size <= arg;
+        });
 
      $('#grievance_form').validate({
           rules: {
@@ -808,11 +808,11 @@ function give_voice_call(sel){
                 constituency_id:{required:true},
                 seeker_id:{required:true},
                 grievance_id:{required:true},
-                doc_name:{required:true},
-                doc_file_name:{required:true,extension:'jpe?g,png,doc,docx,pdf', filesize: 1000 },
+                doc_name:{required:false},
+                doc_file_name:{required:false,extension:'jpe?g,png,doc,docx,pdf', filesize: 1000000 },
                 petition_enquiry_no:{required:true},
                 sub_category_id:{required:true},
-                sub_category_id:{required:true}
+                sub_category_id:{required:false}
           },
           messages: {
             constituency_id:{required:"select constituency"},

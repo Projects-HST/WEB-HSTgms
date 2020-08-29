@@ -15,6 +15,7 @@ body{
 }
 .btn-width{
   width:120px;
+      margin-top: 8px;
 }
 .fnt_15{
   font-size: 15px;
@@ -229,6 +230,9 @@ hr{
   padding: 5px;
 
 
+}
+input[type=search]{
+   margin-top: 20px;
 }
 .profile_heading h4{
   font-weight: 600;

@@ -372,7 +372,15 @@ function moneyFormatIndia($num) {
 <div class="row">
 
 <div class="col-md-12">
-	<p class="graph_title text-left">FOOTFALL GRAPH </p>
+	<p class="graph_title text-left">FOOTFALL GRAPH
+		<?php if(empty($from_date)){ ?>
+						<span class="text-right" style="float:right;">Only 6 weeks Graph</span>
+	<?php	}else{
+
+		} ?>
+
+
+	</p>
 
 <div class="x_panel">
 

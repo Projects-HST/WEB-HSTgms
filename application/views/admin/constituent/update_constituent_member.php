@@ -168,11 +168,69 @@
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="full_name" id="full_name" class="form-control" value="<?php echo $rows->full_name; ?>">
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name <span class="required">*</span></label>
+                     <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name </label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="father_husband_name" id="father_husband_name" class="form-control" value="<?php echo $rows->father_husband_name; ?>">
                      </div>
                   </div>
+                    <div class="form-group row ">
+                      <label class="control-label col-md-2 col-sm-3 ">DOB </label>
+                      <div class="col-md-4 col-sm-9 ">
+                        <input type="text" name="dob" id="dob" class="form-control" value="<?php echo $rows->dob; ?>">
+                      </div>
+                      <label class="control-label col-md-2 col-sm-3 ">Religion</label>
+                      <div class="col-md-4 col-sm-9 ">
+                        <select class="form-control" name="religion_id" id="religion_id">
+                          
+                   <?php foreach($res_religion as $rows_religion){ ?>
+                      <option value="<?php echo $rows_religion->id; ?>"><?php echo $rows_religion->religion_name; ?></option>
+                 <?php  } ?>
+
+                        </select>
+                        <script>$('#religion_id').val('<?php echo $rows->religion_id; ?>');</script>
+                      </div>
+
+                    </div>
+                      <div class="form-group row">
+                        <label class="control-label col-md-2 col-sm-3 ">Gender</label>
+                        <div class="col-md-4 col-sm-9 ">
+                          <select class="form-control" name="gender" id="gender">
+                            <option value="">SELECT</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="T">Transgender</option>
+                          </select>
+                            <script>$('#gender').val('<?php echo $rows->gender; ?>');</script>
+                           </div>
+                           <label class="control-label col-md-2 col-sm-3 ">Door no </label>
+                           <div class="col-md-4 col-sm-9 ">
+                             <input type="text" name="door_no" id="door_no" class="form-control" value="<?php echo $rows->door_no; ?>">
+                             <input type="hidden" name="constituent_id" id="constituent_id" class="form-control" value="<?php echo base64_encode($rows->id*98765); ?>">
+                           </div>
+
+                      </div>
+                      <div class="form-group row ">
+
+                         <label class="control-label col-md-2 col-sm-3 ">address </label>
+                         <div class="col-md-4 col-sm-9 ">
+                           <textarea name="address" id="address" class="form-control"><?php echo $rows->address; ?></textarea>
+                         </div>
+                         <label class="control-label col-md-2 col-sm-3 ">pincode </label>
+                         <div class="col-md-4 col-sm-9 ">
+                           <input type="text" name="pin_code" id="pin_code" class="form-control" value="<?php echo $rows->pin_code; ?>">
+                         </div>
+
+                      </div>
+                      <div class="form-group row ">
+                         <label class="control-label col-md-2 col-sm-3 ">Mobile no </label>
+                         <div class="col-md-4 col-sm-9 ">
+                           <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo $rows->mobile_no; ?>">
+                         </div>
+                         <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
+                         <div class="col-md-4 col-sm-9 ">
+                           <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control" value="<?php echo $rows->whatsapp_no; ?>">
+                         </div>
+                      </div>
                   <div class="form-group row ">
                      <!-- <label class="control-label col-md-2 col-sm-3 ">Gaurdian name</label>
                      <div class="col-md-4 col-sm-9 ">
@@ -183,60 +241,8 @@
                        <input type="text" name="email_id" id="email_id" class="form-control" value="<?php echo $rows->email_id; ?>">
                      </div>
                   </div>
-                  <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">Mobile no <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="<?php echo $rows->mobile_no; ?>">
-                     </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control" value="<?php echo $rows->whatsapp_no; ?>">
-                     </div>
-                  </div>
-                  <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">DOB <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="dob" id="dob" class="form-control" value="<?php echo $rows->dob; ?>">
-                     </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Door no <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="door_no" id="door_no" class="form-control" value="<?php echo $rows->door_no; ?>">
-                       <input type="hidden" name="constituent_id" id="constituent_id" class="form-control" value="<?php echo base64_encode($rows->id*98765); ?>">
-                     </div>
-                  </div>
-                  <div class="form-group row ">
-                    <label class="control-label col-md-2 col-sm-3 ">pincode <span class="required">*</span></label>
-                    <div class="col-md-4 col-sm-9 ">
-                      <input type="text" name="pin_code" id="pin_code" class="form-control" value="<?php echo $rows->pin_code; ?>">
-                    </div>
-                     <label class="control-label col-md-2 col-sm-3 ">address <span class="required">*</span></label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <textarea name="address" id="address" class="form-control"><?php echo $rows->address; ?></textarea>
-                     </div>
 
-                  </div>
-                  <div class="form-group row ">
-                     <label class="control-label col-md-2 col-sm-3 ">Religion</label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <select class="form-control" name="religion_id" id="religion_id">
-                  <?php foreach($res_religion as $rows_religion){ ?>
-                     <option value="<?php echo $rows_religion->id; ?>"><?php echo $rows_religion->religion_name; ?></option>
-                <?php  } ?>
 
-                       </select>
-                       <script>$('#religion_id').val('<?php echo $rows->religion_id; ?>');</script>
-                     </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Gender</label>
-                     <div class="col-md-4 col-sm-9 ">
-                       <select class="form-control" name="gender" id="gender">
-                         <option value="M">Male</option>
-                         <option value="F">Female</option>
-                         <option value="T">Transgender</option>
-                       </select>
-                       <script>$('#gender').val('<?php echo $rows->gender; ?>');</script>
-                        </div>
-
-                   </div>
                    <div class="clearfix"></div>
                     <div class="form-group row voter_section">
                          <label class="control-label col-md-2 col-sm-3 ">Voter id status</label>
@@ -254,7 +260,7 @@
                      </div>
                      <div class="clearfix"></div>
                      <div class="form-group row ">
-                          <label class="control-label col-md-2 col-sm-3 ">aadhaar status <span class="required">*</span></label>
+                          <label class="control-label col-md-2 col-sm-3 ">aadhaar status </label>
                         <div class="col-md-4 col-sm-9 ">
                            <p>
                             <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" <?php echo ($rows->aadhaar_status=='Y') ? 'checked="checked"':'';?>> YES &nbsp;
@@ -547,14 +553,14 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           ward_id:{required:true },
           booth_id:{required:false },
           full_name:{required:true,maxlength:80 },
-          father_husband_name:{required:true,maxlength:80 },
+          father_husband_name:{required:false,maxlength:80 },
           guardian_name:{required:false,maxlength:80 },
-          mobile_no:{required:true,minlength:10,maxlength:10 },
+          mobile_no:{required:false,minlength:10,maxlength:10 },
           whatsapp_no:{required:false,minlength:10,maxlength:10  },
-          dob:{required:true,maxlength:10 },
-          door_no:{required:true },
-          address:{required:true,maxlength:240 },
-          pin_code:{required:true,digits:true,maxlength:6,minlength:6 },
+          dob:{required:false,maxlength:10 },
+          door_no:{required:false },
+          address:{required:false,maxlength:240 },
+          pin_code:{required:false,digits:true,maxlength:6,minlength:6 },
           email_id:{required:false ,email:true,maxlength:80},
           serial_no:{required:false,
             remote: {
@@ -562,13 +568,13 @@ $.validator.addMethod('filesize', function(value, element, arg) {
                       type: "post"
                    }
                   },
-            voter_id_no:{required:true,maxlength:20,
+            voter_id_no:{required:false,maxlength:20,
               remote: {
                         url: "<?php echo base_url(); ?>constituent/checkvoter_id_noexist/<?php echo $rows->id; ?>",
                         type: "post"
                      }
                 },
-            aadhaar_no:{required:true,maxlength:12,
+            aadhaar_no:{required:false,maxlength:12,
               remote: {
                         url: "<?php echo base_url(); ?>constituent/checkaadhaar_noexist/<?php echo $rows->id; ?>",
                         type: "post"
