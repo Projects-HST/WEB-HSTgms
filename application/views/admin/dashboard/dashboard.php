@@ -352,7 +352,7 @@ function moneyFormatIndia($num) {
 						<?php if(empty($grievance_report['cv_list'])){
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
-						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->paguthi_name; ?> (<?=  round($rows_vi_lits->cnt_video/ $rows_cons->total *100,2);?>%)</p></div>
+						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?=  round($rows_vi_lits->cnt_video/ $rows_cons->total *100,2);?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
 

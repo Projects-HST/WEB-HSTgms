@@ -148,7 +148,7 @@
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
                                 <li><a href="<?php echo base_url(); ?>report/category">Grievance Category</a></li>
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
-                                <li><a href="<?php echo base_url(); ?>report/location">Location</a></li>
+                                <!-- <li><a href="<?php echo base_url(); ?>report/location">Location</a></li> -->
 																<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
 
 																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>

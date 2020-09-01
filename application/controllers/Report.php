@@ -119,6 +119,9 @@ class Report extends CI_Controller {
 
 	}
 
+
+
+
 	public function category($rowno=0)
 	{
 		$datas=$this->session->userdata();
@@ -168,6 +171,7 @@ class Report extends CI_Controller {
  		 	}
  		 }
 		 $data['g_paguthi']=$paguthi;
+		 $data['g_ward_id']=$ward_id;
 		 $data['g_category']=$category;
 		 $data['g_frmDate']=$frmDate;
 		 $data['g_toDate']=$toDate;
@@ -1136,32 +1140,334 @@ class Report extends CI_Controller {
 			}
 	}
 
+	public function get_status_report_export()
+		{
+			 $file_name = 'Report'.date('Ymd').'.csv';
+			 header("Content-Description: File Transfer");
+			 header("Content-Disposition: attachment; filename=$file_name");
+			 header("Content-Type: application/csv;");
+
+			 if(empty($frmDate)){
+				 $frmDate = $this->session->userdata('s_frmDate');
+			 }else{
+				 $frmDate="";
+			 }
+			 if(empty($toDate)){
+				 $toDate =$this->session->userdata('s_toDate');
+			 }else{
+				 $toDate="";
+			 }
+			 if(empty($status)){
+				$status = $this->session->userdata('s_status');
+			 }else{
+				 $status="";
+			 }
+			 if(empty($paguthi)){
+				$paguthi = $this->session->userdata('s_paguthi');
+			 }else{
+				 $paguthi="";
+			 }
+			 if(empty($ward_id)){
+				 $ward_id = $this->session->userdata('s_ward_id');
+			 }else{
+				 $ward_id="";
+			 }
+
+		$res_data = $this->reportmodel->get_status_report_export($frmDate,$toDate,$status,$paguthi,$ward_id);
+
+		 // file creation
+		 $file = fopen('php://output', 'w');
+
+		 $header = array("Name","Mobile number","Date","petition_enquiry_no","category","status");
+		 fputcsv($file, $header);
+		 foreach ($res_data->result_array() as $key => $value)
+		 {
+			 fputcsv($file, $value);
+		 }
+		 fclose($file);
+		 exit;
+		}
 
 
+
+
+		public function get_category_report_export()
+		{
+		 $file_name = 'Report'.date('Ymd').'.csv';
+		 header("Content-Description: File Transfer");
+		 header("Content-Disposition: attachment; filename=$file_name");
+		 header("Content-Type: application/csv;");
+
+		 if(empty($frmDate)){
+			 $frmDate = $this->session->userdata('g_frmDate');
+		 }else{
+			 $frmDate="";
+		 }
+		 if(empty($toDate)){
+			 $toDate =$this->session->userdata('g_toDate');
+		 }else{
+			 $toDate="";
+		 }
+		 if(empty($category)){
+			$category = $this->session->userdata('g_category');
+		 }else{
+			 $category="";
+		 }
+		 if(empty($sub_category_id)){
+			$sub_category_id = $this->session->userdata('g_sub_category_id');
+		 }else{
+			 $sub_category_id="";
+		 }
+		 if(empty($paguthi)){
+			$paguthi = $this->session->userdata('g_paguthi');
+		 }else{
+			 $paguthi="";
+		 }
+		 if(empty($ward_id)){
+			 $ward_id = $this->session->userdata('g_ward_id');
+		 }else{
+			 $ward_id="";
+		 }
+		 	 $res_data = $this->reportmodel->get_category_report_export($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
+			 $file = fopen('php://output', 'w');
+			 $header = array("Name","Mobile number","Date","petition_enquiry_no","category","status");
+			 fputcsv($file, $header);
+			 foreach ($res_data->result_array() as $key => $value)
+			 {
+				 fputcsv($file, $value);
+			 }
+			 fclose($file);
+			 exit;
+	}
+
+	public function get_meeting_report_export()
+	{
+	 $file_name = 'Report'.date('Ymd').'.csv';
+	 header("Content-Description: File Transfer");
+	 header("Content-Disposition: attachment; filename=$file_name");
+	 header("Content-Type: application/csv;");
+
+	 if(empty($frmDate)){
+		 $frmDate = $this->session->userdata('m_frmDate');
+	 }else{
+		 $frmDate="";
+	 }
+	 if(empty($toDate)){
+		 $toDate =$this->session->userdata('m_toDate');
+	 }else{
+		 $toDate="";
+	 }
+	 if(empty($status)){
+		$status = $this->session->userdata('m_status');
+	 }else{
+		 $status="";
+	 }
+
+	 if(empty($paguthi)){
+		$paguthi = $this->session->userdata('m_paguthi');
+	 }else{
+		 $paguthi="";
+	 }
+	 if(empty($ward_id)){
+		 $ward_id = $this->session->userdata('m_ward_id');
+	 }else{
+		 $ward_id="";
+	 }
+		 $res_data = $this->reportmodel->get_meeting_report_export($frmDate,$toDate,$status,$paguthi,$ward_id);
+		 $file = fopen('php://output', 'w');
+		 $header = array("Name","Mobile number","Date","details","status");
+		 fputcsv($file, $header);
+		 foreach ($res_data->result_array() as $key => $value)
+		 {
+			 fputcsv($file, $value);
+		 }
+		 fclose($file);
+		 exit;
+}
+
+
+
+
+public function get_birthday_report_export()
+{
+ $file_name = 'Report'.date('Ymd').'.csv';
+ header("Content-Description: File Transfer");
+ header("Content-Disposition: attachment; filename=$file_name");
+ header("Content-Type: application/csv;");
+
+
+	 if(empty($month_id)){
+		 $month_id =$this->session->userdata('b_month');
+	 }else{
+		 $month_id="";
+	 }
+	 if(empty($year_id)){
+		$year_id = $this->session->userdata('b_year_id');
+	 }else{
+		 $year_id="";
+	 }
+
+	 if(empty($paguthi)){
+		$paguthi = $this->session->userdata('b_paguthi');
+	 }else{
+		 $paguthi="";
+	 }
+	 if(empty($ward_id)){
+		 $ward_id = $this->session->userdata('b_ward_id');
+	 }else{
+		 $ward_id="";
+	 }
+
+
+	 $res_data = $this->reportmodel->get_birthday_report_export($month_id,$year_id,$paguthi,$ward_id);
+	 $file = fopen('php://output', 'w');
+	 $header = array("Name","Mobile number","Date","address","sent on");
+	 fputcsv($file, $header);
+	 foreach ($res_data->result_array() as $key => $value)
+	 {
+		 fputcsv($file, $value);
+	 }
+	 fclose($file);
+	 exit;
+}
+
+
+public function get_festival_report_export()
+{
+ $file_name = 'Report'.date('Ymd').'.csv';
+ header("Content-Description: File Transfer");
+ header("Content-Disposition: attachment; filename=$file_name");
+ header("Content-Type: application/csv;");
+
+
+	 if(empty($religion_id)){
+		 $religion_id =$this->session->userdata('f_religion_id');
+	 }else{
+		 $religion_id="";
+	 }
+	 if(empty($year_id)){
+		$year_id = $this->session->userdata('f_year_id');
+	 }else{
+		 $year_id="";
+	 }
+
+	 if(empty($paguthi)){
+		$paguthi = $this->session->userdata('f_paguthi');
+	 }else{
+		 $paguthi="";
+	 }
+	 if(empty($ward_id)){
+		 $ward_id = $this->session->userdata('f_ward_id');
+	 }else{
+		 $ward_id="";
+	 }
+
+
+
+
+	 $res_data = $this->reportmodel->get_festival_report_export($religion_id,$year_id,$paguthi,$ward_id);
+	 $file = fopen('php://output', 'w');
+	 $header = array("Name","Mobile number","address","festival","sent on");
+	 fputcsv($file, $header);
+	 foreach ($res_data->result_array() as $key => $value)
+	 {
+		 fputcsv($file, $value);
+	 }
+	 fclose($file);
+	 exit;
+}
+
+
+
+public function get_constituent_report_export()
+{
+ $file_name = 'Report'.date('Ymd').'.csv';
+ header("Content-Description: File Transfer");
+ header("Content-Disposition: attachment; filename=$file_name");
+ header("Content-Type: application/csv;");
+
+
+	 if(empty($email_id)){
+		 $email_id =$this->session->userdata('c_email_id');
+	 }else{
+		 $email_id="";
+	 }
+	 if(empty($mobile_no)){
+		$mobile_no = $this->session->userdata('c_mobile_no');
+	 }else{
+		 $mobile_no="";
+	 }
+
+	 if(empty($whatsapp_no)){
+		$whatsapp_no = $this->session->userdata('c_whatsapp_no');
+	 }else{
+		 $whatsapp_no="";
+	 }
+
+	 if(empty($paguthi)){
+		$paguthi = $this->session->userdata('c_paguthi');
+	 }else{
+		 $paguthi="";
+	 }
+	 if(empty($ward_id)){
+		 $ward_id = $this->session->userdata('c_ward_id');
+	 }else{
+		 $ward_id="";
+	 }
+
+	 $res_data = $this->reportmodel->get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id);
+	 $file = fopen('php://output', 'w');
+	 $header = array("Name","Mobile number","Whatsapp","Door no","Address","email ID");
+	 fputcsv($file, $header);
+	 foreach ($res_data->result_array() as $key => $value)
+	 {
+		 fputcsv($file, $value);
+	 }
+	 fclose($file);
+	 exit;
+}
+
+
+	public function get_video_report_export(){
+			$file_name = 'Report'.date('Ymd').'.csv';
+			header("Content-Description: File Transfer");
+			header("Content-Disposition: attachment; filename=$file_name");
+			header("Content-Type: application/csv;");
+
+			if(empty($paguthi)){
+			 $paguthi = $this->session->userdata('v_paguthi');
+			}else{
+				$paguthi="";
+			}
+			if(empty($ward_id)){
+				$ward_id = $this->session->userdata('v_ward_id');
+			}else{
+				$ward_id="";
+			}
+
+			$res_data = $this->reportmodel->get_video_report_export($paguthi,$ward_id);
+			$file = fopen('php://output', 'w');
+			$header = array("Name","Mobile number","Door no","Address","Video title","video link","Done by","Updated at");
+			fputcsv($file, $header);
+			foreach ($res_data->result_array() as $key => $value)
+			{
+				fputcsv($file, $value);
+			}
+			fclose($file);
+			exit;
+	}
 
 	public function reset_search(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$array_items = array('s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
+		$array_items = array('b_month','s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
 		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id','l_paguthi','l_ward_id','l_frmDate','l_toDate','mr_frmDate','mr_toDate','mr_search','a_search','e_search','p_search','cf_religion_id','cf_paguthi','cf_ward_id');
 		$this->session->unset_userdata($array_items);
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 
-	function get_report()
-{
 
-    $this->load->dbutil();
-    $this->load->helper('file');
-    /* get the object   */
-    $report = $this->reportmodel->print_report();
-    $delimiter = ",";
-    $newline = "\r\n";
-    $new_report = $this->dbutil->csv_from_result($report, $delimiter, $newline);
-    write_file( 'application/third_party/file.csv', $new_report);
-    $this->load->view('report_success.php');
-}
 
 }

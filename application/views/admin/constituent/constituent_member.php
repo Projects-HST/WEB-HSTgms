@@ -91,8 +91,9 @@
                         <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
-                            <option value="YES">YES</option>
                             <option value="NO">NO</option>
+                            <option value="YES">YES</option>
+
                           </select>
                         </div>
                         <label class="control-label col-md-2 col-sm-3 ">Party member</label>

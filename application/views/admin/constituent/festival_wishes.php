@@ -16,10 +16,10 @@
 						</div>
 						<?php  }  ?>
             <div class="x_content">
-			 <form method='post' action="<?= base_url() ?>constituent/festival_wishes" >
+			 <form method='post' action="<?= base_url() ?>constituent/festival_wishes" id="report_form">
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
         <div class="form-group row">
-           <label class="col-form-label col-md-2 col-sm-3 ">Select festival</label>
+           <label class="col-form-label col-md-2 col-sm-3 ">Select festival <span class="required">*</span></label>
           <div class="col-md-3 col-sm-4">
            <select class="form-control" name="cf_religion_id" id="religion_id">
              <option value="">Select</option>
@@ -43,17 +43,32 @@
 
         </div>
         <div class="form-group row">
-          <label class="col-form-label col-md-2 col-sm-3 ">Select ward</label>
+          <label class="col-form-label col-md-2 col-sm-3 ">Select Office</label>
           <div class="col-md-3 col-sm-4">
-            <select class="form-control" name="cf_ward_id" id ="ward_id" >
-              <option value=""></option>
+            <select class="form-control" name="cf_ward_id" id ="office_id" >
+            <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$cf_paguthi' order by id desc";
+             $result_of=$this->db->query($query);
+             if($result_of->num_rows()==0){ ?>
+             <option value=""></option>
+             <?php 	}else{
+             $res_office=$result_of->result();
+             foreach($res_office as $rows_office){ ?>
+               <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
+             <?php   }		}    ?>
             </select>
+            <script>$('#office_id').val('<?php echo $cf_ward_id; ?>')</script>
           </div>
           <label class="col-form-label col-md-2 col-sm-3 ">&nbsp;</label>
-          <div class="col-md-3 col-sm-2">
+          <div class="col-md-4 col-sm-2">
             <input class="btn btn-success" type='submit' name='submit' value='Search'>
 
            <a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear All</a>
+           <?php if(empty($cf_religion_id)){
+
+           }else{ ?>
+             <a href="<?php echo base_url(); ?>constituent/get_export_festival" class="btn btn-export">Export</a>
+           <?php } ?>
+
 
          </div>
         </div>
@@ -62,13 +77,18 @@
 
 
 			</div>
+
 				</form>
+        <div class="ln_solid"></div>
 			<div class="col-md-12 col-sm-12" style="overflow-x: scroll;">
         <div class="col-md-12 col-sm-12" style="padding:0px;">
-    			  <div class="col-md-3 col-sm-3"></div>
-    			  <div class="col-md-3 col-sm-3"></div>
-    			  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
-    		</div>
+           <div class="col-md-3 col-sm-3">
+             <h2>Search Result</h2>
+             Total records <?php echo $allcount; ?>
+           </div>
+           <div class="col-md-3 col-sm-3"></div>
+           <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+       </div>
         <h2>Constituent List</h2>
 			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
 			<tr>
@@ -155,7 +175,7 @@
    function get_paguthi(sel){
      var paguthi_id=sel.value;
      $.ajax({
-   		url:'<?php echo base_url(); ?>masters/get_active_ward',
+   		url:'<?php echo base_url(); ?>masters/get_active_office',
    		method:"POST",
    		data:{paguthi_id:paguthi_id},
    		dataType: "JSON",
@@ -163,21 +183,31 @@
    		success:function(data)
    		{
    		   var stat=data.status;
-   		   $("#ward_id").empty();
+   		   $("#office_id").empty();
 
    		   if(stat=="success"){
    		   var res=data.res;
    		   var len=res.length;
-           $('#ward_id').html('<option value="">ALL</option>');
+           $('#office_id').html('<option value="">ALL</option>');
    		   for (i = 0; i < len; i++) {
-   		   $('<option>').val(res[i].id).text(res[i].ward_name).appendTo('#ward_id');
+   		   $('<option>').val(res[i].id).text(res[i].office_name).appendTo('#office_id');
    		   }
 
    		   }else{
-   		   $("#ward_id").empty();
+   		   $("#office_id").empty();
 
    		   }
    		}
    	});
    }
+   $('#report_form').validate({ // initialize the plugin
+        rules: {
+            cf_religion_id:{required:true},
+            toDate:{required:true}
+        },
+        messages: {
+              cf_religion_id: { required:"Select festival"},
+              toDate: { required:"Select To Date"}
+            }
+    });
 </script>

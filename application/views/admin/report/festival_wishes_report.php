@@ -32,10 +32,10 @@
                                         $("#year_id").val("<?php echo $f_year_id; ?>");
                                     </script>
                                 </div>
-                                <label class="col-form-label col-md-2 col-sm-2">Select Month <span class="required">*</span></label>
+                                <label class="col-form-label col-md-2 col-sm-2">Select festival <span class="required">*</span></label>
                                 <div class="col-md-2 col-sm-4">
                                     <select class="form-control" name="f_religion_id" id="religion_id">
-                                        <option value="">Select month</option>
+                                        <option value="">Select festival</option>
                                         <?php foreach($res_festival as $rows_festival){ ?>
                                         <option value="<?php echo $rows_festival->id; ?>"><?php echo $rows_festival->festival_name; ?></option>
                                         <?php  } ?>
@@ -59,15 +59,27 @@
                                         $("#paguthi").val("<?php echo $f_paguthi; ?>");
                                     </script>
                                 </div>
-                                <label class="col-form-label col-md-2 col-sm-2">ward</label>
+                                <label class="col-form-label col-md-2 col-sm-2">office</label>
                                 <div class="col-md-2 col-sm-4">
-                                    <select class="form-control" name="f_ward_id" id="ward_id">
-                                        <option value=""></option>
+                                    <select class="form-control" name="f_ward_id" id="office_id">
+                                      <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$f_paguthi' order by id desc";
+                                       $result_of=$this->db->query($query);
+                                       if($result_of->num_rows()==0){ ?>
+                                       <option value=""></option>
+                                       <?php 	}else{
+                                       $res_office=$result_of->result();
+                                       foreach($res_office as $rows_office){ ?>
+                                         <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
+                                       <?php   }		}    ?>
                                     </select>
+                                    <script>
+                                        $("#office_id").val("<?php echo $f_ward_id; ?>");
+                                    </script>
                                 </div>
                                 <div class="col-md-3 col-sm-2">
                                     <input type="submit" name="submit" class="btn btn-success" value="SEARCH" />
                                     <a href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
+                                    <a href="<?php echo base_url(); ?>report/get_festival_report_export" class="btn btn-export">Export</a>
                                 </div>
                             </div>
                         </div>
@@ -130,24 +142,24 @@
     function get_paguthi(sel) {
         var paguthi_id = sel.value;
         $.ajax({
-            url: "<?php echo base_url(); ?>masters/get_active_ward",
+            url: "<?php echo base_url(); ?>masters/get_active_office",
             method: "POST",
             data: { paguthi_id: paguthi_id },
             dataType: "JSON",
             cache: false,
             success: function (data) {
                 var stat = data.status;
-                $("#ward_id").empty();
+                $("#office_id").empty();
 
                 if (stat == "success") {
                     var res = data.res;
                     var len = res.length;
-                    $("#ward_id").html('<option value="">ALL</option>');
+                    $("#office_id").html('<option value="">ALL</option>');
                     for (i = 0; i < len; i++) {
-                        $("<option>").val(res[i].id).text(res[i].ward_name).appendTo("#ward_id");
+                        $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
                     }
                 } else {
-                    $("#ward_id").empty();
+                    $("#office_id").empty();
                 }
             },
         });

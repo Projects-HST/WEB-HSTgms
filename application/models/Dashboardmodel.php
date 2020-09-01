@@ -199,9 +199,11 @@ Class Dashboardmodel extends CI_Model
 			$result_4=$res_4->result();
 
 
-		 	$query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name FROM constituent_video as cv
+		 	$query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name,o.office_name FROM constituent_video as cv
 			left join constituent as c on c.id=cv.constituent_id
-			LEFT JOIN paguthi as p on p.id=c.paguthi_id $quer_paguthi_cons $quer_office_cons GROUP by c.paguthi_id
+			LEFT JOIN paguthi as p on p.id=c.paguthi_id
+			LEFT JOIN office as o on o.id=c.office_id
+			 $quer_paguthi_cons $quer_office_cons GROUP by c.paguthi_id
 			ORDER BY cnt_video DESC LIMIT 2";
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();

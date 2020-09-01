@@ -27,24 +27,24 @@
 
 		<div class="col-md-12 col-sm-12 ">
           <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-             <thead>
+            <thead>
                 <tr>
-                   <th>S.no</th>
-				    <th>Staff</th>
-                    <th>Total constituent</th>
-					<th>Active</th>
-					<th>Inactive</th>
+                  <th>S.no</th>
+                  <th>Staff</th>
+                  <th>Total constituent</th>
+                  <th>Active</th>
+                  <th>Inactive</th>
                 </tr>
-             </thead>
+            </thead>
              <tbody>
                <?php $i=1; foreach($res as $rows){ ?>
-                 <tr>
-                    <td><?php echo $i; ?></td>
-					<td><?php echo $rows->full_name; ?></td>
-					<td><?php echo $rows->total; ?></td>
-                    <td><?php echo $rows->active; ?></td>
-					<td><?php echo $rows->inactive; ?></td>
-                 </tr>
+                  <tr>
+                  <td><?php echo $i; ?></td>
+                  <td><?php echo $rows->full_name; ?></td>
+                  <td><?php echo $rows->total; ?></td>
+                  <td><?php echo $rows->active; ?></td>
+                  <td><?php echo $rows->inactive; ?></td>
+                  </tr>
             <?php $i++; } ?>
              </tbody>
           </table>

@@ -695,6 +695,8 @@ Class Constituentmodel extends CI_Model
 		$this->db->select('count(c.id) as allcount');
 		$this->db->from('constituent as c');
 		$this->db->join('consitutent_birthday_wish as bw', 'c.id = bw.constituent_id', 'left outer');
+		$this->db->where("not exists (select bw.constituent_id from consitutent_birthday_wish  as bw where bw.constituent_id = c.id)",null,false);
+
 		if(empty($selMonth)){
 			$month = date("m");
 			$this->db->where('MONTH(c.dob)=', $month);
@@ -715,16 +717,16 @@ Class Constituentmodel extends CI_Model
 		$this->db->select('bw.id as wish_id,c.*');
 		$this->db->from('constituent as c');
 		$this->db->join('consitutent_birthday_wish as bw', 'c.id = bw.constituent_id', 'left outer');
-		$this->db->where('MONTH(c.dob)=', $selMonth);
+		// $this->db->where('MONTH(c.dob)=', $selMonth);
+		$this->db->where("not exists (select bw.constituent_id from consitutent_birthday_wish  as bw where bw.constituent_id = c.id)",null,false);
+		if(empty($selMonth)){
+			$month = date("m");
+			$this->db->where('MONTH(c.dob)=', $month);
+			// $this->db->where('MONTH(c.dob)=', $selMonth);
 
-		// if(empty($selMonth)){
-		// 	$month = date("m");
-		// 	$this->db->where('MONTH(c.dob)=', $month);
-		// 	// $this->db->where('MONTH(c.dob)=', $selMonth);
-		//
-		// }else{
-		// 	$this->db->where('MONTH(c.dob)=', $selMonth);
-		// }
+		}else{
+			$this->db->where('MONTH(c.dob)=', $selMonth);
+		}
 
 
 		$this->db->limit($rowperpage, $rowno);
@@ -734,6 +736,24 @@ Class Constituentmodel extends CI_Model
 		return $query->result_array();
 	}
 
+	function get_export_birthday($selMonth){
+		$this->db->select('c.full_name,c.father_husband_name,c.mobile_no,c.dob,c.door_no,c.address');
+		$this->db->from('constituent as c');
+		$this->db->join('consitutent_birthday_wish as bw', 'c.id = bw.constituent_id', 'left outer');
+		// $this->db->where('MONTH(c.dob)=', $selMonth);
+		$this->db->where("not exists (select bw.constituent_id from consitutent_birthday_wish  as bw where bw.constituent_id = c.id)",null,false);
+		if(empty($selMonth)){
+			$month = date("m");
+			$this->db->where('MONTH(c.dob)=', $month);
+			// $this->db->where('MONTH(c.dob)=', $selMonth);
+
+		}else{
+			$this->db->where('MONTH(c.dob)=', $selMonth);
+		}
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
+		 return $query = $this->db->get();
+	}
 	function birthday_update($constituent_id,$user_id)
 	{
 
@@ -1209,6 +1229,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			}else{
 				$this->db->where('c.ward_id',$ward_id);
 			}
+			$this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
 
 
 
@@ -1246,10 +1267,45 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 }else{
 			 $this->db->where('c.ward_id',$ward_id);
 		 }
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
 		 $query = $this->db->get();
 		 $result = $query->result_array();
 		 return $result[0]['allcount'];
 	 }
 
+
+	 function get_export_festival($religion_id,$paguthi,$ward_id){
+		 $this->db->select('c.full_name,c.father_husband_name,c.mobile_no,c.door_no,c.address');
+		 $this->db->from('constituent as c');
+
+
+		 if(empty($religion_id)){
+			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id', 'left');
+		 }else{
+			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id and f.festival_id='.$religion_id, 'left');
+			 $this->db->join('festival_master as fm', 'fm.religion_id = c.religion_id', 'left');
+			 // $this->db->or_where('fm.id',$religion_id);
+			 $this->db->where('fm.id',$religion_id);
+
+		 }
+		 if(empty($paguthi)){
+
+		 }else{
+			 $this->db->where('c.paguthi_id',$paguthi);
+		 }
+		 if(empty($ward_id)){
+
+		 }else{
+			 $this->db->where('c.ward_id',$ward_id);
+		 }
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
+
+
+
+		 $this->db->group_by('c.id');
+		 // echo $this->db->get_compiled_select(); // before $this->db->get();
+		 // exit;
+		return $query = $this->db->get();
+	 }
 }
 ?>

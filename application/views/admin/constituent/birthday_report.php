@@ -20,7 +20,8 @@
 			  <div class="item form-group">
 				<label class="col-form-label col-md-2 col-sm-2">Month <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-					<select id="month_id" name="month" class="form-control">
+					<select id="month_id" name="b_month" class="form-control">
+            <option value="">Select month</option>
 						<option value="01">January</option>
 						<option value="02">February</option>
 						<option value="03">March</option>
@@ -36,8 +37,10 @@
 					</select>
           <script>$('#month_id').val('<?php echo $month_id; ?>')</script>
 				 </div>
-				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>
+				 <div class="col-md-4 col-sm-2">
+					 <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+           <a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear All</a>
+           <a href="<?php echo base_url(); ?>constituent/get_export_birthday" class="btn btn-export">Export</a>
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
@@ -74,7 +77,7 @@
                 <td><?php echo $rows['mobile_no']; ?></td>
                 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                 <td><?php if(is_null($rows['wish_id'])){ ?>
-                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Not Sent</a>
+                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Update here</a>
               <?php  }else{ ?>
                 <p>SENT</p>
               <?php  } ?></td>
@@ -111,11 +114,11 @@ $('#toDate').datetimepicker({
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-         frmDate:{required:true},
+         b_month:{required:true},
          toDate:{required:true}
      },
      messages: {
-           frmDate: { required:"Select From Date"},
+           b_month: { required:"Select Month"},
            toDate: { required:"Select To Date"}
          }
  });

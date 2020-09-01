@@ -24,7 +24,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		if(empty($status) || $status=='ALL'){
 
@@ -67,7 +67,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		if(empty($status) || $status=='ALL'){
 
@@ -108,7 +108,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		if(empty($frmDate)){
 				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
@@ -154,7 +154,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		if(empty($frmDate)){
 				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
@@ -271,7 +271,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		if(empty($status) || $status=='ALL'){
 
@@ -314,7 +314,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		if(empty($status) || $status=='ALL'){
 
@@ -411,7 +411,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		// echo $this->db->get_compiled_select(); // before $this->db->get();
 		// exit;
@@ -443,7 +443,7 @@ Class Reportmodel extends CI_Model
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.ward_id',$ward_id);
+			$this->db->where('c.office_id',$ward_id);
 		}
 		$query = $this->db->get();
 		$result = $query->result_array();
@@ -566,7 +566,7 @@ Class Reportmodel extends CI_Model
 			if(empty($ward_id)){
 
 			}else{
-				$this->db->where('c.ward_id',$ward_id);
+				$this->db->where('c.office_id',$ward_id);
 			}
 
 
@@ -610,7 +610,7 @@ Class Reportmodel extends CI_Model
  			if(empty($ward_id)){
 
  			}else{
- 				$this->db->where('c.ward_id',$ward_id);
+ 				$this->db->where('c.office_id',$ward_id);
  			}
 			if(empty($year_id)){
 					$this->db->where('DATE(fw.updated_at) >= last_day(now()) + interval 1 day - interval 3 month');
@@ -643,7 +643,7 @@ Class Reportmodel extends CI_Model
 		 if(empty($ward_id)){
 
 		 }else{
-			 $this->db->where('c.ward_id',$ward_id);
+			 $this->db->where('c.office_id',$ward_id);
 		 }
 		 if(empty($year_id)){
 				 $this->db->where('DATE(fw.updated_at) >= last_day(now()) + interval 1 day - interval 3 month');
@@ -670,7 +670,7 @@ Class Reportmodel extends CI_Model
 			 if(empty($ward_id)){
 
 			 }else{
-				 $this->db->where('c.ward_id',$ward_id);
+				 $this->db->where('c.office_id',$ward_id);
 			 }
 
 			 // echo $this->db->get_compiled_select();
@@ -693,7 +693,7 @@ Class Reportmodel extends CI_Model
 			 if(empty($ward_id)){
 
 			 }else{
-				 $this->db->where('c.ward_id',$ward_id);
+				 $this->db->where('c.office_id',$ward_id);
 			 }
 			 $query = $this->db->get();
 	 		$result = $query->result_array();
@@ -711,7 +711,7 @@ Class Reportmodel extends CI_Model
 				if(empty($ward_id)){
 
 				}else{
-					$this->db->where('c.ward_id',$ward_id);
+					$this->db->where('c.office_id',$ward_id);
 				}
 			if(empty($mobile_no)){
 
@@ -746,7 +746,7 @@ Class Reportmodel extends CI_Model
  			if(empty($ward_id)){
 
  			}else{
- 				$this->db->where('c.ward_id',$ward_id);
+ 				$this->db->where('c.office_id',$ward_id);
  			}
 			if(empty($mobile_no)){
 
@@ -810,9 +810,238 @@ Class Reportmodel extends CI_Model
 		return $resultset->result();
 	}
 
-	 function print_report()
+	 function get_status_report_export($frmDate,$toDate,$status,$paguthi,$ward_id)
 		{
-		    return $query = $this->db->query("SELECT banner_image_name FROM banners");
+				$this->db->select('c.full_name,c.mobile_no,g.grievance_date,g.petition_enquiry_no,gt.grievance_name,g.status');
+				$this->db->from('grievance as g');
+				$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+				$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+				$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+				if(empty($paguthi) || $paguthi=='ALL'){
+
+				}else{
+					$this->db->where('c.paguthi_id',$paguthi);
+				}
+				if(empty($ward_id)){
+
+				}else{
+					$this->db->where('c.office_id',$ward_id);
+				}
+				if(empty($status) || $status=='ALL'){
+
+				}else{
+					$this->db->where('g.status',$status);
+				}
+				if(empty($frmDate)){
+						$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+				}else{
+					$dateTime1 = new DateTime($frmDate);
+					$from_date=date_format($dateTime1,'Y-m-d' );
+
+					$dateTime2 = new DateTime($toDate);
+					$to_date=date_format($dateTime2,'Y-m-d' );
+					$this->db->where('g.grievance_date >=', $from_date);
+					$this->db->where('g.grievance_date <=', $to_date);
+				}
+
+				return	$query = $this->db->get();
+
 		}
+
+
+		function get_category_report_export($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id){
+			$this->db->select('c.full_name,c.mobile_no,g.grievance_date,g.petition_enquiry_no,gt.grievance_name,g.status');
+			$this->db->from('grievance as g');
+			$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
+			$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+			$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+			if(empty($paguthi) || $paguthi=='ALL'){
+
+			}else{
+				$this->db->where('c.paguthi_id',$paguthi);
+			}
+			if(empty($ward_id)){
+
+			}else{
+				$this->db->where('c.office_id',$ward_id);
+			}
+			if(empty($frmDate)){
+					$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
+			}else{
+				$dateTime1 = new DateTime($frmDate);
+				$from_date=date_format($dateTime1,'Y-m-d' );
+
+				$dateTime2 = new DateTime($toDate);
+				$to_date=date_format($dateTime2,'Y-m-d' );
+				$this->db->where('g.grievance_date >=', $from_date);
+				$this->db->where('g.grievance_date <=', $to_date);
+			}
+			if(empty($category) || $category=='ALL'){
+
+			}else{
+				$this->db->where('g.grievance_type_id',$category);
+			}
+			if(empty($sub_category_id)){
+
+			}else{
+				$this->db->where('g.sub_category_id',$sub_category_id);
+			}
+			// echo $this->db->get_compiled_select();
+			// exit;
+
+			return $query = $this->db->get();
+		}
+
+		function get_meeting_report_export($frmDate,$toDate,$status,$paguthi,$ward_id){
+			$this->db->select('c.full_name,c.mobile_no,mr.meeting_date,mr.meeting_detail,mr.meeting_status');
+			$this->db->from('meeting_request as mr');
+			$this->db->join('constituent as c', 'mr.constituent_id = c.id', 'left');
+			$this->db->join('user_master as u', 'mr.created_by = u.id', 'left');
+			if(empty($paguthi) || $paguthi=='ALL'){
+
+			}else{
+				$this->db->where('c.paguthi_id',$paguthi);
+			}
+			if(empty($ward_id)){
+
+			}else{
+				$this->db->where('c.office_id',$ward_id);
+			}
+			if(empty($status) || $status=='ALL'){
+
+			}else{
+				$this->db->where('mr.meeting_status',$status);
+			}
+			if(empty($frmDate)){
+
+						$this->db->where('DATE(mr.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
+			}else{
+				$from_date=date("Y-m-d", strtotime($frmDate) );
+				$to_date=date("Y-m-d", strtotime($toDate) );
+				$this->db->where('DATE(mr.created_at) >=', $from_date);
+				$this->db->where('DATE(mr.created_at) <=', $to_date);
+			}
+			// echo $this->db->get_compiled_select();
+			// exit;
+		return $query = $this->db->get();
+		}
+
+		function get_birthday_report_export($month_id,$year_id,$paguthi,$ward_id){
+			$this->db->select('c.full_name,c.mobile_no,c.dob,c.address,bw.created_at');
+			$this->db->from('consitutent_birthday_wish as bw');
+			$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
+			if(empty($year_id)){
+				$this->db->where('DATE(bw.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
+			}else{
+				$this->db->where('YEAR(bw.created_at)',$year_id);
+			}
+			if(empty($month_id)){
+
+			}else{
+				$this->db->where('MONTH(bw.created_at)',$month_id);
+			}
+			if(empty($paguthi) || $paguthi=="ALL"){
+
+			}else{
+				$this->db->where('c.paguthi_id',$paguthi);
+			}
+			if(empty($ward_id)){
+
+			}else{
+				$this->db->where('c.office_id',$ward_id);
+			}
+			// echo $this->db->get_compiled_select(); // before $this->db->get();
+			// exit;
+			return $query = $this->db->get();
+		}
+
+
+		function get_festival_report_export($religion_id,$year_id,$paguthi,$ward_id){
+			$this->db->select('c.full_name,c.mobile_no,c.address,fm.festival_name,fw.updated_at as sent_on');
+			$this->db->from('festival_wishes as fw');
+			$this->db->join('festival_master as fm', 'fm.id = fw.festival_id', 'left');
+			$this->db->join('constituent as c', 'c.id = fw.constituent_id', 'left');
+			if(empty($religion_id)){
+
+			}else{
+				$this->db->where('fm.id',$religion_id);
+			}
+			if(empty($paguthi)){
+
+			}else{
+				$this->db->where('c.paguthi_id',$paguthi);
+			}
+			if(empty($ward_id)){
+
+			}else{
+				$this->db->where('c.office_id',$ward_id);
+			}
+			if(empty($year_id)){
+					$this->db->where('DATE(fw.updated_at) >= last_day(now()) + interval 1 day - interval 3 month');
+			}else{
+				$this->db->where('YEAR(fw.updated_at) =',$year_id);
+			}
+			// echo $this->db->get_compiled_select(); // before $this->db->get();
+			// exit;
+		return $query = $this->db->get();
+		}
+
+
+
+		function get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id){
+			$this->db->select('c.full_name,c.mobile_no,c.whatsapp_no,c.door_no,c.address,c.email_id');
+		 $this->db->from('constituent as c');
+		 if(empty($paguthi)){
+
+		 }else{
+			 $this->db->where('c.paguthi_id',$paguthi);
+		 }
+		 if(empty($ward_id)){
+
+		 }else{
+			 $this->db->where('c.office_id',$ward_id);
+		 }
+		 if(empty($mobile_no)){
+
+		 }else{
+			 $this->db->where('c.mobile_no!=',0);
+		 }
+		 if(empty($whatsapp_no)){
+
+		 }else{
+			 $this->db->where('c.whatsapp_no!=',0);
+		 }
+		 if(empty($email_id)){
+
+		 }else{
+			 $this->db->where('c.email_id!=" "');
+		 }
+
+			 // echo $this->db->get_compiled_select(); // before $this->db->get();
+			 // exit;
+			return $query = $this->db->get();
+		}
+
+		function get_video_report_export($paguthi,$ward_id){
+			$this->db->select('c.full_name,c.mobile_no,c.door_no,c.address,cv.video_title,cv.video_link,u.full_name as done_by,cv.updated_at');
+			$this->db->from('constituent_video as cv');
+			$this->db->join('constituent as c', 'c.id = cv.constituent_id', 'left');
+			$this->db->join('user_master as u', 'cv.updated_by = u.id', 'left');
+			if(empty($paguthi)){
+
+			}else{
+				$this->db->where('c.paguthi_id',$paguthi);
+			}
+			if(empty($ward_id)){
+
+			}else{
+				$this->db->where('c.office_id',$ward_id);
+			}
+
+			// echo $this->db->get_compiled_select();
+			// exit;
+			return $query = $this->db->get();
+		}
+
 }
 ?>

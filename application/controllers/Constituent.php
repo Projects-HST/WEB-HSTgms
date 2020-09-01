@@ -927,15 +927,20 @@ public function birthday($rowno=0)
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-				if($this->input->post('month')){
-  			setcookie('pagination_limit',$this->input->post('month'));
-  			$selMonth = $this->input->post('month');
-				}elseif($this->input->cookie('pagination_limit')){
-  				$selMonth = $this->input->cookie('pagination_limit', true);
-				}else{
-					$selMonth = date("m");
+			$selMonth="";
+				if($this->input->post('submit') != NULL ){
+					$selMonth = $this->input->post('b_month');
+					 $status_session_array=$this->session->set_userdata(array(
+					 "b_month"=>$selMonth
+				 ));
+			 }else{
+
+				if($this->session->userdata('b_month') != NULL){
+					$selMonth = $this->session->userdata('b_month');
 				}
 
+
+			 }
 		$data['month_id']=$selMonth;
 		$rowperpage = 20;
 		if($rowno != 0){
@@ -980,6 +985,31 @@ public function birthday($rowno=0)
 		}else{
 			redirect('/');
 		}
+	}
+
+	public function get_export_birthday(){
+		$file_name = 'Report'.date('Ymd').'.csv';
+		header("Content-Description: File Transfer");
+		header("Content-Disposition: attachment; filename=$file_name");
+		header("Content-Type: application/csv;");
+
+		if(empty($selMonth)){
+		 $selMonth = $this->session->userdata('b_month');
+		}else{
+			$selMonth="";
+		}
+
+
+		$res_data = $this->constituentmodel->get_export_birthday($selMonth);
+		$file = fopen('php://output', 'w');
+		$header = array("Name","Father Or Husband name","Mobile number","DOB","Door no","Address");
+		fputcsv($file, $header);
+		foreach ($res_data->result_array() as $key => $value)
+		{
+			fputcsv($file, $value);
+		}
+		fclose($file);
+		exit;
 	}
 
 	public function birthday_update()
@@ -1320,6 +1350,41 @@ public function meetings($rowno=0)
 				redirect('/');
 			}
 
+	}
+
+
+	public function get_export_festival(){
+		$file_name = 'Report'.date('Ymd').'.csv';
+		header("Content-Description: File Transfer");
+		header("Content-Disposition: attachment; filename=$file_name");
+		header("Content-Type: application/csv;");
+
+		if(empty($paguthi)){
+		 $paguthi = $this->session->userdata('cf_paguthi');
+		}else{
+			$paguthi="";
+		}
+		if(empty($ward_id)){
+			$ward_id = $this->session->userdata('cf_ward_id');
+		}else{
+			$ward_id="";
+		}
+		if(empty($religion_id)){
+			$religion_id = $this->session->userdata('cf_religion_id');
+		}else{
+			$religion_id="";
+		}
+
+		$res_data = $this->constituentmodel->get_export_festival($religion_id,$paguthi,$ward_id);
+		$file = fopen('php://output', 'w');
+		$header = array("Name","Father or Husband name ","Mobile number","Door no","Address");
+		fputcsv($file, $header);
+		foreach ($res_data->result_array() as $key => $value)
+		{
+			fputcsv($file, $value);
+		}
+		fclose($file);
+		exit;
 	}
 
 	public function reset_search()

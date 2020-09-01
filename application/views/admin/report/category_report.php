@@ -57,15 +57,28 @@ th{
                                     $("#paguthi").val("<?php echo $g_paguthi; ?>");
                                 </script>
                             </div>
-                            <label class="col-form-label col-md-2 col-sm-3">Ward</label>
+                            <label class="col-form-label col-md-2 col-sm-3">office</label>
                             <div class="col-md-2 col-sm-2">
-                                <select class="form-control" name="g_ward_id" id="ward_id">
-                                    <option value=""></option>
+                                <select class="form-control" name="g_ward_id" id="office_id">
+                                  <option value="">ALL</option>
+                                 <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$g_paguthi' order by id desc";
+                                  $result_of=$this->db->query($query);
+                                  if($result_of->num_rows()==0){ ?>
+                                  <option value=""></option>
+                                  <?php 	}else{
+                                  $res_office=$result_of->result();
+                                  foreach($res_office as $rows_office){ ?>
+                                    <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
+                                  <?php   }		}    ?>
                                 </select>
+                                <script>
+                                    $("#office_id").val("<?php echo $g_ward_id; ?>");
+                                </script>
                             </div>
                             <div class="col-md-3 col-sm-2">
                                 <input type="submit" name="submit" class="btn btn-success" value="SEARCH" />
                                 <a href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">CLEAR</a>
+                                <a href="<?php echo base_url(); ?>report/get_category_report_export" class="btn btn-export">Export</a>
                             </div>
                         </div>
                         <div class="ln_solid"></div>
@@ -127,24 +140,24 @@ th{
     function get_paguthi(sel) {
         var paguthi_id = sel.value;
         $.ajax({
-            url: "<?php echo base_url(); ?>masters/get_active_ward",
+            url: "<?php echo base_url(); ?>masters/get_active_office",
             method: "POST",
             data: { paguthi_id: paguthi_id },
             dataType: "JSON",
             cache: false,
             success: function (data) {
                 var stat = data.status;
-                $("#ward_id").empty();
+                $("#office_id").empty();
 
                 if (stat == "success") {
                     var res = data.res;
                     var len = res.length;
-                    $("#ward_id").html('<option value="">ALL</option>');
+                    $("#office_id").html('<option value="">ALL</option>');
                     for (i = 0; i < len; i++) {
-                        $("<option>").val(res[i].id).text(res[i].ward_name).appendTo("#ward_id");
+                        $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
                     }
                 } else {
-                    $("#ward_id").empty();
+                    $("#office_id").empty();
                 }
             },
         });

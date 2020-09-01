@@ -41,4 +41,21 @@ CREATE TABLE `constituent_video` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+CREATE TABLE `office` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `paguthi_id` int(11) NOT NULL,
+  `office_name` varchar(40) NOT NULL,
+  `office_short_form` varchar(40) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 ALTER TABLE `constituent`  ADD `voter_status` VARCHAR(10) NOT NULL  AFTER `voter_id_status`;
+
+
+ALTER TABLE `constituent`  ADD `office_id` INT NOT NULL  AFTER `paguthi_id`;
+
+ALTER TABLE `grievance`  ADD `office_id` INT NOT NULL  AFTER `paguthi_id`;

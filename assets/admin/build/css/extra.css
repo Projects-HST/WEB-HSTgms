@@ -407,3 +407,7 @@ hr{
 .page-link{
   border: 1px solid #31aa15;
 }
+.btn-export{
+  background-color: #1D6F42;
+  color:#fff;
+}

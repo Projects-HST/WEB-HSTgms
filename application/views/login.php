@@ -59,7 +59,7 @@
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
 	<h1>Forgot Password</h1>
 	<div>
-		<input type="text" class="form-control"  name="user_name" placeholder="Username" maxlength="50" style="margin-bottom:10px;">
+		<input type="text" class="form-control"  name="user_name" placeholder="Email Id" maxlength="50" style="margin-bottom:10px;">
 	</div>
 	<div class="text-center">
 		<p><button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Submit</button></p>
