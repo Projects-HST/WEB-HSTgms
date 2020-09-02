@@ -43,8 +43,8 @@
                       <label class="control-label col-md-2 col-sm-3 ">Voter status</label>
                       <div class="col-md-4 col-sm-9 ">
                           <p>
-                            <input type="radio" class="flat " name="voter_status" id="voter_status_y" value="VOTER" >  VOTER &nbsp;
-                            <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER" checked="" required=""> NON-VOTER
+                            <input type="radio" class="flat " name="voter_status" id="voter_status_y" value="VOTER" checked="" required="">  VOTER &nbsp;
+                            <input type="radio" class="flat" name="voter_status" id="voter_status_n" value="NON-VOTER" > NON-VOTER
 
                          </p>
                       </div>
@@ -302,15 +302,15 @@
    //     $("#whatsapp_no").val($("#mobile_no").val());
    //  });
 
-   $(document).ready(function(){
-    var voter_status=$("input[type=radio][name='voter_status']:checked").val();
-
-    if(voter_status == 'VOTER'){
-      $('.voter_section').show();
-    }else{
-      $('.voter_section').hide();
-    }
-});
+//    $(document).ready(function(){
+//     var voter_status=$("input[type=radio][name='voter_status']:checked").val();
+//
+//     if(voter_status == 'VOTER'){
+//       $('.voter_section').show();
+//     }else{
+//       $('.voter_section').hide();
+//     }
+// });
 
     $("#copy_value").click(function() {
            var checked = $(this).is(':checked');

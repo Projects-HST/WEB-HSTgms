@@ -8,7 +8,7 @@
 		<div class="title_left" style="padding-top:70px;">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="d_keyword" id="keyword" placeholder="Search for FULL Name, Phone number, Voter ID, Aadhaar Card number" value="<?php echo $d_keyword;?>">
+				<input type="text" class="form-control" name="d_keyword" id="keyword" placeholder="Search for FULL Name, Phone number, Voter ID, Aadhaar Card number ,Address" value="<?php echo $d_keyword;?>">
 				<span class="input-group-btn">
 					<input type="submit" class="btn btn-default" name="submit"  style="padding: 15px 10px 13px 10px;background-color: #31aa15;
     color: #fff;    font-weight: 600;" value="Go!">

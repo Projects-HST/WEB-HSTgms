@@ -17,8 +17,8 @@
 </head>
 <body class="login">
 
-<a class="hiddenanchor" id="signup"></a>
 <a class="hiddenanchor" id="signin"></a>
+<a class="hiddenanchor" id="forgot"></a>
 
 <div class="login_wrapper">
 
@@ -44,7 +44,7 @@
 	</div>
 	<div class="text-center">
 	<p>	<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Log in</button></p>
-	<p>	<a href="#signup" class="reset_pass"> Lost your password? </a></p>
+	<p>	<a href="#forgot" class="reset_pass"> Lost your password? </a></p>
 	</div>
 	<div class="separator"></div>
 	</form>
@@ -63,7 +63,7 @@
 	</div>
 	<div class="text-center">
 		<p><button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Submit</button></p>
-	<p>	<a href="#signin" class="reset_pass" style="text-transform: uppercase;"> Log in </a></p>
+	<p>	<a href="#login" class="reset_pass" style="text-transform: uppercase;"> Log in </a></p>
 	</div>
 
 	<div class="separator">

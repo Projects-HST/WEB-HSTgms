@@ -4,10 +4,10 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta charset="utf-8">
+		   <meta charset="utf-8">
+
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" href="images/favicon.ico" type="image/ico" />
@@ -91,15 +91,21 @@
                            <li id="mastermenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Master.png" class="img-responsive menu_img"> Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu mastermenu">
+																 <?php if ($user_type =='1'){ ?>
                                   <li id="constituencymenu"><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
                                   <li id="paguthimenu"><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
                                   <li id="wardmenu"><a href="<?php echo base_url(); ?>masters/ward">Ward</a></li>
                                   <li id="seekermenu"><a href="<?php echo base_url(); ?>masters/seeker">Seeker type</a></li>
+																		<?php } ?>
+																	 <?php  if ($user_type =='2' || $user_type =='1'){ ?>
                                   <li id="grievancemeenu"><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
                                   <li id="smsmenu"><a href="<?php echo base_url(); ?>masters/sms_template">SMS template</a></li>
+																<?php } ?>
                                   <!-- <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li> -->
                                   <!-- <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li> -->
+																	<?php if ($user_type =='1'){ ?>
 																	<li><a href="<?php echo base_url(); ?>masters/festival">Festival</a></li>
+																	<?php } ?>
                                 </ul>
                            </li>
                            <li id="constiituent_menu">

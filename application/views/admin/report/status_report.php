@@ -1,6 +1,6 @@
 <style type="text/css">
 th{
-  width:50px;
+  width:70px;
   }</style>
 <div class="right_col" role="main">
     <div class="">
@@ -25,11 +25,9 @@ th{
                             <div class="col-md-2 col-sm-2">
                                 <select class="form-control" name="s_status" id="status">
                                     <option value="">ALL</option>
-                                    <option value="PROCESSING">PROCESSING</option>
                                     <!-- <option value="COMPLETED">COMPLETED</option> -->
                                     <option value="REJECTED">REJECTED</option>
-                                    <option value="FAILURE">FAILURE</option>
-                                    <option value="ONHOLD">ONHOLD</option>
+                                    <option value="PENDING">PENDING</option>
                                     <option value="COMPLETED">COMPLETED</option>
                                 </select>
                                 <script>
@@ -96,26 +94,30 @@ th{
                             <thead>
                                 <tr>
                                     <th>S.no</th>
-                                    <th>Petition No</th>
-                                    <th>Date</th>
                                     <th>Name</th>
+                                    <th>Father or Husband </th>
+                                    <th>Dob</th>
+                                    <th>Address</th>
                                     <th>Phone</th>
-                                    <th>Category</th>
                                     <th>Status</th>
-                                    <th>Created by</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = $row+1; foreach($result as $rows){ ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
-                                    <td><?php echo $rows['petition_enquiry_no']; ?></td>
-                                    <td><?php echo date('d-m-Y', strtotime($rows['created_at'])); ?></td>
                                     <td><?php echo $rows['full_name']; ?></td>
+                                    <td><?php echo $rows['father_husband_name']; ?></td>
+                                    <td><?php echo $rows['dob']; ?></td>
+                                    <td><?php echo $rows['address']; ?></td>
                                     <td><?php echo $rows['mobile_no']; ?></td>
-                                    <td><?php echo $rows['grievance_name']; ?></td>
                                     <td class="badge-<?= $rows['status'] ?>"><?php  echo $rows['status']; ?></td>
-                                    <td><?php  echo $rows['created_by']; ?></td>
+
+                                    <!-- <td><?php echo $rows['petition_enquiry_no']; ?></td> -->
+                                    <!-- <td><?php echo date('d-m-Y', strtotime($rows['created_at'])); ?></td> -->
+                                    <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
+                                    <!-- <td><?php  echo $rows['created_by']; ?></td> -->
                                 </tr>
                                 <?php $i++; } ?>
                             </tbody>

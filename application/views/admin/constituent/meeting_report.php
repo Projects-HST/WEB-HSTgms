@@ -119,9 +119,7 @@ th{
 
                     <select class="form-control" name="meeting_status" id="meeting_status">
                       <option value="REQUESTED">REQUESTED</option>
-                      <option value="PENDING">PENDING</option>
                       <option value="COMPLETED">COMPLETED</option>
-                      <option value="REJECTED">REJECTED</option>
                       <option value="SCHEDULED">SCHEDULED</option>
                     </select>
                  </div>

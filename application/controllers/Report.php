@@ -128,6 +128,7 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$data['category'] = $this->usermodel->list_category();
+		$data['seeker'] = $this->usermodel->list_seeker();
 		$data['paguthi'] = $this->usermodel->list_paguthi();
 		$frmDate="";
 		$toDate="";
@@ -135,10 +136,12 @@ class Report extends CI_Controller {
 		$sub_category_id="";
 		$paguthi="";
 		$ward_id="";
+		$g_seeker="";
 			if($this->input->post('submit') != NULL ){
  			 $frmDate=$this->input->post('g_frmDate');
  			 $toDate=$this->input->post('g_toDate');
  			 $category=$this->input->post('g_category');
+			 $g_seeker=$this->input->post('g_seeker');
 			 $sub_category_id=$this->input->post('g_sub_category_id');
  			 $paguthi=$this->input->post('g_paguthi');
  			 $ward_id=$this->input->post('g_ward_id');
@@ -146,6 +149,7 @@ class Report extends CI_Controller {
  				 "g_frmDate"=>$frmDate,
  				 "g_toDate"=>$toDate,
  				 "g_category"=>$category,
+				 "g_seeker"=>$g_seeker,
 				 "g_sub_category_id"=>$sub_category_id,
  				 "g_paguthi"=>$paguthi,
  				 "g_ward_id"=>$ward_id
@@ -160,6 +164,9 @@ class Report extends CI_Controller {
  			if($this->session->userdata('g_category') != NULL){
  		 		$category = $this->session->userdata('g_category');
  		 	}
+			if($this->session->userdata('g_seeker') != NULL){
+				$g_seeker = $this->session->userdata('g_seeker');
+			}
 			if($this->session->userdata('g_sub_category_id') != NULL){
 				$sub_category_id = $this->session->userdata('g_sub_category_id');
 			}
@@ -173,6 +180,7 @@ class Report extends CI_Controller {
 		 $data['g_paguthi']=$paguthi;
 		 $data['g_ward_id']=$ward_id;
 		 $data['g_category']=$category;
+		 $data['g_seeker']=$g_seeker;
 		 $data['g_frmDate']=$frmDate;
 		 $data['g_toDate']=$toDate;
 
@@ -182,10 +190,10 @@ class Report extends CI_Controller {
 			}
 
 			// All records count
-			$allcount = $this->reportmodel->get_category_count($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
+			$allcount = $this->reportmodel->get_category_count($frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id);
 
 			// Get  records
-			$users_record = $this->reportmodel->get_category_report($rowno,$rowperpage,$frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
+			$users_record = $this->reportmodel->get_category_report($rowno,$rowperpage,$frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id);
 
 			// Pagination Configuration
 			$config['base_url'] = base_url().'report/category';
@@ -527,16 +535,19 @@ class Report extends CI_Controller {
 		$data['res_year']=$this->reportmodel->get_birthday_wish_year();
 		$month_id="";
 		$year_id="";
+			$bf_year_id="";
 		$paguthi="";
 		$ward_id="";
 		if($this->input->post('submit') != NULL ){
 			$month_id=$this->input->post('b_month');
+			$bf_year_id=$this->input->post('bf_year_id');
 			$year_id=$this->input->post('b_year_id');
 			$paguthi=$this->input->post('b_paguthi');
 			$ward_id=$this->input->post('b_ward_id');
 		 $status_session_array=$this->session->set_userdata(array(
-			 "m_frmDate"=>$month_id,
-			 "m_toDate"=>$year_id,
+			 "b_month"=>$month_id,
+			 "bf_year_id"=>$bf_year_id,
+			 "b_year_id"=>$year_id,
 			 "m_paguthi"=>$paguthi,
 			 "m_ward_id"=>$ward_id
 		 ));
@@ -547,6 +558,9 @@ class Report extends CI_Controller {
 		 if($this->session->userdata('b_year_id') != NULL){
 			$year_id = $this->session->userdata('b_year_id');
 		}
+		if($this->session->userdata('bf_year_id') != NULL){
+		 $bf_year_id = $this->session->userdata('bf_year_id');
+	 }
 		if($this->session->userdata('b_paguthi') != NULL){
 			$paguthi = $this->session->userdata('b_paguthi');
 		}
@@ -557,6 +571,7 @@ class Report extends CI_Controller {
 	 }
 	 $data['b_month']=$month_id;
 	 $data['b_year_id']=$year_id;
+	 $data['bf_year_id']=$bf_year_id;
 	 $data['b_paguthi']=$paguthi;
 	 $data['b_ward_id']=$ward_id;
 
@@ -570,10 +585,10 @@ class Report extends CI_Controller {
 		}
 
 		// All records count
-		$allcount = $this->reportmodel->get_birthday_count($year_id,$month_id,$paguthi,$ward_id);
+		$allcount = $this->reportmodel->get_birthday_count($year_id,$bf_year_id,$month_id,$paguthi,$ward_id);
 
 		// Get  records
-		$users_record = $this->reportmodel->get_birthday_report($rowno,$rowperpage,$year_id,$month_id,$paguthi,$ward_id);
+		$users_record = $this->reportmodel->get_birthday_report($rowno,$rowperpage,$year_id,$bf_year_id,$month_id,$paguthi,$ward_id);
 
 		// Pagination Configuration
 		$config['base_url'] = base_url().'report/birthday';
@@ -829,13 +844,16 @@ class Report extends CI_Controller {
 			$year_id="";
 			$paguthi="";
 			$ward_id="";
+			$fr_year_id="";
 			if($this->input->post('submit') != NULL ){
 				$year_id = $this->input->post('f_year_id');
+				$fr_year_id = $this->input->post('fr_year_id');
 				$paguthi = $this->input->post('f_paguthi');
 				$religion_id = $this->input->post('f_religion_id');
 				$ward_id = $this->input->post('f_ward_id');
 			 $status_session_array=$this->session->set_userdata(array(
 				 "f_year_id"=>$year_id,
+				 "fr_year_id"=>$fr_year_id,
 				 "f_religion_id"=>$religion_id,
 				 "f_paguthi"=>$paguthi,
 				 "f_ward_id"=>$ward_id
@@ -844,6 +862,9 @@ class Report extends CI_Controller {
 			 if($this->session->userdata('f_year_id') != NULL){
 					$year_id = $this->session->userdata('f_year_id');
 			 }
+			 if($this->session->userdata('fr_year_id') != NULL){
+				 $fr_year_id = $this->session->userdata('fr_year_id');
+			}
 			 if($this->session->userdata('f_religion_id') != NULL){
 				$religion_id = $this->session->userdata('f_religion_id');
 			}
@@ -855,7 +876,9 @@ class Report extends CI_Controller {
 			}
 
 		 }
+
 		 $data['f_year_id']=$year_id;
+		 $data['fr_year_id']=$fr_year_id;
 		 $data['f_religion_id']=$religion_id;
 		 $data['f_paguthi']=$paguthi;
 		 $data['f_ward_id']=$ward_id;
@@ -868,10 +891,10 @@ class Report extends CI_Controller {
 			}
 
 			// All records count
-			$allcount = $this->reportmodel->get_festival_count($year_id,$religion_id,$paguthi,$ward_id);
+			$allcount = $this->reportmodel->get_festival_count($year_id,$fr_year_id,$religion_id,$paguthi,$ward_id);
 
 			// Get records
-			$users_record = $this->reportmodel->fetch_festival_wishes_report($rowno,$rowperpage,$year_id,$paguthi,$ward_id,$religion_id);
+			$users_record = $this->reportmodel->fetch_festival_wishes_report($rowno,$rowperpage,$year_id,$fr_year_id,$paguthi,$ward_id,$religion_id);
 
 				// Pagination Configuration
 				$config['base_url'] = base_url().'report/festival_wishes_report';
@@ -1178,7 +1201,8 @@ class Report extends CI_Controller {
 		 // file creation
 		 $file = fopen('php://output', 'w');
 
-		 $header = array("Name","Mobile number","Date","petition_enquiry_no","category","status");
+		 $header = array("Name","FatherName/HusbandName/GuardianName","DOB", "Gender", "D.No","Address","Pincode", "PhoneNo", "WhatsappNo", "Religion", "Constituency" ,"Paguthi", "OfficeName", "Ward", "Booth", "SeekerType" ,
+		 "GrievanceType", "SubCategory" ,"StatusType" ,"CreatedDate" ,"UpdatedDate");
 		 fputcsv($file, $header);
 		 foreach ($res_data->result_array() as $key => $value)
 		 {
@@ -1213,6 +1237,12 @@ class Report extends CI_Controller {
 		 }else{
 			 $category="";
 		 }
+		 if(empty($g_seeker)){
+			$g_seeker = $this->session->userdata('g_seeker');
+		 }else{
+			 $g_seeker="";
+		 }
+
 		 if(empty($sub_category_id)){
 			$sub_category_id = $this->session->userdata('g_sub_category_id');
 		 }else{
@@ -1228,7 +1258,7 @@ class Report extends CI_Controller {
 		 }else{
 			 $ward_id="";
 		 }
-		 	 $res_data = $this->reportmodel->get_category_report_export($frmDate,$toDate,$category,$sub_category_id,$paguthi,$ward_id);
+		 	 $res_data = $this->reportmodel->get_category_report_export($frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id);
 			 $file = fopen('php://output', 'w');
 			 $header = array("Name","Mobile number","Date","petition_enquiry_no","category","status");
 			 fputcsv($file, $header);
@@ -1306,6 +1336,11 @@ public function get_birthday_report_export()
 	 }else{
 		 $year_id="";
 	 }
+	 if(empty($bf_year_id)){
+		$bf_year_id = $this->session->userdata('bf_year_id');
+	 }else{
+		 $bf_year_id="";
+	 }
 
 	 if(empty($paguthi)){
 		$paguthi = $this->session->userdata('b_paguthi');
@@ -1319,7 +1354,7 @@ public function get_birthday_report_export()
 	 }
 
 
-	 $res_data = $this->reportmodel->get_birthday_report_export($month_id,$year_id,$paguthi,$ward_id);
+	 $res_data = $this->reportmodel->get_birthday_report_export($month_id,$year_id,$bf_year_id,$paguthi,$ward_id);
 	 $file = fopen('php://output', 'w');
 	 $header = array("Name","Mobile number","Date","address","sent on");
 	 fputcsv($file, $header);
@@ -1361,11 +1396,12 @@ public function get_festival_report_export()
 	 }else{
 		 $ward_id="";
 	 }
-
-
-
-
-	 $res_data = $this->reportmodel->get_festival_report_export($religion_id,$year_id,$paguthi,$ward_id);
+	 if(empty($fr_year_id)){
+		$fr_year_id = $this->session->userdata('fr_year_id');
+	}else{
+		$fr_year_id="";
+	}
+	 $res_data = $this->reportmodel->get_festival_report_export($religion_id,$year_id,$fr_year_id,$paguthi,$ward_id);
 	 $file = fopen('php://output', 'w');
 	 $header = array("Name","Mobile number","address","festival","sent on");
 	 fputcsv($file, $header);
@@ -1461,7 +1497,7 @@ public function get_constituent_report_export()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$array_items = array('b_month','s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
+		$array_items = array('g_seeker','bf_year_id','fr_year_id','b_month','s_toDate', 's_frmDate','s_paguthi','s_ward_id','s_status','g_frmDate','g_toDate','g_category','g_sub_category_id','g_paguthi','g_ward_id','m_frmDate','m_toDate','m_status','m_paguthi','m_ward_id','b_year_id','b_month','b_paguthi','b_ward_id','f_religion_id','f_year_id',
 		'f_paguthi','f_ward_id','c_paguthi','c_ward_id','c_whatsapp_no','c_mobile_no','c_email_id','v_paguthi','v_ward_id','l_paguthi','l_ward_id','l_frmDate','l_toDate','mr_frmDate','mr_toDate','mr_search','a_search','e_search','p_search','cf_religion_id','cf_paguthi','cf_ward_id');
 		$this->session->unset_userdata($array_items);
 		redirect($_SERVER['HTTP_REFERER']);

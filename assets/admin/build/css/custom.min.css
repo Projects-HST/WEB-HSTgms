@@ -5193,16 +5193,18 @@ a.hiddenanchor {
     z-index: 22
 }
 
-#signup:target ~ .login_wrapper .registration_form,
+#forgot:target ~ .login_wrapper .registration_form,
 #signin:target ~ .login_wrapper .login_form {
     z-index: 22;
     animation-name: fadeInLeft;
     animation-delay: .1s
 }
 
-#signup:target ~ .login_wrapper .login_form,
+#forgot:target ~ .login_wrapper .login_form,
 #signin:target ~ .login_wrapper .registration_form {
-    animation-name: fadeOutLeft
+    animation-name: fadeOutLeft;
+      z-index: 22;
+        animation-delay: .1s
 }
 
 .animate {

@@ -19,7 +19,18 @@
 		<form id="report_form" action="<?php echo base_url(); ?>report/birthday" method="post" enctype="multipart/form-data">
 
         <div class="form-group row ">
-          <label class="col-form-label col-md-2 col-sm-2 ">Select Year <span class="required">*</span></label>
+          <label class="col-form-label col-md-2 col-sm-2 ">From Year <span class="required">*</span></label>
+           <div class="col-md-2 col-sm-2">
+            <select id="bf_year_id" name="bf_year_id" class="form-control">
+              <option value="">SELECT YEAR</option>
+              <?php foreach($res_year as $row_year){ ?>
+                <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
+            <?php  } ?>
+            </select>
+              <script>$('#bf_year_id').val('<?php echo $bf_year_id; ?>')</script>
+           </div>
+
+          <label class="col-form-label col-md-2 col-sm-2 ">To Year <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
             <select id="year_id" name="b_year_id" class="form-control">
               <option value="">SELECT YEAR</option>
@@ -27,10 +38,7 @@
                 <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
             <?php  } ?>
             </select>
-
               <script>$('#year_id').val('<?php echo $b_year_id; ?>')</script>
-
-
            </div>
           <label class="col-form-label col-md-2 col-sm-2 ">Select Month <span class="required">*</span></label>
            <div class="col-md-2 col-sm-2">
@@ -86,7 +94,7 @@
              </select>
               <script> $('#office_id').val('<?php echo $b_ward_id; ?>');</script>
           </div>
-          <div class="col-md-3 col-sm-2">
+          <div class="col-md-4 col-sm-2">
             <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
             <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
             <a href="<?php echo base_url(); ?>report/get_birthday_report_export" class="btn btn-export">Export</a>
@@ -182,15 +190,36 @@ function get_paguthi(sel){
 }
 
 
+$.validator.addMethod("chkDates", function(value, element) {
+		var startDate = $('#bf_year_id').val();
+		var endDate = $('#year_id').val();
+		return Date.parse(startDate) <= Date.parse(endDate) || value == "";
+	}, "Fom Year cannot be greater than To YEAR");
 
 $('#report_form').validate({ // initialize the plugin
      rules: {
-         b_year_id:{required:true},
+         bf_year_id:{required:true},
+         b_year_id:{ required: function(element){
+            return $("#bf_year_id").val().length > 0; },chkDates: "#bf_year_id"},
          b_month:{required:true}
      },
      messages: {
-           b_year_id: { required:"Select year"},
+          bf_year_id:{required:"select from year"},
+           b_year_id: { required:"Select to year"},
            b_month: { required:"Select month"}
          }
  });
+ // $('#report_form').validate({ // initialize the plugin
+ //      rules: {
+ //
+ //              m_frmDate:{ required: function(element){
+ //                 return $("#toDate").val().length > 0; }},
+ //             m_toDate:{ required: function(element){
+ //                return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
+ //      },
+ //      messages: {
+ //            m_frmDate: { required:"Select From Date"},
+ //            m_toDate: { required:"Select To Date"}
+ //          }
+ //  });
  </script>

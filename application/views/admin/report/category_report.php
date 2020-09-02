@@ -21,6 +21,18 @@ th{
                             <div class="col-md-2 col-sm-2">
                                 <input type="text" class="form-control" placeholder="To Date" id="toDate" name="g_toDate" value="<?php echo $g_toDate; ?>" />
                             </div>
+                            <label class="control-label col-md-1 col-sm-3"> Seeker<span class="required">*</span></label>
+                            <div class="col-md-3 col-sm-9">
+                                <select class="form-control" name="g_seeker" id="g_seeker" onchange="get_category(this)">
+                                    <option value="">ALL</option>
+                                    <?php foreach($seeker as $rows){ ?>
+                                    <option value="<?php echo $rows->id;?>"><?php echo $rows->seeker_info;?></option>
+                                    <?php } ?>
+                                </select>
+                                <script>
+                                    $("#g_seeker").val("<?php echo $g_seeker; ?>");
+                                </script>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -28,9 +40,14 @@ th{
                             <div class="col-md-2 col-sm-9">
                                 <select class="form-control" name="g_category" id="category" onchange="get_sub_category(this)">
                                     <option value="">ALL</option>
-                                    <?php foreach($category as $rows){ ?>
-                                    <option value="<?php echo $rows->id;?>"><?php echo $rows->grievance_name;?></option>
-                                    <?php } ?>
+                                   <?php
+                                    $query_gr="SELECT * FROM grievance_type WHERE status='ACTIVE' and seeker_id='$g_seeker' order by id desc";
+                                    $result_gr=$this->db->query($query_gr);
+                                    if($result_gr->num_rows()==0){ 	}else{
+                                    $res_gr=$result_gr->result();
+                                    foreach($res_gr as $rows_gr){ ?>
+                                      <option value="<?php echo $rows_gr->id; ?>"><?php echo $rows_gr->grievance_name; ?></option>
+                                    <?php   }		}    ?>
                                 </select>
                                 <script>
                                     $("#category").val("<?php echo $g_category; ?>");
@@ -40,6 +57,14 @@ th{
                             <div class="col-md-2 col-sm-9">
                                 <select class="form-control" id="sub_category_id" name="g_sub_category_id">
                                     <option value="">ALL</option>
+                                    <?php
+                                     $query_sb="SELECT * FROM grievance_sub_category WHERE status='ACTIVE' and grievance_id='$g_category' order by id desc";
+                                     $result_sb=$this->db->query($query_sb);
+                                     if($result_sb->num_rows()==0){ 	}else{
+                                     $res_sb=$result_sb->result();
+                                     foreach($res_sb as $rows_sb){ ?>
+                                       <option value="<?php echo $rows_sb->id; ?>"><?php echo $rows_sb->sub_category_name; ?></option>
+                                     <?php   }		}    ?>
                                 </select>
                             </div>
                         </div>
@@ -64,7 +89,6 @@ th{
                                  <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$g_paguthi' order by id desc";
                                   $result_of=$this->db->query($query);
                                   if($result_of->num_rows()==0){ ?>
-                                  <option value=""></option>
                                   <?php 	}else{
                                   $res_office=$result_of->result();
                                   foreach($res_office as $rows_office){ ?>
@@ -194,6 +218,32 @@ th{
                 }
             },
         });
+    }
+
+    function get_category(sel){
+      var seeker_id = sel.value;
+
+      $.ajax({
+          url: "<?php echo base_url(); ?>masters/get_grievance_active",
+          method: "POST",
+          data: { seeker_id: seeker_id },
+          dataType: "JSON",
+          cache: false,
+          success: function (data) {
+              var stat = data.status;
+              if (stat == "success") {
+                  $("#category").empty();
+                  var res = data.res;
+                  var len = res.length;
+                  $("#category").html('<option value="">ALL</option>');
+                  for (i = 0; i < len; i++) {
+                      $("<option>").val(res[i].id).text(res[i].grievance_name).appendTo("#category");
+                  }
+              } else {
+                  $("#category").empty();
+              }
+          },
+      });
     }
 
     $("#report_form").validate({

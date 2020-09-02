@@ -1,7 +1,7 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
 td{
-  width: 100px;
+  width: 150px;
 }
 </style>
   <div  class="right_col" role="main">
@@ -48,16 +48,14 @@ td{
                        <thead>
                           <tr>
                              <th>S.no</th>
-                             <th>Full name</th>
-                             <th>paguthi</th>
+                             <th>name</th>
+                             <th>Phone</th>
+                             <th>Address</th>
                              <th>seeker</th>
-                             <!-- <th>category</th> -->
-                             <!-- <th>sub category</th> -->
-                             <th>Enquiry/ petition no</th>
-                             <th>reference</th>
+                             <th>Paguthi</th>
+                             <th>Reference</th>
                              <th>status</th>
-                             <th>updated at</th>
-                             <th style="width:100px !important;">Action</th>
+                             <th>Action</th>
                           </tr>
                        </thead>
                        <tbody>
@@ -65,36 +63,26 @@ td{
                            <tr>
                              <td><?php echo $i; ?></td>
                              <td><?php echo $rows['full_name']; ?></td>
-                             <td><?php echo $rows['paguthi_name']; ?></td>
+                             <td><?php echo $rows['mobile_no']; ?></td>
+                             <td><?php echo $rows['address']; ?></td>
                              <td><?php echo $rows['seeker_info']; ?></td>
+                             <td><?php echo $rows['paguthi_name']; ?></td>
                              <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
                              <!-- <td><?php echo $rows['sub_category_name']; ?></td> -->
-                             <td><?php echo $rows['petition_enquiry_no']; ?></td>
+                             <!-- <td><?php echo $rows['petition_enquiry_no']; ?></td> -->
                              <td><?php if(empty($rows['reference_note'])){ ?>
                                <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')">Set reference</a>
                             <?php }else{ ?>
                               <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')"><?php echo $rows['reference_note']; ?></a>
                             <?php } ?></td>
-                             <!-- <td><?php $status= $rows['status'];
-                                 if($status=='COMPLETED'){ ?>
-                                   <a class="badge badge-completed handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')">COMPLETED</a>
-                               <?php  }else if($status=='ONHOLD'){ ?>
-                                 <a class="badge badge-danger handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')">ONHOLD</a>
-                                 <?php }else{ ?>
-                                   <a class="badge badge-processing handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')"><?php echo $status; ?></a>
-                                 <?php  }
-                              ?></td> -->
+
                               <td><?php $status= $rows['status'];  ?>
                                 <a class="badge-<?= $status ?> handle_symbol" onclick="change_grievance_status('<?php echo $rows['id']; ?>')"><?php echo $status; ?></a>
                               </td>
-                             <td><?php echo date('d-m-Y', strtotime($rows['updated_at'])); ?></td>
+
                              <td>
                                <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
-                               &nbsp;
-
-                               <a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
-                               &nbsp;
-
+                               &nbsp;<a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
                                <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
 
                               </td>
@@ -133,7 +121,7 @@ td{
                  <label class="col-form-label col-md-3 col-sm-3 ALL">set reference<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-9 ">
-                    <input id="reference_note" class=" form-control" name="reference_note">
+                    <textarea class="form-control" id="reference_note" name="reference_note"></textarea>
                     <input id="reference_grievance_id" class=" form-control" name="reference_grievance_id" type="hidden" value="">
 
                  </div>
@@ -164,11 +152,9 @@ td{
                  </label>
                  <div class="col-md-6 col-sm-9 ">
                    <select class="form-control" id="status" name="status">
-                        <option value="PROCESSING">PROCESSING</option>
-                        <!-- <option value="PENDING">PENDING</option> -->
+
+                        <option value="PENDING">PENDING</option>
                         <option value="REJECTED">REJECTED</option>
-                        <option value="FAILURE">FAILURE</option>
-                        <option value="ONHOLD">ONHOLD</option>
                         <option value="COMPLETED">COMPLETED</option>
                    </select>
 
@@ -299,7 +285,7 @@ $('#list_grievance_reply_menu').addClass('active');
 
     $('#update_referecnce_form').validate({
          rules: {
-             reference_note:{required:true,maxlength:50 }
+             reference_note:{required:true,maxlength:240 }
          },
          messages: {
              reference_note:{required:"enter the reference text" }
@@ -405,7 +391,7 @@ function get_set_reference(sel){
       var res=data.res;
       var len=res.length;
       for (i = 0; i < len; i++) {
-        $('#reference_note').val(res[i].reference_note);
+        $('#reference_note').text(res[i].reference_note);
         $('#reference_grievance_id').val(res[i].id);
      }
       }else{

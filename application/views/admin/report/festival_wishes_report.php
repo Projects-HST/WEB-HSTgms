@@ -19,7 +19,17 @@
                     <form method="post" action="<?= base_url() ?>report/festival_wishes_report" id="report_form">
                         <div class="col-md-12 col-sm-12" style="padding: 0px;">
                             <div class="form-group row">
-                                <label class="col-form-label col-md-2 col-sm-2">Select year <span class="required">*</span></label>
+                              <label class="col-form-label col-md-2 col-sm-2 ">From Year <span class="required">*</span></label>
+                               <div class="col-md-2 col-sm-2">
+                                <select id="fr_year_id" name="fr_year_id" class="form-control">
+                                  <option value="">SELECT YEAR</option>
+                                  <?php foreach($res_year as $row_year){ ?>
+                                    <option value="<?= $row_year->year_name; ?>"><?= $row_year->year_name; ?></option>
+                                <?php  } ?>
+                                </select>
+                                  <script>$('#fr_year_id').val('<?php echo $fr_year_id; ?>')</script>
+                               </div>
+                                <label class="col-form-label col-md-2 col-sm-2">To year <span class="required">*</span></label>
                                 <div class="col-md-2 col-sm-4">
                                     <select class="form-control" name="f_year_id" id="year_id">
                                         <option value="">Select year</option>
@@ -164,14 +174,23 @@
             },
         });
     }
+    $.validator.addMethod("chkDates", function(value, element) {
+    		var startDate = $('#fr_year_id').val();
+    		var endDate = $('#year_id').val();
+    		return Date.parse(startDate) <= Date.parse(endDate) || value == "";
+    	}, "Fom Year cannot be greater than To YEAR");
+
     $("#report_form").validate({
         // initialize the plugin
         rules: {
-            f_year_id: { required: true },
+          fr_year_id:{required:true},
+          f_year_id:{ required: function(element){
+             return $("#fr_year_id").val().length > 0; },chkDates: "#fr_year_id"},
             f_religion_id: { required: true },
         },
         messages: {
-            f_year_id: { required: "Select From year" },
+          fr_year_id:{required:"select from year"},
+            f_year_id: { required: "Select to year" },
             f_religion_id: { required: "Select Festival" },
         },
     });

@@ -35,11 +35,12 @@
 				<th>S.no</th>
                      <th>Name</th>
                      <th>Mobile</th>
-					 				 	<th>Paguthi</th>
-                     <th>Meeting</th>
+                     <th>Address</th>
+                     <th>Paguthi</th>
+
                      <!-- <th>interaction</th> -->
                      <!-- <th>plant</th> -->
-                     <th>Grievance</th>
+                     <!-- <th>Grievance</th> -->
                      <th>Action</th>
 			</tr>
 			<?php
@@ -77,8 +78,9 @@
 				echo "<td>".$sno."</td>";
 				echo "<td>".$data['full_name']."</td>";
 				echo "<td>".$data['mobile_no']."</td>";
+        echo "<td>".$data['address']."</td>";
 				echo "<td>".$paguthi_name."</td>";
-				echo '<td><a  class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
+				// echo '<td><a  class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
 				// if ($int_status == "Y"){
 				// 	echo '<td><a class="badge badge-view" href="'.base_url().'constituent/get_interaction_response_edit/'. base64_encode($const_id*98765).'" title="INTERACTION VIEW">VIEW</i></a></td>';
 				// } else {
@@ -90,7 +92,7 @@
 				// 	echo '<td><a class="badge badge-add handle_symbol" onclick="add_plant_donation('.$const_id.')">ADD</i></a></td>';
         	// <a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 				// }
-				echo '<td><a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
+				// echo '<td><a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
 				echo '<td>	<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
         	     <a title="EDIT" id="EDIT" href="'. base_url().'constituent/get_constituent_member_edit/'.base64_encode($const_id*98765).'"><i class="fa fa-edit"></i></a>&nbsp;
 							<a title="DOCUMENTS" href="'.base_url().'constituent/get_list_document/'.base64_encode($const_id*98765).'"><i class="fa fa-file-word-o"></i></a>&nbsp;
@@ -98,7 +100,10 @@
 
 							<a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
 							&nbsp;
-							<a title="VIDEO " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+							<a title="VIDEO " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a> &nbsp;
+              <a  title="MEETING" class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')"><i class="fa fa-suitcase" aria-hidden="true"></i></a>&nbsp;
+              <a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+
 							</td>';
 				echo "</tr>";
 				$sno++;
@@ -410,7 +415,7 @@
                  </label>
                  <div class="col-md-4 col-sm-6 ">
                    <select class="form-control" name="constituency_id" id="constituency_id">
-                      
+
                      <?php foreach($res_constituency as $rows_constituency){ ?>
 
                     <?php } ?>
