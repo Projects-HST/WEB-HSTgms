@@ -14,7 +14,7 @@
 		</div>
 		<div class="col-md-3">
 				<p class="dash_title text-right"><?php   date_default_timezone_set("Asia/Calcutta");
-				echo date('d-F-Y | h:i:s'); ?> </p>
+				echo date('d-F-Y |'); ?> <span id="txt"></span></p>
 		</div>
 	</div>
 
@@ -490,5 +490,28 @@ $('#result_form').validate({
 				 },
 		 });
  }
-
+ function startTime()
+{
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	var hours = (today.getHours() >= 12) ? today.getHours()-12 : today.getHours();
+	// h = hours % 12;
+	// var h = hours ? hours : 12;
+	m = checkTime(m);
+	s = checkTime(s);
+	document.getElementById('txt').innerHTML =
+	hours + ":" + m + ":" + s;
+	var t = setTimeout(startTime, 500);
+}
+function checkTime(i)
+{
+	if (i < 10) {i = "0" + i};
+	return i;
+}
+window.onload
+{
+	startTime();
+}
     </script>

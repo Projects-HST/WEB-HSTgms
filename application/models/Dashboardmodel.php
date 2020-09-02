@@ -166,7 +166,7 @@ Class Dashboardmodel extends CI_Model
 						IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count
 						FROM grievance as g
 						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date
-						GROUP BY seeker_type_id";
+						GROUP BY seeker_type_id LIMIT 2";
 
 			$res_1=$this->db->query($query_1);
 		  $result_1=$res_1->result();
