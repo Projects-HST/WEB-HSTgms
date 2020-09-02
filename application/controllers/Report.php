@@ -55,6 +55,11 @@ class Report extends CI_Controller {
 		 		$ward_id = $this->session->userdata('s_ward_id');
 		 	}
 		 }
+		 $data['dfromDate'] = $frmDate;
+		 $data['dtoDate'] = $toDate;
+		 $data['status'] = $status;
+		 $data['dpaguthi'] = $paguthi;
+		 $data['s_ward_id'] = $ward_id;
 
 		$rowperpage = 25;
 
@@ -105,10 +110,7 @@ class Report extends CI_Controller {
 		$data['result'] = $users_record;
 		$data['total_records'] = $allcount;
 		$data['row'] = $rowno;
-		$data['dfromDate'] = $frmDate;
-		$data['dtoDate'] = $toDate;
-		$data['status'] = $status;
-		$data['dpaguthi'] = $paguthi;
+
 	 if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/status_report',$data);
@@ -1201,8 +1203,7 @@ class Report extends CI_Controller {
 		 // file creation
 		 $file = fopen('php://output', 'w');
 
-		 $header = array("Name","FatherName/HusbandName/GuardianName","DOB", "Gender", "D.No","Address","Pincode", "PhoneNo", "WhatsappNo", "Religion", "Constituency" ,"Paguthi", "OfficeName", "Ward", "Booth", "SeekerType" ,
-		 "GrievanceType", "SubCategory" ,"StatusType" ,"CreatedDate" ,"UpdatedDate");
+		 $header = array("Name", "FatherName/HusbandName/GuardianName", "DOB", "Gender"," D.No","Address", "Pincode", "PhoneNo", "WhatsAppNo", "Religion", "Constituency", "Paguthi", "OfficeName", "Ward", "Booth", "SeekerType", "GrievanceType", "SubCategory", "StatusType", "CreatedDate", "UpdatedDate");
 		 fputcsv($file, $header);
 		 foreach ($res_data->result_array() as $key => $value)
 		 {
@@ -1260,7 +1261,8 @@ class Report extends CI_Controller {
 		 }
 		 	 $res_data = $this->reportmodel->get_category_report_export($frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id);
 			 $file = fopen('php://output', 'w');
-			 $header = array("Name","Mobile number","Date","petition_enquiry_no","category","status");
+			 $header = array( "Name", "Father Name/Husband Name/Guardian Name", "DOB", "Gender", "D.No" ,"Address", "Pincode", "Phone No", "WhatsApp No", "Religion", "Constituency", "Paguthi", "Office Name", "Ward", "Booth"," Seeker Type",
+			 "Grievance Type", "Sub Category", "Status Type", "Created Date", "Updated Date");
 			 fputcsv($file, $header);
 			 foreach ($res_data->result_array() as $key => $value)
 			 {
@@ -1305,7 +1307,8 @@ class Report extends CI_Controller {
 	 }
 		 $res_data = $this->reportmodel->get_meeting_report_export($frmDate,$toDate,$status,$paguthi,$ward_id);
 		 $file = fopen('php://output', 'w');
-		 $header = array("Name","Mobile number","Date","details","status");
+
+			$header = array("Name","FatherName/HusbandName/GuardianName","DOB", "Gender", "D.No","Address","Pincode", "PhoneNo", "WhatsappNo", "Religion", "Constituency" ,"Paguthi", "OfficeName", "Ward", "Booth", "Details", "Meeting Status","CreatedDate" ,"UpdatedDate");
 		 fputcsv($file, $header);
 		 foreach ($res_data->result_array() as $key => $value)
 		 {
@@ -1356,7 +1359,7 @@ public function get_birthday_report_export()
 
 	 $res_data = $this->reportmodel->get_birthday_report_export($month_id,$year_id,$bf_year_id,$paguthi,$ward_id);
 	 $file = fopen('php://output', 'w');
-	 $header = array("Name","Mobile number","Date","address","sent on");
+	 $header = array("Name","FatherName/HusbandName/GuardianName","DOB", "Gender", "D.No","Address","Pincode", "PhoneNo", "WhatsappNo", "Religion", "Constituency" ,"Paguthi", "OfficeName", "Ward", "Booth","Sent On Month Of" ,"Sent On Year Of", "Letter Sent On");
 	 fputcsv($file, $header);
 	 foreach ($res_data->result_array() as $key => $value)
 	 {
@@ -1403,7 +1406,7 @@ public function get_festival_report_export()
 	}
 	 $res_data = $this->reportmodel->get_festival_report_export($religion_id,$year_id,$fr_year_id,$paguthi,$ward_id);
 	 $file = fopen('php://output', 'w');
-	 $header = array("Name","Mobile number","address","festival","sent on");
+	  $header = array("Name","FatherName/HusbandName/GuardianName","DOB", "Gender", "D.No","Address","Pincode", "PhoneNo", "WhatsappNo", "Religion", "Constituency" ,"Paguthi", "Office Name", "Ward", "Booth","Festival Name" ,"Sent On Year Of", "Letter Sent On");
 	 fputcsv($file, $header);
 	 foreach ($res_data->result_array() as $key => $value)
 	 {
@@ -1453,7 +1456,8 @@ public function get_constituent_report_export()
 
 	 $res_data = $this->reportmodel->get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id);
 	 $file = fopen('php://output', 'w');
-	 $header = array("Name","Mobile number","Whatsapp","Door no","Address","email ID");
+	 $header = array("Name"," Father Name/Husband Name/Guardian Name", "DOB", "Gender", "D.No", "Address", "Pincode", "Phone No", "WhatsApp No", "Mail Id", "Religion", "Constituency", "Paguthi", "Office Name", "Ward", "Booth", "Voter Type",
+	 " Voter Id", "Volunteer Type", "Party Member"," Aadhaar No","Videos Count");
 	 fputcsv($file, $header);
 	 foreach ($res_data->result_array() as $key => $value)
 	 {
@@ -1483,7 +1487,7 @@ public function get_constituent_report_export()
 
 			$res_data = $this->reportmodel->get_video_report_export($paguthi,$ward_id);
 			$file = fopen('php://output', 'w');
-			$header = array("Name","Mobile number","Door no","Address","Video title","video link","Done by","Updated at");
+			$header = array("Name", "Father Name/Husband Name/Guardian Name", "DOB", "Gender", "D.No" , "Address", "Pincode", "Phone No", "WhatsApp No", "Mail Id", "Religion", "Constituency", "Paguthi", "Office Name", "Ward", "Booth"," Video Link", "Created Date");
 			fputcsv($file, $header);
 			foreach ($res_data->result_array() as $key => $value)
 			{

@@ -118,9 +118,10 @@
                 <tr>
                     <th>S.no </th>
                     <th>Name</th>
-                    <th>Date of Birth</th>
-                    <th>Phone</th>
+                    <th>Father or Husband </th>
+                    <th>Dob</th>
                     <th>Address</th>
+                    <th>Phone</th>
                     <th>Sent on</th>
                 </tr>
              </thead>
@@ -134,9 +135,10 @@
                  <tr>
                     <td><?php echo $i; ?></td>
                     <td><?php echo $rows['full_name']; ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
-                    <td><?php echo $rows['mobile_no']; ?></td>
+                    <td><?php echo $rows['father_husband_name']; ?></td>
+                    <td><?php echo $rows['dob']; ?></td>
                     <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
+                    <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo date("d-m-Y H:i", strtotime($rows['created_at'])); ?></td>
 
                  </tr>

@@ -326,9 +326,9 @@ function moneyFormatIndia($num) {
 					<hr>
 					<div class="row">
 
-						<div class="col-9"><p class="widget_label">Birthday (<?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2);?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Birthday (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>% )</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
-						<div class="col-9"><p class="widget_label">festival (<?=  round($row_fw_list->total/ $rows_cons->total *100,2);?>%)</p></div>
+						<div class="col-9"><p class="widget_label">festival (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_fw_list->total/ $rows_cons->total *100,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_fw_list->total); ?></p></div>
 
 					</div>

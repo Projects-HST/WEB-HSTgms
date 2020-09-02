@@ -92,32 +92,29 @@ th{
              <thead>
                 <tr>
                   <th>S.no</th>
-                  <th>Date</th>
                   <th>Name</th>
+                  <th>Father or Husband </th>
+                  <th>Dob</th>
+                  <th>Address</th>
                   <th>Phone</th>
                   <th>Details</th>
                   <th>Status</th>
-                  <th>Created by</th>
-                  <th>Created at</th>
+
                 </tr>
              </thead>
              <tbody>
                <?php $i = $row+1; foreach($result as $rows){ ?>
                  <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($rows['meeting_date'])); ?></td>
                     <td><?php echo $rows['full_name']; ?></td>
+                    <td><?php echo $rows['father_husband_name']; ?></td>
+                    <td><?php echo $rows['dob']; ?></td>
+                    <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                     <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo $rows['meeting_detail']; ?></td>
-
                     <?php
                     $meeting_status = $rows['meeting_status']; ?>
-
                     <td class="badge-<?= $meeting_status ?>"><?php  echo $meeting_status; ?></td>
-
-
-                    <td><?php  echo $rows['created_by']; ?></td>
-                    <td><?php  echo  date("d-m-Y", strtotime($rows['created_at']) ); ?></td>
                  </tr>
             <?php $i++; } ?>
              </tbody>

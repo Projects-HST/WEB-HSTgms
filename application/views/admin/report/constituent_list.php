@@ -82,10 +82,10 @@
                             <tr>
                                 <th>S.no</th>
                                 <th>Name</th>
-                                <th>Email id</th>
-                                <th>Mobile</th>
-                                <th>Whatsapp</th>
+                                <th>Father or Husband </th>
+                                <th>Dob</th>
                                 <th>Address</th>
+                                <th>Phone</th>
                             </tr>
                             <?php
 			$sno = $row+1;
@@ -93,10 +93,10 @@
                             <tr>
                                 <td><?php echo $sno; ?></td>
                                 <td><?php echo $data['full_name']; ?></td>
-                                <td><?php echo $data['email_id']; ?></td>
+                                <td><?php echo $data['father_husband_name']; ?></td>
+                                <td><?php echo $data['dob']; ?></td>
+                                <td><?php echo $data['door_no']; ?><br><?php echo $data['address']; ?><br><?php echo $data['pin_code']; ?></td>
                                 <td><?php echo $data['mobile_no']; ?></td>
-                                <td><?php echo $data['whatsapp_no']; ?></td>
-                                <td><?php echo $data['address']; ?></td>
                             </tr>
                             <?php $sno++;	} ?>
                         </table>

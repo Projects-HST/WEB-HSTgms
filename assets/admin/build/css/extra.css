@@ -411,3 +411,6 @@ hr{
   background-color: #1D6F42;
   color:#fff;
 }
+.table td, .table th{
+  padding: 5px;
+}

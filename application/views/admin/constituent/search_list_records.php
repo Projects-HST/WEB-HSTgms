@@ -467,7 +467,7 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
-                  <label>grievance sub category  <span class="required">*</span></label>
+                  <label>grievance sub category </label>
                   <select class="form-control" id="sub_category_id" name="sub_category_id">
                        <option value="">SELECT</option>
                   </select>

@@ -109,15 +109,12 @@ th{
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows['full_name']; ?></td>
                                     <td><?php echo $rows['father_husband_name']; ?></td>
-                                    <td><?php echo $rows['dob']; ?></td>
-                                    <td><?php echo $rows['address']; ?></td>
+                                    <td><?php echo $rows['dob']; ?></td>                                    
+                                    <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
+
                                     <td><?php echo $rows['mobile_no']; ?></td>
                                     <td class="badge-<?= $rows['status'] ?>"><?php  echo $rows['status']; ?></td>
 
-                                    <!-- <td><?php echo $rows['petition_enquiry_no']; ?></td> -->
-                                    <!-- <td><?php echo date('d-m-Y', strtotime($rows['created_at'])); ?></td> -->
-                                    <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
-                                    <!-- <td><?php  echo $rows['created_by']; ?></td> -->
                                 </tr>
                                 <?php $i++; } ?>
                             </tbody>

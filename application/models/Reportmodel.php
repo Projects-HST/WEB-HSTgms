@@ -11,7 +11,7 @@ Class Reportmodel extends CI_Model
 	function get_status_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id)
 	{
 
-		$this->db->select('g.*,c.full_name,c.mobile_no,c.father_husband_name,c.address,c.dob,u.full_name as created_by,gt.grievance_name');
+		$this->db->select('g.*,c.full_name,c.mobile_no,c.father_husband_name,c.address,c.dob,c.door_no,c.pin_code,u.full_name as created_by,gt.grievance_name');
 		$this->db->from('grievance as g');
 		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
 		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
@@ -19,12 +19,12 @@ Class Reportmodel extends CI_Model
 		if(empty($paguthi) || $paguthi=='ALL'){
 
 		}else{
-			$this->db->where('c.paguthi_id',$paguthi);
+			$this->db->where('g.paguthi_id',$paguthi);
 		}
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.office_id',$ward_id);
+			$this->db->where('g.office_id',$ward_id);
 		}
 		if(empty($status) || $status=='ALL'){
 
@@ -42,7 +42,7 @@ Class Reportmodel extends CI_Model
 			$this->db->where('g.grievance_date >=', $from_date);
 			$this->db->where('g.grievance_date <=', $to_date);
 		}
-
+		//
 		// echo $this->db->get_compiled_select();
 		// exit;
 
@@ -62,12 +62,12 @@ Class Reportmodel extends CI_Model
 		if(empty($paguthi) || $paguthi=='ALL'){
 
 		}else{
-			$this->db->where('c.paguthi_id',$paguthi);
+			$this->db->where('g.paguthi_id',$paguthi);
 		}
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.office_id',$ward_id);
+			$this->db->where('g.office_id',$ward_id);
 		}
 		if(empty($status) || $status=='ALL'){
 
@@ -103,12 +103,12 @@ Class Reportmodel extends CI_Model
 		if(empty($paguthi) || $paguthi=='ALL'){
 
 		}else{
-			$this->db->where('c.paguthi_id',$paguthi);
+			$this->db->where('g.paguthi_id',$paguthi);
 		}
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.office_id',$ward_id);
+			$this->db->where('g.office_id',$ward_id);
 		}
 		if(empty($frmDate)){
 				$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
@@ -148,7 +148,7 @@ Class Reportmodel extends CI_Model
 	function get_category_report($rowno,$rowperpage,$frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id)
 	{
 
-		$this->db->select('g.*,c.full_name,c.mobile_no,c.father_husband_name,c.address,c.dob,u.full_name as created_by,gt.grievance_name');
+		$this->db->select('g.*,c.full_name,c.mobile_no,c.father_husband_name,c.address,c.dob,c.door_no,c.pin_code,u.full_name as created_by,gt.grievance_name');
 		$this->db->from('grievance as g');
 		$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
 		$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
@@ -156,12 +156,12 @@ Class Reportmodel extends CI_Model
 		if(empty($paguthi) || $paguthi=='ALL'){
 
 		}else{
-			$this->db->where('c.paguthi_id',$paguthi);
+			$this->db->where('g.paguthi_id',$paguthi);
 		}
 		if(empty($ward_id)){
 
 		}else{
-			$this->db->where('c.office_id',$ward_id);
+			$this->db->where('g.office_id',$ward_id);
 		}
 
 		if(empty($frmDate)){
@@ -320,7 +320,7 @@ Class Reportmodel extends CI_Model
 
 	function get_meeting_report($rowno,$rowperpage,$frmDate,$toDate,$status,$paguthi,$ward_id)
 	{
-		$this->db->select('mr.*,c.full_name,c.mobile_no,c.father_husband_name,c.address,c.dob,u.full_name as created_by');
+		$this->db->select('mr.*,c.full_name,c.mobile_no,c.father_husband_name,c.address,c.dob,c.door_no,c.pin_code,u.full_name as created_by');
 		$this->db->from('meeting_request as mr');
 		$this->db->join('constituent as c', 'mr.constituent_id = c.id', 'left');
 		$this->db->join('user_master as u', 'mr.created_by = u.id', 'left');
@@ -408,7 +408,7 @@ Class Reportmodel extends CI_Model
 
 	function get_birthday_report($rowno,$rowperpage,$year_id,$bf_year_id,$month_id,$paguthi,$ward_id)
 	{
-		$this->db->select('bw.*,c.full_name,c.mobile_no,c.whatsapp_no,c.email_id,c.address,c.dob,c.pin_code,c.door_no');
+		$this->db->select('bw.*,c.full_name,c.father_husband_name,c.mobile_no,c.whatsapp_no,c.email_id,c.address,c.dob,c.pin_code,c.door_no');
 		$this->db->from('consitutent_birthday_wish as bw');
 		$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
 		if(empty($year_id)){
@@ -857,12 +857,12 @@ Class Reportmodel extends CI_Model
 				if(empty($paguthi) || $paguthi=='ALL'){
 
 				}else{
-					$this->db->where('c.paguthi_id',$paguthi);
+					$this->db->where('g.paguthi_id',$paguthi);
 				}
 				if(empty($ward_id)){
 
 				}else{
-					$this->db->where('c.office_id',$ward_id);
+					$this->db->where('g.office_id',$ward_id);
 				}
 				if(empty($status) || $status=='ALL'){
 
@@ -888,20 +888,30 @@ Class Reportmodel extends CI_Model
 
 
 		function get_category_report_export($frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id){
-			$this->db->select('c.full_name,c.mobile_no,g.grievance_date,g.petition_enquiry_no,gt.grievance_name,g.status');
+			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,st.seeker_info,gt.grievance_name,sb.sub_category_name,g.status,g.grievance_date,g.created_at');
 			$this->db->from('grievance as g');
 			$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
-			$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
+
+			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
+			$this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
+			$this->db->join('paguthi as p', 'c.paguthi_id = p.id', 'left');
+			$this->db->join('office as o', 'c.office_id = o.id', 'left');
+			$this->db->join('ward as w', 'c.ward_id = w.id', 'left');
+			$this->db->join('booth as b', 'c.booth_id = b.id', 'left');
+			$this->db->join('seeker_type as st', 'g.seeker_type_id = st.id', 'left');
 			$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
+			$this->db->join('grievance_sub_category as sb', 'sb.id = g.sub_category_id', 'left');
+
+			$this->db->join('user_master as u', 'g.created_by = u.id', 'left');
 			if(empty($paguthi) || $paguthi=='ALL'){
 
 			}else{
-				$this->db->where('c.paguthi_id',$paguthi);
+				$this->db->where('g.paguthi_id',$paguthi);
 			}
 			if(empty($ward_id)){
 
 			}else{
-				$this->db->where('c.office_id',$ward_id);
+				$this->db->where('g.office_id',$ward_id);
 			}
 			if(empty($frmDate)){
 					$this->db->where('g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month');
@@ -936,9 +946,16 @@ Class Reportmodel extends CI_Model
 		}
 
 		function get_meeting_report_export($frmDate,$toDate,$status,$paguthi,$ward_id){
-			$this->db->select('c.full_name,c.mobile_no,mr.meeting_date,mr.meeting_detail,mr.meeting_status');
+			// $this->db->select('c.full_name,c.mobile_no,mr.meeting_date,mr.meeting_detail,mr.meeting_status');
+				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,mr.meeting_detail,mr.meeting_status,mr.meeting_date,mr.updated_at');
 			$this->db->from('meeting_request as mr');
 			$this->db->join('constituent as c', 'mr.constituent_id = c.id', 'left');
+			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
+			$this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
+			$this->db->join('paguthi as p', 'c.paguthi_id = p.id', 'left');
+			$this->db->join('office as o', 'c.office_id = o.id', 'left');
+			$this->db->join('ward as w', 'c.ward_id = w.id', 'left');
+			$this->db->join('booth as b', 'c.booth_id = b.id', 'left');
 			$this->db->join('user_master as u', 'mr.created_by = u.id', 'left');
 			if(empty($paguthi) || $paguthi=='ALL'){
 
@@ -970,9 +987,17 @@ Class Reportmodel extends CI_Model
 		}
 
 		function get_birthday_report_export($month_id,$year_id,$bf_year_id,$paguthi,$ward_id){
-			$this->db->select('c.full_name,c.mobile_no,c.dob,c.address,bw.created_at');
+
+				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,MONTHNAME (c.dob),YEAR(bw.created_at),bw.created_at');
 			$this->db->from('consitutent_birthday_wish as bw');
 			$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
+			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
+			$this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
+			$this->db->join('paguthi as p', 'c.paguthi_id = p.id', 'left');
+			$this->db->join('office as o', 'c.office_id = o.id', 'left');
+			$this->db->join('ward as w', 'c.ward_id = w.id', 'left');
+			$this->db->join('booth as b', 'c.booth_id = b.id', 'left');
+
 			if(empty($year_id)){
 				$this->db->where('DATE(bw.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
 			}else{
@@ -1002,10 +1027,17 @@ Class Reportmodel extends CI_Model
 
 
 		function get_festival_report_export($religion_id,$year_id,$fr_year_id,$paguthi,$ward_id){
-			$this->db->select('c.full_name,c.mobile_no,c.address,fm.festival_name,fw.updated_at as sent_on');
+			// $this->db->select('c.full_name,c.mobile_no,c.address,fm.festival_name,fw.updated_at as sent_on');
+			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,fm.festival_name,YEAR(fw.updated_at),fw.updated_at');
 			$this->db->from('festival_wishes as fw');
 			$this->db->join('festival_master as fm', 'fm.id = fw.festival_id', 'left');
 			$this->db->join('constituent as c', 'c.id = fw.constituent_id', 'left');
+			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
+			$this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
+			$this->db->join('paguthi as p', 'c.paguthi_id = p.id', 'left');
+			$this->db->join('office as o', 'c.office_id = o.id', 'left');
+			$this->db->join('ward as w', 'c.ward_id = w.id', 'left');
+			$this->db->join('booth as b', 'c.booth_id = b.id', 'left');
 			if(empty($religion_id)){
 
 			}else{
@@ -1036,8 +1068,15 @@ Class Reportmodel extends CI_Model
 
 
 		function get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id){
-			$this->db->select('c.full_name,c.mobile_no,c.whatsapp_no,c.door_no,c.address,c.email_id');
+		$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,c.voter_status,c.voter_id_no,c.volunteer_status,c.party_member_status,c.aadhaar_no,count(cv.constituent_id) as video_count');
 		 $this->db->from('constituent as c');
+		 $this->db->join('religion as r', 'c.religion_id = r.id', 'left');
+		 $this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
+		 $this->db->join('paguthi as p', 'c.paguthi_id = p.id', 'left');
+		 $this->db->join('office as o', 'c.office_id = o.id', 'left');
+		 $this->db->join('ward as w', 'c.ward_id = w.id', 'left');
+		 $this->db->join('booth as b', 'c.booth_id = b.id', 'left');
+		 $this->db->join('constituent_video as cv', 'cv.constituent_id = c.id', 'left');
 		 if(empty($paguthi)){
 
 		 }else{
@@ -1063,6 +1102,7 @@ Class Reportmodel extends CI_Model
 		 }else{
 			 $this->db->where('c.email_id!=" "');
 		 }
+		 $this->db->group_by('c.id');
 
 			 // echo $this->db->get_compiled_select(); // before $this->db->get();
 			 // exit;
@@ -1070,9 +1110,16 @@ Class Reportmodel extends CI_Model
 		}
 
 		function get_video_report_export($paguthi,$ward_id){
-			$this->db->select('c.full_name,c.mobile_no,c.door_no,c.address,cv.video_title,cv.video_link,u.full_name as done_by,cv.updated_at');
+			// $this->db->select('c.full_name,c.mobile_no,c.door_no,c.address,c.dob,c.father_husband_name,c.pin_code,cv.video_title,cv.video_link,u.full_name as done_by,cv.updated_at');
+			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,cv.video_link,cv.updated_at');
 			$this->db->from('constituent_video as cv');
 			$this->db->join('constituent as c', 'c.id = cv.constituent_id', 'left');
+			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
+			$this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
+			$this->db->join('paguthi as p', 'c.paguthi_id = p.id', 'left');
+			$this->db->join('office as o', 'c.office_id = o.id', 'left');
+			$this->db->join('ward as w', 'c.ward_id = w.id', 'left');
+			$this->db->join('booth as b', 'c.booth_id = b.id', 'left');
 			$this->db->join('user_master as u', 'cv.updated_by = u.id', 'left');
 			if(empty($paguthi)){
 

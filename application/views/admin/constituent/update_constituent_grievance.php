@@ -4,7 +4,7 @@
         <div class="x_panel">
            <div class="x_title">
              <?php foreach($res_grievance as $con_row){ } ?>
-              <h2><i class="fa fa-file-word-o"></i> Update <?php if($con_row->grievance_type=='P'){ echo "Petition"; }else{ echo "ENQUIRY"; } ?></h2>
+              <h2>Update <?php if($con_row->grievance_type=='P'){ echo "Petition"; }else{ echo "ENQUIRY"; } ?></h2>
               <div class="clearfix"></div>
            </div>
 

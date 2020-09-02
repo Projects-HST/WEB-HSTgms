@@ -72,11 +72,11 @@
                 <tr>
                     <th>S.no </th>
                     <th>Name</th>
-                    <th>Phone</th>
+                    <th>Father or Husband </th>
+                    <th>Dob</th>
                     <th>Address</th>
-                    <th>Video title</th>
-                    <th>Update by</th>
-                    <th>Updated</th>
+                    <th>Phone</th>
+                    <th>Updated by</th>
                 </tr>
              </thead>
              <tbody>
@@ -89,12 +89,12 @@
                  <tr>
                     <td><?php echo $i; ?></td>
                     <td><?php echo $rows['full_name']; ?></td>
-
-                    <td><?php echo $rows['mobile_no']; ?></td>
+                    <td><?php echo $rows['father_husband_name']; ?></td>
+                    <td><?php echo $rows['dob']; ?></td>
                     <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
-                    <td><a href="<?php echo $rows['video_link']; ?>" target="_blank"><?php echo $rows['video_title']; ?></a></td>
+                    <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo $rows['done_by']; ?></td>
-                    <td><?php echo $rows['updated_at']; ?></td>
+                    <!-- <td><?php echo $rows['updated_at']; ?></td> -->
 
                  </tr>
 				<?php $i++; } } ?>
