@@ -1,8 +1,6 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
-td{
-  width: 150px;
-}
+
 </style>
   <div  class="right_col" role="main">
    <div class="">
@@ -37,7 +35,7 @@ td{
                   	</div>
 
 
-                    <div class="col-md-12 col-sm-12 ">
+                    <div class="col-md-12 col-sm-12 table-responsive">
                   <div class="col-md-12 col-sm-12" style="padding:0px;">
                      <div class="col-md-3 col-sm-3"></div>
                      <div class="col-md-3 col-sm-3"></div>
@@ -82,8 +80,8 @@ td{
 
                              <td>
                                <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
-                               &nbsp;<a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
-                               <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                               <a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>
+                               <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>
 
                               </td>
                              </tr>

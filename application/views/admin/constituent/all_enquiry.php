@@ -34,7 +34,7 @@ td{
                     </div>
                     <?php  }  ?>
                   </div>
-                  	<div class="col-md-12 col-sm-12 ">
+                  	<div class="col-md-12 col-sm-12 table-responsive">
                       <div class="col-md-12 col-sm-12" style="padding:0px;">
                          <div class="col-md-3 col-sm-3"></div>
                          <div class="col-md-3 col-sm-3"></div>
