@@ -1,7 +1,8 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
-td{
+th{
   width: 100px;
+  word-break: normal;
 }
 </style>
   <div  class="right_col" role="main">

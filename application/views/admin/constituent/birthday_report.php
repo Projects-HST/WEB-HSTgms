@@ -77,7 +77,7 @@
                 <td><?php echo $rows['mobile_no']; ?></td>
                 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                 <td><?php if(is_null($rows['wish_id'])){ ?>
-                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">Update here</a>
+                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">NOT SENT</a>
               <?php  }else{ ?>
                 <p>SENT</p>
               <?php  } ?></td>

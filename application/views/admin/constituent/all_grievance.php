@@ -1,6 +1,9 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
-
+th{
+  width: 100px;
+  word-break: normal;
+}
 </style>
   <div  class="right_col" role="main">
    <div class="">
