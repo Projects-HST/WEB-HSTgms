@@ -382,7 +382,9 @@ Class Reportmodel extends CI_Model
 
 
 		if(empty($frmDate)){
-			$query_where="where ct.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+			$query_vide="cv.updated_at >= last_day(now()) + interval 1 day - interval 3 month";
+			$query_cons="c.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+			$query_griever="g.created_at >= last_day(now()) + interval 1 day - interval 3 month";
 		}else{
 			$dateTime1 = new DateTime($frmDate);
 			$from_date=date_format($dateTime1,'Y-m-d' );
@@ -390,20 +392,16 @@ Class Reportmodel extends CI_Model
 			$dateTime2 = new DateTime($toDate);
 			$to_date=date_format($dateTime2,'Y-m-d' );
 
-			$query_where="WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date'";
+			$query_vide="DATE(cv.updated_at) BETWEEN '$from_date' AND '$to_date'";
+			$query_cons=" DATE(c.created_at) BETWEEN '$from_date' AND '$to_date'";
+			$query_griever="DATE(g.created_at) BETWEEN '$from_date' AND '$to_date'";
 		}
-		$query="SELECT
-				um.id,
-				um.full_name,
-				COUNT(ct.created_by) AS total,
-				COUNT( CASE WHEN ct.status = 'ACTIVE' THEN 1 END ) AS active,
-				COUNT( CASE WHEN ct.status = 'INACTIVE' THEN 1 END ) AS inactive
-				FROM constituent AS	ct
-				LEFT JOIN user_master AS um ON um.id = ct.created_by
-				$query_where GROUP BY ct.created_by";
-		//echo $query;
-		$resultset=$this->db->query($query);
-		return $resultset->result();
+
+		 	$query= "SELECT t2.id,t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v from (select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c on c.created_by=um.id
+			and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id";
+			$result=$this->db->query($query);
+		  return $result->result();
+
 	}
 
 	function get_birthday_report($rowno,$rowperpage,$year_id,$bf_year_id,$month_id,$paguthi,$ward_id)
@@ -1136,6 +1134,32 @@ Class Reportmodel extends CI_Model
 			// exit;
 			return $query = $this->db->get();
 		}
+
+
+
+		function get_staff_report_export($frmDate,$toDate){
+			if(empty($frmDate)){
+				$query_vide="cv.updated_at >= last_day(now()) + interval 1 day - interval 3 month";
+				$query_cons="c.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+				$query_griever="g.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+			}else{
+				$dateTime1 = new DateTime($frmDate);
+				$from_date=date_format($dateTime1,'Y-m-d' );
+
+				$dateTime2 = new DateTime($toDate);
+				$to_date=date_format($dateTime2,'Y-m-d' );
+
+				$query_vide="DATE(cv.updated_at) BETWEEN '$from_date' AND '$to_date'";
+				$query_cons=" DATE(c.created_at) BETWEEN '$from_date' AND '$to_date'";
+				$query_griever="DATE(g.created_at) BETWEEN '$from_date' AND '$to_date'";
+			}
+
+			 	$query= $this->db->query("SELECT t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v from (select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c
+				on c.created_by=um.id
+				and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id");
+				return $query;
+		}
+
 
 }
 ?>

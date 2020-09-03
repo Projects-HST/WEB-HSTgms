@@ -511,14 +511,27 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$frmDate="";
+		$toDate="";
+		if($this->input->post('submit') != NULL ){
+			$frmDate=$this->input->post('st_frmDate');
+			$toDate=$this->input->post('st_toDate');
+		 $status_session_array=$this->session->set_userdata(array(
+			 "st_frmDate"=>$frmDate,
+			 "st_toDate"=>$toDate
+		 ));
+	 }else{
+		 if($this->session->userdata('st_frmDate') != NULL){
+				$frmDate = $this->session->userdata('st_frmDate');
+		 }
+		 if($this->session->userdata('st_toDate') != NULL){
+			$toDate = $this->session->userdata('st_toDate');
+		}
 
-		$frmDate=$this->input->post('frmDate');
-		$datas['dfromDate'] = $frmDate;
-		$toDate=$this->input->post('toDate');
-		$datas['dtoDate'] = $toDate;
-
+	 }
+		$datas['st_frmDate'] = $frmDate;
+		$datas['st_toDate'] = $toDate;
 		$datas['res']=$this->reportmodel->get_staff_report($frmDate,$toDate);
-
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/report/staff_report',$datas);
@@ -1488,6 +1501,35 @@ public function get_constituent_report_export()
 			$res_data = $this->reportmodel->get_video_report_export($paguthi,$ward_id);
 			$file = fopen('php://output', 'w');
 			$header = array("Name", "Father Name/Husband Name/Guardian Name", "DOB", "Gender", "D.No" , "Address", "Pincode", "Phone No", "WhatsApp No", "Mail Id", "Religion", "Constituency", "Paguthi", "Office Name", "Ward", "Booth"," Video Link", "Created Date");
+			fputcsv($file, $header);
+			foreach ($res_data->result_array() as $key => $value)
+			{
+				fputcsv($file, $value);
+			}
+			fclose($file);
+			exit;
+	}
+
+	public function get_staff_report_export(){
+			$file_name = 'Report'.date('Ymd').'.csv';
+			header("Content-Description: File Transfer");
+			header("Content-Disposition: attachment; filename=$file_name");
+			header("Content-Type: application/csv;");
+
+			if(empty($frmDate)){
+			 $frmDate = $this->session->userdata('st_frmDate');
+			}else{
+				$frmDate="";
+			}
+			if(empty($toDate)){
+				$toDate = $this->session->userdata('st_toDate');
+			}else{
+				$toDate="";
+			}
+
+			$res_data = $this->reportmodel->get_staff_report_export($frmDate,$toDate);
+			$file = fopen('php://output', 'w');
+			$header = array("Staff Name", "Total Constituent Created", "Total Grievance", "Total Videos");
 			fputcsv($file, $header);
 			foreach ($res_data->result_array() as $key => $value)
 			{

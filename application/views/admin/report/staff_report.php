@@ -12,42 +12,47 @@
 			  <div class="item form-group">
 				 <label class="col-form-label col-md-1 col-sm-1 ">From <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="frmDate" value="<?php echo $dfromDate; ?>">
+						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="st_frmDate" value="<?php echo $st_frmDate; ?>">
 				 </div>
 				  <label class="col-form-label col-md-1 col-sm-1 ">To <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="toDate" value="<?php echo $dtoDate; ?>">
+					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="st_toDate" value="<?php echo $st_toDate; ?>">
 				 </div>
-				 <div class="col-md-2 col-sm-2">
-					 <button type="submit" class="btn btn-success">SEARCH</button>
+				 <div class="col-md-3 col-sm-2">
+           <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
+           <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
+             <a href="<?php echo base_url(); ?>report/get_staff_report_export" class="btn btn-export">Export</a>
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
-          <table id="export_example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+          <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
             <thead>
                 <tr>
                   <th>S.no</th>
                   <th>Staff</th>
                   <th>Total constituent</th>
-                  <th>Active</th>
-                  <th>Inactive</th>
+                  <th>Total video</th>
+                  <th>Total Grievance</th>
+
                 </tr>
             </thead>
              <tbody>
-               <?php $i=1; foreach($res as $rows){ ?>
+               <?php $i=1;
+               foreach($res as $rows){ ?>
                   <tr>
                   <td><?php echo $i; ?></td>
-                  <td><?php echo $rows->full_name; ?></td>
-                  <td><?php echo $rows->total; ?></td>
-                  <td><?php echo $rows->active; ?></td>
-                  <td><?php echo $rows->inactive; ?></td>
+                  <td><?php  echo $rows->full_name; ?></td>
+                  <td><?php echo $rows->total_cons; ?></td>
+                  <td><?php echo $rows->total_v; ?></td>
+                  <td><?php echo $rows->total_g; ?></td>
                   </tr>
-            <?php $i++; } ?>
+            <?php $i++; }  ?>
              </tbody>
           </table>
+
 
         </div>
             </div>

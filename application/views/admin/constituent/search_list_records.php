@@ -26,11 +26,19 @@
 						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear All</a>
 					  <?php } ?>
 				  </div>
-				  <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+
 			</div>
 				</form>
 			<div class="col-md-12 col-sm-12" style="overflow-x: scroll;">
 			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <div class="col-md-12 col-sm-12" style="padding:0px;">
+           <div class="col-md-3 col-sm-3">
+              <h2>Result</h2>
+              Total records <?php echo $allcount; ?>
+           </div>
+           <div class="col-md-3 col-sm-3"></div>
+           <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+        </div>
 			<tr>
 				<th>S.no</th>
                      <th>Name</th>
