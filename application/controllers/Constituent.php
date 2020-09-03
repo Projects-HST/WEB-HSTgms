@@ -1131,7 +1131,7 @@ public function meetings($rowno=0)
 			// Search text
 			$search_text = "";
 			if($this->input->post('submit') != NULL ){
-			  $search_text = $this->input->post('search');
+			  $search_text = strtoupper($this->db->escape_str($this->input->post('search')));
 			  $this->session->set_userdata(array("search"=>$search_text));
 			}else{
 			  if($this->session->userdata('search') != NULL){
@@ -1420,7 +1420,7 @@ public function meetings($rowno=0)
 
 			$search="";
 			if($this->input->post('submit') != NULL ){
-				$search=$this->input->post('a_search');
+				$search=strtoupper($this->db->escape_str($this->input->post('a_search')));
 			 $status_session_array=$this->session->set_userdata(array(
 				 "a_search"=>$search
 			 ));
@@ -1501,7 +1501,7 @@ public function meetings($rowno=0)
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			$search_text="";
 			if($this->input->post('submit') != NULL ){
-				$search_text=$this->input->post('p_search');
+				$search_text=strtoupper($this->db->escape_str($this->input->post('p_search')));
 			 $status_session_array=$this->session->set_userdata(array(
 				 "p_search"=>$search_text
 			 ));
@@ -1581,7 +1581,7 @@ public function meetings($rowno=0)
 			$data['res_sms']=$this->mastermodel->get_active_template();
 			$search_text="";
 			if($this->input->post('submit') != NULL ){
-				$search_text=$this->input->post('e_search');
+				$search_text=strtoupper($this->db->escape_str($this->input->post('e_search')));
 			 $status_session_array=$this->session->set_userdata(array(
 				 "e_search"=>$search_text
 			 ));
