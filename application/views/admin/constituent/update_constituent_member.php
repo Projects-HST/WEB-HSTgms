@@ -240,6 +240,14 @@
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="email_id" id="email_id" class="form-control" value="<?php echo $rows->email_id; ?>">
                      </div>
+                     <label class="control-label col-md-2 col-sm-3 broad_cast_section">Whatsapp Broadcast</label>
+                     <div class="col-md-4 col-sm-9 broad_cast_section">
+                       <p style="margin-top:8px;">
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="YES" <?php echo ($rows->whatsapp_broadcast=='YES') ? 'checked="checked"':'';?>>  YES &nbsp;
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="NO" <?php echo ($rows->whatsapp_broadcast=='NO') ? 'checked="checked"':'';?>>   NO
+
+                      </p>
+                     </div>
                   </div>
 
 

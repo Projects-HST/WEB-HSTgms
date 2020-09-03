@@ -182,7 +182,7 @@
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
                      <div class="col-md-4 col-sm-9 ">
-                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control" onkeyup="broadcastfunc()">
+                       <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control" onkeyup="show_broadcast()">
                      </div>
                   </div>
                   <div class="form-group row ">
@@ -197,8 +197,8 @@
                      <label class="control-label col-md-2 col-sm-3 broad_cast_section">Whatsapp Broadcast</label>
                      <div class="col-md-4 col-sm-9 broad_cast_section">
                        <p style="margin-top:8px;">
-                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="Y" >  YES &nbsp;
-                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="N" checked="" required="">   NO
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="YES" >  YES &nbsp;
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="NO" checked="" required="">   NO
 
                       </p>
                      </div>
@@ -322,26 +322,17 @@
 // });
 
 
-// function broadcastfunc(){
-//   var wh=$('#whatsapp_no').val();
-//   alert(wh);
-// }
-// $('#whatsapp_no').on('input', function(){
-//   alert("hi");
-//   $(this).next('div.broad_cast_section').toggle(this.value.length > 0);
-//    // if($.trim(this.value) != "")
-//    //    $(this).next('.broad_cast_section').show();
-//    // else
-//    //    $(this).next('.broad_cast_section').hide();
-// });
+
 
     $("#copy_value").click(function() {
            var checked = $(this).is(':checked');
            if (checked) {
                $("#whatsapp_no").val($("#mobile_no").val());
                $('#whatsapp_no').focus();
+               $('.broad_cast_section').show();
            } else {
              $('#whatsapp_no').val(" ");
+             $('.broad_cast_section').hide();
                // $("#whatsapp_no").val($("#mobile_no").val());
            }
        });
