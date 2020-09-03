@@ -59,3 +59,6 @@ ALTER TABLE `constituent`  ADD `voter_status` VARCHAR(10) NOT NULL  AFTER `voter
 ALTER TABLE `constituent`  ADD `office_id` INT NOT NULL  AFTER `paguthi_id`;
 
 ALTER TABLE `grievance`  ADD `office_id` INT NOT NULL  AFTER `paguthi_id`;
+
+
+ALTER TABLE `constituent`  ADD `whatsapp_broadcast` VARCHAR(5) NOT NULL  AFTER `whatsapp_no`;

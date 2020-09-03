@@ -423,7 +423,7 @@
                      <input type="radio" class="flat" name="grievance_type" id="grievance_type_e" value="E" checked="" required="">
                   </p>
                  </div>
-                 <label class="col-form-label col-md-3 col-sm-3 ALL">constituencyt<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL">constituency<span class="required">*</span>
                  </label>
                  <div class="col-md-4 col-sm-6 ">
                    <select class="form-control" name="constituency_id" id="constituency_id">

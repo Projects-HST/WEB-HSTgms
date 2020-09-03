@@ -202,6 +202,7 @@ class constituent extends CI_Controller {
 			$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
 			$mobile_no=strtoupper($this->db->escape_str($this->input->post('mobile_no')));
 			$whatsapp_no=strtoupper($this->db->escape_str($this->input->post('whatsapp_no')));
+			$whatsapp_broadcast=strtoupper($this->db->escape_str($this->input->post('whatsapp_broadcast')));
 			$originalDate=strtoupper($this->db->escape_str($this->input->post('dob')));
 			 $dob = date("Y-m-d", strtotime($originalDate));
 			$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
@@ -232,7 +233,7 @@ class constituent extends CI_Controller {
 				$profilepic = $uploaddir.$filename;
 				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 			}
-			$data=$this->constituentmodel->create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id);
+			$data=$this->constituentmodel->create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");
@@ -256,6 +257,7 @@ class constituent extends CI_Controller {
 				$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
 				$mobile_no=strtoupper($this->input->post('mobile_no'));
 				$whatsapp_no=strtoupper($this->input->post('whatsapp_no'));
+				$whatsapp_broadcast=strtoupper($this->db->escape_str($this->input->post('whatsapp_broadcast')));
 				$originalDate=strtoupper($this->input->post('dob'));
 				 $dob = date("Y-m-d", strtotime($originalDate));
 				$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
@@ -287,7 +289,7 @@ class constituent extends CI_Controller {
 					$profilepic = $uploaddir.$filename;
 					move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 				}
-				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id);
+				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id);
 				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 				$this->session->set_flashdata('msg', $messge);
 				redirect("constituent/list_constituent_member");
