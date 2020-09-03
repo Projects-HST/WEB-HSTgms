@@ -1226,7 +1226,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			if(empty($ward_id)){
 
 			}else{
-				$this->db->where('c.ward_id',$ward_id);
+				$this->db->where('c.office_id',$ward_id);
 			}
 			$this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
 
@@ -1264,7 +1264,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 if(empty($ward_id)){
 
 		 }else{
-			 $this->db->where('c.ward_id',$ward_id);
+			 $this->db->where('c.office_id',$ward_id);
 		 }
 		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
 		 $query = $this->db->get();

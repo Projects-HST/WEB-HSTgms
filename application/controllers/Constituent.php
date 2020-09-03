@@ -1287,6 +1287,7 @@ public function meetings($rowno=0)
 	 		 }
 			 $data['cf_religion_id']=$religion_id;
 			 $data['cf_paguthi']=$paguthi;
+			  $data['cf_ward_id']=$ward_id;
 			// Row per page
 			$rowperpage = 25;
 

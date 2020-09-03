@@ -53,6 +53,7 @@
           <label class="col-form-label col-md-2 col-sm-3 ">Select Office</label>
           <div class="col-md-3 col-sm-4">
             <select class="form-control" name="cf_ward_id" id ="office_id" >
+              <option value="">ALL</option>
             <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$cf_paguthi' order by id desc";
              $result_of=$this->db->query($query);
              if($result_of->num_rows()==0){ ?>
