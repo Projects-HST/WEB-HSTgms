@@ -857,7 +857,8 @@ public function list_grievance_reply($rowno=0){
 			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
-			redirect("constituent/list_grievance");
+			// redirect("constituent/all_grievance");
+				redirect($_SERVER['HTTP_REFERER']);
 		}else{
 			redirect('/');
 		}
