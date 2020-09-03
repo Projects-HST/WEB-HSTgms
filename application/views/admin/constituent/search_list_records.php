@@ -79,7 +79,12 @@
 				echo "<td>".$data['full_name']."</td>";
 				echo "<td>".$data['mobile_no']."</td>";
         echo "<td>".$data['address']."</td>";
-				echo "<td>".$paguthi_name."</td>";
+        if(empty($paguthi_name)){
+          	echo "<td></td>";
+        }else{
+          	echo "<td>".$paguthi_name."</td>";
+        }
+
 				// echo '<td><a  class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
 				// if ($int_status == "Y"){
 				// 	echo '<td><a class="badge badge-view" href="'.base_url().'constituent/get_interaction_response_edit/'. base64_encode($const_id*98765).'" title="INTERACTION VIEW">VIEW</i></a></td>';
