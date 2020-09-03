@@ -78,7 +78,7 @@
 				echo "<td>".$sno."</td>";
 				echo "<td>".$data['full_name']."</td>";
 				echo "<td>".$data['mobile_no']."</td>";
-        echo "<td>".$data['address']."</td>";
+        echo "<td>".$data['door_no']."<br>".$data['address']."<br>".$data['pin_code']."</td>";
         if(empty($paguthi_name)){
           	echo "<td></td>";
         }else{
@@ -107,7 +107,7 @@
 							&nbsp;
 							<a title="VIDEO " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a> &nbsp;
               <a  title="MEETING" class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')"><i class="fa fa-suitcase" aria-hidden="true"></i></a>&nbsp;
-              <a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+              <a  title="GRIEVANCE" class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
 
 							</td>';
 				echo "</tr>";

@@ -61,7 +61,8 @@ th{
                              <td><?php echo $i; ?></td>
                              <td><?php echo $rows['full_name']; ?></td>
                              <td><?php echo $rows['mobile_no']; ?></td>
-                             <td><?php echo $rows['address']; ?></td>
+                             <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
+                             
                              <td><?php echo $rows['seeker_info']; ?></td>
                              <td><?php echo $rows['paguthi_name']; ?></td>
                              <!-- <td><?php echo $rows['grievance_name']; ?></td> -->

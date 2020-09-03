@@ -168,7 +168,7 @@
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="full_name" id="full_name" class="form-control" value="<?php echo $rows->full_name; ?>">
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name </label>
+                     <label class="control-label col-md-2 col-sm-3 ">Father or husband or Guardian name</label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="father_husband_name" id="father_husband_name" class="form-control" value="<?php echo $rows->father_husband_name; ?>">
                      </div>
@@ -181,7 +181,7 @@
                       <label class="control-label col-md-2 col-sm-3 ">Religion</label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="religion_id" id="religion_id">
-                          
+
                    <?php foreach($res_religion as $rows_religion){ ?>
                       <option value="<?php echo $rows_religion->id; ?>"><?php echo $rows_religion->religion_name; ?></option>
                  <?php  } ?>

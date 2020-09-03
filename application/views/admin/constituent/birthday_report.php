@@ -61,6 +61,7 @@
                 <tr>
                   <th>S.no </th>
                   <th>Name</th>
+                  <th>Father or Husband name</th>
                   <th>Date of Birth</th>
                   <th>Phone</th>
                   <th>Address</th>
@@ -73,6 +74,7 @@
                 <tr>
                 <td><?php echo $sno; ?></td>
                 <td><?php echo $rows['full_name']; ?></td>
+                <td><?php echo $rows['father_husband_name']; ?></td>
                 <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
                 <td><?php echo $rows['mobile_no']; ?></td>
                 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>

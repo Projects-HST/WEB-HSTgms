@@ -484,7 +484,7 @@ Class Constituentmodel extends CI_Model
 
 
 		function get_all_grievance(){
-			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			$query="SELECT g.*,c.full_name,c.address,c.door_no,c.pin_code,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id
 			left join paguthi as p on p.id=g.paguthi_id
 			left join seeker_type as st on st.id=g.seeker_type_id
@@ -496,7 +496,7 @@ Class Constituentmodel extends CI_Model
 		}
 
 		function get_all_grievance_petition(){
-			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			$query="SELECT g.*,c.full_name,c.address,c.door_no,c.pin_code,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id
 			left join paguthi as p on p.id=g.paguthi_id
 			left join seeker_type as st on st.id=g.seeker_type_id
@@ -508,7 +508,7 @@ Class Constituentmodel extends CI_Model
 		}
 
 		function get_all_grievance_enquiry(){
-			$query="SELECT g.*,c.full_name,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
+			$query="SELECT g.*,c.full_name,c.address,c.door_no,c.pin_code,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id
 			left join paguthi as p on p.id=g.paguthi_id
 			left join seeker_type as st on st.id=g.seeker_type_id
@@ -1046,7 +1046,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	}
 
 	function all_grievance($rowno,$rowperpage,$search=""){
-		$this->db->select('g.*,c.full_name,c.mobile_no,c.address,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
+		$this->db->select('g.*,c.full_name,c.mobile_no,c.address,c.door_no,c.pin_code,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
 		$this->db->from('grievance as g');
 		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
 		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
@@ -1072,7 +1072,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 
 	function all_petition($rowno,$rowperpage,$search=""){
-		$this->db->select('g.*,c.full_name,c.mobile_no,c.address,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
+		$this->db->select('g.*,c.full_name,c.mobile_no,c.address,c.door_no,c.pin_code,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
 		$this->db->from('grievance as g');
 		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
 		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');
@@ -1099,7 +1099,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 
 	function all_enquiry($rowno,$rowperpage,$search=""){
-		$this->db->select('g.*,c.full_name,c.mobile_no,c.address,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
+		$this->db->select('g.*,c.full_name,c.mobile_no,c.address,c.door_no,c.pin_code,p.paguthi_name,st.seeker_info,gt.grievance_name,gsc.sub_category_name');
 		$this->db->from('grievance as g');
 		$this->db->join('constituent as c', 'c.id = g.constituent_id', 'left');
 		$this->db->join('paguthi as p', 'p.id = g.paguthi_id', 'left');

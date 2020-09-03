@@ -123,7 +123,7 @@
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="full_name" id="full_name" class="form-control">
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 ">Father or husband <br> name </label>
+                     <label class="control-label col-md-2 col-sm-3 ">Father or husband or Guardian name</label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="father_husband_name" id="father_husband_name" class="form-control">
                      </div>
