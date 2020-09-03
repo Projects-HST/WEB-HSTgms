@@ -172,6 +172,10 @@ function moneyFormatIndia($num) {
 						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp); ?></div>
 					</div>
+					<div class="label_box">
+						<div class="c_widget_label">whatspp broadcast (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp_broadcast); ?></div>
+					</div>
 				</div>
 
 				<!-- <div class="col-9 lh"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>

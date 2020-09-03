@@ -73,7 +73,9 @@ Class Dashboardmodel extends CI_Model
 			IFNULL(sum(case when email_id != '' then 1 else 0 end),'0') AS having_email,
       IFNULL(sum(case when email_id != '' then 1 else 0 end) / count(*) * 100,'0') as email_percentage,
 			IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end),'0') AS having_whatsapp,
-      IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end) / count(*) * 100,'0') as whatsapp_percentage
+      IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end) / count(*) * 100,'0') as whatsapp_percentage,
+			IFNULL(sum(case when whatsapp_broadcast = 'YES' then 1 else 0 end),'0') AS having_whatsapp_broadcast,
+      IFNULL(sum(case when whatsapp_broadcast = 'YES' then 1 else 0 end) / count(*) * 100,'0') as broadcast_percentage
 			from  constituent $quer_paguthi $quer_office $quer_date";
 
 
