@@ -232,7 +232,8 @@ hr{
 
 }
 input[type=search]{
-   margin-top: 20px;
+   margin-top: 10px;
+   margin-bottom:10px;
 }
 .profile_heading h4{
   font-weight: 600;
