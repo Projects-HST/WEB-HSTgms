@@ -1037,7 +1037,7 @@ public function meetings($rowno=0)
 		if($this->input->post('submit') != NULL ){
 			$frmDate=$frmDate=$this->input->post('mr_frmDate');
 			$toDate=$this->input->post('mr_toDate');
-			$search_text=$this->input->post('mr_search');
+			$search_text=strtoupper($this->db->escape_str($this->input->post('mr_search')));
 		 $status_session_array=$this->session->set_userdata(array(
 			 "mr_frmDate"=>$frmDate,
 			 "mr_toDate"=>$toDate,

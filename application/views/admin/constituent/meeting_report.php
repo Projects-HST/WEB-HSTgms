@@ -201,6 +201,7 @@ $('#report_form').validate({ // initialize the plugin
            toDate: { required:"Select To Date"}
          }
  });
+ 
  function get_sms_text(sel){
    let sms_id=sel.value;
    $.ajax({
@@ -249,6 +250,7 @@ $('#meeting_status').change(function(){
 });
 $('.meet_date').hide();
 $('#meeting_form').validate({
+
 		 rules: {
 						meeting_date:{required:true},
 						reply_sms_id:{required:true},
@@ -262,5 +264,6 @@ $('#meeting_form').validate({
 
 				 }
  });
+
 
  </script>
