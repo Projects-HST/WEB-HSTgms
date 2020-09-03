@@ -4,7 +4,7 @@
          <div class="x_panel">
             <div class="x_title">
                <h2>Birthday Wishes</h2>
-
+               <span style="float:right;"><a href="<?php echo base_url(); ?>constituent/get_export_birthday" class="btn btn-export">Export</a></span>
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -39,8 +39,8 @@
 				 </div>
 				 <div class="col-md-4 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
-           <a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear All</a>
-           <a href="<?php echo base_url(); ?>constituent/get_export_birthday" class="btn btn-export">Export</a>
+           <a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear</a>
+
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>

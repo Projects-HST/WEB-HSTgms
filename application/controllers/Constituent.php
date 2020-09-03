@@ -1642,6 +1642,7 @@ public function meetings($rowno=0)
 			$data['result'] = $users_record;
 			$data['row'] = $rowno;
 			$data['search'] = $search_text;
+			$data['allcount'] = $allcount;
 			// Load view
 			$this->load->view('admin/header');
 			$this->load->view('admin/constituent/all_enquiry',$data);

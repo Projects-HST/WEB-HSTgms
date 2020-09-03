@@ -7,7 +7,7 @@
             <div class="x_title">
                 <h2>List of constituent</h2> <span style="float:right;">
 
-				<a class="btn btn-danger" style="margin-top:5px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
+				              <a class="btn btn-export" style="margin-top:5px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
                <div class="clearfix"></div>
             </div>
 						<?php if($this->session->flashdata('msg')) {
@@ -23,7 +23,7 @@
 				  <div class="col-md-3 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search keyword" value="<?= $search ?>" /></div>
 				  <div class="col-md-3 col-sm-2" style="padding-top:10px;"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 					  <?php if ($search_value!='') { ?>
-						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear All</a>
+						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear</a>
 					  <?php } ?>
 				  </div>
 
@@ -32,9 +32,8 @@
 			<div class="col-md-12 col-sm-12" style="overflow-x: scroll;">
 			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
         <div class="col-md-12 col-sm-12" style="padding:0px;">
-           <div class="col-md-3 col-sm-3">
-              <h2>Result</h2>
-              Total records <?php echo $allcount; ?>
+           <div class="col-md-3 col-sm-3" >
+              <p style="margin-top:20px;">Total records <?php echo $allcount; ?></p>
            </div>
            <div class="col-md-3 col-sm-3"></div>
            <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>

@@ -1034,9 +1034,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		if(empty($search)){
 
 		}else{
-			$this->db->or_where('g.reference_note',$search);
-			$this->db->or_where('g.petition_enquiry_no',$search);
-			$this->db->or_where('c.full_name',$search);
+			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
+			$this->db->where($where);
 		}
 
 		// echo $this->db->get_compiled_select(); exit;

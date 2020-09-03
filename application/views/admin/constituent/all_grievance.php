@@ -20,7 +20,7 @@ th{
 										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?php echo $a_search; ?>" /></div>
 										<div class="col-md-3 col-sm-2">
                       <input class="btn btn-success" type='submit' name='submit' value='Search'>
-										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Reset</a>
+										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear</a>
 										</div>
 
 								</div>
@@ -40,7 +40,7 @@ th{
 
                     <div class="col-md-12 col-sm-12 table-responsive">
                   <div class="col-md-12 col-sm-12" style="padding:0px;">
-                     <div class="col-md-3 col-sm-3"></div>
+                     <div class="col-md-3 col-sm-3"><p style="margin-top:20px;">Total records <?php echo $allcount; ?></p></div>
                      <div class="col-md-3 col-sm-3"></div>
                      <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
                  </div>
@@ -66,7 +66,7 @@ th{
                              <td><?php echo $rows['full_name']; ?></td>
                              <td><?php echo $rows['mobile_no']; ?></td>
                              <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
-                             
+
                              <td><?php echo $rows['seeker_info']; ?></td>
                              <td><?php echo $rows['paguthi_name']; ?></td>
                              <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
