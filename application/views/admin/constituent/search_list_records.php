@@ -812,6 +812,21 @@ function give_voice_call(sel){
               }
       });
 
+      $('#reply_form').validate({
+           rules: {
+                  // update_meeting_date:{required:true},
+ 								 reply_sms_id:{required:true},
+                 reply_sms_text:{required:true ,maxlength:240}
+
+           },
+           messages: {
+               // update_meeting_date:{required:"enter the date"},
+ 							reply_sms_id:{required:"select the title"},
+             reply_sms_text:{required:"enter the text " }
+
+               }
+       });
+
       $.validator.addMethod('filesize', function(value, element, arg) {
 
         return this.optional(element) || element.files[0].size <= arg;

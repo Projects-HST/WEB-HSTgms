@@ -13,11 +13,13 @@
 <script>
 $(document).ready(function() {
     $('#example').DataTable({
+    
       "language": {
         "search": "",
         searchPlaceholder: "SEARCH HERE"
       },
       "scrollX": true
+
     });
 } );
 
