@@ -33,7 +33,7 @@
 			<table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
         <div class="col-md-12 col-sm-12" style="padding:0px;">
            <div class="col-md-3 col-sm-3" >
-              <p style="margin-top:20px;">Total records <?php echo $allcount; ?></p>
+              <p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p>
            </div>
            <div class="col-md-3 col-sm-3"></div>
            <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>

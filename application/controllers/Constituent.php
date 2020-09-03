@@ -677,6 +677,7 @@ public function list_grievance_reply($rowno=0){
 		$data['res'] = $users_record;
 		$data['row'] = $rowno;
 		$data['search'] = $search_text;
+		$data['allcount'] = $allcount;
 		// $data['res']=$this->constituentmodel->list_grievance_reply();
 		$this->load->view('admin/header');
 		$this->load->view('admin/constituent/list_grievance_reply',$data);
@@ -1090,6 +1091,7 @@ public function meetings($rowno=0)
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
 		$data['search'] = $search_text;
+		$data['allcount'] = $allcount;
 
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
