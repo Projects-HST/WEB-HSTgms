@@ -1433,13 +1433,7 @@ public function get_festival_report_export()
 
 public function get_constituent_report_export()
 {
- $file_name = 'Report'.date('Ymd').'.csv';
- header("Content-Description: File Transfer");
- header("Content-Disposition: attachment; filename=$file_name");
- header("Content-Type: application/csv;");
-
-
-	 if(empty($email_id)){
+ 	 if(empty($email_id)){
 		 $email_id =$this->session->userdata('c_email_id');
 	 }else{
 		 $email_id="";
@@ -1468,9 +1462,15 @@ public function get_constituent_report_export()
 	 }
 
 	 $res_data = $this->reportmodel->get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id);
+	 
+	 $file_name = 'Report'.date('Ymd').'.csv';
+	 header("Content-Description: File Transfer");
+	 header("Content-Disposition: attachment; filename=$file_name");
+	 header("Content-Type: application/csv;");
+ 
 	 $file = fopen('php://output', 'w');
 	 $header = array("Name"," Father Name/Husband Name/Guardian Name", "DOB", "Gender", "D.No", "Address", "Pincode", "Phone No", "WhatsApp No", "Mail Id", "Religion", "Constituency", "Paguthi", "Office Name", "Ward", "Booth", "Voter Type",
-	 " Voter Id", "Volunteer Type", "Party Member"," Aadhaar No","Videos Count");
+	 "Voter Id", "Volunteer Type", "Party Member","Aadhaar No","Seeker Type","Grievance Info","Videos Count","WhatsApp Broadcast");
 	 fputcsv($file, $header);
 	 foreach ($res_data->result_array() as $key => $value)
 	 {

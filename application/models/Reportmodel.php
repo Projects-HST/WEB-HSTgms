@@ -1066,7 +1066,8 @@ Class Reportmodel extends CI_Model
 
 
 		function get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id){
-		$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,c.voter_status,c.voter_id_no,c.volunteer_status,c.party_member_status,c.aadhaar_no,count(cv.constituent_id) as video_count');
+		$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,c.voter_status,c.voter_id_no,c.volunteer_status,c.party_member_status,c.aadhaar_no, GROUP_CONCAT(DISTINCT(s.seeker_info)) as seeker_info,
+    GROUP_CONCAT(DISTINCT(gt.grievance_name)) as grievance_name, count(cv.constituent_id) as video_count,c.whatsapp_broadcast');
 		 $this->db->from('constituent as c');
 		 $this->db->join('religion as r', 'c.religion_id = r.id', 'left');
 		 $this->db->join('constituency as cy', 'c.constituency_id = cy.id', 'left');
@@ -1075,6 +1076,11 @@ Class Reportmodel extends CI_Model
 		 $this->db->join('ward as w', 'c.ward_id = w.id', 'left');
 		 $this->db->join('booth as b', 'c.booth_id = b.id', 'left');
 		 $this->db->join('constituent_video as cv', 'cv.constituent_id = c.id', 'left');
+
+		 $this->db->join('grievance as gr', 'gr.constituent_id = c.id', 'left');
+		 $this->db->join('seeker_type as s', 's.id = gr.seeker_type_id', 'left');
+		 $this->db->join('grievance_type as gt', 'gt.id = gr.grievance_type_id', 'left');
+		 
 		 if(empty($paguthi)){
 
 		 }else{
@@ -1102,9 +1108,9 @@ Class Reportmodel extends CI_Model
 		 }
 		 $this->db->group_by('c.id');
 
-			 // echo $this->db->get_compiled_select(); // before $this->db->get();
-			 // exit;
-			return $query = $this->db->get();
+		//echo $this->db->get_compiled_select(); // before $this->db->get();
+		//exit;
+		return $query = $this->db->get();
 		}
 
 		function get_video_report_export($paguthi,$ward_id){
