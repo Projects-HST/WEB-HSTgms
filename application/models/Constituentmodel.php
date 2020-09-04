@@ -553,7 +553,7 @@ Class Constituentmodel extends CI_Model
 			$smsContent=$sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
 
-			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','G','$sms_id','$sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);
 			if($status=='COMPLETED'){
 				$enquiry_status='P';
@@ -572,7 +572,7 @@ Class Constituentmodel extends CI_Model
 		}
 
 
-		function reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id){
+		function reply_grievance_text($grievance_id,$sms_flag,$sms_text,$constituent_id,$sms_id,$user_id){
 			$select="SELECT * FROM constituent where id='$constituent_id'";
 			$res=$this->db->query($select);
 			foreach($res->result() as $rows){}
@@ -580,7 +580,7 @@ Class Constituentmodel extends CI_Model
 			$smsContent=$sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
 
-			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_flag','$sms_id','$sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);
 			if($result_insert){
 					$data=array("status"=>"success","msg"=>"Constituent reply sent Successfully","class"=>"alert alert-success");
@@ -827,7 +827,7 @@ Class Constituentmodel extends CI_Model
 			$to_phone=$rows->mobile_no;
 			$smsContent=$reply_sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
-			$insert="INSERT INTO grievance_reply (constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$constituent_id','$reply_sms_id','$reply_sms_text',NOW(),'$user_id')";
+			$insert="INSERT INTO grievance_reply (constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$constituent_id','M','$reply_sms_id','$reply_sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);
 		}
 

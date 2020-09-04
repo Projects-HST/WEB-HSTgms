@@ -857,7 +857,8 @@ public function list_grievance_reply($rowno=0){
 			$sms_text=html_escape($this->input->post('reply_sms_text'));
 			$constituent_id=$this->input->post('constituent_reply_id');
 			$sms_id=$this->input->post('reply_sms_id');
-			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
+			$sms_flag='G';
+			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_flag,$sms_text,$constituent_id,$sms_id,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			// redirect("constituent/all_grievance");
@@ -876,7 +877,8 @@ public function list_grievance_reply($rowno=0){
 		  $sms_text=html_escape($this->input->post('reply_sms_text'));
 			$constituent_id=$this->input->post('constituent_reply_id');
 			$sms_id=$this->input->post('reply_sms_id');
-			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
+			$sms_flag='C';
+			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_flag,$sms_text,$constituent_id,$sms_id,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");
