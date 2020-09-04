@@ -35,7 +35,12 @@
 						<option value="11">November</option>
 						<option value="12">December</option>
 					</select>
-          <script>$('#month_id').val('<?php echo $month_id; ?>')</script>
+          <?php if(empty($month_id)){ ?>
+              <script>$('#month_id').val('<?php echo date("m"); ?>')</script>
+        <?php  }else{ ?>
+              <script>$('#month_id').val('<?php echo $month_id; ?>')</script>
+          <?php } ?>
+          
 				 </div>
 				 <div class="col-md-4 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
@@ -48,7 +53,7 @@
 
 		<div class="col-md-12 col-sm-12 ">
       <div class="col-md-12 col-sm-12" style="padding:0px;">
-         <div class="col-md-3 col-sm-3">           
+         <div class="col-md-3 col-sm-3">
            Total records : <?php echo $allcount; ?>
          </div>
          <div class="col-md-3 col-sm-3"></div>

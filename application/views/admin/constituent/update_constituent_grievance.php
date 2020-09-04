@@ -52,7 +52,7 @@
                </div>
                <div class="col-md-4 col-sm-6 ">
                  <label>set reference</label>
-                 <input type="text" name="reference_note" id="reference_note" class="form-control" value="<?php echo $con_row->reference_note; ?>">
+                 <textarea class="form-control" maxlength="240" name="reference_note" id="reference_note"><?php echo $con_row->reference_note; ?></textarea>
                  <input type="hidden" name="grievance_tb_id" id="grievance_tb_id" class="form-control" value="<?php echo base64_encode($con_row->id*98765); ?>">
 
                </div>
@@ -186,6 +186,7 @@ $('#grievance_form').validate({
            seeker_id:{required:true},
            grievance_id:{required:true},
            petition_enquiry_no:{required:true},
+           reference_note:{maxlength:240}
            sub_category_id:{required:false}
      },
      messages: {

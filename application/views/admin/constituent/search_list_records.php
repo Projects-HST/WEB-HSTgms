@@ -1,5 +1,7 @@
 <?php $search_value = $this->session->userdata('search'); ?>
+<style>
 
+</style>
 <div  class="right_col" role="main">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -42,13 +44,13 @@
 				<th>S.no</th>
                      <th>Name</th>
                      <th>Mobile</th>
-                     <th>Address</th>
+                     <th style="width:150px;">Address</th>
                      <th>Paguthi</th>
 
                      <!-- <th>interaction</th> -->
                      <!-- <th>plant</th> -->
                      <!-- <th>Grievance</th> -->
-                     <th>Action</th>
+                     <th style="width:200px;">Action</th>
 			</tr>
 			<?php
 			$sno = $row+1;

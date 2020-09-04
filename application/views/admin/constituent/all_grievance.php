@@ -1,9 +1,10 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
+
 th{
-  width: 100px;
-  word-break: normal;
+  min-width: 100px;
 }
+
 </style>
   <div  class="right_col" role="main">
    <div class="">
@@ -39,16 +40,18 @@ th{
 
 
                     <div class="col-md-12 col-sm-12 table-responsive">
-                  <div class="col-md-12 col-sm-12" style="padding:0px;">
-                     <div class="col-md-3 col-sm-3"><p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p></div>
-                     <div class="col-md-3 col-sm-3"></div>
-                     <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
-                 </div>
 
-                    <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+
+                    <!-- <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;"> -->
+                      <table id="" class="table  table-striped table-bordered" style="width:100%;">
+                      <div class="col-md-12 col-sm-12" style="padding:0px;">
+                         <div class="col-md-3 col-sm-3"><p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p></div>
+                         <div class="col-md-3 col-sm-3"></div>
+                         <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+                     </div>
                        <thead>
-                          <tr>
-                             <th>S.no</th>
+                          <tr class="">
+                             <th style="width:10%;">S.no</th>
                              <th>name</th>
                              <th>Phone</th>
                              <th>Address</th>
@@ -61,7 +64,7 @@ th{
                        </thead>
                        <tbody>
                          <?php $i= $row+1; foreach($result as $rows){ ?>
-                           <tr>
+                           <tr class="">
                              <td><?php echo $i; ?></td>
                              <td><?php echo $rows['full_name']; ?></td>
                              <td><?php echo $rows['mobile_no']; ?></td>

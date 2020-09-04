@@ -1529,7 +1529,7 @@ public function get_constituent_report_export()
 
 			$res_data = $this->reportmodel->get_staff_report_export($frmDate,$toDate);
 			$file = fopen('php://output', 'w');
-			$header = array("Staff Name", "Total Constituent Created", "Total Grievance", "Total Grievance Reply Count", "Total Videos", "Total Meeting Created Count",  "Total Birthday Letter Count", "Total Festival Letter Count");
+			$header = array("Staff Name", "Total Constituent Created", "Total Grievance", "Total Grievance Reply Count", "Total Videos", "Total Added Broadcast Count","Total Meeting Created Count", "Total Meeting Reply Count", "Total Birthday Letter Count", "Total Festival Letter Count");
 			fputcsv($file, $header);
 			foreach ($res_data->result_array() as $key => $value)
 			{

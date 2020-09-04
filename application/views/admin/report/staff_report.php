@@ -36,6 +36,7 @@
                   <th>Total constituent</th>
                   <th>Total video</th>
                   <th>Total Grievance</th>
+                  <th>Total Broadcast</th>
 
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                   <td><?php echo $rows->total_cons; ?></td>
                   <td><?php echo $rows->total_v; ?></td>
                   <td><?php echo $rows->total_g; ?></td>
+                  <td><?php echo $rows->total_broadcast; ?></td>
                   </tr>
             <?php $i++; }  ?>
              </tbody>
