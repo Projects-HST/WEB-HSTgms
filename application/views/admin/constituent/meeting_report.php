@@ -83,7 +83,7 @@ th{
 					<!-- <td><a href="<?php echo base_url(); ?>constituent/meeting_update/<?php echo base64_encode($rows['id']*98765); ?>/<?php echo $dfromDate;?>/<?php echo $dtoDate;?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;"><?php  echo $rows->meeting_status; ?></a></td> -->
           <td><a href="#" onclick="meeting_status_update('<?php echo base64_encode($rows['id']*98765); ?>','<?php echo $meeting_status; ?>','<?php echo $rows['constituent_id']; ?>')" class="badge-<?= $meeting_status ?>"><?php  echo $rows['meeting_status']; ?></a></td>
 					 <td><?php  echo $rows['created_by']; ?></td>
-					 <td><?php  echo $rows['created_at']; ?></td>
+					 <td><?php  echo date('d-m-Y', strtotime($rows['created_at'])); ?></td>
                  </tr>
 				<?php  $i++; } ?>
              </tbody>
@@ -201,7 +201,7 @@ $('#report_form').validate({ // initialize the plugin
            toDate: { required:"Select To Date"}
          }
  });
- 
+
  function get_sms_text(sel){
    let sms_id=sel.value;
    $.ajax({

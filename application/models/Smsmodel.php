@@ -12,11 +12,9 @@ Class Smsmodel extends CI_Model
 	public function sendSMS($to_phone,$smsContent)
 	{
 
-			$msg=utf8_encode($smsContent);
-
-
+			$msg=html_entity_decode($smsContent);
 			 $curl = curl_init();
-			 $url="https://api.msg91.com/api/sendhttp.php?authkey=308533AMShxOBgKSt75df73187&mobiles=$to_phone&country=91&message=$msg&sender=GMSADM&route=4&unicode=1";
+			  $url="https://api.msg91.com/api/sendhttp.php?authkey=308533AMShxOBgKSt75df73187&mobiles=$to_phone&country=91&message=$smsContent&sender=GMSADM&route=4&unicode=1";
 			   // $url="http://api.msg91.com/api/v2/sendsms?authkey=308533AMShxOBgKSt75df73187&mobiles=$to_phone&message=$uni_code&sender=GMSADM&route=4&country=91";
 
 

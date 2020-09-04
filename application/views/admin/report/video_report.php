@@ -37,7 +37,7 @@
                 $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$v_paguthi' order by id desc";
                $result_of=$this->db->query($query);
                if($result_of->num_rows()==0){ ?>
-               
+
                <?php 	}else{
                $res_office=$result_of->result();
                foreach($res_office as $rows_office){ ?>
@@ -90,7 +90,7 @@
                     <td><?php echo $i; ?></td>
                     <td><?php echo $rows['full_name']; ?></td>
                     <td><?php echo $rows['father_husband_name']; ?></td>
-                    <td><?php echo $rows['dob']; ?></td>
+                    <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
                     <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                     <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo $rows['done_by']; ?></td>

@@ -550,7 +550,7 @@ Class Constituentmodel extends CI_Model
 			$res=$this->db->query($select);
 			foreach($res->result() as $rows){}
 			$to_phone=$rows->mobile_no;
-			$smsContent=utf8_encode($sms_text);
+			$smsContent=$sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
 
 			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
@@ -577,7 +577,7 @@ Class Constituentmodel extends CI_Model
 			$res=$this->db->query($select);
 			foreach($res->result() as $rows){}
 			$to_phone=$rows->mobile_no;
-			$smsContent=utf8_encode($sms_text);
+			$smsContent=$sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
 
 			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_id','$sms_text',NOW(),'$user_id')";
@@ -825,7 +825,7 @@ Class Constituentmodel extends CI_Model
 			$res=$this->db->query($select);
 			foreach($res->result() as $rows){}
 			$to_phone=$rows->mobile_no;
-			$smsContent=utf8_encode($reply_sms_text);
+			$smsContent=$reply_sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
 			$insert="INSERT INTO grievance_reply (constituent_id,sms_template_id,sms_text,created_at,created_by) VALUES ('$constituent_id','$reply_sms_id','$reply_sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);

@@ -79,7 +79,7 @@
                       <td><?php echo $i; ?></td>
                      <td><?php echo $rows->doc_name; ?></td>
                      <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows->doc_file_name ;?>" target="_blank" class="badge-download">download here</a></td>
-                     <td><?php echo $rows->updated_at ;?></td>
+                     <td><?php echo date('d-m-Y', strtotime($rows->updated_at ));?></td>
                      <td><button class="babdge badge-danger" onclick="delete_document('<?php echo $rows->id; ?>')">Delete</button></td>
 
 
@@ -115,7 +115,7 @@
                                <td><?php echo $i; ?></td>
                               <td><?php echo $rows_doc->doc_name; ?></td>
                               <td><a href="<?php echo base_url(); ?>assets/constituent/doc/<?php echo $rows_doc->doc_file_name ;?>" target="_blank" class="badge-download">download here</a></td>
-                              <td><?php echo $rows_doc->updated_at ;?></td>
+                              <td><?php echo date('d-m-Y', strtotime($rows_doc->updated_at ));?></td>
                               <td><button class="babdge badge-danger" onclick="delete_document('<?php echo $rows_doc->id; ?>')">Delete</button></td>
 
 

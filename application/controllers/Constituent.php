@@ -571,7 +571,7 @@ class constituent extends CI_Controller {
 			}
 			$send_checkbox=strtoupper($this->db->escape_str($this->input->post('send_checkbox')));
 			$reply_sms_id=strtoupper($this->db->escape_str($this->input->post('reply_sms_id')));
-	 		$reply_sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
+	 		$reply_sms_text=$this->input->post('reply_sms_text');
 			$meeting_status=strtoupper($this->db->escape_str($this->input->post('meeting_status')));
 			$data=$this->constituentmodel->save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$meeting_date,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
@@ -854,7 +854,7 @@ public function list_grievance_reply($rowno=0){
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('reply_grievance_id');
-			$sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
+			$sms_text=$this->input->post('reply_sms_text');
 			$constituent_id=$this->input->post('constituent_reply_id');
 			$sms_id=$this->input->post('reply_sms_id');
 			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
@@ -873,7 +873,7 @@ public function list_grievance_reply($rowno=0){
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$grievance_id=$this->input->post('reply_grievance_id');
-			$sms_text=strtoupper($this->db->escape_str($this->input->post('reply_sms_text')));
+			$sms_text=$this->input->post('reply_sms_text');
 			$constituent_id=$this->input->post('constituent_reply_id');
 			$sms_id=$this->input->post('reply_sms_id');
 			$data=$this->constituentmodel->reply_grievance_text($grievance_id,$sms_text,$constituent_id,$sms_id,$user_id);
