@@ -1462,12 +1462,12 @@ public function get_constituent_report_export()
 	 }
 
 	 $res_data = $this->reportmodel->get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id);
-	 
+
 	 $file_name = 'Report'.date('Ymd').'.csv';
 	 header("Content-Description: File Transfer");
 	 header("Content-Disposition: attachment; filename=$file_name");
 	 header("Content-Type: application/csv;");
- 
+
 	 $file = fopen('php://output', 'w');
 	 $header = array("Name"," Father Name/Husband Name/Guardian Name", "DOB", "Gender", "D.No", "Address", "Pincode", "Phone No", "WhatsApp No", "Mail Id", "Religion", "Constituency", "Paguthi", "Office Name", "Ward", "Booth", "Voter Type",
 	 "Voter Id", "Volunteer Type", "Party Member","Aadhaar No","Seeker Type","Grievance Info","Videos Count","WhatsApp Broadcast");
@@ -1529,7 +1529,7 @@ public function get_constituent_report_export()
 
 			$res_data = $this->reportmodel->get_staff_report_export($frmDate,$toDate);
 			$file = fopen('php://output', 'w');
-			$header = array("Staff Name", "Total Constituent Created", "Total Grievance", "Total Videos");
+			$header = array("Staff Name", "Total Constituent Created", "Total Grievance", "Total Grievance Reply Count", "Total Videos", "Total Meeting Created Count",  "Total Birthday Letter Count", "Total Festival Letter Count");
 			fputcsv($file, $header);
 			foreach ($res_data->result_array() as $key => $value)
 			{

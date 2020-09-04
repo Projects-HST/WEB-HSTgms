@@ -1080,7 +1080,7 @@ Class Reportmodel extends CI_Model
 		 $this->db->join('grievance as gr', 'gr.constituent_id = c.id', 'left');
 		 $this->db->join('seeker_type as s', 's.id = gr.seeker_type_id', 'left');
 		 $this->db->join('grievance_type as gt', 'gt.id = gr.grievance_type_id', 'left');
-		 
+
 		 if(empty($paguthi)){
 
 		 }else{
@@ -1148,6 +1148,9 @@ Class Reportmodel extends CI_Model
 				$query_vide="cv.updated_at >= last_day(now()) + interval 1 day - interval 3 month";
 				$query_cons="c.created_at >= last_day(now()) + interval 1 day - interval 3 month";
 				$query_griever="g.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+				$query_meeting="mr.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+				$query_bw="cb.created_at >= last_day(now()) + interval 1 day - interval 3 month";
+				$query_fw="fw.updated_at >= last_day(now()) + interval 1 day - interval 3 month";
 			}else{
 				$dateTime1 = new DateTime($frmDate);
 				$from_date=date_format($dateTime1,'Y-m-d' );
@@ -1158,12 +1161,25 @@ Class Reportmodel extends CI_Model
 				$query_vide="DATE(cv.updated_at) BETWEEN '$from_date' AND '$to_date'";
 				$query_cons=" DATE(c.created_at) BETWEEN '$from_date' AND '$to_date'";
 				$query_griever="DATE(g.created_at) BETWEEN '$from_date' AND '$to_date'";
+				$query_meeting="DATE(mr.created_at) BETWEEN '$from_date' AND '$to_date'";
+				$query_bw="DATE(cb.created_at) BETWEEN '$from_date' AND '$to_date'";
+				$query_fw="DATE(fw.updated_at) BETWEEN '$from_date' AND '$to_date'";
 			}
 
-			 	$query= $this->db->query("SELECT t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v from (select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c
-				on c.created_by=um.id
-				and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id");
-				return $query;
+							$sql="SELECT t5.full_name,t5.total_cons,t5.total_g,t5.total_v,t5.total_req,t5.total_br,COUNT(fw.updated_by) as total_fw from (select t4.id,t4.full_name,t4.total_cons,t4.total_v,t4.total_g,t4.total_req,count(cb.created_by) as total_br from
+							(select t3.id,t3.full_name,t3.total_cons,t3.total_v,t3.total_g,count(mr.created_by) as total_req  from (SELECT t2.id, t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v from
+							(select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c on c.created_by=um.id and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id
+							and $query_griever  GROUP BY t2.id) t3 left join meeting_request as mr
+							on mr.created_by=t3.id and $query_meeting group by t3.id) t4 left join consitutent_birthday_wish as cb on cb.created_by=t4.id and $query_bw group by t4.id) t5 LEFT join festival_wishes as fw on fw.updated_by=t5.id and $query_fw GROUP by t5.id";
+
+
+							$query= $this->db->query($sql);
+
+					// 	 	 $query= $this->db->query("SELECT t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v from (select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c
+					// 	  on c.created_by=um.id
+				 // and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id");
+
+							return $query;
 		}
 
 
