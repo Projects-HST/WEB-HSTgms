@@ -28,7 +28,7 @@
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
-          <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+          <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
             <thead>
                 <tr>
                   <th>S.no</th>
