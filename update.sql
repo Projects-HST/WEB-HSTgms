@@ -62,3 +62,6 @@ ALTER TABLE `grievance`  ADD `office_id` INT NOT NULL  AFTER `paguthi_id`;
 
 
 ALTER TABLE `constituent`  ADD `whatsapp_broadcast` VARCHAR(5) NOT NULL  AFTER `whatsapp_no`;
+
+
+ALTER TABLE `grievance_reply`  ADD `sms_flag` VARCHAR(10) NOT NULL  AFTER `id`;

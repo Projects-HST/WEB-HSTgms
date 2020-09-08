@@ -54,7 +54,7 @@
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;background-color:#31aa15;">
-                     <a href="#" class="site_title" style="margin-top:0px;text-align:center;background-color: #1e8c05;font-weight:600;"> <span >GMS</span></a>
+                     <p class="site_title" style="margin-top:0px;text-align:center;background-color: #1e8c05;font-weight:600;"> <span >GMS</span></p>
                   </div>
                   <div class="clearfix"></div>
                   <div class="profile clearfix menu_profile">
@@ -152,16 +152,16 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu reportmenu">
                                 <li><a href="<?php echo base_url(); ?>report/status">Status</a></li>
-                                <li><a href="<?php echo base_url(); ?>report/category">Grievance Category</a></li>
+                                <li><a href="<?php echo base_url(); ?>report/category">Grievance</a></li>
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
                                 <!-- <li><a href="<?php echo base_url(); ?>report/location">Location</a></li> -->
 																<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
 
-																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>
-																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes report</a></li>
-																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent report</a></li>
-																<li><a href="<?php echo base_url(); ?>report/video">Video Report</a></li>
-																<li><a href="<?php echo base_url(); ?>report/staff">Staff Report</a></li>
+																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
+																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival letter</a></li>
+																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent</a></li>
+																<li><a href="<?php echo base_url(); ?>report/video">Video</a></li>
+																<li><a href="<?php echo base_url(); ?>report/staff">Staff</a></li>
                               </ul>
                            </li>
                            <!-- <li>

@@ -30,25 +30,26 @@ th{
                        $message = $this->session->flashdata('msg');?>
                     <div class="<?php echo $message['class'] ?> alert-dismissible">
                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                       <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+                       <?php echo $message['message']; ?>
                     </div>
                     <?php  }  ?>
                   </div>
                   <div class="col-md-12 col-sm-12 table-responsive">
-                <div class="col-md-12 col-sm-12" style="padding:0px;">
-                   <div class="col-md-3 col-sm-3"><p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p></div>
-                   <div class="col-md-3 col-sm-3"></div>
-                   <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
-               </div>
+
 
                     <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                      <div class="col-md-12 col-sm-12" style="padding:0px;">
+                         <div class="col-md-3 col-sm-3"><p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p></div>
+                         <div class="col-md-3 col-sm-3"></div>
+                         <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
+                     </div>
                        <thead>
                           <tr>
                             <th>S.no</th>
                             <th>name</th>
-                            <th>Phone</th>
+                            <th>Phone no</th>
                             <th>Address</th>
-                            <th>seeker</th>
+                            <th>seeker type</th>
                             <th>Paguthi</th>
                             <th>Reference</th>
                             <th>status</th>
@@ -274,7 +275,7 @@ $(document).ready(function () {
           sms_text:{required:"enter the sms text" }
         },
         submitHandler: function(form) {
-               if (confirm('Are you sure want to update.?')) {
+               if (confirm('Are you sure you want to send SMS ?')) {
                    form.submit();
                }
       }
@@ -304,7 +305,7 @@ $(document).ready(function () {
          reply_sms_text:{required:"enter the sms text" }
        },
        submitHandler: function(form) {
-              if (confirm('Are you sure want to update.?')) {
+              if (confirm('Are you sure you want to send SMS ?')) {
                   form.submit();
               }
      }

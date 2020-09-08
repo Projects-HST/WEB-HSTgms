@@ -1,8 +1,9 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
 th{
-min-width:90px;
-  word-break: normal;
+  min-width:90px;
+
+
 }
 </style>
   <div  class="right_col" role="main">
@@ -31,27 +32,28 @@ min-width:90px;
                        $message = $this->session->flashdata('msg');?>
                     <div class="<?php echo $message['class'] ?> alert-dismissible">
                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                       <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+                       <?php echo $message['message']; ?>
                     </div>
                     <?php  }  ?>
                   </div>
                   	<div class="col-md-12 col-sm-12 table-responsive">
+
+
+                    <table id="" class="table  table-striped table-bordered" style="width:100%">
                       <div class="col-md-12 col-sm-12" style="padding:0px;">
                          <div class="col-md-3 col-sm-3"><p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p></div>
                          <div class="col-md-3 col-sm-3"></div>
                          <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
                      </div>
-
-                    <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                        <thead>
                           <tr>
                             <th>S.no</th>
                             <th>name</th>
-                            <th>Phone</th>
+                            <th>Phone no</th>
                             <th>Address</th>
-                            <th>seeker</th>
+                            <th>seeker type</th>
                             <th>Paguthi</th>
-                            <th style="width:200px;">Reference</th>
+                            <th>Reference</th>
                             <th>status</th>
                             <th>Action</th>
                           </tr>
@@ -70,9 +72,9 @@ min-width:90px;
                              <!-- <td><?php echo $rows['sub_category_name']; ?></td> -->
                              <!-- <td><?php echo $rows['petition_enquiry_no']; ?></td> -->
                              <td><?php if(empty($rows['reference_note'])){ ?>
-                               <a class="badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')">Set reference</a>
+                               <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')">Set reference</a>
                             <?php }else{ ?>
-                              <a class="badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')"><?php echo $rows['reference_note']; ?></a>
+                              <a class="badge badge-reference handle_symbol" onclick="get_set_reference('<?php echo $rows['id']; ?>')"><?php echo $rows['reference_note']; ?></a>
                             <?php } ?></td>
 
                               <td><?php $status= $rows['status'];  ?>
@@ -276,7 +278,7 @@ $('#list_grievance_reply_menu').addClass('active');
           sms_text:{required:"enter the sms text" }
         },
         submitHandler: function(form) {
-               if (confirm('Are you sure want to update.?')) {
+               if (confirm('Are you sure you want to send SMS ?')) {
                    form.submit();
                }
       }
@@ -306,7 +308,7 @@ $('#list_grievance_reply_menu').addClass('active');
          reply_sms_text:{required:"enter the sms text" }
        },
        submitHandler: function(form) {
-              if (confirm('Are you sure want to update.?')) {
+              if (confirm('Are you sure you want to send SMS ?')) {
                   form.submit();
               }
      }

@@ -95,10 +95,10 @@ th{
                                 <tr>
                                     <th>S.no</th>
                                     <th>Name</th>
-                                    <th>Father or Husband </th>
+                                    <th>Father Name</th>
                                     <th>Dob</th>
                                     <th>Address</th>
-                                    <th>Phone</th>
+                                    <th>Phone no</th>
                                     <th>Status</th>
 
                                 </tr>
@@ -109,7 +109,7 @@ th{
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows['full_name']; ?></td>
                                     <td><?php echo $rows['father_husband_name']; ?></td>
-                                    <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>                                    
+                                    <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
                                     <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
 
                                     <td><?php echo $rows['mobile_no']; ?></td>

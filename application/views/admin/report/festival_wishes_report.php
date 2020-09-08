@@ -111,11 +111,11 @@
                                 <tr>
                                     <th>S.no</th>
                                     <th>Name</th>
-                                    <th>Father or Husband </th>
+                                    <th>Father name</th>
                                     <th>Dob</th>
                                     <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Sent on</th>
+                                    <th>Phone no</th>
+                                    <th>letter Sent on</th>
                                 </tr>
                                 <?php
                               			$sno = $row+1;

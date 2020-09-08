@@ -583,7 +583,7 @@ Class Constituentmodel extends CI_Model
 			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_flag','$sms_id','$sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);
 			if($result_insert){
-					$data=array("status"=>"success","msg"=>"Constituent reply sent Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"SMS sent Successfully","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}

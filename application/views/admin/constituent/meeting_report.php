@@ -18,24 +18,24 @@ th{
                  $message = $this->session->flashdata('msg');?>
               <div class="<?php echo $message['class'] ?> alert-dismissible">
                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                 <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+                 <?php echo $message['message']; ?>
               </div>
               <?php  }  ?>
 		<form id="report_form" action="<?php echo base_url(); ?>constituent/meetings" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				 <label class="col-form-label col-md-1 col-sm-1 ALL">From </label>
+				 <label class="col-form-label col-md-1 col-sm-1 ALL">From</label>
 				 <div class="col-md-2 col-sm-2">
-						<input type="text" class="form-control" placeholder="From Date" id="frmDate" name="mr_frmDate" value="<?php echo $mr_frmDate; ?>">
+						<input type="text" class="form-control" placeholder="DD-MM-YYYY" id="frmDate" name="mr_frmDate" value="<?php echo $mr_frmDate; ?>">
 				 </div>
-				  <label class="col-form-label col-md-1 col-sm-1 ALL">To </label>
+				  <label class="col-form-label col-md-1 col-sm-1 ALL">To</label>
 				 <div class="col-md-2 col-sm-2">
-					<input type="text" class="form-control" placeholder="To Date" id="toDate" name="mr_toDate" value="<?php echo $mr_toDate; ?>">
+					<input type="text" class="form-control" placeholder="DD-MM-YYYY" id="toDate" name="mr_toDate" value="<?php echo $mr_toDate; ?>">
 				 </div>
-				 <label class="col-form-label col-md-1 col-sm-1 ALL">name </label>
+
          <div class="col-md-2 col-sm-4">
             <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search Full name " value="<?php echo $mr_search; ?>" />
           </div>
-				 <div class="col-md-3 col-sm-2">
+				 <div class="col-md-4 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="Search">
 					 <a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear</a>
 				 </div>
@@ -58,8 +58,8 @@ th{
                    <th>S.no</th>
 
                    <th>Name</th>
-                   <th>Date</th>
-				   		 		<th>Phone</th>
+                   <th>meeting Date</th>
+				   		 		<th>Phone no</th>
 				    			<th>Details</th>
 				   				<th>Status</th>
                   <th>Created by</th>

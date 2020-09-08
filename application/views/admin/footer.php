@@ -1,6 +1,6 @@
 <footer>
    <div class="pull-right">
-       Developed by <a href="#">Happy Sanz Tech</a>
+       Developed by <a href="https://www.happysanztech.com/" target="_blank">Happy Sanz Tech</a>
    </div>
    <div class="clearfix"></div>
 </footer>
@@ -13,7 +13,7 @@
 <script>
 $(document).ready(function() {
     $('#example').DataTable({
-    
+
       "language": {
         "search": "",
         searchPlaceholder: "SEARCH HERE"

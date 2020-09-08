@@ -3,7 +3,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List News Feeder</h2>
+               <h2>News list</h2>
 
                <div class="clearfix"></div>
             </div>

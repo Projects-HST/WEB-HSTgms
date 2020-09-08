@@ -15,6 +15,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
 
 </head>
+<style>
+
+</style>
 <body class="login">
 
 <a class="hiddenanchor" id="signin"></a>
@@ -29,7 +32,7 @@
 	<img src="<?php echo base_url(); ?>assets/images/login.png" class="img-responsive login_img">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="loginform" name="loginform">
 
-	<h1>Login Form</h1>
+	<h1>Login</h1>
 		<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger alert-dismissible " role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><!--<span aria-hidden="true">×</span>--></button>
@@ -43,17 +46,18 @@
 		 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="10" style="margin-bottom:10px;"><span toggle="#password" class="fa fa-fw  fa-eye-slash field-icon toggle-password"></span>
 	</div>
 	<div class="text-center">
-	<p>	<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Log in</button></p>
-	<p>	<a href="#forgot" class="reset_pass"> Lost your password? </a></p>
+	<p>	<button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Login</button></p>
+
 	</div>
 	<div class="separator"></div>
+		<p>	<a href="#forgot" class="reset_pass"> Lost your password? </a></p>
 	</form>
 </section>
 </div>
 
 
 <div id="register" class="animate form registration_form" style="text-align:center;">
-	<img style="width:250px;" src="<?php echo base_url(); ?>assets/images/forgotpassword.png" class="img-responsive login_img">
+	<img style="width:220px;" src="<?php echo base_url(); ?>assets/images/forgotpassword.png" class="img-responsive login_img">
 
 <section class="login_content">
 	<form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
@@ -63,25 +67,39 @@
 	</div>
 	<div class="text-center">
 		<p><button class="btn btn-primary green_btn" type="submit" style="text-transform: uppercase;">Submit</button></p>
-	<p>	<a href="#login" class="reset_pass" style="text-transform: uppercase;"> Log in </a></p>
+
 	</div>
 
 	<div class="separator">
 		<div class="clearfix"></div>
 	</div>
+	<p>	<a href="#login" class="reset_pass" style="text-transform: uppercase;">Back to Login </a></p>
 	</form>
 </section>
 </div>
 
 </div>
 <style>
+.reset_pass{
+	font-weight: 500;
+	color: #212529;
+}
 .green_btn{
 	background-color: #31aa15;
 	border: none;
+	    width: 100%;
 }
 .green_btn:hover{
 	background-color: #31aa15;
 	border: none;
+
+}
+h1{
+	color: #212529;
+}
+.error{
+	text-align: left;
+	width:100%;
 }
 </style>
 </body>
@@ -129,7 +147,7 @@ $('#loginform').validate({ // initialize the plugin
                      if (response=="success") {
                        $.toast({
                                  heading: 'Success',
-                                 text: 'Password reset and send to your mail. Please check your mail',
+                                 text: 'Password reset successfully and sent to your Email Id',
                                  position: 'mid-center',
                                  icon:'success',
                                  stack: false
@@ -140,7 +158,7 @@ $('#loginform').validate({ // initialize the plugin
                      }else{
                        $.toast({
                                  heading: 'Error',
-                                 text: "Your username doesn't match our records. Please check.",
+                                 text: "Your Email Id doesn't match our record. Please check!.",
                                  position: 'mid-center',
                                  icon:'error',
                                  stack: false

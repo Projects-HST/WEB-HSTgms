@@ -10,7 +10,7 @@
 <div class="x_panel">
 
 <div class="x_title">
-	<h2>Edit Users</h2>
+	<h2>Edit staff</h2>
 	<div class="clearfix"></div>
 </div>
 

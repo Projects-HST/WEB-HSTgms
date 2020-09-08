@@ -24,7 +24,7 @@ class News extends CI_Controller {
 		}
 
 	}
-	
+
 	public function add_news()
 	{
 		$datas=$this->session->userdata();
@@ -37,9 +37,9 @@ class News extends CI_Controller {
 					$newsdate=$this->input->post('news_date');
 					$dateTime1 = new DateTime($newsdate);
 					$news_date=date_format($dateTime1,'Y-m-d' );
-					
+
 					$news_title= $this->db->escape_str($this->input->post('news_title'));
-					
+
 					$newsdetails = str_replace("\r\n",'', $this->input->post('news_details'));
 					$news_details= $this->db->escape_str($newsdetails);
 					$status=$this->input->post('status');
@@ -57,9 +57,9 @@ class News extends CI_Controller {
 					}
 
 					$datas=$this->newsmodel->add_news($constituency_id,$news_date,strtoupper($news_title),strtoupper($news_details),$status,$news_pic,$notify,$user_id);
-					
+
 					if($datas['status']=="success"){
-						$this->session->set_flashdata('msg', 'News Details Created Successfully!');
+						$this->session->set_flashdata('msg', 'News  Created Successfully!');
 						redirect(base_url().'news/list');
 					}else if($datas['status']=="already"){
 						$this->session->set_flashdata('msg', 'News Title Exists');
@@ -81,7 +81,7 @@ class News extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['result']=$this->newsmodel->list_news();
-		
+
 			if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/news/list',$datas);
@@ -90,13 +90,13 @@ class News extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function edit()
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		
+
 		$news_id=base64_decode($this->uri->segment(3))/98765;
 		$datas['res_constituency']=$this->newsmodel->get_constituency();
 		$datas['res']=$this->newsmodel->news_details($news_id);
@@ -108,7 +108,7 @@ class News extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function update_news(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -121,11 +121,11 @@ class News extends CI_Controller {
 			$news_old_date=$this->input->post('news_old_date');
 			$dateTime2 = new DateTime($news_old_date);
 			$news_old_date=date_format($dateTime2,'Y-m-d' );
-			
+
 			$newsdate=$this->input->post('news_date');
 			$dateTime1 = new DateTime($newsdate);
 			$news_date=date_format($dateTime1,'Y-m-d' );
-			
+
 			if ($news_date==''){
 				$newsn_date = $news_old_date;
 			}else {
@@ -139,7 +139,7 @@ class News extends CI_Controller {
 
 			$news_old_pic=$this->input->post('news_old_pic');
 			$newspic = $_FILES['news_pic']['name'];
-					
+
 			if(empty($newspic)){
 						 $news_pic=$news_old_pic;
 					}else{
@@ -153,7 +153,7 @@ class News extends CI_Controller {
 			$datas=$this->newsmodel->update_news($news_id,$constituency_id,$newsn_date,strtoupper($news_title),strtoupper($news_details),$status,$news_pic,$user_id);
 
 			if($datas['status']=="success"){
-				$this->session->set_flashdata('msg', 'News Details Updated');
+				$this->session->set_flashdata('msg', 'News Updated successfully');
 				redirect(base_url().'news/list');
 			}else{
 				$this->session->set_flashdata('msg', 'Failed');
@@ -163,7 +163,7 @@ class News extends CI_Controller {
 			redirect(base_url());
 	 }
 	}
-	
+
 	public function gallery(){
 	$datas=$this->session->userdata();
 	$user_id=$this->session->userdata('user_id');
@@ -186,7 +186,7 @@ class News extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 				if($user_type=='1' || $user_type=='2'){
-				
+
 				$news_id=$this->input->post('news_id');
 				$name_array = $_FILES['news_photos']['name'];
 				$tmp_name_array = $_FILES['news_photos']['tmp_name'];
@@ -197,11 +197,11 @@ class News extends CI_Controller {
 				 $file_name[]=$static_final_name.$i.".".$extension;
 				move_uploaded_file($tmp_name_array[$i], "assets/news/".$static_final_name.$i.".".$extension);
 				}
-			
+
 			$datas = $this->newsmodel->create_gallery($news_id,$file_name,$user_id);
-			
+
 			if($datas['status']=="success"){
-				$this->session->set_flashdata('msg', 'Image(s) uploaded.');
+				$this->session->set_flashdata('msg', 'Photo uploaded successfully!');
 				redirect($datas['url']);
 			}else if($datas['status']=="limit"){
 				$this->session->set_flashdata('msg', 'Gallery Maximum images Exceeds');
@@ -227,12 +227,12 @@ class News extends CI_Controller {
 			redirect('/');
 		}
 	}
-	
+
 	public function banners(){
 	$datas=$this->session->userdata();
 	$user_id=$this->session->userdata('user_id');
 	$user_type=$this->session->userdata('user_type');
-	
+
 			if($user_type=='1' || $user_type=='2'){
 			$constituency_id=1;
 			$datas['res']=$this->newsmodel->list_banners($constituency_id);
@@ -255,7 +255,7 @@ class News extends CI_Controller {
 					$constituency_id='1';
 					$bannerspic = $_FILES['banner_image']['name'];
 					$status=$this->input->post('status');
-					
+
 					if(empty($bannerspic)){
 						$banner_image='';
 					}else{
@@ -266,9 +266,9 @@ class News extends CI_Controller {
 						move_uploaded_file($_FILES['banner_image']['tmp_name'], $profilepic);
 					}
 					$datas=$this->newsmodel->add_banner($constituency_id,$banner_image,$status,$user_id);
-					
+
 					if($datas['status']=="success"){
-						$this->session->set_flashdata('msg', 'Banner Created Successfully!');
+						$this->session->set_flashdata('msg', 'Banner image added successfully!');
 						redirect(base_url().'news/banners');
 					}
 					else{
@@ -280,8 +280,8 @@ class News extends CI_Controller {
          redirect(base_url());
        }
 	}
-	
-	
+
+
 	public function delete_banner(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -289,7 +289,7 @@ class News extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 				$banner_id=base64_decode($this->uri->segment(3))/98765;
 				$datas=$this->newsmodel->delete_banner($banner_id);
-				
+
 					if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'Banner Deleted Successfully!');
 						redirect(base_url().'news/banners');
@@ -302,12 +302,12 @@ class News extends CI_Controller {
 			redirect('/');
 		}
 	}
-	
+
 	public function edit_banner(){
 	$datas=$this->session->userdata();
 	$user_id=$this->session->userdata('user_id');
 	$user_type=$this->session->userdata('user_type');
-	
+
 		if($user_type=='1' || $user_type=='2'){
 			$banner_id=base64_decode($this->uri->segment(3))/98765;
 			$datas['res']=$this->newsmodel->edit_banner($banner_id);
@@ -319,7 +319,7 @@ class News extends CI_Controller {
 				redirect('/');
 		 }
 	}
-	
+
 	public function update_banner()
 	{
 		$datas=$this->session->userdata();
@@ -342,7 +342,7 @@ class News extends CI_Controller {
 						move_uploaded_file($_FILES['banner_image']['tmp_name'], $profilepic);
 					}
 					$datas=$this->newsmodel->update_banner($banner_id,$banner_image,$status,$user_id);
-					
+
 					if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'Banner Updated Successfully!');
 						redirect(base_url().'news/banners');

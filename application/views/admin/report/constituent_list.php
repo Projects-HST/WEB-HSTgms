@@ -32,7 +32,7 @@
                                 <label class="col-form-label col-md-1 col-sm-3">offfice</label>
                                 <div class="col-md-3 col-sm-4">
                                   <select class="form-control" name="c_ward_id" id="office_id">
-                                    
+
                                     <?php
                                      $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$c_paguthi' order by id desc";
                                     $result_of=$this->db->query($query);
@@ -83,7 +83,7 @@
                             <tr>
                                 <th>S.no</th>
                                 <th>Name</th>
-                                <th>Father or Husband </th>
+                                <th>Father name</th>
                                 <th>Dob</th>
                                 <th>Address</th>
                                 <th>Phone</th>

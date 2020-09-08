@@ -19,7 +19,7 @@
 							 $message = $this->session->flashdata('msg');?>
 						<div class="<?php echo $message['class'] ?> alert-dismissible">
 							 <button type="button" class="close" data-dismiss="alert">&times;</button>
-							 <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+							 <?php echo $message['message']; ?>
 						</div>
 						<?php  }  ?>
             <div class="x_content">
@@ -97,8 +97,8 @@
 			<tr>
 				<th>S.no</th>
        <th>Name</th>
-       <th>Father or Husband</th>
-       <th>Mobile</th>
+       <th>Surname</th>
+       <th>Phone no</th>
        <th>Address</th>
        <th>Action</th>
 			</tr>
@@ -156,7 +156,7 @@
    $('#list_constituent_menu').addClass('active');
 
    function send_festival(cons_id,festival_id){
-     if (confirm("Are you sure?")) {
+     if (confirm("Are you sure you want to update the status?")) {
      $.ajax({
    		url:'<?php echo base_url(); ?>constituent/sent_festival_wishes',
    		method:"POST",

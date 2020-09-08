@@ -55,7 +55,7 @@
             $message = $this->session->flashdata('msg');?>
             <div class="<?php echo $message['class'] ?> alert-dismissible">
                <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+               <?php echo $message['message']; ?>
            </div>
           <?php  }  ?>
              <div class="x_panel">
@@ -83,7 +83,7 @@
                             <?php   } ?>
                     </td>
                 <td>
-                  <a title="EDIT BOOTH" href="<?php echo base_url(); ?>masters/get_booth_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                  <a title="EDIT" href="<?php echo base_url(); ?>masters/get_booth_edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 
                 </td>
 

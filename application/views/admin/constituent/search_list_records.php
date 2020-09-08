@@ -22,7 +22,7 @@
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>constituent/list_constituent_member" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
-				  <div class="col-md-3 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search keyword" value="<?= $search ?>" /></div>
+				  <div class="col-md-6 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search for constituents based on Name, Phone number, Address" required oninvalid="this.setCustomValidity('Enter Name or Phone number or Voter ID or Aadhaar Card number of Constituent')" value="<?= $search ?>" /></div>
 				  <div class="col-md-3 col-sm-2" style="padding-top:10px;"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 					  <?php if ($search_value!='') { ?>
 						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear</a>
@@ -42,8 +42,8 @@
         </div>
 			<tr>
 				<th>S.no</th>
-                     <th>Name</th>
-                     <th>Mobile</th>
+                     <th>Surname</th>
+                     <th>Phone no</th>
                      <th style="width:150px;">Address</th>
                      <th>Paguthi</th>
 
@@ -107,14 +107,14 @@
         	// <a title="SEND VOICE CALL" onclick="give_voice_call('.$const_id.')" class="handle_symbol"><i class="fa fa-phone"></i></a>&nbsp;
 				// }
 				// echo '<td><a  class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')">Add grievance</a></td>';
-				echo '<td>	<a title="INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
+				echo '<td>	<a title="VIEW INFO" target="_blank" href="'.base_url().'constituent/constituent_profile_info/'.base64_encode($const_id*98765).'"><i class="fa fa-eye"></i></a>&nbsp;
         	     <a title="EDIT" id="EDIT" href="'. base_url().'constituent/get_constituent_member_edit/'.base64_encode($const_id*98765).'"><i class="fa fa-edit"></i></a>&nbsp;
 							<a title="DOCUMENTS" href="'.base_url().'constituent/get_list_document/'.base64_encode($const_id*98765).'"><i class="fa fa-file-word-o"></i></a>&nbsp;
 
 
-							<a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+							<a title="SEND SMS" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
 							&nbsp;
-							<a title="VIDEO " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a> &nbsp;
+							<a title="VIDEOS " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a> &nbsp;
               <a  title="MEETING" class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')"><i class="fa fa-suitcase" aria-hidden="true"></i></a>&nbsp;
               <a  title="GRIEVANCE" class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
 
@@ -281,7 +281,7 @@
               </div>
                <div class="form-group row">
                   <div class="col-md-9 col-sm-9  offset-md-3">
-                     <button type="submit" class="btn btn-success">Save</button>
+                     <button type="submit" class="btn btn-success">Add</button>
                   </div>
                </div>
             </form>
@@ -289,10 +289,10 @@
                <thead>
                   <tr>
                     <th>title</th>
-                     <th style="width:200px !important;">Meeting details</th>
-                     <th>Schedule on</th>
+                     <!-- <th style="width:200px !important;">Meeting details</th>
+                     <th>Schedule on</th> -->
                      <th>status</th>
-                     <th>requested at</th>
+                     <th>requested on</th>
                      <th>Action</th>
 
                   </tr>
@@ -409,7 +409,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Add Grievance</h4>
+            <h4 class="modal-title" id="myModalLabel">Create Grievance</h4>
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
          </div>
@@ -516,7 +516,7 @@
               </div>
                <div class="form-group row">
                   <div class="col-md-12 col-sm-9">
-                    <center> <button type="submit" class="btn btn-success">Save</button></center>
+                    <center> <button type="submit" class="btn btn-success">Add</button></center>
 
                   </div>
                </div>
@@ -659,7 +659,8 @@ function view_meeting_request(sel){
 				}else{
 					var meet_date=res[i].disp_date;
 				}
-        $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_detail+'</td><td>'+meet_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+        // $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_detail+'</td><td>'+meet_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+        $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
      }
       }else{
         $('#table_meeting').append('<tr><td colspan="6">No data</td></tr>');
@@ -867,7 +868,7 @@ function give_voice_call(sel){
 								 video_link:{required:true}
 					 },
 					 messages: {
-						 video_title:{required:"enter title"},
+						 video_title:{required:"enter video title"},
 						 video_link:{required:"enter  video link"}
 							 },
     submitHandler: function(form) {

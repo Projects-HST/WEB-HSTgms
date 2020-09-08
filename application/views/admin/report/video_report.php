@@ -72,10 +72,10 @@
                 <tr>
                     <th>S.no </th>
                     <th>Name</th>
-                    <th>Father or Husband </th>
+                    <th>Father name</th>
                     <th>Dob</th>
                     <th>Address</th>
-                    <th>Phone</th>
+                    <th>Phone no</th>
                     <th>Updated by</th>
                 </tr>
              </thead>

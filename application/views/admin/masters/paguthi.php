@@ -52,7 +52,7 @@
             $message = $this->session->flashdata('msg');?>
             <div class="<?php echo $message['class'] ?> alert-dismissible">
                <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+                <?php echo $message['message']; ?>
            </div>
           <?php  }  ?>
              <div class="x_panel">
@@ -116,7 +116,7 @@ $('#master_form').validate({
      },
      messages: {
            paguthi_name: { required:"enter the paguthi name",remote:"paguthi name already exist"},
-           paguthi_short_name: { required:"enter the paguthi short name",remote:"paguthi short name already exist"}
+           paguthi_short_name: { required:"enter the paguthi short form",remote:"paguthi short form already exist"}
          }
  });
  </script>

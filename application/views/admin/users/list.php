@@ -3,7 +3,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>List Users</h2>
+               <h2>List of Staff</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -43,7 +43,7 @@
                               <span class="badge-<?= $rows->status ?> ">INACTIVE</span>
                             <?php   } ?>
                     </td>
-                    <td><a href="<?php echo base_url(); ?>users/edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
+                    <td><a title="EDIT" href="<?php echo base_url(); ?>users/edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a></td>
                  </tr>
 
             <?php  $i++; } ?>

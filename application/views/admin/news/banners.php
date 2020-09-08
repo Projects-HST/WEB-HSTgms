@@ -40,7 +40,7 @@
 				</div>
                   <div class="item form-group">
                      <div class="col-md-6 col-sm-6 offset-md-3">
-						<button type="submit" class="btn btn-success">CREATE</button>
+						<button type="submit" class="btn btn-success">Add</button>
                      </div>
                   </div>
                </form>
@@ -124,7 +124,7 @@
               <div class="col-6 text-right">
                 <p>
                   <a id="edit" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" data-toggle="tooltip" title="EDIT" style="cursor:pointer"><i class="fa fa-edit"></i></a>
-                <a id="edit" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"><i class="fa fa-trash-o"></i></a></p>
+                <a id="edit" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure you want to delete this image?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"><i class="fa fa-trash-o"></i></a></p>
                 </p>
               </div>
             </div>
@@ -169,11 +169,11 @@
 		},
 		messages: {
 			banner_image:{
-			  required:"Select Banner Image",
+			  required:"Choose the photo",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"
 			},
-			status: "Select Status"
+			status: "Select the Status"
 		}
 	});
 </script>

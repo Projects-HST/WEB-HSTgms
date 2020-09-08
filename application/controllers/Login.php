@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	{
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
-			
+
 			if($user_id){
 				redirect(base_url().'dashboard');
 			}else{
@@ -28,19 +28,19 @@ class Login extends CI_Controller {
 
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
-		
+
 		$result = $this->loginmodel->login(strtoupper($username),strtoupper($password));
-		
+
 		if($result['status']=='Inactive'){
 			$this->session->set_flashdata('msg', 'Account inactive, please contact admin');
 			redirect(base_url());
 		}
-	
+
 		if($result['status']=='Error'){
-			$this->session->set_flashdata('msg', "Invalid username/passsword. Kindly ensure they're correct.");
+			$this->session->set_flashdata('msg', "Invalid Email Id/Password.");
 			redirect(base_url());
 		}
-		
+
 		if($result['status']=='ACTIVE'){
 					$email_id = $result['email_id'];
 					$name=$result['name'];
@@ -55,7 +55,7 @@ class Login extends CI_Controller {
 					redirect(base_url().'dashboard');
 		}
 	}
-	
+
 	public function forgot_password(){
 		$user_name=$this->input->post('user_name');
 		$datas['res'] = $this->loginmodel->forgot_password(strtoupper($user_name));
@@ -65,7 +65,7 @@ class Login extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		
+
 		if($user_type==1 || $user_type==2){
 			$datas['res'] = $this->loginmodel->profile($user_id);
 			$this->load->view('admin/header');
@@ -90,7 +90,7 @@ class Login extends CI_Controller {
 			$gender=$this->input->post('gender');
 			$user_old_pic=$this->input->post('user_old_pic');
 			$profilepic = $_FILES['profile_pic']['name'];
-			
+
 			if(empty($profilepic)){
 				$staff_prof_pic=$user_old_pic;
 			}else{
@@ -100,7 +100,7 @@ class Login extends CI_Controller {
 				$profilepic = $uploaddir.$staff_prof_pic;
 				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 			}
-			
+
 			$datas=$this->loginmodel->profile_update(strtoupper($name),strtoupper($address),$phone,strtoupper($email),$gender,$staff_prof_pic,$user_id);
 
 			if($datas['status']=="success"){
@@ -119,7 +119,7 @@ class Login extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		
+
 		if($user_type==1 || $user_type==2){
 			$datas['res'] = $this->loginmodel->profile($user_id);
 			$this->load->view('admin/header');
@@ -129,12 +129,12 @@ class Login extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function check_password_match(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		
+
 		if($user_type==1 || $user_type==2){
 				$user_id  = $this->uri->segment(3);
 				$old_password=$this->input->post('old_password');
@@ -148,10 +148,10 @@ class Login extends CI_Controller {
 		$datas = $this->session->userdata();
 		 $user_id = $this->session->userdata('user_id');
 		 $user_type=$this->session->userdata('user_type');
-		
-		
+
+
 		if($user_type==1 || $user_type==2){
-			
+
 				$new_password=$this->input->post('new_password');
 				$datas=$this->loginmodel->password_update(strtoupper($new_password),$user_id,$user_type);
 
@@ -162,12 +162,12 @@ class Login extends CI_Controller {
 					$this->session->set_flashdata('msg', 'Failed to Update');
 					redirect(base_url().'login/password');
 				}
-				
+
 		}else{
 			redirect(base_url());
 		}
 	}
-	
+
 	public function logout(){
 		$datas=$this->session->userdata();
 		$this->session->unset_userdata($datas);

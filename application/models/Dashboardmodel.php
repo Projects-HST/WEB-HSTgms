@@ -256,11 +256,13 @@ Class Dashboardmodel extends CI_Model
 		}
 
 
-	 	$query="SELECT WEEK(g.grievance_date) AS week_name,count(*) as total,
+	 	$query="SELECT WEEK(g.grievance_date) AS week_name,
 		sum(case when g.repeated_status = 'N' then 1 else 0 end) AS unique_count,
-		sum(case when g.repeated_status = 'R' then 1 else 0 end) AS repeat_count
+		sum(case when g.repeated_status = 'R' then 1 else 0 end) AS repeat_count,
+		count(*) as total
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date";
+		
 
 		$res=$this->db->query($query);
 		return $result=$res->result();

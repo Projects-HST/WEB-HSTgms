@@ -41,7 +41,7 @@ th{
 
 
                      </ul>
-                     <a href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                     <a href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>" class="btn btn-success">Edit Profile</a>
 
 
                   </div>
@@ -110,25 +110,21 @@ th{
                                    <tr>
                                       <th>S.no</th>
                                       <th>Meeting details</th>
-									   <th>Meeting date</th>
+                                      <th>Meeting date</th>
                                       <th>status</th>
-                                      <th>updated</th>
-
+                                      <th>updated On</th>
                                    </tr>
                                 </thead>
                                 <tbody>
                                   <?php $i=1; foreach($res_meeting as $rows_meeting){ ?>
                                     <tr>
-                                      <td><?php echo $i; ?></td>
-                                      <td><?php echo $rows_meeting->meeting_detail; ?></td>
-									  <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
-                                      <td class="badge-<?php echo $rows_meeting->meeting_status; ?>"><?php echo $rows_meeting->meeting_status; ?></td>
-
-                                     <td><?php echo date('d-m-Y', strtotime($rows_meeting->updated_at)); ?></td>
-
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $rows_meeting->meeting_detail; ?></td>
+                                        <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
+                                        <td class="badge-<?php echo $rows_meeting->meeting_status; ?>"><?php echo $rows_meeting->meeting_status; ?></td>
+                                        <td><?php echo date('d-m-Y', strtotime($rows_meeting->updated_at)); ?></td>
                                       </tr>
                                 <?php $i++; } ?>
-
                                 </tbody>
                              </table>
 
@@ -138,7 +134,7 @@ th{
                                 <thead>
                                    <tr>
                                       <th>S.no</th>
-                                      <th>seeker</th>
+                                      <th>seeker type</th>
                                       <!-- <th>category</th> -->
                                       <th>sub category</th>
                                       <th>petition no</th>

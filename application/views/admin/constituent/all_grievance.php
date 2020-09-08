@@ -18,7 +18,7 @@ th{
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_grievance" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
-										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?php echo $a_search; ?>" /></div>
+										<div class="col-md-6 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?php echo $a_search; ?>" /></div>
 										<div class="col-md-3 col-sm-2">
                       <input class="btn btn-success" type='submit' name='submit' value='Search'>
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear</a>
@@ -33,7 +33,7 @@ th{
                      $message = $this->session->flashdata('msg');?>
                   <div class="<?php echo $message['class'] ?> alert-dismissible">
                      <button type="button" class="close" data-dismiss="alert">&times;</button>
-                     <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+                     <?php echo $message['message']; ?>
                   </div>
                   <?php  }  ?>
                   	</div>
@@ -51,11 +51,11 @@ th{
                      </div>
                        <thead>
                           <tr class="">
-                             <th style="width:10%;">S.no</th>
+                             <th>S.no</th>
                              <th>name</th>
-                             <th>Phone</th>
+                             <th>Phone no</th>
                              <th>Address</th>
-                             <th>seeker</th>
+                             <th>seeker type</th>
                              <th>Paguthi</th>
                              <th>Reference</th>
                              <th>status</th>
@@ -282,7 +282,7 @@ $('#list_grievance_reply_menu').addClass('active');
           sms_text:{required:"enter the sms text" }
         },
         submitHandler: function(form) {
-               if (confirm('Are you sure want to update.?')) {
+               if (confirm('Are you sure you want to send SMS ?')) {
                    form.submit();
                }
       }
@@ -312,7 +312,7 @@ $('#list_grievance_reply_menu').addClass('active');
          reply_sms_text:{required:"enter the sms text" }
        },
        submitHandler: function(form) {
-              if (confirm('Are you sure want to update.?')) {
+              if (confirm('Are you sure you want to send SMS ?')) {
                   form.submit();
               }
      }

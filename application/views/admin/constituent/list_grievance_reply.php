@@ -18,7 +18,7 @@ th{
           $message = $this->session->flashdata('msg');?>
        <div class="<?php echo $message['class'] ?> alert-dismissible">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+          <?php echo $message['message']; ?>
        </div>
        <?php  }  ?>
 
@@ -31,7 +31,7 @@ th{
            <thead>
               <tr>
                  <th>S.no</th>
-                 <th>Full name</th>
+                 <th>name</th>
                  <th>Sms text</th>
                  <th>sent on</th>
                  <th>sent by</th>
