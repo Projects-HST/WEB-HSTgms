@@ -71,7 +71,7 @@ button {text-transform: uppercase;}
 }
 h4{
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 
 }
 .col-form-label{
@@ -286,7 +286,7 @@ input[type=search]{
 .widget_heading{
   color: #000;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   text-align: right;
   margin: 10px 0px 0px 0px;
 }
@@ -301,7 +301,7 @@ input[type=search]{
   width:80%;
   color: #000;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   padding: 5px 5px 5px 0px;
 }
 .c_widget_value{
@@ -337,7 +337,7 @@ p{
 .widget_label{
   color: #000;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   /* padding: 10px; */
   padding: 5px 5px 5px 0px;
 }
@@ -349,30 +349,32 @@ background:#31aa15;
 .pagination-last-tag{
 border:1px solid #eeeeee;
 padding:10px;
-background:#31aa15;
+background:#fff;
 }
 .pagination-next-tag{
 padding:10px;
 border:1px solid #eeeeee;
-background:#31aa15;
+color:#31aa15;
+background:#fff;
 }
 .pagination-prev-tag{
 padding:10px;
 border:1px solid #eeeeee;
-background:#31aa15;
+background:#fff;
 }
 .pagination-current-tag{
-color:#000000;
+color:#31aa15;
 font-weight:bold;
 padding:10px;
 border:1px solid #eeeeee;
 }
-.pagination-number{
+.pagination-number a{
 padding:10px;
 border:1px solid #eeeeee;
+color:#31aa15;
 }
 .pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-color:#ffffff;
+color:#31aa15;
 }
 .nav.side-menu>li.active>a{
   font-weight: 600;
@@ -397,23 +399,27 @@ hr{
 }
 .x_title h2{
   color:#000;
+  font-weight: 500;
 }
 .page-item.disabled .page-link{
-  color: #fff;
-  background-color: #31aa15  !important;
+  color: #31aa15;
+    background-color: #ffffff !important;
+
 }
 .dataTables_paginate a{
-  color: #fff;
-  background-color: #31aa15  !important;
+  color: #31aa15;
+  background-color: #fff  !important;
 }
+
 .page-item.active .page-link{
   font-weight: 700;
+  color: #31aa15;
 }
 .page-link{
   border: 1px solid #31aa15;
 }
 .btn-export{
-  background-color: #1D6F42;
+  background-color: #343a40;
   color:#fff;
 }
 .btn-export:hover{

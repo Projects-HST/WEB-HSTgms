@@ -49,7 +49,7 @@ th{
                     <div class="profile_heading">
                       <h4>Profile</h4>
                     </div>
-                    <div class="col-md-12 profile_info">
+                    <div class="col-md-12 profile_info" style="margin-bottom:25px;">
                       <div class="col-md-6">
                           <p class="label_profile">PARTY MEMBER : <span class="label_text"><?php if($rows->party_member_status=='Y'){ echo "Yes"; }else{ echo "NO"; } ?></span></p>
                           <p class="label_profile">Volunteer : <span class="label_text"><?php echo $rows->volunteer_status; ?></span></p>
@@ -74,7 +74,7 @@ th{
                     <br>  </div>
                     </div>
 
-                  <div class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-top:5px;">
+                  <div class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-top:15px;">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                            <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="" aria-selected="false">Meeting</a></li>
                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance details</a></li>

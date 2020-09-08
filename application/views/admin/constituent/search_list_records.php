@@ -115,8 +115,8 @@
 							<a title="SEND SMS" class="handle_symbol" onclick="send_reply_constituent('.$const_id.')"><i class="fa fa-reply" aria-hidden="true"></i></a>
 							&nbsp;
 							<a title="VIDEOS " class="handle_symbol" onclick="get_constituent_video('.$const_id.')"><i class="fa fa-youtube" aria-hidden="true"></i></a> &nbsp;
-              <a  title="MEETING" class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')"><i class="fa fa-suitcase" aria-hidden="true"></i></a>&nbsp;
-              <a  title="GRIEVANCE" class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+              <a  title="MEETING" class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')"><i class="fa fa-users" aria-hidden="true"></i></a>&nbsp;
+              <a  title="GRIEVANCE" class="badge-grievance handle_symbol" onclick="get_grievance_modal('.$const_id.')"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a>
 
 							</td>';
 				echo "</tr>";

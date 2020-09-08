@@ -22,7 +22,7 @@
 		<div class="title_left">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('Enter Name or Phone number or Voter ID or Aadhaar Card number of Constituent')" placeholder="#xF002; Search for FULL Name, Phone number, Voter ID, Aadhaar Card number, Address" required>
+				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('Enter Name or Phone number or Voter ID or Aadhaar Card number of Constituent')" placeholder="Search for FULL Name, Phone number, Voter ID, Aadhaar Card number, Address" required>
 				<span class="input-group-btn">
 					<input class="btn btn-default" type="submit" name="submit" style="padding: 15px 10px 13px 10px;background-color: #31aa15;
     color: #fff;    font-weight: 600;" value="GO!">
