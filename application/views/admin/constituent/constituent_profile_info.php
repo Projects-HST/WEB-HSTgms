@@ -7,7 +7,7 @@ th{
    <div class="">
       <div class="page-title">
          <div class="title_left">
-            <h3>User Profile</h3>
+            <h3>Constituent Profile</h3>
          </div>
 
       </div>
@@ -63,8 +63,8 @@ th{
                       </div>
                       <div class="col-md-6">
                         <p class="label_profile">GENDER: <span class="label_text"><?php if($rows->gender=='M'){ echo "male"; }else if($rows->gender=='M'){ echo "female";}else{ echo "others"; }  ?></span></p>
-                        <p class="label_profile">mobile no: <span class="label_text"><?php echo $rows->mobile_no; ?></span></p>
-                        <p class="label_profile">whatsapp: <span class="label_text"><?php echo $rows->whatsapp_no; ?></span></p>
+                        <p class="label_profile">Phone no: <span class="label_text"><?php echo $rows->mobile_no; ?></span></p>
+                        <p class="label_profile">whatsapp no: <span class="label_text"><?php echo $rows->whatsapp_no; ?></span></p>
                         <p class="label_profile">email id: <span class="label_text"><?php echo $rows->email_id; ?></span></p>
                         <p class="label_profile">religion: <span class="label_text"><?php echo $rows->religion_name; ?></span></p>
                         <p class="label_profile">voter id: <span class="label_text"><?php echo $rows->voter_id_no; ?></span></p>
@@ -77,7 +77,7 @@ th{
                   <div class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-top:15px;">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                            <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="" aria-selected="false">Meeting</a></li>
-                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance details</a></li>
+                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance</a></li>
                            <!-- <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false" class="active" aria-selected="true">Meeting and plant</a></li> -->
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -140,7 +140,7 @@ th{
                                       <th>petition no</th>
                                       <th>reference</th>
                                       <th>status</th>
-                                      <th>updated at</th>
+                                      <th>updated On</th>
 
                                    </tr>
                                 </thead>

@@ -161,17 +161,17 @@ $('#create_user').addClass('active current-page');
 			}
 		},
 		messages: {
-			role: "Select Role",
-			paguthi: "Select Paguthi",
-			name: "Enter name",
+			role: "Select the  Role",
+			paguthi: "Select the Paguthi",
+			name: "Enter thename",
 			email: {
-						 required: "Enter email ID",
-						 email: "Enter valid Enter email ID",
+						 required: "Enter the email ID",
+						 email: "Enter the valid  email ID",
 						 remote: "Email ID already in use!"
 				 },
-			address: "Enter address",
+			address: "Enter theaddress",
 			phone: {
-			required: "Enter phone number",
+			required: "Enter the phone number",
 			maxlength:"Invalid phone number",
 			minlength:"Invalid phone number",
 			number:"Invalid phone number",
@@ -179,11 +179,11 @@ $('#create_user').addClass('active current-page');
 
 			},
 			profile_pic:{
-			  required:"Select Profile Picture",
+			  required:"Select the Profile Picture",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"
 			},
-			status: "Select Status",
+			status: "Select the Status",
 		}
 		});
 

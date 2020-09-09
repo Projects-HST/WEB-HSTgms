@@ -174,23 +174,23 @@ $('#list_user').addClass('active current-page');
 
 		},
 		messages: {
-			role: "Select role",
-			paguthi: "Select paguthi",
-			name: "Enter name",
+			role: "Select the role",
+			paguthi: "Select the paguthi",
+			name: "Enter the name",
 			email: {
-						 required: "Enter email ID",
-						 email: "Enter valid Enter email ID",
+						 required: "Enter the email ID",
+						 email: "Enter the valid email ID",
 						 remote: "Email ID already in use!"
 				 },
-			address: "Enter address",
+			address: "Enter the address",
 			phone: {
-			required: "Enter phone number",
+			required: "Enter the phone number",
 			maxlength:"Invalid phone number",
 			minlength:"Invalid phone number",
 			number:"Invalid phone number",
 			remote: "Phone number already in use!"
 			},
-			status: "Select Status",
+			status: "Select the Status",
 			new_profile_pic:{
 			  required:"",
 			  accept:"Please upload .jpg or .png .",

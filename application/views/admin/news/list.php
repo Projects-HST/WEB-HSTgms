@@ -22,8 +22,8 @@
              <thead>
                 <tr>
                    <th>S.no</th>
-                   <th>News Date</th>
-				   <th>News Title</th>
+                   <th> Date</th>
+				   <th> Title</th>
 				   <th>Status</th>
                    <th>Action</th>
 

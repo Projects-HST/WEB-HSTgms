@@ -18,7 +18,7 @@
 
          <div class="x_panel">
             <div class="x_title">
-               <h2>Add Gallery</h2>
+               <h2>Add PHOTO</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -31,7 +31,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 ">Select Photos <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" multiple required><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
+							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" oninvalid="this.setCustomValidity('CHOOSE THE PHOTO')" multiple required><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>View Gallery</h2>
+               <h2>View PHOTO</h2>
                <div class="clearfix"></div>
             </div>
             <div class="x_content">

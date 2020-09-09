@@ -22,7 +22,7 @@
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>constituent/list_constituent_member" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
-				  <div class="col-md-6 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search for constituents based on Name, Phone number, Address" required oninvalid="this.setCustomValidity('Enter Name or Phone number or Voter ID or Aadhaar Card number of Constituent')" value="<?= $search ?>" /></div>
+				  <div class="col-md-6 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search for constituents based on Name, Phone number, Address" required oninvalid="this.setCustomValidity('ENTER NAME OR PHONE NUMBER OR VOTER ID OR AADHAAR CARD NUMBER OF CONSTITUENT')" value="<?= $search ?>" /></div>
 				  <div class="col-md-3 col-sm-2" style="padding-top:10px;"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 					  <?php if ($search_value!='') { ?>
 						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear</a>
@@ -149,7 +149,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Video link</h4>
+            <h4 class="modal-title" id="myModalLabel">ADD Video</h4>
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
          </div>
@@ -163,7 +163,7 @@
                  </div>
               </div>
               <div class="item form-group">
-                 <label class="col-form-label col-md-3 col-sm-3 ALL">Link<span class="required">*</span>
+                 <label class="col-form-label col-md-3 col-sm-3 ALL"> video Link<span class="required">*</span>
                  </label>
                  <div class="col-md-6 col-sm-6 ">
                     <input id="video_link" class=" form-control" name="video_link" type="text" value="" style="text-transform:none;">
@@ -180,7 +180,7 @@
 						<table id="export_table" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
 							 <thead>
 									<tr>
-
+                    <th>S.NO</th>
 										 <th>Title</th>
                      <!-- <th>link</th> -->
 
@@ -243,7 +243,7 @@
    <div class="modal-dialog" style="max-width:1000px;">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Meeting request</h4>
+            <h4 class="modal-title" id="myModalLabel">CREATE Meeting request</h4>
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
          </div>
@@ -288,11 +288,12 @@
             <table id="" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                <thead>
                   <tr>
+                    <th>S.no</th>
                     <th>title</th>
                      <!-- <th style="width:200px !important;">Meeting details</th>
                      <th>Schedule on</th> -->
                      <th>status</th>
-                     <th>requested on</th>
+                     <th>updated at</th>
                      <th>Action</th>
 
                   </tr>
@@ -366,7 +367,7 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Send reply message</h4>
+            <h4 class="modal-title" id="myModalLabel">Send SMS</h4>
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
          </div>
@@ -516,7 +517,7 @@
               </div>
                <div class="form-group row">
                   <div class="col-md-12 col-sm-9">
-                    <center> <button type="submit" class="btn btn-success">Add</button></center>
+                    <center> <button type="submit" class="btn btn-success">CREATE</button></center>
 
                   </div>
                </div>
@@ -652,6 +653,7 @@ function view_meeting_request(sel){
       if(stat=="success"){
       var res=data.res;
       var len=res.length;
+      var j=1;
       for (i = 0; i < len; i++) {
         // $('#constituent_id').val(res[i].constituent_id);
 				if(res[i].disp_date==null){
@@ -660,7 +662,8 @@ function view_meeting_request(sel){
 					var meet_date=res[i].disp_date;
 				}
         // $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_detail+'</td><td>'+meet_date+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
-        $('#table_meeting').append('<tr><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+        $('#table_meeting').append('<tr><td>'+ j +'</td><td>'+res[i].meeting_title+'</td><td>'+res[i].meeting_status+'</td><td>'+res[i].disp_updated_date+'</td><td><a class="handle_symbol" onclick="edit_meeting_request('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+        j++;
      }
       }else{
         $('#table_meeting').append('<tr><td colspan="6">No data</td></tr>');
@@ -795,7 +798,7 @@ function give_voice_call(sel){
          },
          messages: {
              // meeting_date:{required:"enter the date"},
-						 meeting_title:{required:"enter the title"},
+						 meeting_title:{required:"enter the meeting title"},
            meeting_detail:{required:"enter the meeting detail " }
 
              }
@@ -824,8 +827,8 @@ function give_voice_call(sel){
            },
            messages: {
                // update_meeting_date:{required:"enter the date"},
- 							reply_sms_id:{required:"select the title"},
-             reply_sms_text:{required:"enter the text " }
+ 							reply_sms_id:{required:"select the sms type"},
+             reply_sms_text:{required:"enter the sms text " }
 
                }
        });
@@ -851,12 +854,13 @@ function give_voice_call(sel){
           },
           messages: {
             constituency_id:{required:"select constituency"},
-            paguthi_id:{required:"select paguthi"},
-            office_id:{required:"select office"},
-            seeker_id:{required:"select seeker"},
-            grievance_id:{required:"select grievance"},
+            paguthi_id:{required:"select the paguthi"},
+            office_id:{required:"select the office"},
+            seeker_id:{required:"select the seeker type"},
+            grievance_id:{required:"select the grievance type"},
             doc_name:{required:"enter the document name"},
-            doc_file_name:{required:"select file"},
+            doc_file_name:{required:"select a file"},
+            petition_enquiry_no:{required:"ENTER THE Petition No"},
             sub_category_id:{required:"select sub_category"}
               }
       });
@@ -868,8 +872,8 @@ function give_voice_call(sel){
 								 video_link:{required:true}
 					 },
 					 messages: {
-						 video_title:{required:"enter video title"},
-						 video_link:{required:"enter  video link"}
+						 video_title:{required:"enter the video title"},
+						 video_link:{required:"enter the video link"}
 							 },
     submitHandler: function(form) {
     $.ajax({
@@ -971,9 +975,11 @@ function get_constituent_video(sel){
 
       var res=data.res;
       var len=res.length;
+      var j=1;
       for (i = 0; i < len; i++) {
 
-          $('#table_video').append('<tr><td><a href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+          $('#table_video').append('<tr><td>'+ j +'</td><td><a href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+          j++;
      }
       }else{
         $('#table_video').append('<tr><td colspan="6">No data</td></tr>');

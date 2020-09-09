@@ -16,7 +16,7 @@ $(document).ready(function() {
 
       "language": {
         "search": "",
-        searchPlaceholder: "SEARCH HERE"
+        searchPlaceholder: "SEARCH"
       },
       "scrollX": true
 

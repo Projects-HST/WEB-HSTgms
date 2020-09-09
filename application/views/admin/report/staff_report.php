@@ -32,11 +32,11 @@
             <thead>
                 <tr>
                   <th>S.no</th>
-                  <th>Staff</th>
-                  <th>Total constituent</th>
-                  <th>Total video</th>
-                  <th>Total Grievance</th>
-                  <th>Total Broadcast</th>
+                  <th>Staff name</th>
+                  <th>constituent created</th>
+                  <th>video added</th>
+                  <th>Grievance  added</th>
+                  <th>Broadcast constituent added</th>
 
                 </tr>
             </thead>

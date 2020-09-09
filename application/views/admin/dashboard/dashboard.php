@@ -22,7 +22,7 @@
 		<div class="title_left">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('Enter Name or Phone number or Voter ID or Aadhaar Card number of Constituent')" placeholder="Search for FULL Name, Phone number, Voter ID, Aadhaar Card number, Address" required>
+				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('ENTER NAME OR PHONE NUMBER OR VOTER ID OR AADHAAR CARD NUMBER OF CONSTITUENT')" placeholder="Search for constituents based on Name, Phone number, Voter ID or Aadhaar Card number,Address" required>
 				<span class="input-group-btn">
 					<input class="btn btn-default" type="submit" name="submit" style="padding: 15px 10px 13px 10px;background-color: #31aa15;
     color: #fff;    font-weight: 600;" value="GO!">
@@ -171,14 +171,15 @@ function moneyFormatIndia($num) {
 						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_mobilenumber); ?></div>
 					</div>
-					<div class="label_box">
-						<div class="c_widget_label">whatspp broadcast users (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp_broadcast); ?></div>
-					</div>
+
 
 					<div class="label_box">
 						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp); ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">whatspp broadcast users (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp_broadcast); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Having Email id (<?= round($rows_cons->email_percentage,2); ?>%)</div>
@@ -187,26 +188,7 @@ function moneyFormatIndia($num) {
 
 				</div>
 
-				<!-- <div class="col-9 lh"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalecount; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->others; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malevoter; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalevoter; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->maleaadhar; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femaleaadhar; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_mobilenumber; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_email; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div> -->
+
 			</div>
 
 		</div>
@@ -474,7 +456,8 @@ $('#result_form').validate({
 	         return $("#from_date").val().length > 0; },chkDates: "#from_date"},
      },
      messages: {
-
+			 from_date:{required:"Select From Date"},
+			 to_date:{required:"Select TO Date"}
          }
  });
 

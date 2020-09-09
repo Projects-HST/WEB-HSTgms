@@ -18,7 +18,7 @@ th{
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_grievance" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
-										<div class="col-md-6 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?php echo $a_search; ?>" /></div>
+										<div class="col-md-6 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search using  name, Petition no,reference " value="<?php echo $a_search; ?>" /></div>
 										<div class="col-md-3 col-sm-2">
                       <input class="btn btn-success" type='submit' name='submit' value='Search'>
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear</a>
@@ -86,9 +86,9 @@ th{
                               </td>
 
                              <td>
-                               <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                               <a title="SEND SMS" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                <a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>
-                               <a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>
+                               <a title="VIEW INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>
 
                               </td>
                              </tr>

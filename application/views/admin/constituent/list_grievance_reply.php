@@ -10,7 +10,7 @@ th{
 
      <div class="x_panel">
        <div class="">
-          <h2>list of grievance reply</h2>
+          <h2>grievance reply history</h2>
 
        </div>
        <div class="ln_solid"></div>

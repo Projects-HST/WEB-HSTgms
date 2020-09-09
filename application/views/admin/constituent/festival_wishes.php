@@ -211,7 +211,7 @@
             toDate:{required:true}
         },
         messages: {
-              cf_religion_id: { required:"Select festival"},
+              cf_religion_id: { required:"Select the festival name"},
               toDate: { required:"Select To Date"}
             }
     });

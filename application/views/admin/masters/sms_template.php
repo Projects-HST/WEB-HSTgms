@@ -119,8 +119,8 @@ $('#master_form').validate({
          status:{required:true }
      },
      messages: {
-       sms_title:{required:"enter sms title"},
-       sms_text:{required:"enter sms text" }
+       sms_title:{required:"enter the sms title"},
+       sms_text:{required:"enter the sms text" }
 
          }
  });
