@@ -155,7 +155,7 @@
                                 <li><a href="<?php echo base_url(); ?>report/category">Grievance</a></li>
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
                                 <!-- <li><a href="<?php echo base_url(); ?>report/location">Location</a></li> -->
-																<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
+																<li><a href="<?php echo base_url(); ?>report/meetings">Meeting</a></li>
 
 																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
 																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival letter</a></li>
