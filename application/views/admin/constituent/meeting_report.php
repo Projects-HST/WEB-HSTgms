@@ -191,15 +191,37 @@ $('#toDate').datetimepicker({
 $('#send_checkbox').change(function () {
       $('.show_sms').fadeToggle();
     });
+		$.validator.addMethod("chkDates", function(value, element) {
+				var startDate = $('#frmDate').val();
+				var datearray = startDate.split("-");
+				var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+
+				var endDate = $('#toDate').val();
+				var datearray = endDate.split("-");
+				var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+
+				return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
+			}, "Please check dates");
 $('#report_form').validate({ // initialize the plugin
-     rules: {
-         frmDate:{required:true},
-         toDate:{required:true}
-     },
-     messages: {
-           frmDate: { required:"Select From Date"},
-           toDate: { required:"Select To Date"}
-         }
+     // rules: {
+     //     mr_frmDate:{required:true},
+     //     toDate:{required:true}
+     // },
+     // messages: {
+     //       frmDate: { required:"Select From Date"},
+     //       toDate: { required:"Select To Date"}
+     //     }
+				 rules: {
+						 // paguthi_id:{required:true },
+						mr_frmDate:{ required: function(element){
+								return $("#toDate").val().length > 0; }},
+					 mr_toDate:{ required: function(element){
+							return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
+				 },
+				 messages: {
+					mr_frmDate:{required:"Select theFrom Date"},
+					mr_toDate:{required:"Select the TO Date"}
+						 }
  });
 
  function get_sms_text(sel){

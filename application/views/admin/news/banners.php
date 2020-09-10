@@ -124,7 +124,7 @@
               <div class="col-6 text-right">
                 <p>
                   <a id="EDIT" href="<?php echo base_url(); ?>news/edit_banner/<?php echo base64_encode($rows->id*98765); ?>" data-toggle="tooltip" title="EDIT" style="cursor:pointer"><i class="fa fa-edit"></i></a>
-                <a id="DELETE" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure you want to delete this image?')" data-toggle="tooltip" title="Delete" style="cursor:pointer"><i class="fa fa-trash-o"></i></a></p>
+                <a title="DELETE" href="<?php echo base_url(); ?>news/delete_banner/<?php echo base64_encode($rows->id*98765); ?>" onclick="return confirm('Are you sure you want to delete this image?')" data-toggle="tooltip"  style="cursor:pointer"><i class="fa fa-trash-o"></i></a></p>
                 </p>
               </div>
             </div>

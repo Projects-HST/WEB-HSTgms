@@ -255,7 +255,7 @@
                       <br>  <hr><br>
                                       <div class="form-group">
                                          <div class="col-md-9 col-sm-9  offset-md-2">
-                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                            <button type="submit" class="btn btn-success">CREATE</button>
                                          </div>
                                       </div>
             </div>
@@ -616,7 +616,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           ward_id:{required:"select ward" },
           office_id:{required:"select office" },
           booth_id:{required:"select booth" },
-          full_name:{required:"enter full name" },
+          full_name:{required:"enter the full name" },
           father_husband_name:{required:"Enter father or husband name" },
           mobile_no:{minlength:"Phone no should be 10 digits",maxlength:"Phone no should be 10 digits" },
           whatsapp_no:{minlength:"whatsapp no should be 10 digits",maxlength:"whatsapp no should be 10 digits" },

@@ -72,7 +72,7 @@ Class Constituentmodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"constituent updated Successfully!!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 					return $data;
 

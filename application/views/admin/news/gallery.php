@@ -67,7 +67,7 @@
 					<div class="col-lg-3" style="margin-bottom:25px;">
 					<div id="thumbnail">
 						<img src="<?php echo base_url(); ?>assets/news/<?php echo $rows->image_file_name; ?>" class="img-responsive" style="width:225px;height:129px;">
-						<a id="close" onclick="return confirm('Are you sure?')? delgal(<?php echo $rows->id; ?>):'';" data-toggle="tooltip" title="Delete" style="cursor:pointer"></a>
+						<a id="close" onclick="return confirm('Are you sure?')? delgal(<?php echo $rows->id; ?>):'';" data-toggle="tooltip" title="DELETE" style="cursor:pointer"></a>
 						</a>
 					</div>
 				</div>

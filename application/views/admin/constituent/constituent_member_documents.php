@@ -38,7 +38,7 @@
 
                  </div>
                   <div class="form-group row">
-                    <label class="col-form-label col-md-2 col-sm-3 label-align">File  <span class="required" aria-required="true">*</span>
+                    <label class="col-form-label col-md-2 col-sm-3 label-align">select a File  <span class="required" aria-required="true">*</span>
                     </label>
                     <div class="col-md-4 col-sm-6 ">
                        <input id="doc_file" class=" form-control" name="doc_file" type="file" value="">
@@ -160,7 +160,7 @@ $('#master_form').validate({
      },
      messages: {
        file_name:{required:"enter the file name" },
-       doc_file:{required:"select a file" }
+       doc_file:{required:"Select a file to upload" }
          }
  });
 

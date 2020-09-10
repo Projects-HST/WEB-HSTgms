@@ -18,7 +18,7 @@ th{
 								 <form method='post' action="<?= base_url() ?>constituent/all_enquiry" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
 										<div class="col-md-4 col-sm-4">
-											<input class="form-control" id="search" name="e_search" type="text" placeholder="Search using  name, Petition no,reference " value="<?= $e_search; ?>" />
+											<input class="form-control" id="search" name="e_search" type="text" placeholder="Search using  name, Petition no, Or reference " value="<?= $e_search; ?>" />
 										</div>
 										<div class="col-md-3 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">clear</a>
@@ -304,7 +304,7 @@ $('#list_grievance_reply_menu').addClass('active');
            reply_sms_text:{required:true,maxlength:240 }
        },
        messages: {
-         reply_sms_id:{required:"select title" },
+         reply_sms_id:{required:"select the type" },
          reply_sms_text:{required:"enter the sms text" }
        },
        submitHandler: function(form) {

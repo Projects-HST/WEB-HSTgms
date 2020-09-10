@@ -43,8 +43,8 @@
                             <?php   } ?>
                     </td>
                     <td>
-					<a href="<?php echo base_url(); ?>news/edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>
-					&nbsp; &nbsp; <a href="<?php echo base_url(); ?>news/gallery/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-picture-o"></i></a>
+					<a title="EDIT" href="<?php echo base_url(); ?>news/edit/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-edit"></i></a>
+					&nbsp; &nbsp; <a title="DELETE" href="<?php echo base_url(); ?>news/gallery/<?php echo base64_encode($rows->id*98765); ?>"><i class="fa fa-picture-o"></i></a>
 					</td>
                  </tr>
 

@@ -163,13 +163,13 @@ $('#create_user').addClass('active current-page');
 		messages: {
 			role: "Select the  Role",
 			paguthi: "Select the Paguthi",
-			name: "Enter thename",
+			name: "Enter the name",
 			email: {
 						 required: "Enter the email ID",
 						 email: "Enter the valid  email ID",
 						 remote: "Email ID already in use!"
 				 },
-			address: "Enter theaddress",
+			address: "Enter the address",
 			phone: {
 			required: "Enter the phone number",
 			maxlength:"Invalid phone number",
@@ -179,7 +179,7 @@ $('#create_user').addClass('active current-page');
 
 			},
 			profile_pic:{
-			  required:"Select the Profile Picture",
+			  required:"choose the Profile Picture",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"
 			},
