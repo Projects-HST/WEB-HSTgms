@@ -156,7 +156,7 @@
    $('#list_constituent_menu').addClass('active');
 
    function send_festival(cons_id,festival_id){
-     if (confirm("Are you sure you want to update the status?")) {
+     if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
      $.ajax({
    		url:'<?php echo base_url(); ?>constituent/sent_festival_wishes',
    		method:"POST",
