@@ -141,7 +141,7 @@ Class Usermodel extends CI_Model
 	}
 
 	function checkphone_edit($phone,$staff_id){
-	$select="SELECT * FROM user_master WHERE phone_number='$phone' AND id!='$staff_id'";
+	 $select="SELECT * FROM user_master WHERE phone_number='$phone' AND id!='$staff_id'";
 	$result=$this->db->query($select);
 		if($result->num_rows()>0){
 			echo "false";

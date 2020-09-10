@@ -62,7 +62,7 @@
             $message = $this->session->flashdata('msg');?>
             <div class="<?php echo $message['class'] ?> alert-dismissible">
                <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <strong> <?php echo $message['status']; ?>! </strong>  <?php echo $message['message']; ?>
+                <?php echo $message['message']; ?>
            </div>
           <?php  }  ?>
              <div class="x_panel">

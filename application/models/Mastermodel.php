@@ -96,11 +96,11 @@ Class Mastermodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"Paguthi created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -114,7 +114,7 @@ Class Mastermodel extends CI_Model
 			if($result){
 				$data=array("status"=>"success","msg"=>"Paguthi updated Successfully!","class"=>"alert alert-success");
 			}else{
-				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -147,11 +147,11 @@ Class Mastermodel extends CI_Model
 							if($result){
 								$data=array("status"=>"success","msg"=>"ward created Successfully!","class"=>"alert alert-success");
 							}else{
-								$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+								$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 							}
 
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Ward already exist to paguthi!","class"=>"alert alert-danger");
 					}
 					return $data;
 			}
@@ -168,11 +168,11 @@ Class Mastermodel extends CI_Model
 							if($result){
 								$data=array("status"=>"success","msg"=>"ward update Successfully!","class"=>"alert alert-success");
 							}else{
-								$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+								$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 							}
 
 					}else{
-						$data=array("status"=>"error","msg"=>"Ward already exist to paguthi","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Ward already exist to paguthi!","class"=>"alert alert-danger");
 					}
 					return $data;
 			}
@@ -239,11 +239,11 @@ Class Mastermodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"office created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"office already exists","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"office already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -266,7 +266,7 @@ Class Mastermodel extends CI_Model
 				if($result){
 					$data=array("status"=>"success","msg"=>"office update Successfully!","class"=>"alert alert-success");
 				}else{
-					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
 		}else{
@@ -300,13 +300,13 @@ Class Mastermodel extends CI_Model
 					$insert="INSERT INTO booth (constituency_id,paguthi_id,ward_id,booth_name,booth_address,status,created_at,created_by) values('$rows->constituency_id','$rows->paguthi_id','$id','$booth_name','$booth_address','$status',NOW(),'$user_id')";
 					$result=$this->db->query($insert);
 					if($result){
-						$data=array("status"=>"success","msg"=>"Booth created Successfully!","class"=>"alert alert-success");
+						$data=array("status"=>"success","msg"=>"Booth name created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"Booth already exists","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"Booth name already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -332,13 +332,13 @@ Class Mastermodel extends CI_Model
 				$update="UPDATE booth set booth_name='$booth_name',booth_address='$booth_address',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 				$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"ward update Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"booth name updated Successfully!","class"=>"alert alert-success");
 				}else{
-					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
 		}else{
-			$data=array("status"=>"error","msg"=>"Booth name already exists","class"=>"alert alert-danger");
+			$data=array("status"=>"error","msg"=>"Booth name already exists!","class"=>"alert alert-danger");
 		}
 		return $data;
 	}
@@ -390,13 +390,13 @@ Class Mastermodel extends CI_Model
 					$insert="INSERT INTO seeker_type (seeker_info,status,created_at,created_by) VALUES ('$seeker_info','$status',NOW(),'$user_id')";
 					$result=$this->db->query($insert);
 					if($result){
-						$data=array("status"=>"success","msg"=>"Seeeker created Successfully!","class"=>"alert alert-success");
+						$data=array("status"=>"success","msg"=>"Seeeker type created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"Seeker type already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -408,7 +408,7 @@ Class Mastermodel extends CI_Model
 		if($result){
 			$data=array("status"=>"success","msg"=>"Seeker type Updated Successfully!","class"=>"alert alert-success");
 		}else{
-			$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+			$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 		}
 		return $data;
 	}
@@ -440,13 +440,13 @@ Class Mastermodel extends CI_Model
 					$insert="INSERT INTO grievance_type (seeker_id,grievance_name,status,created_at,created_by) VALUES ('$seeker_id','$grievance_name','$status',NOW(),'$user_id')";
 					$result=$this->db->query($insert);
 					if($result){
-						$data=array("status"=>"success","msg"=>"Grievance created Successfully!","class"=>"alert alert-success");
+						$data=array("status"=>"success","msg"=>"Grievance type created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"Grievance  type already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -459,13 +459,13 @@ Class Mastermodel extends CI_Model
 				$update="UPDATE grievance_type set seeker_id='$seeker_id',grievance_name='$grievance_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 				$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"grievance update Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"grievance type update Successfully!","class"=>"alert alert-success");
 				}else{
-					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
 		}else{
-			$data=array("status"=>"error","msg"=>"Grievance  name already exist to seeker","class"=>"alert alert-danger");
+			$data=array("status"=>"error","msg"=>"Grievance type already exist to seeker","class"=>"alert alert-danger");
 		}
 		return $data;
 	}
@@ -501,11 +501,11 @@ Class Mastermodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"Grievance sub category created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"already exists went wrong","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"already exists went wrong!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -523,7 +523,7 @@ Class Mastermodel extends CI_Model
  				if($result){
  					$data=array("status"=>"success","msg"=>"Sub category update Successfully!","class"=>"alert alert-success");
  				}else{
- 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+ 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
  				}
 
  		}else{
@@ -569,11 +569,11 @@ Class Mastermodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"sms template created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"template already exists","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"sms template already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -588,7 +588,7 @@ Class Mastermodel extends CI_Model
  				if($result){
  					$data=array("status"=>"success","msg"=>"sms template update Successfully!","class"=>"alert alert-success");
  				}else{
- 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+ 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
  				}
 
  		}else{
@@ -629,11 +629,11 @@ Class Mastermodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"interaction question created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"interaction question already exists","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"interaction question already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -650,7 +650,7 @@ Class Mastermodel extends CI_Model
 				if($result){
 					$data=array("status"=>"success","msg"=>"interaction question update Successfully!","class"=>"alert alert-success");
 				}else{
-					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
 		}else{
@@ -678,11 +678,11 @@ Class Mastermodel extends CI_Model
 					if($result){
 						$data=array("status"=>"success","msg"=>"festival created Successfully!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"festival already exists","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"festival already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -704,7 +704,7 @@ Class Mastermodel extends CI_Model
 				if($result){
 					$data=array("status"=>"success","msg"=>"Festival update Successfully!","class"=>"alert alert-success");
 				}else{
-					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
 		}else{

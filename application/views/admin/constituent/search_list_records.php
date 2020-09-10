@@ -978,7 +978,7 @@ function get_constituent_video(sel){
       var j=1;
       for (i = 0; i < len; i++) {
 
-          $('#table_video').append('<tr><td>'+ j +'</td><td><a href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
+          $('#table_video').append('<tr><td>'+ j +'</td><td><a style="text-decoration:underline;" href="'+res[i].video_link+'" target="_blank">'+res[i].video_title+'</a></td><td>'+res[i].updated_at+'</td><td><a class="handle_symbol" onclick="edit_video_constituent('+res[i].id+')"><i class="fa fa-edit"></i></a></td></tr>');
           j++;
      }
       }else{
