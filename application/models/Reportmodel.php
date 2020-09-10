@@ -840,7 +840,7 @@ Class Reportmodel extends CI_Model
 
 	 function get_status_report_export($frmDate,$toDate,$status,$paguthi,$ward_id)
 		{
-				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,st.seeker_info,gt.grievance_name,sb.sub_category_name,g.status,g.grievance_date,g.created_at');
+				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,st.seeker_info,gt.grievance_name,sb.sub_category_name,g.status,g.grievance_date,g.created_at');
 				$this->db->from('grievance as g');
 				$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
 
@@ -890,7 +890,7 @@ Class Reportmodel extends CI_Model
 
 
 		function get_category_report_export($frmDate,$toDate,$g_seeker,$category,$sub_category_id,$paguthi,$ward_id){
-			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,st.seeker_info,gt.grievance_name,sb.sub_category_name,g.status,g.grievance_date,g.created_at');
+			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,st.seeker_info,gt.grievance_name,sb.sub_category_name,g.status,g.grievance_date,g.created_at');
 			$this->db->from('grievance as g');
 			$this->db->join('constituent as c', 'g.constituent_id = c.id', 'left');
 
@@ -949,7 +949,7 @@ Class Reportmodel extends CI_Model
 
 		function get_meeting_report_export($frmDate,$toDate,$status,$paguthi,$ward_id){
 			// $this->db->select('c.full_name,c.mobile_no,mr.meeting_date,mr.meeting_detail,mr.meeting_status');
-				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,mr.meeting_detail,mr.meeting_status,mr.meeting_date,mr.updated_at');
+				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,mr.meeting_detail,mr.meeting_status,mr.meeting_date,mr.updated_at');
 			$this->db->from('meeting_request as mr');
 			$this->db->join('constituent as c', 'mr.constituent_id = c.id', 'left');
 			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
@@ -990,7 +990,7 @@ Class Reportmodel extends CI_Model
 
 		function get_birthday_report_export($month_id,$year_id,$bf_year_id,$paguthi,$ward_id){
 
-				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,MONTHNAME (c.dob),YEAR(bw.created_at),bw.created_at');
+				$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,MONTHNAME (c.dob),YEAR(bw.created_at),bw.created_at');
 			$this->db->from('consitutent_birthday_wish as bw');
 			$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
 			$this->db->join('religion as r', 'c.religion_id = r.id', 'left');
@@ -1030,7 +1030,7 @@ Class Reportmodel extends CI_Model
 
 		function get_festival_report_export($religion_id,$year_id,$fr_year_id,$paguthi,$ward_id){
 			// $this->db->select('c.full_name,c.mobile_no,c.address,fm.festival_name,fw.updated_at as sent_on');
-			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,fm.festival_name,YEAR(fw.updated_at),fw.updated_at');
+			$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,fm.festival_name,YEAR(fw.updated_at),fw.updated_at');
 			$this->db->from('festival_wishes as fw');
 			$this->db->join('festival_master as fm', 'fm.id = fw.festival_id', 'left');
 			$this->db->join('constituent as c', 'c.id = fw.constituent_id', 'left');
@@ -1070,7 +1070,7 @@ Class Reportmodel extends CI_Model
 
 
 		function get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id){
-		$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,c.door_no,c.address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,c.voter_status,c.voter_id_no,c.volunteer_status,c.party_member_status,c.aadhaar_no, GROUP_CONCAT(DISTINCT(s.seeker_info)) as seeker_info,
+		$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,c.voter_status,c.voter_id_no,c.volunteer_status,c.party_member_status,c.aadhaar_no, GROUP_CONCAT(DISTINCT(s.seeker_info)) as seeker_info,
     GROUP_CONCAT(DISTINCT(gt.grievance_name)) as grievance_name, count(cv.constituent_id) as video_count,c.whatsapp_broadcast');
 		 $this->db->from('constituent as c');
 		 $this->db->join('religion as r', 'c.religion_id = r.id', 'left');
