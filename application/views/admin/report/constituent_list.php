@@ -56,8 +56,8 @@
                                 <div class="col-md-4 col-sm-4">
                                     <div class="form-group" style="margin-top: 10px;">
                                         <input class="" name="c_whatsapp_no" type="checkbox" value="1"
-                                        <?php if($c_whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp &nbsp; <input class="" name="c_mobile_no" type="checkbox" value="1"
-                                        <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Mobile No &nbsp; <input class="" name="c_email_id" type="checkbox" value="1"
+                                        <?php if($c_whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp no &nbsp; <input class="" name="c_mobile_no" type="checkbox" value="1"
+                                        <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Phone No &nbsp; <input class="" name="c_email_id" type="checkbox" value="1"
                                         <?php if($c_email_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; Email id &nbsp;
                                     </div>
                                 </div>
