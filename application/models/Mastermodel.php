@@ -166,7 +166,7 @@ Class Mastermodel extends CI_Model
 							$update="UPDATE ward set ward_name='$ward_name',paguthi_id='$paguthi_id',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 							$result=$this->db->query($update);
 							if($result){
-								$data=array("status"=>"success","msg"=>"ward update Successfully!","class"=>"alert alert-success");
+								$data=array("status"=>"success","msg"=>"ward updated Successfully!","class"=>"alert alert-success");
 							}else{
 								$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 							}
@@ -264,7 +264,7 @@ Class Mastermodel extends CI_Model
 				$update="UPDATE office set office_name='$office_name',office_short_form='$office_short_form',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 				$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"office update Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"office updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
@@ -459,7 +459,7 @@ Class Mastermodel extends CI_Model
 				$update="UPDATE grievance_type set seeker_id='$seeker_id',grievance_name='$grievance_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 				$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"grievance type update Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"grievance type updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
@@ -521,7 +521,7 @@ Class Mastermodel extends CI_Model
  				$update="UPDATE grievance_sub_category set grievance_id='$g_id',sub_category_name='$sub_category_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
  				$result=$this->db->query($update);
  				if($result){
- 					$data=array("status"=>"success","msg"=>"Sub category update Successfully!","class"=>"alert alert-success");
+ 					$data=array("status"=>"success","msg"=>"Sub category updated Successfully!","class"=>"alert alert-success");
  				}else{
  					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
  				}
@@ -586,7 +586,7 @@ Class Mastermodel extends CI_Model
  						$update="UPDATE sms_template set template_type='$template_type',sms_title='$sms_title',sms_text='$sms_text',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
  		        $result=$this->db->query($update);
  				if($result){
- 					$data=array("status"=>"success","msg"=>"sms template update Successfully!","class"=>"alert alert-success");
+ 					$data=array("status"=>"success","msg"=>"sms template updated Successfully!","class"=>"alert alert-success");
  				}else{
  					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
  				}
@@ -648,7 +648,7 @@ Class Mastermodel extends CI_Model
 						$update="UPDATE interaction_question set widgets_title='$widgets_title',interaction_text='$interaction_text',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 						$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"interaction question update Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"interaction question updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
@@ -702,7 +702,7 @@ Class Mastermodel extends CI_Model
 						 $update="UPDATE festival_master set festival_name='$festival_name',religion_id='$religion_id',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$fm_id'";
 					$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"Festival update Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Festival updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
