@@ -37,7 +37,7 @@ th{
                      <h4 style="text-align:left;margin-top:15px;"><?php echo $rows->full_name; ?></h4>
                      <ul class="list-unstyled user_data">
                        <li style="  word-wrap: break-word;"><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
-                       <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->pin_code; ?></li>
+                       <li><?php echo $rows->pin_code; ?></li>
 
 
                      </ul>
