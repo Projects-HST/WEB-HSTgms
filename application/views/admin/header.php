@@ -136,7 +136,7 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/User.png" class="img-responsive menu_img"> Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu user_menu">
                                  <li id="create_user"><a href="<?php echo base_url(); ?>users/add">Create user</a></li>
-                                 <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
+                                 <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">user list</a></li>
                               </ul>
                            </li>
 						   <?php } ?>

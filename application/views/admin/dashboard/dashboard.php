@@ -67,14 +67,16 @@
 				 <div class="col-md-3 col-sm-6">
 					 <label class="col-form-label  text-left">office</label>
 					 <select class="form-control" name="office_id" id="office_id">
+
 						 <?php
 						  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
 						 $result=$this->db->query($query);
 						 if($result->num_rows()==0){ ?>
-						 <option value=""></option>
+
 						 <?php 	}else{
-						 $res_office=$result->result();
-						 foreach($res_office as $rows_office){ ?>
+						 $res_office=$result->result(); ?>
+						 <option value="">ALL</option>
+						<?php foreach($res_office as $rows_office){ ?>
 							 <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
 						 <?php   }		}    ?>
 					 </select>

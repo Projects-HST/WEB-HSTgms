@@ -271,7 +271,7 @@ $(document).ready(function () {
             sms_text:{required:true,maxlength:240 }
         },
         messages: {
-          sms_id:{required:"select title" },
+          sms_id:{required:"select the title" },
           sms_text:{required:"enter the sms text" }
         },
         submitHandler: function(form) {

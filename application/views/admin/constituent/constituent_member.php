@@ -205,7 +205,7 @@
                   </div>
 
                     <div class="form-group row voter_section" id="">
-                         <label class="control-label col-md-2 col-sm-3 ">has Voter</label>
+                         <label class="control-label col-md-2 col-sm-3 ">has Voter id</label>
                        <div class="col-md-4 col-sm-9 ">
                           <p>
                           <input type="radio" class="flat" name="voter_id_status" id="voter_id_statu_y" value="Y" >  YES &nbsp;

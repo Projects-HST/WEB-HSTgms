@@ -80,7 +80,10 @@
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Profile Picture <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
-			<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" >
+				<button class="" style="display:block;width:120px; height:30px;" onclick="document.getElementById('profile_pic').click()">choose the Profile Picture</button>
+			<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" style="display:none"style="display:none">
+
+		 <!-- <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control" > -->
 		</div>
 		<div class="col-md-6 col-sm-6"></div>
 	</div>

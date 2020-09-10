@@ -2313,7 +2313,8 @@ article.media {
 
 h2 {
     font-size: 18px;
-    font-weight: 500
+    font-weight: 500;
+    color:#000;
 }
 
 #left,
