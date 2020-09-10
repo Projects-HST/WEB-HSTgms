@@ -14,11 +14,11 @@ th{
 							<h2> list of grievance</h2>
 
 					 </div>
-
+           <div class="ln_solid"></div>
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_grievance" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
-										<div class="col-md-6 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search using  name, Petition no,or reference " value="<?php echo $a_search; ?>" /></div>
+										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="a_search" type="text" placeholder="Search using  name, Petition no,or reference " value="<?php echo $a_search; ?>" /></div>
 										<div class="col-md-3 col-sm-2">
                       <input class="btn btn-success" type='submit' name='submit' value='Search'>
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">Clear</a>
@@ -28,7 +28,7 @@ th{
 
 									</form>
 
-                  <div class="ln_solid"></div>
+
                   <?php if($this->session->flashdata('msg')) {
                      $message = $this->session->flashdata('msg');?>
                   <div class="<?php echo $message['class'] ?> alert-dismissible">

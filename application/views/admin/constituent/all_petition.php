@@ -13,6 +13,7 @@ th{
 							<h2> list of Petition</h2>
 
 					 </div>
+             <div class="ln_solid"></div>
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_petition" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
@@ -25,7 +26,7 @@ th{
 
 								</div>
 									</form>
-                    <div class="ln_solid"></div>
+                  
                     <?php if($this->session->flashdata('msg')) {
                        $message = $this->session->flashdata('msg');?>
                     <div class="<?php echo $message['class'] ?> alert-dismissible">
