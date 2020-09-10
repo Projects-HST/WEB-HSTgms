@@ -176,11 +176,11 @@ function moneyFormatIndia($num) {
 
 
 					<div class="label_box">
-						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
+						<div class="c_widget_label">Having whatsapp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp); ?></div>
 					</div>
 					<div class="label_box">
-						<div class="c_widget_label">whatspp broadcast users (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
+						<div class="c_widget_label">whatsapp broadcast users (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp_broadcast); ?></div>
 					</div>
 					<div class="label_box">
