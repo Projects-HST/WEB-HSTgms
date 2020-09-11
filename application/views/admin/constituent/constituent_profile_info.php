@@ -140,7 +140,7 @@ th{
                                       <!-- <th>category</th> -->
                                       <!-- <th>sub category</th> -->
                                       <!-- <th>petition no</th> -->
-                                      <th>reference</th>
+                                      <th style="width:200px;">reference</th>
                                       <th>status</th>
                                       <!-- <th>updated On</th> -->
 
@@ -154,7 +154,7 @@ th{
                                       <!-- <td><?php echo $rows_grievance->grievance_name; ?></td> -->
                                       <!-- <td><?php echo $rows_grievance->sub_category_name; ?></td> -->
                                       <!-- <td><?php echo $rows_grievance->petition_enquiry_no; ?></td> -->
-                                      <td><?php echo $status= $rows_grievance->reference_note; ?></td>
+                                      <td class="badge badge-reference"><?php echo $status= $rows_grievance->reference_note; ?></td>
                                       <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $status= $rows_grievance->status; ?></td>
 									   <!-- <td><?php echo date('d-m-Y', strtotime($rows_grievance->updated_at)); ?></td> -->
 
