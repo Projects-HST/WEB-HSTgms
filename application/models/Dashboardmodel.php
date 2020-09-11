@@ -172,6 +172,7 @@ Class Dashboardmodel extends CI_Model
 
 		if(empty($from_date)){
 			$quer_bw_date="";
+			$quer_cv_date="";
 		}else{
 			$dateTime1 = new DateTime($from_date);
 			$one_date=date_format($dateTime1,'Y-m-d' );
@@ -183,6 +184,12 @@ Class Dashboardmodel extends CI_Model
 				$quer_bw_date="WHERE DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
 			}else{
 				$quer_bw_date="AND DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+
+			if(empty($quer_paguthi_video)){
+				$quer_cv_date="WHERE DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
 			}
 		}
 
@@ -242,12 +249,15 @@ Class Dashboardmodel extends CI_Model
 			// LEFT JOIN office as o on o.id=c.office_id
 			//  $quer_paguthi_video $quer_office_cons GROUP by c.paguthi_id
 			// ORDER BY cnt_video DESC LIMIT 2";
+
+
+
 			$query_5="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
 			left join paguthi as p on p.id=o.paguthi_id
-			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons
+			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons $quer_cv_date
 			left join constituent_video as cv on cv.constituent_id=c.id
 			GROUP BY o.id LIMIT 2";
-		
+
 
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();
