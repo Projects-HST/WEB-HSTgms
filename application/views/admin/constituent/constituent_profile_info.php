@@ -184,7 +184,7 @@ $(document).ready(function () {
         responsive: true,
         language: {
           "search": "",
-          searchPlaceholder: "SEARCH HERE"
+          searchPlaceholder: "SEARCH "
         }
     });
     $('#example_4').DataTable({
