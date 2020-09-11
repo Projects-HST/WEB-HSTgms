@@ -112,7 +112,8 @@ th{
                                       <th>Meeting details</th>
                                       <th>Meeting date</th>
                                       <th>status</th>
-                                      <th>updated On</th>
+                                      <th>created by</th>
+                                      <th>requested On</th>
                                    </tr>
                                 </thead>
                                 <tbody>
@@ -122,7 +123,8 @@ th{
                                         <td><?php echo $rows_meeting->meeting_detail; ?></td>
                                         <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
                                         <td class="badge-<?php echo $rows_meeting->meeting_status; ?>"><?php echo $rows_meeting->meeting_status; ?></td>
-                                        <td><?php echo date('d-m-Y', strtotime($rows_meeting->updated_at)); ?></td>
+                                        <td><?php echo $rows_meeting->full_name; ?></td>
+                                        <td><?php echo date('d-m-Y', strtotime($rows_meeting->created_at)); ?></td>
                                       </tr>
                                 <?php $i++; } ?>
                                 </tbody>
@@ -136,8 +138,8 @@ th{
                                       <th>S.no</th>
                                       <th>seeker type</th>
                                       <!-- <th>category</th> -->
-                                      <th>sub category</th>
-                                      <th>petition no</th>
+                                      <!-- <th>sub category</th> -->
+                                      <!-- <th>petition no</th> -->
                                       <th>reference</th>
                                       <th>status</th>
                                       <th>updated On</th>
@@ -150,8 +152,8 @@ th{
                                       <td><?php echo $i; ?></td>
                                       <td><?php echo $rows_grievance->seeker_info; ?></td>
                                       <!-- <td><?php echo $rows_grievance->grievance_name; ?></td> -->
-                                      <td><?php echo $rows_grievance->sub_category_name; ?></td>
-                                      <td><?php echo $rows_grievance->petition_enquiry_no; ?></td>
+                                      <!-- <td><?php echo $rows_grievance->sub_category_name; ?></td> -->
+                                      <!-- <td><?php echo $rows_grievance->petition_enquiry_no; ?></td> -->
                                       <td><?php echo $status= $rows_grievance->reference_note; ?></td>
                                       <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $status= $rows_grievance->status; ?></td>
 									   <td><?php echo date('d-m-Y', strtotime($rows_grievance->updated_at)); ?></td>

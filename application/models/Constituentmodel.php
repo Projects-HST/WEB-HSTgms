@@ -682,7 +682,7 @@ Class Constituentmodel extends CI_Model
 
 	function get_constituent_meeting($constituent_id){
 			$id=base64_decode($constituent_id)/98765;
-			$query="SELECT * FROM meeting_request where constituent_id='$id' order by id desc";
+			$query="SELECT mr.*,um.full_name FROM meeting_request as mr left join user_master as um on um.id=mr.created_by where mr.constituent_id='$id' order by mr.id desc";
 			$result=$this->db->query($query);
 			return $result->result();
 	}
