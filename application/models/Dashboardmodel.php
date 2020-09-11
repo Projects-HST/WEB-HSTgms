@@ -187,9 +187,15 @@ Class Dashboardmodel extends CI_Model
 			}
 
 			if(empty($quer_paguthi_video)){
-				$quer_cv_date="WHERE DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
 			}else{
 				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}
+
+			if(empty($quer_paguthi_cons)){
+				$quer_fw_date="WHERE DATE(fw.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_fw_date="AND DATE(fw.updated_at) BETWEEN '$one_date' and '$two_date'";
 			}
 		}
 
@@ -254,15 +260,16 @@ Class Dashboardmodel extends CI_Model
 
 			$query_5="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
 			left join paguthi as p on p.id=o.paguthi_id
-			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons 
-			left join constituent_video as cv on cv.constituent_id=c.id
+			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons
+			left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
 			GROUP BY o.id LIMIT 2";
+
 
 
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();
 
-			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons";
+			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons $quer_fw_date";
 			$res_6=$this->db->query($query_6);
 			$result_6=$res_6->result();
 
