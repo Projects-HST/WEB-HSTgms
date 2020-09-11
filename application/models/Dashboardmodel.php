@@ -254,7 +254,7 @@ Class Dashboardmodel extends CI_Model
 
 			$query_5="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
 			left join paguthi as p on p.id=o.paguthi_id
-			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons $quer_cv_date
+			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons 
 			left join constituent_video as cv on cv.constituent_id=c.id
 			GROUP BY o.id LIMIT 2";
 
