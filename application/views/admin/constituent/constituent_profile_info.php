@@ -7,7 +7,7 @@ th{
    <div class="">
       <div class="page-title">
          <div class="title_left">
-            <h3>Constituent Profile</h3>
+            <h2>Constituent Profile</h2>
          </div>
 
       </div>
