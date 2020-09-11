@@ -109,7 +109,7 @@ th{
                                 <thead>
                                    <tr>
                                       <th>S.no</th>
-                                      <th>Meeting details</th>
+                                      <th style="width:200px;">Meeting details</th>
                                       <th>Meeting date</th>
                                       <th>status</th>
                                       <th>created by</th>
