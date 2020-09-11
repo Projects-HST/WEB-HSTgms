@@ -1250,8 +1250,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			}else{
 				$this->db->where('c.office_id',$ward_id);
 			}
-			$this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
-
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
 
 
 			$this->db->group_by('c.id');
