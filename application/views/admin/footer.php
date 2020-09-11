@@ -12,7 +12,7 @@
 </style>
 <script>
 $(document).ready(function() {
-  $('.modal').on('hidden.bs.modal', function () {
+  $('#grievance_model,#meeting_model,#status_modal,#reference_modal,#reply_modal').on('hidden.bs.modal', function () {
       location.reload();
   });
     $('#example').DataTable({

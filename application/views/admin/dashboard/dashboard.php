@@ -3,6 +3,10 @@
 	color:#31aa15;
 	font-weight: bold;
 }
+.nav-md .container.body .right_col{
+	padding: 10px 20px 0;
+margin-left: 230px;
+}
 </style>
 <div class="right_col" role="main" style="min-height: 1284px;">
 
