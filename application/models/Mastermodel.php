@@ -291,9 +291,9 @@ Class Mastermodel extends CI_Model
 	function create_booth($booth_name,$booth_address,$status,$user_id,$ward_id){
 		$id=base64_decode($ward_id)/98765;
 		// $select="SELECT * FROM booth where ward_id='$id' and booth_name='$booth_name'";
-			$select="SELECT * FROM booth where  booth_name='$booth_name'";
-			$result=$this->db->query($select);
-			if($result->num_rows()==0){
+			// $select="SELECT * FROM booth where  booth_name='$booth_name'";
+			// $result=$this->db->query($select);
+			// if($result->num_rows()==0){
 					$get_detail="SELECT * FROM ward where id='$id'";
 					$res=$this->db->query($get_detail);
 					foreach($res->result() as $rows){}
@@ -305,9 +305,9 @@ Class Mastermodel extends CI_Model
 						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
-			}else{
-				$data=array("status"=>"error","msg"=>"Booth  already exists!","class"=>"alert alert-danger");
-			}
+			// }else{
+			// 	$data=array("status"=>"error","msg"=>"Booth  already exists!","class"=>"alert alert-danger");
+			// }
 			return $data;
 	}
 
@@ -325,10 +325,10 @@ Class Mastermodel extends CI_Model
 		$id=base64_decode($booth_id)/98765;
 		$w_id=base64_decode($ward_id)/98765;
 	 // $select="SELECT * FROM booth where ward_id='$w_id' and booth_name='$booth_name' and id!='$id'";
-	 $select="SELECT * FROM booth where  booth_name='$booth_name' and id!='$id'";
-
-		$result=$this->db->query($select);
-		if($result->num_rows()==0){
+	 // $select="SELECT * FROM booth where  booth_name='$booth_name' and id!='$id'";
+	 //
+		// $result=$this->db->query($select);
+		// if($result->num_rows()==0){
 				$update="UPDATE booth set booth_name='$booth_name',booth_address='$booth_address',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 				$result=$this->db->query($update);
 				if($result){
@@ -337,9 +337,9 @@ Class Mastermodel extends CI_Model
 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
-		}else{
-			$data=array("status"=>"error","msg"=>"Booth already exists!","class"=>"alert alert-danger");
-		}
+		// }else{
+		// 	$data=array("status"=>"error","msg"=>"Booth already exists!","class"=>"alert alert-danger");
+		// }
 		return $data;
 	}
 
