@@ -135,13 +135,13 @@ th{
                              <table id="example_4" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
                                    <tr>
-                                      <th>S.no</th>
-                                      <th style="width:200px;">seeker type</th>
+                                      <th style="width:50px;">S.no</th>
+                                      <th>seeker type</th>
                                       <!-- <th>category</th> -->
                                       <!-- <th>sub category</th> -->
                                       <!-- <th>petition no</th> -->
                                       <th style="width:200px;">reference</th>
-                                      <th>status</th>
+                                      <th style="width:50px;">status</th>
                                       <!-- <th>updated On</th> -->
 
                                    </tr>
