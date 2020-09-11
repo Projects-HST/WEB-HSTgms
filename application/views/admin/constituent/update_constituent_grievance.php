@@ -186,7 +186,7 @@ $('#grievance_form').validate({
            seeker_id:{required:true},
            grievance_id:{required:true},
            petition_enquiry_no:{required:true},
-           reference_note:{maxlength:240}
+           reference_note:{maxlength:240},
            sub_category_id:{required:false}
      },
      messages: {
