@@ -300,13 +300,13 @@ Class Mastermodel extends CI_Model
 					$insert="INSERT INTO booth (constituency_id,paguthi_id,ward_id,booth_name,booth_address,status,created_at,created_by) values('$rows->constituency_id','$rows->paguthi_id','$id','$booth_name','$booth_address','$status',NOW(),'$user_id')";
 					$result=$this->db->query($insert);
 					if($result){
-						$data=array("status"=>"success","msg"=>"Booth name created Successfully!","class"=>"alert alert-success");
+						$data=array("status"=>"success","msg"=>"Booth created Successfully!","class"=>"alert alert-success");
 					}else{
 						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 
 			}else{
-				$data=array("status"=>"error","msg"=>"Booth name already exists!","class"=>"alert alert-danger");
+				$data=array("status"=>"error","msg"=>"Booth  already exists!","class"=>"alert alert-danger");
 			}
 			return $data;
 	}
@@ -332,13 +332,13 @@ Class Mastermodel extends CI_Model
 				$update="UPDATE booth set booth_name='$booth_name',booth_address='$booth_address',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
 				$result=$this->db->query($update);
 				if($result){
-					$data=array("status"=>"success","msg"=>"booth name updated Successfully!","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"booth updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 				}
 
 		}else{
-			$data=array("status"=>"error","msg"=>"Booth name already exists!","class"=>"alert alert-danger");
+			$data=array("status"=>"error","msg"=>"Booth already exists!","class"=>"alert alert-danger");
 		}
 		return $data;
 	}
