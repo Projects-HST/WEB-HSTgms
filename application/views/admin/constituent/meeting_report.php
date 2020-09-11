@@ -33,7 +33,7 @@ th{
 				 </div>
 
          <div class="col-md-2 col-sm-4">
-            <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search Full name " value="<?php echo $mr_search; ?>" />
+            <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search constituent " value="<?php echo $mr_search; ?>" />
           </div>
 				 <div class="col-md-4 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="Search">
