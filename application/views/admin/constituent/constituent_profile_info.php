@@ -192,7 +192,7 @@ $(document).ready(function () {
         responsive: true,
         language: {
           "search": "",
-          searchPlaceholder: "SEARCH HERE"
+          searchPlaceholder: "SEARCH "
         }
     });
     $('#example_3').DataTable({
@@ -200,7 +200,7 @@ $(document).ready(function () {
         responsive: true,
         "language": {
           "search": "",
-          searchPlaceholder: "SEARCH HERE"
+          searchPlaceholder: "SEARCH"
         }
     });
 

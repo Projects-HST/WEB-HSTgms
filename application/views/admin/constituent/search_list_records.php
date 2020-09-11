@@ -1,6 +1,8 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
-
+input:required {
+    box-shadow:none;
+}
 </style>
 <div  class="right_col" role="main">
    <div class="">
