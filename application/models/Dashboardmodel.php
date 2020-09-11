@@ -263,14 +263,14 @@ Class Dashboardmodel extends CI_Model
 			left join paguthi as p on p.id=o.paguthi_id
 			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons
 			left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
-			GROUP BY o.id LIMIT 2";
+			GROUP BY o.id,cv.constituent_id LIMIT 2";
 
 
 
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();
 
-			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons $quer_fw_date";
+			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons $quer_fw_date GROUP BY fw.constituent_id";
 			$res_6=$this->db->query($query_6);
 			$result_6=$res_6->result();
 
