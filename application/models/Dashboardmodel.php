@@ -91,7 +91,7 @@ Class Dashboardmodel extends CI_Model
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi="";
 		}else{
-			$quer_paguthi="WHERE g.paguthi_id='$paguthi_id'";
+			$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
 		}
 
 		if($office_id=='ALL' || empty($office_id)){
@@ -99,6 +99,14 @@ Class Dashboardmodel extends CI_Model
 	}else{
 		$quer_office="AND g.office_id='$office_id'";
 	}
+
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+			$quer_paguthi_1="";
+		}else{
+			$quer_paguthi_1="WHERE g.paguthi_id='$paguthi_id'";
+		}
+
+
 
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi_cons="";
@@ -122,7 +130,7 @@ Class Dashboardmodel extends CI_Model
 			$two_date=date_format($dateTime2,'Y-m-d' );
 
 			if(empty($quer_paguthi)){
-				$quer_date="WHERE DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+				$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 			}else{
 				$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 			}
@@ -163,12 +171,19 @@ Class Dashboardmodel extends CI_Model
 
 
 
-		   $query_1="SELECT s.seeker_info,IFNULL(count(*),'0') as total,
-						IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
-						IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count
-						FROM grievance as g
-						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date
-						GROUP BY seeker_type_id LIMIT 2";
+		  // echo  $query_1="SELECT s.seeker_info,IFNULL(count(*),'0') as total,
+			// 			IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
+			// 			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count
+			// 			FROM grievance as g
+			// 			left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date
+			// 			GROUP BY seeker_type_id LIMIT 2";
+			// 			exit;
+						$query_1="SELECT s.seeker_info,IFNULL(count(g.id),'0') as total,
+						IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count, IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count  FROM seeker_type as s
+						left join grievance as g on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date
+						GROUP by s.id LIMIT 2";
+
+
 
 			$res_1=$this->db->query($query_1);
 		  $result_1=$res_1->result();
@@ -179,8 +194,8 @@ Class Dashboardmodel extends CI_Model
 			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 			IFNULL(IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') / count(*) * 100,'0') AS repeat_count_percentage
 						FROM grievance as g
-						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date";
-
+						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi_1 $quer_office $quer_date";
+						
 			$res_2=$this->db->query($query_2);
 			$result_2=$res_2->result();
 

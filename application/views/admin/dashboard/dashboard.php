@@ -215,7 +215,13 @@ function moneyFormatIndia($num) {
 					<hr>
 					<div class="row">
 				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
-							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100,2); ?>%)</p></div>
+							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php
+							if($row_grievenace->total=='0'){
+								echo "0";
+							}else{
+									echo round($row_grievenace->total/$total_grievance *100,2);
+							}
+							?>%)</p></div>
 							<div class="col-3"><p class="widget_label widget_value"> <?php echo  moneyFormatIndia($row_grievenace->total); ?></p></div>
 
 						<?php } ?>
