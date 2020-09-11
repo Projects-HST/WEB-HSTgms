@@ -1255,8 +1255,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 
 			$this->db->group_by('c.id');
-			// echo $this->db->get_compiled_select(); // before $this->db->get();
-			// exit;
+			echo $this->db->get_compiled_select(); // before $this->db->get();
+			exit;
 			$this->db->limit($rowperpage, $rowno);
 			$query = $this->db->get();
 			return $query->result_array();
@@ -1288,7 +1288,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 }else{
 			 $this->db->where('c.office_id',$ward_id);
 		 }
-		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
 		 $query = $this->db->get();
 		 $result = $query->result_array();
 		 return $result[0]['allcount'];
@@ -1319,7 +1319,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 }else{
 			 $this->db->where('c.ward_id',$ward_id);
 		 }
-		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
 
 
 
