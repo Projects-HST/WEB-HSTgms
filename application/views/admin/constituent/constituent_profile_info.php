@@ -2,6 +2,9 @@
 th{
   width:250px;
 }
+.badge-reference{
+  width:200px;
+}
 </style>
 <div class="right_col" role="main" style="min-height: 907px;">
    <div class="">
