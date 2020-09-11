@@ -3,6 +3,10 @@
 	color:#31aa15;
 	font-weight: bold;
 }
+.nav-md .container.body .right_col{
+	padding: 10px 20px 0;
+margin-left: 230px;
+}
 </style>
 <div class="right_col" role="main" style="min-height: 1284px;">
 
@@ -22,7 +26,7 @@
 		<div class="title_left">
 			<div class="col-md-12 col-sm-12 form-group pull-right top_search">
 			<div class="input-group">
-				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('Enter Name or Phone number or Voter ID or Aadhaar Card number of Constituent')" placeholder="Search for FULL Name, Phone number, Voter ID, Aadhaar Card number, Address" required>
+				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('ENTER NAME OR PHONE NUMBER OR VOTER ID OR AADHAAR CARD NUMBER OF CONSTITUENT')" placeholder="Search for constituents based on Name, Phone number, Voter ID or Aadhaar Card number, Address" required>
 				<span class="input-group-btn">
 					<input class="btn btn-default" type="submit" name="submit" style="padding: 15px 10px 13px 10px;background-color: #31aa15;
     color: #fff;    font-weight: 600;" value="GO!">
@@ -67,14 +71,16 @@
 				 <div class="col-md-3 col-sm-6">
 					 <label class="col-form-label  text-left">office</label>
 					 <select class="form-control" name="office_id" id="office_id">
+
 						 <?php
 						  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
 						 $result=$this->db->query($query);
 						 if($result->num_rows()==0){ ?>
-						 <option value=""></option>
+
 						 <?php 	}else{
-						 $res_office=$result->result();
-						 foreach($res_office as $rows_office){ ?>
+						 $res_office=$result->result(); ?>
+						 <option value="">ALL</option>
+						<?php foreach($res_office as $rows_office){ ?>
 							 <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
 						 <?php   }		}    ?>
 					 </select>
@@ -171,14 +177,15 @@ function moneyFormatIndia($num) {
 						<div class="c_widget_label">Having phone No (<?= round($rows_cons->mobile_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_mobilenumber); ?></div>
 					</div>
-					<div class="label_box">
-						<div class="c_widget_label">whatspp broadcast users (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
-						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp_broadcast); ?></div>
-					</div>
+
 
 					<div class="label_box">
-						<div class="c_widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
+						<div class="c_widget_label">Having whatsapp (<?= round($rows_cons->whatsapp_percentage,2); ?>%)</div>
 						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp); ?></div>
+					</div>
+					<div class="label_box">
+						<div class="c_widget_label">whatsapp broadcast users (<?= round($rows_cons->broadcast_percentage,2); ?>%)</div>
+						<div class="c_widget_value"><?= moneyFormatIndia($rows_cons->having_whatsapp_broadcast); ?></div>
 					</div>
 					<div class="label_box">
 						<div class="c_widget_label">Having Email id (<?= round($rows_cons->email_percentage,2); ?>%)</div>
@@ -187,26 +194,7 @@ function moneyFormatIndia($num) {
 
 				</div>
 
-				<!-- <div class="col-9 lh"><p class="widget_label">Total Male (<?= round($rows_cons->malepercenatge); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malecount; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Total Female (<?= round($rows_cons->femalepercenatge); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalecount; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Total Others (<?= round($rows_cons->otherpercenatge); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->others; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Male  voter(<?= round($rows_cons->malevoter_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->malevoter; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">feMale voter (<?= round($rows_cons->femalevoter_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femalevoter; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Male  aadhaar(<?= round($rows_cons->maleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->maleaadhar; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">female aadhaar (<?= round($rows_cons->femaleaadhaar_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->femaleaadhar; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Having phone No (<?= round($rows_cons->mobile_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_mobilenumber; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Having Email id (<?= round($rows_cons->email_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_email; ?></p></div>
-				<div class="col-9 lh"><p class="widget_label">Having whatspp (<?= round($rows_cons->whatsapp_percentage); ?>%)</p></div>
-				<div class="col-3 lh"><p class="widget_label widget_value"> <?= $rows_cons->having_whatsapp; ?></p></div> -->
+
 			</div>
 
 		</div>
@@ -224,14 +212,22 @@ function moneyFormatIndia($num) {
 							<div class="widget_title">
 								<p class="widget_heading">Grievance Count</p>
 								<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
-							<p class="widget_count"><?php echo moneyFormatIndia($total_grievance=$row_gr_list->total);  ?></p>
+							<!-- <p class="widget_count"><?php echo moneyFormatIndia($total_grievance=$row_gr_list->total);  ?></p> -->
+							<p class="widget_count"><?php $sum_1 = 0; if(empty($grievance_report['seeker_list'])){ 	}else{  foreach($grievance_report['seeker_list'] as $row_grievenace){ $sum_1 += $row_grievenace->total;  }} echo moneyFormatIndia($sum_1); ?>
+							</p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
-							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php echo round($row_grievenace->total/$total_grievance *100,2); ?>%)</p></div>
+							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php
+							if($row_grievenace->total=='0'){
+								echo "0";
+							}else{
+									echo round($row_grievenace->total/$total_grievance *100,2);
+							}
+							?>%)</p></div>
 							<div class="col-3"><p class="widget_label widget_value"> <?php echo  moneyFormatIndia($row_grievenace->total); ?></p></div>
 
 						<?php } ?>
@@ -339,7 +335,7 @@ function moneyFormatIndia($num) {
 					<hr>
 					<div class="row">
 
-						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>% )</p></div>
+						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">festival letters (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_fw_list->total/ $rows_cons->total *100,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_fw_list->total); ?></p></div>
@@ -365,7 +361,7 @@ function moneyFormatIndia($num) {
 						<?php if(empty($grievance_report['cv_list'])){
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
-						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?=  round($rows_vi_lits->cnt_video/ $rows_cons->total *100,2);?>%)</p></div>
+						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?php if($rows_cons->total=="0"){echo "0";}else{?><?= round($rows_vi_lits->cnt_video/$rows_cons->total*100,2);?><?php }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
 
@@ -420,32 +416,63 @@ function moneyFormatIndia($num) {
 </div>
 
 </div>
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+ <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
-		google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+		 google.charts.load('current', {packages: ['corechart','line']});
+// 		google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(drawChart);
+// function drawChart() {
+// var data = google.visualization.arrayToDataTable([
+// 	['Week', 'NEW', 'Repeated','Total'],
+// 	<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
+// 		['<?= "week".'-' .$i; ?>',  <?= $rows_graph->total ;?>,<?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
+// 	<?php $i++; } ?>
+//
+// 	// ['2005',  1170,      460,112],
+// 	// ['2006',  660,       1120,200],
+// 	// ['2007',  1030,      540,300],
+// ]);
+//
+// var options = {
+// 	title: '',
+// 	curveType: 'function',
+// 	legend: { position: 'bottom' }
+// };
+//
+// var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+//
+// chart.draw(data, options);
+// }
 function drawChart() {
-var data = google.visualization.arrayToDataTable([
-	['Week', 'NEW', 'Repeated','Total'],
-	<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
-		['<?= "week".'-' .$i; ?>',  <?= $rows_graph->total ;?>,<?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
-	<?php $i++; } ?>
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Week');
+            data.addColumn('number', 'New');
+            data.addColumn('number', 'Repeated');
+            data.addColumn('number', 'Total');
+            data.addRows([
 
-	// ['2005',  1170,      460,112],
-	// ['2006',  660,       1120,200],
-	// ['2007',  1030,      540,300],
-]);
+					<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
+						['<?= "week".'-' .$i; ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
+					<?php $i++; } ?>
 
-var options = {
-	title: '',
-	curveType: 'function',
-	legend: { position: 'bottom' }
-};
+            ]);
 
-var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-chart.draw(data, options);
-}
+            // Set chart options
+            var options = {
+               'width':1024,
+               'height':500,
+               pointsVisible: true
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+         }
+         google.charts.setOnLoadCallback(drawChart);
 
 $.validator.addMethod("chkDates", function(value, element) {
 		var startDate = $('#from_date').val();
@@ -474,7 +501,8 @@ $('#result_form').validate({
 	         return $("#from_date").val().length > 0; },chkDates: "#from_date"},
      },
      messages: {
-
+			 from_date:{required:"Select From Date"},
+			 to_date:{required:"Select TO Date"}
          }
  });
 

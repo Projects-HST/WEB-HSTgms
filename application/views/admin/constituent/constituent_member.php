@@ -178,7 +178,7 @@
                      <label class="control-label col-md-2 col-sm-3 ">Mobile no </label>
                      <div class="col-md-4 col-sm-9 ">
                        <input type="text" name="mobile_no" id="mobile_no" class="form-control" onblur="checkTextField(this);">
-                       <p id="copy_section"><input type="checkbox"  id="copy_value" style="margin-top:8px;"> &nbsp; <span>Same number to whatsapp</span></p>
+                       <p id="copy_section"><input type="checkbox"  id="copy_value" style="margin-top:8px;"> &nbsp; <span>Same number for whatsapp</span></p>
                      </div>
                      <label class="control-label col-md-2 col-sm-3 ">Whatsapp no</label>
                      <div class="col-md-4 col-sm-9 ">
@@ -205,7 +205,7 @@
                   </div>
 
                     <div class="form-group row voter_section" id="">
-                         <label class="control-label col-md-2 col-sm-3 ">Voter id status</label>
+                         <label class="control-label col-md-2 col-sm-3 ">has Voter id</label>
                        <div class="col-md-4 col-sm-9 ">
                           <p>
                           <input type="radio" class="flat" name="voter_id_status" id="voter_id_statu_y" value="Y" >  YES &nbsp;
@@ -219,7 +219,7 @@
                        </div>
                      </div>
                      <div class="form-group row ">
-                          <label class="control-label col-md-2 col-sm-3 ">aadhaar status </label>
+                          <label class="control-label col-md-2 col-sm-3 ">Has Aadhaar  </label>
                         <div class="col-md-4 col-sm-9 ">
                            <p>
                              <input type="radio" class="flat" name="aadhaar_status" id="aadhaar_status_y" value="Y" > YES &nbsp;
@@ -236,7 +236,8 @@
 
                           <label class="control-label col-md-2 col-sm-3 ">Profile image</label>
                          <div class="col-md-4 col-sm-9 ">
-                          <input type="file" name="profile_pic" id="profile_pic" class="form-control">
+                           <button class="" style="display:block;width:120px; height:30px;" onclick="document.getElementById('profile_pic').click()">SELECT A PHOTO</button>
+                          <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control" style="display:none">
                          </div>
                        </div>
 
@@ -254,7 +255,7 @@
                       <br>  <hr><br>
                                       <div class="form-group">
                                          <div class="col-md-9 col-sm-9  offset-md-2">
-                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                            <button type="submit" class="btn btn-success">CREATE</button>
                                          </div>
                                       </div>
             </div>
@@ -300,8 +301,10 @@
 .aadhaar_box{
   display: none;
 }
+
 </style>
 <script type="text/javascript">
+
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
    $('#create_constituent_menu').addClass('active');
@@ -581,8 +584,8 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           full_name:{required:true,maxlength:80 },
           father_husband_name:{required:false,maxlength:80 },
           guardian_name:{required:false,maxlength:80 },
-          mobile_no:{required:false,minlength:10,maxlength:10 },
-          whatsapp_no:{required:false,minlength:10,maxlength:10  },
+          mobile_no:{required:false,number:true,minlength:10,maxlength:10 },
+          whatsapp_no:{required:false,number:true,minlength:10,maxlength:10  },
           dob:{required:false,maxlength:10 },
           door_no:{required:false },
           address:{required:false,maxlength:240 },
@@ -613,10 +616,10 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           ward_id:{required:"select ward" },
           office_id:{required:"select office" },
           booth_id:{required:"select booth" },
-          full_name:{required:"enter full name" },
+          full_name:{required:"enter the full name" },
           father_husband_name:{required:"Enter father or husband name" },
-          mobile_no:{required:"enter mobile number" },
-          whatsapp_no:{required:"enter whatsapp no" },
+          mobile_no:{minlength:"Phone no should be 10 digits",maxlength:"Phone no should be 10 digits" },
+          whatsapp_no:{minlength:"whatsapp no should be 10 digits",maxlength:"whatsapp no should be 10 digits" },
           dob:{required:"select date of birth" },
           door_no:{required:"enter door no" },
           address:{required:"enter address" },

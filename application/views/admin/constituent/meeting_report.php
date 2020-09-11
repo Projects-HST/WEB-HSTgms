@@ -9,7 +9,7 @@ th{
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>Meeting list</h2>
+               <h2>list of meeting</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -33,7 +33,7 @@ th{
 				 </div>
 
          <div class="col-md-2 col-sm-4">
-            <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search Full name " value="<?php echo $mr_search; ?>" />
+            <input class="form-control" id="search" name="mr_search" type="text" placeholder="Search constituent " value="<?php echo $mr_search; ?>" />
           </div>
 				 <div class="col-md-4 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="Search">
@@ -191,15 +191,37 @@ $('#toDate').datetimepicker({
 $('#send_checkbox').change(function () {
       $('.show_sms').fadeToggle();
     });
+		$.validator.addMethod("chkDates", function(value, element) {
+				var startDate = $('#frmDate').val();
+				var datearray = startDate.split("-");
+				var frm_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+
+				var endDate = $('#toDate').val();
+				var datearray = endDate.split("-");
+				var to_date = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+
+				return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
+			}, "Please check dates");
 $('#report_form').validate({ // initialize the plugin
-     rules: {
-         frmDate:{required:true},
-         toDate:{required:true}
-     },
-     messages: {
-           frmDate: { required:"Select From Date"},
-           toDate: { required:"Select To Date"}
-         }
+     // rules: {
+     //     mr_frmDate:{required:true},
+     //     toDate:{required:true}
+     // },
+     // messages: {
+     //       frmDate: { required:"Select From Date"},
+     //       toDate: { required:"Select To Date"}
+     //     }
+				 rules: {
+						 // paguthi_id:{required:true },
+						mr_frmDate:{ required: function(element){
+								return $("#toDate").val().length > 0; }},
+					 mr_toDate:{ required: function(element){
+							return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
+				 },
+				 messages: {
+					mr_frmDate:{required:"Select the From Date"},
+					mr_toDate:{required:"Select the TO Date"}
+						 }
  });
 
  function get_sms_text(sel){

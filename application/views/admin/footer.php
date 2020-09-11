@@ -12,11 +12,14 @@
 </style>
 <script>
 $(document).ready(function() {
+  $('#grievance_model,#meeting_model,#status_modal,#reference_modal,#reply_modal').on('hidden.bs.modal', function () {
+      location.reload();
+  });
     $('#example').DataTable({
 
       "language": {
         "search": "",
-        searchPlaceholder: "SEARCH HERE"
+        searchPlaceholder: "SEARCH"
       },
       "scrollX": true
 

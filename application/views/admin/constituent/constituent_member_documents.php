@@ -4,14 +4,14 @@
          <div class="x_panel">
             <div class="x_panel">
                <div class="x_title">
-                  <h2><i class="fa fa-file-word-o"></i> Constituent document list</h2>
+                  <h2><i class="fa fa-file-word-o"></i> document list</h2>
 
                   <div class="clearfix"></div>
                </div>
                <div class="x_content">
                   <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                      <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Constituent documents</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Constituent document</a>
                      </li>
                      <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Grievance document</a>
@@ -38,14 +38,14 @@
 
                  </div>
                   <div class="form-group row">
-                    <label class="col-form-label col-md-2 col-sm-3 label-align">File  <span class="required" aria-required="true">*</span>
+                    <label class="col-form-label col-md-2 col-sm-3 label-align">select a File  <span class="required" aria-required="true">*</span>
                     </label>
                     <div class="col-md-4 col-sm-6 ">
                        <input id="doc_file" class=" form-control" name="doc_file" type="file" value="">
                     </div>
                   </div>
                   <div class="item form-group">
-                     <div class="col-md-6 col-sm-6 offset-md-3">
+                     <div class="col-md-4 col-sm-6 offset-md-2">
                         <button type="submit" class="btn btn-success">Upload</button>
                      </div>
                   </div>
@@ -67,7 +67,7 @@
                     <th>S.no</th>
                     <th>File name</th>
                     <th>Download</th>
-                    <th>Last updated at</th>
+                    <th>updated at</th>
 
                     <th>Action</th>
 
@@ -103,7 +103,7 @@
                              <th>S.no</th>
                              <th>File name</th>
                              <th>Download</th>
-                             <th>Last updated at</th>
+                             <th>updated at</th>
 
                              <th>Action</th>
 
@@ -160,7 +160,7 @@ $('#master_form').validate({
      },
      messages: {
        file_name:{required:"enter the file name" },
-       doc_file:{required:"select file" }
+       doc_file:{required:"Select a file to upload" }
          }
  });
 

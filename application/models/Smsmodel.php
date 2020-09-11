@@ -13,37 +13,37 @@ Class Smsmodel extends CI_Model
 	{
 
 
-			$str=urlencode($smsContent);
-			$msg = str_replace("'", "\\'", $str);
-
-			 $curl = curl_init();
-			  $url="https://api.msg91.com/api/sendhttp.php?authkey=308533AMShxOBgKSt75df73187&mobiles=$to_phone&country=91&message=$str&sender=GMSADM&route=4&unicode=1";
-
-			curl_setopt_array($curl, array(
-		  CURLOPT_URL => $url,
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => "",
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 30,
-		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		  CURLOPT_CUSTOMREQUEST => "POST",
-		  CURLOPT_SSL_VERIFYHOST => 0,
-		  CURLOPT_SSL_VERIFYPEER => 0,
-		  CURLOPT_HTTPHEADER => array(
-		    "content-type: application/json"
-		  ),
-		));
-
-		$response = curl_exec($curl);
-		$err = curl_error($curl);
-
-		curl_close($curl);
-
-		if ($err) {
-		  echo "cURL Error #:" . $err;
-		} else {
-		  // echo $response;
-		}
+		// 	$str=urlencode($smsContent);
+		// 	$msg = str_replace("'", "\\'", $str);
+		//
+		// 	 $curl = curl_init();
+		// 	  $url="https://api.msg91.com/api/sendhttp.php?authkey=308533AMShxOBgKSt75df73187&mobiles=$to_phone&country=91&message=$str&sender=GMSADM&route=4&unicode=1";
+		//
+		// 	curl_setopt_array($curl, array(
+		//   CURLOPT_URL => $url,
+		//   CURLOPT_RETURNTRANSFER => true,
+		//   CURLOPT_ENCODING => "",
+		//   CURLOPT_MAXREDIRS => 10,
+		//   CURLOPT_TIMEOUT => 30,
+		//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		//   CURLOPT_CUSTOMREQUEST => "POST",
+		//   CURLOPT_SSL_VERIFYHOST => 0,
+		//   CURLOPT_SSL_VERIFYPEER => 0,
+		//   CURLOPT_HTTPHEADER => array(
+		//     "content-type: application/json"
+		//   ),
+		// ));
+		//
+		// $response = curl_exec($curl);
+		// $err = curl_error($curl);
+		//
+		// curl_close($curl);
+		//
+		// if ($err) {
+		//   echo "cURL Error #:" . $err;
+		// } else {
+		//   // echo $response;
+		// }
 
 
 	}

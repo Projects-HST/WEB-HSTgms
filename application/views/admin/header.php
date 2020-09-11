@@ -125,7 +125,7 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Grievance.png" class="img-responsive menu_img"> Grievance <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu grievance_menu">
                                  <!-- <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li> -->
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">Grievance</a></li>
+																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">ALL</a></li>
 																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_petition">Petition</a></li>
 																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_enquiry">Enquiry</a></li>
                                   <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
@@ -136,7 +136,7 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/User.png" class="img-responsive menu_img"> Users <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu user_menu">
                                  <li id="create_user"><a href="<?php echo base_url(); ?>users/add">Create user</a></li>
-                                 <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">List user</a></li>
+                                 <li id="list_user"><a href="<?php echo base_url(); ?>users/list_users">user list</a></li>
                               </ul>
                            </li>
 						   <?php } ?>
@@ -155,7 +155,7 @@
                                 <li><a href="<?php echo base_url(); ?>report/category">Grievance</a></li>
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
                                 <!-- <li><a href="<?php echo base_url(); ?>report/location">Location</a></li> -->
-																<li><a href="<?php echo base_url(); ?>report/meetings">Meetings</a></li>
+																<li><a href="<?php echo base_url(); ?>report/meetings">Meeting</a></li>
 
 																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
 																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival letter</a></li>
@@ -200,7 +200,7 @@
                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/profile"> Profile</a>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>login/password"> change Password</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> LogOut</a>
                            </div>
                         </li>
                      </ul>

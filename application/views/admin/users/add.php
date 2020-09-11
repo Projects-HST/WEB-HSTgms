@@ -80,7 +80,10 @@
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Profile Picture <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
+
 			<input type="file" id="profile_pic" class="form-control" name="profile_pic" title="Please select image" accept="image/*" >
+
+		 <!-- <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control" > -->
 		</div>
 		<div class="col-md-6 col-sm-6"></div>
 	</div>
@@ -161,17 +164,17 @@ $('#create_user').addClass('active current-page');
 			}
 		},
 		messages: {
-			role: "Select Role",
-			paguthi: "Select Paguthi",
-			name: "Enter name",
+			role: "Select the  Role",
+			paguthi: "Select the Paguthi",
+			name: "Enter the name",
 			email: {
-						 required: "Enter email ID",
-						 email: "Enter valid Enter email ID",
+						 required: "Enter the email ID",
+						 email: "Enter the valid  email ID",
 						 remote: "Email ID already in use!"
 				 },
-			address: "Enter address",
+			address: "Enter the address",
 			phone: {
-			required: "Enter phone number",
+			required: "Enter the phone number",
 			maxlength:"Invalid phone number",
 			minlength:"Invalid phone number",
 			number:"Invalid phone number",
@@ -179,11 +182,11 @@ $('#create_user').addClass('active current-page');
 
 			},
 			profile_pic:{
-			  required:"Select Profile Picture",
+			  required:"choose the Profile Picture",
 			  accept:"Please upload .jpg or .png .",
 			  filesize:"File must be JPG or PNG, less than 1MB"
 			},
-			status: "Select Status",
+			status: "Select the Status",
 		}
 		});
 

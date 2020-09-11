@@ -2,12 +2,15 @@
 th{
   width:250px;
 }
+.badge-reference{
+  width:200px;
+}
 </style>
 <div class="right_col" role="main" style="min-height: 907px;">
    <div class="">
       <div class="page-title">
          <div class="title_left">
-            <h3>User Profile</h3>
+            <h2>Constituent Profile</h2>
          </div>
 
       </div>
@@ -37,7 +40,7 @@ th{
                      <h4 style="text-align:left;margin-top:15px;"><?php echo $rows->full_name; ?></h4>
                      <ul class="list-unstyled user_data">
                        <li style="  word-wrap: break-word;"><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->door_no; ?> &nbsp; <?php echo $rows->address; ?></li>
-                       <li><i class="fa fa-map-marker user-profile-icon"></i> <?php echo $rows->pin_code; ?></li>
+                       <li><?php echo $rows->pin_code; ?></li>
 
 
                      </ul>
@@ -63,8 +66,8 @@ th{
                       </div>
                       <div class="col-md-6">
                         <p class="label_profile">GENDER: <span class="label_text"><?php if($rows->gender=='M'){ echo "male"; }else if($rows->gender=='M'){ echo "female";}else{ echo "others"; }  ?></span></p>
-                        <p class="label_profile">mobile no: <span class="label_text"><?php echo $rows->mobile_no; ?></span></p>
-                        <p class="label_profile">whatsapp: <span class="label_text"><?php echo $rows->whatsapp_no; ?></span></p>
+                        <p class="label_profile">Phone no: <span class="label_text"><?php echo $rows->mobile_no; ?></span></p>
+                        <p class="label_profile">whatsapp no: <span class="label_text"><?php echo $rows->whatsapp_no; ?></span></p>
                         <p class="label_profile">email id: <span class="label_text"><?php echo $rows->email_id; ?></span></p>
                         <p class="label_profile">religion: <span class="label_text"><?php echo $rows->religion_name; ?></span></p>
                         <p class="label_profile">voter id: <span class="label_text"><?php echo $rows->voter_id_no; ?></span></p>
@@ -77,7 +80,7 @@ th{
                   <div class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-top:15px;">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                            <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="" aria-selected="false">Meeting</a></li>
-                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance details</a></li>
+                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance</a></li>
                            <!-- <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false" class="active" aria-selected="true">Meeting and plant</a></li> -->
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -109,10 +112,11 @@ th{
                                 <thead>
                                    <tr>
                                       <th>S.no</th>
-                                      <th>Meeting details</th>
+                                      <th style="width:200px;">Meeting details</th>
                                       <th>Meeting date</th>
                                       <th>status</th>
-                                      <th>updated On</th>
+                                      <th>created by</th>
+                                      <th>requested On</th>
                                    </tr>
                                 </thead>
                                 <tbody>
@@ -122,7 +126,8 @@ th{
                                         <td><?php echo $rows_meeting->meeting_detail; ?></td>
                                         <td><?php echo date('d-m-Y', strtotime($rows_meeting->meeting_date)); ?></td>
                                         <td class="badge-<?php echo $rows_meeting->meeting_status; ?>"><?php echo $rows_meeting->meeting_status; ?></td>
-                                        <td><?php echo date('d-m-Y', strtotime($rows_meeting->updated_at)); ?></td>
+                                        <td><?php echo $rows_meeting->full_name; ?></td>
+                                        <td><?php echo date('d-m-Y', strtotime($rows_meeting->created_at)); ?></td>
                                       </tr>
                                 <?php $i++; } ?>
                                 </tbody>
@@ -133,14 +138,14 @@ th{
                              <table id="example_4" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
                                    <tr>
-                                      <th>S.no</th>
+                                      <th style="width:50px;">S.no</th>
                                       <th>seeker type</th>
                                       <!-- <th>category</th> -->
-                                      <th>sub category</th>
-                                      <th>petition no</th>
-                                      <th>reference</th>
-                                      <th>status</th>
-                                      <th>updated at</th>
+                                      <!-- <th>sub category</th> -->
+                                      <!-- <th>petition no</th> -->
+                                      <th style="width:200px;">reference</th>
+                                      <th style="width:50px;">status</th>
+                                      <!-- <th>updated On</th> -->
 
                                    </tr>
                                 </thead>
@@ -150,11 +155,11 @@ th{
                                       <td><?php echo $i; ?></td>
                                       <td><?php echo $rows_grievance->seeker_info; ?></td>
                                       <!-- <td><?php echo $rows_grievance->grievance_name; ?></td> -->
-                                      <td><?php echo $rows_grievance->sub_category_name; ?></td>
-                                      <td><?php echo $rows_grievance->petition_enquiry_no; ?></td>
-                                      <td><?php echo $status= $rows_grievance->reference_note; ?></td>
+                                      <!-- <td><?php echo $rows_grievance->sub_category_name; ?></td> -->
+                                      <!-- <td><?php echo $rows_grievance->petition_enquiry_no; ?></td> -->
+                                      <td class="badge badge-reference"><?php echo $status= $rows_grievance->reference_note; ?></td>
                                       <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $status= $rows_grievance->status; ?></td>
-									   <td><?php echo date('d-m-Y', strtotime($rows_grievance->updated_at)); ?></td>
+									   <!-- <td><?php echo date('d-m-Y', strtotime($rows_grievance->updated_at)); ?></td> -->
 
 
                                       </tr>
@@ -182,7 +187,7 @@ $(document).ready(function () {
         responsive: true,
         language: {
           "search": "",
-          searchPlaceholder: "SEARCH HERE"
+          searchPlaceholder: "SEARCH "
         }
     });
     $('#example_4').DataTable({
@@ -190,7 +195,7 @@ $(document).ready(function () {
         responsive: true,
         language: {
           "search": "",
-          searchPlaceholder: "SEARCH HERE"
+          searchPlaceholder: "SEARCH "
         }
     });
     $('#example_3').DataTable({
@@ -198,7 +203,7 @@ $(document).ready(function () {
         responsive: true,
         "language": {
           "search": "",
-          searchPlaceholder: "SEARCH HERE"
+          searchPlaceholder: "SEARCH"
         }
     });
 

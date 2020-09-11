@@ -37,7 +37,7 @@ Class Constituentmodel extends CI_Model
 			}
 		 }
 		if($result){
-			$data=array("status"=>"success","msg"=>"constituent created Successfully","class"=>"alert alert-success");
+			$data=array("status"=>"success","msg"=>"constituent created Successfully!","class"=>"alert alert-success");
 		}else{
 			$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 		}
@@ -70,9 +70,9 @@ Class Constituentmodel extends CI_Model
 
 					$result=$this->db->query($update);
 					if($result){
-						$data=array("status"=>"success","msg"=>"constituent updated Successfully","class"=>"alert alert-success");
+						$data=array("status"=>"success","msg"=>"constituent updated Successfully!!","class"=>"alert alert-success");
 					}else{
-						$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 					}
 					return $data;
 
@@ -233,7 +233,7 @@ Class Constituentmodel extends CI_Model
 					$insert="INSERT INTO grievance_documents(constituent_id,doc_name,doc_file_name,status,created_by,created_at,updated_by,updated_at) VALUES ('$id','$doc_name','$filename','ACTIVE','$user_id',NOW(),'$user_id',NOW())";
 						$result=$this->db->query($insert);
 						if($result){
-							$data=array("status"=>"success","msg"=>"$doc_name Document uploaded Successfully","class"=>"alert alert-success");
+							$data=array("status"=>"success","msg"=>"$doc_name Document uploaded Successfully!","class"=>"alert alert-success");
 						}else{
 							$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 						}
@@ -271,7 +271,7 @@ Class Constituentmodel extends CI_Model
 			 }
 
 		 if($res_interaction){
-			 $data=array("status"=>"success","msg"=>"interaction saved Successfully","class"=>"alert alert-success");
+			 $data=array("status"=>"success","msg"=>"interaction saved Successfully!","class"=>"alert alert-success");
 		 }else{
 			 $data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 		 }
@@ -296,7 +296,7 @@ Class Constituentmodel extends CI_Model
 			$insert_interaction="INSERT INTO plant_donation(constituent_id,name_of_plant,no_of_plant,status,created_at,created_by) VALUES('$constituent_id','$name_of_plant','$no_of_plant','ACTIVE',NOW(),'$user_id')";
 			$result   = $this->db->query($insert_interaction);
 			if($result){
-					$data=array("status"=>"success","msg"=>"Plant  donation saved Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Plant  donation saved Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}
@@ -304,7 +304,7 @@ Class Constituentmodel extends CI_Model
 			$update="UPDATE plant_donation SET name_of_plant='$name_of_plant',no_of_plant='$no_of_plant',updated_at=NOW(),updated_by='$user_id' where constituent_id='$constituent_id'";
 			$result   = $this->db->query($update);
 			if($result){
-					$data=array("status"=>"success","msg"=>"Plant  donation saved Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Plant  donation saved Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}
@@ -372,7 +372,7 @@ Class Constituentmodel extends CI_Model
 		$query="UPDATE constituent_video SET video_title='$video_title',video_link='$video_link',updated_at=NOW(),updated_by='$user_id' where id='$video_link_id'";
 		$result   = $this->db->query($query);
 		if($result){
-				$data=array("status"=>"success","msg"=>"Video link updated Successfully","class"=>"alert alert-success");
+				$data=array("status"=>"success","msg"=>"Video link updated Successfully!","class"=>"alert alert-success");
 			}else{
 				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 			}
@@ -384,7 +384,7 @@ Class Constituentmodel extends CI_Model
 		$insert="INSERT INTO meeting_request(constituent_id,meeting_title,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_title','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
 		$result   = $this->db->query($insert);
 		if($result){
-				$data=array("status"=>"success","msg"=>"meeting request saved Successfully","class"=>"alert alert-success");
+				$data=array("status"=>"success","msg"=>"meeting request saved Successfully!","class"=>"alert alert-success");
 			}else{
 				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 			}
@@ -396,7 +396,7 @@ Class Constituentmodel extends CI_Model
 		$query="UPDATE meeting_request SET meeting_title='$meeting_title',meeting_detail='$meeting_detail',meeting_date='$meeting_date',meeting_status='$meeting_status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
 		$result   = $this->db->query($query);
 		if($result){
-				$data=array("status"=>"success","msg"=>"meeting request updated Successfully","class"=>"alert alert-success");
+				$data=array("status"=>"success","msg"=>"meeting request updated Successfully!","class"=>"alert alert-success");
 			}else{
 				$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 			}
@@ -472,12 +472,12 @@ Class Constituentmodel extends CI_Model
 					$insert_doc="INSERT INTO grievance_documents(constituent_id,grievance_id,doc_name,doc_file_name,status,created_by,created_at,updated_by,updated_at) VALUES ('$constituent_id','$last_id','$doc_name','$filename','ACTIVE','$user_id',NOW(),'$user_id',NOW())";
 						$result=$this->db->query($insert_doc);
 						if($result){
-								$data=array("status"=>"success","msg"=>"Grievance added Successfully","class"=>"alert alert-success");
+								$data=array("status"=>"success","msg"=>"Grievance added Successfully!","class"=>"alert alert-success");
 							}else{
 								$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 							}
 				}
-					$data=array("status"=>"success","msg"=>"Grievance added Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Grievance added Successfully!","class"=>"alert alert-success");
 			}else{
 				$data=array("status"=>"error","msg"=>"Petition already exists","class"=>"alert alert-danger");
 			}
@@ -564,7 +564,7 @@ Class Constituentmodel extends CI_Model
 			$update="UPDATE grievance SET enquiry_status='$enquiry_status',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
 			$result=$this->db->query($update);
 			if($result){
-					$data=array("status"=>"success","msg"=>"Grievance status updated Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Grievance status updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}
@@ -583,7 +583,7 @@ Class Constituentmodel extends CI_Model
 			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_flag','$sms_id','$sms_text',NOW(),'$user_id')";
 			$result_insert=$this->db->query($insert);
 			if($result_insert){
-					$data=array("status"=>"success","msg"=>"SMS sent Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"SMS sent Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}
@@ -595,7 +595,7 @@ Class Constituentmodel extends CI_Model
 			$update="UPDATE grievance SET reference_note='$reference_note',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
 			$result=$this->db->query($update);
 			if($result){
-					$data=array("status"=>"success","msg"=>"Grievance reference updated Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Grievance reference updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}
@@ -607,7 +607,7 @@ Class Constituentmodel extends CI_Model
 			$update="UPDATE grievance SET seeker_type_id='$seeker_id',office_id='$office_id',grievance_type_id='$grievance_id',sub_category_id='$sub_category_id',description='$description',reference_note='$reference_note',updated_at=NOW(),updated_by='$user_id' WHERE id='$id'";
 			$result=$this->db->query($update);
 			if($result){
-					$data=array("status"=>"success","msg"=>"Grievance updated Successfully","class"=>"alert alert-success");
+					$data=array("status"=>"success","msg"=>"Grievance updated Successfully!","class"=>"alert alert-success");
 				}else{
 					$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 				}
@@ -682,7 +682,7 @@ Class Constituentmodel extends CI_Model
 
 	function get_constituent_meeting($constituent_id){
 			$id=base64_decode($constituent_id)/98765;
-			$query="SELECT * FROM meeting_request where constituent_id='$id' order by id desc";
+			$query="SELECT mr.*,um.full_name FROM meeting_request as mr left join user_master as um on um.id=mr.created_by where mr.constituent_id='$id' order by mr.id desc";
 			$result=$this->db->query($query);
 			return $result->result();
 	}
@@ -883,7 +883,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	}
 	$this->db->order_by("c.id", "desc");
 	$this->db->limit($rowperpage, $rowno);
-	// echo $this->db->get_compiled_select(); exit;
+	// echo $this->db->get_compiled_select();
+	// exit;
 	$query = $this->db->get();
 
 	return $query->result_array();
@@ -895,19 +896,35 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		$this->db->select('count(*) as allcount');
 		$this->db->from('constituent');
 
-		if($search_text != ''){
-			$this->db->or_like('full_name', $search_text);
-			// $this->db->or_like('father_husband_name', $search);
-			// $this->db->or_like('guardian_name', $search);
-			$this->db->or_like('mobile_no', $search_text);
-			// $this->db->or_like('whatsapp_no', $search);
-			// $this->db->or_like('address', $search);
-			// $this->db->or_like('pin_code', $search);
-			// $this->db->or_like('email_id', $search_text);
-			$this->db->or_like('voter_id_no', $search_text);
-			$this->db->or_like('aadhaar_no', $search_text);
-			$this->db->or_like('serial_no', $search_text);
-		}
+					$search_key_1 = '';
+					$search_key_2 = '';
+
+			if($search_text != ''){
+
+				$search_key = (explode(",",$search_text));
+				$search_key_count = count($search_key);
+
+				if ($search_key_count >=0){
+									$search_key_1 = trim(strtoupper($search_key[0]));
+							 }
+
+							if ($search_key_count >1) {
+									$search_key_2 = trim(strtoupper($search_key[1]));
+							}
+
+				if ($search_key_2 != ''){
+					 $this->db->like('full_name', $search_key_1,'after');
+					 $this->db->like('address', $search_key_2);
+				} else {
+					$this->db->or_like('full_name', $search_key_1,'after');
+					$this->db->or_like('mobile_no', $search_key_1);
+					$this->db->or_like('voter_id_no', $search_key_1);
+					$this->db->or_like('aadhaar_no', $search_key_1);
+					$this->db->or_like('serial_no', $search_key_1);
+				}
+
+
+			}
 			// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
@@ -1195,7 +1212,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 						$insert="INSERT INTO constituent_video (constituent_id,video_title,video_link,status,updated_at,updated_by) VALUES ('$constituent_id','$video_title','$video_link','ACTIVE',NOW(),'$user_id')";
 						$result=$this->db->query($insert);
 						if($result){
-							$data=array("status"=>"success","msg"=>"Video added Successfully","class"=>"alert alert-success");
+							$data=array("status"=>"success","msg"=>"Video added Successfully!","class"=>"alert alert-success");
 						}else{
 							$data=array("status"=>"error","msg"=>"Something went wrong","class"=>"alert alert-danger");
 						}
@@ -1233,8 +1250,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			}else{
 				$this->db->where('c.office_id',$ward_id);
 			}
-			$this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
-
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
 
 
 			$this->db->group_by('c.id');
@@ -1271,7 +1287,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 }else{
 			 $this->db->where('c.office_id',$ward_id);
 		 }
-		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
 		 $query = $this->db->get();
 		 $result = $query->result_array();
 		 return $result[0]['allcount'];
@@ -1302,7 +1318,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 }else{
 			 $this->db->where('c.ward_id',$ward_id);
 		 }
-		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id)",null,false);
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
 
 
 

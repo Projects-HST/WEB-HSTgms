@@ -134,18 +134,18 @@ var dateToday = new Date();
 			status:{ required: true}
 		},
 		messages: {
-				constituency_id: "Select constituency",
-				news_title: "Enter News title",
+				constituency_id: "Select the constituency",
+				news_title: "Enter the title",
 				 news_details:{
-					required:"Enter News Details"
+					required:"Enter the Details"
 				 },
 
 				news_pic:{
-					  required:"Select News Picture",
+					  required:"choose the Picture",
 					  accept:"Please upload .jpg or .png .",
 					  filesize:"File must be JPG or PNG, less than 1MB"
 					},
-				status:"Select Status"
+				status:"Select the Status"
 		}
 	});
 

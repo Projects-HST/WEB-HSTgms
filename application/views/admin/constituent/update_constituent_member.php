@@ -287,7 +287,8 @@
 
                           <label class="control-label col-md-2 col-sm-3 ">Profile image</label>
                          <div class="col-md-4 col-sm-9 ">
-                          <input type="file" name="profile_pic" id="profile_pic" class="form-control">
+                           <button class="" style="display:block;width:130px; height:30px;" onclick="document.getElementById('profile_pic').click()">SELECT A PHOTO</button>
+                          <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control" style="display:none">
                             <input type="hidden" name="old_profile_pic" id="old_profile_pic" class="form-control" value="<?php echo $rows->profile_pic; ?>">
                          </div>
                          <label class="control-label col-md-2 col-sm-3 ">current image</label>
@@ -596,8 +597,8 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           booth_id:{required:"select booth" },
           full_name:{required:"enter full name" },
           father_husband_name:{required:"Enter father or husband name" },
-          mobile_no:{required:"enter mobile number" },
-          whatsapp_no:{required:"enter whatsapp no" },
+          mobile_no:{minlength:"Phone no should be 10 digits",maxlength:"Phone no should be 10 digits" },
+          whatsapp_no:{minlength:"whatsapp no should be 10 digits",maxlength:"whatsapp no should be 10 digits" },
           dob:{required:"select date of birth" },
           door_no:{required:"enter door no" },
           address:{required:"enter address" },

@@ -4,6 +4,7 @@
          <div class="x_panel">
             <div class="x_title">
                <h2>Staff Report </h2>
+               <a href="<?php echo base_url(); ?>report/get_staff_report_export" class="btn btn-export pull-right">Export</a>
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -21,7 +22,7 @@
 				 <div class="col-md-3 col-sm-2">
            <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
            <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
-             <a href="<?php echo base_url(); ?>report/get_staff_report_export" class="btn btn-export">Export</a>
+
 				 </div>
 			  </div>
 			  <div class="ln_solid"></div>
@@ -32,11 +33,11 @@
             <thead>
                 <tr>
                   <th>S.no</th>
-                  <th>Staff</th>
-                  <th>Total constituent</th>
-                  <th>Total video</th>
-                  <th>Total Grievance</th>
-                  <th>Total Broadcast</th>
+                  <th>Staff name</th>
+                  <th>constituent created</th>
+                  <th>video added</th>
+                  <th>Grievance  added</th>
+                  <th>Broadcast constituent added</th>
 
                 </tr>
             </thead>

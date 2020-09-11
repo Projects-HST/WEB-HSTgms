@@ -18,7 +18,7 @@
 
          <div class="x_panel">
             <div class="x_title">
-               <h2>Add Gallery</h2>
+               <h2>Add PHOTO</h2>
 
                <div class="clearfix"></div>
             </div>
@@ -31,7 +31,7 @@
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 ">Select Photos <span class="required">*</span></label>
 						<div class="col-md-4 col-sm-4">
-							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" multiple required><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
+							<input type="file" name="news_photos[]" id="news_photos" class="form-control" accept="image/*" oninvalid="this.setCustomValidity('CHOOSE THE PHOTO')" multiple required><span class="required" style="font-size:11px;font-weight:normal;">1400 * 800 px</span>
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
-               <h2>View Gallery</h2>
+               <h2>View PHOTO</h2>
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -67,7 +67,7 @@
 					<div class="col-lg-3" style="margin-bottom:25px;">
 					<div id="thumbnail">
 						<img src="<?php echo base_url(); ?>assets/news/<?php echo $rows->image_file_name; ?>" class="img-responsive" style="width:225px;height:129px;">
-						<a id="close" onclick="return confirm('Are you sure?')? delgal(<?php echo $rows->id; ?>):'';" data-toggle="tooltip" title="Delete" style="cursor:pointer"></a>
+						<a id="close" onclick="return confirm('Are you sure?')? delgal(<?php echo $rows->id; ?>):'';" data-toggle="tooltip" title="DELETE" style="cursor:pointer"></a>
 						</a>
 					</div>
 				</div>

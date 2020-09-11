@@ -13,10 +13,11 @@ th{
 							<h2> list of Petition</h2>
 
 					 </div>
+             <div class="ln_solid"></div>
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_petition" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
-										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="p_search" type="text" placeholder="Search Full name, Petition no,reference no " value="<?= $p_search; ?>" /></div>
+										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="p_search" type="text" placeholder="Search using  name, Petition no, or reference " value="<?= $p_search; ?>" /></div>
 										<div class="col-md-3 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">clear</a>
@@ -25,7 +26,7 @@ th{
 
 								</div>
 									</form>
-                    <div class="ln_solid"></div>
+                  
                     <?php if($this->session->flashdata('msg')) {
                        $message = $this->session->flashdata('msg');?>
                     <div class="<?php echo $message['class'] ?> alert-dismissible">
@@ -80,9 +81,9 @@ th{
                               </td>
                              <!-- <td><?php echo date('d-m-Y', strtotime($rows['updated_at'])); ?></td> -->
                              <td>
-                               <a title="REPLY" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                               <a title="SEND SMS" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                &nbsp;<a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>&nbsp;
-                               &nbsp;<a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
+                               &nbsp;<a title="VIEW INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;
 
                               </td>
                              </tr>
@@ -271,7 +272,7 @@ $(document).ready(function () {
             sms_text:{required:true,maxlength:240 }
         },
         messages: {
-          sms_id:{required:"select title" },
+          sms_id:{required:"select the title" },
           sms_text:{required:"enter the sms text" }
         },
         submitHandler: function(form) {
@@ -301,7 +302,7 @@ $(document).ready(function () {
            reply_sms_text:{required:true,maxlength:240 }
        },
        messages: {
-         reply_sms_id:{required:"select title" },
+         reply_sms_id:{required:"select the type" },
          reply_sms_text:{required:"enter the sms text" }
        },
        submitHandler: function(form) {

@@ -4,7 +4,7 @@
          <div class="x_panel">
             <div class="x_title">
                <h2>Birthday wishes Report</h2>
-
+               <a href="<?php echo base_url(); ?>report/get_birthday_report_export" class="btn btn-export pull-right">Export</a>
                <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -85,7 +85,6 @@
               <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$b_paguthi' order by id desc";
                $result_of=$this->db->query($query);
                if($result_of->num_rows()==0){ ?>
-               <option value=""></option>
                <?php 	}else{
                $res_office=$result_of->result();
                foreach($res_office as $rows_office){ ?>
@@ -97,7 +96,7 @@
           <div class="col-md-4 col-sm-2">
             <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
             <a  href="<?php echo base_url(); ?>report/reset_search" class="btn btn-danger">clear</a>
-            <a href="<?php echo base_url(); ?>report/get_birthday_report_export" class="btn btn-export">Export</a>
+
           </div>
 
          </div>
@@ -107,8 +106,7 @@
 		<div class="col-md-12 col-sm-12 ">
       <div class="col-md-12 col-sm-12" style="padding:0px;">
          <div class="col-md-3 col-sm-3">
-            <h2>Search Result</h2>
-            Total records <?php echo $allcount; ?>
+            <p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p>
          </div>
          <div class="col-md-3 col-sm-3"></div>
          <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>

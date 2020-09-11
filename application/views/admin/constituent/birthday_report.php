@@ -18,7 +18,7 @@
 
 		<form id="report_form" action="<?php echo base_url(); ?>constituent/birthday" method="post" enctype="multipart/form-data">
 			  <div class="item form-group">
-				<label class="col-form-label col-md-2 col-sm-2">Month <span class="required">*</span></label>
+				<label class="col-form-label col-md-2 col-sm-2">select Month <span class="required">*</span></label>
 				 <div class="col-md-2 col-sm-2">
 					<select id="month_id" name="b_month" class="form-control">
             <option value="">Select month</option>
@@ -40,7 +40,7 @@
         <?php  }else{ ?>
               <script>$('#month_id').val('<?php echo $month_id; ?>')</script>
           <?php } ?>
-          
+
 				 </div>
 				 <div class="col-md-4 col-sm-2">
 					 <input type="submit" name="submit" class="btn btn-success" value="SEARCH">
@@ -65,10 +65,10 @@
                 <tr>
                   <th>S.no </th>
                   <th>Name</th>
-                  <th>Father or Husband name</th>
-                  <th>Date of Birth</th>
-                  <th>Phone</th>
-                  <th>Address</th>
+                  <th>SURNAME</th>
+                  <th>DOB</th>
+                  <th>Phone no</th>
+                  <th>DOOR NO & Address</th>
                   <th>Status</th>
                 </tr>
              </thead>
@@ -83,7 +83,7 @@
                 <td><?php echo $rows['mobile_no']; ?></td>
                 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                 <td><?php if(is_null($rows['wish_id'])){ ?>
-                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE?');" style="font-size:13px;font-weight:bold;color:#ee0606;">NOT SENT</a>
+                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE THE STATUS ?');" style="font-size:13px;font-weight:bold;color:#ee0606;">NOT SENT</a>
               <?php  }else{ ?>
                 <p>SENT</p>
               <?php  } ?></td>
@@ -124,7 +124,7 @@ $('#report_form').validate({ // initialize the plugin
          toDate:{required:true}
      },
      messages: {
-           b_month: { required:"Select Month"},
+           b_month: { required:"Select the  Month"},
            toDate: { required:"Select To Date"}
          }
  });

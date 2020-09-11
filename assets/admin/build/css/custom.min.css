@@ -1495,7 +1495,7 @@ body .container.body .right_col {
 }
 
 .nav-md .container.body .right_col {
-    padding: 10px 20px 0;
+    /* padding: 10px 20px 0; */
     margin-left: 230px
 }
 
@@ -2313,7 +2313,8 @@ article.media {
 
 h2 {
     font-size: 18px;
-    font-weight: 400
+    font-weight: 500;
+    color:#000;
 }
 
 #left,
