@@ -42,6 +42,7 @@
         </div>
 			<tr>
 				<th>S.no</th>
+         <th>name</th>
                      <th>Surname</th>
                      <th>Phone no</th>
                      <th style="width:350px;">Address</th>
@@ -86,6 +87,7 @@
 				echo "<tr>";
 				echo "<td>".$sno."</td>";
 				echo "<td>".$data['full_name']."</td>";
+        	echo "<td>".$data['father_husband_name']."</td>";
 				echo "<td>".$data['mobile_no']."</td>";
         echo "<td>".$data['door_no']."<br>".$data['address']."<br>".$data['pin_code']."</td>";
         if(empty($paguthi_name)){
