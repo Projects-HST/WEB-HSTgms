@@ -44,7 +44,7 @@
 				<th>S.no</th>
                      <th>Surname</th>
                      <th>Phone no</th>
-                     <th style="width:150px;">Address</th>
+                     <th style="width:350px;">Address</th>
                      <th>Paguthi</th>
 
                      <!-- <th>interaction</th> -->

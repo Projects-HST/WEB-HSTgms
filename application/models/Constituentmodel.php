@@ -883,7 +883,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	}
 	$this->db->order_by("c.id", "desc");
 	$this->db->limit($rowperpage, $rowno);
-	// echo $this->db->get_compiled_select(); exit;
+	// echo $this->db->get_compiled_select();
+	// exit;
 	$query = $this->db->get();
 
 	return $query->result_array();
@@ -895,19 +896,35 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		$this->db->select('count(*) as allcount');
 		$this->db->from('constituent');
 
-		if($search_text != ''){
-			$this->db->or_like('full_name', $search_text);
-			// $this->db->or_like('father_husband_name', $search);
-			// $this->db->or_like('guardian_name', $search);
-			$this->db->or_like('mobile_no', $search_text);
-			// $this->db->or_like('whatsapp_no', $search);
-			// $this->db->or_like('address', $search);
-			// $this->db->or_like('pin_code', $search);
-			// $this->db->or_like('email_id', $search_text);
-			$this->db->or_like('voter_id_no', $search_text);
-			$this->db->or_like('aadhaar_no', $search_text);
-			$this->db->or_like('serial_no', $search_text);
-		}
+					$search_key_1 = '';
+					$search_key_2 = '';
+
+			if($search_text != ''){
+
+				$search_key = (explode(",",$search_text));
+				$search_key_count = count($search_key);
+
+				if ($search_key_count >=0){
+									$search_key_1 = trim(strtoupper($search_key[0]));
+							 }
+
+							if ($search_key_count >1) {
+									$search_key_2 = trim(strtoupper($search_key[1]));
+							}
+
+				if ($search_key_2 != ''){
+					 $this->db->like('full_name', $search_key_1,'after');
+					 $this->db->like('address', $search_key_2);
+				} else {
+					$this->db->or_like('full_name', $search_key_1,'after');
+					$this->db->or_like('mobile_no', $search_key_1);
+					$this->db->or_like('voter_id_no', $search_key_1);
+					$this->db->or_like('aadhaar_no', $search_key_1);
+					$this->db->or_like('serial_no', $search_key_1);
+				}
+
+
+			}
 			// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
