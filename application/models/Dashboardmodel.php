@@ -261,8 +261,9 @@ Class Dashboardmodel extends CI_Model
 		sum(case when g.repeated_status = 'R' then 1 else 0 end) AS repeat_count,
 		count(*) as total
 		FROM grievance as g
-		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date";
-		
+		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date order by week_name desc limit 6";
+
+
 
 		$res=$this->db->query($query);
 		return $result=$res->result();
