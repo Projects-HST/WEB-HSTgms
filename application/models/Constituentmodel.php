@@ -1255,8 +1255,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 
 			$this->db->group_by('c.id');
-			echo $this->db->get_compiled_select(); // before $this->db->get();
-			exit;
+			// echo $this->db->get_compiled_select(); // before $this->db->get();
+			// exit;
 			$this->db->limit($rowperpage, $rowno);
 			$query = $this->db->get();
 			return $query->result_array();
