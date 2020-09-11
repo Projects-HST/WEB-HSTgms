@@ -521,13 +521,13 @@ Class Mastermodel extends CI_Model
  				$update="UPDATE grievance_sub_category set grievance_id='$g_id',sub_category_name='$sub_category_name',status='$status',updated_at=NOW(),updated_by='$user_id' where id='$id'";
  				$result=$this->db->query($update);
  				if($result){
- 					$data=array("status"=>"success","msg"=>"Sub category updated Successfully!","class"=>"alert alert-success");
+ 					$data=array("status"=>"success","msg"=>"Grievance Sub category updated Successfully!","class"=>"alert alert-success");
  				}else{
  					$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
  				}
 
  		}else{
- 			$data=array("status"=>"error","msg"=>"Subcategory  name already exist to grievance","class"=>"alert alert-danger");
+ 			$data=array("status"=>"error","msg"=>"Grievance Sub category  name already exist to grievance","class"=>"alert alert-danger");
  		}
  		return $data;
 	}
