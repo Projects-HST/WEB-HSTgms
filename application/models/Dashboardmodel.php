@@ -173,6 +173,7 @@ Class Dashboardmodel extends CI_Model
 		if(empty($from_date)){
 			$quer_bw_date="";
 			$quer_cv_date="";
+			$quer_fw_date="";
 		}else{
 			$dateTime1 = new DateTime($from_date);
 			$one_date=date_format($dateTime1,'Y-m-d' );
