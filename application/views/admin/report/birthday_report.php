@@ -85,7 +85,6 @@
               <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$b_paguthi' order by id desc";
                $result_of=$this->db->query($query);
                if($result_of->num_rows()==0){ ?>
-               <option value=""></option>
                <?php 	}else{
                $res_office=$result_of->result();
                foreach($res_office as $rows_office){ ?>

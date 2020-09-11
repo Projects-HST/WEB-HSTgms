@@ -405,32 +405,63 @@ function moneyFormatIndia($num) {
 </div>
 
 </div>
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+ <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
-		google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+		 google.charts.load('current', {packages: ['corechart','line']});
+// 		google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(drawChart);
+// function drawChart() {
+// var data = google.visualization.arrayToDataTable([
+// 	['Week', 'NEW', 'Repeated','Total'],
+// 	<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
+// 		['<?= "week".'-' .$i; ?>',  <?= $rows_graph->total ;?>,<?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
+// 	<?php $i++; } ?>
+//
+// 	// ['2005',  1170,      460,112],
+// 	// ['2006',  660,       1120,200],
+// 	// ['2007',  1030,      540,300],
+// ]);
+//
+// var options = {
+// 	title: '',
+// 	curveType: 'function',
+// 	legend: { position: 'bottom' }
+// };
+//
+// var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+//
+// chart.draw(data, options);
+// }
 function drawChart() {
-var data = google.visualization.arrayToDataTable([
-	['Week', 'NEW', 'Repeated','Total'],
-	<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
-		['<?= "week".'-' .$i; ?>',  <?= $rows_graph->total ;?>,<?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
-	<?php $i++; } ?>
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Week');
+            data.addColumn('number', 'New');
+            data.addColumn('number', 'Repeated');
+            data.addColumn('number', 'Total');
+            data.addRows([
 
-	// ['2005',  1170,      460,112],
-	// ['2006',  660,       1120,200],
-	// ['2007',  1030,      540,300],
-]);
+					<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
+						['<?= "week".'-' .$i; ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
+					<?php $i++; } ?>
 
-var options = {
-	title: '',
-	curveType: 'function',
-	legend: { position: 'bottom' }
-};
+            ]);
 
-var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-chart.draw(data, options);
-}
+            // Set chart options
+            var options = {
+               'width':1024,
+               'height':500,
+               pointsVisible: true
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+         }
+         google.charts.setOnLoadCallback(drawChart);
 
 $.validator.addMethod("chkDates", function(value, element) {
 		var startDate = $('#from_date').val();

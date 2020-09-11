@@ -219,7 +219,7 @@ $('#report_form').validate({ // initialize the plugin
 							return $("#frmDate").val().length > 0; },chkDates: "#frmDate"},
 				 },
 				 messages: {
-					mr_frmDate:{required:"Select theFrom Date"},
+					mr_frmDate:{required:"Select the From Date"},
 					mr_toDate:{required:"Select the TO Date"}
 						 }
  });
