@@ -89,16 +89,16 @@ Class Dashboardmodel extends CI_Model
 	function get_grievance_report($paguthi_id,$office_id,$from_date,$to_date)
 	{
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
-			$quer_paguthi="";
+				$quer_paguthi="";
 		}else{
-			$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
+				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
 		}
 
 		if($office_id=='ALL' || empty($office_id)){
-		$quer_office="";
-	}else{
-		$quer_office="AND g.office_id='$office_id'";
-	}
+			$quer_office="";
+		}else{
+				$quer_office="AND g.office_id='$office_id'";
+		}
 
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi_1="";
@@ -114,6 +114,12 @@ Class Dashboardmodel extends CI_Model
 			$quer_paguthi_cons="WHERE c.paguthi_id='$paguthi_id'";
 		}
 
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+		$quer_paguthi_video="";
+	}else{
+		$quer_paguthi_video="AND c.paguthi_id='$paguthi_id'";
+	}
+
 		if($office_id=='ALL' || empty($office_id)){
 			$quer_office_cons="";
 		}else{
@@ -122,6 +128,7 @@ Class Dashboardmodel extends CI_Model
 
 		if(empty($from_date)){
 			$quer_date="";
+			$quer_date_1="";
 		}else{
 			$dateTime1 = new DateTime($from_date);
 			$one_date=date_format($dateTime1,'Y-m-d' );
@@ -130,10 +137,20 @@ Class Dashboardmodel extends CI_Model
 			$two_date=date_format($dateTime2,'Y-m-d' );
 
 			if(empty($quer_paguthi)){
-				$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+				// $quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+					$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 			}else{
 				$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 			}
+
+			if(empty($quer_paguthi_1)){
+				// $quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+					$quer_date_1="WHERE DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_date_1="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+			}
+
+
 		}
 
 
@@ -185,17 +202,20 @@ Class Dashboardmodel extends CI_Model
 
 
 
+
+
 			$res_1=$this->db->query($query_1);
 		  $result_1=$res_1->result();
 
-			$query_2="SELECT IFNULL(count(*),'0') as total,
+			 $query_2="SELECT IFNULL(count(*),'0') as total,
 			IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
 			IFNULL(IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') / count(*) * 100,'0') AS unique_count_percentage,
 			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 			IFNULL(IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') / count(*) * 100,'0') AS repeat_count_percentage
 						FROM grievance as g
-						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi_1 $quer_office $quer_date";
-						
+						left join seeker_type as s on g.seeker_type_id=s.id $quer_paguthi_1 $quer_office $quer_date_1";
+
+
 			$res_2=$this->db->query($query_2);
 			$result_2=$res_2->result();
 
@@ -216,12 +236,19 @@ Class Dashboardmodel extends CI_Model
 			$result_4=$res_4->result();
 
 
-		 	$query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name,o.office_name FROM constituent_video as cv
-			left join constituent as c on c.id=cv.constituent_id
-			LEFT JOIN paguthi as p on p.id=c.paguthi_id
-			LEFT JOIN office as o on o.id=c.office_id
-			 $quer_paguthi_cons $quer_office_cons GROUP by c.paguthi_id
-			ORDER BY cnt_video DESC LIMIT 2";
+		 	// echo $query_5="SELECT COUNT(cv.id) as cnt_video,p.paguthi_name,o.office_name FROM constituent_video as cv
+			// left join constituent as c on c.id=cv.constituent_id
+			// LEFT JOIN paguthi as p on p.id=c.paguthi_id
+			// LEFT JOIN office as o on o.id=c.office_id
+			//  $quer_paguthi_video $quer_office_cons GROUP by c.paguthi_id
+			// ORDER BY cnt_video DESC LIMIT 2";
+			$query_5="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
+			left join paguthi as p on p.id=o.paguthi_id
+			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons
+			left join constituent_video as cv on cv.constituent_id=c.id
+			GROUP BY o.id LIMIT 2";
+		
+
 			$res_5=$this->db->query($query_5);
 			$result_5=$res_5->result();
 

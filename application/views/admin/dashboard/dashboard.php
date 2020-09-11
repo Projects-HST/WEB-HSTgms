@@ -208,7 +208,9 @@ function moneyFormatIndia($num) {
 							<div class="widget_title">
 								<p class="widget_heading">Grievance Count</p>
 								<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
-							<p class="widget_count"><?php echo moneyFormatIndia($total_grievance=$row_gr_list->total);  ?></p>
+							<!-- <p class="widget_count"><?php echo moneyFormatIndia($total_grievance=$row_gr_list->total);  ?></p> -->
+							<p class="widget_count"><?php $sum_1 = 0; if(empty($grievance_report['seeker_list'])){ 	}else{  foreach($grievance_report['seeker_list'] as $row_grievenace){ $sum_1 += $row_grievenace->total;  }} echo moneyFormatIndia($sum_1); ?>
+							</p>
 							</div>
 						</div>
 					</div>
