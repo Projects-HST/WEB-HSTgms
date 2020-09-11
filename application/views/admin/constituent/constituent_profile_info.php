@@ -136,7 +136,7 @@ th{
                                 <thead>
                                    <tr>
                                       <th>S.no</th>
-                                      <th>seeker type</th>
+                                      <th style="width:200px;">seeker type</th>
                                       <!-- <th>category</th> -->
                                       <!-- <th>sub category</th> -->
                                       <!-- <th>petition no</th> -->
