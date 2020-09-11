@@ -331,7 +331,7 @@ function moneyFormatIndia($num) {
 					<hr>
 					<div class="row">
 
-						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>% )</p></div>
+						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">festival letters (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_fw_list->total/ $rows_cons->total *100,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_fw_list->total); ?></p></div>
@@ -357,8 +357,7 @@ function moneyFormatIndia($num) {
 						<?php if(empty($grievance_report['cv_list'])){
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
-						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (
-							<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($rows_vi_lits->cnt_video/ $rows_cons->total *100,2);?> <?php } ?>%)</p></div>
+						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?php if($rows_cons->total=="0"){ echo "0";}else{ ?><?= round($rows_vi_lits->cnt_video/ $rows_cons->total *100,2);?><?php }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
 
