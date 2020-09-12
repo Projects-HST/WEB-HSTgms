@@ -26,7 +26,7 @@ Class Mastermodel extends CI_Model
 		}else{
 			$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 		}
-		//
+		////
 		return $data;
 	}
 
