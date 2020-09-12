@@ -19,6 +19,9 @@ body{
 .alert-dismissible .close{
   padding: 6px;
 }
+.ui-datepicker{
+  width:300px;
+}
 .btn-width{
 
       margin-top: 30px;
