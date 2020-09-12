@@ -246,7 +246,7 @@ Class Dashboardmodel extends CI_Model
 
 		 $query_4="SELECT IFNULL(count(*),'0') as birth_wish_count
 						FROM consitutent_birthday_wish as br
-						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_office_cons $quer_bw_date";
+						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_office_cons $quer_bw_date group by br.constituent_id";
 			$res_4=$this->db->query($query_4);
 			$result_4=$res_4->result();
 
