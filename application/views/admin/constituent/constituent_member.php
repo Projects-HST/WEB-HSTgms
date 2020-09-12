@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 <div  class="right_col" role="main" style="height:100vh;">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -131,7 +135,7 @@
                     <div class="form-group row ">
                       <label class="control-label col-md-2 col-sm-3 ">DOB </label>
                       <div class="col-md-4 col-sm-9 ">
-                        <input type="text" name="dob" id="dob" class="form-control">
+                        <input type="text" name="dob" id="datepicker" class="form-control" autocomplete="off" readonly='true'>
                       </div>
                       <label class="control-label col-md-2 col-sm-3 ">Religion</label>
                       <div class="col-md-4 col-sm-9 ">
@@ -348,13 +352,20 @@
         $('#copy_section').show();
     });
 
-   $('#dob').datetimepicker({
-         format: 'DD-MM-YYYY',
-         viewMode: 'years',
-         defaultDate: "01/1/1986",
-         minDate:"01/1/1986",
-         maxDate:"01/1/1996"
-   });
+   // $('#dob').datetimepicker({
+   //       format: 'DD-MM-YYYY',
+   //       viewMode: 'years',
+   //       defaultDate: "01/1/1986",
+   //       minDate:"01/1/1986",
+   //       maxDate:"01/1/1996"
+   // });
+   $( "#datepicker" ).datepicker({
+    changeYear:true,
+     dateFormat: 'dd-mm-yy',
+    yearRange: '1986:' + new Date().getFullYear()
+    });
+
+
 
 
 

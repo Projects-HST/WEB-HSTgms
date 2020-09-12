@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <div  class="right_col" role="main" style="height:100vh;">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -176,7 +178,12 @@
                     <div class="form-group row ">
                       <label class="control-label col-md-2 col-sm-3 ">DOB </label>
                       <div class="col-md-4 col-sm-9 ">
-                        <input type="text" name="dob" id="dob" class="form-control" value="<?php echo $rows->dob; ?>">
+                        <?php if($rows->dob=='1970-01-01'){
+                          $dob='';
+                        }else{
+                          $dob=date("d-m-Y", strtotime($rows->dob));
+                        } ?>
+                        <input type="text" name="dob" id="datepicker" class="form-control" value="<?php echo $dob; ?>" autocomplete="off" readonly='true'>
                       </div>
                       <label class="control-label col-md-2 col-sm-3 ">Religion</label>
                       <div class="col-md-4 col-sm-9 ">
@@ -374,12 +381,17 @@ if($rows->voter_status=='NON-VOTER'){
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
    $('#create_constituent_menu').addClass('active');
-   $('#dob').datetimepicker({
-         format: 'DD-MM-YYYY',
-         viewMode: 'years',
-         minDate:"01/1/1986"
-         // maxDate:"01/1/1996"
-   });
+   // $('#dob').datetimepicker({
+   //       format: 'DD-MM-YYYY',
+   //       viewMode: 'years',
+   //       minDate:"01/1/1986"
+   //       // maxDate:"01/1/1996"
+   // });
+   $( "#datepicker" ).datepicker({
+    changeYear:true,
+     dateFormat: 'dd-mm-yy',
+    yearRange: '1986:' + new Date().getFullYear()
+    });
 
 
 function get_paguthi(){
