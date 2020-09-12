@@ -1,7 +1,7 @@
 <?php $search_value = $this->session->userdata('search'); ?>
 <style>
 th{
-  min-width:90px;
+  /* min-width:90px; */
   word-break: normal;
 }
 </style>
@@ -46,11 +46,12 @@ th{
                      </div>
                        <thead>
                           <tr>
-                            <th>S.no</th>
+                            <th style="width:50px;">S.no</th>
                             <th>name</th>
                             <th>Phone no</th>
                             <th>Address</th>
                             <th>seeker type</th>
+                            <th>grievance type</th>
                             <th>Paguthi</th>
                             <th>Reference</th>
                             <th>status</th>
@@ -66,8 +67,9 @@ th{
                              <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
 
                              <td><?php echo $rows['seeker_info']; ?></td>
+                             <td><?php echo $rows['grievance_name']; ?></td>
                              <td><?php echo $rows['paguthi_name']; ?></td>
-                             <!-- <td><?php echo $rows['grievance_name']; ?></td> -->
+
                              <!-- <td><?php echo $rows['sub_category_name']; ?></td> -->
                              <!-- <td><?php echo $rows['petition_enquiry_no']; ?></td> -->
                              <td><?php if(empty($rows['reference_note'])){ ?>

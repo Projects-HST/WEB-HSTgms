@@ -20,7 +20,7 @@ body{
   padding: 6px;
 }
 .ui-datepicker{
-  width:300px;
+  width:300px !important;
 }
 .btn-width{
 
@@ -222,6 +222,7 @@ table {
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100px;
+    text-align: left;
 }
 
 .badge-view{

@@ -333,16 +333,16 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Greeting Count</p>
-								<p class="widget_count"><?= moneyFormatIndia($fwlist_total+$row_br_list->birth_wish_count); ?></p>
+								<p class="widget_count"><?php echo $bwfw=moneyFormatIndia($fwlist_total+$row_br_list->birth_wish_count); ?></p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 
-						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $bwfw *100,2); }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
-						<div class="col-9"><p class="widget_label">festival letters (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $rows_cons->total *100,2); } ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">festival letters (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $bwfw *100,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
 
 					</div>
