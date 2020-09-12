@@ -236,8 +236,8 @@
 
                           <label class="control-label col-md-2 col-sm-3 ">Profile image</label>
                          <div class="col-md-4 col-sm-9 ">
-                           <button class="" style="display:block;width:120px; height:30px;" onclick="document.getElementById('profile_pic').click()">SELECT A PHOTO</button>
-                          <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control" style="display:none">
+                           <!-- <button class="" style="display:block;width:120px; height:30px;" onclick="document.getElementById('profile_pic').click()">SELECT A PHOTO</button> -->
+                          <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control">
                          </div>
                        </div>
 

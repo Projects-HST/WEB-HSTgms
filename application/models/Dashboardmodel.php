@@ -233,13 +233,14 @@ Class Dashboardmodel extends CI_Model
 			$res_2=$this->db->query($query_2);
 			$result_2=$res_2->result();
 
-			$query_3="SELECT IFNULL(count(*),'0') as total,
-						IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0')  AS meeting_request_count,
-            IFNULL(IFNULL(sum(case when mr.meeting_status = 'REQUESTED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage,
-						IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0')  AS meeting_complete_count,
+			 $query_3="SELECT IFNULL(count(*),'0') as total,
+						IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0')  AS meeting_request_count,
+            IFNULL(IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage,
+						IFNULL(sum(case when mr.meeting_status = 'COMPLETED'  then 1 else 0 end),'0')  AS meeting_complete_count,
 						IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
 						FROM meeting_request as mr
             left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_office_cons $quer_mr_date";
+
 			$res_3=$this->db->query($query_3);
 			$result_3=$res_3->result();
 
@@ -264,7 +265,7 @@ Class Dashboardmodel extends CI_Model
 			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons
 			left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
 			GROUP BY o.id,cv.constituent_id LIMIT 2";
-			
+
 
 
 
