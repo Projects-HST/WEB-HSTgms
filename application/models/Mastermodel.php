@@ -22,7 +22,7 @@ Class Mastermodel extends CI_Model
 		$query="UPDATE constituency SET constituency_name='$constituency_name',updated_at=NOW(),updated_by='$user_id' WHERE id='1'";
 		$result=$this->db->query($query);
 		if($result){
-			$data=array("status"=>"success","msg"=>"Constituency Updated Successfully!","class"=>"alert alert-success");
+			$data=array("status"=>"success","msg"=>"Constituency Updated Successfully!!","class"=>"alert alert-success");
 		}else{
 			$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
 		}
