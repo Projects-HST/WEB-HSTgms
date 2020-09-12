@@ -164,9 +164,9 @@ Class Dashboardmodel extends CI_Model
 			$two_date=date_format($dateTime2,'Y-m-d' );
 
 			if(empty($quer_paguthi)){
-				$quer_mr_date="WHERE DATE(mr.meeting_date) BETWEEN '$one_date' and '$two_date'";
+				$quer_mr_date="WHERE DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
 			}else{
-				$quer_mr_date="AND DATE(mr.meeting_date) BETWEEN '$one_date' and '$two_date'";
+				$quer_mr_date="AND DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
 			}
 		}
 
