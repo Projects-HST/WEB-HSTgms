@@ -223,6 +223,7 @@ table {
     overflow: hidden;
     width: 100px;
     text-align: left;
+    padding-left: 0px;
 }
 
 .badge-view{

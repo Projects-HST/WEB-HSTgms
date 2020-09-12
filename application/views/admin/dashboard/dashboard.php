@@ -225,7 +225,7 @@ function moneyFormatIndia($num) {
 							if($row_grievenace->total=='0'){
 								echo "0";
 							}else{
-									echo round($row_grievenace->total/$total_grievance *100,2);
+									echo round($row_grievenace->total/$sum_1 *100,2);
 							}
 							?>%)</p></div>
 							<div class="col-3"><p class="widget_label widget_value"> <?php echo  moneyFormatIndia($row_grievenace->total); ?></p></div>
