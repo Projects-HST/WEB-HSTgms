@@ -178,7 +178,7 @@
                     <div class="form-group row ">
                       <label class="control-label col-md-2 col-sm-3 ">DOB </label>
                       <div class="col-md-4 col-sm-9 ">
-                        <?php if($rows->dob=='1970-01-01'){
+                        <?php if($rows->dob=='0000-00-00'){
                           $dob='';
                         }else{
                           $dob=date("d-m-Y", strtotime($rows->dob));
@@ -389,8 +389,9 @@ if($rows->voter_status=='NON-VOTER'){
    // });
    $( "#datepicker" ).datepicker({
     changeYear:true,
+      defaultDate: "01-01-1996",
      dateFormat: 'dd-mm-yy',
-    yearRange: '1986:' + new Date().getFullYear()
+    yearRange: '1900:' + new Date().getFullYear()
     });
 
 

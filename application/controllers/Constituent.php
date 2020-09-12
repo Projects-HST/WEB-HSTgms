@@ -204,7 +204,12 @@ class constituent extends CI_Controller {
 			$whatsapp_no=strtoupper($this->db->escape_str($this->input->post('whatsapp_no')));
 			$whatsapp_broadcast=strtoupper($this->db->escape_str($this->input->post('whatsapp_broadcast')));
 			$originalDate=strtoupper($this->db->escape_str($this->input->post('dob')));
-			 $dob = date("Y-m-d", strtotime($originalDate));
+			if(empty($originalDate)){
+				 $dob = "";
+			}else{
+				 $dob = date("Y-m-d", strtotime($originalDate));
+			}
+
 			$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
 			$address=strtoupper($this->db->escape_str($this->input->post('address')));
 			$pin_code=strtoupper($this->db->escape_str($this->input->post('pin_code')));
@@ -259,7 +264,11 @@ class constituent extends CI_Controller {
 				$whatsapp_no=strtoupper($this->input->post('whatsapp_no'));
 				$whatsapp_broadcast=strtoupper($this->db->escape_str($this->input->post('whatsapp_broadcast')));
 				$originalDate=strtoupper($this->input->post('dob'));
-				 $dob = date("Y-m-d", strtotime($originalDate));
+				if(empty($originalDate)){
+					 $dob = "";
+				}else{
+					 $dob = date("Y-m-d", strtotime($originalDate));
+				}
 				$door_no=strtoupper($this->db->escape_str($this->input->post('door_no')));
 				$address=strtoupper($this->db->escape_str($this->input->post('address')));
 				$pin_code=strtoupper($this->db->escape_str($this->input->post('pin_code')));

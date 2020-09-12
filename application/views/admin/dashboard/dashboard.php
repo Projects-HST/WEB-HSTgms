@@ -318,7 +318,12 @@ function moneyFormatIndia($num) {
 		<div class="row mb_30">
 
 			<?php  foreach($grievance_report['br_list'] as $row_br_list){} ?>
-				<?php  foreach($grievance_report['fw_list'] as $row_fw_list){} ?>
+				<?php  if(empty($grievance_report['fw_list'])){
+					$fwlist_total="0";
+				}else{
+					foreach($grievance_report['fw_list'] as $row_fw_list){}
+						$fwlist_total=$row_fw_list->total;
+				} ?>
 			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
@@ -328,7 +333,7 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Greeting Count</p>
-								<p class="widget_count"><?= moneyFormatIndia($row_fw_list->total+$row_br_list->birth_wish_count); ?></p>
+								<p class="widget_count"><?= moneyFormatIndia($fwlist_total+$row_br_list->birth_wish_count); ?></p>
 							</div>
 						</div>
 					</div>
@@ -337,8 +342,8 @@ function moneyFormatIndia($num) {
 
 						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $rows_cons->total *100,2); }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
-						<div class="col-9"><p class="widget_label">festival letters (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($row_fw_list->total/ $rows_cons->total *100,2); } ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_fw_list->total); ?></p></div>
+						<div class="col-9"><p class="widget_label">festival letters (<?php if($rows_cons->total=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $rows_cons->total *100,2); } ?>%)</p></div>
+						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
 
 					</div>
 				</div>

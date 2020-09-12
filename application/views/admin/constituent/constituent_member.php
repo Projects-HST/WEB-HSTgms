@@ -361,8 +361,9 @@
    // });
    $( "#datepicker" ).datepicker({
     changeYear:true,
+      defaultDate: "01-01-1996",
      dateFormat: 'dd-mm-yy',
-    yearRange: '1986:' + new Date().getFullYear()
+    yearRange: '1900:' + new Date().getFullYear()
     });
 
 

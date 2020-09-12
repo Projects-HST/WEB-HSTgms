@@ -273,6 +273,7 @@ Class Dashboardmodel extends CI_Model
 			$result_5=$res_5->result();
 
 			$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons $quer_fw_date GROUP BY fw.constituent_id";
+
 			$res_6=$this->db->query($query_6);
 			$result_6=$res_6->result();
 
