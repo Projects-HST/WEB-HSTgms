@@ -388,10 +388,11 @@ if($rows->voter_status=='NON-VOTER'){
    //       // maxDate:"01/1/1996"
    // });
    $( "#datepicker" ).datepicker({
-    changeYear:true,
+      changeYear:true,
+      maxDate: '0',
       defaultDate: "01-01-1996",
-     dateFormat: 'dd-mm-yy',
-    yearRange: '1900:' + new Date().getFullYear()
+      dateFormat: 'dd-mm-yy',
+      yearRange: '1900:' + new Date().getFullYear()
     });
 
 

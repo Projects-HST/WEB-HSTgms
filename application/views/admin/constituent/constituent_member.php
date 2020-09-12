@@ -361,6 +361,7 @@
    // });
    $( "#datepicker" ).datepicker({
     changeYear:true,
+    maxDate: '0',
       defaultDate: "01-01-1996",
      dateFormat: 'dd-mm-yy',
     yearRange: '1900:' + new Date().getFullYear()
