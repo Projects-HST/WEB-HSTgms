@@ -10,7 +10,9 @@ Class Mastermodel extends CI_Model
 ####################  constituency ####################
 
 	function get_constituency(){
-		//$query="SELECT * FROM constituency WHERE status='ACTIVE'";
+
+		$query="SELECT * FROM constituency";
+
 		$result=$this->db->query($query);
 		return $result->result();
 	}
