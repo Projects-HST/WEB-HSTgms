@@ -417,13 +417,13 @@ Class Reportmodel extends CI_Model
 			$this->db->where('DATE(c.dob) >= last_day(now()) + interval 1 day - interval 3 month');
 		}else{
 			// $this->db->where('YEAR(bw.created_at)',$year_id);
-			$query_where="YEAR(c.dob) BETWEEN '$bf_year_id' AND '$year_id'";
+			$query_where="YEAR(c.created_at) BETWEEN '$bf_year_id' AND '$year_id'";
 			$this->db->where($query_where);
 		}
 		if(empty($month_id)){
 
 		}else{
-			$this->db->where('MONTH(bw.created_at)',$month_id);
+			$this->db->where('MONTH(c.dob)',$month_id);
 		}
 		if(empty($paguthi) || $paguthi=="ALL"){
 
@@ -451,7 +451,7 @@ Class Reportmodel extends CI_Model
 			$this->db->where('DATE(c.dob) >= last_day(now()) + interval 1 day - interval 3 month');
 		}else{
 			// $this->db->where('YEAR(bw.created_at)',$year_id);
-			$query_where="YEAR(c.dob) BETWEEN '$bf_year_id' AND '$year_id'";
+			$query_where="YEAR(c.created_at) BETWEEN '$bf_year_id' AND '$year_id'";
 			$this->db->where($query_where);
 		}
 		if(empty($month_id)){
@@ -1004,7 +1004,7 @@ Class Reportmodel extends CI_Model
 				$this->db->where('DATE(c.dob) >= last_day(now()) + interval 1 day - interval 3 month');
 			}else{
 				// $this->db->where('YEAR(bw.created_at)',$year_id);
-				$query_where="YEAR(c.dob) BETWEEN '$bf_year_id' AND '$year_id'";
+				$query_where="YEAR(bw.created_at) BETWEEN '$bf_year_id' AND '$year_id'";
 				$this->db->where($query_where);
 			}
 			if(empty($month_id)){
