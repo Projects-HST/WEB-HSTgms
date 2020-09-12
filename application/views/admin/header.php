@@ -1,8 +1,6 @@
 <?php
 	//$user_pic = $this->session->userdata('user_pic');
 	//$user_type = $this->session->userdata('user_type');
-	
-	
 ?>
 <!DOCTYPE html>
 <html lang="en">
