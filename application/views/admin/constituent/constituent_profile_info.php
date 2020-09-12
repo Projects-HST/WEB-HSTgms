@@ -140,7 +140,7 @@ th{
                                    <tr>
                                       <th style="width:50px;">S.no</th>
                                       <th>seeker type</th>
-                                      <!-- <th>category</th> -->
+                                      <th>Grievance type</th>
                                       <!-- <th>sub category</th> -->
                                       <!-- <th>petition no</th> -->
                                       <th style="width:200px;">reference</th>
@@ -154,7 +154,7 @@ th{
                                     <tr>
                                       <td><?php echo $i; ?></td>
                                       <td><?php echo $rows_grievance->seeker_info; ?></td>
-                                      <!-- <td><?php echo $rows_grievance->grievance_name; ?></td> -->
+                                      <td><?php echo $rows_grievance->grievance_name; ?></td>
                                       <!-- <td><?php echo $rows_grievance->sub_category_name; ?></td> -->
                                       <!-- <td><?php echo $rows_grievance->petition_enquiry_no; ?></td> -->
                                       <td class="badge badge-reference"><?php echo $status= $rows_grievance->reference_note; ?></td>

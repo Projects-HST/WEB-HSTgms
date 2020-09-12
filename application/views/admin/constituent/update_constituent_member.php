@@ -291,10 +291,15 @@
                           <input type="file" name="profile_pic" id="profile_pic" title="SELECT A PHOTO" class="form-control">
                             <input type="hidden" name="old_profile_pic" id="old_profile_pic" class="form-control" value="<?php echo $rows->profile_pic; ?>">
                          </div>
-                         <label class="control-label col-md-2 col-sm-3 ">current image</label>
-                        <div class="col-md-4 col-sm-9 ">
-                         <img src="<?php echo base_url(); ?>assets/constituent/<?php echo $rows->profile_pic; ?>" style="width:150px;">
-                        </div>
+                         <?php  if(empty($rows->profile_pic)){
+
+                         }else{ ?>
+                           <label class="control-label col-md-2 col-sm-3 ">current image</label>
+                          <div class="col-md-4 col-sm-9 ">
+                           <img src="<?php echo base_url(); ?>assets/constituent/<?php echo $rows->profile_pic; ?>" style="width:150px;">
+                          </div>
+                         <?php } ?>
+
                        </div>
                        <div class="form-group row ">
 
