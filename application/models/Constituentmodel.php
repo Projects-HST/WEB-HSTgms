@@ -12,6 +12,7 @@ Class Constituentmodel extends CI_Model
 ####################  Constituent member ####################
 
 	function create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id){
+		$sess_office_id = $this->session->userdata('sess_office_id');
 		// $select="SELECT * FROM constituent where serial_no='$serial_no'";
 		// $res_select   = $this->db->query($select);
 		// if($res_select->num_rows()==0){
@@ -25,7 +26,7 @@ Class Constituentmodel extends CI_Model
 		}else{
 			$voter_no=$voter_id_no;
 		}
-		$query="INSERT INTO constituent (constituency_id,paguthi_id,office_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,whatsapp_broadcast,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at,updated_at,updated_by) VALUES ('$constituency_id','$paguthi_id','$office_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$whatsapp_broadcast','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW(),'$user_id',NOW())";
+		$query="INSERT INTO constituent (constituency_id,paguthi_id,office_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,whatsapp_broadcast,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at,updated_at,updated_by,created_office_id) VALUES ('$constituency_id','$paguthi_id','$office_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$whatsapp_broadcast','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
 		$result=$this->db->query($query);
 		 $last_id=$this->db->insert_id();
 
@@ -381,7 +382,8 @@ Class Constituentmodel extends CI_Model
 
 
 	function save_meeting_request($constituent_id,$meeting_title,$meeting_detail,$meeting_date,$meeting_status,$user_id){
-		$insert="INSERT INTO meeting_request(constituent_id,meeting_title,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by) VALUES('$constituent_id','$meeting_title','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id')";
+		$sess_office_id = $this->session->userdata('sess_office_id');
+		$insert="INSERT INTO meeting_request(constituent_id,meeting_title,meeting_detail,meeting_date,meeting_status,created_at,created_by,updated_at,updated_by,created_office_id) VALUES('$constituent_id','$meeting_title','$meeting_detail','$meeting_date','$meeting_status',NOW(),'$user_id',NOW(),'$user_id','$sess_office_id')";
 		$result   = $this->db->query($insert);
 		if($result){
 				$data=array("status"=>"success","msg"=>"meeting request saved Successfully!","class"=>"alert alert-success");
@@ -462,8 +464,8 @@ Class Constituentmodel extends CI_Model
 				}else{
 					$repeated_status='R';
 				}
-
-				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at) VALUES('$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PENDING','$user_id',NOW(),'$user_id',NOW())";
+				$sess_office_id = $this->session->userdata('sess_office_id');
+				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at,created_office_id) VALUES('$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PENDING','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
 				$res=$this->db->query($insert);
 				$last_id=$this->db->insert_id();
 				if(empty($filename)){
@@ -552,8 +554,8 @@ Class Constituentmodel extends CI_Model
 			$to_phone=$rows->mobile_no;
 			$smsContent=$sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
-
-			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','G','$sms_id','$sms_text',NOW(),'$user_id')";
+			$sess_office_id = $this->session->userdata('sess_office_id');
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by,created_office_id) VALUES ('$grievance_id','$constituent_id','G','$sms_id','$sms_text',NOW(),'$user_id','$sess_office_id')";
 			$result_insert=$this->db->query($insert);
 			if($status=='COMPLETED'){
 				$enquiry_status='P';
@@ -561,7 +563,7 @@ Class Constituentmodel extends CI_Model
 				$enquiry_status='E';
 			}
 
-			$update="UPDATE grievance SET enquiry_status='$enquiry_status',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$grievance_id'";
+			$update="UPDATE grievance SET enquiry_status='$enquiry_status',status='$status',updated_at=NOW(),updated_by='$user_id',created_office_id='$sess_office_id' WHERE id='$grievance_id'";
 			$result=$this->db->query($update);
 			if($result){
 					$data=array("status"=>"success","msg"=>"Grievance status updated Successfully!","class"=>"alert alert-success");
@@ -579,8 +581,8 @@ Class Constituentmodel extends CI_Model
 			$to_phone=$rows->mobile_no;
 			$smsContent=$sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
-
-			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$grievance_id','$constituent_id','$sms_flag','$sms_id','$sms_text',NOW(),'$user_id')";
+			$sess_office_id = $this->session->userdata('sess_office_id');
+			$insert="INSERT INTO grievance_reply (grievance_id,constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by,created_office_id) VALUES ('$grievance_id','$constituent_id','$sms_flag','$sms_id','$sms_text',NOW(),'$user_id','$sess_office_id')";
 			$result_insert=$this->db->query($insert);
 			if($result_insert){
 					$data=array("status"=>"success","msg"=>"SMS sent Successfully!","class"=>"alert alert-success");
@@ -761,8 +763,8 @@ Class Constituentmodel extends CI_Model
 	}
 	function birthday_update($constituent_id,$user_id)
 	{
-
-			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at) VALUES ('$constituent_id','Send','$user_id',NOW())";
+			$sess_office_id = $this->session->userdata('sess_office_id');
+			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at,created_office_id) VALUES ('$constituent_id','Send','$user_id',NOW(),'$sess_office_id')";
 			$result=$this->db->query($insert);
 			if($result){
 				$data = array('status' =>'success');
@@ -827,12 +829,13 @@ Class Constituentmodel extends CI_Model
 			$to_phone=$rows->mobile_no;
 			$smsContent=$reply_sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
-			$insert="INSERT INTO grievance_reply (constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by) VALUES ('$constituent_id','M','$reply_sms_id','$reply_sms_text',NOW(),'$user_id')";
+			$sess_office_id = $this->session->userdata('sess_office_id');
+			$insert="INSERT INTO grievance_reply (constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by,created_office_id) VALUES ('$constituent_id','M','$reply_sms_id','$reply_sms_text',NOW(),'$user_id','$sess_office_id')";
 			$result_insert=$this->db->query($insert);
 		}
 
 		 $id=base64_decode($meeting_id)/98765;
-		 $update="UPDATE meeting_request SET meeting_status='$meeting_status',meeting_date='$meeting_date',updated_at=NOW(),updated_by='$user_id' where id='$id'";
+		 $update="UPDATE meeting_request SET meeting_status='$meeting_status',meeting_date='$meeting_date',updated_at=NOW(),updated_by='$user_id',created_office_id='$sess_office_id' where id='$id'";
 		 $result=$this->db->query($update);
 			if($result){
 				$data=array("status"=>"success","msg"=>"Constituent Meeting status Updated","class"=>"alert alert-success");
@@ -1209,7 +1212,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			$select="SELECT * FROM constituent_video Where video_title='$video_title' and constituent_id='$constituent_id'";
 				$result=$this->db->query($select);
 				if($result->num_rows()==0){
-						$insert="INSERT INTO constituent_video (constituent_id,video_title,video_link,status,updated_at,updated_by) VALUES ('$constituent_id','$video_title','$video_link','ACTIVE',NOW(),'$user_id')";
+					$sess_office_id = $this->session->userdata('sess_office_id');
+						$insert="INSERT INTO constituent_video (constituent_id,video_title,video_link,status,updated_at,updated_by,created_office_id) VALUES ('$constituent_id','$video_title','$video_link','ACTIVE',NOW(),'$user_id','$sess_office_id')";
 						$result=$this->db->query($insert);
 						if($result){
 							$data=array("status"=>"success","msg"=>"Video added Successfully!","class"=>"alert alert-success");

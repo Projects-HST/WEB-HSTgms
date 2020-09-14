@@ -22,6 +22,13 @@ Class Usermodel extends CI_Model
 		return $resultset->result();
 	}
 
+	function list_office()
+	{
+		$query="SELECT * FROM `office` WHERE  status='ACTIVE'";
+		$resultset=$this->db->query($query);
+		return $resultset->result();
+	}
+
 	function list_seeker()
 	{
 		$query="SELECT * FROM `seeker_type` WHERE status='ACTIVE'";
@@ -64,7 +71,7 @@ Class Usermodel extends CI_Model
     }
 
 
-	function add_users($role,$paguthi,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$user_id) {
+	function add_users($role,$paguthi,$office_id,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$user_id) {
 
 		$select="SELECT * FROM user_master WHERE email_id='$email' AND pugathi_id = '$paguthi'";
 		$result=$this->db->query($select);
@@ -80,7 +87,7 @@ Class Usermodel extends CI_Model
 			$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 			$md5pwd=md5($OTP);
 
-			$insert="INSERT INTO user_master (constituency_id,pugathi_id,role_id,full_name,phone_number,email_id,password,gender,address,profile_pic,status,created_by,created_at) VALUES ('1','$paguthi','$role','$name','$mobile','$email','$md5pwd','$gender','$address','$staff_prof_pic','$status','$user_id',NOW())";
+			$insert="INSERT INTO user_master (constituency_id,pugathi_id,office_id,role_id,full_name,phone_number,email_id,password,gender,address,profile_pic,status,created_by,created_at) VALUES ('1','$paguthi','$office_id','$role','$name','$mobile','$email','$md5pwd','$gender','$address','$staff_prof_pic','$status','$user_id',NOW())";
 			$result=$this->db->query($insert);
 
 			$subject ='GMS - Staff Login Details';
@@ -150,7 +157,7 @@ Class Usermodel extends CI_Model
 		}
 	}
 
-	function update_user($role,$paguthi,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$staff_id,$user_id){
+	function update_user($role,$paguthi,$office_id,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$staff_id,$user_id){
 
 		$sQuery = "SELECT * FROM user_master WHERE id = '$staff_id'";
 		$user_result = $this->db->query($sQuery);
@@ -166,7 +173,7 @@ Class Usermodel extends CI_Model
 
 		if ($old_email_id != $email){
 
-			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',email_id='$email',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+			$update_user="UPDATE user_master SET pugathi_id='$paguthi',office_id='$office_id',role_id='$role',full_name='$name',email_id='$email',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
 			$result_user=$this->db->query($update_user);
 
 			$subject ='GMS - Staff Login - Username Updated';
@@ -188,7 +195,7 @@ Class Usermodel extends CI_Model
 			$this->smsmodel->sendSMS($mobile,$smsContent);
 
 		}else if  ($old_phone != $mobile) {
-				$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+				$update_user="UPDATE user_master SET pugathi_id='$paguthi',office_id='$office_id',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
 				$result_user=$this->db->query($update_user);
 				$subject ='GMS - Staff Login - Phone number Updated';
 				$htmlContent = '<html>
@@ -208,7 +215,7 @@ Class Usermodel extends CI_Model
 				$this->mailmodel->sendEmail($email,$subject,$htmlContent);
 				$this->smsmodel->sendSMS($mobile,$smsContent);
 		}else {
-			$update_user="UPDATE user_master SET pugathi_id='$paguthi',role_id='$role',full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+			$update_user="UPDATE user_master SET pugathi_id='$paguthi',office_id='$office_id',role_id='$role',full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
 			$result_user=$this->db->query($update_user);
 		}
 

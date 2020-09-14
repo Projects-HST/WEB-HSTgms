@@ -65,3 +65,11 @@ ALTER TABLE `constituent`  ADD `whatsapp_broadcast` VARCHAR(5) NOT NULL  AFTER `
 
 
 ALTER TABLE `grievance_reply`  ADD `sms_flag` VARCHAR(10) NOT NULL  AFTER `id`;
+
+
+
+ALTER TABLE `constituent`  ADD `created_office_id` INT NOT NULL  AFTER `created_at`;
+ALTER TABLE `user_master`  ADD `office_id` INT NOT NULL  AFTER `pugathi_id`;
+ALTER TABLE `meeting_request`  ADD `created_office_id` INT NOT NULL  AFTER `created_at`;
+ALTER TABLE `constituent_video`  ADD `created_office_id` INT NOT NULL  AFTER `updated_by`;
+ALTER TABLE `grievance`  ADD `created_office_id` INT NOT NULL  AFTER `created_at`;

@@ -16,6 +16,7 @@ class Users extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		$datas['role'] = $this->usermodel->list_role();
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$datas['res_office'] = $this->usermodel->list_office();
 
 		if($user_type==1){
 			$this->load->view('admin/header');
@@ -25,7 +26,7 @@ class Users extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function add_users()
 	{
 		$datas=$this->session->userdata();
@@ -34,6 +35,7 @@ class Users extends CI_Controller {
 				if($user_type==1){
 					$role=$this->input->post('role');
 					$paguthi=$this->input->post('paguthi');
+					$office_id=$this->input->post('office_id');
 					$name=$this->input->post('name');
 					$email=$this->input->post('email');
 					$mobile=$this->input->post('phone');
@@ -51,8 +53,8 @@ class Users extends CI_Controller {
 						$profilepic = $uploaddir.$staff_prof_pic;
 						move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 					}
-					$datas=$this->usermodel->add_users($role,$paguthi,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,$status,$staff_prof_pic,$user_id);
-					
+					$datas=$this->usermodel->add_users($role,$paguthi,$office_id,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,$status,$staff_prof_pic,$user_id);
+
 					if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'You have just created a profile for your staff!');
 						redirect(base_url().'users/list_users');
@@ -69,7 +71,7 @@ class Users extends CI_Controller {
          redirect(base_url());
        }
 	}
-	
+
 	public function checkemail(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -81,7 +83,7 @@ class Users extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function checkphone(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -92,16 +94,16 @@ class Users extends CI_Controller {
 		}else{
 			redirect(base_url());
 		}
-	}	
+	}
 
-	
+
 	public function list_users()
 	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['result']=$this->usermodel->list_users();
-		
+
 		if($user_type==1){
 			$this->load->view('admin/header');
 			$this->load->view('admin/users/list',$datas);
@@ -110,7 +112,7 @@ class Users extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function edit()
 	{
 		$datas=$this->session->userdata();
@@ -119,8 +121,9 @@ class Users extends CI_Controller {
 		$staff_id=base64_decode($this->uri->segment(3))/98765;
 		$datas['role'] = $this->usermodel->list_role();
 		$datas['paguthi'] = $this->usermodel->list_paguthi();
+		$datas['res_office'] = $this->usermodel->list_office();
 		$datas['res']=$this->usermodel->users_details($staff_id);
-		
+
 		if($user_type==1){
 			$this->load->view('admin/header');
 			$this->load->view('admin/users/edit',$datas);
@@ -142,7 +145,7 @@ class Users extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function checkphone_edit(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -155,7 +158,7 @@ class Users extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-	
+
 	public function update_user(){
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
@@ -165,16 +168,17 @@ class Users extends CI_Controller {
 			$staff_id= $this->input->post('staff_id');
 			$role=$this->input->post('role');
 			$paguthi=$this->input->post('paguthi');
+			$office_id=$this->input->post('office_id');
 			$name=$this->input->post('name');
 			$email=$this->input->post('email');
 			$mobile=$this->input->post('phone');
 			$address= $this->db->escape_str($this->input->post('address'));
 			$gender=$this->input->post('gender');
 			$status=$this->input->post('status');
-			
+
 			$user_old_pic=$this->input->post('user_old_pic');
 			$profilepic = $_FILES['new_profile_pic']['name'];
-			
+
 			if(empty($profilepic)){
 				$staff_prof_pic=$user_old_pic;
 			}else{
@@ -184,8 +188,8 @@ class Users extends CI_Controller {
 				$profilepic = $uploaddir.$staff_prof_pic;
 				move_uploaded_file($_FILES['new_profile_pic']['tmp_name'], $profilepic);
 			}
-			
-			$datas=$this->usermodel->update_user($role,$paguthi,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,$status,$staff_prof_pic,$staff_id,$user_id);
+
+			$datas=$this->usermodel->update_user($role,$paguthi,$office_id,strtoupper($name),strtoupper($email),$mobile,strtoupper($address),$gender,$status,$staff_prof_pic,$staff_id,$user_id);
 
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'Profile Updated');
@@ -198,7 +202,7 @@ class Users extends CI_Controller {
 			redirect(base_url());
 	 }
 	}
-	
 
-	
+
+
 }

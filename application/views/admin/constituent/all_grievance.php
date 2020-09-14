@@ -60,7 +60,7 @@
                              <th>Paguthi</th>
                              <th>Reference</th>
                              <th>status</th>
-                             <th>Action</th>
+                             <th style="width:100px;">Action</th>
                           </tr>
                        </thead>
                        <tbody>

@@ -52,10 +52,16 @@
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" value="<?php echo $rows->full_name; ?>" maxlength='30'>
 		</div>
-		<label class="col-form-label col-md-2 col-sm-2 ">Eamil ID <span class="required">*</span></label>
-		<div class="col-md-4 col-sm-4">
-			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" value="<?php echo $rows->email_id; ?>" maxlength='30'>
+		<label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-9 ">
+			<select class="form-control" name="office_id" id="office_id">
+				<option value="">SELECT</option>
+				<?php foreach($res_office as $rows_office){ ?>
+					 <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+			 <?php } ?>
+			</select><script> $('#office_id').val('<?php echo $rows->office_id; ?>');</script>
 		</div>
+
 	</div>
 		<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Gender <span class="required">*</span></label>
@@ -69,16 +75,24 @@
 		</div>
 
 	</div>
-		<div class="item form-group">
 
-		<div class="col-md-6 col-sm-6"></div>
-	</div>
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Address <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
 			<textarea id="address" name="address" rows="3" class="form-control" maxlength='150'><?php echo $rows->address; ?></textarea>
 		</div>
-		<div class="col-md-6 col-sm-6"><div class="profile_pic">
+		<label class="col-form-label col-md-2 col-sm-2 ">EMAIL ID <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-4">
+			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" value="<?php echo $rows->email_id; ?>" maxlength='30'>
+		</div>
+</div>
+	<div class="item form-group">
+		<label class="col-form-label col-md-2 col-sm-2 ">Profile Picture <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-4">
+			<input type="file" id="new_profile_pic" class="form-control" name="new_profile_pic" title="Please select image" accept="image/*" >
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<div class="profile_pic">
 		<?php
 		$user_pic  = trim($rows->profile_pic );
 		if ($user_pic != '') {?>
@@ -86,15 +100,10 @@
 		<?php } else { ?>
 			<img src="<?php echo base_url(); ?>assets/users/default.png" class="img-responsive profile_img" style="width:150px;">
 		<?php } ?>
-		</div></div>
-	</div>
-	<div class="item form-group">
-		<label class="col-form-label col-md-2 col-sm-2 ">Profile Picture <span class="required">*</span></label>
-		<div class="col-md-4 col-sm-4">
-			<input type="file" id="new_profile_pic" class="form-control" name="new_profile_pic" title="Please select image" accept="image/*" >
+			</div>
 		</div>
-		<div class="col-md-6 col-sm-6"></div>
 	</div>
+
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Status <span class="required">*</span></label>
 		<div class="col-md-4 col-sm-4">
@@ -143,6 +152,9 @@ $('#list_user').addClass('active current-page');
 			paguthi: {
 				required: true
 			},
+			office_id: {
+				required: true
+			},
 			name: {
 				required: true
 			},
@@ -176,6 +188,7 @@ $('#list_user').addClass('active current-page');
 		messages: {
 			role: "Select the role",
 			paguthi: "Select the paguthi",
+			office_id: "Select the office",
 			name: "Enter the name",
 			email: {
 						 required: "Enter the email ID",

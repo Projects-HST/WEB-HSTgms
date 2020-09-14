@@ -733,6 +733,12 @@ Class Mastermodel extends CI_Model
 		return $result->result();
 	}
 
+	function get_active_office_name(){
+		$query="SELECT * FROM office WHERE status='ACTIVE' order by id desc";
+		$result=$this->db->query($query);
+		return $result->result();
+	}
+
 	function get_active_ward($paguthi_id){
 		 $query="SELECT * FROM ward WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
 		$result=$this->db->query($query);

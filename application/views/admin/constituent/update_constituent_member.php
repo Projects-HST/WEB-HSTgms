@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="<?php echo base_url(); ?>assets/admin/vendors/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="<?php echo base_url(); ?>assets/admin/vendors/jquery-ui/jquery-ui.js"></script>
 <div  class="right_col" role="main" style="height:100vh;">
    <div class="">
       <div class="col-md-12 col-sm-12 ">
@@ -70,15 +70,10 @@
                      <label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
                        <select class="form-control" name="office_id" id="office_id">
-                         <?php $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
-                         $result=$this->db->query($query);
-                         if($result->num_rows()==0){ ?>
-                         <option value=""></option>
-                         <?php 	}else{
-                         $res_office=$result->result();
-                         foreach($res_office as $rows_office){ ?>
-                           <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
-                         <?php   }		}    ?>
+                         <option value="">SELECT</option>
+                         <?php foreach($res_office as $rows_office){ ?>
+                            <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+                        <?php } ?>
                        </select>
                         <script>$('#office_id').val('<?php echo $office_id; ?>');</script>
                      </div>

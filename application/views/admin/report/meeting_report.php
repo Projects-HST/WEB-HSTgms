@@ -55,16 +55,10 @@ th{
          <label class="col-form-label col-md-1 col-sm-3">office</label>
         <div class="col-md-2 col-sm-2">
            <select class="form-control" name="m_ward_id" id ="office_id" >
-             <option value="">ALL</option>
-            <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$m_paguthi' order by id desc";
-             $result_of=$this->db->query($query);
-             if($result_of->num_rows()==0){ ?>
-             <option value=""></option>
-             <?php 	}else{
-             $res_office=$result_of->result();
-             foreach($res_office as $rows_office){ ?>
-               <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
-             <?php   }		}    ?>
+              <option value="">ALL</option>
+             <?php foreach($res_office as $rows_office){ ?>
+                <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+            <?php } ?>
            </select>
            <script> $('#office_id').val('<?php echo $m_ward_id; ?>');</script>
         </div>
@@ -107,7 +101,7 @@ th{
                     <td><?php echo $i; ?></td>
                     <td><?php echo $rows['full_name']; ?></td>
                     <td><?php echo $rows['father_husband_name']; ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
+                    <td><?php if($rows['dob']=='0000-00-00'){ echo""; }else{echo date('d-m-Y', strtotime($rows['dob'])); } ?></td>
                     <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                     <td><?php echo $rows['mobile_no']; ?></td>
                     <td><?php echo $rows['meeting_detail']; ?></td>
@@ -149,20 +143,20 @@ function get_paguthi(sel){
 		success:function(data)
 		{
 		   var stat=data.status;
-		   $("#office_id").empty();
-
-		   if(stat=="success"){
-		   var res=data.res;
-		   var len=res.length;
-        $('#office_id').html('<option value="">ALL</option>');
-		   for (i = 0; i < len; i++) {
-		   $('<option>').val(res[i].id).text(res[i].office_name).appendTo('#office_id');
-		   }
-
-		   }else{
-		   $("#office_id").empty();
-
-		   }
+		   // $("#office_id").empty();
+       //
+		   // if(stat=="success"){
+		   // var res=data.res;
+		   // var len=res.length;
+       //  $('#office_id').html('<option value="">ALL</option>');
+		   // for (i = 0; i < len; i++) {
+		   // $('<option>').val(res[i].id).text(res[i].office_name).appendTo('#office_id');
+		   // }
+       //
+		   // }else{
+		   // $("#office_id").empty();
+       //
+		   // }
 		}
 	});
 }

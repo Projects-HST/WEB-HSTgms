@@ -30,6 +30,7 @@ class constituent extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_office']=$this->mastermodel->get_active_office_name();
 			$data['res_interaction']=$this->mastermodel->get_active_interaction_question();
 			$data['res_religion']=$this->mastermodel->get_active_religion();
 			$data['res_booth']=$this->mastermodel->get_active_booth_address();
@@ -312,11 +313,13 @@ class constituent extends CI_Controller {
 	public function get_constituent_member_edit(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');
+		$sess_office_id = $this->session->userdata('sess_office_id');
 		if($user_type=='1' || $user_type=='2'){
 			$constituent_id=$this->uri->segment(3);
 			$data['res']=$this->constituentmodel->get_constituent_member_edit($constituent_id);
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_office']=$this->mastermodel->get_active_office_name();
 			$data['res_interaction']=$this->mastermodel->get_active_interaction_question();
 			$data['res_religion']=$this->mastermodel->get_active_religion();
 			$this->load->view('admin/header');
@@ -705,6 +708,7 @@ public function list_grievance_reply($rowno=0){
 		if($user_type=='1' || $user_type=='2'){
 			$grievanve_id=$this->uri->segment(3);
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_office']=$this->mastermodel->get_active_office_name();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_seeker']=$this->mastermodel->get_active_seeker();
 			$data['res_grievance']=$this->constituentmodel->get_constituent_grievance_edit($grievanve_id);
@@ -1140,6 +1144,7 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 
 			$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
+			$data['res_office']=$this->mastermodel->get_active_office_name();
 			$data['res_constituency']=$this->mastermodel->get_active_constituency();
 			$data['res_seeker']=$this->mastermodel->get_active_seeker();
 			$data['res_sms']=$this->mastermodel->get_active_template();
@@ -1273,6 +1278,7 @@ public function meetings($rowno=0)
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_festival']=$this->mastermodel->get_active_festival();
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
+			$data['res_office']=$this->mastermodel->get_active_office_name();
 
 			 $religion_id="";
 	 		 $paguthi="";

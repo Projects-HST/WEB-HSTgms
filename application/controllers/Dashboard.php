@@ -10,6 +10,7 @@ class Dashboard extends CI_Controller {
 			$this->load->model('dashboardmodel');
 			$this->load->model('constituentmodel');
 			$this->load->model('mastermodel');
+			$this->load->model('usermodel');
 			$this->load->library('pagination');
 			$this->load->helper('form');
  }
@@ -20,6 +21,7 @@ class Dashboard extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['paguthi'] = $this->dashboardmodel->list_paguthi();
+		$datas['res_office'] = $this->usermodel->list_office();
 		$paguthi_id=$this->input->post('paguthi_id');
 		$office_id=$this->input->post('office_id');
 		$from_date=$this->input->post('from_date');

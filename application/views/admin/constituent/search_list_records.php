@@ -457,7 +457,10 @@ input:required {
                 <div class="col-md-4 col-sm-6 ">
                   <label>Office  <span class="required">*</span></label>
                   <select class="form-control" name="office_id" id="office_id">
-                    <option value=""></option>
+                    <option value="">SELECT</option>
+                    <?php foreach($res_office as $rows_office){ ?>
+                       <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+                   <?php } ?>
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
@@ -609,7 +612,7 @@ function get_petition_no(sel){
     success:function(data)
     {
         $('#petition_enquiry_no').val("");
-          $('#office_id').empty();
+          // $('#office_id').empty();
         var stat=data.status;
         if(stat=="success"){
           var pet_status=data.pet_eny_no;
@@ -619,18 +622,18 @@ function get_petition_no(sel){
           }else{
 
           }
-          var off_res=data.office_data;
-          var stat_office=off_res.status;
-          if(stat_office=="success"){
-            var res_office=off_res.res_office;
-            var len_off=res_office.length;
-              $('#office_id').html('<option value="">SELECT office</option>');
-                for (j = 0; j < len_off; j++) {
-                  $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
-                }
-          }else{
-
-          }
+          // var off_res=data.office_data;
+          // var stat_office=off_res.status;
+          // if(stat_office=="success"){
+          //   var res_office=off_res.res_office;
+          //   var len_off=res_office.length;
+          //     $('#office_id').html('<option value="">SELECT office</option>');
+          //       for (j = 0; j < len_off; j++) {
+          //         $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
+          //       }
+          // }else{
+          //
+          // }
 
 
         }else{

@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<link href="<?php echo base_url(); ?>assets/admin/vendors/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="<?php echo base_url(); ?>assets/admin/vendors/jquery-ui/jquery-ui.js"></script>
 
 <div  class="right_col" role="main" style="height:100vh;">
    <div class="">
@@ -61,7 +60,10 @@
                      <label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
                        <select class="form-control" name="office_id" id="office_id">
-                         <option value=""></option>
+                         <option value="">SELECT</option>
+                         <?php foreach($res_office as $rows_office){ ?>
+                            <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+                        <?php } ?>
                        </select>
                      </div>
                       <label class="control-label col-md-2 col-sm-3 ">ward <span class="required">*</span></label>
@@ -385,7 +387,7 @@ function get_paguthi(sel){
 		{
 		   var stat=data.status;
 		   $("#ward_id").empty();
-       $("#office_id").empty();
+       // $("#office_id").empty();
        $("#booth_id").empty();
        $("#booth_address").empty();
 		   if(stat=="success"){
@@ -403,18 +405,18 @@ function get_paguthi(sel){
            $("#booth_id").empty();
            $("#booth_address").empty();
          }
-         if(res2.status=="success"){
-           var res_office=res2.res_office;
-           var len_off=res_office.length;
-             $('#office_id').html('<option value="">SELECT office</option>');
-               for (j = 0; j < len_off; j++) {
-               $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
-               }
-         }else{
-           $("#office_id").empty();
-           $("#booth_id").empty();
-           $("#booth_address").empty();
-         }
+         // if(res2.status=="success"){
+         //   var res_office=res2.res_office;
+         //   var len_off=res_office.length;
+         //     $('#office_id').html('<option value="">SELECT office</option>');
+         //       for (j = 0; j < len_off; j++) {
+         //       $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
+         //       }
+         // }else{
+         //   $("#office_id").empty();
+         //   $("#booth_id").empty();
+         //   $("#booth_address").empty();
+         // }
 
 
 
@@ -592,6 +594,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
         rules: {
           paguthi_id:{required:true },
           ward_id:{required:true },
+          gender:{required:true},
           office_id:{required:true },
           booth_id:{required:false },
           full_name:{required:true,maxlength:80 },
@@ -629,6 +632,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
           ward_id:{required:"select ward" },
           office_id:{required:"select office" },
           booth_id:{required:"select booth" },
+          gender:{required:"select the gender"},
           full_name:{required:"enter the full name" },
           father_husband_name:{required:"Enter father or husband name" },
           mobile_no:{minlength:"Phone no should be 10 digits",maxlength:"Phone no should be 10 digits" },

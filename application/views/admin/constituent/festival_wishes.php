@@ -52,17 +52,12 @@
         <div class="form-group row">
           <label class="col-form-label col-md-2 col-sm-3 ">Select Office</label>
           <div class="col-md-3 col-sm-4">
-            <select class="form-control" name="cf_ward_id" id ="office_id" >
-              <option value="">ALL</option>
-            <?php  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$cf_paguthi' order by id desc";
-             $result_of=$this->db->query($query);
-             if($result_of->num_rows()==0){ ?>
-             <option value=""></option>
-             <?php 	}else{
-             $res_office=$result_of->result();
-             foreach($res_office as $rows_office){ ?>
-               <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
-             <?php   }		}    ?>
+
+            <select class="form-control" name="cf_ward_id" id="office_id">
+              <option value="">SELECT</option>
+              <?php foreach($res_office as $rows_office){ ?>
+                 <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+             <?php } ?>
             </select>
             <script>$('#office_id').val('<?php echo $cf_ward_id; ?>')</script>
           </div>
@@ -188,20 +183,20 @@
    		success:function(data)
    		{
    		   var stat=data.status;
-   		   $("#office_id").empty();
+   		   // $("#office_id").empty();
 
-   		   if(stat=="success"){
-   		   var res=data.res;
-   		   var len=res.length;
-           $('#office_id').html('<option value="">ALL</option>');
-   		   for (i = 0; i < len; i++) {
-   		   $('<option>').val(res[i].id).text(res[i].office_name).appendTo('#office_id');
-   		   }
-
-   		   }else{
-   		   $("#office_id").empty();
-
-   		   }
+   		   // if(stat=="success"){
+   		   // var res=data.res;
+   		   // var len=res.length;
+         //   $('#office_id').html('<option value="">ALL</option>');
+   		   // for (i = 0; i < len; i++) {
+   		   // $('<option>').val(res[i].id).text(res[i].office_name).appendTo('#office_id');
+   		   // }
+         //
+   		   // }else{
+   		   // $("#office_id").empty();
+         //
+   		   // }
    		}
    	});
    }

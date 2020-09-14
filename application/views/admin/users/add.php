@@ -50,10 +50,16 @@
 		<div class="col-md-4 col-sm-4">
 			<input type="text" id="name" name="name" class="form-control" placeholder="FULL NAME" maxlength='30'>
 		</div>
-		<label class="col-form-label col-md-2 col-sm-2 ">Eamil ID <span class="required">*</span></label>
-		<div class="col-md-4 col-sm-4">
-			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" maxlength='30'>
+		<label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-9 ">
+			<select class="form-control" name="office_id" id="office_id">
+				<option value="">SELECT</option>
+				<?php foreach($res_office as $rows_office){ ?>
+					 <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+			 <?php } ?>
+			</select>
 		</div>
+
 	</div>
 		<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Gender <span class="required">*</span></label>
@@ -75,7 +81,10 @@
 		<div class="col-md-4 col-sm-4">
 			<textarea id="address" name="address" rows="3" class="form-control"></textarea>
 		</div>
-		<div class="col-md-6 col-sm-6"></div>
+		<label class="col-form-label col-md-2 col-sm-2 ">EMAIL ID <span class="required">*</span></label>
+		<div class="col-md-4 col-sm-4">
+			<input type="text" id="email" name="email" class="form-control" placeholder="Email ID" maxlength='30'>
+		</div>
 	</div>
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-2 ">Profile Picture <span class="required">*</span></label>
@@ -134,6 +143,7 @@ $('#create_user').addClass('active current-page');
 			paguthi: {
 				required: true
 			},
+			office_id :{required:true},
 			name: {
 				required: true
 			},
@@ -166,6 +176,7 @@ $('#create_user').addClass('active current-page');
 		messages: {
 			role: "Select the  Role",
 			paguthi: "Select the Paguthi",
+			office_id: "Select the office",
 			name: "Enter the name",
 			email: {
 						 required: "Enter the email ID",

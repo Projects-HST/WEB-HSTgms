@@ -24,16 +24,10 @@
                  <div class="col-md-4 col-sm-6 ">
                    <label>Office</label>
                    <select class="form-control" name="office_id" id="office_id">
-                     <?php
-                       $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$con_row->paguthi_id' order by id desc";
-                     $result=$this->db->query($query);
-                     if($result->num_rows()==0){ ?>
-                     <option value=""></option>
-                     <?php 	}else{
-                     $res_office=$result->result();
-                     foreach($res_office as $rows_office){ ?>
-                       <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
-                     <?php   }		}    ?>
+                     <option value="">SELECT</option>
+                     <?php foreach($res_office as $rows_office){ ?>
+                        <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+                    <?php } ?>
                    </select>
                    <script>$('#office_id').val('<?php echo $con_row->office_id; ?>');</script>
                  </div>

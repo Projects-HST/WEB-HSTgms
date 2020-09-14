@@ -72,17 +72,10 @@ margin-left: 230px;
 					 <label class="col-form-label  text-left">office</label>
 					 <select class="form-control" name="office_id" id="office_id">
 
-						 <?php
-						  $query="SELECT * FROM office WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
-						 $result=$this->db->query($query);
-						 if($result->num_rows()==0){ ?>
-
-						 <?php 	}else{
-						 $res_office=$result->result(); ?>
 						 <option value="">ALL</option>
-						<?php foreach($res_office as $rows_office){ ?>
-							 <option value="<?php echo $rows_office->id; ?>"><?php echo $rows_office->office_name; ?></option>
-						 <?php   }		}    ?>
+						 <?php foreach($res_office as $rows_office){ ?>
+								<option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+						<?php } ?>
 					 </select>
 						<script>$('#office_id').val('<?php echo $office_id; ?>');</script>
 				 </div>
@@ -366,7 +359,7 @@ function moneyFormatIndia($num) {
 						<?php if(empty($grievance_report['cv_list'])){
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
-						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?php if($rows_cons->total=="0"){echo "0";}else{?><?= round($rows_vi_lits->cnt_video/$rows_cons->total*100,2);?><?php }?>%)</p></div>
+						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?php if($sum=="0"){echo "0";}else{?><?= round($rows_vi_lits->cnt_video/$sum*100,2);?><?php }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
 
@@ -521,18 +514,18 @@ $('#result_form').validate({
 				 cache: false,
 				 success: function (data) {
 						 var stat = data.status;
-						 $("#office_id").empty();
-
-						 if (stat == "success") {
-								 var res = data.res;
-								 var len = res.length;
-								 $("#office_id").html('<option value="">ALL</option>');
-								 for (i = 0; i < len; i++) {
-										 $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
-								 }
-						 } else {
-								 $("#office_id").empty();
-						 }
+						 // $("#office_id").empty();
+						 //
+						 // if (stat == "success") {
+							// 	 var res = data.res;
+							// 	 var len = res.length;
+							// 	 $("#office_id").html('<option value="">ALL</option>');
+							// 	 for (i = 0; i < len; i++) {
+							// 			 $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
+							// 	 }
+						 // } else {
+							// 	 $("#office_id").empty();
+						 // }
 				 },
 		 });
  }

@@ -20,6 +20,7 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$data['paguthi'] = $this->usermodel->list_paguthi();
+		$data['res_office'] = $this->usermodel->list_office();
 		 $frmDate="";
 		 $toDate="";
 		 $status="";
@@ -132,6 +133,7 @@ class Report extends CI_Controller {
 		$data['category'] = $this->usermodel->list_category();
 		$data['seeker'] = $this->usermodel->list_seeker();
 		$data['paguthi'] = $this->usermodel->list_paguthi();
+		$data['res_office'] = $this->usermodel->list_office();
 		$frmDate="";
 		$toDate="";
 		$category="";
@@ -372,6 +374,7 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$data['paguthi'] = $this->usermodel->list_paguthi();
+		$data['res_office'] = $this->usermodel->list_office();
 		$frmDate="";
 		$toDate="";
 		$status="";
@@ -547,6 +550,7 @@ class Report extends CI_Controller {
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$data['paguthi'] = $this->usermodel->list_paguthi();
+		$data['res_office'] = $this->usermodel->list_office();
 		$data['res_year']=$this->reportmodel->get_birthday_wish_year();
 		$month_id="";
 		$year_id="";
@@ -854,6 +858,7 @@ class Report extends CI_Controller {
 		if($user_type=='1' || $user_type=='2'){
 			$data['res_festival']=$this->mastermodel->get_active_festival();
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
+			$data['res_office'] = $this->usermodel->list_office();
 			$data['res_year'] = $this->reportmodel->get_festival_year();
 			$religion_id="";
 			$year_id="";
@@ -970,6 +975,7 @@ class Report extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
+			$data['res_office'] = $this->usermodel->list_office();
 				$paguthi="";
 				$ward_id="";
 				$whatsapp_no="";
@@ -1086,6 +1092,7 @@ class Report extends CI_Controller {
 		$user_type = $this->session->userdata('user_type');
 		if($user_type=='1' || $user_type=='2'){
 			$data['paguthi'] = $this->mastermodel->get_active_paguthi();
+			$data['res_office'] = $this->usermodel->list_office();
 			$paguthi="";
 			$ward_id="";
 			if($this->input->post('submit') != NULL ){
