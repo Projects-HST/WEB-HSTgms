@@ -20,7 +20,7 @@ body{
   padding: 6px;
 }
 .ui-datepicker{
-  width:300px !important;
+  /* width:300px !important; */
 }
 .btn-width{
 
