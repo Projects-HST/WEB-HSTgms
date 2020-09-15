@@ -448,10 +448,10 @@ Class Reportmodel extends CI_Model
 		$this->db->from('consitutent_birthday_wish as bw');
 		$this->db->join('constituent as c', 'c.id = bw.constituent_id', 'left');
 		if(empty($year_id)){
-			$this->db->where('DATE(c.dob) >= last_day(now()) + interval 1 day - interval 3 month');
+			$this->db->where('DATE(bw.created_at) >= last_day(now()) + interval 1 day - interval 3 month');
 		}else{
 			// $this->db->where('YEAR(bw.created_at)',$year_id);
-			$query_where="YEAR(c.created_at) BETWEEN '$bf_year_id' AND '$year_id'";
+			$query_where="YEAR(bw.created_at) BETWEEN '$bf_year_id' AND '$year_id'";
 			$this->db->where($query_where);
 		}
 		if(empty($month_id)){
