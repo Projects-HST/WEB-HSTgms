@@ -9,6 +9,7 @@ class Login extends CI_Controller {
 			$this->load->library('session');
 			$this->load->library('session');
 			$this->load->model('loginmodel');
+			$this->load->model('usermodel');
 	}
 
 	public function index()
@@ -69,6 +70,8 @@ class Login extends CI_Controller {
 
 		if($user_type==1 || $user_type==2){
 			$datas['res'] = $this->loginmodel->profile($user_id);
+			$datas['paguthi'] = $this->usermodel->list_paguthi();
+			$datas['res_office'] = $this->usermodel->list_office();
 			$this->load->view('admin/header');
 			$this->load->view('profile',$datas);
 			$this->load->view('admin/footer');

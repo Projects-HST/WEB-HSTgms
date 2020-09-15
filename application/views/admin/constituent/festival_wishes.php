@@ -54,7 +54,7 @@
           <div class="col-md-3 col-sm-4">
 
             <select class="form-control" name="cf_ward_id" id="office_id">
-              <option value="">SELECT</option>
+              <option value="">ALL</option>
               <?php foreach($res_office as $rows_office){ ?>
                  <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
              <?php } ?>

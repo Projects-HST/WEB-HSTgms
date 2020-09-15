@@ -1,6 +1,8 @@
 <?php foreach($res as $rows){
 	$user_pic  = trim($rows->profile_pic );
 	$user_type  = trim($rows->role_id );
+
+
 } ?>
 <div class="right_col" role="main">
 <div class="">
@@ -63,6 +65,34 @@
 		<input type="radio" name="gender" value="M" <?php if($sgender =='M'){ echo "checked"; }?> style="margin-top:10px;"> Male &nbsp; <input type="radio" name="gender" value="F" <?php if($sgender =='F'){ echo "checked";} ?>> Female
 	</div>
 	</div>
+<?php if($user_type=='1'){ ?>
+	<!-- <div class="item form-group">
+		<label class="control-label col-md-2 col-sm-3 ">paguthi<span class="required">*</span></label>
+		<div class="col-md-4 col-sm-9 ">
+		<select class="form-control" name="b_paguthi" id ="paguthi" >
+			<option value="">ALL</option>
+			<?php foreach($paguthi as $rows_paguthi){ ?>
+			<option value="<?php echo $rows_paguthi->id;?>"><?php echo $rows_paguthi->paguthi_name;?></option>
+			<?php } ?>
+		</select>
+			<script> $('#paguthi').val('<?php echo $rows->pugathi_id; ?>');</script>
+	</div>
+	</div>
+
+	<div class="item form-group">
+	<label class="control-label col-md-2 col-sm-3 ">office<span class="required">*</span></label>
+	<div class="col-md-4 col-sm-9 ">
+		<select class="form-control" name="b_ward_id" id ="office_id" >
+			<option value="">ALL</option>
+			<?php foreach($res_office as $rows_office){ ?>
+				 <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+		 <?php } ?>
+		</select>
+		 <script> $('#office_id').val('<?php echo $rows->office_id; ?>');</script>
+	</div>
+	</div> -->
+<?php } ?>
+
 
 	<div class="item form-group">
 		<label class="col-form-label col-md-2 col-sm-3 ">Profile Picture</label>
@@ -97,6 +127,7 @@
 </div>
 
 <script type="text/javascript">
+// $('#paguthi').attr('disabled',false);
 
 $.validator.addMethod('filesize', function (value, element, param) {
 	return this.optional(element) || (element.files[0].size <= param)
