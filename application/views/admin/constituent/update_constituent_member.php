@@ -430,7 +430,7 @@ function get_paguthi(){
     {
        var stat=data.status;
        $("#ward_id").empty();
-       $("#office_id").empty();
+       // $("#office_id").empty();
        $("#booth_id").empty();
        $("#booth_address").empty();
        if(stat=="success"){
@@ -448,18 +448,18 @@ function get_paguthi(){
            $("#booth_id").empty();
            $("#booth_address").empty();
          }
-         if(res2.status=="success"){
-           var res_office=res2.res_office;
-           var len_off=res_office.length;
-             $('#office_id').html('<option value="">SELECT office</option>');
-               for (j = 0; j < len_off; j++) {
-               $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
-               }
-         }else{
-           $("#office_id").empty();
-           $("#booth_id").empty();
-           $("#booth_address").empty();
-         }
+         // if(res2.status=="success"){
+         //   var res_office=res2.res_office;
+         //   var len_off=res_office.length;
+         //     $('#office_id').html('<option value="">SELECT office</option>');
+         //       for (j = 0; j < len_off; j++) {
+         //       $('<option>').val(res_office[j].id).text(res_office[j].office_name).appendTo('#office_id');
+         //       }
+         // }else{
+         //   $("#office_id").empty();
+         //   $("#booth_id").empty();
+         //   $("#booth_address").empty();
+         // }
 
 
 

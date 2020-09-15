@@ -1235,7 +1235,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			$this->db->from('constituent as c');
 
 
-			if(empty($religion_id)){
+			if(empty($religion_id) || $religion_id=='1'){
 				$this->db->join('festival_wishes as f', 'f.constituent_id = c.id', 'left');
 			}else{
 				$this->db->join('festival_wishes as f', 'f.constituent_id = c.id and f.festival_id='.$religion_id, 'left');
@@ -1254,7 +1254,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 			}else{
 				$this->db->where('c.office_id',$ward_id);
 			}
-		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.festival_id='$religion_id')",null,false);
 
 
 			$this->db->group_by('c.id');
@@ -1272,7 +1272,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 $this->db->from('constituent as c');
 
 
-		 if(empty($religion_id)){
+		 if(empty($religion_id) || $religion_id=='1'){
 			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id', 'left');
 		 }else{
 			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id and f.festival_id='.$religion_id, 'left');
@@ -1291,7 +1291,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		 }else{
 			 $this->db->where('c.office_id',$ward_id);
 		 }
-		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.id!='$religion_id')",null,false);
+		 $this->db->where("not exists (select fw.constituent_id from festival_wishes  as fw where fw.constituent_id = c.id and fw.festival_id='$religion_id')",null,false);
 		 $query = $this->db->get();
 		 $result = $query->result_array();
 		 return $result[0]['allcount'];
