@@ -710,7 +710,7 @@ Class Mastermodel extends CI_Model
 				}
 
 		}else{
-			$data=array("status"=>"error","msg"=>"interaction question already exists!","class"=>"alert alert-danger");
+			$data=array("status"=>"error","msg"=>"Festival  already exists!","class"=>"alert alert-danger");
 		}
 		return $data;
 	}
