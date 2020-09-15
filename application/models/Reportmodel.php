@@ -470,6 +470,7 @@ Class Reportmodel extends CI_Model
 			$this->db->where('c.office_id',$ward_id);
 		}
 		$query = $this->db->get();
+
 		$result = $query->result_array();
 
 		return $result[0]['allcount'];
