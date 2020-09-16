@@ -17,7 +17,7 @@ th{
                <div class="x_content">
 								 <form method='post' action="<?= base_url() ?>constituent/all_petition" >
 								<div class="col-md-12 col-sm-12" style="padding:0px;">
-										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="p_search" type="text" placeholder="Search using  name, Petition no or reference " value="<?= $p_search; ?>" required/></div>
+										<div class="col-md-4 col-sm-4"><input class="form-control" id="search" name="p_search" type="text" placeholder="Search using  name, Petition no or reference " value="<?= $p_search; ?>" required oninvalid="this.setCustomValidity('ENTER THE NAME OR PETITION NO OR REFERENCE')"/></div>
 										<div class="col-md-3 col-sm-2"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 
 										<a href="<?php echo base_url(). "report/reset_search"; ?>" class="btn btn-danger">clear</a>
