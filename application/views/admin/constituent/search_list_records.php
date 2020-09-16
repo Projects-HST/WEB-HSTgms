@@ -6,6 +6,8 @@ input:required {
 </style>
 <div  class="right_col" role="main">
    <div class="">
+    <div class="clearfix"></div>
+	<div class="row">
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
             <div class="x_title">
@@ -24,7 +26,7 @@ input:required {
             <div class="x_content">
 			 <form method='post' action="<?= base_url() ?>constituent/list_constituent_member" >
 			<div class="col-md-12 col-sm-12" style="padding:0px;">
-				  <div class="col-md-6 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search for constituents based on Name, Phone number, Address" required oninvalid="this.setCustomValidity('ENTER NAME OR PHONE NUMBER OR VOTER ID OR AADHAAR CARD NUMBER OF CONSTITUENT')" value="<?= $search ?>" /></div>
+				  <div class="col-md-6 col-sm-4" style="padding-top:10px;"><input class="form-control" id="search" name="search" type="text" placeholder="Search for constituents based on Name / Phone number / Address" required oninvalid="this.setCustomValidity('ENTER NAME OR PHONE NUMBER OR VOTER ID OR AADHAAR CARD NUMBER OF CONSTITUENT')" value="<?= $search ?>" /></div>
 				  <div class="col-md-3 col-sm-2" style="padding-top:10px;"><input class="btn btn-success" type='submit' name='submit' value='Search'>
 					  <?php if ($search_value!='') { ?>
 						<a href="<?php echo base_url(). "report/clear_search"; ?>" class="btn btn-danger">Clear</a>
@@ -530,7 +532,7 @@ input:required {
                </div>
             </form>
          </div>
-
+</div>
       </div>
    </div>
 </div>

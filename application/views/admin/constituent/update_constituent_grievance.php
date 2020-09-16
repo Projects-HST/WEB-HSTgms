@@ -1,5 +1,7 @@
 <div  class="right_col" role="main" style="height:100vh;">
    <div class="">
+    <div class="clearfix"></div>
+	<div class="row">
       <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
            <div class="x_title">
@@ -114,7 +116,7 @@
            </form>
 
          </div>
-
+</div>
       </div>
       </div>
       </div>

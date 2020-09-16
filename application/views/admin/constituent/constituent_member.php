@@ -1,8 +1,10 @@
 <link href="<?php echo base_url(); ?>assets/admin/vendors/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery-ui/jquery-ui.js"></script>
 
-<div  class="right_col" role="main" style="height:100vh;">
+<div  class="right_col" role="main">
    <div class="">
+   <div class="clearfix"></div>
+	<div class="row">
       <div class="col-md-12 col-sm-12 ">
          <form class="form-horizontal form-label-left" id="master_form" action="<?php  echo base_url(); ?>constituent/create_constituent_member" method="post" enctype="multipart/form-data">
          <div class="x_panel">
@@ -296,6 +298,7 @@
          </form>
       </div>
    </div>
+</div>
 </div>
 <style>
 .mb_20{

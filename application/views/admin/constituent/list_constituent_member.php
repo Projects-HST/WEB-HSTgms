@@ -61,8 +61,10 @@
 <div id="cover"></div>
 <div  class="right_col" role="main">
    <div class="">
+    <div class="clearfix"></div>
+	<div class="row">
       <div class="col-md-12 col-sm-12 ">
-         <div class="x_panel" style="overflow-x:auto;">
+         <div class="x_panel" >
             <h2>List of constituent member</h2>
 
             <?php if($this->session->flashdata('msg')) {
@@ -434,7 +436,7 @@
                </div>
             </form>
          </div>
-
+</div>
       </div>
    </div>
 </div>

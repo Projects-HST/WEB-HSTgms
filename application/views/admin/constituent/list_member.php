@@ -1,4 +1,4 @@
-<div  class="right_col" role="main" style="height:100vh;">
+<div  class="right_col" role="main">
    <div class="container">
       <div class="col-md-12 col-sm-12 ">
         <div class="row">
