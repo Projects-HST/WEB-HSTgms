@@ -28,7 +28,12 @@ Class Dashboardmodel extends CI_Model
 		if($office_id=='ALL' || empty($office_id)){
 			$quer_office="";
 		}else{
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_office="WHERE office_id='$office_id'";
+			}else{
 			$quer_office="AND office_id='$office_id'";
+			}
+
 		}
 
 		if(empty($from_date)){
