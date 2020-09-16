@@ -45,17 +45,16 @@ input:required {
            <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
         </div>
 			<tr>
-				<th>S.no</th>
-         <th>name</th>
-                     <th>Surname</th>
-                     <th>Phone no</th>
-                     <th style="width:350px;">Address</th>
-                     <th>Paguthi</th>
-
+					 <th width="8%">S.no</th>
+					 <th width="12%">name</th>
+                     <th width="12%">Surname</th>
+                     <th width="10%">Phone no</th>
+                     <th width="30%">Address</th>
+                     <th width="10%">Paguthi</th>
                      <!-- <th>interaction</th> -->
                      <!-- <th>plant</th> -->
                      <!-- <th>Grievance</th> -->
-                     <th style="width:200px;">Action</th>
+                     <th width="18%">Action</th>
 			</tr>
 			<?php
 			$sno = $row+1;
