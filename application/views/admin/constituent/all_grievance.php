@@ -4,7 +4,9 @@
 /* th{
   min-width: 100px;
 } */
-
+input:required {
+    box-shadow:none;
+}
 </style>
   <div  class="right_col" role="main">
    <div class="">
