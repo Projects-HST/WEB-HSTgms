@@ -44,8 +44,9 @@ Class Dashboardmodel extends CI_Model
 
 			$dateTime2 = new DateTime($to_date);
 			$two_date=date_format($dateTime2,'Y-m-d' );
+					// echo $paguthi_id;exit;
+			if($paguthi_id==' ' || $office_id==' '){
 
-			if(empty($quer_paguthi)){
 				$quer_date="WHERE DATE(created_at) BETWEEN '$one_date' and '$two_date'";
 			}else{
 				$quer_date="AND DATE(created_at) BETWEEN '$one_date' and '$two_date'";
