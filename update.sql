@@ -74,3 +74,4 @@ ALTER TABLE `meeting_request`  ADD `created_office_id` INT NOT NULL  AFTER `crea
 ALTER TABLE `constituent_video`  ADD `created_office_id` INT NOT NULL  AFTER `updated_by`;
 ALTER TABLE `grievance`  ADD `created_office_id` INT NOT NULL  AFTER `created_at`;
 ALTER TABLE `festival_wishes`  ADD `created_office_id` INT NOT NULL  AFTER `updated_by`;
+ALTER TABLE `consitutent_birthday_wish` ADD `created_office_id` INT NOT NULL AFTER `created_by`;

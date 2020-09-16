@@ -198,8 +198,8 @@
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="gender" id="gender">
                             <option value="">SELECT</option>
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
+                            <option value="M">MALE</option>
+                            <option value="F">FEMALE</option>
                             <option value="T">TRANSGENDER</option>
                           </select>
                             <script>$('#gender').val('<?php echo $rows->gender; ?>');</script>
