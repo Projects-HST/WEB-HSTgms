@@ -303,13 +303,13 @@ Class Dashboardmodel extends CI_Model
 			if($paguthi_id=='ALL' || empty($paguthi_id)){
 				$quer_paguthi="";
 			}else{
-				$quer_paguthi="WHERE c.paguthi_id='$paguthi_id'";
+				$quer_paguthi="WHERE g.paguthi_id='$paguthi_id'";
 			}
 
 			if($office_id=='ALL' || empty($office_id)){
 				$quer_office="";
 			}else{
-				$quer_office="AND c.office_id='$office_id'";
+				$quer_office="AND g.office_id='$office_id'";
 			}
 
 		if(empty($from_date)){
@@ -335,13 +335,13 @@ Class Dashboardmodel extends CI_Model
 		}
 
 
-	  $query="SELECT IFNULL(WEEK(g.grievance_date),'0') AS week_name,
+	   $query="SELECT IFNULL(WEEK(g.grievance_date),'0') AS week_name,
 		IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 		IFNULL(count(*),'0') as total
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date order by week_name desc limit 6";
-
+		
 
 
 		$res=$this->db->query($query);
