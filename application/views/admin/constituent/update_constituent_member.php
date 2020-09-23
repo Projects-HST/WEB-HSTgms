@@ -32,7 +32,8 @@
                      <label class="control-label col-md-2 col-sm-3 ">Constituency <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
                        <select class="form-control" name="constituency_id" id="constituency_id">
-                         <?php foreach($res_constituency as $rows_constituency){ ?>
+                         <?php foreach($res_constituency as $rows_constituency){ 
+?>
 
                         <?php } ?>
                          <option value="<?php echo $rows_constituency->id ?>"><?php echo $rows_constituency->constituency_name; ?></option>
@@ -43,11 +44,12 @@
                      <label class="control-label col-md-2 col-sm-3 hide_part">Paguthi <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 hide_part">
                        <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi();">
-                         <?php foreach($res_paguthi as $rows_paguthi){ ?>
+                         <?php foreach($res_paguthi as $rows_paguthi){
+								$oth_paguthi =	$rows_paguthi->id;
+								if ($oth_paguthi != 99){
+						 ?>
                             <option value="<?php echo $rows_paguthi->id ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
-                        <?php } ?>
-
-
+						<?php } } ?>
                        </select>
                        <script>$('#paguthi_id').val('<?php echo $paguthi_id; ?>');</script>
                      </div>
