@@ -58,7 +58,7 @@
                         <input type="text" name="serial_no" id="serial_no" class="form-control">
                       </div>
                     </div>
-                   <div class="form-group row voter_section">
+                   <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
                        <select class="form-control" name="office_id" id="office_id">
