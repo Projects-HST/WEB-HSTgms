@@ -16,6 +16,18 @@ Class Constituentmodel extends CI_Model
 		// $select="SELECT * FROM constituent where serial_no='$serial_no'";
 		// $res_select   = $this->db->query($select);
 		// if($res_select->num_rows()==0){
+		if($constituency_id=='0'){
+			$paguthi_id='0';
+			$ward_id='0';
+			$booth_id='0';
+			$voter_status='';
+			$serial_no='';
+			$party_member_status='';
+			$voter_id_status='';
+
+		}
+
+
 		if($aadhaar_status=='N'){
 			$aadhar_id_no=' ';
 		}else{
@@ -51,6 +63,16 @@ Class Constituentmodel extends CI_Model
 
 
 			function update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id){
+				if($constituency_id=='0'){
+					$paguthi_id='0';
+					$ward_id='0';
+					$booth_id='0';
+					$voter_status='';
+					$serial_no='';
+					$party_member_status='';
+					$voter_id_status='';
+
+				}
 				if($aadhaar_status=='N'){
 					$aadhar_id_no=' ';
 				}else{
