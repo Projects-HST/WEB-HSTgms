@@ -35,7 +35,7 @@ Class Mastermodel extends CI_Model
 #################### Paguthi ####################//
 
 	function get_paguthi(){
-		$query="SELECT * FROM paguthi WHERE constituency_id='1'";
+		$query="SELECT * FROM paguthi WHERE constituency_id='1' AND id!='0'";
 		$result=$this->db->query($query);
 		return $result->result();
 	}

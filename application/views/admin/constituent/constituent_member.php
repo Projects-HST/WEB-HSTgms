@@ -36,9 +36,12 @@
                      <div class="col-md-4 col-sm-9 hide_part">
                        <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi(this);">
                          <option value="">SELECT</option>
-                         <?php foreach($res_paguthi as $rows_paguthi){ ?>
+                         <?php foreach($res_paguthi as $rows_paguthi){ 
+								$paguthi_id = $rows_paguthi->id;
+							if ($paguthi_id >0){
+						 ?>
                             <option value="<?php echo $rows_paguthi->id ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
-                        <?php } ?>
+							<?php } } ?>
 
 
                        </select>

@@ -43,9 +43,12 @@
                      <label class="control-label col-md-2 col-sm-3 hide_part">Paguthi <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 hide_part">
                        <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_paguthi();">
-                         <?php foreach($res_paguthi as $rows_paguthi){ ?>
+                         <?php foreach($res_paguthi as $rows_paguthi){ 
+						 	$c_paguthi_id = $rows_paguthi->id;
+							if ($c_paguthi_id >0){
+						 ?>
                             <option value="<?php echo $rows_paguthi->id ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
-                        <?php } ?>
+							<?php } } ?>
 
 
                        </select>
