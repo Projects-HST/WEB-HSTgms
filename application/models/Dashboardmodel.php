@@ -64,10 +64,10 @@ Class Dashboardmodel extends CI_Model
 
 		  $query="SELECT
 			IFNULL(count(*),'0') AS total,
-			IFNULL(sum(case when volunteer_status = 'YES' then 1 else 0 end),'0') AS no_of_volunteer,
-			IFNULL(sum(case when volunteer_status = 'YES' then 1 else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
-      IFNULL(sum(case when volunteer_status = 'NO' then 1 else 0 end),'0') AS no_of_nonvolunteer,
-			IFNULL(sum(case when volunteer_status = 'NO' then 1 else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage ,
+			IFNULL(sum(case when volunteer_status = 'Y' then 1 else 0 end),'0') AS no_of_volunteer,
+			IFNULL(sum(case when volunteer_status = 'Y' then 1 else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
+      IFNULL(sum(case when volunteer_status = 'N' then 1 else 0 end),'0') AS no_of_nonvolunteer,
+			IFNULL(sum(case when volunteer_status = 'N' then 1 else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage ,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end),'0') AS malecount,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end) / count(*) * 100,'0') as malepercenatge,
 			IFNULL(sum(case when gender = 'F' then 1 else 0 end),'0') AS femalecount,
@@ -88,8 +88,8 @@ Class Dashboardmodel extends CI_Model
       IFNULL(sum(case when email_id != '' then 1 else 0 end) / count(*) * 100,'0') as email_percentage,
 			IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end),'0') AS having_whatsapp,
       IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end) / count(*) * 100,'0') as whatsapp_percentage,
-			IFNULL(sum(case when whatsapp_broadcast = 'YES' then 1 else 0 end),'0') AS having_whatsapp_broadcast,
-      IFNULL(sum(case when whatsapp_broadcast = 'YES' then 1 else 0 end) / count(*) * 100,'0') as broadcast_percentage
+			IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end),'0') AS having_whatsapp_broadcast,
+      IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end) / count(*) * 100,'0') as broadcast_percentage
 			from  constituent $quer_paguthi $quer_office $quer_date";
 
 
@@ -341,7 +341,7 @@ Class Dashboardmodel extends CI_Model
 		IFNULL(count(*),'0') as total
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date order by week_name desc limit 6";
-		
+
 
 
 		$res=$this->db->query($query);

@@ -32,7 +32,7 @@
                      <label class="control-label col-md-2 col-sm-3 ">Constituency <span class="required">*</span></label>
                      <div class="col-md-4 col-sm-9 ">
                        <select class="form-control" name="constituency_id" id="constituency_id">
-                         <?php foreach($res_constituency as $rows_constituency){ 
+                         <?php foreach($res_constituency as $rows_constituency){
 ?>
 
                         <?php } ?>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group row voter_section">
-                      <label class="control-label col-md-2 col-sm-3 ">booth <span class="required">*</span></label>
+                      <label class="control-label col-md-2 col-sm-3 ">booth </label>
                       <div class="col-md-4 col-sm-9 ">
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
 
@@ -117,7 +117,7 @@
                         </select>
                         <script>$('#booth_id').val('<?php echo $booth_id; ?>');</script>
                       </div>
-                       <label class="control-label col-md-2 col-sm-3 ">booth address <span class="required">*</span></label>
+                       <label class="control-label col-md-2 col-sm-3 ">booth address </label>
                        <div class="col-md-4 col-sm-9 ">
                          <?php $query_b="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
                          $resultb=$this->db->query($query_b);
@@ -139,8 +139,8 @@
                         <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
-                            <option value="YES">YES</option>
-                            <option value="NO">NO</option>
+                            <option value="Y">YES</option>
+                            <option value="N">NO</option>
                           </select>
                           <script>$('#vote_type').val('<?php echo $rows->volunteer_status; ?>');</script>
                         </div>
@@ -249,8 +249,8 @@
                      <label class="control-label col-md-2 col-sm-3 broad_cast_section">Whatsapp Broadcast</label>
                      <div class="col-md-4 col-sm-9 broad_cast_section">
                        <p style="margin-top:8px;">
-                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="YES" <?php echo ($rows->whatsapp_broadcast=='YES') ? 'checked="checked"':'';?>>  YES &nbsp;
-                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="NO" <?php echo ($rows->whatsapp_broadcast=='NO') ? 'checked="checked"':'';?>>   NO
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="Y" <?php echo ($rows->whatsapp_broadcast=='Y') ? 'checked="checked"':'';?>>  YES &nbsp;
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="N" <?php echo ($rows->whatsapp_broadcast=='N') ? 'checked="checked"':'';?>>   NO
 
                       </p>
                      </div>
@@ -578,6 +578,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
    $('#master_form').validate({
         rules: {
           paguthi_id:{required:true },
+          office_id:{required:true },
           ward_id:{required:true },
           booth_id:{required:false },
           full_name:{required:true,maxlength:80 },

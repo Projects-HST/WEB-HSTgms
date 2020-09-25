@@ -401,7 +401,7 @@ Class Reportmodel extends CI_Model
 
 		 	$query= "SELECT t3.id,t3.full_name,t3.total_cons,t3.total_v,t3.total_g,count(wb.updated_by) as total_broadcast FROM (SELECT t2.id,t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v
 			from (select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c on c.created_by=um.id
-			and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id) t3 left join constituent as wb on wb.updated_by=t3.id and wb.whatsapp_broadcast='YES'
+			and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id) t3 left join constituent as wb on wb.updated_by=t3.id and wb.whatsapp_broadcast='Y'
 			AND $query_wb group by t3.id";
 			$result=$this->db->query($query);
 		  return $result->result();
@@ -1189,7 +1189,7 @@ Class Reportmodel extends CI_Model
 									 from (SELECT t2.id, t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v from (select um.id,um.full_name,
 										 COUNT(c.created_by) as total_cons	 from user_master as um left join constituent as c on c.created_by=um.id $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id  $query_griever
 										 GROUP BY t2.id) t3 left join meeting_request as mr on mr.created_by=t3.id $query_meeting group by t3.id) t4  left join consitutent_birthday_wish as cb on cb.created_by=t4.id $query_bw group by t4.id) t5 LEFT join festival_wishes as fw on fw.updated_by=t5.id $query_fw GROUP by t5.id) t6
-										  left join grievance_reply as gr on gr.created_by=t6.id and gr.sms_flag='G' $query_gr GROUP BY t6.id) t7 LEFT join grievance_reply as mtr on mtr.created_by=t7.id and mtr.sms_flag='M' $query_mtr GROUP by t7.id) t8 left join constituent as wb on wb.updated_by=t8.id AND wb.whatsapp_broadcast='YES' $query_wb  GROUP BY t8.id";
+										  left join grievance_reply as gr on gr.created_by=t6.id and gr.sms_flag='G' $query_gr GROUP BY t6.id) t7 LEFT join grievance_reply as mtr on mtr.created_by=t7.id and mtr.sms_flag='M' $query_mtr GROUP by t7.id) t8 left join constituent as wb on wb.updated_by=t8.id AND wb.whatsapp_broadcast='Y' $query_wb  GROUP BY t8.id";
 
 
 							$query= $this->db->query($sql);

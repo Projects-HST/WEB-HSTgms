@@ -102,8 +102,8 @@
                         <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
-                            <option value="NO">NO</option>
-                            <option value="YES">YES</option>
+                            <option value="N">NO</option>
+                            <option value="Y">YES</option>
 
                           </select>
                         </div>
@@ -208,8 +208,8 @@
                      <label class="control-label col-md-2 col-sm-3 broad_cast_section">Whatsapp Broadcast</label>
                      <div class="col-md-4 col-sm-9 broad_cast_section">
                        <p style="margin-top:8px;">
-                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="YES" >  YES &nbsp;
-                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="NO" checked="" required="">   NO
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_y" value="Y" >  YES &nbsp;
+                       <input type="radio" class="flat" name="whatsapp_broadcast" id="whatsapp_broadcast_n" value="N" checked="" required="">   NO
 
                       </p>
                      </div>
@@ -541,7 +541,7 @@ $('input[name=voter_status]').click(function(){
 $('#constituency_id').on('change', function() {
   var constituency_id=this.value;
   if(constituency_id=='0'){
-    
+
     $('.voter_section').hide();
     $('.hide_part').hide();
   }else{
