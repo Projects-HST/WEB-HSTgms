@@ -84,9 +84,9 @@ Class Constituentmodel extends CI_Model
 					$voter_no=$voter_id_no;
 				}
 				if($whatsapp_no==''){
-					$whatsapp_broadcast='NO';
+					$whatsapp_broadcast='N';
 				}else{
-					$whatsapp_broadcast='YES';
+					$whatsapp_broadcast='Y';
 				}
 				$id=base64_decode($constituent_id)/98765;
 				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',office_id='$office_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',whatsapp_broadcast='$whatsapp_broadcast',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id',voter_status='$voter_status' where id='$id'";
