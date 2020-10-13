@@ -347,7 +347,21 @@ p{
       margin-top: 20px;
 }
 .widget_height{
-  height: 160px;
+  height: 440px;
+  margin-bottom: 20px;
+}
+.widget_3_height{
+  height: 250px;
+}
+.widget_1_height{
+  height:480px;
+}
+
+.widget_grievance_label{
+    color: #31aa15;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 5px 5px 0px;
 }
 .widget_label{
   color: #000;
@@ -356,6 +370,15 @@ p{
   /* padding: 10px; */
   padding: 5px 5px 5px 0px;
 }
+
+.widget_label_status{
+  font-size: 13px;
+  font-weight: 400;
+  list-style:disc outside none;
+     display:list-item;
+     margin-left: 16px;
+}
+
 .pagination-first-tag{
 border:1px solid #eeeeee;
 padding:10px;

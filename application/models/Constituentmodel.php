@@ -487,7 +487,7 @@ Class Constituentmodel extends CI_Model
 					$repeated_status='R';
 				}
 				$sess_office_id = $this->session->userdata('sess_office_id');
-				$insert="INSERT INTO grievance (grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at,created_office_id) VALUES('$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PENDING','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
+				$insert="INSERT INTO grievance (constituency_id,grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at,created_office_id) VALUES('$constituency_id','$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PENDING','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
 				$res=$this->db->query($insert);
 				$last_id=$this->db->insert_id();
 				if(empty($filename)){
@@ -895,9 +895,11 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 		if ($search_key_2 != ''){
 			 $this->db->like('full_name', $search_key_1,'after');
+			 $this->db->like('father_husband_name', $search_key_1,'after');
 			 $this->db->like('address', $search_key_2);
 		} else {
 			$this->db->or_like('full_name', $search_key_1,'after');
+			$this->db->or_like('father_husband_name', $search_key_1,'after');
 			$this->db->or_like('mobile_no', $search_key_1);
 			$this->db->or_like('voter_id_no', $search_key_1);
 			$this->db->or_like('aadhaar_no', $search_key_1);

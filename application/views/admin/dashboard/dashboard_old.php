@@ -135,7 +135,7 @@ function moneyFormatIndia($num) {
 				</div>
 			</div>
 			<hr>
-			<div class="row" style="height:380px;">
+			<div class="row" style="height:440px;">
 				<div class="col-12">
 					<div class="label_box">
 							<div class="c_widget_label">Male (<?= round($rows_cons->malepercenatge,2); ?>%)</div>
@@ -194,6 +194,8 @@ function moneyFormatIndia($num) {
 					</div>
 
 				</div>
+
+
 			</div>
 
 		</div>
@@ -201,9 +203,8 @@ function moneyFormatIndia($num) {
 
 	<div class="col-md-8">
 		<div class="row mb_30">
-			<div class="col-md-12">
-				<div class="widget_box widget_1_height">
-
+			<div class="col-md-6">
+				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
 								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_2.png"></p>
@@ -211,150 +212,31 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Grievance Count</p>
-									<p class="widget_count">&nbsp;</p>
+								<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
+							<!-- <p class="widget_count"><?php echo moneyFormatIndia($total_grievance=$row_gr_list->total);  ?></p> -->
+							<p class="widget_count"><?php $sum_1 = 0; if(empty($grievance_report['seeker_list'])){ 	}else{  foreach($grievance_report['seeker_list'] as $row_grievenace){ $sum_1 += $row_grievenace->total;  }} echo moneyFormatIndia($sum_1); ?>
+							</p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
-						<?php foreach($grievance_result['grievance_list'] as $rows_grievance){}
-							$total_grievance_list=$rows_grievance->no_of_civic + $rows_grievance->no_of_online;
-							?>
-						<div class="col-6">
-							<div class="row">
-								<div class="col-9"><p class="widget_grievance_label">grievance Petition count</p></div>
-								<div class="col-3"><p class="widget_grievance_label widget_value"><?= $total_grievance_list	?></p></div>
+				<?php  foreach($grievance_report['seeker_list'] as $row_grievenace){ ?>
+							<div class="col-9"><p class="widget_label"><?php echo  $row_grievenace->seeker_info; ?> (<?php
+							if($row_grievenace->total=='0'){
+								echo "0";
+							}else{
+									echo round($row_grievenace->total/$sum_1 *100,2);
+							}
+							?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"> <?php echo  moneyFormatIndia($row_grievenace->total); ?></p></div>
 
-								<div class="col-9"><p class="widget_label">Online issue (<?php  if($total_grievance_list=='0'){ echo "0.00"; }else{
-								echo	number_format($online_percentage=$rows_grievance->no_of_online/$total_grievance_list *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $rows_grievance->no_of_online;	?></p></div>
+						<?php } ?>
 
-								<div class="col-9"><p class="widget_label">Civic issue (<?php  if($total_grievance_list=='0'){ echo "0.00"; }else{
-								echo	number_format($online_percentage=$rows_grievance->no_of_civic/$total_grievance_list *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $rows_grievance->no_of_civic;	?></p></div>
-
-
-						</div>
-						</div>
-						<div class="col-6">
-							<div class="row">
-								<?php  foreach($grievance_result['enquiry_count'] as $enquiry_cnt){} ?>
-								<?php  foreach($grievance_result['petition_count'] as $petition_cnt){}
-												$total_p_e_cnt=$enquiry_cnt->enquiry_count+$petition_cnt->petition_count;
-										?>
-										<?php  foreach($grievance_result['petition_status'] as $petition_status){} ?>
-								<div class="col-9"><p class="widget_grievance_label">Overall Grievance count</p></div>
-								<div class="col-3"><p class="widget_grievance_label widget_value"><?= $total_p_e_cnt	?></p></div>
-
-								<div class="col-9"><p class="widget_label">Enquiry </p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $enquiry_cnt->enquiry_count;	?></p></div>
-
-								<div class="col-9"><p class="widget_label">Petition (<?php  if($enquiry_cnt->enquiry_count=='0'){ echo "0.00"; }else{
-								echo	number_format($petition_cnt->petition_count/$enquiry_cnt->enquiry_count *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $petition_cnt->petition_count;	?></p></div>
-
-
-
-							</div>
-								<div class="row">
-									<div class="col-9"><p class="widget_label_status">Pending   (<?php  if($enquiry_cnt->enquiry_count=='0'){ echo "0.00"; }else{
-									echo	number_format($petition_status->no_of_pending/$enquiry_cnt->enquiry_count *100,2);
-									} ?>%)</p></div>
-									<div class="col-3"><p class="widget_value widget_label"><?= $petition_status->no_of_pending ?></p></div>
-									<div class="col-9"><p class="widget_label_status">Completed (<?php  if($enquiry_cnt->enquiry_count=='0'){ echo "0.00"; }else{
-									echo	number_format($petition_status->no_of_completed/$enquiry_cnt->enquiry_count *100,2);
-									} ?>%)</p></div>
-									<div class="col-3"><p class="widget_value widget_label"><?= $petition_status->no_of_completed ?></p></div>
-									<div class="col-9"><p class="widget_label_status">Rejected (<?php  if($enquiry_cnt->enquiry_count=='0'){ echo "0.00"; }else{
-									echo	number_format($petition_status->no_of_rejected/$enquiry_cnt->enquiry_count *100,2);
-									} ?>%)</p></div>
-									<div class="col-3"><p class="widget_value widget_label"><?= $petition_status->no_of_rejected ?></p></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-6">
-							<hr>
-							<div class="row">
-								<?php foreach($grievance_result['online_enquiry_count'] as  $rows_online_enquiry_count){} ?>
-								<?php foreach($grievance_result['online_petition_count'] as  $rows_online_petition_count){}
-									$total_online_grievance_count=$rows_online_enquiry_count->online_enquiry_count + $rows_online_petition_count->online_petition_count;
-									?>
-										<?php  foreach($grievance_result['online_petition_status'] as $online_petition_status){} ?>
-								<div class="col-9"><p class="widget_grievance_label">Online grievance Count</p></div>
-								<div class="col-3"><p class="widget_grievance_label widget_value"><?= $total_online_grievance_count ?></p></div>
-								<div class="col-9"><p class="widget_label">Enquiry</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $rows_online_enquiry_count->online_enquiry_count ?></p></div>
-								<div class="col-9"><p class="widget_label">Petition (<?php  if($rows_online_enquiry_count->online_enquiry_count=='0'){ echo "0.00"; }else{
-								echo	number_format($rows_online_petition_count->online_petition_count/$rows_online_enquiry_count->online_enquiry_count *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $rows_online_petition_count->online_petition_count ?></p></div>
-						</div>
-						<div class="row">
-
-								<div class="col-9"><p class="widget_label_status">Pending   (<?php  if($rows_online_enquiry_count->online_enquiry_count=='0'){ echo "0.00"; }else{
-								echo	number_format($online_petition_status->no_of_pending/$rows_online_enquiry_count->online_enquiry_count *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_value widget_label"><?= $online_petition_status->no_of_pending ?></p></div>
-								<div class="col-9"><p class="widget_label_status">Completed (<?php  if($rows_online_enquiry_count->online_enquiry_count=='0'){ echo "0.00"; }else{
-								echo	number_format($online_petition_status->no_of_completed/$rows_online_enquiry_count->online_enquiry_count *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_value widget_label"><?= $online_petition_status->no_of_completed ?></p></div>
-								<div class="col-9"><p class="widget_label_status">Rejected (<?php  if($rows_online_enquiry_count->online_enquiry_count=='0'){ echo "0.00"; }else{
-								echo	number_format($online_petition_status->no_of_rejected/$rows_online_enquiry_count->online_enquiry_count *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_value widget_label"><?= $online_petition_status->no_of_rejected ?></p></div>
-
-					</div>
-						</div>
-						<div class="col-6">
-							<hr>
-							<div class="row">
-								<?php foreach($grievance_result['civic_enquiry_count'] as  $rows_civic_enquiry_count){} ?>
-								<?php foreach($grievance_result['civic_petition_count'] as  $rows_civic_petition_count){}
-									$total_civic_grievance_count=$rows_civic_enquiry_count->civic_enquiry_count + $rows_civic_petition_count->civic_petition_count;
-									?>
-										<?php  foreach($grievance_result['civic_petition_status'] as $civic_petition_status){} ?>
-								<div class="col-9"><p class="widget_grievance_label">Civic grievance Count</p></div>
-								<div class="col-3"><p class="widget_grievance_label widget_value"><?= $total_civic_grievance_count ?></p></div>
-								<div class="col-9"><p class="widget_label">Enquiry</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $rows_civic_enquiry_count->civic_enquiry_count ?></p></div>
-								<div class="col-9"><p class="widget_label">Petition (<?php  if($rows_civic_enquiry_count->civic_enquiry_count=='0'){ echo "0.00"; }else{
-								echo	number_format($rows_civic_petition_count->civic_petition_count/$rows_civic_enquiry_count->civic_enquiry_count *100,2);
-								} ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= $rows_civic_petition_count->civic_petition_count ?></p></div>
-						</div>
-								<div class="row">
-
-									<div class="col-9"><p class="widget_label_status">Pending   (<?php  if($rows_civic_enquiry_count->civic_enquiry_count=='0'){ echo "0.00"; }else{
-									echo	number_format($civic_petition_status->no_of_pending/$rows_civic_enquiry_count->civic_enquiry_count *100,2);
-									} ?>%)</p></div>
-									<div class="col-3"><p class="widget_value widget_label"><?= $civic_petition_status->no_of_pending ?></p></div>
-									<div class="col-9"><p class="widget_label_status">Completed (<?php  if($rows_civic_enquiry_count->civic_enquiry_count=='0'){ echo "0.00"; }else{
-									echo	number_format($civic_petition_status->no_of_completed/$rows_civic_enquiry_count->civic_enquiry_count *100,2);
-									} ?>%)</p></div>
-									<div class="col-3"><p class="widget_value widget_label"><?= $civic_petition_status->no_of_completed ?></p></div>
-									<div class="col-9"><p class="widget_label_status">Rejected (<?php  if($rows_civic_enquiry_count->civic_enquiry_count=='0'){ echo "0.00"; }else{
-									echo	number_format($civic_petition_status->no_of_rejected/$rows_civic_enquiry_count->civic_enquiry_count *100,2);
-									} ?>%)</p></div>
-									<div class="col-3"><p class="widget_value widget_label"><?= $civic_petition_status->no_of_rejected ?></p></div>
-
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	</div>
-	<div class="clearfix"></div>
-
-		<div class="row mb_30 mt_20">
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
@@ -370,6 +252,7 @@ function moneyFormatIndia($num) {
 					</div>
 					<hr>
 					<div class="row">
+
 							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
 						<div class="col-9"><p class="widget_label">New Constituent (<?php echo round($row_gr_list->unique_count_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?php echo moneyFormatIndia($row_gr_list->unique_count); ?></p></div>
@@ -380,10 +263,12 @@ function moneyFormatIndia($num) {
 				</div>
 			</div>
 
+		</div>
 
-			<div class="col-md-4">
-				<?php  foreach($grievance_report['mr_list'] as $row_mr_list){} ?>
-				<div class="widget_box">
+		<div class="row mb_30">
+			<?php  foreach($grievance_report['mr_list'] as $row_mr_list){} ?>
+			<div class="col-md-6">
+				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
 								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_4.png"></p>
@@ -404,8 +289,9 @@ function moneyFormatIndia($num) {
 
 					</div>
 				</div>
-
-				<div class="widget_box mt_20">
+			</div>
+			<div class="col-md-6">
+				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
 								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_5.png"></p>
@@ -430,7 +316,7 @@ function moneyFormatIndia($num) {
 
 
 		<div class="clearfix"></div>
-		<div class="row mb_30 ">
+		<div class="row mb_30">
 
 			<?php  foreach($grievance_report['br_list'] as $row_br_list){} ?>
 				<?php  if(empty($grievance_report['fw_list'])){
@@ -439,8 +325,8 @@ function moneyFormatIndia($num) {
 					foreach($grievance_report['fw_list'] as $row_fw_list){}
 						$fwlist_total=$row_fw_list->total;
 				} ?>
-			<div class="col-md-4">
-				<div class="widget_box widget_3_height">
+			<div class="col-md-6">
+				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
 								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_6.png"></p>
@@ -454,15 +340,17 @@ function moneyFormatIndia($num) {
 					</div>
 					<hr>
 					<div class="row">
+
 						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $bwfw *100,2); }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">festival letters (<?php if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $bwfw *100,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
+
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="widget_box widget_3_height">
+			<div class="col-md-6">
+				<div class="widget_box widget_height">
 					<div class="row">
 						<div class="col-3">
 								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_7.png"></p>
@@ -482,24 +370,15 @@ function moneyFormatIndia($num) {
 						<div class="col-9"><p class="widget_label"><?= $rows_vi_lits->office_name; ?> (<?php if($sum=="0"){echo "0";}else{?><?= round($rows_vi_lits->cnt_video/$sum*100,2);?><?php }?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_vi_lits->cnt_video); ?> </p></div>
 					<?php }	} ?>
+
+
 					</div>
 				</div>
 			</div>
-
-			<div class="col-md-4">
-				<div class="widget_box widget_3_height">
-				</div>
-			</div>
-
 		</div>
-		<div class="clearfix"></div>
-
-
-
-<div class="row">
-
-
+	</div>
 </div>
+
 
 <div class="clearfix"></div>
 	<?php if(empty($footfall_result)){  }else{ ?>
@@ -551,7 +430,7 @@ function moneyFormatIndia($num) {
 </div>
 
 </div>
-  <!-- <script type="text/javascript">
+  <script type="text/javascript">
   wpac_init = window.wpac_init || [];
   wpac_init.push({widget: 'Comment', id: 12345});
   (function() {
@@ -568,9 +447,9 @@ function moneyFormatIndia($num) {
     	wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJn1KhaldXqDsRNVjdn9pNI7E', view_mode: 'badge_inner',el: 'comments2', chan: '3'});
 		wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJewDaUDlXqDsR7e2v19vPsZk', view_mode: 'list',el: 'comments3', chan: '3'});
 
-  </script> -->
+  </script>
  <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
- <!-- <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script> -->
+ <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
 		 google.charts.load('current', {packages: ['corechart','line']});

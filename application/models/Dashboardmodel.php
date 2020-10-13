@@ -89,7 +89,11 @@ Class Dashboardmodel extends CI_Model
 			IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end),'0') AS having_whatsapp,
       IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end) / count(*) * 100,'0') as whatsapp_percentage,
 			IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end),'0') AS having_whatsapp_broadcast,
-      IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end) / count(*) * 100,'0') as broadcast_percentage
+      IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end) / count(*) * 100,'0') as broadcast_percentage,
+			IFNULL(sum(case when voter_id_no!= '' then 1 else 0 end) / count(*) * 100,'0') as having_voter_percenatge,
+			IFNULL(sum(case when voter_id_no!= '' then 1 else 0 end),'0') AS having_vote_id,
+			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end) / count(*) * 100,'0') as having_dob_percentage,
+			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end),'0') AS having_dob
 			from  constituent $quer_paguthi $quer_office $quer_date";
 
 
@@ -227,13 +231,11 @@ Class Dashboardmodel extends CI_Model
 						IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count, IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count  FROM seeker_type as s
 						left join grievance as g on g.seeker_type_id=s.id $quer_paguthi $quer_office $quer_date
 						GROUP by s.id LIMIT 2";
+						$res_1=$this->db->query($query_1);
+					  $result_1=$res_1->result();
 
 
 
-
-
-			$res_1=$this->db->query($query_1);
-		  $result_1=$res_1->result();
 
 			 $query_2="SELECT IFNULL(count(*),'0') as total,
 			IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
@@ -297,6 +299,65 @@ Class Dashboardmodel extends CI_Model
 			return $data;
 
 	}
+
+
+	function get_grievance_result($paguthi_id,$office_id,$from_date,$to_date){
+
+		$query_1=$this->db->query("SELECT
+		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
+		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
+		FROM grievance as g  where g.grievance_type='P'");
+		$result_1=$query_1->result();
+
+		$query_2=$this->db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E'");
+		$result_2=$query_2->result();
+
+		$query_3=$this->db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P'");
+		$result_3=$query_3->result();
+
+		$query_4=$this->db->query("SELECT
+				IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+        IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
+        IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
+		FROM grievance as g  where g.grievance_type='P'");
+		$result_4=$query_4->result();
+
+		$query_5=$this->db->query("SELECT count(*) as online_enquiry_count FROM grievance where seeker_type_id='1' and grievance_type='E'");
+		$result_5=$query_5->result();
+
+		$query_6=$this->db->query("SELECT count(*) as online_petition_count FROM grievance where seeker_type_id='1' and grievance_type='P'");
+		$result_6=$query_6->result();
+
+		$query_7=$this->db->query("SELECT
+				IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+        IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
+        IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
+		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P'");
+		$result_7=$query_7->result();
+
+
+
+		$query_8=$this->db->query("SELECT count(*) as civic_enquiry_count FROM grievance where seeker_type_id='2' and grievance_type='E'");
+		$result_8=$query_8->result();
+
+		$query_9=$this->db->query("SELECT count(*) as civic_petition_count FROM grievance where seeker_type_id='2' and grievance_type='P'");
+		$result_9=$query_9->result();
+
+		$query_10=$this->db->query("SELECT
+				IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+				IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
+				IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
+		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P'");
+		$result_10=$query_10->result();
+
+
+
+		$data = array('grievance_list' => $result_1,'enquiry_count'=>$result_2,'petition_count'=>$result_3,'petition_status'=>$result_4,'online_enquiry_count'=>$result_5,'online_petition_count'=>$result_6,'online_petition_status'=>$result_7,'civic_enquiry_count'=>$result_8,'civic_petition_count'=>$result_9,'civic_petition_status'=>$result_10);
+		return $data;
+
+
+	}
+
 
 	function get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date)
 	{
