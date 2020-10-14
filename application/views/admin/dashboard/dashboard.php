@@ -353,9 +353,9 @@ function moneyFormatIndia($num) {
 	</div>
 	<div class="clearfix"></div>
 
-		<div class="row mb_30 mt_20">
+		<div class="row mb_30 mt_0">
 			<div class="col-md-8">
-				<div class="widget_box widget_height">
+				<div class="widget_box widget_4_height">
 					<div class="row">
 						<div class="col-3">
 								<p><img class="img-responsive widget_img" src="<?= base_url(); ?>assets/admin/images/widget_3.png"></p>
@@ -363,20 +363,83 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Footfall Count</p>
-									<?php  foreach($grievance_report['gr_list'] as $row_gr_list){} ?>
-								<p class="widget_count"><?php echo moneyFormatIndia($row_gr_list->total);  ?></p>
+								<p class="widget_count">&nbsp;</p>
 							</div>
 						</div>
 					</div>
-					<hr>
+
 					<div class="row">
-							<?php   foreach($grievance_report['gr_list'] as $row_gr_list){ ?>
-						<div class="col-9"><p class="widget_label">New Constituent (<?php echo round($row_gr_list->unique_count_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?php echo moneyFormatIndia($row_gr_list->unique_count); ?></p></div>
-						<div class="col-9"><p class="widget_label">Repeated Constituent (<?php echo round($row_gr_list->repeat_count_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?php echo moneyFormatIndia($row_gr_list->repeat_count); ?></p></div>
-					<?php } ?>
+						<div class="col-6">
+								<hr>
+							<div class="row">
+							<?php foreach($get_footfall_report['constituency_cnt'] as $rows_cons_cnt){} ?>
+							<?php foreach($get_footfall_report['other_cnt'] as $rows_other_cnt){}
+								$total_unique_cnt=$rows_cons_cnt->cons_footfall_cnt+$rows_other_cnt->other_footfall_cnt;
+							?>
+							<div class="col-9"><p class="widget_footfall_label">Unique Footfall Count</p></div>
+							<div class="col-3"><p class="widget_footfall_label widget_value"><?= $total_unique_cnt ?></p></div>
+							<div class="col-9"><p class="widget_label">SINGANALLUR  (<?php if($total_unique_cnt=='0'){ echo "0.00"; }else{
+								echo	number_format($rows_cons_cnt->cons_footfall_cnt/$total_unique_cnt *100,2);
+							} ?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= $rows_cons_cnt->cons_footfall_cnt ?></p></div>
+							<div class="col-9"><p class="widget_label">Others  (<?php if($total_unique_cnt=='0'){ echo "0.00"; }else{
+								echo	number_format($rows_other_cnt->other_footfall_cnt/$total_unique_cnt *100,2);
+							} ?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= $rows_other_cnt->other_footfall_cnt ?></p></div>
+						</div>
+						</div>
+						<div class="col-6">
+								<hr>
+							<div class="row">
+								<?php foreach($get_footfall_report['unique_footfall_cnt'] as $rows_unique_cnt){} ?>
+								<?php foreach($get_footfall_report['repeated_footfall_cnt'] as $rows_repeat_cnt){}
+									$total_unique_repeat=$rows_unique_cnt->unique_cnt + $rows_repeat_cnt->repeated_cnt;
+									?>
+							<div class="col-9"><p class="widget_footfall_label">Total Footfall Count</p></div>
+							<div class="col-3"><p class="widget_footfall_label widget_value"><?= $total_unique_repeat ?></p></div>
+							<div class="col-9"><p class="widget_label">Unique  (<?php if($total_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_unique_cnt->unique_cnt/$total_unique_repeat *100 ,2); } ?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= $rows_unique_cnt->unique_cnt ?></p></div>
+							<div class="col-9"><p class="widget_label">Repeated  (<?php if($total_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_repeat_cnt->repeated_cnt/$total_unique_repeat *100 ,2); } ?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= $rows_repeat_cnt->repeated_cnt ?></p></div>
+						</div>
+						</div>
+
+
 					</div>
+
+					<div class="row">
+						<div class="col-6">
+							<hr>
+							<div class="row">
+								<?php foreach($get_footfall_report['cons_repeated_cnt'] as $rows_cons_repeated_cnt){} ?>
+								<?php foreach($get_footfall_report['cons_unique_cnt'] as $rows_cons_unique_cnt){}
+									$total_cons_unique_repeat=$rows_cons_repeated_cnt->cons_repeated_cnt + $rows_cons_unique_cnt->new_cnt;
+									?>
+								<div class="col-9"><p class="widget_footfall_label">SINGANALLUR Footfall Count</p></div>
+								<div class="col-3"><p class="widget_footfall_label widget_value"><?= $total_cons_unique_repeat ?></p></div>
+								<div class="col-9"><p class="widget_label">Unique  (<?php if($total_cons_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_cons_unique_cnt->new_cnt/$total_cons_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= $rows_cons_unique_cnt->new_cnt ?></p></div>
+								<div class="col-9"><p class="widget_label">Repeated (<?php if($total_cons_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_cons_repeated_cnt->cons_repeated_cnt/$total_cons_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= $rows_cons_repeated_cnt->cons_repeated_cnt ?></p></div>
+							</div>
+						</div>
+						<div class="col-6">
+							<hr>
+							<div class="row">
+								<?php foreach($get_footfall_report['other_repeated_cnt'] as $rows_other_repeated_cnt){} ?>
+								<?php foreach($get_footfall_report['other_unique_cnt'] as $rows_other_unique_cnt){}
+									$total_other_unique_repeat=$rows_other_repeated_cnt->other_repeated_cnt + $rows_other_unique_cnt->other_new_cnt;
+									?>
+								<div class="col-9"><p class="widget_footfall_label">Other Footfall Count</p></div>
+								<div class="col-3"><p class="widget_footfall_label widget_value"><?= $total_other_unique_repeat ?></p></div>
+								<div class="col-9"><p class="widget_label">Unique  (<?php if($total_other_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_other_unique_cnt->other_new_cnt/$total_other_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= $rows_other_unique_cnt->other_new_cnt ?></p></div>
+								<div class="col-9"><p class="widget_label">Repeated  (<?php if($total_other_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_other_repeated_cnt->other_repeated_cnt/$total_other_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= $rows_other_repeated_cnt->other_repeated_cnt ?></p></div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 
@@ -459,6 +522,18 @@ function moneyFormatIndia($num) {
 						<div class="col-9"><p class="widget_label">festival letters (<?php if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $bwfw *100,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
 					</div>
+					<div class="row" id="festival_list_section">
+						<?php if(empty($grievance_report['fm_list'])){
+						}else{
+							foreach($grievance_report['fm_list'] as $rows_fm_list){ ?>
+								<div class="col-9"><p class="widget_label_status"><?= $rows_fm_list->festival_name ?>   (<?php if($fwlist_total=='0'){ echo "0"; }else{
+									echo number_format($rows_fm_list->wishes_cnt/$fwlist_total *100,2);
+								}  ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= $rows_fm_list->wishes_cnt ?></p></div>
+						<?php	}
+						} ?>
+
+				</div>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -475,7 +550,7 @@ function moneyFormatIndia($num) {
 						</div>
 					</div>
 					<hr>
-					<div class="row">
+					<div class="row" id="video_list_section">
 						<?php if(empty($grievance_report['cv_list'])){
 
 					}else{ foreach($grievance_report['cv_list'] as $rows_vi_lits){ ?>
@@ -488,6 +563,14 @@ function moneyFormatIndia($num) {
 
 			<div class="col-md-4">
 				<div class="widget_box widget_3_height">
+					<div class="row">
+						<div class="col-12">
+							<center><img src="<?php echo base_url(); ?>assets/admin/images/widget_8.png" class="img-responsive" style="width:130px;"></center>
+							<center><p style="margin-bottom:0px;">To known more date in <br><b>Grievance management system</b></p></center>
+							<center> <a href="<?php echo base_url(); ?>constituent/all_grievance" class="btn btn-success" style="margin-top:10px;">Click here</a></center>
+						</div>
+
+				</div>
 				</div>
 			</div>
 
@@ -510,39 +593,29 @@ function moneyFormatIndia($num) {
 <div class="col-md-12">
 	<p class="graph_title text-left">FOOTFALL GRAPH
 		<?php if(empty($from_date)){ ?>
-						<span class="text-right" style="float:right;">Last 6 week data</span>
+						<span class="text-right" style="float:right;">Last 30 days data</span>
 	<?php	}else{
 
 		} ?>
-
-
 	</p>
-
 <div class="x_panel">
-
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
-
-
-
 	</div>
-
 </div>
-
-
-
-
 </div>
 <?php } ?>
 <div class="clearfix"></div>
 <div class="row">
-	<div class="x_panel">
-	<div class="col-md-6">
-		<div id="comments2"></div>
+	<div class="col-md-12">
+		<div class="x_panel">
+			<div class="col-md-6">
+				<div id="comments2"></div>
+			</div>
+			<div class="col-md-6">
+				<div id="comments3"></div>
+			</div>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<div id="comments3"></div>
-	</div>
-</div>
 </div>
 
 
@@ -551,7 +624,7 @@ function moneyFormatIndia($num) {
 </div>
 
 </div>
-  <!-- <script type="text/javascript">
+  <script type="text/javascript">
   wpac_init = window.wpac_init || [];
   wpac_init.push({widget: 'Comment', id: 12345});
   (function() {
@@ -565,67 +638,41 @@ function moneyFormatIndia($num) {
   })();
   </script>
 <script type="text/javascript">
-    	wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJn1KhaldXqDsRNVjdn9pNI7E', view_mode: 'badge_inner',el: 'comments2', chan: '3'});
+    	wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJn1KhaldXqDsRNVjdn9pNI7E', view_mode: 'list',el: 'comments2', chan: '3'});
 		wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJewDaUDlXqDsR7e2v19vPsZk', view_mode: 'list',el: 'comments3', chan: '3'});
 
-  </script> -->
- <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+  </script>
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <!-- <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script> -->
 
     <script type="text/javascript">
 		 google.charts.load('current', {packages: ['corechart','line']});
-// 		google.charts.load('current', {'packages':['corechart']});
-// google.charts.setOnLoadCallback(drawChart);
-// function drawChart() {
-// var data = google.visualization.arrayToDataTable([
-// 	['Week', 'NEW', 'Repeated','Total'],
-// 	<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
-// 		['<?= "week".'-' .$i; ?>',  <?= $rows_graph->total ;?>,<?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
-// 	<?php $i++; } ?>
-//
-// 	// ['2005',  1170,      460,112],
-// 	// ['2006',  660,       1120,200],
-// 	// ['2007',  1030,      540,300],
-// ]);
-//
-// var options = {
-// 	title: '',
-// 	curveType: 'function',
-// 	legend: { position: 'bottom' }
-// };
-//
-// var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-//
-// chart.draw(data, options);
-// }
+google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
             // Define the chart to be drawn.
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Week');
+						data.addColumn('string', 'Day');
             data.addColumn('number', 'New');
             data.addColumn('number', 'Repeated');
             data.addColumn('number', 'Total');
             data.addRows([
-
 					<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
-						['<?= "week".'-' .$i; ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
+						['<?= $rows_graph->day_name ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
 					<?php $i++; } ?>
-
             ]);
 
 
-            // Set chart options
-            var options = {
-               'width':1024,
-               'height':500,
-               pointsVisible: true
-            };
+						var options = {
+						               'width':1024,
+						               'height':500,
+						               pointsVisible: true
+						            };
 
-            // Instantiate and draw the chart.
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            chart.draw(data, options);
-         }
-         google.charts.setOnLoadCallback(drawChart);
+						            // Instantiate and draw the chart.
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+          chart.draw(data, options);
+       }
+       google.charts.setOnLoadCallback(drawChart);
 
 $.validator.addMethod("chkDates", function(value, element) {
 		var startDate = $('#from_date').val();

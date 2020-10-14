@@ -346,6 +346,12 @@ p{
 .mt_20{
       margin-top: 20px;
 }
+.mt_10{
+  margin-top:10px;
+}
+.mt_0{
+  margin-top:0px;
+}
 .widget_height{
   height: 440px;
   margin-bottom: 20px;
@@ -356,12 +362,29 @@ p{
 .widget_1_height{
   height:480px;
 }
+.widget_4_height{
+  height:340px;
+}
 
 .widget_grievance_label{
     color: #31aa15;
     font-size: 13px;
     font-weight: 600;
     padding: 5px 5px 5px 0px;
+}
+.widget_footfall_label{
+  color:  #9d6fa8;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 5px 5px 0px;
+}
+#video_list_section{
+  overflow-y: scroll;
+  height: 140px;
+}
+#festival_list_section{
+  overflow-y: scroll;
+  height: 80px;
 }
 .widget_label{
   color: #000;
