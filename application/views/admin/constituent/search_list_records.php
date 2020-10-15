@@ -440,6 +440,7 @@ input:required {
 
                     <?php } ?>
                      <option value="<?php echo $rows_constituency->id ?>"><?php echo $rows_constituency->constituency_name; ?></option>
+                     <option value="0">OTHERS</option>
                    </select>
                  </div>
               </div>
