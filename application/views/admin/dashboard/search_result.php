@@ -42,11 +42,12 @@
                      <th>S.no</th>
                      <th>Full name</th>
                      <th>Paguthi</th>
-					                <th>Serial no</th>
+					           <th>ward</th>
+										 <th>Address</th>
                      <th>Mobile</th>
                      <th>Voter id</th>
-                     <th>Aadhhar id</th>
-                     <th>Status</th>
+                     <!-- <th>Aadhhar id</th> -->
+                     <!-- <th>Status</th> -->
 										 <th>view</th>
                   </tr>
                </thead>
@@ -56,16 +57,17 @@
                      <td><?php echo $i; ?></td>
                      <td><?php echo $rows['full_name']; ?></td>
 										 <td><?php echo $rows['paguthi_name']; ?></td>
-										 <td><?php echo $rows['serial_no'] ;?></td>
+										 <td><?php echo $rows['ward_name'] ;?></td>
+										 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
                      <td><?php echo $rows['mobile_no'] ;?></td>
                      <td><?php echo $rows['voter_id_no'] ;?></td>
-                     <td><?php echo $rows['aadhaar_no'] ;?></td>
-                     <td><?php if($rows['status']=='ACTIVE'){ ?>
+                     <!-- <td><?php echo $rows['aadhaar_no'] ;?></td> -->
+                     <!-- <td><?php if($rows['status']=='ACTIVE'){ ?>
                         <span class="badge-<?= $rows['status'] ?>">Active</span>
                         <?php  }else{ ?>
                         <span class="badge-<?= $rows['status'] ?>">Inactive</span>
                         <?php   } ?>
-                     </td>
+                     </td> -->
 										 <td><a title="INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?= base64_encode($rows['id']*98765); ?>"><i class="fa fa-eye"></i></a></td>
                   </tr>
                   <?php  $i++; } ?>

@@ -223,20 +223,20 @@ Class Constituentmodel extends CI_Model
 
    }
 
-	 function search_member($limit, $start,$search){
-
-		 $query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
-		 left join interaction_history as ih on c.id=ih.constituent_id
-		 left join plant_donation as pd on pd.constituent_id=c.id where (c.full_name like '%$search%' or c.voter_id_no like '%$search%' or c.mobile_no like '%$search%') group by c.id order by c.id desc limit $start, $limit";
-		 $query = $this->db->query($query);
-			 if ($query->num_rows() > 0) {
-					 foreach ($query->result() as $row) {
-							 $data[] = $row;
-					 }
-					 return $data;
-			 }
-			 return false;
-	 }
+	 // function search_member($limit, $start,$search){
+	 //
+		//  $query="SELECT IFNULL(ih.constituent_id,'0') as interaction_status,IFNULL(pd.constituent_id,'0') as plant_status,c.*,p.paguthi_name FROM constituent  as c left join paguthi  as p on p.id=c.paguthi_id
+		//  left join interaction_history as ih on c.id=ih.constituent_id
+		//  left join plant_donation as pd on pd.constituent_id=c.id where (c.full_name like '%$search%' or c.voter_id_no like '%$search%' or c.mobile_no like '%$search%') group by c.id order by c.id desc limit $start, $limit";
+		//  $query = $this->db->query($query);
+		// 	 if ($query->num_rows() > 0) {
+		// 			 foreach ($query->result() as $row) {
+		// 					 $data[] = $row;
+		// 			 }
+		// 			 return $data;
+		// 	 }
+		// 	 return false;
+	 // }
 
 
 
@@ -873,10 +873,10 @@ Class Constituentmodel extends CI_Model
 // Fetch records
 function getConstituent($rowno,$rowperpage,$search_text="") {
 
-	$this->db->select('c.*,p.paguthi_name');
+	$this->db->select('c.*,p.paguthi_name,w.ward_name');
 	$this->db->from('constituent as c');
 	$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
-
+	$this->db->join('ward as w', 'w.id = c.ward_id', 'left');
 			$search_key_1 = '';
 			$search_key_2 = '';
 
@@ -989,32 +989,34 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 				$this->db->select('count(*) as allcount');
 				$this->db->from('constituent');
-				$search_key_1 = '';
-				$search_key_2 = '';
+						$search_key_1 = '';
+						$search_key_2 = '';
 
 				if($search_text != ''){
 
-				$search_key = (explode(",",$search_text));
-				$search_key_count = count($search_key);
+					$search_key = (explode(",",$search_text));
+					$search_key_count = count($search_key);
 
-				if ($search_key_count >=0){
-						$search_key_1 = trim(strtoupper($search_key[0]));
-				}
+					if ($search_key_count >=0){
+										$search_key_1 = trim(strtoupper($search_key[0]));
+								 }
 
-				if ($search_key_count >1) {
-						$search_key_2 = trim(strtoupper($search_key[1]));
-				}
+								if ($search_key_count >1) {
+										$search_key_2 = trim(strtoupper($search_key[1]));
+								}
 
-				if ($search_key_2 != ''){
-							$this->db->or_like('full_name', $search_key_1,'after');
-							$this->db->like('address', $search_key_2);
-				} else {
+					if ($search_key_2 != ''){
+						 $this->db->like('full_name', $search_key_1,'after');
+						 $this->db->like('father_husband_name', $search_key_1,'after');
+						 $this->db->like('address', $search_key_2);
+					} else {
 						$this->db->or_like('full_name', $search_key_1,'after');
+						$this->db->or_like('father_husband_name', $search_key_1,'after');
 						$this->db->or_like('mobile_no', $search_key_1);
 						$this->db->or_like('voter_id_no', $search_key_1);
 						$this->db->or_like('aadhaar_no', $search_key_1);
 						$this->db->or_like('serial_no', $search_key_1);
-				}
+					}
 
 
 				}

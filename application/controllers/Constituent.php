@@ -62,70 +62,76 @@ class constituent extends CI_Controller {
 	}
 
 
-	public function sample_list()
-	{
-		$user_id = $this->session->userdata('user_id');
-		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1' || $user_type=='2'){
-			$this->load->view('admin/constituent/sample_list');
-		}else{
-			redirect('/');
-		}
-	}
-
-
-
-	public function list_cons()
-	{
-		$user_id = $this->session->userdata('user_id');
-		$user_type = $this->session->userdata('user_type');
-		if($user_type=='1' || $user_type=='2'){
-
-			$this->load->library("pagination_bootstrap");
-			$sql=$this->db->get('constituent',10000);
-			$this->pagination_bootstrap->offset(10);
-			$this->pagination_bootstrap->set_links(array('first' => 'go to first',
-                                             'last' => 'go to last',
-                                             'next' => 'next',
-                                             'prev' => 'prev'));
-
-			$data['result']=$this->pagination_bootstrap->config('/constituent/list',$sql);
-			$this->load->view('admin/constituent/list',$data);
-		}else{
-			redirect('/');
-		}
-	}
-
 		public function search_member(){
 			$user_id = $this->session->userdata('user_id');
 			$user_type = $this->session->userdata('user_type');
 			if($user_type=='1' || $user_type=='2'){
 			// get search string
-				$search = ($this->input->post("search_name"))? $this->input->post("search_name") : "NIL";
-				$search = ($this->uri->segment(3)) ? $this->uri->segment(3) : $search;
-				// pagination settings
-				$config = array();
-				$config["base_url"] = base_url() . "constituent/list_constituent_member";
-				$config["total_rows"] = $this->constituentmodel->record_count();
-				$config["per_page"] = 10;
-				$config["uri_segment"] = 3;
-				$config['display_pages'] = FALSE;
-				$config['prev_link'] = 'Previous';
-				$config['next_link'] = 'Next';
-				$config['first_link'] = FALSE;
-				$config['last_link'] = FALSE;
-				$choice = $config["total_rows"] / $config["per_page"];
-				$config["num_links"] = round($choice);
-				$this->pagination->initialize($config);
-				$page = ($this->uri->segment(3))? $this->uri->segment(3) : 0;
-				$data["res"] = $this->constituentmodel->search_member($config["per_page"], $page,$search);
+			$search_text='';
+			if($this->input->post('submit') != NULL ){
+				$search_text=$this->input->post('search_name');
+				$status_session_array=$this->session->set_userdata(array(
+					"search_name"=>$search_text
+				));
+			}else{
+				if($this->session->userdata('search_name') != NULL){
+				$search_text = $this->session->userdata('search_name');
+				}
+			}
+			$data['search_name']=$search_text;
+			$rowperpage = 25;
+			// Row position
+			if($rowno != 0){
+				$rowno = ($rowno-1) * $rowperpage;
+			}
+
+				// $data["res"] = $this->constituentmodel->search_member($config["per_page"], $page,$search);
+				$allcount = $this->constituentmodel->getrecordconscount($search_text);	
+				// Get records
+				$users_record = $this->constituentmodel->getConstituent($rowno,$rowperpage,$search_text);
 				$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
 				$data['res_constituency']=$this->mastermodel->get_active_constituency();
 				$data['res_seeker']=$this->mastermodel->get_active_seeker();
-				$data["links"] = $this->pagination->create_links();
+
+				$config['base_url'] = base_url().'constituent/search_member';
+				$config['use_page_numbers'] = TRUE;
+				$config['total_rows'] = $allcount;
+				$config['per_page'] = $rowperpage;
+				//Pagination Container tag
+				$config['full_tag_open'] = '<div style="margin:20px 10px 30px 0px;float:right;">';
+				$config['full_tag_close'] = '</div>';
+				//First and last Link Text
+				$config['first_link'] = 'First';
+				$config['last_link'] = 'Last';
+				//First tag
+				$config['first_tag_open'] = '<span class="pagination-first-tag">';
+				$config['first_tag_close'] = '</span>';
+				//Last tag
+				$config['last_tag_open'] = '<span class="pagination-last-tag">';
+				$config['last_tag_close'] = '</span>';
+				//Next and Prev Link
+				$config['next_link'] = 'Next';
+				$config['prev_link'] = 'Prev';
+				//Next and Prev Link Styling
+				$config['next_tag_open'] = '<span class="pagination-next-tag">';
+				$config['next_tag_close'] = '</span>';
+				$config['prev_tag_open'] = '<span class="pagination-prev-tag">';
+				$config['prev_tag_close'] = '</span>';
+				//Current page tag
+				$config['cur_tag_open'] = '<strong class="pagination-current-tag">';
+				$config['cur_tag_close'] = '</strong>';
+				$config['num_tag_open'] = '<span class="pagination-number">';
+				$config['num_tag_close'] = '</span>';
+				// Initialize
+				$this->pagination->initialize($config);
+				$data['pagination'] = $this->pagination->create_links();
+				$data['result'] = $users_record;
+				$data['total_records'] = $allcount;
+				$data['row'] = $rowno;
+
 				$this->load->view('admin/header');
 				$this->load->view("admin/constituent/list_constituent_member", $data);
-				$this->load->view('admin/footer');
+				// $this->load->view('admin/footer');
 			}else{
 				redirect('/');
 			}

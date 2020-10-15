@@ -81,7 +81,7 @@
               echo form_open("constituent/search_member", $attr); ?>
                   <div class="form-group row">
                       <div class="col-6">
-                          <input class="form-control" id="search_name" name="search_name" placeholder="Search for Name or Voter id or Mobile..." type="text" value="<?php echo set_value('search_name'); ?>" />
+                          <input class="form-control" id="search_name" name="search_name" placeholder="Search for FULL Name, Phone number, Voter ID, Aadhaar Card number ,Address" type="text" value="<?php echo set_value('search_name'); ?>" />
                       </div>
                       <div class="col-4">
                           <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Search" />
@@ -705,7 +705,7 @@ function give_voice_call(sel){
         size=Math.round(size);
         return this.optional(element) || size <=param ;
       }, 'File size must be less than 1 MB');
-      
+
      $('#grievance_form').validate({
           rules: {
                 constituent_id:{required:true},

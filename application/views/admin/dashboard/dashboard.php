@@ -8,7 +8,7 @@
 margin-left: 230px;
 }
 </style>
-<div class="right_col" role="main" style="min-height: 1284px;">
+<div class="right_col" id="top" role="main" style="min-height: 1284px;">
 
 	<div class="col-md-12">
 		<div class="col-md-3">
@@ -615,7 +615,11 @@ function moneyFormatIndia($num) {
 				<div id="comments3"></div>
 			</div>
 		</div>
+
 	</div>
+	<!-- <a href="#top" class="cd-top text-replace js-cd-top">Top</a> -->
+
+
 </div>
 
 
@@ -624,7 +628,11 @@ function moneyFormatIndia($num) {
 </div>
 
 </div>
+
+
+
   <script type="text/javascript">
+
   wpac_init = window.wpac_init || [];
   wpac_init.push({widget: 'Comment', id: 12345});
   (function() {
