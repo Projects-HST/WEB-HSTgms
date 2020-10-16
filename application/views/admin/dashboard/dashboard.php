@@ -606,6 +606,8 @@ function moneyFormatIndia($num) {
 <?php } ?>
 <div class="clearfix"></div>
 <div class="row">
+	<p class="widget_heading">Google Review</p>
+	<hr>
 	<div class="col-md-12">
 		<div class="x_panel">
 			<div class="col-md-6">
