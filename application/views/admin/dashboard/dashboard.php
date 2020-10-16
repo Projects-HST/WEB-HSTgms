@@ -7,6 +7,12 @@
 	padding: 10px 20px 0;
 margin-left: 230px;
 }
+.general_heading{
+		color: #000;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0px 0px 0px 0px;
+}
 </style>
 <div class="right_col" id="top" role="main" style="min-height: 1284px;">
 
@@ -591,7 +597,7 @@ function moneyFormatIndia($num) {
 <div class="row">
 
 <div class="col-md-12">
-	<p class="graph_title text-left">FOOTFALL GRAPH
+	<p class="graph_title text-left">
 		<?php if(empty($from_date)){ ?>
 						<span class="text-right" style="float:right;">Last 30 days data</span>
 	<?php	}else{
@@ -599,6 +605,8 @@ function moneyFormatIndia($num) {
 		} ?>
 	</p>
 <div class="x_panel">
+	<p class="general_heading">FOOTFALL GRAPH</p>
+	<hr>
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
 	</div>
 </div>
@@ -606,10 +614,11 @@ function moneyFormatIndia($num) {
 <?php } ?>
 <div class="clearfix"></div>
 <div class="row">
-	<p class="widget_heading">Google Review</p>
-	<hr>
+
 	<div class="col-md-12">
 		<div class="x_panel">
+			<p class="general_heading">Google Review</p>
+			<hr>
 			<div class="col-md-6">
 				<div id="comments2"></div>
 			</div>
