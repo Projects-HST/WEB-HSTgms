@@ -617,7 +617,7 @@ function moneyFormatIndia($num) {
 
 	<div class="col-md-12">
 		<div class="x_panel">
-			<p class="general_heading">Google Review</p>
+			<p class="general_heading">Google Reviews</p>
 			<hr>
 			<div class="col-md-6">
 				<div id="comments2"></div>
@@ -671,7 +671,7 @@ function drawChart() {
             // Define the chart to be drawn.
             var data = new google.visualization.DataTable();
 						data.addColumn('string', 'Day');
-            data.addColumn('number', 'New');
+            data.addColumn('number', 'UNIQUE');
             data.addColumn('number', 'Repeated');
             data.addColumn('number', 'Total');
             data.addRows([
