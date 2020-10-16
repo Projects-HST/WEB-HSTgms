@@ -421,7 +421,7 @@ Class Dashboardmodel extends CI_Model
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 		IFNULL(count(*),'0') as total
 		FROM grievance as g
-		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date order by day_name desc limit 6";
+		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date order by day_name asc limit 30";
 
 
 
