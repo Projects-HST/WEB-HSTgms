@@ -389,7 +389,7 @@ p{
 .widget_label{
   color: #000;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   /* padding: 10px; */
   padding: 5px 5px 5px 0px;
 }
@@ -448,6 +448,7 @@ color:#31aa15;
 }
 .widget_value{
   text-align: right;
+  font-weight: 600;
 }
 hr{
   margin-top: 5px;
