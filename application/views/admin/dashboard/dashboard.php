@@ -10,7 +10,7 @@ margin-left: 230px;
 .general_heading{
 		color: #000;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     margin: 0px 0px 0px 0px;
 }
 </style>
