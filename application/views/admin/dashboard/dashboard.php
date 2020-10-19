@@ -572,7 +572,7 @@ function moneyFormatIndia($num) {
 					<div class="row">
 						<div class="col-12">
 							<center><img src="<?php echo base_url(); ?>assets/admin/images/widget_8.png" class="img-responsive" style="width:130px;"></center>
-							<center><p style="margin-bottom:0px;">To known more date in <br><b>Grievance management system</b></p></center>
+							<center><p style="margin-bottom:0px;font-size:14px;">To known more date in <br><b>Grievance management system</b></p></center>
 							<center> <a href="<?php echo base_url(); ?>constituent/all_grievance" class="btn btn-success" style="margin-top:10px;">Click here</a></center>
 						</div>
 
@@ -617,8 +617,8 @@ function moneyFormatIndia($num) {
 
 	<div class="col-md-12">
 		<div class="x_panel">
-			<p class="general_heading">Google Reviews</p>
-			<hr>
+			<p class="general_heading" >Google Reviews</p>
+			<hr style="margin-bottom:10px;">
 			<div class="col-md-6">
 				<div id="comments2"></div>
 			</div>
