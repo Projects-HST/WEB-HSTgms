@@ -895,7 +895,9 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 		if ($search_key_2 != ''){
 			$where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
 			 $this->db->where($where);
-			$this->db->or_where('address', $search_key_2);
+			$where_2="address LIKE '%$search_key_2%'";
+			$this->db->where($where_2);
+			// $this->db->where('address', $search_key_2);
 		} else {
 			$this->db->or_like('full_name', $search_key_1,'after');
 			$this->db->or_like('father_husband_name', $search_key_1,'after');
@@ -941,8 +943,9 @@ function getrecordconscount($search_text = '') {
 					 // $this->db->like('full_name', $search_key_1,'after');
 					 // $this->db->or_like('father_husband_name', $search_key_1,'after');
 					 $where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
-					 $this->db->where($where);
-					 $this->db->where('address', $search_key_2);
+						$this->db->where($where);
+					 $where_2="address LIKE '%$search_key_2%'";
+					 $this->db->where($where_2);
 				} else {
 					$this->db->or_like('full_name', $search_key_1,'after');
 					$this->db->or_like('father_husband_name', $search_key_1,'after');
@@ -987,8 +990,9 @@ function getrecordconscount($search_text = '') {
 
 				if ($search_key_2 != ''){
 					$where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
-	  			 $this->db->where($where);
-					$this->db->or_where('address', $search_key_2);
+					 $this->db->where($where);
+					$where_2="address LIKE '%$search_key_2%'";
+					$this->db->where($where_2);
 				} else {
 					$this->db->or_like('full_name', $search_key_1,'after');
 					$this->db->or_like('mobile_no', $search_key_1);
