@@ -872,7 +872,6 @@ Class Constituentmodel extends CI_Model
 
 // Fetch records
 function getConstituent($rowno,$rowperpage,$search_text="") {
-
 	$this->db->select('c.*,p.paguthi_name,w.ward_name');
 	$this->db->from('constituent as c');
 	$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
@@ -894,9 +893,9 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 					}
 
 		if ($search_key_2 != ''){
-			 $this->db->or_like('full_name', $search_key_1,'after');
-			 $this->db->or_like('father_husband_name', $search_key_1,'after');
-			 $this->db->where('address', $search_key_2);
+			$where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
+			 $this->db->where($where);
+			$this->db->or_where('address', $search_key_2);
 		} else {
 			$this->db->or_like('full_name', $search_key_1,'after');
 			$this->db->or_like('father_husband_name', $search_key_1,'after');
@@ -913,16 +912,15 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	// echo $this->db->get_compiled_select();
 	// exit;
 	$query = $this->db->get();
-
 	return $query->result_array();
 }
 
-  // Select total records
-	 function getConstituentcount($search_text = '') {
 
-		$this->db->select('count(*) as allcount');
-		$this->db->from('constituent');
-
+function getrecordconscount($search_text = '') {
+			$this->db->select('count(*) as allcount');
+			$this->db->from('constituent as c');
+			$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
+			$this->db->join('ward as w', 'w.id = c.ward_id', 'left');
 					$search_key_1 = '';
 					$search_key_2 = '';
 
@@ -940,9 +938,57 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 							}
 
 				if ($search_key_2 != ''){
-					$this->db->where('full_name', $search_key_1,'after');
-					$this->db->where('father_husband_name', $search_key_1,'after');
-					$this->db->where('address', $search_key_2);
+					 // $this->db->like('full_name', $search_key_1,'after');
+					 // $this->db->or_like('father_husband_name', $search_key_1,'after');
+					 $where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
+					 $this->db->where($where);
+					 $this->db->where('address', $search_key_2);
+				} else {
+					$this->db->or_like('full_name', $search_key_1,'after');
+					$this->db->or_like('father_husband_name', $search_key_1,'after');
+					$this->db->or_like('mobile_no', $search_key_1);
+					$this->db->or_like('voter_id_no', $search_key_1);
+					$this->db->or_like('aadhaar_no', $search_key_1);
+					$this->db->or_like('serial_no', $search_key_1);
+				}
+
+
+			}
+			$this->db->order_by("c.id", "desc");
+			$this->db->limit($rowperpage, $rowno);
+			// echo $this->db->get_compiled_select();
+			// exit;
+			$query = $this->db->get();
+			$result = $query->result_array();
+
+			return $result[0]['allcount'];
+}
+
+
+  // Select total records
+	 function getConstituentcount($search_text = '') {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('constituent');
+					$search_key_1 = '';
+					$search_key_2 = '';
+
+			if($search_text != ''){
+
+				$search_key = (explode(",",$search_text));
+				$search_key_count = count($search_key);
+
+				if ($search_key_count >=0){
+									$search_key_1 = trim(strtoupper($search_key[0]));
+							 }
+
+							if ($search_key_count >1) {
+									$search_key_2 = trim(strtoupper($search_key[1]));
+							}
+
+				if ($search_key_2 != ''){
+					$where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
+	  			 $this->db->where($where);
+					$this->db->or_where('address', $search_key_2);
 				} else {
 					$this->db->or_like('full_name', $search_key_1,'after');
 					$this->db->or_like('mobile_no', $search_key_1);
@@ -953,11 +999,12 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 
 			}
-			// echo $this->db->get_compiled_select(); exit;
+			// echo $this->db->get_compiled_select();
+			// exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
-
 		return $result[0]['allcount'];
+
   }
 
 	public function exportConstituent($search = '') {
@@ -986,47 +1033,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 
 
 
-	function getrecordconscount($search_text = '') {
 
-				$this->db->select('count(*) as allcount');
-				$this->db->from('constituent');
-						$search_key_1 = '';
-						$search_key_2 = '';
-
-				if($search_text != ''){
-
-					$search_key = (explode(",",$search_text));
-					$search_key_count = count($search_key);
-
-					if ($search_key_count >=0){
-										$search_key_1 = trim(strtoupper($search_key[0]));
-								 }
-
-								if ($search_key_count >1) {
-										$search_key_2 = trim(strtoupper($search_key[1]));
-								}
-
-					if ($search_key_2 != ''){
-						 $this->db->like('full_name', $search_key_1,'after');
-						 $this->db->like('father_husband_name', $search_key_1,'after');
-						 $this->db->like('address', $search_key_2);
-					} else {
-						$this->db->or_like('full_name', $search_key_1,'after');
-						$this->db->or_like('father_husband_name', $search_key_1,'after');
-						$this->db->or_like('mobile_no', $search_key_1);
-						$this->db->or_like('voter_id_no', $search_key_1);
-						$this->db->or_like('aadhaar_no', $search_key_1);
-						$this->db->or_like('serial_no', $search_key_1);
-					}
-
-
-				}
-				// echo $this->db->get_compiled_select(); exit;
-				$query = $this->db->get();
-				$result = $query->result_array();
-
-				return $result[0]['allcount'];
- }
 
 
 
