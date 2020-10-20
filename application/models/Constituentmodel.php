@@ -894,8 +894,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 					}
 
 		if ($search_key_2 != ''){
-			 // $this->db->like('full_name', $search_key_1,'after');
-			 // $this->db->like('father_husband_name', $search_key_1,'after');
+			 $this->db->or_like('full_name', $search_key_1,'after');
+			 $this->db->or_like('father_husband_name', $search_key_1,'after');
 			 $this->db->or_like('address', $search_key_2);
 		} else {
 			$this->db->or_like('full_name', $search_key_1,'after');
@@ -910,8 +910,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	}
 	$this->db->order_by("c.id", "desc");
 	$this->db->limit($rowperpage, $rowno);
-	// echo $this->db->get_compiled_select();
-	// exit;
+	echo $this->db->get_compiled_select();
+	exit;
 	$query = $this->db->get();
 
 	return $query->result_array();
