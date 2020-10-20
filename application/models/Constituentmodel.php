@@ -910,8 +910,8 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	}
 	$this->db->order_by("c.id", "desc");
 	$this->db->limit($rowperpage, $rowno);
-	echo $this->db->get_compiled_select();
-	exit;
+	// echo $this->db->get_compiled_select();
+	// exit;
 	$query = $this->db->get();
 
 	return $query->result_array();
