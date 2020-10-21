@@ -23,7 +23,7 @@
 
       <div class="col-md-12 col-sm-12 ">
          <div class="x_panel">
-            <h2>Search Result</h2> Total records <?php echo $total_records; ?>
+
             <?php if($this->session->flashdata('msg')) {
                $message = $this->session->flashdata('msg');?>
             <div class="<?php echo $message['class'] ?> alert-dismissible">
@@ -32,7 +32,7 @@
             </div>
             <?php  }  ?>
             <div class="col-md-12 col-sm-12" style="padding:0px;">
-               <div class="col-md-3 col-sm-3"></div>
+               <div class="col-md-3 col-sm-3"><h2>Search Result</h2> Total records <?php echo $total_records; ?></div>
                <div class="col-md-3 col-sm-3"></div>
                <div class="col-md-6 col-sm-6" style="padding:0px;"><?= $pagination; ?></div>
            </div>
@@ -41,6 +41,7 @@
                   <tr>
                      <th>S.no</th>
                      <th>Full name</th>
+										 <th>Surname</th>
                      <th>Paguthi</th>
 					           <th>ward</th>
 										 <th>Address</th>
@@ -56,6 +57,7 @@
                   <tr>
                      <td><?php echo $i; ?></td>
                      <td><?php echo $rows['full_name']; ?></td>
+										 <td><?php echo $rows['father_husband_name']; ?></td>
 										 <td><?php echo $rows['paguthi_name']; ?></td>
 										 <td><?php echo $rows['ward_name'] ;?></td>
 										 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>

@@ -878,37 +878,47 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 	$this->db->join('ward as w', 'w.id = c.ward_id', 'left');
 			$search_key_1 = '';
 			$search_key_2 = '';
+			$search_key_3 = '';
 
 	if($search_text != ''){
-
 		$search_key = (explode(",",$search_text));
-		$search_key_count = count($search_key);
-
-		if ($search_key_count >=0){
+	  $search_key_count = count($search_key);
+					if ($search_key_count=='1'){
 							$search_key_1 = trim(strtoupper($search_key[0]));
-					 }
-
-					if ($search_key_count >1) {
+							$this->db->or_like('full_name', $search_key_1,'after');
+							$this->db->or_like('father_husband_name', $search_key_1,'after');
+							$this->db->or_like('mobile_no', $search_key_1);
+							$this->db->or_like('voter_id_no', $search_key_1);
+							$this->db->or_like('aadhaar_no', $search_key_1);
+							$this->db->or_like('serial_no', $search_key_1);
+					 }else if($search_key_count=='2'){
+						 $search_key_1 = trim(strtoupper($search_key[0]));
+						 $search_key_2 = trim(strtoupper($search_key[1]));
+							$where="(full_name like '$search_key_1%')";
+							 $this->db->where($where);
+							$where_2="address LIKE '%$search_key_2%'";
+							 $this->db->where($where_2);
+					 }else if($search_key_count=='3'){
+						 	$search_key_1 = trim(strtoupper($search_key[0]));
 							$search_key_2 = trim(strtoupper($search_key[1]));
-					}
-
-		if ($search_key_2 != ''){
-			$where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
-			 $this->db->where($where);
-			$where_2="address LIKE '%$search_key_2%'";
-			$this->db->where($where_2);
-			// $this->db->where('address', $search_key_2);
-		} else {
-			$this->db->or_like('full_name', $search_key_1,'after');
-			$this->db->or_like('father_husband_name', $search_key_1,'after');
-			$this->db->or_like('mobile_no', $search_key_1);
-			$this->db->or_like('voter_id_no', $search_key_1);
-			$this->db->or_like('aadhaar_no', $search_key_1);
-			$this->db->or_like('serial_no', $search_key_1);
+							$search_key_3 = trim(strtoupper($search_key[2]));
+							$where="full_name like '$search_key_1%' AND father_husband_name like '$search_key_2%'";
+							 $this->db->where($where);
+							$where_2="address LIKE '%$search_key_3%'";
+							$this->db->where($where_2);
+					 }else{
+						 $search_key_1 = trim(strtoupper($search_key[0]));
+						 $this->db->or_like('full_name', $search_key_1,'after');
+						 $this->db->or_like('father_husband_name', $search_key_1,'after');
+						 $this->db->or_like('mobile_no', $search_key_1);
+						 $this->db->or_like('voter_id_no', $search_key_1);
+						 $this->db->or_like('aadhaar_no', $search_key_1);
+						 $this->db->or_like('serial_no', $search_key_1);
+					 }
 		}
 
 
-	}
+
 	$this->db->order_by("c.id", "desc");
 	$this->db->limit($rowperpage, $rowno);
 	// echo $this->db->get_compiled_select();
@@ -923,40 +933,47 @@ function getrecordconscount($search_text = '') {
 			$this->db->from('constituent as c');
 			$this->db->join('paguthi as p', 'p.id = c.paguthi_id', 'left');
 			$this->db->join('ward as w', 'w.id = c.ward_id', 'left');
-					$search_key_1 = '';
-					$search_key_2 = '';
+			$search_key_1 = '';
+			$search_key_2 = '';
+			$search_key_3 = '';
 
-			if($search_text != ''){
+	if($search_text != ''){
+		$search_key = (explode(",",$search_text));
+	  $search_key_count = count($search_key);
+		if ($search_key_count=='1'){
+				$search_key_1 = trim(strtoupper($search_key[0]));
+				$this->db->or_like('full_name', $search_key_1,'after');
+				$this->db->or_like('father_husband_name', $search_key_1,'after');
+				$this->db->or_like('mobile_no', $search_key_1);
+				$this->db->or_like('voter_id_no', $search_key_1);
+				$this->db->or_like('aadhaar_no', $search_key_1);
+				$this->db->or_like('serial_no', $search_key_1);
+		 }else if($search_key_count=='2'){
+			 $search_key_1 = trim(strtoupper($search_key[0]));
+			 $search_key_2 = trim(strtoupper($search_key[1]));
+				$where="(full_name like '$search_key_1%')";
+				 $this->db->where($where);
+				$where_2="address LIKE '%$search_key_2%'";
+				 $this->db->where($where_2);
+		 }else if($search_key_count=='3'){
+				$search_key_1 = trim(strtoupper($search_key[0]));
+				$search_key_2 = trim(strtoupper($search_key[1]));
+				$search_key_3 = trim(strtoupper($search_key[2]));
+				$where="full_name like '$search_key_1%' AND father_husband_name like '$search_key_2%'";
+				 $this->db->where($where);
+				$where_2="address LIKE '%$search_key_3%'";
+				$this->db->where($where_2);
+		 }else{
+			 $search_key_1 = trim(strtoupper($search_key[0]));
+			 $this->db->or_like('full_name', $search_key_1,'after');
+			 $this->db->or_like('father_husband_name', $search_key_1,'after');
+			 $this->db->or_like('mobile_no', $search_key_1);
+			 $this->db->or_like('voter_id_no', $search_key_1);
+			 $this->db->or_like('aadhaar_no', $search_key_1);
+			 $this->db->or_like('serial_no', $search_key_1);
+		 }
+		}
 
-				$search_key = (explode(",",$search_text));
-				$search_key_count = count($search_key);
-
-				if ($search_key_count >=0){
-									$search_key_1 = trim(strtoupper($search_key[0]));
-							 }
-
-							if ($search_key_count >1) {
-									$search_key_2 = trim(strtoupper($search_key[1]));
-							}
-
-				if ($search_key_2 != ''){
-					 // $this->db->like('full_name', $search_key_1,'after');
-					 // $this->db->or_like('father_husband_name', $search_key_1,'after');
-					 $where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
-						$this->db->where($where);
-					 $where_2="address LIKE '%$search_key_2%'";
-					 $this->db->where($where_2);
-				} else {
-					$this->db->or_like('full_name', $search_key_1,'after');
-					$this->db->or_like('father_husband_name', $search_key_1,'after');
-					$this->db->or_like('mobile_no', $search_key_1);
-					$this->db->or_like('voter_id_no', $search_key_1);
-					$this->db->or_like('aadhaar_no', $search_key_1);
-					$this->db->or_like('serial_no', $search_key_1);
-				}
-
-
-			}
 			$this->db->order_by("c.id", "desc");
 			// $this->db->limit($rowperpage, $rowno);
 			// echo $this->db->get_compiled_select();
@@ -972,37 +989,46 @@ function getrecordconscount($search_text = '') {
 	 function getConstituentcount($search_text = '') {
 		$this->db->select('count(*) as allcount');
 		$this->db->from('constituent');
-					$search_key_1 = '';
-					$search_key_2 = '';
+		$search_key_1 = '';
+		$search_key_2 = '';
+		$search_key_3 = '';
 
-			if($search_text != ''){
-
-				$search_key = (explode(",",$search_text));
-				$search_key_count = count($search_key);
-
-				if ($search_key_count >=0){
-									$search_key_1 = trim(strtoupper($search_key[0]));
-							 }
-
-							if ($search_key_count >1) {
-									$search_key_2 = trim(strtoupper($search_key[1]));
-							}
-
-				if ($search_key_2 != ''){
-					$where="(full_name like '%$search_key_1%' OR father_husband_name like '%$search_key_1%')";
-					 $this->db->where($where);
-					$where_2="address LIKE '%$search_key_2%'";
-					$this->db->where($where_2);
-				} else {
-					$this->db->or_like('full_name', $search_key_1,'after');
-					$this->db->or_like('mobile_no', $search_key_1);
-					$this->db->or_like('voter_id_no', $search_key_1);
-					$this->db->or_like('aadhaar_no', $search_key_1);
-					$this->db->or_like('serial_no', $search_key_1);
-				}
-
-
-			}
+if($search_text != ''){
+	$search_key = (explode(",",$search_text));
+	$search_key_count = count($search_key);
+	if ($search_key_count=='1'){
+			$search_key_1 = trim(strtoupper($search_key[0]));
+			$this->db->or_like('full_name', $search_key_1,'after');
+			$this->db->or_like('father_husband_name', $search_key_1,'after');
+			$this->db->or_like('mobile_no', $search_key_1);
+			$this->db->or_like('voter_id_no', $search_key_1);
+			$this->db->or_like('aadhaar_no', $search_key_1);
+			$this->db->or_like('serial_no', $search_key_1);
+	 }else if($search_key_count=='2'){
+		 $search_key_1 = trim(strtoupper($search_key[0]));
+		 $search_key_2 = trim(strtoupper($search_key[1]));
+			$where="(full_name like '$search_key_1%')";
+			 $this->db->where($where);
+			$where_2="address LIKE '%$search_key_2%'";
+			 $this->db->where($where_2);
+	 }else if($search_key_count=='3'){
+			$search_key_1 = trim(strtoupper($search_key[0]));
+			$search_key_2 = trim(strtoupper($search_key[1]));
+			$search_key_3 = trim(strtoupper($search_key[2]));
+			$where="full_name like '$search_key_1%' AND father_husband_name like '$search_key_2%'";
+			 $this->db->where($where);
+			$where_2="address LIKE '%$search_key_3%'";
+			$this->db->where($where_2);
+	 }else{
+		 $search_key_1 = trim(strtoupper($search_key[0]));
+		 $this->db->or_like('full_name', $search_key_1,'after');
+		 $this->db->or_like('father_husband_name', $search_key_1,'after');
+		 $this->db->or_like('mobile_no', $search_key_1);
+		 $this->db->or_like('voter_id_no', $search_key_1);
+		 $this->db->or_like('aadhaar_no', $search_key_1);
+		 $this->db->or_like('serial_no', $search_key_1);
+	 }
+	}
 			// echo $this->db->get_compiled_select();
 			// exit;
 		$query = $this->db->get();

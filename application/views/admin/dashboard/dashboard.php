@@ -524,9 +524,9 @@ function moneyFormatIndia($num) {
 					<hr>
 					<div class="row">
 						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $bwfw *100,2); }?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
+						<div class="col-3"  style="margin-left:-15px;"><p class="widget_label widget_value" ><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">festival letters (<?php if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $bwfw *100,2); } ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
+						<div class="col-3" style="margin-left:-15px;"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
 					</div>
 					<div class="row" id="festival_list_section">
 						<?php if(empty($grievance_report['fm_list'])){
