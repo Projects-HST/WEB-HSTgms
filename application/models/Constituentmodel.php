@@ -886,7 +886,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 					if ($search_key_count=='1'){
 							$search_key_1 = trim(strtoupper($search_key[0]));
 							$this->db->or_like('full_name', $search_key_1,'after');
-							$this->db->or_like('father_husband_name', $search_key_1,'after');
+							// $this->db->or_like('father_husband_name', $search_key_1,'after');
 							$this->db->or_like('mobile_no', $search_key_1);
 							$this->db->or_like('voter_id_no', $search_key_1);
 							$this->db->or_like('aadhaar_no', $search_key_1);
@@ -909,7 +909,7 @@ function getConstituent($rowno,$rowperpage,$search_text="") {
 					 }else{
 						 $search_key_1 = trim(strtoupper($search_key[0]));
 						 $this->db->or_like('full_name', $search_key_1,'after');
-						 $this->db->or_like('father_husband_name', $search_key_1,'after');
+						 // $this->db->or_like('father_husband_name', $search_key_1,'after');
 						 $this->db->or_like('mobile_no', $search_key_1);
 						 $this->db->or_like('voter_id_no', $search_key_1);
 						 $this->db->or_like('aadhaar_no', $search_key_1);
@@ -943,7 +943,7 @@ function getrecordconscount($search_text = '') {
 		if ($search_key_count=='1'){
 				$search_key_1 = trim(strtoupper($search_key[0]));
 				$this->db->or_like('full_name', $search_key_1,'after');
-				$this->db->or_like('father_husband_name', $search_key_1,'after');
+				// $this->db->or_like('father_husband_name', $search_key_1,'after');
 				$this->db->or_like('mobile_no', $search_key_1);
 				$this->db->or_like('voter_id_no', $search_key_1);
 				$this->db->or_like('aadhaar_no', $search_key_1);
@@ -966,7 +966,7 @@ function getrecordconscount($search_text = '') {
 		 }else{
 			 $search_key_1 = trim(strtoupper($search_key[0]));
 			 $this->db->or_like('full_name', $search_key_1,'after');
-			 $this->db->or_like('father_husband_name', $search_key_1,'after');
+			 // $this->db->or_like('father_husband_name', $search_key_1,'after');
 			 $this->db->or_like('mobile_no', $search_key_1);
 			 $this->db->or_like('voter_id_no', $search_key_1);
 			 $this->db->or_like('aadhaar_no', $search_key_1);
@@ -999,7 +999,7 @@ if($search_text != ''){
 	if ($search_key_count=='1'){
 			$search_key_1 = trim(strtoupper($search_key[0]));
 			$this->db->or_like('full_name', $search_key_1,'after');
-			$this->db->or_like('father_husband_name', $search_key_1,'after');
+			// $this->db->or_like('father_husband_name', $search_key_1,'after');
 			$this->db->or_like('mobile_no', $search_key_1);
 			$this->db->or_like('voter_id_no', $search_key_1);
 			$this->db->or_like('aadhaar_no', $search_key_1);
@@ -1022,7 +1022,7 @@ if($search_text != ''){
 	 }else{
 		 $search_key_1 = trim(strtoupper($search_key[0]));
 		 $this->db->or_like('full_name', $search_key_1,'after');
-		 $this->db->or_like('father_husband_name', $search_key_1,'after');
+		 // $this->db->or_like('father_husband_name', $search_key_1,'after');
 		 $this->db->or_like('mobile_no', $search_key_1);
 		 $this->db->or_like('voter_id_no', $search_key_1);
 		 $this->db->or_like('aadhaar_no', $search_key_1);
