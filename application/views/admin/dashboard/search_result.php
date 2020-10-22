@@ -42,10 +42,11 @@
                      <th>S.no</th>
                      <th>Full name</th>
 										 <th>Surname</th>
+										 <th>Mobile</th>
                      <th>Paguthi</th>
 					           <th>ward</th>
 										 <th>Address</th>
-                     <th>Mobile</th>
+
                      <th>Voter id</th>
                      <!-- <th>Aadhhar id</th> -->
                      <!-- <th>Status</th> -->
@@ -58,10 +59,11 @@
                      <td><?php echo $i; ?></td>
                      <td><?php echo $rows['full_name']; ?></td>
 										 <td><?php echo $rows['father_husband_name']; ?></td>
+										 <td><?php echo $rows['mobile_no'] ;?></td>
 										 <td><?php echo $rows['paguthi_name']; ?></td>
 										 <td><?php echo $rows['ward_name'] ;?></td>
 										 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
-                     <td><?php echo $rows['mobile_no'] ;?></td>
+
                      <td><?php echo $rows['voter_id_no'] ;?></td>
                      <!-- <td><?php echo $rows['aadhaar_no'] ;?></td> -->
                      <!-- <td><?php if($rows['status']=='ACTIVE'){ ?>

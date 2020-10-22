@@ -48,13 +48,14 @@ input:required {
 					 <th width="8%">S.no</th>
 					 <th width="12%">name</th>
                      <th width="12%">Surname</th>
-                     <th width="10%">Phone no</th>
-                     <th width="30%">Address</th>
+                     <th width="10%">mobile</th>
+                     <th width="25%">Address</th>
                      <th width="10%">Paguthi</th>
-                     <!-- <th>interaction</th> -->
+                     <th>ward</th>
+                     <th>VOter id</th>
                      <!-- <th>plant</th> -->
                      <!-- <th>Grievance</th> -->
-                     <th width="18%">Action</th>
+                     <th width="30%">Action</th>
 			</tr>
 			<?php
 			$sno = $row+1;
@@ -98,7 +99,8 @@ input:required {
         }else{
           	echo "<td>".$paguthi_name."</td>";
         }
-
+        echo "<td>".$data['ward_name']."</td>";
+        echo "<td>".$data['voter_id_no']."</td>";
 				// echo '<td><a  class="badge-meeting handle_symbol" onclick="view_meeting_request('.$const_id.')">Add/View</a></td>';
 				// if ($int_status == "Y"){
 				// 	echo '<td><a class="badge badge-view" href="'.base_url().'constituent/get_interaction_response_edit/'. base64_encode($const_id*98765).'" title="INTERACTION VIEW">VIEW</i></a></td>';
@@ -587,15 +589,17 @@ function view_donation(sel){
   $('.enquiry_box').hide();
 
 $('input[name=grievance_type]').click(function(){
+
   if(this.value == 'P'){
     $('#petition_enquiry_no').val("");
-    $('#paguthi_id').val("");
+    // $('#paguthi_id').val("");
     $('.enquiry_box').show();
   }else{
     $('#petition_enquiry_no').val("");
-    $('#paguthi_id').val("");
+    // $('#paguthi_id').val("");
     $('.enquiry_box').hide();
   }
+  get_petition_no();
 });
 
 

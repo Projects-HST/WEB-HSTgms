@@ -97,6 +97,7 @@
        <th>Surname</th>
        <th>Phone no</th>
        <th>Address</th>
+       <th>check all</th>
        <th>Action</th>
 			</tr>
 			<?php
@@ -108,7 +109,7 @@
           <td><?php echo $data['father_husband_name']; ?></td>
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['door_no']; ?><br><?php echo $data['address']; ?><br><?php echo $data['pin_code']; ?></td>
-
+          <td><input type="checkbox" name="cons_id" value="<?php echo $data['id']; ?>"></td>
           <td><?php  if(empty($cf_religion_id)){
             echo "Select festival";
           }else{

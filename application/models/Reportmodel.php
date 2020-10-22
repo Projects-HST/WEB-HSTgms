@@ -767,6 +767,7 @@ Class Reportmodel extends CI_Model
 
 				}else{
 					$this->db->where('c.voter_id_no!=" "');
+					$this->db->where('c.voter_status="VOTER"');
 				}
 				$query = $this->db->get();
 				$result = $query->result_array();
@@ -812,6 +813,7 @@ Class Reportmodel extends CI_Model
 
 			}else{
 				$this->db->where('c.voter_id_no!=" "');
+				$this->db->where('c.voter_status="VOTER"');
 			}
 
   			// echo $this->db->get_compiled_select(); // before $this->db->get();
@@ -1141,13 +1143,14 @@ Class Reportmodel extends CI_Model
 
 		 }else{
 			 $this->db->where('c.voter_id_no!=" "');
+			 $this->db->where('c.voter_status="VOTER"');
 		 }
 
 
 		 $this->db->group_by('c.id');
 
-		//echo $this->db->get_compiled_select(); // before $this->db->get();
-		//exit;
+		// echo $this->db->get_compiled_select(); // before $this->db->get();
+		// exit;
 		return $query = $this->db->get();
 		}
 

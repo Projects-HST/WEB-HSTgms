@@ -488,10 +488,10 @@ function moneyFormatIndia($num) {
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Volunteer (<?=  round($rows_cons->no_of_volut_percentage,2);?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Constituency Volunteer (<?=  round($rows_cons->no_of_volut_percentage,2);?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_volunteer); ?></p></div>
-						<div class="col-9"><p class="widget_label">Non Volunteer (<?= round($rows_cons->no_of_nonvolut_percentage,2); ?>%)</p></div>
-						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_nonvolunteer); ?></p></div>
+						<div class="col-10"><p class="widget_label">Non Constituency Volunteer (<?= round($rows_cons->no_of_nonvolut_percentage,2); ?>%)</p></div>
+						<div class="col-2"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_nonvolunteer); ?></p></div>
 					</div>
 				</div>
 			</div>

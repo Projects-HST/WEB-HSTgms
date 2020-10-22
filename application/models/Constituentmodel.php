@@ -487,18 +487,20 @@ Class Constituentmodel extends CI_Model
 			$check="SELECT * FROM grievance WHERE petition_enquiry_no='$petition_enquiry_no'";
 			$res_check=$this->db->query($check);
 			if($res_check->num_rows()==0){
-		 $repeat_check="SELECT * FROM grievance where constituent_id='$constituent_id'";
+		  $repeat_check="SELECT * FROM grievance where constituent_id='$constituent_id'";
 				$res_repeat=$this->db->query($repeat_check);
 				if($res_repeat->num_rows()==0){
 					$repeated_status='N';
 				}else{
+					// echo "SELECT * FROM grievance where constituent_id='$constituent_id' and grievance_date='$gr_date'";
 					$ch_date_grie=$this->db->query("SELECT * FROM grievance where constituent_id='$constituent_id' and grievance_date='$gr_date'");
-					if($ch_date_grie->num_rows()==1){
+					if($ch_date_grie->num_rows()>=1){
 						$repeated_status='N';
 					}else{
 						$repeated_status='R';
 					}
 				}
+
 				$sess_office_id = $this->session->userdata('sess_office_id');
 				$insert="INSERT INTO grievance (constituency_id,grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at,created_office_id) VALUES('$constituency_id','$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PENDING','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
 				$res=$this->db->query($insert);
