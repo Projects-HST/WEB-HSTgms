@@ -608,8 +608,12 @@ Class Reportmodel extends CI_Model
 
 		 function sent_festival_wishes($cons_id,$festival_id,$user_id){
 			 $sess_office_id = $this->session->userdata('sess_office_id');
-			 $insert="INSERT INTO festival_wishes (constituent_id,festival_id,sent_status,updated_by,updated_at,created_office_id) VALUES ('$cons_id','$festival_id','SENT','$user_id',NOW(),'$sess_office_id')";
-			 $result=$this->db->query($insert);
+			 foreach($cons_id as $row_cons){
+				 // echo $row_cons;
+				 $insert="INSERT INTO festival_wishes (constituent_id,festival_id,sent_status,updated_by,updated_at,created_office_id) VALUES ('$row_cons','$festival_id','SENT','$user_id',NOW(),'$sess_office_id')";
+				 $result=$this->db->query($insert);
+			 }
+
 			 if($result){
 				 echo "success";
 			 }else{

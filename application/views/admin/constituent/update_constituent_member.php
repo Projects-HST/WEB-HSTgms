@@ -82,7 +82,7 @@
                         <script>$('#office_id').val('<?php echo $office_id; ?>');</script>
                      </div>
 
-                      <label class="control-label col-md-2 col-sm-3 voter_section">ward <span class="required">*</span></label>
+                      <label class="control-label col-md-2 col-sm-3 voter_section">ward</label>
                       <div class="col-md-4 col-sm-9 voter_section">
                           <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
                             <?php $query="SELECT * FROM ward WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";

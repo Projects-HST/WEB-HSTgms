@@ -1756,5 +1756,20 @@ public function meetings($rowno=0)
 		}
 	}
 
+	public function festival_selected_id(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$cons_id=$this->input->post('cons_id');
+			$festival_id=$this->input->post('festival_id');
+			$data=$this->reportmodel->sent_festival_wishes($cons_id,$festival_id,$user_id);
+		}else{
+			redirect('/');
+		}
+	}
+
+
+
+
 
 }

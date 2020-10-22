@@ -82,6 +82,7 @@
 				</form>
         <div class="ln_solid"></div>
 			<div class="col-md-12 col-sm-12" style="overflow-x: scroll;">
+        <button class="btn btn-success pull-right" onclick="send_selected()">Send Selected</button>
         <div class="col-md-12 col-sm-12" style="padding:0px;">
            <div class="col-md-3 col-sm-3">
                <p style="margin-top:20px;">Total records : <?php echo $allcount; ?></p>
@@ -97,7 +98,7 @@
        <th>Surname</th>
        <th>Phone no</th>
        <th>Address</th>
-       <th>check all</th>
+       <th>check here</th>
        <th>Action</th>
 			</tr>
 			<?php
@@ -109,7 +110,7 @@
           <td><?php echo $data['father_husband_name']; ?></td>
           <td><?php echo $data['mobile_no']; ?></td>
           <td><?php echo $data['door_no']; ?><br><?php echo $data['address']; ?><br><?php echo $data['pin_code']; ?></td>
-          <td><input type="checkbox" name="cons_id" value="<?php echo $data['id']; ?>"></td>
+          <td><input type="checkbox" name="cons_id[]" class="cons_id" value="<?php echo $data['id']; ?>"></td>
           <td><?php  if(empty($cf_religion_id)){
             echo "Select festival";
           }else{
@@ -119,7 +120,8 @@
               ?>
 
           <?php  }else{ ?>
-              <a href="#" style="font-size:13px;font-weight:bold;color:#ee0606;" onclick="send_festival('<?php echo $data['id']; ?>','<?php echo  $cf_religion_id; ?>')">Not sent</a>
+              <!-- <a href="#" style="font-size:13px;font-weight:bold;color:#ee0606;" onclick="send_festival('<?php echo $data['id']; ?>','<?php echo  $cf_religion_id; ?>')">Not sent</a> -->
+              <p style="font-size:13px;font-weight:bold;color:#ee0606;" >Not sent</p>
           <?php  }
           }
           ?>
@@ -152,6 +154,41 @@
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
    $('#list_constituent_menu').addClass('active');
+
+   function send_selected(){
+       var len = $("[name='cons_id[]']:checked").length;
+        var festival_id=$('#religion_id').val();
+       if(len==0){
+         alert("Check the constituent");
+       }else{
+         if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
+         var cons_id = new Array();
+          $('input[name="cons_id[]"]:checked').each(function(){
+             cons_id.push($(this).val());
+          });
+         $.ajax({
+             type: "POST",
+             url: "<?php echo base_url(); ?>constituent/festival_selected_id",
+             data:{festival_id:festival_id,cons_id:cons_id},
+             success: function(data){
+               if(data=='success'){
+                 alert("Festival wishes sent Successfully!.")
+                 location.reload();
+               }else{
+
+               }
+             }
+           });
+         }
+           return false;
+         }
+
+
+       }
+
+
+
+
 
    function send_festival(cons_id,festival_id){
      if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
