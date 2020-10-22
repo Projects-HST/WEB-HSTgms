@@ -617,6 +617,7 @@ function get_grievance_modal(sel){
     success:function(data)
     {
       $('#paguthi_id').val(data[0]['paguthi_id']);
+      $('#constituency_id').val(data[0]['constituency_id']);
       // console.log(data[0]['id']);
       get_petition_no();
     }
