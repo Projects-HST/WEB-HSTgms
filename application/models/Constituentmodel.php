@@ -11,7 +11,7 @@ Class Constituentmodel extends CI_Model
 
 ####################  Constituent member ####################
 
-	function create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id){
+	function create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$booth_address,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id){
 		$sess_office_id = $this->session->userdata('sess_office_id');
 		// $select="SELECT * FROM constituent where serial_no='$serial_no'";
 		// $res_select   = $this->db->query($select);
@@ -38,7 +38,7 @@ Class Constituentmodel extends CI_Model
 		}else{
 			$voter_no=$voter_id_no;
 		}
-		$query="INSERT INTO constituent (constituency_id,paguthi_id,office_id,ward_id,booth_id,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,whatsapp_broadcast,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at,updated_at,updated_by,created_office_id) VALUES ('$constituency_id','$paguthi_id','$office_id','$ward_id','$booth_id','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$whatsapp_broadcast','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
+		$query="INSERT INTO constituent (constituency_id,paguthi_id,office_id,ward_id,booth_id,booth_address,full_name,father_husband_name,guardian_name,mobile_no,whatsapp_no,whatsapp_broadcast,dob,door_no,address,pin_code,religion_id,email_id,gender,voter_id_status,voter_id_no,aadhaar_status,aadhaar_no,party_member_status,volunteer_status,serial_no,profile_pic,status,voter_status,created_by,created_at,updated_at,updated_by,created_office_id) VALUES ('$constituency_id','$paguthi_id','$office_id','$ward_id','$booth_id','$booth_address','$full_name','$father_husband_name','$guardian_name','$mobile_no','$whatsapp_no','$whatsapp_broadcast','$dob','$door_no','$address','$pin_code','$religion_id','$email_id','$gender','$voter_id_status','$voter_no','$aadhaar_status','$aadhar_id_no','$party_member_status','$vote_type','$serial_no','$filename','ACTIVE','$voter_status','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
 		$result=$this->db->query($query);
 		 $last_id=$this->db->insert_id();
 
@@ -62,7 +62,7 @@ Class Constituentmodel extends CI_Model
 	}
 
 
-			function update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id){
+			function update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$booth_address,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id){
 				if($constituency_id=='0'){
 					$paguthi_id='99';
 					$ward_id='0';
@@ -89,7 +89,7 @@ Class Constituentmodel extends CI_Model
 					$whatsapp_broadcast='Y';
 				}
 				$id=base64_decode($constituent_id)/98765;
-				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',office_id='$office_id',ward_id='$ward_id',booth_id='$booth_id',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',whatsapp_broadcast='$whatsapp_broadcast',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id',voter_status='$voter_status' where id='$id'";
+				$update="UPDATE constituent SET constituency_id='$constituency_id',paguthi_id='$paguthi_id',office_id='$office_id',ward_id='$ward_id',booth_id='$booth_id',booth_address='$booth_address',full_name='$full_name',father_husband_name='$father_husband_name',guardian_name='$guardian_name',mobile_no='$mobile_no',whatsapp_no='$whatsapp_no',whatsapp_broadcast='$whatsapp_broadcast',dob='$dob',door_no='$door_no',address='$address',pin_code='$pin_code',religion_id='$religion_id',email_id='$email_id',gender='$gender',voter_id_status='$voter_id_status',voter_id_no='$voter_no',aadhaar_status='$aadhaar_status',aadhaar_no='$aadhar_id_no',party_member_status='$party_member_status',volunteer_status='$vote_type',serial_no='$serial_no',profile_pic='$filename',status='$status',updated_at=NOW(),updated_by='$user_id',voter_status='$voter_status' where id='$id'";
 
 					$result=$this->db->query($update);
 					if($result){
@@ -432,8 +432,16 @@ Class Constituentmodel extends CI_Model
 
 ################## Grievance module ##############
 
+		function get_cons_paguthi($g_id){
+			$query_1=$this->db->query("SELECT * FROM constituent where id='$g_id'");
+			$result=$query_1->result();
+			return $result;
+		}
+
+
+
 		function get_petition_no($paguthi_id,$grievance_type,$user_id){
-			$selct_paguthi="SELECT * FROM paguthi where id ='$paguthi_id'";
+		  $selct_paguthi="SELECT * FROM paguthi where id ='$paguthi_id'";
 			$re_paguth=$this->db->query($selct_paguthi);
 			foreach($re_paguth->result() as $rows_paguthi){}
 				$paguthi_short_name=$rows_paguthi->paguthi_short_name;
@@ -484,7 +492,12 @@ Class Constituentmodel extends CI_Model
 				if($res_repeat->num_rows()==0){
 					$repeated_status='N';
 				}else{
-					$repeated_status='R';
+					$ch_date_grie=$this->db->query("SELECT * FROM grievance where constituent_id='$constituent_id' and grievance_date='$gr_date'");
+					if($ch_date_grie->num_rows()==1){
+						$repeated_status='N';
+					}else{
+						$repeated_status='R';
+					}
 				}
 				$sess_office_id = $this->session->userdata('sess_office_id');
 				$insert="INSERT INTO grievance (constituency_id,grievance_type,constituent_id,paguthi_id,office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,reference_note,description,repeated_status,enquiry_status,status,created_by,created_at,updated_by,updated_at,created_office_id) VALUES('$constituency_id','$grievance_type','$constituent_id','$paguthi_id','$office_id','$petition_enquiry_no','$gr_date','$seeker_id','$grievance_id','$sub_category_id','$reference_note','$description','$repeated_status','$grievance_type','PENDING','$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";

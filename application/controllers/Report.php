@@ -981,18 +981,24 @@ class Report extends CI_Controller {
 				$whatsapp_no="";
 				$mobile_no="";
 				$email_id="";
+				$voter_id="";
+				$dob="";
 				if($this->input->post('submit') != NULL ){
 					$paguthi = $this->input->post('c_paguthi');
 					$ward_id = $this->input->post('c_ward_id');
 					$whatsapp_no = $this->input->post('c_whatsapp_no');
 					$mobile_no = $this->input->post('c_mobile_no');
 					$email_id = $this->input->post('c_email_id');
+					$dob = $this->input->post('c_dob');
+					$voter_id = $this->input->post('c_voter_id');
 				 $status_session_array=$this->session->set_userdata(array(
 					 "c_whatsapp_no"=>$whatsapp_no,
 					 "c_mobile_no"=>$mobile_no,
 					 "c_email_id"=>$email_id,
 					 "c_paguthi"=>$paguthi,
-					 "c_ward_id"=>$ward_id
+					 "c_ward_id"=>$ward_id,
+					 "c_dob"=>$dob,
+					 "c_voter_id"=>$voter_id
 				 ));
 			 }else{
 				 if($this->session->userdata('c_email_id') != NULL){
@@ -1010,6 +1016,12 @@ class Report extends CI_Controller {
 				if($this->session->userdata('c_ward_id') != NULL){
 					$ward_id = $this->session->userdata('c_ward_id');
 				}
+				if($this->session->userdata('c_dob') != NULL){
+					$dob = $this->session->userdata('c_dob');
+				}
+				if($this->session->userdata('c_voter_id') != NULL){
+					$voter_id = $this->session->userdata('c_voter_id');
+				}
 
 			 }
 			 $data['c_email_id']=$email_id;
@@ -1017,6 +1029,8 @@ class Report extends CI_Controller {
 			 $data['c_whatsapp_no']=$whatsapp_no;
 			 $data['c_paguthi']=$paguthi;
 			 $data['c_ward_id']=$ward_id;
+			 $data['c_dob']=$dob;
+			 $data['c_voter_id']=$voter_id;
 
 			// Row per page
 			$rowperpage = 25;
@@ -1027,10 +1041,10 @@ class Report extends CI_Controller {
 			}
 
 			// All records count
-			$allcount = $this->reportmodel->get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id);
+			$allcount = $this->reportmodel->get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id);
 
 			// Get records
-			$users_record = $this->reportmodel->constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id);
+			$users_record = $this->reportmodel->constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id);
 
 				// Pagination Configuration
 				$config['base_url'] = base_url().'report/constituent_list';
@@ -1467,8 +1481,18 @@ public function get_constituent_report_export()
 	 }else{
 		 $ward_id="";
 	 }
+	 if(empty($dob)){
+		 $dob = $this->session->userdata('c_dob');
+	 }else{
+		 $dob="";
+	 }
+	 if(empty($voter_id)){
+		 $voter_id = $this->session->userdata('c_voter_id');
+	 }else{
+		 $voter_id="";
+	 }
 
-	 $res_data = $this->reportmodel->get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id);
+	 $res_data = $this->reportmodel->get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id,$dob,$voter_id);
 
 	 $file_name = 'Report'.date('Ymd').'.csv';
 	 header("Content-Description: File Transfer");

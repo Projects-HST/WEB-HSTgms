@@ -80,3 +80,6 @@ ALTER TABLE `grievance_reply`  ADD `created_office_id` INT NOT NULL  AFTER `crea
 
 
 ALTER TABLE `grievance`  ADD `constituency_id` INT NOT NULL  AFTER `grievance_type`;
+
+
+ALTER TABLE `constituent`  ADD `booth_address` VARCHAR(140) NOT NULL  AFTER `booth_id`;

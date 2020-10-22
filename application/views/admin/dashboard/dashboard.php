@@ -466,7 +466,7 @@ function moneyFormatIndia($num) {
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Requested & Scheduled (<?= round($row_mr_list->mr_percentage,2); ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Requested (<?= round($row_mr_list->mr_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($row_mr_list->meeting_request_count); ?></p></div>
 						<div class="col-9"><p class="widget_label">Completed (<?= round($row_mr_list->mc_percentage,2); ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($row_mr_list->meeting_complete_count); ?></p></div>
@@ -482,7 +482,7 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Volunteer Count</p>
-								<p class="widget_count"><?= moneyFormatIndia($rows_cons->total); ?></p>
+								<p class="widget_count"><?= moneyFormatIndia($rows_cons->no_of_volunteer+$rows_cons->no_of_nonvolunteer); ?></p>
 							</div>
 						</div>
 					</div>
@@ -523,9 +523,9 @@ function moneyFormatIndia($num) {
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Birthday letters (<?php  if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $bwfw *100,2); }?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Birthday wishes  (<?php  if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($row_br_list->birth_wish_count/ $bwfw *100,2); }?>%)</p></div>
 						<div class="col-3"  style="margin-left:-15px;"><p class="widget_label widget_value" ><?= moneyFormatIndia($row_br_list->birth_wish_count); ?></p></div>
-						<div class="col-9"><p class="widget_label">festival letters (<?php if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $bwfw *100,2); } ?>%)</p></div>
+						<div class="col-9"><p class="widget_label">festival wishes  (<?php if($bwfw=="0"){ echo "0"; }else{ ?><?=  round($fwlist_total/ $bwfw *100,2); } ?>%)</p></div>
 						<div class="col-3" style="margin-left:-15px;"><p class="widget_label widget_value"><?= moneyFormatIndia($fwlist_total); ?></p></div>
 					</div>
 					<div class="row" id="festival_list_section">

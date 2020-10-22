@@ -49,12 +49,17 @@
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-1 col-sm-3">&nbsp;</label>
-                                <div class="col-md-4 col-sm-4">
+                                <div class="col-md-6 col-sm-4" style="text-align:center;">
                                     <div class="form-group" style="margin-top: 10px;">
                                         <input class="" name="c_whatsapp_no" type="checkbox" value="1"
                                         <?php if($c_whatsapp_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Whatsapp no &nbsp; <input class="" name="c_mobile_no" type="checkbox" value="1"
-                                        <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Phone No &nbsp; <input class="" name="c_email_id" type="checkbox" value="1"
+                                        <?php if($c_mobile_no=='1'){ echo "checked='checked'"; } ?>>&nbsp; Phone No &nbsp;
+                                        <input class="" name="c_email_id" type="checkbox" value="1"
                                         <?php if($c_email_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; Email id &nbsp;
+                                        <input class="" name="c_dob" type="checkbox" value="1"
+                                        <?php if($c_dob=='1'){ echo "checked='checked'"; } ?>>&nbsp; DOB &nbsp;
+                                        <input class="" name="c_voter_id" type="checkbox" value="1"
+                                        <?php if($c_voter_id=='1'){ echo "checked='checked'"; } ?>>&nbsp; VOter id
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-2">

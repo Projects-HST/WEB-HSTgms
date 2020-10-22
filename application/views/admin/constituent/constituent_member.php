@@ -56,10 +56,10 @@
 
                          </p>
                       </div>
-                      <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
+                      <!-- <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
                       <div class="col-md-4 col-sm-9 voter_section">
                         <input type="text" name="serial_no" id="serial_no" class="form-control">
-                      </div>
+                      </div> -->
                     </div>
                    <div class="form-group row ">
                      <label class="control-label col-md-2 col-sm-3 ">office <span class="required">*</span></label>
@@ -70,6 +70,7 @@
                             <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
                         <?php } ?>
                        </select>
+                       <script>$('#office_id').val('<?php echo $this->session->userdata('sess_office_id'); ?>');</script>
                      </div>
                       <label class="control-label col-md-2 col-sm-3 voter_section">ward <span class="required">*</span></label>
                       <div class="col-md-4 col-sm-9 voter_section">
@@ -93,12 +94,12 @@
                       </div>
                        <label class="control-label col-md-2 col-sm-3 ">booth address </label>
                        <div class="col-md-4 col-sm-9 ">
-                        <textarea class="form-control" name="booth_address" id="booth_address" readonly></textarea>
+                        <textarea class="form-control" name="booth_address" id="booth_address"></textarea>
                        </div>
 
                      </div>
 
-                     <div class="form-group row hide_part">
+                     <div class="form-group row ">
                         <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
@@ -107,8 +108,8 @@
 
                           </select>
                         </div>
-                        <label class="control-label col-md-2 col-sm-3 ">Party member</label>
-                        <div class="col-md-4 col-sm-9 ">
+                        <label class="control-label col-md-2 col-sm-3 hide_part">Party member</label>
+                        <div class="col-md-4 col-sm-9 hide_part">
                            <p>
                               <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" > YES &nbsp;
                              <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" checked="" required=""> NO
@@ -600,7 +601,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
 
         rules: {
           paguthi_id:{required:true },
-          ward_id:{required:true },
+          ward_id:{required:false },
           gender:{required:true},
           office_id:{required:true },
           booth_id:{required:false },

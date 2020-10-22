@@ -63,10 +63,10 @@
 
                         </p>
                      </div>
-                     <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
+                     <!-- <label class="control-label col-md-2 col-sm-3 voter_section">Serial no</label>
                      <div class="col-md-4 col-sm-9 voter_section">
                        <input type="text" name="serial_no" id="serial_no" class="form-control" value="<?php echo $rows->serial_no; ?>">
-                     </div>
+                     </div> -->
                    </div>
                    <div class="clearfix"></div>
 
@@ -119,15 +119,16 @@
                       </div>
                        <label class="control-label col-md-2 col-sm-3 ">booth address </label>
                        <div class="col-md-4 col-sm-9 ">
-                         <?php $query_b="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
+                         <textarea class="form-control" name="booth_address" id="booth_address"><?php echo $rows->booth_address; ?></textarea>
+                         <!-- <?php $query_b="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
                          $resultb=$this->db->query($query_b);
                          if($resultb->num_rows()==0){ ?>
-                        <textarea class="form-control" name="booth_address" id="booth_address" readonly></textarea>
+                        <textarea class="form-control" name="booth_address" id="booth_address"></textarea>
                          <?php 	}else{
                          $res_booth=$resultb->result();
                          foreach($res_booth as $rows_booth){ ?>
-                           <textarea class="form-control" name="booth_address" id="booth_address" readonly><?php echo $rows_booth->booth_address; ?></textarea>
-                         <?php   }		}    ?>
+                           <textarea class="form-control" name="booth_address" id="booth_address"><?php echo $rows_booth->booth_address; ?></textarea>
+                         <?php   }		}    ?> -->
 
 
                        </div>
@@ -135,7 +136,7 @@
                      </div>
                      <div class="clearfix"></div>
 
-                     <div class="form-group row hide_part">
+                     <div class="form-group row ">
                         <label class="control-label col-md-2 col-sm-3 ">Volunteer</label>
                         <div class="col-md-4 col-sm-9 ">
                           <select class="form-control" name="vote_type" id="vote_type">
@@ -144,8 +145,8 @@
                           </select>
                           <script>$('#vote_type').val('<?php echo $rows->volunteer_status; ?>');</script>
                         </div>
-                        <label class="control-label col-md-2 col-sm-3 ">Party member</label>
-                        <div class="col-md-4 col-sm-9 ">
+                        <label class="control-label col-md-2 col-sm-3 hide_part">Party member</label>
+                        <div class="col-md-4 col-sm-9 hide_part">
                            <p>
                             <input type="radio" class="flat" name="party_member_status" id="party_member_y" value="Y" <?php echo ($rows->party_member_status=='Y') ? 'checked="checked"':'';?>> YES &nbsp;
                                 <input type="radio" class="flat" name="party_member_status" id="party_member_n" value="N" <?php echo ($rows->party_member_status=='N') ? 'checked="checked"':'';?>>NO
@@ -579,7 +580,7 @@ $.validator.addMethod('filesize', function(value, element, arg) {
         rules: {
           paguthi_id:{required:true },
           office_id:{required:true },
-          ward_id:{required:true },
+          ward_id:{required:false },
           booth_id:{required:false },
           full_name:{required:true,maxlength:80 },
           father_husband_name:{required:false,maxlength:80 },

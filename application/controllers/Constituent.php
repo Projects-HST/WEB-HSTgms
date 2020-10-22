@@ -86,7 +86,7 @@ class constituent extends CI_Controller {
 			}
 
 				// $data["res"] = $this->constituentmodel->search_member($config["per_page"], $page,$search);
-				$allcount = $this->constituentmodel->getrecordconscount($search_text);	
+				$allcount = $this->constituentmodel->getrecordconscount($search_text);
 				// Get records
 				$users_record = $this->constituentmodel->getConstituent($rowno,$rowperpage,$search_text);
 				$data['res_paguthi']=$this->mastermodel->get_active_paguthi();
@@ -204,6 +204,7 @@ class constituent extends CI_Controller {
 			$ward_id=$this->input->post('ward_id');
 			$office_id=$this->input->post('office_id');
 			$booth_id=$this->input->post('booth_id');
+			$booth_address=strtoupper($this->db->escape_str($this->input->post('booth_address')));
 			$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
 			$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
 			$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
@@ -245,7 +246,7 @@ class constituent extends CI_Controller {
 				$profilepic = $uploaddir.$filename;
 				move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 			}
-			$data=$this->constituentmodel->create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id);
+			$data=$this->constituentmodel->create_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$booth_address,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$question_id,$question_response,$interaction_section,$voter_status,$user_id);
 			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 			$this->session->set_flashdata('msg', $messge);
 			redirect("constituent/list_constituent_member");
@@ -264,6 +265,7 @@ class constituent extends CI_Controller {
 				$ward_id=$this->input->post('ward_id');
 				$office_id=$this->input->post('office_id');
 				$booth_id=$this->input->post('booth_id');
+				$booth_address=strtoupper($this->db->escape_str($this->input->post('booth_address')));
 				$full_name=strtoupper($this->db->escape_str($this->input->post('full_name')));
 				$father_husband_name=strtoupper($this->db->escape_str($this->input->post('father_husband_name')));
 				$guardian_name=strtoupper($this->db->escape_str($this->input->post('guardian_name')));
@@ -305,7 +307,7 @@ class constituent extends CI_Controller {
 					$profilepic = $uploaddir.$filename;
 					move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profilepic);
 				}
-				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id);
+				$data=$this->constituentmodel->update_constituent_member($constituency_id,$paguthi_id,$office_id,$ward_id,$booth_id,$booth_address,$full_name,$father_husband_name,$guardian_name,$mobile_no,$whatsapp_no,$whatsapp_broadcast,$dob,$door_no,$address,$pin_code,$religion_id,$email_id,$gender,$voter_id_status,$voter_id_no,$aadhaar_status,$aadhaar_no,$party_member_status,$vote_type,$serial_no,$filename,$status,$user_id,$voter_status,$constituent_id);
 				$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
 				$this->session->set_flashdata('msg', $messge);
 				redirect("constituent/list_constituent_member");
@@ -1740,6 +1742,19 @@ public function meetings($rowno=0)
 
 	//------ Constituent Video -----//
 
+
+
+	public function get_cons_paguthi(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$g_id=$this->input->post('g_id');
+			$data['res']=$this->constituentmodel->get_cons_paguthi($g_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
 
 
 }

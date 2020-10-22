@@ -154,8 +154,8 @@
                                 <!-- <li><a href="<?php echo base_url(); ?>report/location">Location</a></li> -->
 																<li><a href="<?php echo base_url(); ?>report/meetings">Meeting</a></li>
 
-																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday letter</a></li>
-																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival letter</a></li>
+																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>
+																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes</a></li>
 																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent</a></li>
 																<li><a href="<?php echo base_url(); ?>report/video">Video</a></li>
 																<li><a href="<?php echo base_url(); ?>report/staff">Staff</a></li>

@@ -730,7 +730,7 @@ Class Reportmodel extends CI_Model
 	 		return $result[0]['allcount'];
 		 }
 
-		 function get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id){
+		 function get_constituent_count($paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id){
 			 	$this->db->select('count(c.id) as allcount');
 				$this->db->from('constituent as c');
 				if(empty($paguthi)){
@@ -758,6 +758,16 @@ Class Reportmodel extends CI_Model
 				}else{
 					$this->db->where('c.email_id!=" "');
 				}
+				if(empty($dob)){
+
+				}else{
+					$this->db->where('c.dob!="0000-00-00"');
+				}
+				if(empty($voter_id)){
+
+				}else{
+					$this->db->where('c.voter_id_no!=" "');
+				}
 				$query = $this->db->get();
 				$result = $query->result_array();
 				return $result[0]['allcount'];
@@ -765,7 +775,7 @@ Class Reportmodel extends CI_Model
 
 		 }
 
-		 function constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id){
+		 function constituent_list($rowno,$rowperpage,$paguthi,$ward_id,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id){
 			 $this->db->select('c.*');
  			$this->db->from('constituent as c');
  			if(empty($paguthi)){
@@ -793,6 +803,16 @@ Class Reportmodel extends CI_Model
  			}else{
  				$this->db->where('c.email_id!=" "');
  			}
+			if(empty($dob)){
+
+			}else{
+				$this->db->where('c.dob!="0000-00-00"');
+			}
+			if(empty($voter_id)){
+
+			}else{
+				$this->db->where('c.voter_id_no!=" "');
+			}
 
   			// echo $this->db->get_compiled_select(); // before $this->db->get();
   			// exit;
@@ -1071,7 +1091,7 @@ Class Reportmodel extends CI_Model
 
 
 
-		function get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id){
+		function get_constituent_report_export($email_id,$mobile_no,$whatsapp_no,$paguthi,$ward_id,$dob,$voter_id){
 		$this->db->select('c.full_name,c.father_husband_name,c.dob,c.gender,CONCAT(c.door_no,c.address) AS address,c.pin_code,c.mobile_no,c.whatsapp_no,c.email_id,r.religion_name,cy.constituency_name,p.paguthi_name,o.office_name,w.ward_name,b.booth_name,c.voter_status,c.voter_id_no,c.volunteer_status,c.party_member_status,c.aadhaar_no, GROUP_CONCAT(DISTINCT(s.seeker_info)) as seeker_info,
     GROUP_CONCAT(DISTINCT(gt.grievance_name)) as grievance_name, count(cv.constituent_id) as video_count,c.whatsapp_broadcast');
 		 $this->db->from('constituent as c');
@@ -1112,6 +1132,18 @@ Class Reportmodel extends CI_Model
 		 }else{
 			 $this->db->where('c.email_id!=" "');
 		 }
+		 if(empty($dob)){
+
+		 }else{
+			 $this->db->where('c.dob!="0000-00-00"');
+		 }
+		 if(empty($voter_id)){
+
+		 }else{
+			 $this->db->where('c.voter_id_no!=" "');
+		 }
+
+
 		 $this->db->group_by('c.id');
 
 		//echo $this->db->get_compiled_select(); // before $this->db->get();

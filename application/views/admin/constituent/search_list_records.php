@@ -448,7 +448,7 @@ input:required {
               <div class=" form-group row modal_row">
                 <div class="col-md-4 col-sm-6 ">
                   <label>paguthi   <span class="required">*</span></label>
-                  <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_petition_no(this)">
+                  <select class="form-control" name="paguthi_id" id="paguthi_id" onchange="get_petition_no()">
                       <option value="">SELECT</option>
                     <?php foreach($res_paguthi as $rows_paguthi){ ?>
                        <option value="<?php echo $rows_paguthi->id; ?>"><?php echo $rows_paguthi->paguthi_name; ?></option>
@@ -464,6 +464,7 @@ input:required {
                        <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
                    <?php } ?>
                   </select>
+                  <script>$('#office_id').val('<?php echo $this->session->userdata('sess_office_id'); ?>');</script>
                 </div>
                 <div class="col-md-4 col-sm-6 ">
                   <label>Petition no  <span class="required">*</span></label>
@@ -588,9 +589,11 @@ function view_donation(sel){
 $('input[name=grievance_type]').click(function(){
   if(this.value == 'P'){
     $('#petition_enquiry_no').val("");
+    $('#paguthi_id').val("");
     $('.enquiry_box').show();
   }else{
     $('#petition_enquiry_no').val("");
+    $('#paguthi_id').val("");
     $('.enquiry_box').hide();
   }
 });
@@ -600,11 +603,27 @@ function get_grievance_modal(sel){
   $('#g_constituent_id').val("");
   $('#grievance_model').modal('show');
   $('#g_constituent_id').val(sel);
+
+  $.ajax({
+    url:'<?php echo base_url(); ?>constituent/get_cons_paguthi',
+    method:"POST",
+    data:{g_id:sel},
+    dataType: "JSON",
+    cache: false,
+    success:function(data)
+    {
+      $('#paguthi_id').val(data[0]['paguthi_id']);
+      // console.log(data[0]['id']);
+      get_petition_no();
+    }
+  });
+
 }
 
-function get_petition_no(sel){
+function get_petition_no(){
   var gr_type=$('input[name="grievance_type"]:checked').val();
-  var p_id=sel.value;
+  // var p_id=sel.value;
+  var p_id=$('#paguthi_id').val();
   $.ajax({
     url:'<?php echo base_url(); ?>constituent/get_petition_no',
     method:"POST",
