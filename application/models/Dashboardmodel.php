@@ -449,7 +449,7 @@ Class Dashboardmodel extends CI_Model
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 		IFNULL(count(*),'0') as total
 		FROM grievance as g
-		left join constituent as c on c.id=g.constituent_id WHERE g.grievance_date >= CURDATE() - INTERVAL $quer_date MONTH $quer_paguthi $quer_office group by day_name order by g.grievance_date asc ";
+		left join constituent as c on c.id=g.constituent_id WHERE g.grievance_date >= CURDATE() - INTERVAL $quer_date MONTH $quer_paguthi $quer_office group by g.grievance_date order by g.grievance_date asc ";
 
 
 
