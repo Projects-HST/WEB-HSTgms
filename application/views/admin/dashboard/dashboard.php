@@ -729,7 +729,11 @@ function drawChart() {
 						var options = {
 						               'width':1024,
 						               'height':500,
-						               pointsVisible: true
+						               pointsVisible: true,
+													 tooltip: {isHtml: true},
+													 legend: 'none'
+
+
 						            };
 
 						            // Instantiate and draw the chart.
