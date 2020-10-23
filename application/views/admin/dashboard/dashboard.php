@@ -719,6 +719,8 @@ function drawChart() {
             data.addColumn('number', 'UNIQUE');
             data.addColumn('number', 'Repeated');
             data.addColumn('number', 'Total');
+						// dataTable.addColumn({type: 'string', role: 'tooltip'});
+
             data.addRows([
 					<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
 						['<?= $rows_graph->day_name ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
@@ -730,7 +732,7 @@ function drawChart() {
 						               'width':1024,
 						               'height':500,
 						               pointsVisible: true,
-													 tooltip: {isHtml: true},
+													 focusTarget: 'category',
 													 legend: 'none'
 
 
