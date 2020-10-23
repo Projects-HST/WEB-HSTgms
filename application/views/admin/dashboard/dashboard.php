@@ -732,8 +732,8 @@ function drawChart() {
 						               'width':1024,
 						               'height':500,
 						               pointsVisible: true,
-													 focusTarget: 'category',
-													 legend: 'none'
+													 focusTarget: 'category'
+													 // legend: 'none'
 
 
 						            };
