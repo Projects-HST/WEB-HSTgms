@@ -718,10 +718,10 @@ function drawChart() {
 						data.addColumn('string', 'Day');
             data.addColumn('number', 'UNIQUE');
             data.addColumn('number', 'Repeated');
-            data.addColumn('number', 'Total');
+            // data.addColumn('number', 'Total');
             data.addRows([
 					<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
-						['<?= $rows_graph->day_name ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
+						['<?= $rows_graph->day_name ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>],
 					<?php $i++; } ?>
             ]);
 
