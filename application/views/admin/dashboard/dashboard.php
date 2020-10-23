@@ -14,6 +14,7 @@ margin-left: 230px;
     margin: 0px 0px 0px 0px;
 }
 </style>
+
 <div class="right_col" id="top" role="main" style="min-height: 1284px;">
 
 	<div class="col-md-12">
@@ -682,6 +683,7 @@ function moneyFormatIndia($num) {
 </div>
 
 </div>
+
 
 
 
