@@ -98,7 +98,7 @@
        <th>Surname</th>
        <th>Phone no</th>
        <th>Address</th>
-       <th>check here</th>
+       <th><input type="checkbox" name="select_all" id="select_all" class="checkAll" /> check all</th>
        <th>Action</th>
 			</tr>
 			<?php
@@ -154,6 +154,12 @@
    $('#constiituent_menu').addClass('active');
    $('.constiituent_menu').css('display','block');
    $('#list_constituent_menu').addClass('active');
+
+   $('.checkAll').click(function(){
+     $("input[name='cons_id[]']").prop('checked', $(this).prop("checked"));
+
+});
+
 
    function send_selected(){
        var len = $("[name='cons_id[]']:checked").length;

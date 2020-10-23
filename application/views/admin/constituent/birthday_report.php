@@ -73,7 +73,7 @@
                   <th>DOB</th>
                   <th>Phone no</th>
                   <th>DOOR NO & Address</th>
-                  <th>check here</th>
+                  <th><input type="checkbox" name="select_all" id="select_all" class="checkAll" /> check all</th>
 
                   <th>Status</th>
                 </tr>
@@ -118,6 +118,10 @@
    </div>
 </div>
 <script type="text/javascript">
+$('.checkAll').click(function(){
+  $("input[name='cons_id[]']").prop('checked', $(this).prop("checked"));
+
+});
 function send_selected(){
     var len = $("[name='cons_id[]']:checked").length;
      var festival_id=$('#religion_id').val();
