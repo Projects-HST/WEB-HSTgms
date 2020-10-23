@@ -801,14 +801,16 @@ Class Constituentmodel extends CI_Model
 	function birthday_update($constituent_id,$user_id)
 	{
 			$sess_office_id = $this->session->userdata('sess_office_id');
-			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at,created_office_id) VALUES ('$constituent_id','Send','$user_id',NOW(),'$sess_office_id')";
+			foreach($constituent_id as $row_cons){
+
+			$insert="INSERT INTO consitutent_birthday_wish (constituent_id,birthday_letter_status,created_by,created_at,created_office_id) VALUES ('$row_cons','Send','$user_id',NOW(),'$sess_office_id')";
 			$result=$this->db->query($insert);
-			if($result){
-				$data = array('status' =>'success');
-			} else {
-				$data = array('status' =>'failure');
-			}
-			return $data;
+		}
+		if($result){
+			echo "success";
+		}else{
+			echo "failure";
+		}
 
 	}
 

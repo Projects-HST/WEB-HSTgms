@@ -54,6 +54,8 @@
 		</form>
 
 		<div class="col-md-12 col-sm-12 ">
+      <button class="btn btn-success pull-right" onclick="send_selected()">Send Selected</button>
+
       <div class="col-md-12 col-sm-12" style="padding:0px;">
          <div class="col-md-3 col-sm-3">
            Total records : <?php echo $allcount; ?>
@@ -71,6 +73,8 @@
                   <th>DOB</th>
                   <th>Phone no</th>
                   <th>DOOR NO & Address</th>
+                  <th>check here</th>
+
                   <th>Status</th>
                 </tr>
              </thead>
@@ -84,8 +88,11 @@
                 <td><?php echo date('d-m-Y', strtotime($rows['dob'])); ?></td>
                 <td><?php echo $rows['mobile_no']; ?></td>
                 <td><?php echo $rows['door_no']; ?><br><?php echo $rows['address']; ?><br><?php echo $rows['pin_code']; ?></td>
+                <td><input type="checkbox" name="cons_id[]" class="cons_id" value="<?php echo $rows['id']; ?>"></td>
+
                 <td><?php if(is_null($rows['wish_id'])){ ?>
-                  <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE THE STATUS ?');" style="font-size:13px;font-weight:bold;color:#ee0606;">NOT SENT</a>
+                  <!-- <a href="<?php echo base_url(); ?>constituent/birthday_update/<?php echo base64_encode($rows['id']*98765);?>" onclick="return confirm('ARE YOU SURE YOU WANT TO UPDATE THE STATUS ?');" style="font-size:13px;font-weight:bold;color:#ee0606;">NOT SENT</a> -->
+                  <p style="font-size:13px;font-weight:bold;color:#ee0606;">NOT SENT</p>
               <?php  }else{ ?>
                 <p>SENT</p>
               <?php  } ?></td>
@@ -111,7 +118,36 @@
    </div>
 </div>
 <script type="text/javascript">
+function send_selected(){
+    var len = $("[name='cons_id[]']:checked").length;
+     var festival_id=$('#religion_id').val();
+    if(len==0){
+      alert("Check the constituent");
+    }else{
+      if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
+      var cons_id = new Array();
+       $('input[name="cons_id[]"]:checked').each(function(){
+          cons_id.push($(this).val());
+       });
+      $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>constituent/birthday_update",
+          data:{cons_id:cons_id},
+          success: function(data){
+            if(data=='success'){
+              alert("Birthday wishes sent Successfully!.")
+              location.reload();
+            }else{
 
+            }
+          }
+        });
+      }
+        return false;
+      }
+
+
+    }
 $('#frmDate').datetimepicker({
         format: 'DD-MM-YYYY'
 });

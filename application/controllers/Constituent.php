@@ -1044,9 +1044,9 @@ public function birthday($rowno=0)
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$constituent_id=base64_decode($this->uri->segment(3))/98765;
-		$data['res']=$this->constituentmodel->birthday_update($constituent_id,$user_id);
-		redirect('constituent/birthday');
+		// $constituent_id=base64_decode($this->uri->segment(3))/98765;
+		$constituent_id=$this->input->post('cons_id');
+		$data=$this->constituentmodel->birthday_update($constituent_id,$user_id);
 
 	}
 
