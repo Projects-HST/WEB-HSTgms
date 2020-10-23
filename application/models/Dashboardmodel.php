@@ -392,41 +392,56 @@ Class Dashboardmodel extends CI_Model
 	}
 
 
-	function get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date)
+	function get_footfall_graph($f_paguthi_id,$f_office_id,$foot_date)
 	{
-			if($paguthi_id=='ALL' || empty($paguthi_id)){
+			if($f_paguthi_id=='ALL' || empty($f_paguthi_id)){
 				$quer_paguthi="";
 			}else{
-				$quer_paguthi="WHERE g.paguthi_id='$paguthi_id'";
+				$quer_paguthi="AND g.paguthi_id='$f_paguthi_id'";
 			}
 
-			if($office_id=='ALL' || empty($office_id)){
+			if($f_office_id=='ALL' || empty($f_office_id)){
 				$quer_office="";
 			}else{
-				$quer_office="AND g.office_id='$office_id'";
+				$quer_office="AND g.office_id='$f_office_id'";
 			}
 
-		if(empty($from_date)){
 
-			if(empty($quer_paguthi)){
-				$quer_date="WHERE g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month GROUP BY day_name";
+			if($quer_paguthi==' '){
+				$quer_date="12";
 			}else{
-				$quer_date="AND g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month GROUP BY day_name";
-			}
-		}else{
-			$dateTime1 = new DateTime($from_date);
-			$one_date=date_format($dateTime1,'Y-m-d' );
+				if(empty($foot_date)){
+					$quer_date="12";
+				}else{
+					$quer_date="$foot_date";
 
-			$dateTime2 = new DateTime($to_date);
-			$two_date=date_format($dateTime2,'Y-m-d' );
-
-			if(empty($quer_paguthi)){
-				$quer_date="WHERE DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
-			}else{
-				$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+				}
 			}
 
-		}
+
+
+
+		// if(empty($from_date)){
+		//
+		// 	if(empty($quer_paguthi)){
+		// 		$quer_date="WHERE g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month GROUP BY day_name";
+		// 	}else{
+		// 		$quer_date="AND g.grievance_date >= last_day(now()) + interval 1 day - interval 3 month GROUP BY day_name";
+		// 	}
+		// }else{
+		// 	$dateTime1 = new DateTime($from_date);
+		// 	$one_date=date_format($dateTime1,'Y-m-d' );
+		//
+		// 	$dateTime2 = new DateTime($to_date);
+		// 	$two_date=date_format($dateTime2,'Y-m-d' );
+		//
+		// 	if(empty($quer_paguthi)){
+		// 		$quer_date="WHERE DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+		// 	}else{
+		// 		$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+		// 	}
+		//
+		// }
 
 
 	  $query="SELECT IFNULL(DATE_FORMAT(g.grievance_date,'%d-%b'),'0') as day_name,
@@ -434,8 +449,7 @@ Class Dashboardmodel extends CI_Model
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 		IFNULL(count(*),'0') as total
 		FROM grievance as g
-		left join constituent as c on c.id=g.constituent_id $quer_paguthi $quer_office $quer_date order by g.grievance_date asc limit 30";
-
+		left join constituent as c on c.id=g.constituent_id WHERE g.grievance_date >= CURDATE() - INTERVAL $quer_date MONTH $quer_paguthi $quer_office group by day_name order by g.grievance_date asc ";
 
 
 

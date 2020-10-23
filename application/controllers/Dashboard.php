@@ -26,6 +26,14 @@ class Dashboard extends CI_Controller {
 		$office_id=$this->input->post('office_id');
 		$from_date=$this->input->post('from_date');
 		$to_date=$this->input->post('to_date');
+
+		$f_paguthi_id=$this->input->post('f_paguthi_id');
+		$f_office_id=$this->input->post('f_office_id');
+		$foot_date=$this->input->post('foot_date');
+		$datas['f_paguthi_id']=$f_paguthi_id;
+		$datas['f_office_id']=$f_office_id;
+		$datas['foot_date']=$foot_date;
+
 		$datas['from_date']=$from_date;
 		$datas['to_date']=$to_date;
 		$datas['paguthi_id']=$paguthi_id;
@@ -34,12 +42,8 @@ class Dashboard extends CI_Controller {
 		$datas['grievance_report']=$this->dashboardmodel->get_grievance_report($paguthi_id,$office_id,$from_date,$to_date);
 		$datas['grievance_result']=$this->dashboardmodel->get_grievance_result($paguthi_id,$office_id,$from_date,$to_date);
 		$datas['get_footfall_report']=$this->dashboardmodel->get_footfall_report($paguthi_id,$office_id,$from_date,$to_date);
-		// echo "<pre>";
-		// print_r($datas['grievance_report']);
-		// exit;
 
-
-		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date);
+		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($f_paguthi_id,$f_office_id,$foot_date);
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
 			$this->load->view('admin/dashboard/dashboard',$datas);

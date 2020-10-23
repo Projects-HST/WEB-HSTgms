@@ -591,27 +591,70 @@ function moneyFormatIndia($num) {
 </div>
 
 <div class="clearfix"></div>
-	<?php if(empty($footfall_result)){  }else{ ?>
-<hr>
+
 
 <div class="row">
 
 <div class="col-md-12">
-	<p class="graph_title text-left">
+	<!-- <p class="graph_title text-left">
 		<?php if(empty($from_date)){ ?>
 						<span class="text-right" style="float:right;">Last 30 days data</span>
 	<?php	}else{
 
 		} ?>
-	</p>
+	</p> -->
+
 <div class="x_panel">
-	<p class="general_heading">FOOTFALL GRAPH</p>
+	<div class="col-md-12">
+		<form action="<?php echo base_url(); ?>dashboard/index" method="post" class="">
+			<div class="col-md-5">
+				<p class="general_heading" style="margin-top:5px;">FOOTFALL GRAPH</p>
+			</div>
+		<div class="col-md-2 text-right">
+			<select class="form-control" name="f_paguthi_id" id ="f_paguthi_id">
+				<option value="">ALL</option>
+			<?php foreach($paguthi as $rows){ ?>
+				<option value="<?php echo $rows->paguthi_id;?>"><?php echo $rows->paguthi_name;?></option>
+			<?php } ?>
+			<script> $('#f_paguthi_id').val('<?php echo $f_paguthi_id; ?>');</script>
+		</select>
+		</div>
+		<div class="col-md-2 text-right">
+			<select class="form-control" name="f_office_id" id="f_office_id">
+				<option value="">ALL</option>
+				<?php foreach($res_office as $rows_office){ ?>
+					 <option value="<?php echo $rows_office->id ?>"><?php echo $rows_office->office_name; ?></option>
+			 <?php } ?>
+			</select>
+			<script> $('#f_office_id').val('<?php echo $f_office_id; ?>');</script>
+
+		</div>
+		<div class="col-md-2 text-right">
+			<select class="form-control" name="foot_date" id ="foot_date">
+				<option value="">ALL</option>
+				<option value="1">Last 1 month</option>
+				<option value="3">Last 3 month</option>
+				<option value="6">Last 6 month</option>
+				<option value="12">Last 12 month</option>
+		</select>
+		<script> $('#foot_date').val('<?php echo $foot_date; ?>');</script>
+
+		</div>
+		<div class="col-md-1 text-right">
+			<button type="submit" class="btn btn-success">GO</button>
+		</div>
+	</form>
+	</div>
+	<br><br>
 	<hr>
+	<?php if(empty($footfall_result)){  }else{ ?>
+
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
+	<?php } ?>
+
 	</div>
 </div>
 </div>
-<?php } ?>
 <div class="clearfix"></div>
 <div class="row">
 
