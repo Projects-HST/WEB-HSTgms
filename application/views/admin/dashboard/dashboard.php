@@ -648,7 +648,7 @@ function moneyFormatIndia($num) {
 	</div>
 	<br><br>
 	<hr>
-	<?php if(empty($footfall_result)){  }else{ ?>
+	<?php if(empty($footfall_result)){ echo "<center>No data found;</center>"; }else{ ?>
 
 		<div id="curve_chart" style="width: 100%; height: 500px"></div>
 	<?php } ?>
