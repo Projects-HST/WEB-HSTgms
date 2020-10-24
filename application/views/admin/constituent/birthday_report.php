@@ -126,7 +126,7 @@ function send_selected(){
     var len = $("[name='cons_id[]']:checked").length;
      var festival_id=$('#religion_id').val();
     if(len==0){
-      alert("Check the constituent");
+      alert("CHECK THE CONSTITUENT");
     }else{
       if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
       var cons_id = new Array();
