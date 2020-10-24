@@ -392,28 +392,33 @@ Class Dashboardmodel extends CI_Model
 	}
 
 
-	function get_footfall_graph($f_paguthi_id,$f_office_id,$foot_date)
+	function get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date)
 	{
-			if($f_paguthi_id=='ALL' || empty($f_paguthi_id)){
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
 				$quer_paguthi="";
 			}else{
-				$quer_paguthi="AND g.paguthi_id='$f_paguthi_id'";
+				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
 			}
 
-			if($f_office_id=='ALL' || empty($f_office_id)){
+			if($office_id=='ALL' || empty($office_id)){
 				$quer_office="";
 			}else{
-				$quer_office="AND g.office_id='$f_office_id'";
+				$quer_office="AND g.office_id='$office_id'";
 			}
 
 
 			if($quer_paguthi==' '){
-				$quer_date="60";
+				$quer_date="WHERE g.grievance_date >= CURDATE() - INTERVAL 1 MONTH";
 			}else{
-				if(empty($foot_date)){
-					$quer_date="1";
+				if(empty($from_date)){
+					$quer_date="WHERE g.grievance_date >= CURDATE() - INTERVAL 1 MONTH";
 				}else{
-					$quer_date="$foot_date";
+					$dateTime1 = new DateTime($from_date);
+					$one_date=date_format($dateTime1,'Y-m-d' );
+
+					$dateTime2 = new DateTime($to_date);
+					$two_date=date_format($dateTime2,'Y-m-d' );
+					$quer_date="WHERE DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 
 				}
 			}
@@ -449,7 +454,7 @@ Class Dashboardmodel extends CI_Model
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') + IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') as total
 		FROM grievance as g
-		left join constituent as c on c.id=g.constituent_id WHERE g.grievance_date >= CURDATE() - INTERVAL $quer_date MONTH $quer_paguthi $quer_office group by g.grievance_date order by g.grievance_date asc ";
+		left join constituent as c on c.id=g.constituent_id $quer_date $quer_paguthi $quer_office group by g.grievance_date order by g.grievance_date asc ";
 
 		$res=$this->db->query($query);
 		return $result=$res->result();

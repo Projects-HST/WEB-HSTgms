@@ -606,10 +606,11 @@ function moneyFormatIndia($num) {
 	</p> -->
 
 <div class="x_panel">
-	<div class="col-md-12">
+		<p class="general_heading">FOOTFALL GRAPH</p>
+	<!-- <div class="col-md-12">
 		<form action="<?php echo base_url(); ?>dashboard/index" method="post" class="">
 			<div class="col-md-5">
-				<p class="general_heading" style="margin-top:5px;">FOOTFALL GRAPH</p>
+
 			</div>
 		<div class="col-md-2 text-right">
 			<select class="form-control" name="f_paguthi_id" id ="f_paguthi_id">
@@ -646,8 +647,8 @@ function moneyFormatIndia($num) {
 			<button type="submit" class="btn btn-success">GO</button>
 		</div>
 	</form>
-	</div>
-	<br><br>
+	</div> -->
+	<!-- <br><br> -->
 	<hr>
 	<?php if(empty($footfall_result)){ echo "<center>No data found;</center>"; }else{ ?>
 
