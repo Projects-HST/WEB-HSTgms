@@ -411,7 +411,7 @@ Class Dashboardmodel extends CI_Model
 				$quer_date="60";
 			}else{
 				if(empty($foot_date)){
-					$quer_date="60";
+					$quer_date="1";
 				}else{
 					$quer_date="$foot_date";
 
