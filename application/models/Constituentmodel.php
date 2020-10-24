@@ -495,7 +495,7 @@ Class Constituentmodel extends CI_Model
 					// echo "SELECT * FROM grievance where constituent_id='$constituent_id' and grievance_date='$gr_date'";
 					$ch_date_grie=$this->db->query("SELECT * FROM grievance where constituent_id='$constituent_id' and grievance_date='$gr_date'");
 					if($ch_date_grie->num_rows()>=1){
-						$repeated_status='N';
+						$repeated_status='';
 					}else{
 						$repeated_status='R';
 					}

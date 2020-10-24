@@ -366,7 +366,7 @@ Class Dashboardmodel extends CI_Model
 
 		// echo $query="SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date";
 		// exit;
-		$query_2=$this->db->query("SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date");
+		$query_2=$this->db->query("SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date ");
 		$result_2=$query_2->result();
 
 		$query_3=$this->db->query("SELECT count(*) as unique_cnt FROM grievance as g where repeated_status='N' $quer_cons $quer_paguthi $quer_office $quer_date");
@@ -447,7 +447,7 @@ Class Dashboardmodel extends CI_Model
 	  $query="SELECT IFNULL(DATE_FORMAT(g.grievance_date,'%d-%b'),'0') as day_name,
 		IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
-		IFNULL(count(*),'0') as total
+		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') + IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') as total
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id WHERE g.grievance_date >= CURDATE() - INTERVAL $quer_date MONTH $quer_paguthi $quer_office group by g.grievance_date order by g.grievance_date asc ";
 
