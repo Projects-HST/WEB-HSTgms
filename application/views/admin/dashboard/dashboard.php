@@ -632,7 +632,7 @@ function moneyFormatIndia($num) {
 		</div>
 		<div class="col-md-2 text-right">
 			<select class="form-control" name="foot_date" id ="foot_date">
-				<option value="">ALL</option>
+				<option value="">Last 5 years</option>
 				<option value="1">Last 1 month</option>
 				<option value="3">Last 3 month</option>
 				<option value="6">Last 6 month</option>
