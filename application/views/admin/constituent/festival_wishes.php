@@ -164,30 +164,35 @@
    function send_selected(){
        var len = $("[name='cons_id[]']:checked").length;
         var festival_id=$('#religion_id').val();
-       if(len==0){
-         alert("Check the constituent");
-       }else{
-         if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
-         var cons_id = new Array();
-          $('input[name="cons_id[]"]:checked').each(function(){
-             cons_id.push($(this).val());
-          });
-         $.ajax({
-             type: "POST",
-             url: "<?php echo base_url(); ?>constituent/festival_selected_id",
-             data:{festival_id:festival_id,cons_id:cons_id},
-             success: function(data){
-               if(data=='success'){
-                 alert("Festival wishes sent Successfully!.")
-                 location.reload();
-               }else{
+        if(festival_id==''){
+          alert("SELECT THE FESTIVAL");
+        }else{
+          if(len==0){
+            alert("CHECK THE CONSTITUENT");
+          }else{
+            if (confirm("ARE YOU SURE YOU WANT TO UPDATE THE STATUS?")) {
+            var cons_id = new Array();
+             $('input[name="cons_id[]"]:checked').each(function(){
+                cons_id.push($(this).val());
+             });
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>constituent/festival_selected_id",
+                data:{festival_id:festival_id,cons_id:cons_id},
+                success: function(data){
+                  if(data=='success'){
+                    alert("Festival wishes sent Successfully!.")
+                    location.reload();
+                  }else{
 
-               }
-             }
-           });
-         }
-           return false;
-         }
+                  }
+                }
+              });
+            }
+              return false;
+            }
+        }
+
 
 
        }
