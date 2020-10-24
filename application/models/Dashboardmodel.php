@@ -408,10 +408,10 @@ Class Dashboardmodel extends CI_Model
 
 
 			if($quer_paguthi==' '){
-				$quer_date="12";
+				$quer_date="60";
 			}else{
 				if(empty($foot_date)){
-					$quer_date="12";
+					$quer_date="60";
 				}else{
 					$quer_date="$foot_date";
 
@@ -444,14 +444,14 @@ Class Dashboardmodel extends CI_Model
 		// }
 
 
-	  $query="SELECT IFNULL(DATE_FORMAT(g.grievance_date,'%d-%b'),'0') as day_name,
+	 echo $query="SELECT IFNULL(DATE_FORMAT(g.grievance_date,'%d-%b'),'0') as day_name,
 		IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 		IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') + IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') as total
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id WHERE g.grievance_date >= CURDATE() - INTERVAL $quer_date MONTH $quer_paguthi $quer_office group by g.grievance_date order by g.grievance_date asc ";
 
-
+exit;
 
 		$res=$this->db->query($query);
 		return $result=$res->result();
