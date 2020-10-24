@@ -1313,8 +1313,10 @@ if($search_text != ''){
 
 	function fetch_festival_data($rowno,$rowperpage,$paguthi,$ward_id,$religion_id) {
 
-		$q = $this->db->select('religion_id')->where('id', $religion_id)->limit(1)->get('festival_master');
-	  $id = $q->result()[0]->religion_id;
+		if(!empty($religion_id)){
+			$q = $this->db->select('religion_id')->where('id', $religion_id)->limit(1)->get('festival_master');
+				$id = $q->result()[0]->religion_id;
+		}
 
 			$this->db->select('c.*,f.constituent_id as sent_status,f.festival_id as sent_festival_id');
 			$this->db->from('constituent as c');
@@ -1352,14 +1354,17 @@ if($search_text != ''){
 
 
 	 function festival_wishes_count($paguthi,$ward_id,$religion_id){
-		 $q = $this->db->select('religion_id')->where('id', $religion_id)->limit(1)->get('festival_master');
- 	  	$id = $q->result()[0]->religion_id;
+		 if(!empty($religion_id)){
+			 $q = $this->db->select('religion_id')->where('id', $religion_id)->limit(1)->get('festival_master');
+				 $id = $q->result()[0]->religion_id;
+		 }
+
 
 		 $this->db->select('count(c.id) as allcount');
 		 $this->db->from('constituent as c');
 
 
-		 if(empty($religion_id) || $id=='1'){
+		 if(empty($id) || $id=='1'){
 			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id', 'left');
 		 }else{
 			 $this->db->join('festival_wishes as f', 'f.constituent_id = c.id and f.festival_id='.$religion_id, 'left');
