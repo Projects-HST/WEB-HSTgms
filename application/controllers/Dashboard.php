@@ -133,4 +133,12 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+
+
+	public function data_migration(){
+		$first_id=$this->input->post('first_id');
+		$second_id=$this->input->post('second_id');
+		$this->dashboardmodel->data_migration($first_id,$second_id);
+	}
+
 }
