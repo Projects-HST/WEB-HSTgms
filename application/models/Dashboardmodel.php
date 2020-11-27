@@ -491,7 +491,7 @@ Class Dashboardmodel extends CI_Model
 		$result=$this->db->query($selecting_data);
 		foreach($result->result() as $row_result){
 
-		$update_1="UPDATE constituent SET
+		$update_1="UPDATE constituent_new SET
 		constituency_id='$row_result->constituency_id',
 		paguthi_id='$row_result->paguthi_id',
 		office_id='$row_result->office_id',
