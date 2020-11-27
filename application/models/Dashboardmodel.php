@@ -482,5 +482,59 @@ Class Dashboardmodel extends CI_Model
 				return $result->result();
 			}
 
+
+		function data_migration($first_id,$second_id){
+
+		$selecting_data="SELECT cc.* FROM constituent_copy as cc
+		left join constituent as c on c.voter_id_no=cc.voter_id_no
+		where cc.voter_id_no!='' and c.voter_id_no!='' and cc.id BETWEEN $first_id AND $second_id";
+		$result=$this->db->query($selecting_data);
+		foreach($result->result() as $row_result){
+
+		$update_1="UPDATE constituent SET
+		constituency_id='$row_result->constituency_id',
+		paguthi_id='$row_result->paguthi_id',
+		office_id='$row_result->office_id',
+		ward_id='$row_result->ward_id',
+		booth_id='$row_result->booth_id',
+		booth_address='$row_result->booth_address',
+		full_name='$row_result->full_name',
+		father_husband_name='$row_result->father_husband_name',
+		guardian_name='$row_result->guardian_name',
+		mobile_no='$row_result->mobile_no',
+		mobile_otp='$row_result->mobile_otp',
+		whatsapp_no='$row_result->whatsapp_no',
+		whatsapp_broadcast='$row_result->whatsapp_broadcast',
+		dob='$row_result->dob',
+		door_no='$row_result->door_no',
+		address='$row_result->address',
+		pin_code='$row_result->pin_code',
+		religion_id='$row_result->religion_id',
+		email_id='$row_result->email_id',
+		gender='$row_result->gender',
+		voter_id_status='$row_result->voter_id_status',
+		voter_status='$row_result->voter_status',
+		voter_id_no='$row_result->voter_id_no',
+		aadhaar_status='$row_result->aadhaar_status',
+		aadhaar_no='$row_result->aadhaar_no',
+		party_member_status='$row_result->party_member_status',
+		volunteer_status='$row_result->volunteer_status',
+		serial_no='$row_result->serial_no',
+		profile_pic='$row_result->profile_pic',
+		status='$row_result->status'
+		where voter_id_no='$row_result->voter_id_no'";
+		$result_1=$this->db->query($update_1);
+
+
+		$update_2="UPDATE constituent_copy SET constituent_id='$row_result->id' WHERE voter_id_no='$row_result->voter_id_no'";
+		$result_2=$this->db->query($update_2);
+
+
+		}
+		exit;
+
+
+		}
+
 }
 ?>
