@@ -41,6 +41,9 @@ class Dashboard extends CI_Controller {
 		$datas['result_cons']=$this->dashboardmodel->get_dashboard_result($paguthi_id,$office_id,$from_date,$to_date);
 		$datas['grievance_report']=$this->dashboardmodel->get_grievance_report($paguthi_id,$office_id,$from_date,$to_date);
 		$datas['grievance_result']=$this->dashboardmodel->get_grievance_result($paguthi_id,$office_id,$from_date,$to_date);
+		
+		//print_r ($datas['grievance_result']);
+		//exit;
 		$datas['get_footfall_report']=$this->dashboardmodel->get_footfall_report($paguthi_id,$office_id,$from_date,$to_date);
 
 		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date);

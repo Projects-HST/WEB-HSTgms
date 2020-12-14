@@ -270,33 +270,41 @@ Class Dashboardmodel extends CI_Model
 	}
 
 
-		$query_1=$this->db->query("SELECT
-		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
-		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
-		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
-		$result_1=$query_1->result();
-
-		$query_2=$this->db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
+	
+		$query_2=$this->db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_office $quer_date");
 		$result_2=$query_2->result();
 
 		$query_3=$this->db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_3=$query_3->result();
 
-		$query_4=$this->db->query("SELECT
-				IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_4=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_4=$query_4->result();
 
-		$query_5=$this->db->query("SELECT count(*) as online_enquiry_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
-		$result_5=$query_5->result();
+		$query_1=$this->db->query("SELECT
+		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
+		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
+		FROM grievance as g where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
+		$result_1=$query_1->result();
+
+		$query_1_1=$this->db->query("SELECT
+		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
+		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
+		FROM grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_office $quer_date");
+		$result_1_1=$query_1_1->result();
+		
+		
+
+		//$query_5=$this->db->query("SELECT count(*) as online_enquiry_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
+		//$result_5=$query_5->result();
 
 		$query_6=$this->db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_6=$query_6->result();
 
-		$query_7=$this->db->query("SELECT
-				IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+
+		$query_7=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
@@ -304,14 +312,13 @@ Class Dashboardmodel extends CI_Model
 
 
 
-		$query_8=$this->db->query("SELECT count(*) as civic_enquiry_count FROM grievance as g where g.seeker_type_id='2' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
-		$result_8=$query_8->result();
+		//$query_8=$this->db->query("SELECT count(*) as civic_enquiry_count FROM grievance as g where g.seeker_type_id='2' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
+		//$result_8=$query_8->result();
 
 		$query_9=$this->db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_9=$query_9->result();
 
-		$query_10=$this->db->query("SELECT
-				IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_10=$this->db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
 				IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
 				IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
@@ -319,7 +326,7 @@ Class Dashboardmodel extends CI_Model
 
 
 
-		$data = array('grievance_list' => $result_1,'enquiry_count'=>$result_2,'petition_count'=>$result_3,'petition_status'=>$result_4,'online_enquiry_count'=>$result_5,'online_petition_count'=>$result_6,'online_petition_status'=>$result_7,'civic_enquiry_count'=>$result_8,'civic_petition_count'=>$result_9,'civic_petition_status'=>$result_10);
+		$data = array('enquiry_count'=>$result_2,'petition_count'=>$result_3,'petition_list' => $result_1,'enquiry_list' => $result_1_1,'petition_status'=>$result_4,'online_petition_count'=>$result_6,'online_petition_status'=>$result_7,'civic_petition_count'=>$result_9,'civic_petition_status'=>$result_10);
 		return $data;
 
 
