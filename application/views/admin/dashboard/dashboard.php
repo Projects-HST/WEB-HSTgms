@@ -376,35 +376,36 @@ function moneyFormatIndia($num) {
 						<div class="col-6">
 								<hr>
 							<div class="row">
-							<?php foreach($get_footfall_report['constituency_cnt'] as $rows_cons_cnt){} ?>
-							<?php foreach($get_footfall_report['other_cnt'] as $rows_other_cnt){}
-								$total_unique_cnt=$rows_cons_cnt->cons_footfall_cnt+$rows_other_cnt->other_footfall_cnt;
+							
+							<?php //foreach($get_footfall_report['constituency_cnt'] as $rows_cons_cnt){} ?>
+							<?php //foreach($get_footfall_report['other_cnt'] as $rows_other_cnt){}
+								$total_unique_cnt= $get_footfall_report["constituency_cnt"]+ $get_footfall_report["other_cnt"];
 							?>
 							<div class="col-9"><p class="widget_footfall_label">Unique Footfall Count</p></div>
 							<div class="col-3"><p class="widget_footfall_label widget_value"><?= moneyFormatIndia($total_unique_cnt) ?></p></div>
 							<div class="col-9"><p class="widget_label">SINGANALLUR  (<?php if($total_unique_cnt=='0'){ echo "0.00"; }else{
-								echo	number_format($rows_cons_cnt->cons_footfall_cnt/$total_unique_cnt *100,2);
+								echo	number_format($get_footfall_report["constituency_cnt"]/$total_unique_cnt *100,2);
 							} ?>%)</p></div>
-							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_cons_cnt->cons_footfall_cnt) ?></p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["constituency_cnt"]) ?></p></div>
 							<div class="col-9"><p class="widget_label">Others  (<?php if($total_unique_cnt=='0'){ echo "0.00"; }else{
-								echo	number_format($rows_other_cnt->other_footfall_cnt/$total_unique_cnt *100,2);
+								echo	number_format($get_footfall_report["other_cnt"]/$total_unique_cnt *100,2);
 							} ?>%)</p></div>
-							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_other_cnt->other_footfall_cnt) ?></p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["other_cnt"]) ?></p></div>
 						</div>
 						</div>
 						<div class="col-6">
 								<hr>
 							<div class="row">
-								<?php foreach($get_footfall_report['unique_footfall_cnt'] as $rows_unique_cnt){} ?>
-								<?php foreach($get_footfall_report['repeated_footfall_cnt'] as $rows_repeat_cnt){}
-									$total_unique_repeat=$rows_unique_cnt->unique_cnt + $rows_repeat_cnt->repeated_cnt;
+								<?php //foreach($get_footfall_report['unique_footfall_cnt'] as $rows_unique_cnt){} ?>
+								<?php //foreach($get_footfall_report['repeated_footfall_cnt'] as $rows_repeat_cnt){}
+									$total_unique_repeat= $get_footfall_report["unique_footfall_cnt"]+ $get_footfall_report["repeated_footfall_cnt"];
 									?>
 							<div class="col-9"><p class="widget_footfall_label">Total Footfall Count</p></div>
 							<div class="col-3"><p class="widget_footfall_label widget_value"><?= moneyFormatIndia($total_unique_repeat) ?></p></div>
-							<div class="col-9"><p class="widget_label">Unique  (<?php if($total_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_unique_cnt->unique_cnt/$total_unique_repeat *100 ,2); } ?>%)</p></div>
-							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_unique_cnt->unique_cnt) ?></p></div>
-							<div class="col-9"><p class="widget_label">Repeated  (<?php if($total_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_repeat_cnt->repeated_cnt/$total_unique_repeat *100 ,2); } ?>%)</p></div>
-							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_repeat_cnt->repeated_cnt) ?></p></div>
+							<div class="col-9"><p class="widget_label">Unique  (<?php if($total_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($get_footfall_report["unique_footfall_cnt"]/$total_unique_repeat *100 ,2); } ?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["unique_footfall_cnt"]) ?></p></div>
+							<div class="col-9"><p class="widget_label">Repeated  (<?php if($total_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($get_footfall_report["repeated_footfall_cnt"]/$total_unique_repeat *100 ,2); } ?>%)</p></div>
+							<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["repeated_footfall_cnt"]) ?></p></div>
 						</div>
 						</div>
 
@@ -415,31 +416,31 @@ function moneyFormatIndia($num) {
 						<div class="col-6">
 							<hr>
 							<div class="row">
-								<?php foreach($get_footfall_report['cons_repeated_cnt'] as $rows_cons_repeated_cnt){} ?>
-								<?php foreach($get_footfall_report['cons_unique_cnt'] as $rows_cons_unique_cnt){}
-									$total_cons_unique_repeat=$rows_cons_repeated_cnt->cons_repeated_cnt + $rows_cons_unique_cnt->new_cnt;
+								<?php //foreach($get_footfall_report['cons_repeated_cnt'] as $rows_cons_repeated_cnt){} ?>
+								<?php //foreach($get_footfall_report['cons_unique_cnt'] as $rows_cons_unique_cnt){}
+									$total_cons_unique_repeat= $get_footfall_report["cons_unique_cnt"] + $get_footfall_report["cons_repeated_cnt"];
 									?>
 								<div class="col-9"><p class="widget_footfall_label">SINGANALLUR Footfall Count</p></div>
 								<div class="col-3"><p class="widget_footfall_label widget_value"><?= moneyFormatIndia($total_cons_unique_repeat) ?></p></div>
-								<div class="col-9"><p class="widget_label">Unique  (<?php if($total_cons_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_cons_unique_cnt->new_cnt/$total_cons_unique_repeat *100 ,2); } ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_cons_unique_cnt->new_cnt) ?></p></div>
-								<div class="col-9"><p class="widget_label">Repeated (<?php if($total_cons_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_cons_repeated_cnt->cons_repeated_cnt/$total_cons_unique_repeat *100 ,2); } ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_cons_repeated_cnt->cons_repeated_cnt) ?></p></div>
+								<div class="col-9"><p class="widget_label">Unique  (<?php if($total_cons_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($get_footfall_report["cons_unique_cnt"]/$total_cons_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["cons_unique_cnt"]) ?></p></div>
+								<div class="col-9"><p class="widget_label">Repeated (<?php if($total_cons_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($get_footfall_report["cons_repeated_cnt"]/$total_cons_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["cons_repeated_cnt"]) ?></p></div>
 							</div>
 						</div>
 						<div class="col-6">
 							<hr>
 							<div class="row">
-								<?php foreach($get_footfall_report['other_repeated_cnt'] as $rows_other_repeated_cnt){} ?>
-								<?php foreach($get_footfall_report['other_unique_cnt'] as $rows_other_unique_cnt){}
-									$total_other_unique_repeat=$rows_other_repeated_cnt->other_repeated_cnt + $rows_other_unique_cnt->other_new_cnt;
+								<?php //foreach($get_footfall_report['other_repeated_cnt'] as $rows_other_repeated_cnt){} ?>
+								<?php //foreach($get_footfall_report['other_unique_cnt'] as $rows_other_unique_cnt){}
+									$total_other_unique_repeat= $get_footfall_report["other_unique_cnt"] + $get_footfall_report["other_repeated_cnt"];
 									?>
 								<div class="col-9"><p class="widget_footfall_label">Other Footfall Count</p></div>
 								<div class="col-3"><p class="widget_footfall_label widget_value"><?= moneyFormatIndia($total_other_unique_repeat) ?></p></div>
-								<div class="col-9"><p class="widget_label">Unique  (<?php if($total_other_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_other_unique_cnt->other_new_cnt/$total_other_unique_repeat *100 ,2); } ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_other_unique_cnt->other_new_cnt) ?></p></div>
-								<div class="col-9"><p class="widget_label">Repeated  (<?php if($total_other_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($rows_other_repeated_cnt->other_repeated_cnt/$total_other_unique_repeat *100 ,2); } ?>%)</p></div>
-								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($rows_other_repeated_cnt->other_repeated_cnt) ?></p></div>
+								<div class="col-9"><p class="widget_label">Unique  (<?php if($total_other_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($get_footfall_report["other_unique_cnt"]/$total_other_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["other_unique_cnt"]) ?></p></div>
+								<div class="col-9"><p class="widget_label">Repeated  (<?php if($total_other_unique_repeat==0){ echo "0.00"; }else{ echo  number_format($get_footfall_report["other_repeated_cnt"]/$total_other_unique_repeat *100 ,2); } ?>%)</p></div>
+								<div class="col-3"><p class="widget_label widget_value"><?= moneyFormatIndia($get_footfall_report["other_repeated_cnt"]) ?></p></div>
 							</div>
 						</div>
 					</div>

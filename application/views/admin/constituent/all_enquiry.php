@@ -91,9 +91,8 @@ input:required {
                              <!-- <td><?php echo date('d-m-Y', strtotime($rows['updated_at'])); ?></td> -->
                              <td>
                                <a title="VIEW INFO" target="_blank" href="<?php echo base_url(); ?>constituent/constituent_profile_info/<?php echo base64_encode($rows['constituent_id']*98765); ?>"><i class="fa fa-eye"></i></a>&nbsp;<a title="EDIT" href="<?php echo base_url(); ?>constituent/get_constituent_grievance_edit/<?php echo base64_encode($rows['id']*98765); ?>"><i class="fa fa-edit"></i></a>
-                               <a title="SEND SMS" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')">
-                                 <i class="fa fa-reply" aria-hidden="true"></i></a>
-
+                               <a title="SEND SMS" class="handle_symbol" onclick="send_reply_constituent('<?php echo $rows['id']; ?>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+							   <a title="CONVERT PERTITION" class="handle_symbol" onclick="convert_petition('<?php echo $rows['id']; ?>')"><i class="fa fa-files-o" aria-hidden="true"></i></a>
 
                               </td>
                              </tr>
@@ -322,6 +321,30 @@ $('#list_grievance_reply_menu').addClass('active');
       });
 
 
+	function convert_petition(grivance_id){
+
+      if (confirm("ARE YOU SURE YOU WANT TO CONVERT AS PETITION?")) {
+
+      $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>constituent/convert_petition",
+          data:{grievance_id:grivance_id},
+		  dataType: "JSON",
+		  cache: false,
+          success: function(data){
+			 var stat=data.status;
+            if(stat == 'success'){
+              alert("PETITION CREATED SUCESSFULLY!..")
+			  window.location.href = '<?php echo base_url(); ?>constituent/all_petition';
+            }else{
+				alert("Something Wrong.")
+            }
+          }
+        });
+      }
+        return false;
+    }
+	
 function change_grievance_status(sel){
   var grievance_id=sel;
     $('#status_modal').modal('show');

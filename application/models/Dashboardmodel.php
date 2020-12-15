@@ -366,35 +366,71 @@ Class Dashboardmodel extends CI_Model
 			$two_date=date_format($dateTime2,'Y-m-d' );
 			$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 		}
+		
+		
+		$query_1="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_1=$this->db->query($query_1);
+		$cons_footfall_cnt = $result_1->num_rows();
+		
+		$query_2="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_2=$this->db->query($query_2);
+		$other_footfall_cnt = $result_2->num_rows();
+		
+		
 
-
-		$query_1=$this->db->query("SELECT count(*) as cons_footfall_cnt from grievance as g where g.constituency_id='$cons_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date");
+/* 		$query_1=$this->db->query("SELECT count(*) as cons_footfall_cnt from grievance as g where g.constituency_id='$cons_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date");
 		$result_1=$query_1->result();
-
-		// echo $query="SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date";
-		// exit;
+		
 		$query_2=$this->db->query("SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date ");
-		$result_2=$query_2->result();
+		$result_2=$query_2->result(); */
 
-		$query_3=$this->db->query("SELECT count(*) as unique_cnt FROM grievance as g where repeated_status='N' $quer_cons $quer_paguthi $quer_office $quer_date");
+		$query_3="SELECT * from grievance as g where g.repeated_status ='N' $quer_cons $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_3=$this->db->query($query_3);
+		$unique_cnt = $result_3->num_rows();
+		
+		$query_4="SELECT * from grievance as g where g.repeated_status ='R' $quer_cons $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_4=$this->db->query($query_4);
+		$repeated_cnt = $result_4->num_rows();
+		
+		
+		/* $query_3=$this->db->query("SELECT count(*) as unique_cnt FROM grievance as g where repeated_status='N' $quer_cons $quer_paguthi $quer_office $quer_date");
 		$result_3=$query_3->result();
 
 		$query_4=$this->db->query("SELECT count(*) as repeated_cnt FROM grievance as g where repeated_status='R' $quer_cons $quer_paguthi $quer_office $quer_date");
-		$result_4=$query_4->result();
+		$result_4=$query_4->result(); */
 
-		$query_5=$this->db->query("SELECT count(*) as cons_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
-		$result_5=$query_5->result();
 
-		$query_6=$this->db->query("SELECT count(*) as new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
+		$query_5="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_5=$this->db->query($query_5);
+		$sing_unique_cnt = $result_5->num_rows();
+		
+		$query_6="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='R' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_6=$this->db->query($query_6);
+		$sing_repeted_cnt = $result_6->num_rows();
+		
+		
+		/* $query_6=$this->db->query("SELECT count(*) as new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
 		$result_6=$query_6->result();
+		
+		$query_5=$this->db->query("SELECT count(*) as cons_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
+		$result_5=$query_5->result(); */
 
-		$query_7=$this->db->query("SELECT count(*) as other_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
-		$result_7=$query_7->result();
+		$query_7="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_7=$this->db->query($query_7);
+		$other_unique_cnt = $result_7->num_rows();
+		
+		$query_8="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='R' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_8=$this->db->query($query_8);
+		$other_repeted_cnt = $result_8->num_rows();
 
-		$query_8=$this->db->query("SELECT count(*) as other_new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
+		/* $query_8=$this->db->query("SELECT count(*) as other_new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
 		$result_8=$query_8->result();
+		
+		$query_7=$this->db->query("SELECT count(*) as other_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
+		$result_7=$query_7->result(); */
+	
 
-		$data=array("constituency_cnt"=>$result_1,"other_cnt"=>$result_2,"unique_footfall_cnt"=>$result_3,"repeated_footfall_cnt"=>$result_4,"cons_repeated_cnt"=>$result_5,"cons_unique_cnt"=>$result_6,"other_repeated_cnt"=>$result_7,"other_unique_cnt"=>$result_8);
+		$data=array("constituency_cnt"=>$cons_footfall_cnt,"other_cnt"=>$other_footfall_cnt,"unique_footfall_cnt"=>$unique_cnt,"repeated_footfall_cnt"=>$repeated_cnt,"cons_unique_cnt"=>$sing_unique_cnt,"cons_repeated_cnt"=>$sing_repeted_cnt,"other_unique_cnt"=>$other_unique_cnt,"other_repeated_cnt"=>$other_repeted_cnt);
 		return $data;
 	}
 

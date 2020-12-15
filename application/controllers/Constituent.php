@@ -741,6 +741,20 @@ public function list_grievance_reply($rowno=0){
 		}
 	}
 
+
+	public function convert_petition(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$grievance_id=$this->input->post('grievance_id');
+			$data['res']=$this->constituentmodel->convert_petition($grievance_id,$user_id);
+			echo json_encode($data['res']);
+		}else{
+			redirect('/');
+		}
+	}
+
+
 	public function get_grievance_status(){
 		$user_id = $this->session->userdata('user_id');
 		$user_type = $this->session->userdata('user_type');

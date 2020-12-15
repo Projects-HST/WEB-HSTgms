@@ -79,8 +79,8 @@ th{
 
                   <div class="" role="tabpanel" data-example-id="togglable-tabs" style="margin-top:15px;">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                           <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="" aria-selected="false">Meeting</a></li>
-                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Grievance</a></li>
+                           <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" class="active" aria-selected="false">Grievance</a></li>
+                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" class="" aria-selected="false">Meeting</a></li>
                            <!-- <li role="presentation" class="active"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false" class="active" aria-selected="true">Meeting and plant</a></li> -->
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -107,7 +107,33 @@ th{
 
                                 </tbody>
                              </table> -->
-                             <h4>meeting request</h4>
+                             <table id="example_4" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                   <tr>
+                                      <th style="width:50px;">S.no</th>
+                                      <th>seeker type</th>
+                                      <th>Grievance type</th>
+                                      <th style="width:200px;">reference</th>
+                                      <th style="width:50px;">status</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                  <?php $i=1; foreach($res_grievance as $rows_grievance){ ?>
+                                    <tr>
+                                      <td><?php echo $i; ?></td>
+                                      <td><?php echo $rows_grievance->seeker_info; ?></td>
+                                      <td><?php echo $rows_grievance->grievance_name; ?></td>
+                                      <td class="badge badge-reference"><?php echo $rows_grievance->reference_note; ?></td>
+                                      <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $rows_grievance->status; ?></td>
+								</tr>
+                                <?php $i++; } ?>
+
+                                </tbody>
+                             </table>
+
+                           </div>
+                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+						   <h4>meeting request</h4>
                              <table id="example_2" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
                                    <tr>
@@ -132,41 +158,7 @@ th{
                                 <?php $i++; } ?>
                                 </tbody>
                              </table>
-
-                           </div>
-                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                             <table id="example_4" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                                <thead>
-                                   <tr>
-                                      <th style="width:50px;">S.no</th>
-                                      <th>seeker type</th>
-                                      <th>Grievance type</th>
-                                      <!-- <th>sub category</th> -->
-                                      <!-- <th>petition no</th> -->
-                                      <th style="width:200px;">reference</th>
-                                      <th style="width:50px;">status</th>
-                                      <!-- <th>updated On</th> -->
-
-                                   </tr>
-                                </thead>
-                                <tbody>
-                                  <?php $i=1; foreach($res_grievance as $rows_grievance){ ?>
-                                    <tr>
-                                      <td><?php echo $i; ?></td>
-                                      <td><?php echo $rows_grievance->seeker_info; ?></td>
-                                      <td><?php echo $rows_grievance->grievance_name; ?></td>
-                                      <!-- <td><?php echo $rows_grievance->sub_category_name; ?></td> -->
-                                      <!-- <td><?php echo $rows_grievance->petition_enquiry_no; ?></td> -->
-                                      <td class="badge badge-reference"><?php echo $status= $rows_grievance->reference_note; ?></td>
-                                      <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $status= $rows_grievance->status; ?></td>
-									   <!-- <td><?php echo date('d-m-Y', strtotime($rows_grievance->updated_at)); ?></td> -->
-
-
-                                      </tr>
-                                <?php $i++; } ?>
-
-                                </tbody>
-                             </table>
+                             
                            </div>
 
                         </div>

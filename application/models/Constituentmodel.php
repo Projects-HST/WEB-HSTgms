@@ -508,7 +508,7 @@ Class Constituentmodel extends CI_Model
 				if(empty($filename)){
 
 				}else{
-					$insert_doc="INSERT INTO grievance_documents(constituent_id,grievance_id,doc_name,doc_file_name,status,created_by,created_at,updated_by,updated_at) VALUES ('$constituent_id','$last_id','$doc_name','$filename','ACTIVE','$user_id',NOW(),'$user_id',NOW())";
+						$insert_doc="INSERT INTO grievance_documents(constituent_id,grievance_id,doc_name,doc_file_name,status,created_by,created_at,updated_by,updated_at) VALUES ('$constituent_id','$last_id','$doc_name','$filename','ACTIVE','$user_id',NOW(),'$user_id',NOW())";
 						$result=$this->db->query($insert_doc);
 						if($result){
 								$data=array("status"=>"success","msg"=>"Grievance added Successfully!","class"=>"alert alert-success");
@@ -565,24 +565,80 @@ Class Constituentmodel extends CI_Model
 
 
 		function get_list_grievance_document($constituent_id){
-				$id=base64_decode($constituent_id)/98765;
+			$id=base64_decode($constituent_id)/98765;
 			$query="SELECT * FROM grievance_documents where constituent_id='$id' and grievance_id!='' order by id desc";
 			$result=$this->db->query($query);
 			return $result->result();
 		}
 
 
+		function convert_petition($grievance_id,$user_id){
+			$select="SELECT * FROM grievance where id='$grievance_id'";
+			$res_select   = $this->db->query($select);
+
+			if($res_select->num_rows()==0){
+					$data=array("status"=>"error");
+			 }else{
+				 
+				 foreach($res_select->result() as $rows_result){
+				 $constituency_id=$rows_result->constituency_id;
+				 $constituent_id=$rows_result->constituent_id;
+				 $paguthi_id=$rows_result->paguthi_id;
+				 $office_id=$rows_result->office_id;
+				 $seeker_type_id=$rows_result->seeker_type_id;
+				 $grievance_type_id=$rows_result->grievance_type_id;
+				 $sub_category_id=$rows_result->sub_category_id;
+				 $reference_note=$rows_result->reference_note;	
+			}
+			
+			$selct_paguthi="SELECT * FROM paguthi where id ='$paguthi_id' LIMIT 1";
+			$re_paguth=$this->db->query($selct_paguthi);
+
+			foreach($re_paguth->result() as $rows_paguthi){
+				$paguthi_short_name=$rows_paguthi->paguthi_short_name;
+			}
+			
+			$select="SELECT * FROM grievance where grievance_type='P' order by id desc LIMIT 1";
+			$res=$this->db->query($select);
+
+			if($res->num_rows()==0){
+				$next_id='1';
+			}else{
+				foreach($res->result() as $rows_id){}
+					$next_id=$rows_id->id+1;
+			}
+			$petition_code=$paguthi_short_name."PT".$next_id;
+			$sess_office_id = $this->session->userdata('sess_office_id');
+			
+			$insert="INSERT INTO grievance (constituency_id,grievance_type,constituent_id,paguthi_id,
+			office_id,petition_enquiry_no,grievance_date,seeker_type_id,grievance_type_id,sub_category_id,
+			reference_note,repeated_status,enquiry_status,status,
+			created_by,created_at,updated_by,updated_at,created_office_id) VALUES('$constituency_id','P',
+			'$constituent_id','$paguthi_id','$office_id','$petition_code',CURDATE(),'$seeker_type_id','$grievance_type_id',
+			'$sub_category_id','$reference_note','R','P','PENDING',
+			'$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
+			$res=$this->db->query($insert);
+			
+			$query="UPDATE grievance SET enquiry_status='P',updated_by='$user_id',updated_at=NOW()  where id='$grievance_id'";
+			$result   = $this->db->query($query);
+			
+					 $data=array("status"=>"success");
+			 }
+			 return $data;
+		}
+
+
+
 		function get_grievance_status($grievance_id,$user_id){
 			$select="SELECT * FROM grievance where id='$grievance_id'";
 			$res_select   = $this->db->query($select);
 			if($res_select->num_rows()==0){
-			 $data=array("status"=>"error");
+					$data=array("status"=>"error");
 			 }else{
 					 $data=array("status"=>"success","res"=>$res_select->result());
 			 }
 			 return $data;
 		}
-
 
 		function update_grievance_status($grievance_id,$status,$sms_text,$constituent_id,$sms_id,$user_id){
 			$select="SELECT * FROM constituent where id='$constituent_id'";
@@ -1212,6 +1268,7 @@ if($search_text != ''){
 		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
 		$this->db->where('g.grievance_type','E');
+		$this->db->where('g.enquiry_status','E');
 		if(empty($search)){
 
 		}else{
