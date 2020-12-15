@@ -43,8 +43,8 @@ class Dashboard extends CI_Controller {
 		$datas['grievance_result']=$this->dashboardmodel->get_grievance_result($paguthi_id,$office_id,$from_date,$to_date);
 		
 		$datas['get_footfall_report']=$this->dashboardmodel->get_footfall_report($paguthi_id,$office_id,$from_date,$to_date);
-print_r ($datas['get_footfall_report']);
-//exit;
+		//print_r ($datas['get_footfall_report']);
+		//exit;
 		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date);
 		if($user_type=='1' || $user_type=='2'){
 			$this->load->view('admin/header');
