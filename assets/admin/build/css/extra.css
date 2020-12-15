@@ -204,6 +204,10 @@ table {
     color: #0095be !important;
     font-weight:bold;
 }
+.badge-CONVERTED{
+    color:#9b258f !important;
+    font-weight:bold;
+}
 .badge-{
   color:#fdc010 !important;
   font-weight:bold;

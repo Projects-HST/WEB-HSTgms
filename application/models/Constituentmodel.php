@@ -619,7 +619,7 @@ Class Constituentmodel extends CI_Model
 			'$user_id',NOW(),'$user_id',NOW(),'$sess_office_id')";
 			$res=$this->db->query($insert);
 			
-			$query="UPDATE grievance SET enquiry_status='P',updated_by='$user_id',updated_at=NOW()  where id='$grievance_id'";
+			$query="UPDATE grievance SET enquiry_status='P',status='CONVERTED',updated_by='$user_id',updated_at=NOW()  where id='$grievance_id'";
 			$result   = $this->db->query($query);
 			
 					 $data=array("status"=>"success");
@@ -1194,12 +1194,12 @@ if($search_text != ''){
 		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
 		if(empty($search)){
-
+			$where="";
 		}else{
 			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
 			$this->db->where($where);
 		}
-
+		$this->db->where("g.grievance_type = 'P' OR (g.grievance_type = 'E' AND g.enquiry_status = 'E')");
 		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
@@ -1214,19 +1214,17 @@ if($search_text != ''){
 		$this->db->join('seeker_type as st', 'st.id = g.seeker_type_id', 'left');
 		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
+		
 		if(empty($search)){
-
+			$where="";
 		}else{
-			// $this->db->or_like('g.reference_note',$search,'both');
-			// $this->db->or_like('g.petition_enquiry_no',$search,'both');
-			// $this->db->or_like('c.full_name',$search,'both');
 			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
 			$this->db->where($where);
 		}
+		$this->db->where("g.grievance_type = 'P' OR (g.grievance_type = 'E' AND g.enquiry_status = 'E')");
 		$this->db->order_by("g.id", "desc");
-		// echo $this->db->get_compiled_select(); // before $this->db->get();
-		// exit;
 		$this->db->limit($rowperpage, $rowno);
+		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -1241,19 +1239,15 @@ if($search_text != ''){
 		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
 		if(empty($search)){
-
+			$where="";
 		}else{
 			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
 			$this->db->where($where);
-			// $this->db->or_like('g.reference_note',$search);
-			// $this->db->or_like('g.petition_enquiry_no',$search);
-			// $this->db->or_like('c.full_name',$search);
 		}
 		$this->db->where('g.grievance_type','P');
 		$this->db->order_by("g.id", "desc");
-		// echo $this->db->get_compiled_select(); // before $this->db->get();
-		// exit;
 		$this->db->limit($rowperpage, $rowno);
+		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -1270,19 +1264,14 @@ if($search_text != ''){
 		$this->db->where('g.grievance_type','E');
 		$this->db->where('g.enquiry_status','E');
 		if(empty($search)){
-
+			$where="";
 		}else{
 			$where="(`g`.`reference_note` = '$search' OR `g`.`petition_enquiry_no` LIKE '%$search%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search%' ESCAPE '!') ";
 			$this->db->where($where);
-
-			// $this->db->or_like('g.petition_enquiry_no',$search);
-			// $this->db->or_like('c.full_name',$search);
 		}
-
 		$this->db->order_by("g.id", "desc");
-		// echo $this->db->get_compiled_select(); // before $this->db->get();
-		// exit;
 		$this->db->limit($rowperpage, $rowno);
+		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -1297,12 +1286,14 @@ if($search_text != ''){
 		$this->db->join('grievance_type as gt', 'gt.id = g.grievance_type_id', 'left');
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
 		$this->db->where('g.grievance_type','E');
+		$this->db->where('g.enquiry_status','E');
 		if(empty($search_text)){
-
+			$where="";
 		}else{
 			$where="(`g`.`reference_note` = '$search_text' OR `g`.`petition_enquiry_no` LIKE '%$search_text%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search_text%' ESCAPE '!') ";
 			$this->db->where($where);
 		}
+		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result[0]['allcount'];
@@ -1319,13 +1310,12 @@ if($search_text != ''){
 		$this->db->join('grievance_sub_category as gsc', 'gsc.id = g.sub_category_id', 'left');
 		$this->db->where('g.grievance_type','P');
 		if(empty($search_text)){
-
+			$where="";
 		}else{
 			$where="(`g`.`reference_note` = '$search_text' OR `g`.`petition_enquiry_no` LIKE '%$search_text%' ESCAPE '!' OR `c`.`full_name` LIKE '%$search_text%' ESCAPE '!') ";
 			$this->db->where($where);
 		}
-		// echo $this->db->get_compiled_select(); // before $this->db->get();
-		// exit;
+		// echo $this->db->get_compiled_select(); exit;
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result[0]['allcount'];

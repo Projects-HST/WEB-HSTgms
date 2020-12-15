@@ -111,19 +111,21 @@ th{
                                 <thead>
                                    <tr>
                                       <th style="width:50px;">S.no</th>
-                                      <th>seeker type</th>
+									  <th style="width:50px;">Category</th>
+                                      <th>Seeker type</th>
                                       <th>Grievance type</th>
-                                      <th style="width:200px;">reference</th>
-                                      <th style="width:50px;">status</th>
+                                      <th style="width:200px;">Reference</th>
+                                      <th style="width:50px;">Status</th>
                                    </tr>
                                 </thead>
                                 <tbody>
                                   <?php $i=1; foreach($res_grievance as $rows_grievance){ ?>
                                     <tr>
                                       <td><?php echo $i; ?></td>
+									  <td><?php echo $rows_grievance->grievance_type; ?></td>
                                       <td><?php echo $rows_grievance->seeker_info; ?></td>
                                       <td><?php echo $rows_grievance->grievance_name; ?></td>
-                                      <td class="badge badge-reference"><?php echo $rows_grievance->reference_note; ?></td>
+                                      <td ><?php echo $rows_grievance->reference_note; ?></td>
                                       <td class="badge-<?php echo $status= $rows_grievance->status; ?>"><?php echo $rows_grievance->status; ?></td>
 								</tr>
                                 <?php $i++; } ?>
