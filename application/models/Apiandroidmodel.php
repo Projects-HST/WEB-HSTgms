@@ -389,11 +389,218 @@ public function __construct()
 
 //#################### Dashboard ####################//
 
-	function Dashboard($paguthi)
+	function Dashboard($paguthi_id,$from_date,$to_date)
 	{
-		if ($paguthi == 'ALL')
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi="WHERE paguthi_id='$paguthi_id'";
+		} 	
+
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+			$quer_paguthi_video="";
+		}else{
+			$quer_paguthi_video="AND c.paguthi_id='$paguthi_id'";
+		}
+		
+		
+	 	if($paguthi_id=='99'){
+			$cons_id='99';
+			$others_id='0';
+			$query_paguthi='';
+			$query_cons="AND constituency_id='0'";
+		}else{
+			$cons_id='1';
+			$others_id='0';
+			$query_cons="";
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$query_paguthi="";
+			}else{
+				$query_paguthi="AND paguthi_id='$paguthi_id'";
+			}
+		}
+		
+		if(empty($from_date)){
+			$quer_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if($paguthi_id==''){
+				$quer_date="WHERE DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_date="AND DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+		
+		if(empty($from_date)){
+			$query_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+			
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+			$query_date="AND DATE(grievance_date) BETWEEN '$one_date' and '$two_date'";
+		} 
+		
+		
+		if(empty($from_date)){
+			$quer_mr_date="";
+			$quer_bw_date="";
+			$quer_cv_date="";
+			$quer_fw_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if(empty($paguthi_id)){
+				$quer_mr_date="WHERE DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_mr_date="AND DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+			
+			if(empty($paguthi_id)){
+				$quer_bw_date="WHERE DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_bw_date="AND DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+
+			if(empty($paguthi_id)){
+				$quer_fw_date="WHERE DATE(fw.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_fw_date="AND DATE(fw.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}
+			if(empty($paguthi_id)){
+				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+			
+			$constituent_count = "SELECT * FROM constituent $quer_paguthi $quer_date";
+			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count = $constituent_count_res->num_rows(); 
+			
+//------------------------------------------------//
+			$enquiry_count = "SELECT * FROM grievance WHERE grievance_type='E' AND enquiry_status = 'E' $query_paguthi $query_date";
+			$enquiry_count_res = $this->db->query($enquiry_count);
+			$enquiry_count = $enquiry_count_res->num_rows(); 
+			
+			$petition_count = "SELECT * FROM grievance WHERE grievance_type='P' $query_paguthi $query_date";
+			$petition_count_res = $this->db->query($petition_count);
+			$petition_count = $petition_count_res->num_rows(); 
+			
+			$grievance_count = $enquiry_count + $petition_count;
+
+//------------------------------------------------//
+
+			$query_3="SELECT * from grievance as g where g.repeated_status ='N' $query_cons $query_paguthi $query_date GROUP BY g.constituent_id, g.grievance_date";
+			$result_3=$this->db->query($query_3);
+			$footfall_unique_cnt = $result_3->num_rows();
+			
+			$query_4="SELECT * from grievance as g where g.repeated_status ='R' $query_cons $query_paguthi $query_date GROUP BY g.constituent_id, g.grievance_date";
+			$result_4=$this->db->query($query_4);
+			$footfall_repeated_cnt = $result_4->num_rows();
+			
+			$footfall_count = $footfall_unique_cnt + $footfall_repeated_cnt;
+
+//------------------------------------------------//
+			
+			$query_5="SELECT * FROM meeting_request AS mr LEFT JOIN constituent AS c ON c.id = mr.constituent_id $quer_paguthi $quer_mr_date";
+			$result_5=$this->db->query($query_5);
+			$meeting_count = $result_5->num_rows();
+			
+//------------------------------------------------//	
+		
+			$volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='1'";
+			$volunter_count_res = $this->db->query($volunter_count);
+			$volunter_count = $volunter_count_res->num_rows(); 
+
+			$non_volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='0'";
+			$non_volunter_count_res = $this->db->query($non_volunter_count);
+			$non_volunter_count = $non_volunter_count_res->num_rows(); 
+			
+			$tot_volunter_count = $volunter_count+$non_volunter_count;
+
+//------------------------------------------------//
+			
+			$br_wish_count="SELECT * FROM consitutent_birthday_wish as br left join constituent as c on c.id=br.constituent_id $quer_paguthi $quer_bw_date";
+			$br_wish_count_res =$this->db->query($br_wish_count);
+			$br_wish_count = $br_wish_count_res->num_rows(); 
+			
+			$fn_wish_count="SELECT * from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi $quer_fw_date";
+			$fn_wish_count_res = $this->db->query($fn_wish_count);
+			$fn_wish_count = $fn_wish_count_res->num_rows();
+			
+			$tot_geeting_count = $br_wish_count+$fn_wish_count;
+
+//------------------------------------------------//
+			
+			$video_count="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
+			left join paguthi as p on p.id=o.paguthi_id
+			left join constituent as c on c.office_id=o.id $quer_paguthi_video
+			left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
+			GROUP BY o.id";
+			$video_count_res=$this->db->query($video_count);
+			$video_count=$video_count_res->result();
+			$tot_video_count = 0;
+			foreach($video_count as $row_video_count){
+			  $tot_video_count += $row_video_count->cnt_video;
+			}
+			$result  = array(
+					"constituent_count" => $constituent_count,
+					"grievance_count" => $grievance_count,
+					"footfall_count" => $footfall_count,
+					"meeting_count" => $meeting_count,
+					"volunter_count" => $tot_volunter_count,
+					"geeting_count" => $tot_geeting_count,
+					"video_count" => $tot_video_count
+				);
+				
+
+
+			if($paguthi_id==' '){
+					$graph_date="WHERE g.grievance_date >= CURDATE() - INTERVAL 1 MONTH";
+			}else{
+				if(empty($from_date)){
+					$graph_date="WHERE g.grievance_date >= CURDATE() - INTERVAL 1 MONTH";
+				}else{
+					$dateTime1 = new DateTime($from_date);
+					$one_date=date_format($dateTime1,'Y-m-d' );
+
+					$dateTime2 = new DateTime($to_date);
+					$two_date=date_format($dateTime2,'Y-m-d' );
+					$graph_date="WHERE DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+
+				}
+			}
+
+			$graph_query = "SELECT IFNULL(DATE_FORMAT(g.grievance_date,'%d-%b'),'0') as day_name,
+			IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
+			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
+			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') + IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') as total
+			FROM grievance as g
+			left join constituent as c on c.id=g.constituent_id $graph_date $paguthi_id group by g.grievance_date order by g.grievance_date asc ";
+
+			$graph_query_res=$this->db->query($graph_query);
+			$graph_result=$graph_query_res->result();
+
+			$response = array("status" => "Success", "msg" => "Dashboard Details", "widgets_count" => $result, "graph_result" => $graph_result);
+			
+			return $response;
+		}
+
+
+		/* if ($paguthi == 'ALL')
 		{
-			$constituent_count = "SELECT * FROM constituent";
+			$constituent_count = "SELECT * FROM constituent $quer_paguthi $quer_office $quer_date";
 			$constituent_count_res = $this->db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
@@ -742,18 +949,74 @@ public function __construct()
 						YEAR(A.created_at),
 						MONTH(A.created_at)";
 			$res=$this->db->query($query);
-			$meeting_graph=$res->result();
-		
-			$response = array("status" => "Success", "msg" => "Dashboard Details", "widgets_count" => $result,"footfall_graph" =>$footfall_graph, "grievance_graph" =>$grievance_graph,"meeting_graph" =>$meeting_graph);
-		}
-		return $response;
-	}
+			$meeting_graph=$res->result(); 
+		}*/
+			
 
 
 
-	function widgets_members($paguthi)
+
+	function widgets_members($paguthi_id,$from_date,$to_date)
 	{
-		if ($paguthi == 'ALL') {
+		
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi="WHERE paguthi_id='$paguthi_id'";
+		} 	
+				
+		if(empty($from_date)){
+			$quer_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if($paguthi_id==''){
+				$quer_date="WHERE DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_date="AND DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+		
+		$query="SELECT
+			IFNULL(count(*),'0') AS total,
+			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage ,
+			IFNULL(sum(case when gender = 'M' then 1 else 0 end),'0') AS malecount,
+			IFNULL(sum(case when gender = 'M' then 1 else 0 end) / count(*) * 100,'0') as malepercenatge,
+			IFNULL(sum(case when gender = 'F' then 1 else 0 end),'0') AS femalecount,
+			IFNULL(sum(case when gender = 'F' then 1 else 0 end) / count(*) * 100,'0') as femalepercenatge,
+			IFNULL(sum(case when gender = 'T' then 1 else 0 end),'0') AS others,
+			IFNULL(sum(case when gender = 'T' then 1 else 0 end) / count(*) * 100,'0') as otherpercenatge,
+			IFNULL(sum(case when voter_id_status = 'Y' then gender='M' else 0 end),'0') AS malevoter,
+			IFNULL(sum(case when voter_id_status = 'Y' then gender='M' else 0 end) / count(*) * 100,'0') as malevoter_percentage,
+			IFNULL(sum(case when voter_id_status = 'Y' then gender='F' else 0 end),'0') AS femalevoter,
+			IFNULL(sum(case when voter_id_status = 'Y' then gender='F' else 0 end) / count(*) * 100,'0') as femalevoter_percentage,
+			IFNULL(sum(case when aadhaar_status = 'Y' then gender='M' else 0 end),'0') AS maleaadhar,
+			IFNULL(sum(case when aadhaar_status = 'Y' then gender='M' else 0 end) / count(*) * 100,'0') as maleaadhaar_percentage,
+			IFNULL(sum(case when aadhaar_status = 'Y' then gender='F' else 0 end),'0') AS femaleaadhar,
+			IFNULL(sum(case when aadhaar_status = 'Y' then gender='F' else 0 end) / count(*) * 100,'0') as femaleaadhaar_percentage,
+			IFNULL(sum(case when mobile_no != '' then 1 else 0 end),'0') AS having_mobilenumber,
+			IFNULL(sum(case when mobile_no != '' then 1 else 0 end) / count(*) * 100,'0') as mobile_percentage,
+			IFNULL(sum(case when email_id != '' then 1 else 0 end),'0') AS having_email,
+			IFNULL(sum(case when email_id != '' then 1 else 0 end) / count(*) * 100,'0') as email_percentage,
+			IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end),'0') AS having_whatsapp,
+			IFNULL(sum(case when whatsapp_no != '' then 1 else 0 end) / count(*) * 100,'0') as whatsapp_percentage,
+			IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end),'0') AS having_whatsapp_broadcast,
+			IFNULL(sum(case when whatsapp_broadcast = 'Y' then 1 else 0 end) / count(*) * 100,'0') as broadcast_percentage,
+			IFNULL(sum(case when voter_id_no!= '' then 1 else 0 end) / count(*) * 100,'0') as having_voter_percenatge,
+			IFNULL(sum(case when voter_id_no!= '' then 1 else 0 end),'0') AS having_vote_id,
+			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end) / count(*) * 100,'0') as having_dob_percentage,
+			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end),'0') AS having_dob
+			from  constituent $quer_paguthi $quer_date";
+
+
+			$res=$this->db->query($query);
+			$result=$res->result();
+		
+		/* if ($paguthi == 'ALL') {
 			
 			$constituent_count = "SELECT * FROM constituent";
 			$constituent_count_res = $this->db->query($constituent_count);
@@ -811,63 +1074,167 @@ public function __construct()
 					"female_count" => $constituent_fcount,
 					"voterid_count" => $constituent_vcount,
 					"aadhaar_count" => $constituent_acount
-				);
+				); */
 			
-			$response = array("status" => "Success", "msg" => "Constituent Details", "constituent_details" => $result);
-		}
+		$response = array("status" => "Success", "msg" => "Constituent Details", "constituent_details" => $result);
 		return $response;
 	}
 	
-	function Widgets_meetings($paguthi)
-	{
-		if ($paguthi == 'ALL') {
-
-			$meeting_count = "SELECT * FROM meeting_request";
-			$meeting_count_res = $this->db->query($meeting_count);
-			$meeting_count = $meeting_count_res->num_rows();
-			
-			$meeting_rcount = "SELECT * FROM meeting_request WHERE meeting_status = 'REQUESTED'";
-			$meeting_rcount_res = $this->db->query($meeting_rcount);
-			$meeting_rcount = $meeting_rcount_res->num_rows();
-
-			$meeting_ccount = "SELECT * FROM meeting_request WHERE meeting_status = 'COMPLETED'";
-			$meeting_ccount_res = $this->db->query($meeting_ccount);
-			$meeting_ccount = $meeting_ccount_res->num_rows();
-			
-			$result  = array(
-					"meeting_count" => $meeting_count,
-					"requested_count" => $meeting_rcount,
-					"completed_count" => $meeting_ccount
-				);
-				$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $result);
-		}else {
-			
-			$meeting_count = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' ";
-			$meeting_count_res = $this->db->query($meeting_count);
-			$meeting_count = $meeting_count_res->num_rows();
-			
-			$meeting_rcount = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' AND A.meeting_status = 'REQUESTED' ";
-			$meeting_rcount_res = $this->db->query($meeting_rcount);
-			$meeting_rcount = $meeting_rcount_res->num_rows();
-			
-			$meeting_ccount = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' AND A.meeting_status = 'COMPLETED'";
-			$meeting_ccount_res = $this->db->query($meeting_ccount);
-			$meeting_ccount = $meeting_ccount_res->num_rows();
-			
-			$result  = array(
-					"meeting_count" => $meeting_count,
-					"requested_count" => $meeting_rcount,
-					"completed_count" => $meeting_ccount
-				);
-			
-			$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $result);
-		}
-		return $response;
-	}
 	
-	function Widgets_grievances($paguthi)
+	function Widgets_grievances($paguthi_id,$from_date,$to_date)
 	{
-		if ($paguthi == 'ALL') {
+		
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_paguthi="";
+		}else{
+				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
+		}
+
+		if(empty($from_date)){
+			$quer_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+			$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+		}
+
+		$query_2=$this->db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
+		$result_2=$query_2->result();
+		foreach($result_2 as $row_enquiry_count){
+			  $enquiry_count = $row_enquiry_count->enquiry_count;
+			}
+
+		$query_3=$this->db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_3=$query_3->result();
+		foreach($result_3 as $row_petition_count){
+			  $petition_count = $row_petition_count->petition_count;
+			}
+		$tot_grive_count = $enquiry_count + $petition_count;
+		
+		$query_4=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+        IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
+        IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
+		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_4=$query_4->result();
+		foreach($result_4 as $row_petition_status){
+			  $petition_pending = $row_petition_status->no_of_pending;
+			  if($petition_pending==0){ $petition_pending_percentage = "0.00"; }else{ $petition_pending_percentage = number_format($petition_pending/$petition_count *100 ,2);}
+			  $petition_completed = $row_petition_status->no_of_completed;
+			  if($petition_completed==0){ $petition_completed_percentage = "0.00"; }else{ $petition_completed_percentage = number_format($petition_completed/$petition_count *100 ,2);}
+			  $petition_rejected = $row_petition_status->no_of_rejected;
+			  if($petition_rejected==0){ $petition_rejected_percentage = "0.00"; }else{ $petition_rejected_percentage = number_format($petition_rejected/$petition_count *100 ,2);}
+			}
+		$petition_status  = array(
+				"petition_pending" => $petition_pending,
+				"petition_pending %" => $petition_pending_percentage,
+				"petition_completed" => $petition_completed,
+				"petition_completed %" => $petition_completed_percentage,
+				"petition_rejected" => $petition_rejected,
+				"petition_rejected %" => $petition_rejected_percentage
+		);
+
+		$query_1=$this->db->query("SELECT
+		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
+		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
+		FROM grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_1=$query_1->result();
+		foreach($result_1 as $row_petition_list){
+			  $no_of_online = $row_petition_list->no_of_online;
+			  if($no_of_online==0){ $no_of_online_percentage = "0.00"; }else{ $no_of_online_percentage = number_format($no_of_online/$petition_count *100 ,2);}
+			  $no_of_civic = $row_petition_list->no_of_civic;
+			  if($no_of_civic==0){ $no_of_civic_percentage = "0.00"; }else{ $no_of_civic_percentage = number_format($no_of_civic/$petition_count *100 ,2);}
+			}
+		$petition_list  = array(
+				"no_of_online" => $no_of_online,
+				"no_of_online %" => $no_of_online_percentage,
+				"no_of_civic" => $no_of_civic,
+				"no_of_civic %" => $no_of_civic_percentage
+		);
+		
+		$query_1_1=$this->db->query("SELECT
+		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
+		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
+		FROM grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
+		$result_1_1=$query_1_1->result();
+		foreach($result_1_1 as $row_enquiry_list){
+			  $no_of_online = $row_enquiry_list->no_of_online;
+			  if($no_of_online==0){ $no_of_online_percentage = "0.00"; }else{ $no_of_online_percentage = number_format($no_of_online/$enquiry_count *100 ,2);}
+			  $no_of_civic = $row_enquiry_list->no_of_civic;
+			  if($no_of_civic==0){ $no_of_civic_percentage = "0.00"; }else{ $no_of_civic_percentage = number_format($no_of_civic/$enquiry_count *100 ,2);}
+			}
+		$enquiry_list  = array(
+				"no_of_online" => $no_of_online,
+				"no_of_online %" => $no_of_online_percentage,
+				"no_of_civic" => $no_of_civic,
+				"no_of_civic %" => $no_of_civic_percentage
+		);
+
+		$query_6=$this->db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' 
+		and g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_6=$query_6->result();
+		foreach($result_6 as $online_pet_count){
+			  $online_petition_count = $online_pet_count->online_petition_count;
+			}
+
+		$query_7=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+        IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
+        IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
+		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_7=$query_7->result();
+		foreach($result_7 as $online_petition_status){
+			  $petition_pending = $online_petition_status->no_of_pending;
+			  if($petition_pending==0){ $petition_pending_percentage = "0.00"; }else{ $petition_pending_percentage = number_format($petition_pending/$online_petition_count *100 ,2);}
+			  $petition_completed = $online_petition_status->no_of_completed;
+			  if($petition_completed==0){ $petition_completed_percentage = "0.00"; }else{ $petition_completed_percentage = number_format($petition_completed/$online_petition_count *100 ,2);}
+			  $petition_rejected = $online_petition_status->no_of_rejected;
+			  if($petition_rejected==0){ $petition_rejected_percentage = "0.00"; }else{ $petition_rejected_percentage = number_format($petition_rejected/$online_petition_count *100 ,2);}
+			}
+		$online_petition_status  = array(
+				"petition_pending" => $petition_pending,
+				"petition_pending %" => $petition_pending_percentage,
+				"petition_completed" => $petition_completed,
+				"petition_completed &" => $petition_completed_percentage,
+				"petition_rejected" => $petition_rejected,
+				"petition_rejected %" => $petition_rejected_percentage
+		);
+
+
+		$query_9=$this->db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' 
+		and g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_9=$query_9->result();
+		foreach($result_9 as $civic_pet_count){
+			  $civic_petition_count = $civic_pet_count->civic_petition_count;
+			}
+
+		$query_10=$this->db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
+		IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
+		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_date");
+		$result_10=$query_10->result();
+
+		foreach($result_10 as $civic_petition_status){
+			  $petition_pending = $civic_petition_status->no_of_pending;
+			  if($petition_pending==0){ $petition_pending_percentage = "0.00"; }else{ $petition_pending_percentage = number_format($petition_pending/$civic_petition_count *100 ,2);}
+			  $petition_completed = $civic_petition_status->no_of_completed;
+			  if($petition_completed==0){ $petition_completed_percentage = "0.00"; }else{ $petition_completed_percentage = number_format($petition_completed/$civic_petition_count *100 ,2);}
+			  $petition_rejected = $civic_petition_status->no_of_rejected;
+			   if($petition_rejected==0){ $petition_rejected_percentage = "0.00"; }else{ $petition_rejected_percentage = number_format($petition_rejected/$civic_petition_count *100 ,2);}
+			}
+		$civic_petition_status  = array(
+				"petition_pending" => $petition_pending,
+				"petition_pending %" => $petition_pending_percentage,
+				"petition_completed" => $petition_completed,
+				"petition_completed &" => $petition_completed_percentage,
+				"petition_rejected" => $petition_rejected,
+				"petition_rejected %" => $petition_rejected_percentage
+		);
+
+		$data = array('tot_grive_count'=>$tot_grive_count,'enquiry_count'=>$enquiry_count,'petition_count'=>$petition_count,'petition_status'=>$petition_status,'petition_list' => $petition_list,'enquiry_list' => $enquiry_list,'online_petition_count'=>$online_petition_count,'online_petition_status'=>$online_petition_status,'civic_petition_count'=>$civic_petition_count,'civic_petition_status'=>$civic_petition_status);
+		return $data;
+		
+		/* if ($paguthi == 'ALL') {
 
 			$grievance_count = "SELECT * FROM grievance";
 			$grievance_count_res = $this->db->query($grievance_count);
@@ -927,8 +1294,139 @@ public function __construct()
 					"completed_count" => $grievance_completecount
 				);
 				$response = array("status" => "Success", "msg" => "Grievances Details", "grievances_details" => $result);
+		} */
+		
+	}
+	
+	function Widgets_meetings($paguthi_id,$from_date,$to_date)
+	{
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_paguthi="";
+		}else{
+				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
 		}
-		return $response;
+		
+		if(empty($from_date)){
+			$quer_mr_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if(empty($quer_paguthi_cons)){
+				$quer_mr_date="WHERE DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_mr_date="AND DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+		
+		$query_3="SELECT IFNULL(count(*),'0') as total,
+			IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0')  AS meeting_request_count,
+			IFNULL(IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage,
+			IFNULL(sum(case when mr.meeting_status = 'COMPLETED'  then 1 else 0 end),'0')  AS meeting_complete_count,
+			IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
+			FROM meeting_request as mr
+			left join constituent as c on c.id=mr.constituent_id $quer_paguthi $quer_mr_date";
+			$res_3=$this->db->query($query_3);
+			$result_3=$res_3->result();
+			foreach($result_3 as $row_meeting_status){
+				$total_meeting = $row_meeting_status->total;
+				$request_count = $row_meeting_status->meeting_request_count;
+				$request_count_percentage = number_format($row_meeting_status->mr_percentage,2);
+				$complete_count = $row_meeting_status->meeting_complete_count;
+				$complete_count_percentage = number_format($row_meeting_status->mc_percentage,2);
+			}
+			$meeting_details  = array(
+				"total_meeting" => $total_meeting,
+				"request_count" => $request_count,
+				"request_count_percentage" => $request_count_percentage,
+				"complete_count" => $complete_count,
+				"complete_count_percentage" => $complete_count_percentage
+			);
+			$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $meeting_details);
+			return $response;
+			
+		/*if ($paguthi == 'ALL') {
+
+			$meeting_count = "SELECT * FROM meeting_request";
+			$meeting_count_res = $this->db->query($meeting_count);
+			$meeting_count = $meeting_count_res->num_rows();
+			
+			$meeting_rcount = "SELECT * FROM meeting_request WHERE meeting_status = 'REQUESTED'";
+			$meeting_rcount_res = $this->db->query($meeting_rcount);
+			$meeting_rcount = $meeting_rcount_res->num_rows();
+
+			$meeting_ccount = "SELECT * FROM meeting_request WHERE meeting_status = 'COMPLETED'";
+			$meeting_ccount_res = $this->db->query($meeting_ccount);
+			$meeting_ccount = $meeting_ccount_res->num_rows();
+			
+			$result  = array(
+					"meeting_count" => $meeting_count,
+					"requested_count" => $meeting_rcount,
+					"completed_count" => $meeting_ccount
+				);
+				$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $result);
+		}else {
+			
+			$meeting_count = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' ";
+			$meeting_count_res = $this->db->query($meeting_count);
+			$meeting_count = $meeting_count_res->num_rows();
+			
+			$meeting_rcount = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' AND A.meeting_status = 'REQUESTED' ";
+			$meeting_rcount_res = $this->db->query($meeting_rcount);
+			$meeting_rcount = $meeting_rcount_res->num_rows();
+			
+			$meeting_ccount = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' AND A.meeting_status = 'COMPLETED'";
+			$meeting_ccount_res = $this->db->query($meeting_ccount);
+			$meeting_ccount = $meeting_ccount_res->num_rows();
+			
+			$result  = array(
+					"meeting_count" => $meeting_count,
+					"requested_count" => $meeting_rcount,
+					"completed_count" => $meeting_ccount
+				);
+			
+			$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $result);
+		}
+		return $response;*/
+	}
+	
+	
+	function Widgets_volunteer($paguthi_id,$from_date,$to_date)
+	{
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi="WHERE paguthi_id='$paguthi_id'";
+		} 	
+				
+		if(empty($from_date)){
+			$quer_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			if($paguthi_id==''){
+				$quer_date="WHERE DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_date="AND DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+		}
+
+		  $query="SELECT
+			IFNULL(count(*),'0') AS total,
+			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='1' else 0 end),'0') AS no_of_volunteer,
+			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='1' else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
+			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end),'0') AS no_of_nonvolunteer,
+			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage
+			from  constituent $quer_paguthi $quer_date";
+			$res=$this->db->query($query);
+			return $result=$res->result();
 	}
 	
 	function Widgets_interactions($paguthi)
