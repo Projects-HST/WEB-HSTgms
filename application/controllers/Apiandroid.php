@@ -391,6 +391,33 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function widgets_footfall()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+
+		$data['result']=$this->apiandroidmodel->Widgets_footfall($paguthi_id,$from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
 	public function widgets_meetings()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -428,6 +455,30 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		
+
+		$data['result']=$this->apiandroidmodel->Widgets_volunteer($paguthi_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function widgets_greetings()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
 		
@@ -435,12 +486,40 @@ class Apiandroid extends CI_Controller {
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 
-		$data['result']=$this->apiandroidmodel->Widgets_volunteer($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_greetings($paguthi_id,$from_date,$to_date);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
 
 //-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function widgets_videos()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+
+		$data['result']=$this->apiandroidmodel->Widgets_videos($paguthi_id,$from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
 
 //-----------------------------------------------//
 

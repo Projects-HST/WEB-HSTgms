@@ -481,15 +481,16 @@ function moneyFormatIndia($num) {
 						<div class="col-9">
 							<div class="widget_title">
 								<p class="widget_heading">Volunteer Count</p>
-								<p class="widget_count"><?= moneyFormatIndia($rows_cons->no_of_volunteer+$rows_cons->no_of_nonvolunteer); ?></p>
+								<p class="widget_count">
+								<?php echo $total_volunteer = $rows_cons->no_of_volunteer+$rows_cons->no_of_nonvolunteer; ?></p>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-9"><p class="widget_label">Constituency Volunteer (<?=  round($rows_cons->no_of_volut_percentage,2);?>%)</p></div>
+						<div class="col-9"><p class="widget_label">Constituency Volunteer (<?php if($total_volunteer==0){ echo "0.00"; }else{ echo  number_format($rows_cons->no_of_volunteer/$total_volunteer *100 ,2); } ?>%)</p></div>
 						<div class="col-3"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_volunteer); ?></p></div>
-						<div class="col-10"><p class="widget_label">Non Constituency Volunteer (<?= round($rows_cons->no_of_nonvolut_percentage,2); ?>%)</p></div>
+						<div class="col-10"><p class="widget_label">Non Constituency Volunteer (<?php if($total_volunteer==0){ echo "0.00"; }else{ echo  number_format($rows_cons->no_of_nonvolunteer/$total_volunteer *100 ,2); } ?>%)</p></div>
 						<div class="col-2"><p class="widget_label widget_value"> <?= moneyFormatIndia($rows_cons->no_of_nonvolunteer); ?></p></div>
 					</div>
 				</div>

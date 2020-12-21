@@ -66,7 +66,7 @@ Class Dashboardmodel extends CI_Model
 			IFNULL(count(*),'0') AS total,
 			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='1' else 0 end),'0') AS no_of_volunteer,
 			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='1' else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
-      IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end),'0') AS no_of_nonvolunteer,
+			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end),'0') AS no_of_nonvolunteer,
 			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage ,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end),'0') AS malecount,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end) / count(*) * 100,'0') as malepercenatge,

@@ -361,28 +361,6 @@ public function __construct()
 			}
 		return $response; 
 		
-			/* $query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
-			$resultset=$this->db->query($query);
-			if($resultset->num_rows()>0) {
-				$paguthi_result[]  = array(
-					"id" => "ALL",
-					"paguthi_name" => "ALL"
-				);
-				foreach ($resultset->result() as $rows)
-				{
-				  $id = $rows->id;
-				  $paguthi_name = $rows->paguthi_name;
-				  
-					$paguthi_result[]  = array(
-						"id" => $id,
-						"paguthi_name" => $paguthi_name
-					);
-				}
-				$response = array("status" => "Success", "msg" => "List Paguthi", "paguthi_details" =>$paguthi_result);
-			}else {
-				$response = array("status" => "Error", "msg" => "No records found");
-			}
-			return $response; */
 	}
 //#################### List paguthi end ####################//
 
@@ -598,364 +576,6 @@ public function __construct()
 		}
 
 
-		/* if ($paguthi == 'ALL')
-		{
-			$constituent_count = "SELECT * FROM constituent $quer_paguthi $quer_office $quer_date";
-			$constituent_count_res = $this->db->query($constituent_count);
-			$constituent_count = $constituent_count_res->num_rows();
-			
-			$meeting_count = "SELECT * FROM meeting_request";
-			$meeting_count_res = $this->db->query($meeting_count);
-			$meeting_count = $meeting_count_res->num_rows();
-					
-			$grievance_count = "SELECT * FROM grievance";
-			$grievance_count_res = $this->db->query($grievance_count);
-			$grievance_count = $grievance_count_res->num_rows();
-			
-			$interactioncount = "SELECT * FROM interaction_history WHERE question_response = 'Y'";
-			$interactioncount_res = $this->db->query($interactioncount);
-			$interactioncount = $interactioncount_res->num_rows();
-
-			$result  = array(
-					"constituent_count" => $constituent_count,
-					"meeting_count" => $meeting_count,
-					"grievance_count" => $grievance_count,
-					"interaction_count" => $interactioncount
-				);
-					
-			
-			$s_query = "SELECT
-							count(*) AS total,
-							CONCAT(
-								SUBSTRING(
-									DATE_FORMAT(`grievance_date`, '%M'),
-									1,
-									3
-								),
-								DATE_FORMAT(`grievance_date`, '-%Y')
-							) AS disp_month,
-							DATE_FORMAT(`grievance_date`, '%Y%m') AS month_year
-						FROM 
-							grievance
-						WHERE
-							PERIOD_DIFF(
-								DATE_FORMAT(NOW(), '%Y%m'),
-								DATE_FORMAT(`grievance_date`, '%Y%m')) < 12
-							GROUP BY
-								disp_month 
-							ORDER BY 
-								grievance_date";
-				$s_res = $this->db->query($s_query);
-				
-    			if($s_res->num_rows()>0){
-					
-    			    foreach ($s_res->result() as $rows)
-    		        {
-						 $month_year = $rows->month_year;
-						 $total = $rows->total;
-						 $disp_month = $rows->disp_month;
-						
-						
-						$n_query = "SELECT
-										COUNT(*) AS new_rec
-									FROM
-										grievance
-										WHERE repeated_status = 'N' AND DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
-									GROUP BY
-										constituent_id";
-						$n_res = $this->db->query($n_query);
-						if($n_res->num_rows()>0){
-							$disp_new = 0; 
-							foreach ($n_res->result() as $n_rows)
-							{
-								 $new_rec = $n_rows->new_rec;
-								 $disp_new = ($disp_new +  $new_rec);
-							}
-						} else {
-								 $disp_new = 0;
-						}
-					
-						
-						 $r_query = "SELECT
-										COUNT(*) AS repeated_rec
-									FROM
-										grievance
-										WHERE repeated_status = 'R' AND DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
-									GROUP BY
-										constituent_id";
-						$r_res = $this->db->query($r_query);
-						if($r_res->num_rows()>0){
-							$disp_repeated =0;
-							foreach ($r_res->result() as $r_rows)
-							{
-								 $repeated_rec = $r_rows->repeated_rec;
-								 $disp_repeated = ($disp_repeated +  $repeated_rec);
-							}
-						} else {
-								 $disp_repeated = 0;
-						}
-						
-    			       $footfall_graph[]  = (object) array(
-    					   "disp_month" => $disp_month,
-    					   "total" => $total,
-						   "new_grev" => $disp_new,
-						   "repeated_grev" => $disp_repeated
-    			        ); 
-    		         }	
-				}else {
-					$footfall_graph[]  = (object) array(
-    					   "disp_month" => "Nill",
-    					   "total" => 0,
-						   "new_grev" => 0,
-						   "repeated_grev" => 0
-    			        ); 
-				}
-
-			$grievance_graphcount = "SELECT * FROM grievance";
-			$grievance_graphcount_res = $this->db->query($grievance_graphcount);
-			$grievance_graphcount = $grievance_graphcount_res->num_rows();
-			
-			$grievance_graphecount = "SELECT * FROM grievance WHERE enquiry_status = 'E'";
-			$grievance_graphecount_res = $this->db->query($grievance_graphecount);
-			$grievance_graphecount = $grievance_graphecount_res->num_rows();
-			
-			$grievance_graphppcount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='PROCESSING'";
-			$grievance_graphppcount_res = $this->db->query($grievance_graphppcount);
-			$grievance_graphppcount = $grievance_graphppcount_res->num_rows();
-			
-			$grievance_graphpccount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='COMPLETED'";
-			$grievance_graphpccount_res = $this->db->query($grievance_graphpccount);
-			$grievance_graphpccount = $grievance_graphpccount_res->num_rows();
-			
-
-			$grievance_graph  = array(
-					"gerv_count" => $grievance_graphcount,
-					"gerv_ecount" => $grievance_graphecount,
-					"gerv_ppcount" => $grievance_graphppcount,
-					"gerv_pccount" => $grievance_graphpccount
-				);
-
-
-			$query="SELECT
-					CONCAT(
-						SUBSTRING(
-							DATE_FORMAT(`created_at`, '%M'),
-							1,
-							3
-						),
-						DATE_FORMAT(`created_at`, '-%Y')
-					) AS month_year,
-					COUNT(*) AS meeting_request
-				FROM
-					meeting_request
-				WHERE
-					PERIOD_DIFF(
-						DATE_FORMAT(NOW(), '%Y%m'),
-						DATE_FORMAT(`created_at`, '%Y%m')) < 6
-					GROUP BY
-						YEAR(`created_at`),
-						MONTH(`created_at`)";
-			$res=$this->db->query($query);
-			$meeting_graph=$res->result();
-
-			$response = array("status" => "Success", "msg" => "Dashboard Details", "widgets_count" => $result,"footfall_graph" =>$footfall_graph, "grievance_graph" =>$grievance_graph,"meeting_graph" =>$meeting_graph);
-		} else {
-			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi' ";
-			$constituent_count_res = $this->db->query($constituent_count);
-			$constituent_count = $constituent_count_res->num_rows();
-						
-			$meeting_count = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' ";
-			$meeting_count_res = $this->db->query($meeting_count);
-			$meeting_count = $meeting_count_res->num_rows();
-			
-			$grievance_count = "SELECT * FROM grievance WHERE paguthi_id = '$paguthi'";
-			$grievance_count_res = $this->db->query($grievance_count);
-			$grievance_count = $grievance_count_res->num_rows();
-			
-			$interactioncount = "SELECT
-									ih.constituent_id,
-									ih.question_id,
-									ih.question_response
-								FROM
-									interaction_history AS ih
-								LEFT JOIN constituent AS c
-								ON
-									c.id = ih.constituent_id
-								WHERE
-									c.paguthi_id = '$paguthi' AND ih.question_response = 'Y'";
-			$interactioncount_res = $this->db->query($interactioncount);
-			$interactioncount = $interactioncount_res->num_rows();
-			
-			$result  = array(
-					"constituent_count" => $constituent_count,
-					"meeting_count" => $meeting_count,
-					"grievance_count" => $grievance_count,
-					"interaction_count" => $interactioncount
-				);
-				
-			$query="SELECT
-					ih.constituent_id,
-					ih.question_id,
-					ih.question_response,
-					iq.widgets_title,
-					COUNT(ih.question_id) AS tot_values
-					FROM
-						interaction_history AS ih
-					LEFT JOIN constituent AS c
-					ON
-						c.id = ih.constituent_id
-					LEFT JOIN interaction_question AS iq
-					ON
-						ih.question_id = iq.id
-					WHERE
-						ih.question_response = 'Y' AND c.paguthi_id = '$paguthi'
-					GROUP BY
-						ih.question_id";
-			$res=$this->db->query($query);
-			$int_result=$res->result();
-			
-						
-			$s_query = "SELECT
-							count(*) AS total,
-							CONCAT(
-								SUBSTRING(
-									DATE_FORMAT(`grievance_date`, '%M'),
-									1,
-									3
-								),
-								DATE_FORMAT(`grievance_date`, '-%Y')
-							) AS disp_month,
-							DATE_FORMAT(`grievance_date`, '%Y%m') AS month_year
-						FROM 
-							grievance
-						WHERE paguthi_id = '$paguthi' AND
-							PERIOD_DIFF(
-								DATE_FORMAT(NOW(), '%Y%m'),
-								DATE_FORMAT(`grievance_date`, '%Y%m')) < 12
-							GROUP BY
-								disp_month
-							ORDER BY 
-								grievance_date";
-				$s_res = $this->db->query($s_query);
-				
-				if($s_res->num_rows()>0){
-					
-					$disp_new = 0;
-					$disp_repeated =0;
-					
-    			    foreach ($s_res->result() as $rows)
-    		        {
-						 $month_year = $rows->month_year;
-						 $total = $rows->total;
-						 $disp_month = $rows->disp_month;
-
-						$n_query = "SELECT
-										COUNT(*) AS new_rec
-									FROM
-										grievance
-										WHERE repeated_status = 'N' AND paguthi_id = '$paguthi' AND DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
-									GROUP BY
-										constituent_id";
-						$n_res = $this->db->query($n_query);
-						if($n_res->num_rows()>0){
-							$disp_new = 0; 
-							foreach ($n_res->result() as $n_rows)
-							{
-								 $new_rec = $n_rows->new_rec;
-								 $disp_new = ($disp_new +  $new_rec);
-							}
-						} else {
-								 $disp_new = 0;
-						}
-						
-						$r_query = "SELECT
-										COUNT(*) AS repeated_rec
-									FROM
-										grievance
-										WHERE repeated_status = 'R' AND paguthi_id = '$paguthi' AND DATE_FORMAT(`grievance_date`, '%Y%m') = '$month_year'
-									GROUP BY
-										constituent_id";
-						$r_res = $this->db->query($r_query);
-						if($r_res->num_rows()>0){
-							$disp_repeated =0;
-							foreach ($r_res->result() as $r_rows)
-							{
-								 $repeated_rec = $r_rows->repeated_rec;
-								 $disp_repeated = ($disp_repeated +  $repeated_rec);
-							}
-						} else {
-								 $disp_repeated = 0;
-						}
-
-    			       $footfall_graph[]  = (object) array(
-    					   "disp_month" => $disp_month,
-    					   "total" => $total,
-						   "new_grev" => $disp_new,
-						   "repeated_grev" => $disp_repeated
-    			        ); 
-    		         }	
-				} else {
-					$footfall_graph[]  = (object) array(
-    					   "disp_month" => "Nill",
-    					   "total" => 0,
-						   "new_grev" => 0,
-						   "repeated_grev" => 0
-    			        ); 
-				}
-				
-			$grievance_graphcount = "SELECT * FROM grievance WHERE paguthi_id = '$paguthi'";
-			$grievance_graphcount_res = $this->db->query($grievance_graphcount);
-			$grievance_graphcount = $grievance_graphcount_res->num_rows();
-			
-			$grievance_graphecount = "SELECT * FROM grievance WHERE enquiry_status = 'E' AND paguthi_id = '$paguthi'";
-			$grievance_graphecount_res = $this->db->query($grievance_graphecount);
-			$grievance_graphecount = $grievance_graphecount_res->num_rows();
-			
-			$grievance_graphppcount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='PROCESSING' AND paguthi_id = '$paguthi'";
-			$grievance_graphppcount_res = $this->db->query($grievance_graphppcount);
-			$grievance_graphppcount = $grievance_graphppcount_res->num_rows();
-			
-			$grievance_graphpccount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND status='COMPLETED' AND paguthi_id = '$paguthi'";
-			$grievance_graphpccount_res = $this->db->query($grievance_graphpccount);
-			$grievance_graphpccount = $grievance_graphpccount_res->num_rows();
-			
-
-			$grievance_graph  = array(
-					"gerv_count" => $grievance_graphcount,
-					"gerv_ecount" => $grievance_graphecount,
-					"gerv_ppcount" => $grievance_graphppcount,
-					"gerv_pccount" => $grievance_graphpccount
-				);
-			
-			
-			$query="SELECT
-					CONCAT(
-						SUBSTRING(
-							DATE_FORMAT(A.created_at, '%M'),
-							1,
-							3
-						),
-						DATE_FORMAT(A.created_at, '-%Y')
-					) AS month_year,
-					COUNT(*) AS meeting_request
-				FROM
-					meeting_request A,
-					constituent B
-				WHERE A.constituent_id = B.id AND B.paguthi_id = '$paguthi' AND 
-					PERIOD_DIFF(
-						DATE_FORMAT(NOW(), '%Y%m'),
-						DATE_FORMAT(A.created_at, '%Y%m')) < 6
-					GROUP BY
-						YEAR(A.created_at),
-						MONTH(A.created_at)";
-			$res=$this->db->query($query);
-			$meeting_graph=$res->result(); 
-		}*/
-			
-
-
-
-
 	function widgets_members($paguthi_id,$from_date,$to_date)
 	{
 		
@@ -1012,70 +632,9 @@ public function __construct()
 			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end),'0') AS having_dob
 			from  constituent $quer_paguthi $quer_date";
 
-
 			$res=$this->db->query($query);
 			$result=$res->result();
-		
-		/* if ($paguthi == 'ALL') {
-			
-			$constituent_count = "SELECT * FROM constituent";
-			$constituent_count_res = $this->db->query($constituent_count);
-			$constituent_count = $constituent_count_res->num_rows();
-			
-			$constituent_mcount = "SELECT * FROM constituent WHERE gender = 'M'";
-			$constituent_mcount_res = $this->db->query($constituent_mcount);
-			$constituent_mcount = $constituent_mcount_res->num_rows();
-			
-			$constituent_fcount = "SELECT * FROM constituent WHERE gender = 'F'";
-			$constituent_fcount_res = $this->db->query($constituent_fcount);
-			$constituent_fcount = $constituent_fcount_res->num_rows();
-			
-			$constituent_vcount = "SELECT * FROM constituent WHERE voter_id_status = 'Y'";
-			$constituent_vcount_res = $this->db->query($constituent_vcount);
-			$constituent_vcount = $constituent_vcount_res->num_rows();
-			
-			$constituent_acount = "SELECT * FROM constituent WHERE aadhaar_status = 'Y'";
-			$constituent_acount_res = $this->db->query($constituent_acount);
-			$constituent_acount = $constituent_acount_res->num_rows();
-			
-			$result  = array(
-					"member_count" => $constituent_count,
-					"male_count" => $constituent_mcount,
-					"female_count" => $constituent_fcount,
-					"voterid_count" => $constituent_vcount,
-					"aadhaar_count" => $constituent_acount
-				);
-				$response = array("status" => "Success", "msg" => "Constituent Details", "constituent_details" => $result);
-		}else {
-			
-			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi' ";
-			$constituent_count_res = $this->db->query($constituent_count);
-			$constituent_count = $constituent_count_res->num_rows();
-			
-			$constituent_mcount = "SELECT * FROM constituent WHERE gender = 'M' AND paguthi_id = '$paguthi'";
-			$constituent_mcount_res = $this->db->query($constituent_mcount);
-			$constituent_mcount = $constituent_mcount_res->num_rows();
-			
-			$constituent_fcount = "SELECT * FROM constituent WHERE gender = 'F' AND paguthi_id = '$paguthi'";
-			$constituent_fcount_res = $this->db->query($constituent_fcount);
-			$constituent_fcount = $constituent_fcount_res->num_rows();
-			
-			$constituent_vcount = "SELECT * FROM constituent WHERE voter_id_status = 'Y' AND paguthi_id = '$paguthi'";
-			$constituent_vcount_res = $this->db->query($constituent_vcount);
-			$constituent_vcount = $constituent_vcount_res->num_rows();
-			
-			$constituent_acount = "SELECT * FROM constituent WHERE aadhaar_status = 'Y' AND paguthi_id = '$paguthi'";
-			$constituent_acount_res = $this->db->query($constituent_acount);
-			$constituent_acount = $constituent_acount_res->num_rows();
-			
-			$result  = array(
-					"member_count" => $constituent_count,
-					"male_count" => $constituent_mcount,
-					"female_count" => $constituent_fcount,
-					"voterid_count" => $constituent_vcount,
-					"aadhaar_count" => $constituent_acount
-				); */
-			
+
 		$response = array("status" => "Success", "msg" => "Constituent Details", "constituent_details" => $result);
 		return $response;
 	}
@@ -1195,7 +754,7 @@ public function __construct()
 				"petition_pending" => $petition_pending,
 				"petition_pending %" => $petition_pending_percentage,
 				"petition_completed" => $petition_completed,
-				"petition_completed &" => $petition_completed_percentage,
+				"petition_completed %" => $petition_completed_percentage,
 				"petition_rejected" => $petition_rejected,
 				"petition_rejected %" => $petition_rejected_percentage
 		);
@@ -1233,70 +792,137 @@ public function __construct()
 
 		$data = array('tot_grive_count'=>$tot_grive_count,'enquiry_count'=>$enquiry_count,'petition_count'=>$petition_count,'petition_status'=>$petition_status,'petition_list' => $petition_list,'enquiry_list' => $enquiry_list,'online_petition_count'=>$online_petition_count,'online_petition_status'=>$online_petition_status,'civic_petition_count'=>$civic_petition_count,'civic_petition_status'=>$civic_petition_status);
 		return $data;
-		
-		/* if ($paguthi == 'ALL') {
 
-			$grievance_count = "SELECT * FROM grievance";
-			$grievance_count_res = $this->db->query($grievance_count);
-			$grievance_total_count = $grievance_count_res->num_rows();
-			
-			$grievance_ecount = "SELECT * FROM grievance WHERE enquiry_status = 'E'";
-			$grievance_ecount_res = $this->db->query($grievance_ecount);
-			$grievance_ecount = $grievance_ecount_res->num_rows();
-
-			$grievance_pcount = "SELECT * FROM grievance WHERE enquiry_status = 'P'";
-			$grievance_pcount_res = $this->db->query($grievance_pcount);
-			$grievance_pcount = $grievance_pcount_res->num_rows();
-			
-			$grievance_processcount = "SELECT * FROM grievance WHERE status = 'PROCESSING'";
-			$grievance_processcount_res = $this->db->query($grievance_processcount);
-			$grievance_processcount = $grievance_processcount_res->num_rows();
-			
-			$grievance_completecount = "SELECT * FROM grievance WHERE status = 'COMPLETED'";
-			$grievance_completecount_res = $this->db->query($grievance_completecount);
-			$grievance_completecount = $grievance_completecount_res->num_rows();
-			
-			$result  = array(
-					"grievance_count" => $grievance_total_count,
-					"enquiry_count" => $grievance_ecount,
-					"petition_count" => $grievance_pcount,
-					"processing_count" => $grievance_processcount,
-					"completed_count" => $grievance_completecount
-				);
-				$response = array("status" => "Success", "msg" => "Grievances Details", "grievances_details" => $result);
-		}else {
-			
-			$grievance_count = "SELECT * FROM grievance WHERE paguthi_id = '$paguthi'";
-			$grievance_count_res = $this->db->query($grievance_count);
-			$grievance_total_count = $grievance_count_res->num_rows();
-			
-			$grievance_ecount = "SELECT * FROM grievance WHERE enquiry_status = 'E' AND paguthi_id = '$paguthi'";
-			$grievance_ecount_res = $this->db->query($grievance_ecount);
-			$grievance_ecount = $grievance_ecount_res->num_rows();
-
-			$grievance_pcount = "SELECT * FROM grievance WHERE enquiry_status = 'P' AND paguthi_id = '$paguthi'";
-			$grievance_pcount_res = $this->db->query($grievance_pcount);
-			$grievance_pcount = $grievance_pcount_res->num_rows();
-			
-			$grievance_processcount = "SELECT * FROM grievance WHERE status = 'PROCESSING' AND paguthi_id = '$paguthi'";
-			$grievance_processcount_res = $this->db->query($grievance_processcount);
-			$grievance_processcount = $grievance_processcount_res->num_rows();
-			
-			$grievance_completecount = "SELECT * FROM grievance WHERE status = 'COMPLETED' AND paguthi_id = '$paguthi'";
-			$grievance_completecount_res = $this->db->query($grievance_completecount);
-			$grievance_completecount = $grievance_completecount_res->num_rows();
-			
-			$result  = array(
-					"grievance_count" => $grievance_total_count,
-					"enquiry_count" => $grievance_ecount,
-					"petition_count" => $grievance_pcount,
-					"processing_count" => $grievance_processcount,
-					"completed_count" => $grievance_completecount
-				);
-				$response = array("status" => "Success", "msg" => "Grievances Details", "grievances_details" => $result);
-		} */
-		
 	}
+	
+	function Widgets_footfall($paguthi_id,$from_date,$to_date)
+	{
+		if($paguthi_id=='99'){
+			$cons_id='99';
+			$others_id='0';
+			$quer_paguthi='';
+			$quer_cons="AND g.constituency_id='0'";
+		}else{
+			$cons_id='1';
+			$others_id='0';
+			$quer_cons="";
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_paguthi="";
+			}else{
+				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
+			}
+	}
+
+		if(empty($from_date)){
+			$quer_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+			$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
+		}
+		
+		$query_1="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_1=$this->db->query($query_1);
+		$cons_footfall_cnt = $result_1->num_rows();
+		
+		$query_2="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_2=$this->db->query($query_2);
+		$other_footfall_cnt = $result_2->num_rows();
+
+		$query_3="SELECT * from grievance as g where g.repeated_status ='N' $quer_cons $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_3=$this->db->query($query_3);
+		$unique_cnt = $result_3->num_rows();
+		
+		$query_4="SELECT * from grievance as g where g.repeated_status ='R' $quer_cons $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_4=$this->db->query($query_4);
+		$repeated_cnt = $result_4->num_rows();
+		
+		$query_5="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_5=$this->db->query($query_5);
+		$sing_unique_cnt = $result_5->num_rows();
+		
+		$query_6="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='R' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_6=$this->db->query($query_6);
+		$sing_repeted_cnt = $result_6->num_rows();
+		
+		$query_7="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_7=$this->db->query($query_7);
+		$other_unique_cnt = $result_7->num_rows();
+		
+		$query_8="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='R' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$result_8=$this->db->query($query_8);
+		$other_repeted_cnt = $result_8->num_rows();
+
+		$total_footfall_cnt = $unique_cnt + $repeated_cnt;
+		$total_unique_footfall_cnt = $cons_footfall_cnt + $other_footfall_cnt;
+		$constituency_cnt = $sing_unique_cnt + $sing_repeted_cnt;
+		$other_cnt = $other_unique_cnt + $other_repeted_cnt;
+
+		if ($total_footfall_cnt >0 ){ 
+				$unique_footfall_cnt_presntage = number_format($unique_cnt/$total_footfall_cnt*100,2);
+				$repeated_footfall_cnt_presntage = number_format($repeated_cnt/$total_footfall_cnt*100,2);
+		} else {
+				$unique_footfall_cnt_presntage = "0.00";
+				$repeated_footfall_cnt_presntage = "0.00";
+		}
+		
+		if ($total_unique_footfall_cnt >0 ){ 
+				$cons_unique_footfall_cnt_presntage = number_format($cons_footfall_cnt/$total_unique_footfall_cnt*100,2);
+				$other_unique_footfall_cnt_presntage = number_format($other_footfall_cnt/$total_unique_footfall_cnt*100,2);
+		} else {
+				$cons_unique_footfall_cnt_presntage = "0.00";
+				$other_unique_footfall_cnt_presntage = "0.00";
+		}
+		
+		if ($constituency_cnt >0 ){ 
+				$cons_unique_cnt_presntage = number_format($sing_unique_cnt/$constituency_cnt*100,2);
+				$cons_repeated_cnt_presntage = number_format($sing_repeted_cnt/$constituency_cnt*100,2);
+		} else {
+				$cons_unique_cnt_presntage = "0.00";
+				$cons_repeated_cnt_presntage = "0.00";
+		}
+		
+		if ($other_cnt >0 ){ 
+				$other_unique_cnt_presntage = number_format($other_unique_cnt/$other_cnt*100,2);
+				$other_repeated_cnt_presntage = number_format($other_repeted_cnt/$other_cnt*100,2);
+		} else {
+				$other_unique_cnt_presntage = "0.00";
+				$other_repeated_cnt_presntage = "0.00";
+		}
+		
+		$footfall_details  = array(
+				"total_footfall_cnt" => $total_footfall_cnt,
+				"unique_footfall_cnt" => $unique_cnt,
+				"repeated_footfall_cnt" => $repeated_cnt,
+				"unique_footfall_cnt_presntage" => $unique_footfall_cnt_presntage,
+				"repeated_footfall_cnt_presntage" => $repeated_footfall_cnt_presntage,
+				
+				"total_unique_footfall_cnt" => $total_unique_footfall_cnt,
+				"cons_unique_footfall_cnt" => $cons_footfall_cnt,
+				"other_unique_footfall_cnt" => $other_footfall_cnt,
+				"cons_unique_footfall_cnt_presntage" => $cons_unique_footfall_cnt_presntage,
+				"other_unique_footfall_cnt_presntage" => $other_unique_footfall_cnt_presntage,
+				
+				"constituency_cnt" => $constituency_cnt,
+				"cons_unique_cnt" => $sing_unique_cnt,
+				"cons_repeated_cnt" => $sing_repeted_cnt,
+				"cons_unique_cnt_presntage" => $cons_unique_cnt_presntage,
+				"cons_repeated_cnt_presntage" => $cons_repeated_cnt_presntage,
+				
+				"other_cnt" => $other_cnt,
+				"other_unique_cnt" => $other_unique_cnt,
+				"other_repeated_cnt" => $other_repeted_cnt,
+				"other_unique_cnt_presntage" => $other_unique_cnt_presntage,
+				"other_repeated_cnt_presntage" => $other_repeated_cnt_presntage
+			);
+			$response = array("status" => "Success", "msg" => "Footfall Details", "footfall_details" => $footfall_details);
+			return $response;	
+
+	
+	}
+	
 	
 	function Widgets_meetings($paguthi_id,$from_date,$to_date)
 	{
@@ -1334,9 +960,9 @@ public function __construct()
 			foreach($result_3 as $row_meeting_status){
 				$total_meeting = $row_meeting_status->total;
 				$request_count = $row_meeting_status->meeting_request_count;
-				$request_count_percentage = number_format($row_meeting_status->mr_percentage,2);
+				$request_count_percentage = number_format($row_meeting_status->mr_percentage*100,2);
 				$complete_count = $row_meeting_status->meeting_complete_count;
-				$complete_count_percentage = number_format($row_meeting_status->mc_percentage,2);
+				$complete_count_percentage = number_format($row_meeting_status->mc_percentage*100,2);
 			}
 			$meeting_details  = array(
 				"total_meeting" => $total_meeting,
@@ -1347,63 +973,53 @@ public function __construct()
 			);
 			$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $meeting_details);
 			return $response;
-			
-		/*if ($paguthi == 'ALL') {
-
-			$meeting_count = "SELECT * FROM meeting_request";
-			$meeting_count_res = $this->db->query($meeting_count);
-			$meeting_count = $meeting_count_res->num_rows();
-			
-			$meeting_rcount = "SELECT * FROM meeting_request WHERE meeting_status = 'REQUESTED'";
-			$meeting_rcount_res = $this->db->query($meeting_rcount);
-			$meeting_rcount = $meeting_rcount_res->num_rows();
-
-			$meeting_ccount = "SELECT * FROM meeting_request WHERE meeting_status = 'COMPLETED'";
-			$meeting_ccount_res = $this->db->query($meeting_ccount);
-			$meeting_ccount = $meeting_ccount_res->num_rows();
-			
-			$result  = array(
-					"meeting_count" => $meeting_count,
-					"requested_count" => $meeting_rcount,
-					"completed_count" => $meeting_ccount
-				);
-				$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $result);
-		}else {
-			
-			$meeting_count = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' ";
-			$meeting_count_res = $this->db->query($meeting_count);
-			$meeting_count = $meeting_count_res->num_rows();
-			
-			$meeting_rcount = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' AND A.meeting_status = 'REQUESTED' ";
-			$meeting_rcount_res = $this->db->query($meeting_rcount);
-			$meeting_rcount = $meeting_rcount_res->num_rows();
-			
-			$meeting_ccount = "SELECT * FROM meeting_request A, constituent B WHERE A.constituent_id = B.id AND B.paguthi_id ='$paguthi' AND A.meeting_status = 'COMPLETED'";
-			$meeting_ccount_res = $this->db->query($meeting_ccount);
-			$meeting_ccount = $meeting_ccount_res->num_rows();
-			
-			$result  = array(
-					"meeting_count" => $meeting_count,
-					"requested_count" => $meeting_rcount,
-					"completed_count" => $meeting_ccount
-				);
-			
-			$response = array("status" => "Success", "msg" => "Meetings Details", "meeting_details" => $result);
-		}
-		return $response;*/
 	}
 	
 	
-	function Widgets_volunteer($paguthi_id,$from_date,$to_date)
+	function Widgets_volunteer($paguthi_id)
+	{
+			$volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='1'";
+			$volunter_count_res = $this->db->query($volunter_count);
+			$volunter_count = $volunter_count_res->num_rows(); 
+
+			$non_volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='0'";
+			$non_volunter_count_res = $this->db->query($non_volunter_count);
+			$non_volunter_count = $non_volunter_count_res->num_rows(); 
+			
+			$tot_volunter_count = $volunter_count+$non_volunter_count;
+		
+			if ($tot_volunter_count >0){
+				$volunteer_percentage = number_format($volunter_count/$tot_volunter_count*100,2);
+				$nonvolunteer_percentage = number_format($non_volunter_count/$tot_volunter_count*100,2);
+			} else {
+				$volunteer_percentage = "0.00";
+				$nonvolunteer_percentage = "0.00";
+			}
+			$volunteer_details  = array(
+				"total_volunteer" => $tot_volunter_count,
+				"no_of_volunteer" => $volunter_count,
+				"volunteer_percentage" => $volunteer_percentage,
+				"no_of_nonvolunteer" => $non_volunter_count,
+				"nonvolunteer_percentage" => $nonvolunteer_percentage
+			);
+			$response = array("status" => "Success", "msg" => "Volunter Details", "volunteer_details" => $volunteer_details);
+			
+			return $response;
+	}
+	
+	
+	
+	function Widgets_greetings($paguthi_id,$from_date,$to_date)
 	{
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
-			$quer_paguthi="";
+			$quer_paguthi_cons="";
 		}else{
-			$quer_paguthi="WHERE paguthi_id='$paguthi_id'";
-		} 	
-				
+			$quer_paguthi_cons="WHERE c.paguthi_id='$paguthi_id'";
+		}
+
 		if(empty($from_date)){
-			$quer_date="";
+			$quer_bw_date="";
+			$quer_fw_date="";
 		}else{
 			$dateTime1 = new DateTime($from_date);
 			$one_date=date_format($dateTime1,'Y-m-d' );
@@ -1411,23 +1027,116 @@ public function __construct()
 			$dateTime2 = new DateTime($to_date);
 			$two_date=date_format($dateTime2,'Y-m-d' );
 
-			if($paguthi_id==''){
-				$quer_date="WHERE DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+			if(empty($quer_paguthi_cons)){
+				$quer_bw_date="WHERE DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
 			}else{
-				$quer_date="AND DATE(created_at) BETWEEN '$one_date' and '$two_date'";
+				$quer_bw_date="AND DATE(br.created_at) BETWEEN '$one_date' and '$two_date'";
+			}
+
+			if(empty($quer_paguthi_cons)){
+				$quer_fw_date="WHERE DATE(fw.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_fw_date="AND DATE(fw.updated_at) BETWEEN '$one_date' and '$two_date'";
 			}
 		}
+		
+		$query_5="SELECT IFNULL(count(*),'0') as birth_wish_count FROM consitutent_birthday_wish as br left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_bw_date";
+		$res_5=$this->db->query($query_5);
+		$result_5=$res_5->result();
+			foreach($result_5 as $row_birthday_wish){
+			   $birthday_wish_count = $row_birthday_wish->birth_wish_count;
+			}
 
-		  $query="SELECT
-			IFNULL(count(*),'0') AS total,
-			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='1' else 0 end),'0') AS no_of_volunteer,
-			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='1' else 0 end)/ count(*) *100,'0') as no_of_volut_percentage,
-			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end),'0') AS no_of_nonvolunteer,
-			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage
-			from  constituent $quer_paguthi $quer_date";
-			$res=$this->db->query($query);
-			return $result=$res->result();
+		$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_fw_date";
+		$res_6=$this->db->query($query_6);
+		$result_6=$res_6->result();
+		
+			foreach($result_6 as $row_festival_wishes){
+			   $festival_wishes_count = $row_festival_wishes->total;
+			}
+
+		$query_7=$this->db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_fw_date
+		GROUP BY fw.festival_id");
+		$result_7=$query_7->result();
+		$festival_greetings_details[] = "Nill";
+			foreach($result_7 as $row_festival_list_wishes){
+			   $festival_name = $row_festival_list_wishes->festival_name;
+			   $festival_wish_cnt = $row_festival_list_wishes->wishes_cnt;
+			   if ($festival_wishes_count >0){
+					$festival_wishes_percentage = number_format($festival_wish_cnt/$festival_wishes_count*100,2);
+			   }else {
+					$festival_wishes_percentage = "0.00";
+			   }
+			   $festival_greetings_details[] = array("festival_name"=>$festival_name, "festival_wish_cnt"=>$festival_wish_cnt,"festival_wishes_percentage"=>$festival_wishes_percentage);   
+			}
+		
+		$total_greetings = $birthday_wish_count + $festival_wishes_count;
+
+		$greetings_details  = array(
+			"total_greetings" => $total_greetings,
+			"birthday_wish_count" => $birthday_wish_count,
+			"festival_wishes_count" => $festival_wishes_count
+		);
+		$response = array("status" => "Success", "msg" => "Greetings Details", "greetings_details" => $greetings_details,"festival_greetings_details" => $festival_greetings_details);
+		
+		return $response;
 	}
+	
+	
+	
+	function Widgets_videos($paguthi_id,$from_date,$to_date)
+	{
+		if($paguthi_id=='ALL' || empty($paguthi_id)){
+			$quer_paguthi_video="";
+		}else{
+			$quer_paguthi_video="AND c.paguthi_id='$paguthi_id'";
+		}
+
+		if(empty($from_date)){
+			$quer_cv_date="";
+		}else{
+			$dateTime1 = new DateTime($from_date);
+			$one_date=date_format($dateTime1,'Y-m-d' );
+
+			$dateTime2 = new DateTime($to_date);
+			$two_date=date_format($dateTime2,'Y-m-d' );
+
+			
+			if(empty($quer_paguthi_video)){
+				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}else{
+				$quer_cv_date="AND DATE(cv.updated_at) BETWEEN '$one_date' and '$two_date'";
+			}	
+		}
+
+		$query_5="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
+		left join paguthi as p on p.id=o.paguthi_id
+		left join constituent as c on c.office_id=o.id $quer_paguthi_video 
+		left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
+		GROUP BY o.id";
+		$res_5=$this->db->query($query_5);
+		$result_5=$res_5->result();
+		$video_count = 0;
+			foreach($result_5 as $row_video_count){
+				$video_count += $row_video_count->cnt_video; 		   
+			}
+			
+			foreach($result_5 as $row_video_list){
+				$office_name = $row_video_list->office_name;
+				$video_list_count = $row_video_list->cnt_video;
+				if ($video_list_count >0){
+					$video_list_percentage = number_format($video_list_count/$video_count*100,2);
+			   }else {
+					$video_list_percentage = "0.00";
+			   }
+			   $video_list_details[] = array("office_name"=>$office_name, "video_cnt"=>$video_list_count,"video_percentage"=>$video_list_percentage);   
+			   
+			}
+		$response = array("status" => "Success", "msg" => "Video Details", "video_count" => $video_count, "video_list" => $video_list_details,);
+		return $response;
+	}
+	
+	
 	
 	function Widgets_interactions($paguthi)
 	{
