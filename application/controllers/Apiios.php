@@ -320,10 +320,15 @@ class Apiios extends CI_Controller {
 			return FALSE;
 		}
 
-		$paguthi = '';
-		$paguthi = $this->input->post("paguthi");
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
 
-		$data['result']=$this->apiiosmodel->Dashboard($paguthi);
+		$data['result']=$this->apiiosmodel->Dashboard($paguthi_id,$from_date,$to_date);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -341,36 +346,21 @@ class Apiios extends CI_Controller {
 			return FALSE;
 		}
 
-		$paguthi = '';
-		$paguthi = $this->input->post("paguthi");
-
-		$data['result']=$this->apiiosmodel->Widgets_members($paguthi);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	public function widgets_meetings()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
 		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
 
-		$paguthi = '';
-		$paguthi = $this->input->post("paguthi");
-
-		$data['result']=$this->apiiosmodel->Widgets_meetings($paguthi);
+		$data['result']=$this->apiiosmodel->Widgets_members($paguthi_id,$from_date,$to_date);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
 
 //-----------------------------------------------//
+
 
 //-----------------------------------------------//
 
@@ -383,10 +373,147 @@ class Apiios extends CI_Controller {
 			return FALSE;
 		}
 
-		$paguthi = '';
-		$paguthi = $this->input->post("paguthi");
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
 
-		$data['result']=$this->apiiosmodel->Widgets_grievances($paguthi);
+		$data['result']=$this->apiiosmodel->Widgets_grievances($paguthi_id,$from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function widgets_footfall()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+
+		$data['result']=$this->apiiosmodel->Widgets_footfall($paguthi_id,$from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function widgets_meetings()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+
+		$data['result']=$this->apiiosmodel->Widgets_meetings($paguthi_id,$from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function widgets_volunteer()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		
+
+		$data['result']=$this->apiiosmodel->Widgets_volunteer($paguthi_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function widgets_greetings()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+
+		$data['result']=$this->apiiosmodel->Widgets_greetings($paguthi_id,$from_date,$to_date);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function widgets_videos()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi_id = '';
+		$from_date = '';
+		$to_date = '';
+		
+		$paguthi_id = $this->input->post("paguthi_id");
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+
+		$data['result']=$this->apiiosmodel->Widgets_videos($paguthi_id,$from_date,$to_date);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
