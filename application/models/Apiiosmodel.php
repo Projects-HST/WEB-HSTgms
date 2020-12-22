@@ -686,11 +686,11 @@ public function __construct()
 			}
 		$petition_status  = array(
 				"petition_pending" => $petition_pending,
-				"petition_pending %" => $petition_pending_percentage,
+				"petition_pending_percentage" => $petition_pending_percentage,
 				"petition_completed" => $petition_completed,
-				"petition_completed %" => $petition_completed_percentage,
+				"petition_completed_percentage" => $petition_completed_percentage,
 				"petition_rejected" => $petition_rejected,
-				"petition_rejected %" => $petition_rejected_percentage
+				"petition_rejected_percentage" => $petition_rejected_percentage
 		);
 
 		$query_1=$this->db->query("SELECT
@@ -706,9 +706,9 @@ public function __construct()
 			}
 		$petition_list  = array(
 				"no_of_online" => $no_of_online,
-				"no_of_online %" => $no_of_online_percentage,
+				"no_of_online_percentage" => $no_of_online_percentage,
 				"no_of_civic" => $no_of_civic,
-				"no_of_civic %" => $no_of_civic_percentage
+				"no_of_civic_percentage" => $no_of_civic_percentage
 		);
 		
 		$query_1_1=$this->db->query("SELECT
@@ -724,9 +724,9 @@ public function __construct()
 			}
 		$enquiry_list  = array(
 				"no_of_online" => $no_of_online,
-				"no_of_online %" => $no_of_online_percentage,
+				"no_of_online_percentage" => $no_of_online_percentage,
 				"no_of_civic" => $no_of_civic,
-				"no_of_civic %" => $no_of_civic_percentage
+				"no_of_civic_percentage" => $no_of_civic_percentage
 		);
 
 		$query_6=$this->db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' 
@@ -751,11 +751,11 @@ public function __construct()
 			}
 		$online_petition_status  = array(
 				"petition_pending" => $petition_pending,
-				"petition_pending %" => $petition_pending_percentage,
+				"petition_pending_percentage" => $petition_pending_percentage,
 				"petition_completed" => $petition_completed,
-				"petition_completed %" => $petition_completed_percentage,
+				"petition_completed_percentage" => $petition_completed_percentage,
 				"petition_rejected" => $petition_rejected,
-				"petition_rejected %" => $petition_rejected_percentage
+				"petition_rejected_percentage" => $petition_rejected_percentage
 		);
 
 
@@ -782,11 +782,11 @@ public function __construct()
 			}
 		$civic_petition_status  = array(
 				"petition_pending" => $petition_pending,
-				"petition_pending %" => $petition_pending_percentage,
+				"petition_pending_percentage" => $petition_pending_percentage,
 				"petition_completed" => $petition_completed,
-				"petition_completed &" => $petition_completed_percentage,
+				"petition_completed_percentage" => $petition_completed_percentage,
 				"petition_rejected" => $petition_rejected,
-				"petition_rejected %" => $petition_rejected_percentage
+				"petition_rejected_percentage" => $petition_rejected_percentage
 		);
 
 		$data = array('status' => 'Success', 'msg' => 'Grievances Details','tot_grive_count'=>$tot_grive_count,'enquiry_count'=>$enquiry_count,'petition_count'=>$petition_count,'petition_status'=>$petition_status,'petition_list' => $petition_list,'enquiry_list' => $enquiry_list,'online_petition_count'=>$online_petition_count,'online_petition_status'=>$online_petition_status,'civic_petition_count'=>$civic_petition_count,'civic_petition_status'=>$civic_petition_status);
