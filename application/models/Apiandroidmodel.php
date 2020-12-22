@@ -629,7 +629,7 @@ public function __construct()
 			IFNULL(sum(case when voter_id_no!= '' then 1 else 0 end),'0') AS having_vote_id,
 			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end) / count(*) * 100,'0') as having_dob_percentage,
 			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end),'0') AS having_dob
-			from  constituent $quer_paguthi $quer_date";
+			FROM constituent $quer_paguthi $quer_date";
 
 			$res=$this->db->query($query);
 			$result=$res->result();
