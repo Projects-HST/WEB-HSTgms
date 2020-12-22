@@ -603,7 +603,6 @@ public function __construct()
 		
 		$query="SELECT
 			IFNULL(count(*),'0') AS total,
-			IFNULL(sum(case when volunteer_status = 'Y' then constituency_id='0' else 0 end)/ count(*) *100,'0') as no_of_nonvolut_percentage ,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end),'0') AS malecount,
 			IFNULL(sum(case when gender = 'M' then 1 else 0 end) / count(*) * 100,'0') as malepercenatge,
 			IFNULL(sum(case when gender = 'F' then 1 else 0 end),'0') AS femalecount,
@@ -790,7 +789,7 @@ public function __construct()
 				"petition_rejected %" => $petition_rejected_percentage
 		);
 
-		$data = array('tot_grive_count'=>$tot_grive_count,'enquiry_count'=>$enquiry_count,'petition_count'=>$petition_count,'petition_status'=>$petition_status,'petition_list' => $petition_list,'enquiry_list' => $enquiry_list,'online_petition_count'=>$online_petition_count,'online_petition_status'=>$online_petition_status,'civic_petition_count'=>$civic_petition_count,'civic_petition_status'=>$civic_petition_status);
+		$data = array('status' => "Success", 'msg' => "Grievances Details",'tot_grive_count'=>$tot_grive_count,'enquiry_count'=>$enquiry_count,'petition_count'=>$petition_count,'petition_status'=>$petition_status,'petition_list' => $petition_list,'enquiry_list' => $enquiry_list,'online_petition_count'=>$online_petition_count,'online_petition_status'=>$online_petition_status,'civic_petition_count'=>$civic_petition_count,'civic_petition_status'=>$civic_petition_status);
 		return $data;
 
 	}
