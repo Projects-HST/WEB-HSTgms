@@ -532,6 +532,8 @@ public function __construct()
 			foreach($video_count as $row_video_count){
 			  $tot_video_count += $row_video_count->cnt_video;
 			}
+			
+			
 			$result  = array(
 					"constituent_count" => $constituent_count,
 					"grievance_count" => $grievance_count,
@@ -542,7 +544,13 @@ public function __construct()
 					"video_count" => $tot_video_count
 				);
 				
-
+//------------------------------------------------//
+				
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$graph_quer_paguthi="";
+			}else{
+				$graph_quer_paguthi="AND g.paguthi_id='$paguthi_id'";
+			}
 
 			if($paguthi_id==' '){
 					$graph_date="WHERE g.grievance_date >= CURDATE() - INTERVAL 1 MONTH";
@@ -559,13 +567,13 @@ public function __construct()
 
 				}
 			}
-
+			
 			$graph_query = "SELECT IFNULL(DATE_FORMAT(g.grievance_date,'%d-%b'),'0') as day_name,
 			IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') AS unique_count,
 			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') AS repeat_count,
 			IFNULL(sum(case when g.repeated_status = 'R' then 1 else 0 end),'0') + IFNULL(sum(case when g.repeated_status = 'N' then 1 else 0 end),'0') as total
 			FROM grievance as g
-			left join constituent as c on c.id=g.constituent_id $graph_date $paguthi_id group by g.grievance_date order by g.grievance_date asc ";
+			left join constituent as c on c.id=g.constituent_id $graph_date $graph_quer_paguthi group by g.grievance_date order by g.grievance_date asc ";
 
 			$graph_query_res=$this->db->query($graph_query);
 			$graph_result=$graph_query_res->result();
@@ -959,9 +967,9 @@ public function __construct()
 			foreach($result_3 as $row_meeting_status){
 				$total_meeting = $row_meeting_status->total;
 				$request_count = $row_meeting_status->meeting_request_count;
-				$request_count_percentage = number_format($row_meeting_status->mr_percentage*100,2);
+				$request_count_percentage = $row_meeting_status->mr_percentage;
 				$complete_count = $row_meeting_status->meeting_complete_count;
-				$complete_count_percentage = number_format($row_meeting_status->mc_percentage*100,2);
+				$complete_count_percentage = $row_meeting_status->mc_percentage;
 			}
 			$meeting_details  = array(
 				"total_meeting" => $total_meeting,
@@ -1134,6 +1142,8 @@ public function __construct()
 		$response = array("status" => "Success", "msg" => "Video Details", "video_count" => $video_count, "video_list" => $video_list_details,);
 		return $response;
 	}
+	
+	
 	
 	function Widgets_interactions($paguthi)
 	{
