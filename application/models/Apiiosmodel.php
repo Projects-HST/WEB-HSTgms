@@ -967,9 +967,9 @@ public function __construct()
 			foreach($result_3 as $row_meeting_status){
 				$total_meeting = $row_meeting_status->total;
 				$request_count = $row_meeting_status->meeting_request_count;
-				$request_count_percentage = $row_meeting_status->mr_percentage;
+				$request_count_percentage = number_format($row_meeting_status->mr_percentage, 2);
 				$complete_count = $row_meeting_status->meeting_complete_count;
-				$complete_count_percentage = $row_meeting_status->mc_percentage;
+				$complete_count_percentage = number_format($row_meeting_status->mc_percentage, 2);
 			}
 			$meeting_details  = array(
 				"total_meeting" => $total_meeting,
