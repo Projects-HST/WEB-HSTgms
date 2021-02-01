@@ -1065,11 +1065,12 @@ public function __construct()
 		$query_7=$this->db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_fw_date
 		GROUP BY fw.festival_id");
 		$result_7=$query_7->result();
-		//$festival_greetings_details[] = "Nill";
+		
 			foreach($result_7 as $row_festival_list_wishes){
 			   $festival_name = $row_festival_list_wishes->festival_name;
 			   $festival_wish_cnt = $row_festival_list_wishes->wishes_cnt;
 			   if ($festival_wishes_count >0){
+				    $festival_greetings_details[] = "Nill";
 					$festival_wishes_percentage = number_format($festival_wish_cnt/$festival_wishes_count*100,2);
 			   }else {
 					$festival_wishes_percentage = "0.00";
