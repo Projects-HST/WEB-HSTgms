@@ -1073,7 +1073,7 @@ public function __construct()
 					$festival_wishes_percentage = number_format($festival_wish_cnt/$festival_wishes_count*100,2);
 					$festival_greetings_details[] = array("festival_name"=>$festival_name, "festival_wish_cnt"=>$festival_wish_cnt,"festival_wishes_percentage"=>$festival_wishes_percentage);  
 			   }else {
-				    $festival_greetings_details[] = "";
+				    $festival_greetings_details[] = "Nill";
 					$festival_wishes_percentage = "0.00";
 			   }
 			}
