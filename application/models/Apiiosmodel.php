@@ -1061,7 +1061,7 @@ public function __construct()
 			foreach($result_6 as $row_festival_wishes){
 			   $festival_wishes_count = $row_festival_wishes->total;
 			}
-$festival_greetings_details = []; 
+		$festival_greetings_details = []; 
 
 		$query_7=$this->db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_fw_date
 		GROUP BY fw.festival_id");
