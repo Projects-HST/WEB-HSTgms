@@ -1070,12 +1070,12 @@ public function __construct()
 			   $festival_name = $row_festival_list_wishes->festival_name;
 			   $festival_wish_cnt = $row_festival_list_wishes->wishes_cnt;
 			   if ($festival_wishes_count >0){
-				    $festival_greetings_details[] = "Nill";
 					$festival_wishes_percentage = number_format($festival_wish_cnt/$festival_wishes_count*100,2);
+					$festival_greetings_details[] = array("festival_name"=>$festival_name, "festival_wish_cnt"=>$festival_wish_cnt,"festival_wishes_percentage"=>$festival_wishes_percentage);  
 			   }else {
+				    $festival_greetings_details[] = "";
 					$festival_wishes_percentage = "0.00";
 			   }
-			   $festival_greetings_details[] = array("festival_name"=>$festival_name, "festival_wish_cnt"=>$festival_wish_cnt,"festival_wishes_percentage"=>$festival_wishes_percentage);   
 			}
 		
 		$total_greetings = $birthday_wish_count + $festival_wishes_count;
