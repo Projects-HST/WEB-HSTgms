@@ -39,6 +39,7 @@ public function __construct()
 				  $user_id = $rows->id;
 				  $login_count = $rows->login_count+1;
 				  $profile_pic = $rows->profile_pic ;
+				  $base_colour = "#1271b5";
 				}
 				
 				if ($profile_pic != ''){
@@ -73,7 +74,8 @@ public function __construct()
 							"picture_url" => $picture_url,
 							"status" => $ress[0]->status,
 							"last_login" => $ress[0]->last_login,
-							"login_count" => $ress[0]->login_count						
+							"login_count" => $ress[0]->login_count,
+							"base_colour" => $base_colour
 				);
 			
 			$response = array("status" => "Success", "msg" => "Login Successfully", "userData" => $userData);
