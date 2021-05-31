@@ -2,7 +2,9 @@
 
 class Apiandroidmodel extends CI_Model {
 
-public function __construct()
+	public $app_db;
+	
+	public function __construct()
 	{
 	  parent::__construct();
 		$this->load->model('mailmodel');
@@ -20,16 +22,44 @@ public function __construct()
 	  return $response;
 	}
 
-//#################### Main Login ####################//
-	public function Login($username,$password,$gcm_key,$mobile_type)
+//#################### Constituency code ####################//
+
+	public function chk_Constituency_code($constituency_code)
 	{
-	    $sql = "SELECT * FROM user_master WHERE (email_id ='$username' OR phone_number = '$username') AND password = md5('".$password."')";
+		$dynamic_db_name = array("dynamic_db"  => 'sanzhapp_'.$constituency_code);
+		
+		$sql = "SELECT A.institute_code,A.enc_institute_code,B.institute_name,B.institute_logo FROM institute_master A,institute_details B WHERE A.institute_code ='".$constituency_code."' AND A.id = B.institute_master_id AND A.status='Active'";
 		$user_result = $this->db->query($sql);
+		$ress = $user_result->result();
+		
+		if($user_result->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Login Successfully", "userData" => $ress, "dynamic_db" => $dynamic_db_name);
+			return $response;
+		} else {
+			$response = array("status" => "Error", "msg" => "Invalid Institute Code");
+			return $response;
+		}
+		$this->db->close();
+	}
+//#################### Constituency code End ####################//
+
+
+//#################### Main Login ####################//
+	public function Login($username,$password,$gcm_key,$mobile_type,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+	    $sql = "SELECT * FROM user_master WHERE (email_id ='$username' OR phone_number = '$username') AND password = md5('".$password."')";
+		$user_result = $this->app_db->query($sql);
 		$ress = $user_result->result();
 		if($user_result->num_rows()>0)
 		{
 			$check_status="SELECT * FROM user_master WHERE (email_id='$username' OR phone_number = '$username') AND status='INACTIVE'";
-			$user_status = $this->db->query($check_status);
+			$user_status = $this->app_db->query($check_status);
 			if($user_status->num_rows()>0){
 				$response = array("status" => "Error", "msg" => "Account Deactivated");
 				return $response;
@@ -48,16 +78,16 @@ public function __construct()
 			         $picture_url = '';
 			    }
 				$update_sql = "UPDATE user_master SET last_login=NOW(),login_count='$login_count' WHERE id='$user_id'";
-				$update_result = $this->db->query($update_sql);
+				$update_result = $this->app_db->query($update_sql);
 				
 				$gcmQuery = "SELECT * FROM notification_master WHERE gcm_key like '%" .$gcm_key. "%' LIMIT 1";
-				$gcm_result = $this->db->query($gcmQuery);
+				$gcm_result = $this->app_db->query($gcmQuery);
 				$gcm_ress = $gcm_result->result();
 
 				if($gcm_result->num_rows()==0)
 				{
 					$sQuery = "INSERT INTO notification_master (user_type,user_id,gcm_key,mobile_type) VALUES ('2','". $user_id . "','". $gcm_key . "','". $mobile_type . "')";
-					$update_gcm = $this->db->query($sQuery);
+					$update_gcm = $this->app_db->query($sQuery);
 				}
 			}
 
@@ -90,14 +120,19 @@ public function __construct()
 //#################### Main Login End ####################//
 
 //#################### Forgot Password ####################//
-	public function Forgot_password($user_name)
+	public function Forgot_password($user_name,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$digits = 6;
 			$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
     		$nPassword = md5($OTP);
 
     		$sql = "SELECT * FROM user_master WHERE (email_id ='$user_name' OR phone_number = '$user_name') AND status='ACTIVE'";
-    		$user_result = $this->db->query($sql);
+    		$user_result = $this->app_db->query($sql);
     		$ress = $user_result->result();
     		if($user_result->num_rows()>0)
     		{
@@ -111,7 +146,7 @@ public function __construct()
     			}
 
 				$update_sql = "UPDATE user_master SET password = '$nPassword', updated_at =NOW() WHERE id='$user_id'";
-				$update_result = $this->db->query($update_sql);
+				$update_result = $this->app_db->query($update_sql);
 
 				$subject = 'GMS - Forgot Password';
 				$htmlContent = '<html>
@@ -140,10 +175,15 @@ public function __construct()
 
 
 //#################### Profile Details ####################//
-	public function Profile_details($user_id)
+	public function Profile_details($user_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
             $sql = "SELECT * FROM `user_master` WHERE id='$user_id'";
-			$user_result = $this->db->query($sql);
+			$user_result = $this->app_db->query($sql);
 			$ress = $user_result->result();
 
 			if($user_result->num_rows()>0)
@@ -181,10 +221,15 @@ public function __construct()
 
 
 //#################### Check Email ####################//
-	public function Check_email($email)
+	public function Check_email($email,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$select="SELECT * FROM user_master WHERE email_id='$email'";
-		$result=$this->db->query($select);
+		$result=$this->app_db->query($select);
 			if($result->num_rows()>0){
 				$response = array("status" => "error", "msg" => "Email Already");
 			}else{
@@ -193,10 +238,15 @@ public function __construct()
 			return $response;	
 	}
 
-	public function Check_emailedit($user_id,$email)
+	public function Check_emailedit($user_id,$email,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$select="SELECT * FROM user_master WHERE email_id='$email' AND id!='$user_id'";
-		$result=$this->db->query($select);
+		$result=$this->app_db->query($select);
 			if($result->num_rows()>0){
 				$response = array("status" => "error", "msg" => "Email Already");
 			}else{
@@ -208,10 +258,15 @@ public function __construct()
 //#################### Check Email End ####################//
 
 //#################### Check Phone number ####################//
-	public function Check_phone($phone)
+	public function Check_phone($phone,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$select="SELECT * FROM user_master WHERE phone_number='$phone'";
-		$result=$this->db->query($select);
+		$result=$this->app_db->query($select);
 			if($result->num_rows()>0){
 				$response = array("status" => "error", "msg" => "Phone number already");
 			}else{
@@ -220,10 +275,15 @@ public function __construct()
 			return $response;	
 	}
 
-	public function Check_phoneedit($user_id,$phone)
+	public function Check_phoneedit($user_id,$phone,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$select="SELECT * FROM user_master WHERE phone_number='$phone' AND id!='$user_id'";
-		$result=$this->db->query($select);
+		$result=$this->app_db->query($select);
 			if($result->num_rows()>0){
 				$response = array("status" => "error", "msg" => "Phone number already");
 			}else{
@@ -236,10 +296,15 @@ public function __construct()
 
 
 //#################### Profile Update ####################//
-	public function Profile_update($name,$address,$phone,$email,$gender,$user_id)
+	public function Profile_update($name,$address,$phone,$email,$gender,$user_id,$dynamic_db)
 	{	
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$sQuery = "SELECT * FROM user_master WHERE id = '$user_id'";
-		$user_result = $this->db->query($sQuery);
+		$user_result = $this->app_db->query($sQuery);
 		$ress = $user_result->result();
 		if($user_result->num_rows()>0)
 		{
@@ -255,7 +320,7 @@ public function __construct()
 			if ($old_email_id != $email){
 			
 				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-				$result = $this->db->query($update);
+				$result = $this->app_db->query($update);
 				$subject ='GMS - Staff Login - Username Updated';
 				$htmlContent = '<html>
 								<head> <title></title>
@@ -274,14 +339,14 @@ public function __construct()
 				$this->smsmodel->sendSMS($phone,$smsContent);			
 			}else {
 				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-				$result = $this->db->query($update);
+				$result = $this->app_db->query($update);
 			}
 		}
 		
 		if  ($phone!=""){  
 				if ($old_phone != $phone) {
 					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-					$result = $this->db->query($update);
+					$result = $this->app_db->query($update);
 					$subject ='GMS - Staff Login - Phone number Updated';
 					$htmlContent = '<html>
 									<head> <title></title>
@@ -301,14 +366,14 @@ public function __construct()
 					$this->smsmodel->sendSMS($phone,$smsContent);
 				} else {
 					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-					$result = $this->db->query($update);
+					$result = $this->app_db->query($update);
 				}
 		}
 		
 		if ($email =="" && $phone =="")
 		{
 			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-			$result = $this->db->query($update);
+			$result = $this->app_db->query($update);
 		}
 			
 		$response = array("status" => "success", "msg" => "Profile Updated");
@@ -317,10 +382,15 @@ public function __construct()
 //#################### Profile Update End ####################//
 
 //#################### Profile Pic Update ####################//
-	public function Update_profilepic($user_id,$userFileName)
+	public function Update_profilepic($user_id,$userFileName,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
             $update_sql= "UPDATE user_master SET profile_pic='$userFileName' WHERE id='$user_id'";
-			$update_result = $this->db->query($update_sql);
+			$update_result = $this->app_db->query($update_sql);
 			$picture_url = base_url().'assets/users/'.$userFileName;
 
 			$response = array("status" => "success", "msg" => "Profile Picture Updated","picture_url" =>$picture_url);
@@ -329,13 +399,19 @@ public function __construct()
 //#################### Profile Pic Update End ####################//
 
 //#################### Change Password ####################//
-	public function Change_password($user_id,$newpassword,$oldpassword){
+	public function Change_password($user_id,$newpassword,$oldpassword,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$check="SELECT * FROM user_master WHERE id='$user_id' AND password=md5('$oldpassword')";
-		$res_check=$this->db->query($check);
+		$res_check=$this->app_db->query($check);
 		if($res_check->num_rows()>0){
 
 		  $update_sql = "UPDATE user_master SET password = md5('$newpassword'),updated_at=NOW() WHERE id='$user_id'";
-		  $update_result = $this->db->query($update_sql);
+		  $update_result = $this->app_db->query($update_sql);
 		  if($update_result){
 			  $response = array("status" => "success", "msg" => "Password Updated");
 		  }else{
@@ -350,10 +426,15 @@ public function __construct()
 
 
 //#################### List paguthi ####################//
-	function List_paguthi($constituency_id)
+	function List_paguthi($constituency_id,$dynamic_db)
 	{
-		 $query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `paguthi` WHERE constituency_id='$constituency_id' AND status='ACTIVE'";
+		$resultset=$this->app_db->query($query);
 		$paguthi_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -369,8 +450,13 @@ public function __construct()
 
 //#################### Dashboard ####################//
 
-	function Dashboard($paguthi_id,$from_date,$to_date)
+	function Dashboard($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi="";
 		}else{
@@ -465,16 +551,16 @@ public function __construct()
 		}
 			
 			$constituent_count = "SELECT * FROM constituent $quer_paguthi $quer_date";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows(); 
 			
 //------------------------------------------------//
 			$enquiry_count = "SELECT * FROM grievance WHERE grievance_type='E' AND enquiry_status = 'E' $query_paguthi $query_date";
-			$enquiry_count_res = $this->db->query($enquiry_count);
+			$enquiry_count_res = $this->app_db->query($enquiry_count);
 			$enquiry_count = $enquiry_count_res->num_rows(); 
 			
 			$petition_count = "SELECT * FROM grievance WHERE grievance_type='P' $query_paguthi $query_date";
-			$petition_count_res = $this->db->query($petition_count);
+			$petition_count_res = $this->app_db->query($petition_count);
 			$petition_count = $petition_count_res->num_rows(); 
 			
 			$grievance_count = $enquiry_count + $petition_count;
@@ -482,11 +568,11 @@ public function __construct()
 //------------------------------------------------//
 
 			$query_3="SELECT * from grievance as g where g.repeated_status ='N' $query_cons $query_paguthi $query_date GROUP BY g.constituent_id, g.grievance_date";
-			$result_3=$this->db->query($query_3);
+			$result_3=$this->app_db->query($query_3);
 			$footfall_unique_cnt = $result_3->num_rows();
 			
 			$query_4="SELECT * from grievance as g where g.repeated_status ='R' $query_cons $query_paguthi $query_date GROUP BY g.constituent_id, g.grievance_date";
-			$result_4=$this->db->query($query_4);
+			$result_4=$this->app_db->query($query_4);
 			$footfall_repeated_cnt = $result_4->num_rows();
 			
 			$footfall_count = $footfall_unique_cnt + $footfall_repeated_cnt;
@@ -494,17 +580,17 @@ public function __construct()
 //------------------------------------------------//
 			
 			$query_5="SELECT * FROM meeting_request AS mr LEFT JOIN constituent AS c ON c.id = mr.constituent_id $quer_paguthi $quer_mr_date";
-			$result_5=$this->db->query($query_5);
+			$result_5=$this->app_db->query($query_5);
 			$meeting_count = $result_5->num_rows();
 			
 //------------------------------------------------//	
 		
 			$volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='1'";
-			$volunter_count_res = $this->db->query($volunter_count);
+			$volunter_count_res = $this->app_db->query($volunter_count);
 			$volunter_count = $volunter_count_res->num_rows(); 
 
 			$non_volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='0'";
-			$non_volunter_count_res = $this->db->query($non_volunter_count);
+			$non_volunter_count_res = $this->app_db->query($non_volunter_count);
 			$non_volunter_count = $non_volunter_count_res->num_rows(); 
 			
 			$tot_volunter_count = $volunter_count+$non_volunter_count;
@@ -512,11 +598,11 @@ public function __construct()
 //------------------------------------------------//
 			
 			$br_wish_count="SELECT * FROM consitutent_birthday_wish as br left join constituent as c on c.id=br.constituent_id $quer_paguthi $quer_bw_date";
-			$br_wish_count_res =$this->db->query($br_wish_count);
+			$br_wish_count_res =$this->app_db->query($br_wish_count);
 			$br_wish_count = $br_wish_count_res->num_rows(); 
 			
 			$fn_wish_count="SELECT * from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi $quer_fw_date";
-			$fn_wish_count_res = $this->db->query($fn_wish_count);
+			$fn_wish_count_res = $this->app_db->query($fn_wish_count);
 			$fn_wish_count = $fn_wish_count_res->num_rows();
 			
 			$tot_geeting_count = $br_wish_count+$fn_wish_count;
@@ -528,7 +614,7 @@ public function __construct()
 			left join constituent as c on c.office_id=o.id $quer_paguthi_video
 			left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
 			GROUP BY o.id";
-			$video_count_res=$this->db->query($video_count);
+			$video_count_res=$this->app_db->query($video_count);
 			$video_count=$video_count_res->result();
 			$tot_video_count = 0;
 			foreach($video_count as $row_video_count){
@@ -577,7 +663,7 @@ public function __construct()
 			FROM grievance as g
 			left join constituent as c on c.id=g.constituent_id $graph_date $graph_quer_paguthi group by g.grievance_date order by g.grievance_date asc ";
 
-			$graph_query_res=$this->db->query($graph_query);
+			$graph_query_res=$this->app_db->query($graph_query);
 			$graph_result=$graph_query_res->result();
 
 			$response = array("status" => "Success", "msg" => "Dashboard Details", "widgets_count" => $result, "graph_result" => $graph_result);
@@ -586,8 +672,12 @@ public function __construct()
 		}
 
 
-	function widgets_members($paguthi_id,$from_date,$to_date)
+	function widgets_members($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
 		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi="";
@@ -641,7 +731,7 @@ public function __construct()
 			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end),'0') AS having_dob
 			FROM constituent $quer_paguthi $quer_date";
 
-			$res=$this->db->query($query);
+			$res=$this->app_db->query($query);
 			$result=$res->result();
 
 		$response = array("status" => "Success", "msg" => "Constituent Details", "constituent_details" => $result);
@@ -649,8 +739,12 @@ public function __construct()
 	}
 	
 	
-	function Widgets_grievances($paguthi_id,$from_date,$to_date)
+	function Widgets_grievances($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
 		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 				$quer_paguthi="";
@@ -668,20 +762,20 @@ public function __construct()
 			$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 		}
 
-		$query_2=$this->db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
+		$query_2=$this->app_db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
 		$result_2=$query_2->result();
 		foreach($result_2 as $row_enquiry_count){
 			  $enquiry_count = $row_enquiry_count->enquiry_count;
 			}
 
-		$query_3=$this->db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
+		$query_3=$this->app_db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
 		$result_3=$query_3->result();
 		foreach($result_3 as $row_petition_count){
 			  $petition_count = $row_petition_count->petition_count;
 			}
 		$tot_grive_count = $enquiry_count + $petition_count;
 		
-		$query_4=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_4=$this->app_db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $quer_date");
@@ -703,7 +797,7 @@ public function __construct()
 				"petition_rejected_percentage" => $petition_rejected_percentage
 		);
 
-		$query_1=$this->db->query("SELECT
+		$query_1=$this->app_db->query("SELECT
 		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
 		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
 		FROM grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
@@ -721,7 +815,7 @@ public function __construct()
 				"no_of_civic_percentage" => $no_of_civic_percentage
 		);
 		
-		$query_1_1=$this->db->query("SELECT
+		$query_1_1=$this->app_db->query("SELECT
 		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
 		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
 		FROM grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
@@ -739,14 +833,14 @@ public function __construct()
 				"no_of_civic_percentage" => $no_of_civic_percentage
 		);
 
-		$query_6=$this->db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' 
+		$query_6=$this->app_db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' 
 		and g.grievance_type='P' $quer_paguthi $quer_date");
 		$result_6=$query_6->result();
 		foreach($result_6 as $online_pet_count){
 			  $online_petition_count = $online_pet_count->online_petition_count;
 			}
 
-		$query_7=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_7=$this->app_db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_date");
@@ -769,14 +863,14 @@ public function __construct()
 		);
 
 
-		$query_9=$this->db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' 
+		$query_9=$this->app_db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' 
 		and g.grievance_type='P' $quer_paguthi $quer_date");
 		$result_9=$query_9->result();
 		foreach($result_9 as $civic_pet_count){
 			  $civic_petition_count = $civic_pet_count->civic_petition_count;
 			}
 
-		$query_10=$this->db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_10=$this->app_db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
 		IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
 		IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_date");
@@ -804,8 +898,13 @@ public function __construct()
 
 	}
 	
-	function Widgets_footfall($paguthi_id,$from_date,$to_date)
+	function Widgets_footfall($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if($paguthi_id=='99'){
 			$cons_id='99';
 			$others_id='0';
@@ -833,35 +932,35 @@ public function __construct()
 		}
 		
 		$query_1="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_1=$this->db->query($query_1);
+		$result_1=$this->app_db->query($query_1);
 		$cons_footfall_cnt = $result_1->num_rows();
 		
 		$query_2="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_2=$this->db->query($query_2);
+		$result_2=$this->app_db->query($query_2);
 		$other_footfall_cnt = $result_2->num_rows();
 
 		$query_3="SELECT * from grievance as g where g.repeated_status ='N' $quer_cons $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_3=$this->db->query($query_3);
+		$result_3=$this->app_db->query($query_3);
 		$unique_cnt = $result_3->num_rows();
 		
 		$query_4="SELECT * from grievance as g where g.repeated_status ='R' $quer_cons $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_4=$this->db->query($query_4);
+		$result_4=$this->app_db->query($query_4);
 		$repeated_cnt = $result_4->num_rows();
 		
 		$query_5="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_5=$this->db->query($query_5);
+		$result_5=$this->app_db->query($query_5);
 		$sing_unique_cnt = $result_5->num_rows();
 		
 		$query_6="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='R' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_6=$this->db->query($query_6);
+		$result_6=$this->app_db->query($query_6);
 		$sing_repeted_cnt = $result_6->num_rows();
 		
 		$query_7="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_7=$this->db->query($query_7);
+		$result_7=$this->app_db->query($query_7);
 		$other_unique_cnt = $result_7->num_rows();
 		
 		$query_8="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='R' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_8=$this->db->query($query_8);
+		$result_8=$this->app_db->query($query_8);
 		$other_repeted_cnt = $result_8->num_rows();
 
 		$total_footfall_cnt = $unique_cnt + $repeated_cnt;
@@ -933,8 +1032,13 @@ public function __construct()
 	}
 	
 	
-	function Widgets_meetings($paguthi_id,$from_date,$to_date)
+	function Widgets_meetings($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 				$quer_paguthi="";
 		}else{
@@ -964,7 +1068,7 @@ public function __construct()
 			IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
 			FROM meeting_request as mr
 			left join constituent as c on c.id=mr.constituent_id $quer_paguthi $quer_mr_date";
-			$res_3=$this->db->query($query_3);
+			$res_3=$this->app_db->query($query_3);
 			$result_3=$res_3->result();
 			foreach($result_3 as $row_meeting_status){
 				$total_meeting = $row_meeting_status->total;
@@ -985,14 +1089,19 @@ public function __construct()
 	}
 	
 	
-	function Widgets_volunteer($paguthi_id)
+	function Widgets_volunteer($paguthi_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='1'";
-			$volunter_count_res = $this->db->query($volunter_count);
+			$volunter_count_res = $this->app_db->query($volunter_count);
 			$volunter_count = $volunter_count_res->num_rows(); 
 
 			$non_volunter_count = "SELECT * FROM constituent WHERE volunteer_status='Y' AND constituency_id ='0'";
-			$non_volunter_count_res = $this->db->query($non_volunter_count);
+			$non_volunter_count_res = $this->app_db->query($non_volunter_count);
 			$non_volunter_count = $non_volunter_count_res->num_rows(); 
 			
 			$tot_volunter_count = $volunter_count+$non_volunter_count;
@@ -1018,8 +1127,13 @@ public function __construct()
 	
 	
 	
-	function Widgets_greetings($paguthi_id,$from_date,$to_date)
+	function Widgets_greetings($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi_cons="";
 		}else{
@@ -1050,14 +1164,14 @@ public function __construct()
 		}
 		
 		$query_5="SELECT IFNULL(count(*),'0') as birth_wish_count FROM consitutent_birthday_wish as br left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_bw_date";
-		$res_5=$this->db->query($query_5);
+		$res_5=$this->app_db->query($query_5);
 		$result_5=$res_5->result();
 			foreach($result_5 as $row_birthday_wish){
 			   $birthday_wish_count = $row_birthday_wish->birth_wish_count;
 			}
 
 		$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_fw_date";
-		$res_6=$this->db->query($query_6);
+		$res_6=$this->app_db->query($query_6);
 		$result_6=$res_6->result();
 		
 			foreach($result_6 as $row_festival_wishes){
@@ -1066,7 +1180,7 @@ public function __construct()
 		
 		$festival_greetings_details = []; 
 
-		$query_7=$this->db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_fw_date
+		$query_7=$this->app_db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_fw_date
 		GROUP BY fw.festival_id");
 		$result_7=$query_7->result();
 		
@@ -1095,8 +1209,13 @@ public function __construct()
 	
 	
 	
-	function Widgets_videos($paguthi_id,$from_date,$to_date)
+	function Widgets_videos($paguthi_id,$from_date,$to_date,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
 			$quer_paguthi_video="";
 		}else{
@@ -1125,7 +1244,7 @@ public function __construct()
 		left join constituent as c on c.office_id=o.id $quer_paguthi_video 
 		left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
 		GROUP BY o.id";
-		$res_5=$this->db->query($query_5);
+		$res_5=$this->app_db->query($query_5);
 		$result_5=$res_5->result();
 		$video_count = 0;
 			foreach($result_5 as $row_video_count){
@@ -1149,12 +1268,17 @@ public function __construct()
 	
 	
 	
-	function Widgets_interactions($paguthi)
+	function Widgets_interactions($paguthi,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL') {
 
 			$interactioncount = "SELECT * FROM interaction_history WHERE question_response = 'Y'";
-			$interactioncount_res = $this->db->query($interactioncount);
+			$interactioncount_res = $this->app_db->query($interactioncount);
 			$interactioncount = $interactioncount_res->num_rows();
 			
 			$query="SELECT
@@ -1167,7 +1291,7 @@ public function __construct()
 						A.`question_id` = B.id AND A.`question_response` = 'Y'
 					GROUP BY
 						`question_id`";
-			$res=$this->db->query($query);
+			$res=$this->app_db->query($query);
 			$int_result=$res->result();
 			
 			$response = array("status" => "Success", "msg" => "Interaction Details", "interaction_count" => $interactioncount,"interaction_details" => $int_result);
@@ -1184,7 +1308,7 @@ public function __construct()
 									c.id = ih.constituent_id
 								WHERE
 									c.paguthi_id = '$paguthi' AND ih.question_response = 'Y'";
-			$interactioncount_res = $this->db->query($interactioncount);
+			$interactioncount_res = $this->app_db->query($interactioncount);
 			$interactioncount = $interactioncount_res->num_rows();
 			
 			$query="SELECT
@@ -1203,7 +1327,7 @@ public function __construct()
 						ih.question_response = 'Y' AND c.paguthi_id = '$paguthi'
 					GROUP BY
 						ih.question_id";
-			$res=$this->db->query($query);
+			$res=$this->app_db->query($query);
 			$int_result=$res->result();
 			
 			
@@ -1212,8 +1336,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Dashboard_search($keyword)
+	function Dashboard_search($keyword,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT
 					c.id,
 					c.full_name,
@@ -1230,7 +1359,7 @@ public function __construct()
 				ORDER BY
 					c.id
 				DESC";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$constituent_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -1241,8 +1370,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Dashboard_searchnew($keyword,$offset,$rowcount)
+	function Dashboard_searchnew($keyword,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT
 					c.id,
 					c.full_name,
@@ -1259,7 +1393,7 @@ public function __construct()
 				ORDER BY
 					c.id
 				DESC LIMIT $offset, $rowcount";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$constituent_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -1275,16 +1409,21 @@ public function __construct()
 
 //#################### Constituent Start ####################//
 
-	function List_constituent($paguthi)
+	function List_constituent($paguthi,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL')
 		{
 			$constituent_count = "SELECT * FROM constituent";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent ORDER BY id DESC";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1294,11 +1433,11 @@ public function __construct()
 				}
 		} else {
 			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi'";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent WHERE paguthi_id = '$paguthi' ORDER BY id DESC";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1310,16 +1449,21 @@ public function __construct()
 		return $response;
 	}
 	
-	function List_constituentnew($paguthi,$offset,$rowcount)
+	function List_constituentnew($paguthi,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL')
 		{
 			$constituent_count = "SELECT * FROM constituent";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent ORDER BY id DESC LIMIT $offset, $rowcount";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1329,11 +1473,11 @@ public function __construct()
 				}
 		} else {
 			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi'";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT id,full_name,mobile_no,serial_no,profile_pic FROM constituent WHERE paguthi_id = '$paguthi' ORDER BY id DESC LIMIT $offset, $rowcount";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1345,12 +1489,17 @@ public function __construct()
 		return $response;
 	}
 	
-	function List_constituentsearch($keyword,$paguthi,$offset,$rowcount)
+	function List_constituentsearch($keyword,$paguthi,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL')
 		{
 			$constituent_count = "SELECT * FROM constituent WHERE full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%' ORDER BY id DESC";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT
@@ -1369,7 +1518,7 @@ public function __construct()
 				ORDER BY
 					c.id
 				DESC LIMIT $offset, $rowcount";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1379,7 +1528,7 @@ public function __construct()
 				}
 		} else {
 			$constituent_count = "SELECT * FROM constituent WHERE paguthi_id = '$paguthi' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%') ORDER BY id DESC";
-			$constituent_count_res = $this->db->query($constituent_count);
+			$constituent_count_res = $this->app_db->query($constituent_count);
 			$constituent_count = $constituent_count_res->num_rows();
 			
 			$query="SELECT
@@ -1398,7 +1547,7 @@ public function __construct()
 				ORDER BY
 					c.id
 				DESC LIMIT $offset, $rowcount";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$constituent_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1411,8 +1560,13 @@ public function __construct()
 	}
 	
 	
-	function Constituent_details($constituent_id)
+	function Constituent_details($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT
 					cy.constituency_name,
 					p.paguthi_name,
@@ -1440,7 +1594,7 @@ public function __construct()
 					con.religion_id = re.id
 				WHERE
 					con.id = '$constituent_id'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$constituent_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -1452,10 +1606,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_meetings($constituent_id)
+	function Constituent_meetings($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$query="SELECT * FROM meeting_request WHERE constituent_id = '$constituent_id' ORDER BY id DESC";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1466,10 +1625,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_meetingdetails($meeting_id)
+	function Constituent_meetingdetails($meeting_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$query="SELECT * FROM meeting_request WHERE id = '$meeting_id'";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1480,10 +1644,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_grievances($constituent_id)
+	function Constituent_grievances($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$grievance_count = "SELECT * FROM grievance WHERE constituent_id = '$constituent_id'";
-			$grievance_count_res = $this->db->query($grievance_count);
+			$grievance_count_res = $this->app_db->query($grievance_count);
 			$grievance_count = $grievance_count_res->num_rows();
 			
 			$query="SELECT
@@ -1508,7 +1677,7 @@ public function __construct()
 					ON
 						pa.id = gr.paguthi_id
 					WHERE gr.constituent_id = '$constituent_id' ORDER BY gr.id DESC";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1519,8 +1688,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_grievancedetails($grievance_id)
+	function Constituent_grievancedetails($grievance_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$query="SELECT
 						pa.paguthi_name,
 						se.seeker_info,
@@ -1543,7 +1717,7 @@ public function __construct()
 					ON
 						pa.id = gr.paguthi_id
 					WHERE gr.id = '$grievance_id' ORDER BY gr.id DESC";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1554,8 +1728,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Grievance_message($grievance_id)
+	function Grievance_message($grievance_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$query="SELECT
 					gr.id,
 					gr.sms_text,
@@ -1567,7 +1746,7 @@ public function __construct()
 				ON
 					u.id = gr.created_by
 				WHERE gr.grievance_id = '$grievance_id' ";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$message_result = $resultset->result();
 			if($resultset->num_rows()>0)
 				{
@@ -1579,10 +1758,15 @@ public function __construct()
 	}
 	
 	
-	function Constituent_interaction($constituent_id)
+	function Constituent_interaction($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 			$query="SELECT * FROM `interaction_question` WHERE status = 'ACTIVE'";
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			if($resultset->num_rows()>0) {
 				foreach ($resultset->result() as $rows)
 				{
@@ -1590,7 +1774,7 @@ public function __construct()
 				  $interaction_text = $rows->interaction_text;
 				
 					$query_1="SELECT * FROM `interaction_history` WHERE question_id = '$question_id' AND constituent_id = '$constituent_id'";
-					$resultset_1=$this->db->query($query_1);
+					$resultset_1=$this->app_db->query($query_1);
 					if($resultset_1->num_rows()>0) {
 						$status = 'Yes';
 					}else {
@@ -1610,10 +1794,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_plant($constituent_id)
+	function Constituent_plant($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT * FROM `plant_donation` WHERE constituent_id='$constituent_id'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$plant_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -1624,10 +1813,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_documents($constituent_id)
+	function Constituent_documents($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT * FROM grievance_documents where constituent_id='$constituent_id' AND grievance_id ='' AND status='ACTIVE' order by id desc";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$doc_result = $resultset->result();
 			if($resultset->num_rows()>0)
 			{
@@ -1638,10 +1832,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Constituent_grvdocuments($constituent_id)
+	function Constituent_grvdocuments($constituent_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT * FROM grievance_documents where constituent_id='$constituent_id' AND grievance_id !='' AND status='ACTIVE' order by id desc";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$doc_result = $resultset->result();
 			if($resultset->num_rows()>0)
 			{
@@ -1657,11 +1856,15 @@ public function __construct()
 
 //#################### Meetings Start ####################//
 
-	function Meeting_request($constituency_id)
+	function Meeting_request($constituency_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
 		
 		$meeting_count = "SELECT * FROM meeting_request WHERE meeting_status = 'REQUESTED'";
-		$meeting_count_res = $this->db->query($meeting_count);
+		$meeting_count_res = $this->app_db->query($meeting_count);
 		$meeting_count = $meeting_count_res->num_rows();
 			
 		$query="SELECT
@@ -1685,7 +1888,7 @@ public function __construct()
 			mr.created_by = um.id
 			WHERE
 				mr.meeting_status = 'REQUESTED' order by mr.id desc";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
 			{
@@ -1696,11 +1899,15 @@ public function __construct()
 		return $response;
 	}
 
-	function Meeting_requestnew($constituency_id,$offset,$rowcount)
+	function Meeting_requestnew($constituency_id,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
 		
 		$meeting_count = "SELECT * FROM meeting_request WHERE meeting_status = 'REQUESTED'";
-		$meeting_count_res = $this->db->query($meeting_count);
+		$meeting_count_res = $this->app_db->query($meeting_count);
 		$meeting_count = $meeting_count_res->num_rows();
 			
 		$query="SELECT
@@ -1724,7 +1931,7 @@ public function __construct()
 			mr.created_by = um.id
 			WHERE
 				mr.meeting_status = 'REQUESTED' order by mr.id desc LIMIT $offset, $rowcount";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
 			{
@@ -1736,8 +1943,13 @@ public function __construct()
 	}
 	
 	
-	function Meeting_requestsearch($constituency_id,$keyword,$offset,$rowcount)
+	function Meeting_requestsearch($constituency_id,$keyword,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$meeting_count = "SELECT
 							mr.id,
 							con.full_name,
@@ -1759,7 +1971,7 @@ public function __construct()
 							mr.created_by = um.id
 						WHERE
 							mr.meeting_status = 'REQUESTED' AND (con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR um.full_name like '%$keyword%')";
-		$meeting_count_res = $this->db->query($meeting_count);
+		$meeting_count_res = $this->app_db->query($meeting_count);
 		$meeting_count = $meeting_count_res->num_rows();
 			
 		$query = "SELECT
@@ -1783,7 +1995,7 @@ public function __construct()
 							mr.created_by = um.id
 						WHERE
 							mr.meeting_status = 'REQUESTED' AND (con.full_name like '%$keyword%' OR p.paguthi_name like '%$keyword%' OR mr.meeting_title like '%$keyword%' OR mr.meeting_detail like '%$keyword%' OR um.full_name like '%$keyword%') order by mr.id desc LIMIT $offset, $rowcount";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
 			{
@@ -1794,8 +2006,13 @@ public function __construct()
 		return $response;
 	}
 
-	function Meeting_details($meeting_id)
+	function Meeting_details($meeting_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT
 				mr.id,
 				con.full_name,
@@ -1818,7 +2035,7 @@ public function __construct()
 			mr.created_by = um.id
 			WHERE
 				mr.id = '$meeting_id'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
 			{
@@ -1830,10 +2047,15 @@ public function __construct()
 	}
 
 
-	function Meeting_update($user_id,$meeting_id,$status)
+	function Meeting_update($user_id,$meeting_id,$status,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$sQuery="UPDATE meeting_request SET meeting_status='$status',updated_at=NOW(),updated_by='$user_id' where id='$meeting_id'";
-		$update_Query = $this->db->query($sQuery);
+		$update_Query = $this->app_db->query($sQuery);
 
 		$response = array("status" => "Success", "msg" => "Meeting Updated");
 		return $response;
@@ -1843,8 +2065,13 @@ public function __construct()
 
 	
 //#################### Grievance Start ####################//
-	function List_grievance($paguthi,$grievance_type)
+	function List_grievance($paguthi,$grievance_type,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL')	{
 		
 			if ($grievance_type == 'A'){
@@ -1873,7 +2100,7 @@ public function __construct()
 					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.grievance_type='E'
 					order by g.id desc";
 			} 
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			$grievance_count = $resultset->num_rows();
 			if($resultset->num_rows()>0)
@@ -1910,7 +2137,7 @@ public function __construct()
 					left join grievance_sub_category as gsc on gsc.id=g.sub_category_id where g.paguthi_id='$paguthi' AND g.grievance_type='E'
 					order by g.id desc";
 			} 
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			$grievance_count = $resultset->num_rows();
 			if($resultset->num_rows()>0)
@@ -1928,8 +2155,13 @@ public function __construct()
 
 
 //#################### New Grievance list Start ####################//
-	function List_grievancenew($paguthi,$grievance_type,$offset,$rowcount)
+	function List_grievancenew($paguthi,$grievance_type,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL')	{
 		
 			if ($grievance_type == 'A'){
@@ -1965,10 +2197,10 @@ public function __construct()
 					order by g.id desc LIMIT $offset, $rowcount";
 			} 
 			
-			$resultset_count=$this->db->query($cquery);
+			$resultset_count=$this->app_db->query($cquery);
 			$grievance_count = $resultset_count->num_rows();
 			
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			
 			if($resultset->num_rows()>0)
@@ -2015,10 +2247,10 @@ public function __construct()
 					order by g.id desc LIMIT $offset, $rowcount";
 			} 
 			
-			$resultset_count=$this->db->query($cquery);
+			$resultset_count=$this->app_db->query($cquery);
 			$grievance_count = $resultset_count->num_rows();
 			
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 
 			if($resultset->num_rows()>0)
@@ -2036,8 +2268,13 @@ public function __construct()
 
 
 //#################### New Grievance search Start ####################//
-	function List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount)
+	function List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		if ($paguthi == 'ALL')	{
 		
 			if ($grievance_type == 'A'){
@@ -2205,10 +2442,10 @@ public function __construct()
 							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
 			} 
 			
-			$resultset_count=$this->db->query($cquery);
+			$resultset_count=$this->app_db->query($cquery);
 			$grievance_count = $resultset_count->num_rows();
 			
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			
 			if($resultset->num_rows()>0)
@@ -2385,10 +2622,10 @@ public function __construct()
 							ORDER BY `g`.`id` ASC LIMIT $offset, $rowcount";
 			}  
 			
-			$resultset_count=$this->db->query($cquery);
+			$resultset_count=$this->app_db->query($cquery);
 			$grievance_count = $resultset_count->num_rows();
 			
-			$resultset=$this->db->query($query);
+			$resultset=$this->app_db->query($query);
 			$grievance_result = $resultset->result();
 			
 			if($resultset->num_rows()>0)
@@ -2406,10 +2643,15 @@ public function __construct()
 
 
 //#################### Staff Details ####################//
-	function List_staff()
+	function List_staff($constituency_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$staff_count = "SELECT * FROM user_master WHERE id!='1'";
-		$staff_count_res = $this->db->query($staff_count);
+		$staff_count_res = $this->app_db->query($staff_count);
 		$staff_count = $staff_count_res->num_rows();
 			
 		$query="SELECT
@@ -2425,7 +2667,7 @@ public function __construct()
 				paguthi B
 			WHERE
 				A.id!='1' AND A.pugathi_id = B.id";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$user_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -2436,8 +2678,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Staff_details($staff_id)
+	function Staff_details($staff_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT
 				B.paguthi_name,
 				C.role_name,
@@ -2448,7 +2695,7 @@ public function __construct()
 				role_master C
 			WHERE
 				A.id = '$staff_id' AND A.pugathi_id = B.id AND A.role_id = C.id";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$user_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -2463,8 +2710,13 @@ public function __construct()
 
 //#################### Reports ####################//	
 
-	function Report_status($from_date,$to_date,$status,$paguthi){
-
+	function Report_status($from_date,$to_date,$status,$paguthi,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -2567,7 +2819,7 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -2580,8 +2832,14 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount){
+	function Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount,$dynamic_db)
+	{
 
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -2693,10 +2951,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 			
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -2708,8 +2966,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount){
-
+	function Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -2829,10 +3092,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -2845,8 +3108,13 @@ public function __construct()
 	}
 	
 	
-	function Report_category($from_date,$to_date,$category){
-
+	function Report_category($from_date,$to_date,$category,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -2902,7 +3170,7 @@ public function __construct()
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.grievance_type_id = '$category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
@@ -2916,8 +3184,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_categorynew($from_date,$to_date,$category,$offset,$rowcount){
-
+	function Report_categorynew($from_date,$to_date,$category,$offset,$rowcount,$dynamic_db)
+	{
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -2978,10 +3251,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -2994,8 +3267,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount){
-
+	function Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3060,10 +3338,10 @@ public function __construct()
 		}
 		
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3079,8 +3357,13 @@ public function __construct()
 	
 	
 	
-	function Report_subcategory($from_date,$to_date,$sub_category){
-
+	function Report_subcategory($from_date,$to_date,$sub_category,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3139,7 +3422,7 @@ public function __construct()
 					WHERE
 						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = G.id AND A.sub_category_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.sub_category_id = '$sub_category' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
@@ -3153,8 +3436,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount){
-
+	function Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3218,10 +3506,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";			
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3234,8 +3522,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount){
-
+	function Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3303,10 +3596,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3321,8 +3614,13 @@ public function __construct()
 	
 	
 	
-	function Report_location($from_date,$to_date,$paguthi){
-
+	function Report_location($from_date,$to_date,$paguthi,$dynamic_db)
+	{
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3377,7 +3675,7 @@ public function __construct()
 					A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
 		}
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
@@ -3391,8 +3689,13 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount){
-
+	function Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount,$dynamic_db)
+	{
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3452,10 +3755,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3469,8 +3772,13 @@ public function __construct()
 	}
 	
 	
-	function Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount){
-
+	function Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3534,10 +3842,10 @@ public function __construct()
 			$query= $cquery." LIMIT $offset, $rowcount";
 		}
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3552,8 +3860,13 @@ public function __construct()
 	
 	
 	
-	function Report_meetings($from_date,$to_date){
-
+	function Report_meetings($from_date,$to_date,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3578,7 +3891,7 @@ public function __construct()
 				ORDER BY
 					A.meeting_date
 				DESC";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
@@ -3593,8 +3906,14 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_meetingsnew($from_date,$to_date,$offset,$rowcount){
+	function Report_meetingsnew($from_date,$to_date,$offset,$rowcount,$dynamic_db)
+	{
 
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3622,10 +3941,10 @@ public function __construct()
 				
 		$query= $cquery." LIMIT $offset, $rowcount";
 				
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3638,8 +3957,13 @@ public function __construct()
 	}
 	
 	
-	function Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount){
-
+	function Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3668,10 +3992,10 @@ public function __construct()
 				
 		$query= $cquery." LIMIT $offset, $rowcount";
 				
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
 		
 		if($resultset->num_rows()>0)
@@ -3684,8 +4008,13 @@ public function __construct()
 	}
 	
 	
-	function Report_staff($from_date,$to_date){
-
+	function Report_staff($from_date,$to_date,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$dateTime1 = new DateTime($from_date);
 		$from_date=date_format($dateTime1,'Y-m-d' );
 		
@@ -3701,7 +4030,7 @@ public function __construct()
 				FROM constituent AS	ct
 				LEFT JOIN user_master AS um ON um.id = ct.created_by
 				WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date' GROUP BY ct.created_by";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		$report_result = $resultset->result();
 		
@@ -3715,11 +4044,16 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_birthday($selMonth){
-
+	function Report_birthday($selMonth,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$year = date("Y"); 
 		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$result_count = $resultset->num_rows();
 		if($resultset->num_rows()>0){
 			foreach ($resultset->result() as $rows)
@@ -3733,7 +4067,7 @@ public function __construct()
 				$pin_code = $rows->pin_code;
 				
 				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				$subQuery_result = $this->db->query($subQuery);
+				$subQuery_result = $this->app_db->query($subQuery);
 				if($subQuery_result->num_rows()>0){
 					foreach ($subQuery_result->result() as $rows1)
 					{
@@ -3767,18 +4101,24 @@ public function __construct()
 		return $response;
 	}
 	
-	function Report_birthdaynew($selMonth,$offset,$rowcount){
+	function Report_birthdaynew($selMonth,$offset,$rowcount,$dynamic_db)
+	{
 
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$year = date("Y"); 
 		
 		$cquery="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
 
 		$query= $cquery." LIMIT $offset, $rowcount";
 				
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		if($resultset->num_rows()>0){
 			foreach ($resultset->result() as $rows)
 			{
@@ -3791,7 +4131,7 @@ public function __construct()
 				$pin_code = $rows->pin_code;
 				
 				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				$subQuery_result = $this->db->query($subQuery);
+				$subQuery_result = $this->app_db->query($subQuery);
 				if($subQuery_result->num_rows()>0){
 					foreach ($subQuery_result->result() as $rows1)
 					{
@@ -3826,18 +4166,23 @@ public function __construct()
 	}
 	
 	
-	function Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount){
-
+	function Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$year = date("Y"); 	
 	
 		$cquery="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%')";
 		
 		$query= $cquery." LIMIT $offset, $rowcount";
 		
-		$resultset_count=$this->db->query($cquery);
+		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		if($resultset->num_rows()>0){
 			foreach ($resultset->result() as $rows)
 			{
@@ -3850,7 +4195,7 @@ public function __construct()
 				$pin_code = $rows->pin_code;
 				
 				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				$subQuery_result = $this->db->query($subQuery);
+				$subQuery_result = $this->app_db->query($subQuery);
 				if($subQuery_result->num_rows()>0){
 					foreach ($subQuery_result->result() as $rows1)
 					{
@@ -3887,10 +4232,15 @@ public function __construct()
 
 
 //#################### Category and Sub Category ####################//	
-	function Active_category()
+	function Active_category($user_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$category_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{
@@ -3901,10 +4251,15 @@ public function __construct()
 		return $response;
 	}
 	
-	function Active_subcategory()
+	function Active_subcategory($user_id,$dynamic_db)
 	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
 		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		$sub_category_result = $resultset->result();
 		if($resultset->num_rows()>0)
 			{

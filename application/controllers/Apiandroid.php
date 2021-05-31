@@ -10,9 +10,10 @@ class Apiandroid extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-		$this->load->model("apiandroidmodel");
-		$this->load->helper("url");
-		$this->load->library('session');
+		 $this->load->library('session');
+		 $this->load->helper(array('url','db_dynamic_helper')); 
+		 $this->load->model('apiandroidmodel');
+		
     }
 
 	public function checkMethod()
@@ -51,6 +52,27 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function chk_constituency_code()
+	{
+	   $_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituency_code = '';
+		$constituency_code = $this->input->post("constituency_code");
+		
+		$data['result']=$this->apiandroidmodel->chk_Constituency_code($constituency_code);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function login()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -64,15 +86,15 @@ class Apiandroid extends CI_Controller {
 		$password = '';
 		$gcmkey ='';
 		$mobiletype ='';
+		$dynamic_db = '';
 		
 		$username=$this->db->escape_str($this->input->post('user_name'));
 		$password=$this->db->escape_str($this->input->post('password'));
-		//$username = $this->input->post("user_name");
-		//$password = $this->input->post("password");
 		$gcmkey = $this->input->post("device_id");
 		$mobiletype = $this->input->post("mobile_type");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Login(strtoupper($username),strtoupper($password),$gcmkey,$mobiletype);
+		$data['result']=$this->apiandroidmodel->Login(strtoupper($username),strtoupper($password),$gcmkey,$mobiletype,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -89,10 +111,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$user_name = '';
-		$user_name=$this->db->escape_str($this->input->post('user_name'));
-		//$user_name = $this->input->post("user_name");
+		$dynamic_db = '';
 		
-		$data['result']=$this->apiandroidmodel->Forgot_password(strtoupper($user_name));
+		$user_name=$this->db->escape_str($this->input->post('user_name'));
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Forgot_password(strtoupper($user_name),$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -110,9 +134,12 @@ class Apiandroid extends CI_Controller {
 		}
 
         $user_id = '';
+		$dynamic_db = '';
+		
         $user_id = $this->input->post("user_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Profile_details($user_id);
+		$data['result']=$this->apiandroidmodel->Profile_details($user_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -132,9 +159,12 @@ class Apiandroid extends CI_Controller {
 		}
 
         $email = '';
+		$dynamic_db = '';
+		
         $email = $this->input->post("email");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Check_email(strtoupper($email));
+		$data['result']=$this->apiandroidmodel->Check_email(strtoupper($email),$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -155,10 +185,13 @@ class Apiandroid extends CI_Controller {
 
         $email = '';
 		$user_id ='';
+		$dynamic_db = '';
+		
 		$user_id = $this->input->post("user_id");
         $email = $this->input->post("email");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Check_emailedit($user_id,strtoupper($email));
+		$data['result']=$this->apiandroidmodel->Check_emailedit($user_id,strtoupper($email),$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -177,7 +210,10 @@ class Apiandroid extends CI_Controller {
 		}
 
         $phone = '';
+		$dynamic_db = '';
+		
         $phone = $this->input->post("phone");
+		$dynamic_db = $this->input->post("dynamic_db");
 
 		$data['result']=$this->apiandroidmodel->Check_phone($phone);
 		$response = $data['result'];
@@ -200,10 +236,13 @@ class Apiandroid extends CI_Controller {
 
         $phone = '';
 		$user_id ='';
+		$dynamic_db = '';
+		
 		$user_id = $this->input->post("user_id");
         $phone = $this->input->post("phone");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Check_phoneedit($user_id,$phone);
+		$data['result']=$this->apiandroidmodel->Check_phoneedit($user_id,$phone,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -227,6 +266,7 @@ class Apiandroid extends CI_Controller {
         $phone = '';
         $email = '';
         $gender = '';
+		$dynamic_db = '';
 
 		$user_id= $this->input->post('user_id');
 		$name=$this->input->post('name');
@@ -234,8 +274,9 @@ class Apiandroid extends CI_Controller {
 		$phone=$this->input->post('phone');
 		$email=$this->input->post('email');
 		$gender=$this->input->post('gender');
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Profile_update(strtoupper($name),strtoupper($address),$phone,strtoupper($email),$gender,$user_id);
+		$data['result']=$this->apiandroidmodel->Profile_update(strtoupper($name),strtoupper($address),$phone,strtoupper($email),$gender,$user_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -247,6 +288,7 @@ class Apiandroid extends CI_Controller {
     public function profilePictureUpload()
 	{
 		$user_id = $this->uri->segment(3);
+		$dynamic_db = $this->uri->segment(4);
 		
 		$profilepic = $_FILES['user_pic']['name'];
 		$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
@@ -255,7 +297,7 @@ class Apiandroid extends CI_Controller {
 		$profilepic = $uploaddir.$staff_prof_pic;
 		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
 
-		$data['result']=$this->apiandroidmodel->Update_profilepic($user_id,$staff_prof_pic);
+		$data['result']=$this->apiandroidmodel->Update_profilepic($user_id,$staff_prof_pic,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -276,12 +318,14 @@ class Apiandroid extends CI_Controller {
 		$user_id = '';
 		$newpassword = '';
 		$oldpassword = '';
+		$dynamic_db = '';
 
 		$user_id = $this->input->post("user_id");
 	 	$newpassword = $this->input->post("new_password");
 		$oldpassword = $this->input->post("old_password");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Change_password($user_id,$newpassword,$oldpassword);
+		$data['result']=$this->apiandroidmodel->Change_password($user_id,$newpassword,$oldpassword,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -300,9 +344,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituency_id = '';
+		$dynamic_db = '';
+		
 		$constituency_id = $this->input->post("constituency_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->List_paguthi($constituency_id);
+		$data['result']=$this->apiandroidmodel->List_paguthi($constituency_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -323,12 +370,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Dashboard($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Dashboard($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -349,12 +398,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_members($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_members($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -376,12 +427,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_grievances($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_grievances($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -403,12 +456,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_footfall($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_footfall($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -430,12 +485,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_meetings($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_meetings($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -455,12 +512,13 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
-
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
 
-		$data['result']=$this->apiandroidmodel->Widgets_volunteer($paguthi_id);
+		$data['result']=$this->apiandroidmodel->Widgets_volunteer($paguthi_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -481,12 +539,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_greetings($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_greetings($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -508,12 +568,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi_id = '';
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_videos($paguthi_id,$from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Widgets_videos($paguthi_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -533,9 +595,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi = '';
+		$dynamic_db = '';
+		
 		$paguthi = $this->input->post("paguthi");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_interactions($paguthi);
+		$data['result']=$this->apiandroidmodel->Widgets_interactions($paguthi,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -554,10 +619,13 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$keyword = '';
+		$dynamic_db = '';
+		
 		//$keyword = $this->input->post("keyword");
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Dashboard_search($keyword);
+		$data['result']=$this->apiandroidmodel->Dashboard_search($keyword,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -578,11 +646,15 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
+		
 		//$keyword = $this->input->post("keyword");
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->Dashboard_searchnew($keyword,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Dashboard_searchnew($keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -601,8 +673,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi = '';
+		$dynamic_db = '';
+		
 		$paguthi = $this->input->post("paguthi");
-		$data['result']=$this->apiandroidmodel->List_constituent($paguthi);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->List_constituent($paguthi,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -623,10 +699,14 @@ class Apiandroid extends CI_Controller {
 		$paguthi = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
+		
 		$paguthi = $this->input->post("paguthi");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->List_constituentnew($paguthi,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->List_constituentnew($paguthi,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -648,12 +728,16 @@ class Apiandroid extends CI_Controller {
 		$paguthi = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
+		
 		//$keyword = $this->input->post("keyword");
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$paguthi = $this->input->post("paguthi");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->List_constituentsearch($keyword,$paguthi,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->List_constituentsearch($keyword,$paguthi,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -672,8 +756,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_details($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_details($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -692,8 +780,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_meetings($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_meetings($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -712,8 +804,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$meeting_id = '';
+		$dynamic_db = '';
+		
 		$meeting_id = $this->input->post("meeting_id");
-		$data['result']=$this->apiandroidmodel->Constituent_meetingdetails($meeting_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_meetingdetails($meeting_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -732,8 +828,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_grievances($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_grievances($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -752,8 +852,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$grievance_id = '';
+		$dynamic_db = '';
+		
 		$grievance_id = $this->input->post("grievance_id");
-		$data['result']=$this->apiandroidmodel->Constituent_grievancedetails($grievance_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_grievancedetails($grievance_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -772,8 +876,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$grievance_id = '';
+		$dynamic_db = '';
+		
 		$grievance_id = $this->input->post("grievance_id");
-		$data['result']=$this->apiandroidmodel->Grievance_message($grievance_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Grievance_message($grievance_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -793,8 +901,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_interaction($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_interaction($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -813,8 +925,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_plant($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_plant($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -833,8 +949,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_documents($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_documents($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -854,8 +974,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituent_id = '';
+		$dynamic_db = '';
+		
 		$constituent_id = $this->input->post("constituent_id");
-		$data['result']=$this->apiandroidmodel->Constituent_grvdocuments($constituent_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Constituent_grvdocuments($constituent_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -874,9 +998,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$constituency_id = '';
-		$constituency_id = $this->input->post("constituency_id");
+		$dynamic_db = '';
 		
-		$data['result']=$this->apiandroidmodel->Meeting_request($constituency_id);
+		$constituency_id = $this->input->post("constituency_id");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Meeting_request($constituency_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -897,12 +1024,14 @@ class Apiandroid extends CI_Controller {
 		$constituency_id = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$constituency_id = $this->input->post("constituency_id");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Meeting_requestnew($constituency_id,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Meeting_requestnew($constituency_id,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -925,14 +1054,16 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$constituency_id = $this->input->post("constituency_id");
 		//$keyword = $this->input->post("keyword");
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Meeting_requestsearch($constituency_id,$keyword,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Meeting_requestsearch($constituency_id,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -951,8 +1082,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$meeting_id = '';
+		$dynamic_db = '';
+		
 		$meeting_id = $this->input->post("meeting_id");
-		$data['result']=$this->apiandroidmodel->Meeting_details($meeting_id);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Meeting_details($meeting_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -973,12 +1108,14 @@ class Apiandroid extends CI_Controller {
 		$user_id = '';
 		$meeting_id = '';
 		$status = '';
+		$dynamic_db = '';
 		
 		$user_id = $this->input->post("user_id");
 		$meeting_id = $this->input->post("meeting_id");
 		$status = $this->input->post("status");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Meeting_update($user_id,$meeting_id,strtoupper($status));
+		$data['result']=$this->apiandroidmodel->Meeting_update($user_id,$meeting_id,strtoupper($status),$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -998,10 +1135,13 @@ class Apiandroid extends CI_Controller {
 
 		$paguthi = '';
 		$grievance_type = '';
+		$dynamic_db = '';
+		
 		$paguthi = $this->input->post("paguthi");
 		$grievance_type = $this->input->post("grievance_type");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->List_grievance($paguthi,$grievance_type);
+		$data['result']=$this->apiandroidmodel->List_grievance($paguthi,$grievance_type,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1024,12 +1164,15 @@ class Apiandroid extends CI_Controller {
 		$grievance_type = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
+		
 		$paguthi = $this->input->post("paguthi");
 		$grievance_type = $this->input->post("grievance_type");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->List_grievancenew($paguthi,$grievance_type,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->List_grievancenew($paguthi,$grievance_type,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1053,14 +1196,17 @@ class Apiandroid extends CI_Controller {
 		$grievance_type = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
+		
 		//$keyword = $this->input->post("keyword");
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$paguthi = $this->input->post("paguthi");
 		$grievance_type = $this->input->post("grievance_type");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->List_grievancesearch($keyword,$paguthi,$grievance_type,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1080,8 +1226,9 @@ class Apiandroid extends CI_Controller {
 
 		$constituency_id = '';
 		$constituency_id = $this->input->post("constituency_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->List_staff($constituency_id);
+		$data['result']=$this->apiandroidmodel->List_staff($constituency_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1100,9 +1247,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$staff_id = '';
+		$dynamic_db = '';
+		
 		$staff_id = $this->input->post("staff_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Staff_details($staff_id);
+		$data['result']=$this->apiandroidmodel->Staff_details($staff_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1126,13 +1276,15 @@ class Apiandroid extends CI_Controller {
 		$to_date = '';
 		$status='';
 		$paguthi='';
+		$dynamic_db = '';
 		
 		 $from_date = $this->input->post("from_date");
 		 $to_date = $this->input->post("to_date");	
 		 $status=$this->input->post('status');
 		 $paguthi=$this->input->post('paguthi');
+		 $dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_status($from_date,$to_date,$status,$paguthi);
+		$data['result']=$this->apiandroidmodel->Report_status($from_date,$to_date,$status,$paguthi,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1156,6 +1308,7 @@ class Apiandroid extends CI_Controller {
 		$paguthi='';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
@@ -1163,8 +1316,9 @@ class Apiandroid extends CI_Controller {
 		$paguthi=$this->input->post('paguthi');
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1190,6 +1344,7 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
@@ -1199,7 +1354,9 @@ class Apiandroid extends CI_Controller {
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1222,12 +1379,14 @@ class Apiandroid extends CI_Controller {
 		$from_date = '';
 		$to_date = '';
 		$category='';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$category=$this->input->post('category');
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_category($from_date,$to_date,$category);
+		$data['result']=$this->apiandroidmodel->Report_category($from_date,$to_date,$category,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1250,14 +1409,16 @@ class Apiandroid extends CI_Controller {
 		$category='';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$category=$this->input->post('category');
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_categorynew($from_date,$to_date,$category,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_categorynew($from_date,$to_date,$category,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1281,6 +1442,7 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
@@ -1289,7 +1451,9 @@ class Apiandroid extends CI_Controller {
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1312,12 +1476,14 @@ class Apiandroid extends CI_Controller {
 		$from_date = '';
 		$to_date = '';
 		$sub_category='';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$sub_category=$this->input->post('sub_category');
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_subcategory($from_date,$to_date,$sub_category);
+		$data['result']=$this->apiandroidmodel->Report_subcategory($from_date,$to_date,$sub_category,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1340,14 +1506,16 @@ class Apiandroid extends CI_Controller {
 		$sub_category='';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$sub_category=$this->input->post('sub_category');
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1372,6 +1540,7 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
@@ -1380,7 +1549,9 @@ class Apiandroid extends CI_Controller {
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1403,12 +1574,14 @@ class Apiandroid extends CI_Controller {
 		$from_date = '';
 		$to_date = '';
 		$paguthi='';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$paguthi=$this->input->post('paguthi');
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_location($from_date,$to_date,$paguthi);
+		$data['result']=$this->apiandroidmodel->Report_location($from_date,$to_date,$paguthi,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1431,13 +1604,16 @@ class Apiandroid extends CI_Controller {
 		$paguthi='';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
 		$paguthi=$this->input->post('paguthi');
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1461,6 +1637,7 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");	
@@ -1469,7 +1646,9 @@ class Apiandroid extends CI_Controller {
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
-		$data['result']=$this->apiandroidmodel->Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount);
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1491,13 +1670,15 @@ class Apiandroid extends CI_Controller {
 
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_meetings($from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Report_meetings($from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1519,13 +1700,15 @@ class Apiandroid extends CI_Controller {
 		$to_date = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_meetingsnew($from_date,$to_date,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_meetingsnew($from_date,$to_date,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1548,6 +1731,7 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
@@ -1555,8 +1739,9 @@ class Apiandroid extends CI_Controller {
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1578,11 +1763,13 @@ class Apiandroid extends CI_Controller {
 
 		$from_date = '';
 		$to_date = '';
+		$dynamic_db = '';
 		
 		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
+		$to_date = $this->input->post("to_date");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_staff($from_date,$to_date);
+		$data['result']=$this->apiandroidmodel->Report_staff($from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1601,9 +1788,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$selMonth = '';
-		$selMonth = $this->input->post("select_month");
+		$dynamic_db = '';
 		
-		$data['result']=$this->apiandroidmodel->Report_birthday($selMonth);
+		$selMonth = $this->input->post("select_month");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_birthday($selMonth,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1624,12 +1814,14 @@ class Apiandroid extends CI_Controller {
 		$selMonth = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$selMonth = $this->input->post("select_month");
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_birthdaynew($selMonth,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_birthdaynew($selMonth,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1651,14 +1843,16 @@ class Apiandroid extends CI_Controller {
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
+		$dynamic_db = '';
 		
 		$selMonth = $this->input->post("select_month");
 		//$keyword = $this->input->post("keyword");
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount);
+		$data['result']=$this->apiandroidmodel->Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1677,9 +1871,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$user_id = '';
+		$dynamic_db = '';
+		
 		$user_id = $this->input->post("user_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Active_category($user_id);
+		$data['result']=$this->apiandroidmodel->Active_category($user_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1698,9 +1895,12 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$user_id = '';
+		$dynamic_db = '';
+		
 		$user_id = $this->input->post("user_id");
+		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Active_subcategory($user_id);
+		$data['result']=$this->apiandroidmodel->Active_subcategory($user_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
