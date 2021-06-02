@@ -65,7 +65,7 @@ class Apiconstituentios extends CI_Controller {
 		$dynamic_db = '';
 		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiiosmodel->chk_constituency_code($dynamic_db);
+		$data['result']=$this->apiconstituentmodel->chk_constituency_code($dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
