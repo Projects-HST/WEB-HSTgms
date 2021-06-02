@@ -65,7 +65,7 @@ class Apiconstituentios extends CI_Controller {
 		$constituency_code = '';
 		$constituency_code = $this->input->post("constituency_code");
 		
-		$data['result']=$this->apiconstituentmodel->chk_constituency_code($constituency_code);
+		$data['result']=$this->apiconstituentmodelios->chk_constituency_code($constituency_code);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
