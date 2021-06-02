@@ -15,6 +15,7 @@ class Apiconstituentios extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 	
+	
 	public function checkMethod()
 	{
 		if($_SERVER['REQUEST_METHOD'] != 'POST')
@@ -52,7 +53,7 @@ class Apiconstituentios extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function chk_dynamic_db()
+	public function chk_constituency_code()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
@@ -64,7 +65,7 @@ class Apiconstituentios extends CI_Controller {
 		$dynamic_db = '';
 		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiiosmodel->chk_Constituency_code($dynamic_db);
+		$data['result']=$this->apiiosmodel->chk_constituency_code($dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

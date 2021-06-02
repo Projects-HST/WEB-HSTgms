@@ -10,6 +10,7 @@ Class Apiconstituentmodelios extends CI_Model
 		$this->load->model("smsmodel");
 	}
 
+
     //-------------------- Version check -------------------//
 	function version_check($version_code)
 	{
@@ -24,7 +25,7 @@ Class Apiconstituentmodelios extends CI_Model
 	
 //#################### Constituency code ####################//
 
-	public function chk_Constituency_code($constituency_code)
+	public function chk_constituency_code($constituency_code)
 	{
 		$dynamic_db_name = array("dynamic_db"  => 'sanzhapp_'.$constituency_code);
 		
