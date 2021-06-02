@@ -29,7 +29,7 @@ Class Apiconstituentmodel extends CI_Model
 	{
 		$dynamic_db_name = array("dynamic_db"  => 'sanzhapp_'.$constituency_code);
 		
-		$sql = "SELECT A.institute_code,A.enc_institute_code,B.institute_name,B.institute_logo FROM institute_master A,institute_details B WHERE A.institute_code ='".$constituency_code."' AND A.id = B.institute_master_id AND A.status='Active'";
+		echo $sql = "SELECT A.institute_code,A.enc_institute_code,B.institute_name,B.institute_logo FROM institute_master A,institute_details B WHERE A.institute_code ='".$constituency_code."' AND A.id = B.institute_master_id AND A.status='Active'";
 		$user_result = $this->db->query($sql);
 		$ress = $user_result->result();
 		
