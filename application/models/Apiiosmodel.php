@@ -28,7 +28,18 @@ class Apiiosmodel extends CI_Model {
 	{
 		$dynamic_db_name = array("dynamic_db"  => 'sanzhapp_'.$constituency_code);
 		
-		$sql = "SELECT * FROM gms_consty_user_master WHERE consituency_code ='".$constituency_code."' AND status='Active'";
+		$sql = "SELECT
+					B.constituency_name,
+					A.consituency_code,
+					A.party_name,
+					A.contact_person,
+					A.email_id,
+					A.mobile
+				FROM
+					gms_consty_user_master A,
+					gms_consty_master B
+				WHERE
+					A.consituency_code = '".$constituency_code."' AND A.consituency_id = B.id AND A.status = 'Active'";
 		$user_result = $this->db->query($sql);
 		$ress = $user_result->result();
 		
