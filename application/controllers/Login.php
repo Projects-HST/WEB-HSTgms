@@ -5,11 +5,22 @@ class Login extends CI_Controller {
 
 	function __construct() {
 		 parent::__construct();
-			$this->load->helper("url");
-			$this->load->library('session');
+/* 			$this->load->library('session');
 			$this->load->library('session');
 			$this->load->model('loginmodel');
 			$this->load->model('usermodel');
+			$this->load->helper(array('url','db_dynamic_helper')); */
+			
+		 $this->load->library('session');
+		 $this->load->helper(array('url','db_dynamic_helper'));
+		 
+		 $name_db=$this->session->userdata('consituency_code');
+		 $config_app = switch_maindb($name_db);
+		 $this->app_db = $this->load->database($config_app, TRUE); 
+		 
+		 $this->load->model(array('loginmodel','usermodel'));
+         $this->loginmodel->app_db = $this->load->database($config_app,TRUE);
+		 $this->usermodel->app_db = $this->load->database($config_app,TRUE);
 	}
 
 	public function index()
@@ -20,15 +31,39 @@ class Login extends CI_Controller {
 			if($user_id){
 				redirect(base_url().'dashboard');
 			}else{
-				$this->load->view('login');
+				$this->load->view('index');
 			}
 	}
 
+	public function valid_code()
+	{
+		$cons_code = $this->input->post('cons_code');
+		$result = $this->loginmodel->valid_code($cons_code);
+
+		if($result['status']=='Active'){
+			redirect(base_url().'login/user_login');
+		} else {
+			$this->session->set_flashdata('msg', 'Invalid Institute Code!');
+			redirect('/');
+		}
+	}
+
+	public function user_login()
+	{
+		$user_id=$this->session->userdata('user_id');
+		$institute_code = $this->session->userdata('institute_code');
+
+		if($user_id){
+			redirect(base_url().'dashboard');
+		}else{
+			$this->load->view('login');
+		}		
+	}
 
 	public function login_check(){
 
-		$username=$this->input->post('username');
-		$password=$this->input->post('password');
+		 $username=$this->input->post('username');
+		 $password=$this->input->post('password');
 
 		$result = $this->loginmodel->login(strtoupper($username),strtoupper($password));
 

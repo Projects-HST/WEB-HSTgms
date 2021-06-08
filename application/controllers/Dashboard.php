@@ -4,15 +4,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dashboard extends CI_Controller {
 	function __construct() {
 		 parent::__construct();
-			$this->load->helper("url");
+			//$this->load->helper("url");
+			//$this->load->helper('form');
+/* 			
+			
 			$this->load->library('session');
+			
 			$this->load->model('usermodel');
 			$this->load->model('dashboardmodel');
 			$this->load->model('constituentmodel');
 			$this->load->model('mastermodel');
-			$this->load->model('usermodel');
+			$this->load->model('usermodel'); */
+			
+			
+			
+			$this->load->library('session');
 			$this->load->library('pagination');
-			$this->load->helper('form');
+			$this->load->helper(array('url','form','db_dynamic_helper'));
+
+			$name_db=$this->session->userdata('consituency_code');
+			$config_app = switch_maindb($name_db);
+			$this->app_db = $this->load->database($config_app, TRUE); 
+
+			$this->load->model(array('dashboardmodel','usermodel','constituentmodel','mastermodel','usermodel'));
+			$this->dashboardmodel->app_db = $this->load->database($config_app,TRUE);
+			$this->usermodel->app_db = $this->load->database($config_app,TRUE);
+			$this->constituentmodel->app_db = $this->load->database($config_app,TRUE);
+			$this->mastermodel->app_db = $this->load->database($config_app,TRUE);
+			$this->usermodel->app_db = $this->load->database($config_app,TRUE);
+		
+			
  }
 
 	public function index()

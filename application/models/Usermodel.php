@@ -11,48 +11,48 @@ Class Usermodel extends CI_Model
 	function list_role()
 	{
 		$query="SELECT * FROM `role_master` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function list_paguthi()
 	{
 		$query="SELECT * FROM `paguthi` WHERE constituency_id='1' AND status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function list_office()
 	{
 		$query="SELECT * FROM `office` WHERE  status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function list_seeker()
 	{
 		$query="SELECT * FROM `seeker_type` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function list_category()
 	{
 		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function list_subcategory()
 	{
 		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function checkemail($email){
 	$select="SELECT * FROM user_master WHERE email_id='$email'";
-	$result=$this->db->query($select);
+	$result=$this->app_db->query($select);
 		if($result->num_rows()>0){
 			echo "false";
 		}else{
@@ -62,7 +62,7 @@ Class Usermodel extends CI_Model
 
 	function checkphone($phone){
 	$select="SELECT * FROM user_master WHERE phone_number='$phone'";
-	$result=$this->db->query($select);
+	$result=$this->app_db->query($select);
 		if($result->num_rows()>0){
 			echo "false";
 		}else{
@@ -74,7 +74,7 @@ Class Usermodel extends CI_Model
 	function add_users($role,$paguthi,$office_id,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$user_id) {
 
 		$select="SELECT * FROM user_master WHERE email_id='$email' AND pugathi_id = '$paguthi'";
-		$result=$this->db->query($select);
+		$result=$this->app_db->query($select);
 
        if($result->num_rows()>0){
 			 $data = array(
@@ -88,7 +88,7 @@ Class Usermodel extends CI_Model
 			$md5pwd=md5($OTP);
 
 			$insert="INSERT INTO user_master (constituency_id,pugathi_id,office_id,role_id,full_name,phone_number,email_id,password,gender,address,profile_pic,status,created_by,created_at) VALUES ('1','$paguthi','$office_id','$role','$name','$mobile','$email','$md5pwd','$gender','$address','$staff_prof_pic','$status','$user_id',NOW())";
-			$result=$this->db->query($insert);
+			$result=$this->app_db->query($insert);
 
 			$subject ='GMS - Staff Login Details';
 			$htmlContent = '<html>
@@ -127,19 +127,19 @@ Class Usermodel extends CI_Model
 				paguthi B
 			WHERE
 				A.id!='1' AND A.pugathi_id = B.id";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function users_details($staff_id){
 		$query="SELECT * FROM `user_master` WHERE id='$staff_id'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function checkemail_edit($email,$staff_id){
 	$select="SELECT * FROM user_master WHERE email_id='$email' AND id!='$staff_id'";
-	$result=$this->db->query($select);
+	$result=$this->app_db->query($select);
 		if($result->num_rows()>0){
 			echo "false";
 		}else{
@@ -149,7 +149,7 @@ Class Usermodel extends CI_Model
 
 	function checkphone_edit($phone,$staff_id){
 	 $select="SELECT * FROM user_master WHERE phone_number='$phone' AND id!='$staff_id'";
-	$result=$this->db->query($select);
+	$result=$this->app_db->query($select);
 		if($result->num_rows()>0){
 			echo "false";
 		}else{
@@ -160,7 +160,7 @@ Class Usermodel extends CI_Model
 	function update_user($role,$paguthi,$office_id,$name,$email,$mobile,$address,$gender,$status,$staff_prof_pic,$staff_id,$user_id){
 
 		$sQuery = "SELECT * FROM user_master WHERE id = '$staff_id'";
-		$user_result = $this->db->query($sQuery);
+		$user_result = $this->app_db->query($sQuery);
 		$ress = $user_result->result();
 		if($user_result->num_rows()>0)
 		{
@@ -174,7 +174,7 @@ Class Usermodel extends CI_Model
 		if ($old_email_id != $email){
 
 			$update_user="UPDATE user_master SET pugathi_id='$paguthi',office_id='$office_id',role_id='$role',full_name='$name',email_id='$email',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
-			$result_user=$this->db->query($update_user);
+			$result_user=$this->app_db->query($update_user);
 
 			$subject ='GMS - Staff Login - Username Updated';
 			$htmlContent = '<html>
@@ -196,7 +196,7 @@ Class Usermodel extends CI_Model
 
 		}else if  ($old_phone != $mobile) {
 				$update_user="UPDATE user_master SET pugathi_id='$paguthi',office_id='$office_id',role_id='$role',full_name='$name',phone_number='$mobile',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
-				$result_user=$this->db->query($update_user);
+				$result_user=$this->app_db->query($update_user);
 				$subject ='GMS - Staff Login - Phone number Updated';
 				$htmlContent = '<html>
 								<head> <title></title>
@@ -216,7 +216,7 @@ Class Usermodel extends CI_Model
 				$this->smsmodel->sendSMS($mobile,$smsContent);
 		}else {
 			$update_user="UPDATE user_master SET pugathi_id='$paguthi',office_id='$office_id',role_id='$role',full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
-			$result_user=$this->db->query($update_user);
+			$result_user=$this->app_db->query($update_user);
 		}
 
 		if ($result_user) {

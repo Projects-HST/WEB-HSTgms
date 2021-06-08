@@ -8,11 +8,31 @@ Class Loginmodel extends CI_Model
 		$this->load->model('smsmodel');
 	}
 
+//------------Connect Master DB ---------------//
+	function valid_code($cons_code)
+	{
+		 $query = "SELECT * FROM gms_consty_user_master WHERE consituency_code = '$cons_code' AND status = 'Active'";
+		 $resultset=$this->db->query($query);
+		 if($resultset->num_rows()>0){
+			 $data = array("consituency_code"  => 'sanzhapp_'.$cons_code);
+			 //$data = array("institute_code"  => 'gms');
+			 $this->session->set_userdata($data);
+			 $data= array("status" => "Active","msg" => "Your Account Is Active");
+			 return $data;
+		 } else {
+			 $data= array("status" => "Deactive","msg" => "Your Account Is De-Activated");
+			 return $data;
+		 }
+		$this->db->close();
+	}
+//------------Connect Master DB End---------------// 
+
 	function login($username,$password)
 	{
-		$pwd=md5($password);
-		$chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$pwd'";
-		$res=$this->db->query($chkUser);
+		 $pwd = md5($password);
+		 $chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$pwd'";
+		//$resultset=$this->app_db->query($query);
+		$res=$this->app_db->query($chkUser);
 		if($res->num_rows()>0){
 		   foreach($res->result() as $rows)
 		   {
@@ -33,7 +53,7 @@ Class Loginmodel extends CI_Model
 
 	function forgot_password($user_name){
          $query="SELECT * FROM user_master WHERE email_id='$user_name'";
-         $result=$this->db->query($query);
+         $result=$this->app_db->query($query);
          if($result->num_rows()>0){
 			 foreach($result->result() as $row){
 				 $user_id = $row->id;
@@ -47,7 +67,7 @@ Class Loginmodel extends CI_Model
 			 $reset_pwd = md5($OTP);
 
 			$reset="UPDATE user_master SET password ='$reset_pwd' WHERE id='$user_id'";
-			$result_pwd=$this->db->query($reset);
+			$result_pwd=$this->app_db->query($reset);
 
 			 $subject = 'GMS - Forgot Password';
              $htmlContent = '<html>
@@ -75,14 +95,14 @@ Class Loginmodel extends CI_Model
 
 	function profile($user_id){
 		$query="SELECT * FROM `user_master` WHERE id='$user_id'";
-		$resultset=$this->db->query($query);
+		$resultset=$this->app_db->query($query);
 		return $resultset->result();
 	}
 
 	function profile_update($name,$address,$phone,$email,$gender,$staff_prof_pic,$user_id){
 
 		$sQuery = "SELECT * FROM user_master WHERE id = '$user_id'";
-		$user_result = $this->db->query($sQuery);
+		$user_result = $this->app_db->query($sQuery);
 		$ress = $user_result->result();
 		if($user_result->num_rows()>0)
 		{
@@ -98,7 +118,7 @@ Class Loginmodel extends CI_Model
 			if ($old_email_id != $email){
 
 				 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',email_id='$email',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-				$result = $this->db->query($update);
+				$result = $this->app_db->query($update);
 				$subject ='GMS - Staff Login - Username Updated';
 				$htmlContent = '<html>
 								<head> <title></title>
@@ -117,14 +137,14 @@ Class Loginmodel extends CI_Model
 				$this->smsmodel->sendSMS($phone,$smsContent);
 			}else {
 				$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-				$result = $this->db->query($update);
+				$result = $this->app_db->query($update);
 			}
 		}
 
 		if  ($phone!=""){
 				if ($old_phone != $phone) {
 					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',phone_number='$phone',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-					$result = $this->db->query($update);
+					$result = $this->app_db->query($update);
 					$subject ='GMS - Staff Login - Phone number Updated';
 					$htmlContent = '<html>
 									<head> <title></title>
@@ -144,14 +164,14 @@ Class Loginmodel extends CI_Model
 					$this->smsmodel->sendSMS($phone,$smsContent);
 				} else {
 					$update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-					$result = $this->db->query($update);
+					$result = $this->app_db->query($update);
 				}
 		}
 
 		if ($email =="" && $phone =="")
 		{
 			 $update = "UPDATE user_master SET full_name='$name',gender='$gender',address='$address',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$user_id'";
-			$result = $this->db->query($update);
+			$result = $this->app_db->query($update);
 		}
 
 		if ($result) {
@@ -167,7 +187,7 @@ Class Loginmodel extends CI_Model
 	function check_password_match($old_password,$user_id){
 		$pwd=md5($old_password);
 		$select="SELECT * FROM user_master WHERE password='$pwd' AND id='$user_id'";
-		$result=$this->db->query($select);
+		$result=$this->app_db->query($select);
 	   if($result->num_rows()==0){
 			echo "false";
 		 }else{
@@ -178,10 +198,10 @@ Class Loginmodel extends CI_Model
 	function password_update($new_password,$user_id,$user_type){
 		$pwd = md5($new_password);
 		$query="UPDATE user_master SET password='$pwd', updated_at=NOW() WHERE id='$user_id'";
-		$ex = $this->db->query($query);
+		$ex = $this->app_db->query($query);
 
 		$sQuery = "SELECT * FROM user_master WHERE `id` = '$user_id'";
-		$user_result = $this->db->query($sQuery);
+		$user_result = $this->app_db->query($sQuery);
 		$ress = $user_result->result();
 		if($user_result->num_rows()>0)
 		{

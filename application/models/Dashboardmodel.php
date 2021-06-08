@@ -13,7 +13,7 @@ Class Dashboardmodel extends CI_Model
 		// $query="SELECT c.paguthi_id,p.paguthi_name  FROM constituent as c
 		// left join paguthi as p on p.id=c.paguthi_id GROUP by paguthi_id";
 		$query="SELECT id as paguthi_id,paguthi_name  FROM paguthi where status='ACTIVE'";
-		$res=$this->db->query($query);
+		$res=$this->app_db->query($query);
 		return $result=$res->result();
 	}
 
@@ -97,7 +97,7 @@ Class Dashboardmodel extends CI_Model
 			from  constituent $quer_paguthi $quer_office $quer_date";
 
 
-			$res=$this->db->query($query);
+			$res=$this->app_db->query($query);
 			return $result=$res->result();
 
 	}
@@ -193,14 +193,14 @@ Class Dashboardmodel extends CI_Model
 						FROM meeting_request as mr
             left join constituent as c on c.id=mr.constituent_id $quer_paguthi_cons $quer_office_cons $quer_mr_date";
 
-			$res_3=$this->db->query($query_3);
+			$res_3=$this->app_db->query($query_3);
 			$result_3=$res_3->result();
 
 		 $query_4="SELECT IFNULL(count(*),'0') as birth_wish_count
 						FROM consitutent_birthday_wish as br
 						left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_office_cons $quer_bw_date";
 
-			$res_4=$this->db->query($query_4);
+			$res_4=$this->app_db->query($query_4);
 			$result_4=$res_4->result();
 
 
@@ -218,17 +218,17 @@ Class Dashboardmodel extends CI_Model
 			left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_cons
 			left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
 			GROUP BY o.id";
-			$res_5=$this->db->query($query_5);
+			$res_5=$this->app_db->query($query_5);
 			$result_5=$res_5->result();
 
 			 // $query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons $quer_fw_date GROUP BY fw.constituent_id";
 			 $query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office_cons $quer_fw_date";
 
-			$res_6=$this->db->query($query_6);
+			$res_6=$this->app_db->query($query_6);
 			$result_6=$res_6->result();
 
 
-			$query_7=$this->db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw
+			$query_7=$this->app_db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw
 			left join festival_master as fm on fm.id=fw.festival_id
 			left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_office_cons $quer_fw_date
 			GROUP BY fw.festival_id");
@@ -266,25 +266,25 @@ Class Dashboardmodel extends CI_Model
 
 
 	
-		$query_2=$this->db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_office $quer_date");
+		$query_2=$this->app_db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_office $quer_date");
 		$result_2=$query_2->result();
 
-		$query_3=$this->db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
+		$query_3=$this->app_db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_3=$query_3->result();
 
-		$query_4=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_4=$this->app_db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_4=$query_4->result();
 
-		$query_1=$this->db->query("SELECT
+		$query_1=$this->app_db->query("SELECT
 		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
 		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
 		FROM grievance as g where g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_1=$query_1->result();
 
-		$query_1_1=$this->db->query("SELECT
+		$query_1_1=$this->app_db->query("SELECT
 		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
 		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
 		FROM grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_office $quer_date");
@@ -292,14 +292,14 @@ Class Dashboardmodel extends CI_Model
 		
 		
 
-		//$query_5=$this->db->query("SELECT count(*) as online_enquiry_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
+		//$query_5=$this->app_db->query("SELECT count(*) as online_enquiry_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
 		//$result_5=$query_5->result();
 
-		$query_6=$this->db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
+		$query_6=$this->app_db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_6=$query_6->result();
 
 
-		$query_7=$this->db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_7=$this->app_db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
@@ -307,13 +307,13 @@ Class Dashboardmodel extends CI_Model
 
 
 
-		//$query_8=$this->db->query("SELECT count(*) as civic_enquiry_count FROM grievance as g where g.seeker_type_id='2' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
+		//$query_8=$this->app_db->query("SELECT count(*) as civic_enquiry_count FROM grievance as g where g.seeker_type_id='2' and g.grievance_type='E' $quer_paguthi $quer_office $quer_date");
 		//$result_8=$query_8->result();
 
-		$query_9=$this->db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
+		$query_9=$this->app_db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
 		$result_9=$query_9->result();
 
-		$query_10=$this->db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
+		$query_10=$this->app_db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
 				IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
 				IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
 		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_office $quer_date");
@@ -364,64 +364,64 @@ Class Dashboardmodel extends CI_Model
 		
 		
 		$query_1="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_1=$this->db->query($query_1);
+		$result_1=$this->app_db->query($query_1);
 		$cons_footfall_cnt = $result_1->num_rows();
 		
 		$query_2="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_2=$this->db->query($query_2);
+		$result_2=$this->app_db->query($query_2);
 		$other_footfall_cnt = $result_2->num_rows();
 		
 		
 
-/* 		$query_1=$this->db->query("SELECT count(*) as cons_footfall_cnt from grievance as g where g.constituency_id='$cons_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date");
+/* 		$query_1=$this->app_db->query("SELECT count(*) as cons_footfall_cnt from grievance as g where g.constituency_id='$cons_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date");
 		$result_1=$query_1->result();
 		
-		$query_2=$this->db->query("SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date ");
+		$query_2=$this->app_db->query("SELECT count(*) as other_footfall_cnt from grievance as g where g.constituency_id='$others_id' and g.repeated_status='N' $quer_paguthi $quer_office $quer_date ");
 		$result_2=$query_2->result(); */
 
 		$query_3="SELECT * from grievance as g where g.repeated_status ='N' $quer_cons $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_3=$this->db->query($query_3);
+		$result_3=$this->app_db->query($query_3);
 		$unique_cnt = $result_3->num_rows();
 		
 		$query_4="SELECT * from grievance as g where g.repeated_status ='R' $quer_cons $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_4=$this->db->query($query_4);
+		$result_4=$this->app_db->query($query_4);
 		$repeated_cnt = $result_4->num_rows();
 		
 		
-		/* $query_3=$this->db->query("SELECT count(*) as unique_cnt FROM grievance as g where repeated_status='N' $quer_cons $quer_paguthi $quer_office $quer_date");
+		/* $query_3=$this->app_db->query("SELECT count(*) as unique_cnt FROM grievance as g where repeated_status='N' $quer_cons $quer_paguthi $quer_office $quer_date");
 		$result_3=$query_3->result();
 
-		$query_4=$this->db->query("SELECT count(*) as repeated_cnt FROM grievance as g where repeated_status='R' $quer_cons $quer_paguthi $quer_office $quer_date");
+		$query_4=$this->app_db->query("SELECT count(*) as repeated_cnt FROM grievance as g where repeated_status='R' $quer_cons $quer_paguthi $quer_office $quer_date");
 		$result_4=$query_4->result(); */
 
 
 		$query_5="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_5=$this->db->query($query_5);
+		$result_5=$this->app_db->query($query_5);
 		$sing_unique_cnt = $result_5->num_rows();
 		
 		$query_6="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='R' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_6=$this->db->query($query_6);
+		$result_6=$this->app_db->query($query_6);
 		$sing_repeted_cnt = $result_6->num_rows();
 		
 		
-		/* $query_6=$this->db->query("SELECT count(*) as new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
+		/* $query_6=$this->app_db->query("SELECT count(*) as new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
 		$result_6=$query_6->result();
 		
-		$query_5=$this->db->query("SELECT count(*) as cons_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
+		$query_5=$this->app_db->query("SELECT count(*) as cons_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$cons_id' $quer_paguthi $quer_office $quer_date");
 		$result_5=$query_5->result(); */
 
 		$query_7="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_7=$this->db->query($query_7);
+		$result_7=$this->app_db->query($query_7);
 		$other_unique_cnt = $result_7->num_rows();
 		
 		$query_8="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='R' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
-		$result_8=$this->db->query($query_8);
+		$result_8=$this->app_db->query($query_8);
 		$other_repeted_cnt = $result_8->num_rows();
 
-		/* $query_8=$this->db->query("SELECT count(*) as other_new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
+		/* $query_8=$this->app_db->query("SELECT count(*) as other_new_cnt FROM grievance as g where g.repeated_status='N' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
 		$result_8=$query_8->result();
 		
-		$query_7=$this->db->query("SELECT count(*) as other_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
+		$query_7=$this->app_db->query("SELECT count(*) as other_repeated_cnt FROM grievance as g where g.repeated_status='R' and g.constituency_id='$others_id' $quer_paguthi $quer_office $quer_date");
 		$result_7=$query_7->result(); */
 	
 
@@ -494,7 +494,7 @@ Class Dashboardmodel extends CI_Model
 		FROM grievance as g
 		left join constituent as c on c.id=g.constituent_id $quer_date $quer_paguthi $quer_office group by g.grievance_date order by g.grievance_date asc ";
 
-		$res=$this->db->query($query);
+		$res=$this->app_db->query($query);
 		return $result=$res->result();
 	}
 
@@ -516,7 +516,7 @@ Class Dashboardmodel extends CI_Model
 					c.id
 				DESC";
 
-				$result=$this->db->query($query);
+				$result=$this->app_db->query($query);
 				return $result->result();
 			}
 
@@ -526,7 +526,7 @@ Class Dashboardmodel extends CI_Model
 		$selecting_data="SELECT cc.* FROM constituent_copy as cc
 		left join constituent as c on c.voter_id_no=cc.voter_id_no
 		where cc.voter_id_no!='' and c.voter_id_no!='' and cc.id BETWEEN $first_id AND $second_id";
-		$result=$this->db->query($selecting_data);
+		$result=$this->app_db->query($selecting_data);
 		foreach($result->result() as $row_result){
 
 		$update_1="UPDATE constituent_new SET
@@ -561,11 +561,11 @@ Class Dashboardmodel extends CI_Model
 		profile_pic='$row_result->profile_pic',
 		status='$row_result->status'
 		where voter_id_no='$row_result->voter_id_no'";
-		$result_1=$this->db->query($update_1);
+		$result_1=$this->app_db->query($update_1);
 
 
 		$update_2="UPDATE constituent_copy SET constituent_id='$row_result->id' WHERE voter_id_no='$row_result->voter_id_no'";
-		$result_2=$this->db->query($update_2);
+		$result_2=$this->app_db->query($update_2);
 
 
 		}
