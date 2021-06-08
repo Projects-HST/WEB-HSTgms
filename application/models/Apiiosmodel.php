@@ -64,6 +64,17 @@ class Apiiosmodel extends CI_Model {
 		$this->app_db = $this->load->database($config_app, TRUE); 
 		//---------Dynamic DB Connection----------//
 		
+		$select="SELECT * FROM colour_codes WHERE selected_status ='Y'";
+		$result=$this->app_db->query($select);
+		if($result->num_rows()>0){
+			foreach ($result->result() as $rows)
+			{
+				$base_colour = $rows->colour_code ;
+			}
+		}else{
+				$base_colour = '#1271b5' ;
+		}
+		
 	    $sql = "SELECT * FROM user_master WHERE (email_id ='$username' OR phone_number = '$username') AND password = md5('".$password."')";
 		$user_result = $this->app_db->query($sql);
 		$ress = $user_result->result();
@@ -80,7 +91,7 @@ class Apiiosmodel extends CI_Model {
 				  $user_id = $rows->id;
 				  $login_count = $rows->login_count+1;
 				  $profile_pic = $rows->profile_pic ;
-				  $base_colour = "#1271b5";
+				  $base_colour = $base_colour;
 				}
 				
 				if ($profile_pic != ''){

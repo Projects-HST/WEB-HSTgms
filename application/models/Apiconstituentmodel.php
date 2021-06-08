@@ -104,6 +104,17 @@ Class Apiconstituentmodel extends CI_Model
 		$this->app_db = $this->load->database($config_app, TRUE); 
 		//---------Dynamic DB Connection----------//
 		
+		$select="SELECT * FROM colour_codes WHERE selected_status ='Y'";
+		$result=$this->app_db->query($select);
+		if($result->num_rows()>0){
+			foreach ($result->result() as $rows)
+			{
+				$base_colour = $rows->colour_code ;
+			}
+		}else{
+				$base_colour = '#1271b5' ;
+		}
+		
 		$select="SELECT id,full_name,father_husband_name,guardian_name,mobile_no,mobile_otp,serial_no,dob,profile_pic FROM constituent where mobile_no='$mobile_no' and mobile_otp='$otp'";
 		$res=$this->app_db->query($select);
 		if($res->num_rows()!=0){
@@ -135,7 +146,6 @@ Class Apiconstituentmodel extends CI_Model
 			$pic=base_url().'assets/constituent/'.$rows->profile_pic;
 		  }
 		  
-		  $base_colour = "#1271b5";
 		  $user_details[]=array(
 			'id'=>$rows->id,
 			'full_name'=>$rows->full_name,
