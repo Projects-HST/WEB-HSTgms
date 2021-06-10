@@ -689,61 +689,62 @@ function moneyFormatIndia($num) {
 
 
   <script type="text/javascript">
-
-  wpac_init = window.wpac_init || [];
+ /*  wpac_init = window.wpac_init || [];
   wpac_init.push({widget: 'Comment', id: 12345});
   (function() {
     if ('WIDGETPACK_LOADED' in window) return;
-    WIDGETPACK_LOADED = true;
-    var mc = document.createElement('script');
-    mc.type = 'text/javascript';
-    mc.async = true;
-    mc.src = 'https://embed.widgetpack.com/widget.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+		WIDGETPACK_LOADED = true;
+		var mc = document.createElement('script');
+		mc.type = 'text/javascript';
+		mc.async = true;
+		mc.src = 'https://embed.widgetpack.com/widget.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
   })();
-  </script>
-<script type="text/javascript">
-    	wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJn1KhaldXqDsRNVjdn9pNI7E', view_mode: 'list',el: 'comments2', chan: '3'});
-		wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJewDaUDlXqDsR7e2v19vPsZk', view_mode: 'list',el: 'comments3', chan: '3'});
+
+	wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJn1KhaldXqDsRNVjdn9pNI7E', view_mode: 'list',el: 'comments2', chan: '3'});
+	wpac_init.push({widget: 'GoogleReview', id: 27611, place_id: 'ChIJewDaUDlXqDsR7e2v19vPsZk', view_mode: 'list',el: 'comments3', chan: '3'}); */
 
   </script>
+  
+  
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <!-- <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script> -->
 
     <script type="text/javascript">
-		 google.charts.load('current', {packages: ['corechart','line']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-            // Define the chart to be drawn.
-            var data = new google.visualization.DataTable();
-						data.addColumn('string', 'Day');
-            data.addColumn('number', 'UNIQUE');
-            data.addColumn('number', 'Repeated');
-            data.addColumn('number', 'Total');
-						// dataTable.addColumn({type: 'string', role: 'tooltip'});
+		google.charts.load('current', {packages: ['corechart','line']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+		// Define the chart to be drawn.
+		var data = new google.visualization.DataTable();
+					data.addColumn('string', 'Day');
+		data.addColumn('number', 'UNIQUE');
+		data.addColumn('number', 'Repeated');
+		data.addColumn('number', 'Total');
+					// dataTable.addColumn({type: 'string', role: 'tooltip'});
 
-            data.addRows([
-					<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
-						['<?= $rows_graph->day_name ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
-					<?php $i++; } ?>
-            ]);
-
-
-						var options = {
-						               'width':1024,
-						               'height':500,
-						               pointsVisible: true,
-													 focusTarget: 'category'
-													 // legend: 'none'
+		data.addRows([
+				<?php $i=1; foreach($footfall_result as $rows_graph){ ?>
+					['<?= $rows_graph->day_name ?>',  <?= $rows_graph->unique_count ;?>,<?= $rows_graph->repeat_count ;?>,<?= $rows_graph->total ;?>],
+				<?php $i++; } ?>
+		]);
 
 
-						            };
+		var options = {
+			   'width':1024,
+			   'height':500,
+			   pointsVisible: true,
+							 focusTarget: 'category'
+							 // legend: 'none'
 
-						            // Instantiate and draw the chart.
-          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-          chart.draw(data, options);
-       }
-       google.charts.setOnLoadCallback(drawChart);
+
+			};
+
+	// Instantiate and draw the chart.
+	  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+	  chart.draw(data, options);
+   }
+	   
+   google.charts.setOnLoadCallback(drawChart);
 
 $.validator.addMethod("chkDates", function(value, element) {
 		var startDate = $('#from_date').val();
@@ -756,74 +757,79 @@ $.validator.addMethod("chkDates", function(value, element) {
 
 		return Date.parse(frm_date) <= Date.parse(to_date) || value == "";
 	}, "Please check dates");
-$('#from_date').datetimepicker({
-      format: 'DD-MM-YYYY'
-});
-$('#to_date').datetimepicker({
-      format: 'DD-MM-YYYY'
+	
+	$('#from_date').datetimepicker({
+		  format: 'DD-MM-YYYY'
+	});
+	$('#to_date').datetimepicker({
+		  format: 'DD-MM-YYYY'
 
-});
-$('#result_form').validate({
-     rules: {
-         // paguthi_id:{required:true },
-				 from_date:{ required: function(element){
-            return $("#to_date").val().length > 0; }},
-				to_date:{ required: function(element){
-	         return $("#from_date").val().length > 0; },chkDates: "#from_date"},
-     },
-     messages: {
+	});
+
+	$('#result_form').validate({
+		 rules: {
+		 // paguthi_id:{required:true },
+			from_date:{ required: function(element){
+			return $("#to_date").val().length > 0; }},
+			to_date:{ required: function(element){
+			return $("#from_date").val().length > 0; },chkDates: "#from_date"},
+		 },
+		 messages: {
 			 from_date:{required:"Select From Date"},
 			 to_date:{required:"Select TO Date"}
-         }
- });
+		}
+	 });
 
- function get_paguthi(sel) {
+	function get_paguthi(sel) {
 		 var paguthi_id = sel.value;
 		 $.ajax({
-				 url: "<?php echo base_url(); ?>masters/get_active_office",
-				 method: "POST",
-				 data: { paguthi_id: paguthi_id },
-				 dataType: "JSON",
-				 cache: false,
-				 success: function (data) {
-						 var stat = data.status;
-						 // $("#office_id").empty();
-						 //
-						 // if (stat == "success") {
-							// 	 var res = data.res;
-							// 	 var len = res.length;
-							// 	 $("#office_id").html('<option value="">ALL</option>');
-							// 	 for (i = 0; i < len; i++) {
-							// 			 $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
-							// 	 }
-						 // } else {
-							// 	 $("#office_id").empty();
-						 // }
-				 },
+			 url: "<?php echo base_url(); ?>masters/get_active_office",
+			 method: "POST",
+			 data: { paguthi_id: paguthi_id },
+			 dataType: "JSON",
+			 cache: false,
+			 success: function (data) {
+				 var stat = data.status;
+				 // $("#office_id").empty();
+				 //
+				 // if (stat == "success") {
+					// 	 var res = data.res;
+					// 	 var len = res.length;
+					// 	 $("#office_id").html('<option value="">ALL</option>');
+					// 	 for (i = 0; i < len; i++) {
+					// 			 $("<option>").val(res[i].id).text(res[i].office_name).appendTo("#office_id");
+					// 	 }
+				 // } else {
+					// 	 $("#office_id").empty();
+				 // }
+			 },
 		 });
- }
- function startTime()
-{
-	var today = new Date();
-	var h = today.getHours();
-	var m = today.getMinutes();
-	var s = today.getSeconds();
-	var hours = (today.getHours() >= 12) ? today.getHours()-12 : today.getHours();
-	// h = hours % 12;
-	// var h = hours ? hours : 12;
-	m = checkTime(m);
-	s = checkTime(s);
-	document.getElementById('txt').innerHTML =
-	hours + ":" + m + ":" + s;
-	var t = setTimeout(startTime, 500);
-}
-function checkTime(i)
-{
-	if (i < 10) {i = "0" + i};
-	return i;
-}
-window.onload
-{
-	startTime();
-}
-    </script>
+	}
+ 
+	function startTime()
+	{
+		var today = new Date();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		var s = today.getSeconds();
+		var hours = (today.getHours() >= 12) ? today.getHours()-12 : today.getHours();
+		// h = hours % 12;
+		// var h = hours ? hours : 12;
+		m = checkTime(m);
+		s = checkTime(s);
+		document.getElementById('txt').innerHTML =
+		hours + ":" + m + ":" + s;
+		var t = setTimeout(startTime, 500);
+	}
+	
+	function checkTime(i)
+	{
+		if (i < 10) {i = "0" + i};
+		return i;
+	}
+	
+	window.onload
+	{
+		startTime();
+	}
+</script>
