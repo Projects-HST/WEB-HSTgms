@@ -870,7 +870,7 @@ Class Constituentmodel extends CI_Model
 
 	function get_meeting_report($rowno,$rowperpage,$search_text,$frmDate,$toDate)
 	{
-		echo $sess_office_id = $this->session->userdata('sess_office_id');
+		$sess_office_id = $this->session->userdata('sess_office_id');
 		$this->app_db->select('A.*,B.full_name,B.mobile_no,C.full_name AS created_by,A.created_at');
 		$this->app_db->from('meeting_request as A');
 		$this->app_db->join('constituent as B', 'B.id = A.constituent_id', 'left');
@@ -915,14 +915,17 @@ Class Constituentmodel extends CI_Model
 	}
 
 	function save_meeting_request_status($meeting_id,$constituent_id,$meeting_status,$meeting_date,$send_checkbox,$reply_sms_id,$reply_sms_text,$user_id){
-		if($send_checkbox=='1'){
+		
+		$sess_office_id = $this->session->userdata('sess_office_id');
+		
+		if($send_checkbox=='1'){		
 			$select="SELECT * FROM constituent where id='$constituent_id'";
 			$res=$this->app_db->query($select);
 			foreach($res->result() as $rows){}
 			$to_phone=$rows->mobile_no;
 			$smsContent=$reply_sms_text;
 			$this->smsmodel->sendSMS($to_phone,$smsContent);
-			$sess_office_id = $this->session->userdata('sess_office_id');
+			
 			$insert="INSERT INTO grievance_reply (constituent_id,sms_flag,sms_template_id,sms_text,created_at,created_by,created_office_id) VALUES ('$constituent_id','M','$reply_sms_id','$reply_sms_text',NOW(),'$user_id','$sess_office_id')";
 			$result_insert=$this->app_db->query($insert);
 		}
