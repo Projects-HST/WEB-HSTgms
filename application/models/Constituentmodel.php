@@ -870,7 +870,7 @@ Class Constituentmodel extends CI_Model
 
 	function get_meeting_report($rowno,$rowperpage,$search_text,$frmDate,$toDate)
 	{
-
+		echo $sess_office_id = $this->session->userdata('sess_office_id');
 		$this->app_db->select('A.*,B.full_name,B.mobile_no,C.full_name AS created_by,A.created_at');
 		$this->app_db->from('meeting_request as A');
 		$this->app_db->join('constituent as B', 'B.id = A.constituent_id', 'left');

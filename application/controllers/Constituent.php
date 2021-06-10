@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class constituent extends CI_Controller {
 
-
 	function __construct() {
 		 parent::__construct();
 			
@@ -1075,6 +1074,8 @@ public function meetings($rowno=0)
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
+		echo $sess_office_id = $this->session->userdata('sess_office_id');
+		
 		$frmDate="";
 		$toDate="";
 		$search_text="";
