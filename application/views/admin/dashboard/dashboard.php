@@ -1,11 +1,11 @@
 <style>
 #dashboardmenu a{
-	color:#31aa15;
+	color:#000000;
 	font-weight: bold;
 }
 .nav-md .container.body .right_col{
 	padding: 10px 20px 0;
-margin-left: 230px;
+	margin-left: 230px;
 }
 .general_heading{
 		color: #000;
@@ -658,7 +658,7 @@ function moneyFormatIndia($num) {
 </div>
 </div>
 <div class="clearfix"></div>
-<div class="row">
+<!--<div class="row">
 
 	<div class="col-md-12">
 		<div class="x_panel">
@@ -673,10 +673,10 @@ function moneyFormatIndia($num) {
 		</div>
 
 	</div>
-	<!-- <a href="#top" class="cd-top text-replace js-cd-top">Top</a> -->
+	<a href="#top" class="cd-top text-replace js-cd-top">Top</a>
 
 
-</div>
+</div>-->
 
 
 </div>

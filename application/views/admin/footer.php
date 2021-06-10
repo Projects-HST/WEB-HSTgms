@@ -17,7 +17,7 @@ controlHTML:'<img src="<?php echo base_url(); ?>assets/backtotop.png" />',contro
 
 
 $(document).ready(function() {
-  $('#grievance_model,#meeting_model,#status_modal,#reference_modal,#reply_modal').on('hidden.bs.modal', function () {
+  $('#grievance_model,#status_modal,#reference_modal,#reply_modal').on('hidden.bs.modal', function () {
       location.reload();
   });
     $('#example').DataTable({

@@ -6,17 +6,20 @@ class constituent extends CI_Controller {
 
 	function __construct() {
 		 parent::__construct();
-			$this->load->helper("url");
-			$this->load->library('session');
-			$this->load->model('mastermodel');
-			$this->load->model('smsmodel');
-			$this->load->model('constituentmodel');
-			$this->load->library('pagination');
-			$this->load->helper('form');
-			$this->load->model('reportmodel');
-			$this->load->helper('cookie');
+			
+		$this->load->model('smsmodel');
+		$this->load->library('session');
+		$this->load->library('pagination');
+		$this->load->helper(array('url','db_dynamic_helper','form','cookie'));
 
+		$name_db=$this->session->userdata('consituency_code');
+		$config_app = switch_maindb($name_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
 
+		$this->load->model(array('mastermodel','constituentmodel','reportmodel'));
+		$this->mastermodel->app_db = $this->load->database($config_app,TRUE);
+		$this->constituentmodel->app_db = $this->load->database($config_app,TRUE);
+		$this->reportmodel->app_db = $this->load->database($config_app,TRUE);
  }
 
 
@@ -397,10 +400,12 @@ class constituent extends CI_Controller {
 			$user_type = $this->session->userdata('user_type');
 			if($user_type=='1' || $user_type=='2'){
 				$constituent_id=$this->input->post('constituent_id');
+				
 				$doc_name=strtoupper($this->db->escape_str($this->input->post('file_name')));
+				
 				$profilepic = $_FILES['doc_file']['name'];
 				if(empty($profilepic)){
-				$filename=$old_profile_pic;
+						$filename=$old_profile_pic;
 				}else{
 					$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
 					$filename = round(microtime(true)) . '.' . $temp;

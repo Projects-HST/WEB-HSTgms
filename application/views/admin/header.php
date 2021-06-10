@@ -2,6 +2,8 @@
 
 	$user_pic = $this->session->userdata('user_pic');
 	$user_type = $this->session->userdata('user_type');
+	$base_colour = $this->session->userdata('base_colour');
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +52,8 @@
          <div class="main_container">
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
-                  <div class="navbar nav_title" style="border: 0;background-color:#31aa15;">
-                     <p class="site_title" style="margin-top:0px;text-align:center;background-color: #1e8c05;font-weight:600;"> <span >GMS</span></p>
+                  <div class="navbar nav_title" style="border: 0;">
+                     <p class="site_title" style="margin-top:0px;text-align:center;font-weight:600;"> <span >GMS</span></p>
                   </div>
                   <div class="clearfix"></div>
                   <div class="profile clearfix menu_profile">
@@ -80,29 +82,27 @@
 
                         <ul class="nav side-menu">
                            <li id="dashboardmenu">
-														 <a href="<?php echo base_url(); ?>dashboard">
-															 <img src="<?php echo base_url(); ?>assets/images/icons/Dashboard.png"
-															 class="img-responsive menu_img">
-															  Dashboard</a>
-													 </li>
+							 <a href="<?php echo base_url(); ?>dashboard">
+								 <img src="<?php echo base_url(); ?>assets/images/icons/Dashboard.png" class="img-responsive menu_img"> Dashboard</a>
+						   </li>
                            <li id="mastermenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Master.png" class="img-responsive menu_img"> Masters <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu mastermenu">
-																 <?php if ($user_type =='1'){ ?>
+								<?php if ($user_type =='1'){ ?>
                                   <li id="constituencymenu"><a href="<?php echo base_url(); ?>masters/constituency">Constituency</a></li>
                                   <li id="paguthimenu"><a href="<?php echo base_url(); ?>masters/paguthi">Paguthi</a></li>
                                   <li id="wardmenu"><a href="<?php echo base_url(); ?>masters/ward">Ward</a></li>
                                   <li id="seekermenu"><a href="<?php echo base_url(); ?>masters/seeker">Seeker type</a></li>
-																		<?php } ?>
-																	 <?php  if ($user_type =='2' || $user_type =='1'){ ?>
+								<?php } ?>
+								<?php  if ($user_type =='2' || $user_type =='1'){ ?>
                                   <li id="grievancemeenu"><a href="<?php echo base_url(); ?>masters/grievance">Grievance type</a></li>
                                   <li id="smsmenu"><a href="<?php echo base_url(); ?>masters/sms_template">SMS template</a></li>
-																<?php } ?>
+								<?php } ?>
                                   <!-- <li id="interactionmenu"><a href="<?php echo base_url(); ?>masters/interaction">Interaction </a></li> -->
                                   <!-- <li><a href="<?php echo base_url(); ?>masters/religion">religion</a></li> -->
-																	<?php if ($user_type =='1'){ ?>
-																	<li><a href="<?php echo base_url(); ?>masters/festival">Festival</a></li>
-																	<?php } ?>
+								<?php if ($user_type =='1'){ ?>
+								  <li><a href="<?php echo base_url(); ?>masters/festival">Festival</a></li>
+								<?php } ?>
                                 </ul>
                            </li>
                            <li id="constiituent_menu">
@@ -111,7 +111,6 @@
                                  <li id="create_constituent_menu"><a href="<?php echo base_url(); ?>constituent/constituent_member">create Constituent</a></li>
                                  <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/list_constituent_member"> Constituent List</a></li>
                                  <!-- <li id="list_constituent_menu"><a href="<?php echo base_url(); ?>constituent/recent_constituent_member">Recent Constituent</a></li> -->
-
 								 <li id="constituent_meetings"><a href="<?php echo base_url(); ?>constituent/meetings">Meeting list</a></li>
 								 <li id="constituent_birthday"><a href="<?php echo base_url(); ?>constituent/birthday">Birthday Wishes</a></li>
 								 <li><a href="<?php echo base_url(); ?>constituent/festival_wishes">Festival wishes</a></li>
@@ -122,10 +121,10 @@
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Grievance.png" class="img-responsive menu_img"> Grievance <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu grievance_menu">
                                  <!-- <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance">List Grievance</a></li> -->
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">ALL</a></li>
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_petition">Petition</a></li>
-																 <li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_enquiry">Enquiry</a></li>
-                                  <li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
+								<li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_grievance">ALL</a></li>
+								<li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_petition">Petition</a></li>
+								<li id="list_grievance_menu"><a href="<?php echo base_url(); ?>constituent/all_enquiry">Enquiry</a></li>
+								<li id="list_grievance_reply_menu"><a href="<?php echo base_url(); ?>constituent/list_grievance_reply">Grievance reply </a></li>
                               </ul>
                            </li>
 						   <?php if ($user_type =='1'){ ?>
@@ -152,13 +151,12 @@
                                 <li><a href="<?php echo base_url(); ?>report/category">Grievance</a></li>
                                 <!-- <li><a href="<?php echo base_url(); ?>report/sub_category">Grievance Sub category</a></li> -->
                                 <!-- <li><a href="<?php echo base_url(); ?>report/location">Location</a></li> -->
-																<li><a href="<?php echo base_url(); ?>report/meetings">Meeting</a></li>
-
-																<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>
-																<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes</a></li>
-																<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent</a></li>
-																<li><a href="<?php echo base_url(); ?>report/video">Video</a></li>
-																<li><a href="<?php echo base_url(); ?>report/staff">Staff</a></li>
+								<li><a href="<?php echo base_url(); ?>report/meetings">Meeting</a></li>
+								<li><a href="<?php echo base_url(); ?>report/birthday">Birthday wishes</a></li>
+								<li><a href="<?php echo base_url(); ?>report/festival_wishes_report">Festival wishes</a></li>
+								<li><a href="<?php echo base_url(); ?>report/constituent_list">constituent</a></li>
+								<li><a href="<?php echo base_url(); ?>report/video">Video</a></li>
+								<li><a href="<?php echo base_url(); ?>report/staff">Staff</a></li>
                               </ul>
                            </li>
                            <!-- <li>
@@ -175,14 +173,10 @@
                </div>
             </div>
             <div class="top_nav">
-               <div class="nav_menu" style="padding-bottom:2px;">
+               <div class="nav_menu" style="box-shadow: 1px 5px #f0efef;">
                   <div class="nav toggle">
-                     <!-- <a id="menu_toggle"><i class="fa fa-bars"></i></a> -->
-										 <p class="gms_title">Grievance management system</p>
+						<p class="gms_title">Grievance management system</p>
                   </div>
-									<!-- <div class="">
-										<p>GMS</p>
-									</div> -->
                   <nav class="nav navbar-nav">
                      <ul class=" navbar-right">
                         <li class="nav-item dropdown open" style="padding-left: 15px;">
@@ -195,9 +189,10 @@
 						<?php } ?><?php echo $this->session->userdata('name');?>
                            </a>
                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/profile"> Profile</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/password"> change Password</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> LogOut</a>
+								<a class="dropdown-item" href="<?php echo base_url(); ?>login/profile"> Profile</a>
+								<a class="dropdown-item" href="<?php echo base_url(); ?>login/password"> change Password</a>
+								<a class="dropdown-item" href="<?php echo base_url(); ?>login/colour_settings"> Colour Settings</a>
+								<a class="dropdown-item" href="<?php echo base_url(); ?>login/logout"><i class="fa fa-sign-out pull-right"></i> LogOut</a>
                            </div>
                         </li>
                      </ul>

@@ -70,7 +70,7 @@
                  <label>grievance type</label>
                  <select class="form-control" id="grievance_id" name="grievance_id" onchange="get_sub_category(this)">
                    <?php $query="SELECT * FROM grievance_type WHERE status='ACTIVE' and seeker_id='$con_row->seeker_type_id' order by id desc";
-                   $result=$this->db->query($query);
+                   $result=$this->app_db->query($query);
                    if($result->num_rows()==0){ ?>
                    <option value=""></option>
                    <?php 	}else{
@@ -85,7 +85,7 @@
                  <label>grievance sub category</label>
                  <select class="form-control" id="sub_category_id" name="sub_category_id">
                    <?php $query_sub="SELECT * FROM grievance_sub_category WHERE status='ACTIVE' and grievance_id='$con_row->grievance_type_id' order by id desc";
-                   $result_sub=$this->db->query($query_sub);
+                   $result_sub=$this->app_db->query($query_sub);
                    if($result_sub->num_rows()==0){ ?>
                    <option value=""></option>
                    <?php 	}else{

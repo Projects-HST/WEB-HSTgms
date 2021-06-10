@@ -15,7 +15,7 @@ Class Loginmodel extends CI_Model
 		 $resultset=$this->db->query($query);
 		 if($resultset->num_rows()>0){
 			 $data = array("consituency_code"  => 'sanzhapp_'.$cons_code);
-			 //$data = array("institute_code"  => 'gms');
+			 //$data = array("consituency_code"  => 'gms');
 			 $this->session->set_userdata($data);
 			 $data= array("status" => "Active","msg" => "Your Account Is Active");
 			 return $data;
@@ -29,9 +29,20 @@ Class Loginmodel extends CI_Model
 
 	function login($username,$password)
 	{
-		 $pwd = md5($password);
-		 $chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$pwd'";
-		//$resultset=$this->app_db->query($query);
+		$pwd = md5($password);
+		
+		$sQuery = "SELECT * FROM colour_codes WHERE selected_status = 'Y'";
+		$user_result = $this->app_db->query($sQuery);
+		$ress = $user_result->result();
+		if($user_result->num_rows()>0)
+		{
+			foreach ($user_result->result() as $rows)
+			{
+				$base_colour = $rows->colour_code;
+			}
+		}
+		
+		$chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$pwd'";
 		$res=$this->app_db->query($chkUser);
 		if($res->num_rows()>0){
 		   foreach($res->result() as $rows)
@@ -39,7 +50,7 @@ Class Loginmodel extends CI_Model
 			   $status = $rows->status;
 		   }
 			if ($status == 'ACTIVE'){
-				  $data = array("user_type"=>$rows->role_id,"user_id"=>$rows->id,"name"=>$rows->full_name,"email_id"=>$rows->email_id,"constituency_id"=>$rows->constituency_id,"pugathi_id"=>$rows->pugathi_id,"office_id"=>$rows->office_id,"user_pic"=>$rows->profile_pic,"status"=>$rows->status);
+				  $data = array("user_type"=>$rows->role_id,"user_id"=>$rows->id,"name"=>$rows->full_name,"email_id"=>$rows->email_id,"constituency_id"=>$rows->constituency_id,"pugathi_id"=>$rows->pugathi_id,"office_id"=>$rows->office_id,"user_pic"=>$rows->profile_pic,"status"=>$rows->status,"base_colour"=>$base_colour);
 				 return $data;
 			 } else {
 				  $data= array("status" => "Inactive");
@@ -236,5 +247,10 @@ Class Loginmodel extends CI_Model
 		 return $datas;
 	}
 
+	function get_colours(){
+		$query="SELECT * FROM colour_codes WHERE status='ACTIVE'";
+		$result=$this->app_db->query($query);
+		return $result->result();
+	}
 }
 ?>

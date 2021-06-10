@@ -64,7 +64,7 @@ input:required {
 				$paguthi_id = $data['paguthi_id'];
 
 				$paQuery = "SELECT paguthi_name FROM paguthi WHERE id = '$paguthi_id'";
-				$paQuery_result = $this->db->query($paQuery);
+				$paQuery_result = $this->app_db->query($paQuery);
 				if($paQuery_result->num_rows()>0){
 					 foreach ($paQuery_result->result() as $rows)
 						{
@@ -73,7 +73,7 @@ input:required {
 				}
 
 				$intQuery = "SELECT * FROM interaction_history WHERE constituent_id = '$const_id'";
-				$intQuery_result = $this->db->query($intQuery);
+				$intQuery_result = $this->app_db->query($intQuery);
 				if($intQuery_result->num_rows()>0){
 					$int_status = "Y";
 				}else{
@@ -81,7 +81,7 @@ input:required {
 				}
 
 				$pltQuery = "SELECT * FROM plant_donation WHERE constituent_id = '$const_id'";
-				$pltQuery_result = $this->db->query($pltQuery);
+				$pltQuery_result = $this->app_db->query($pltQuery);
 				if($pltQuery_result->num_rows()>0){
 					$plt_status = "Y";
 				}else{
@@ -717,7 +717,6 @@ var m_id=sel;
     cache: false,
     success:function(data)
     {
-    ;
       var stat=data.status;
       if(stat=="success"){
       $('#update_meeting_model').modal('show');
@@ -1033,7 +1032,6 @@ var v_id=sel;
     cache: false,
     success:function(data)
     {
-    ;
       var stat=data.status;
       if(stat=="success"){
       $('#update_video_model').modal('show');

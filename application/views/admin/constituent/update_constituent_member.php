@@ -86,7 +86,7 @@
                       <div class="col-md-4 col-sm-9 voter_section">
                           <select class="form-control" name="ward_id" id="ward_id" onchange="get_booth(this);">
                             <?php $query="SELECT * FROM ward WHERE status='ACTIVE' and paguthi_id='$paguthi_id' order by id desc";
-                            $result=$this->db->query($query);
+                            $result=$this->app_db->query($query);
                             if($result->num_rows()==0){ ?>
                             <option value=""></option>
                             <?php 	}else{
@@ -105,7 +105,7 @@
                         <select class="form-control" name="booth_id" id="booth_id" onchange="get_booth_address(this);">
 
                           <?php $query_b="SELECT * FROM booth where ward_id='$ward_id' and status='ACTIVE' order by id desc";
-                          $resultb=$this->db->query($query_b);
+                          $resultb=$this->app_db->query($query_b);
                           if($resultb->num_rows()==0){ ?>
                           <option value=""></option>
                           <?php 	}else{
@@ -121,7 +121,7 @@
                        <div class="col-md-4 col-sm-9 ">
                          <textarea class="form-control" name="booth_address" id="booth_address"><?php echo $rows->booth_address; ?></textarea>
                          <!-- <?php $query_b="SELECT * FROM booth where id='$booth_id' and status='ACTIVE' order by id desc";
-                         $resultb=$this->db->query($query_b);
+                         $resultb=$this->app_db->query($query_b);
                          if($resultb->num_rows()==0){ ?>
                         <textarea class="form-control" name="booth_address" id="booth_address"></textarea>
                          <?php 	}else{

@@ -1503,8 +1503,7 @@ body .container.body .right_col {
     width: 230px;
     float: left;
     /* background: #2A3F54; */
-    background: #31aa15;
-
+    background: #ffffff;
     border-radius: 0;
     height: 57px;
     padding: 0px
@@ -2064,15 +2063,15 @@ a:focus {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
 
     /* background: linear-gradient(#334556, #2C4257), #2A3F54; */
-    background-color: #ecf7ea;
-    color:#3b3939;
+    background-color: #f5f7f4;
+    color:#000000;
     /* box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0 */
 }
 
 .navbar-brand,
 .navbar-nav>li>a {
     font-weight: 500;
-    color: #ECF0F1 !important;
+    color: #000000 !important;
     margin-left: 0 !important;
     line-height: 32px
 }
@@ -2083,7 +2082,7 @@ a:focus {
     font-weight: 400;
     font-size: 22px;
     width: 100%;
-    color: #ECF0F1 !important;
+    color: #000000 !important;
     margin-left: 0 !important;
     line-height: 59px;
     display: block;
@@ -3205,7 +3204,7 @@ span.right {
 }
 
 a.user-profile {
-    color: #fff;
+    color: #000000;
 }
 
 .user-profile img {

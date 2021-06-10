@@ -5,12 +5,7 @@ class Login extends CI_Controller {
 
 	function __construct() {
 		 parent::__construct();
-/* 			$this->load->library('session');
-			$this->load->library('session');
-			$this->load->model('loginmodel');
-			$this->load->model('usermodel');
-			$this->load->helper(array('url','db_dynamic_helper')); */
-			
+		
 		 $this->load->library('session');
 		 $this->load->helper(array('url','db_dynamic_helper'));
 		 
@@ -26,7 +21,7 @@ class Login extends CI_Controller {
 	public function index()
 	{
 			$user_id = $this->session->userdata('user_id');
-			$user_type = $this->session->userdata('user_type');
+			//$user_type = $this->session->userdata('user_type');
 
 			if($user_id){
 				redirect(base_url().'dashboard');
@@ -51,13 +46,16 @@ class Login extends CI_Controller {
 	public function user_login()
 	{
 		$user_id=$this->session->userdata('user_id');
-		$institute_code = $this->session->userdata('institute_code');
-
-		if($user_id){
+		$consituency_code = $this->session->userdata('consituency_code');
+		
+		if ($consituency_code =='') {
+			redirect(base_url());
+		} else if ($user_id !=''){
 			redirect(base_url().'dashboard');
-		}else{
+		} else {
 			$this->load->view('login');
-		}		
+		}
+		
 	}
 
 	public function login_check(){
@@ -69,12 +67,12 @@ class Login extends CI_Controller {
 
 		if($result['status']=='Inactive'){
 			$this->session->set_flashdata('msg', 'Account inactive, please contact admin');
-			redirect(base_url());
+			redirect(base_url().'login/user_login');
 		}
 
 		if($result['status']=='Error'){
 			$this->session->set_flashdata('msg', "Invalid Email Id/Password.");
-			redirect(base_url());
+			redirect(base_url().'login/user_login');
 		}
 
 		if($result['status']=='ACTIVE'){
@@ -87,7 +85,8 @@ class Login extends CI_Controller {
 					$constituency_id=$result['constituency_id'];
 					$pugathi_id=$result['pugathi_id'];
 					$office_id=$result['office_id'];
-					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic,"constituency_id"=>$constituency_id,"pugathi_id"=>$pugathi_id,"sess_office_id"=>$office_id);
+					$base_colour=$result['base_colour'];
+					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic,"constituency_id"=>$constituency_id,"pugathi_id"=>$pugathi_id,"sess_office_id"=>$office_id,"base_colour"=>$base_colour);
 					$session_data=$this->session->set_userdata($datas);
 					redirect(base_url().'dashboard');
 		}
@@ -185,8 +184,8 @@ class Login extends CI_Controller {
 
 	public function password_update(){
 		$datas = $this->session->userdata();
-		 $user_id = $this->session->userdata('user_id');
-		 $user_type=$this->session->userdata('user_type');
+		$user_id = $this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
 
 
 		if($user_type==1 || $user_type==2){
@@ -207,6 +206,41 @@ class Login extends CI_Controller {
 		}
 	}
 
+	public function colour_settings(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+
+		if($user_type==1 || $user_type==2){
+			$datas['res'] = $this->loginmodel->get_colours();
+			$this->load->view('admin/header');
+			$this->load->view('admin/colour_settings',$datas);
+			$this->load->view('admin/footer');
+		}else {
+			redirect(base_url());
+		}
+	}
+	
+		public function update_colour_settings(){
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+
+		if($user_type==1 || $user_type==2){
+			$colour_id=$this->input->post('colour_id');
+			$datas=$this->loginmodel->update_colour_settings($colour_id);
+			if($datas['status']=="success"){
+				$this->session->set_flashdata('msg', 'Colour Code Updated');
+				redirect(base_url().'login/colour_settings');
+			}else{
+				$this->session->set_flashdata('msg', 'Failed to Update');
+				redirect(base_url().'login/colour_settings');
+			}
+		}else {
+			redirect(base_url());
+		}
+	}
+	
 	public function logout(){
 		$datas=$this->session->userdata();
 		$this->session->unset_userdata($datas);

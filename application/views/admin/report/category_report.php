@@ -45,7 +45,7 @@ th{
                                     <option value="">ALL</option>
                                    <?php
                                     $query_gr="SELECT * FROM grievance_type WHERE status='ACTIVE' and seeker_id='$g_seeker' order by id desc";
-                                    $result_gr=$this->db->query($query_gr);
+                                    $result_gr=$this->app_db->query($query_gr);
                                     if($result_gr->num_rows()==0){ 	}else{
                                     $res_gr=$result_gr->result();
                                     foreach($res_gr as $rows_gr){ ?>
@@ -62,7 +62,7 @@ th{
                                     <option value="">ALL</option>
                                     <?php
                                      $query_sb="SELECT * FROM grievance_sub_category WHERE status='ACTIVE' and grievance_id='$g_category' order by id desc";
-                                     $result_sb=$this->db->query($query_sb);
+                                     $result_sb=$this->app_db->query($query_sb);
                                      if($result_sb->num_rows()==0){ 	}else{
                                      $res_sb=$result_sb->result();
                                      foreach($res_sb as $rows_sb){ ?>

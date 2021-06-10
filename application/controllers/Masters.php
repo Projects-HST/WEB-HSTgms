@@ -3,12 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Masters extends CI_Controller {
 
-
 	function __construct() {
 		 parent::__construct();
-			$this->load->helper("url");
-			$this->load->library('session');
-			$this->load->model('mastermodel');
+			
+		$this->load->library('session');
+		$this->load->helper(array('url','db_dynamic_helper'));
+
+		$name_db=$this->session->userdata('consituency_code');
+		$config_app = switch_maindb($name_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+
+		$this->load->model(array('mastermodel'));
+		$this->mastermodel->app_db = $this->load->database($config_app,TRUE);
  }
 
 	public function constituency()

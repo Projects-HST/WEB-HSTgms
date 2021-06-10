@@ -41,6 +41,12 @@ class Dashboard extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
+		
+ 		$name_db=$this->session->userdata('consituency_code');
+		if ($name_db==''){
+			redirect(base_url());
+		} 
+		
 		$datas['paguthi'] = $this->dashboardmodel->list_paguthi();
 		$datas['res_office'] = $this->usermodel->list_office();
 		$paguthi_id=$this->input->post('paguthi_id');
@@ -67,7 +73,7 @@ class Dashboard extends CI_Controller {
 		//print_r ($datas['get_footfall_report']);
 		//exit;
 		$datas['footfall_result']=$this->dashboardmodel->get_footfall_graph($paguthi_id,$office_id,$from_date,$to_date);
-		if($user_type=='1' || $user_type=='2'){
+		if($user_type=='1' || $user_type=='2' && $name_db !=''){
 			$this->load->view('admin/header');
 			$this->load->view('admin/dashboard/dashboard',$datas);
 			$this->load->view('admin/footer');
@@ -85,9 +91,7 @@ class Dashboard extends CI_Controller {
 			$search_text='';
 			if($this->input->post('submit') != NULL ){
 				$search_text=$this->input->post('d_keyword');
-				$status_session_array=$this->session->set_userdata(array(
-					"d_keyword"=>$search_text
-				));
+				$status_session_array=$this->session->set_userdata(array("d_keyword"=>$search_text));
 			}else{
 				if($this->session->userdata('d_keyword') != NULL){
 				$search_text = $this->session->userdata('d_keyword');

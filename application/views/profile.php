@@ -1,8 +1,6 @@
 <?php foreach($res as $rows){
 	$user_pic  = trim($rows->profile_pic );
 	$user_type  = trim($rows->role_id );
-
-
 } ?>
 <div class="right_col" role="main">
 <div class="">
