@@ -35,8 +35,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" name="d_keyword" id="keyword" oninvalid="this.setCustomValidity('ENTER NAME OR PHONE NUMBER OR VOTER ID OR AADHAAR CARD NUMBER OF CONSTITUENT')" placeholder="Search for constituents based on Name / FATHER OR HUSBAND NAME / Phone number / Voter ID / Aadhaar Card number / Address" required>
 				<span class="input-group-btn">
-					<input class="btn btn-default" type="submit" name="submit" style="padding: 15px 10px 13px 10px;background-color: #31aa15;
-    color: #fff;    font-weight: 600;" value="GO!">
+					<input class="btn btn-default" type="submit" name="submit" style="padding: 15px 10px 13px 10px;background-color: <?php echo $this->session->userdata('base_colour');?>;color: #000000;font-weight: 600;" value="GO!">
 				</span>
 			</div>
 			</div>
@@ -88,7 +87,8 @@
 				 </div>
 
 					 <div class="col-md-2 col-sm-2 text-center">
-					  <button type="submit" class="btn btn-success btn-width">FIND</button>
+					  <button type="submit" class="btn btn-success btn-width" 
+					  style="background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000;border:1px solid <?php echo $this->session->userdata('base_colour');?>;">FIND</button>
 					  <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white btn-width">CLEAR</a>
 
 
@@ -573,7 +573,7 @@ function moneyFormatIndia($num) {
 						<div class="col-12">
 							<center><img src="<?php echo base_url(); ?>assets/admin/images/widget_8.png" class="img-responsive" style="width:130px;"></center>
 							<center><p style="margin-bottom:0px;font-size:14px;color:#000;">To known more date in <br><b>Grievance management system</b></p></center>
-							<center> <a href="<?php echo base_url(); ?>constituent/all_grievance" class="btn btn-success" style="margin-top:10px;">Click here</a></center>
+							<center> <a href="<?php echo base_url(); ?>constituent/all_grievance" class="btn btn-success" style="margin-top:10px;background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000 !important;border:1px solid <?php echo $this->session->userdata('base_colour');?>;" >Click here</a></center>
 						</div>
 
 				</div>

@@ -14,8 +14,8 @@ Class Loginmodel extends CI_Model
 		 $query = "SELECT * FROM gms_consty_user_master WHERE consituency_code = '$cons_code' AND status = 'Active'";
 		 $resultset=$this->db->query($query);
 		 if($resultset->num_rows()>0){
-			 $data = array("consituency_code"  => 'sanzhapp_'.$cons_code);
-			 //$data = array("consituency_code"  => 'gms');
+			 //$data = array("consituency_code"  => 'sanzhapp_'.$cons_code);
+			 $data = array("consituency_code"  => 'gms');
 			 $this->session->set_userdata($data);
 			 $data= array("status" => "Active","msg" => "Your Account Is Active");
 			 return $data;
@@ -251,6 +251,36 @@ Class Loginmodel extends CI_Model
 		$query="SELECT * FROM colour_codes WHERE status='ACTIVE'";
 		$result=$this->app_db->query($query);
 		return $result->result();
+	}
+	
+	function update_colour_settings($colour_id){
+		
+		$query = "UPDATE colour_codes SET selected_status='N'";
+		$ex = $this->app_db->query($query);
+		
+		$query = "UPDATE colour_codes SET selected_status='Y' WHERE id='$colour_id'";
+		$ex = $this->app_db->query($query);
+		
+		$sQuery = "SELECT * FROM colour_codes WHERE selected_status = 'Y'";
+		$user_result = $this->app_db->query($sQuery);
+		$ress = $user_result->result();
+		if($user_result->num_rows()>0)
+		{
+			foreach ($user_result->result() as $rows)
+			{
+				$base_colour = $rows->colour_code;
+			}
+		}
+		 $data = array("base_colour"  => $base_colour);
+		 $this->session->set_userdata($data);
+			 
+		if($ex){
+			$datas=array("status"=>"success","msg"=>"Colour Updated Successfully!","class"=>"alert alert-success");
+		}else{
+			$datas=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
+		}
+		
+		 return $datas;
 	}
 }
 ?>

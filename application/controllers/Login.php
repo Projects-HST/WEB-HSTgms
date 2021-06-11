@@ -225,17 +225,16 @@ class Login extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-
+	
 		if($user_type==1 || $user_type==2){
 			$colour_id=$this->input->post('colour_id');
 			$datas=$this->loginmodel->update_colour_settings($colour_id);
-			if($datas['status']=="success"){
-				$this->session->set_flashdata('msg', 'Colour Code Updated');
-				redirect(base_url().'login/colour_settings');
-			}else{
-				$this->session->set_flashdata('msg', 'Failed to Update');
-				redirect(base_url().'login/colour_settings');
-			}
+			
+			$messge = array('status'=>$datas['status'],'message' => $datas['msg'],'class' => $datas['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect(base_url().'login/colour_settings');
+			
+			
 		}else {
 			redirect(base_url());
 		}

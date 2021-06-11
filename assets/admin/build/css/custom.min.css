@@ -3908,12 +3908,12 @@ a.btn-success,
 a.btn-primary,
 a.btn-warning,
 a.btn-danger {
-    color: #fff
+    /*color: #fff*/
 }
 
 .btn-success {
-    background:  #31aa15;
-    border: 1px solid  #31aa15;
+    /*background:  #31aa15;
+    border: 1px solid  #31aa15;*/
 }
 
 .btn-success:hover,
@@ -3921,7 +3921,7 @@ a.btn-danger {
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-    background:  #31aa15;
+    /*background:  #31aa15;*/
 }
 
 .btn-dark {
