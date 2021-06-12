@@ -2637,7 +2637,7 @@ fieldset:disabled a.btn {
 	box-shadow: 0 0 0 .2rem rgba(130, 138, 145, .5)
 }
 
-.btn-success {
+/* .btn-success {
 	color: #fff;
 	background-color: #838484;
 	border-color: #fff
@@ -2667,14 +2667,14 @@ fieldset:disabled a.btn {
 	color: #fff;
 	background-color: #fff;
 	border-color: #fff
-}
+} 
 
 .btn-success:not(:disabled):not(.disabled).active:focus,
 .btn-success:not(:disabled):not(.disabled):active:focus,
 .show>.btn-success.dropdown-toggle:focus {
 	box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .5)
 }
-
+*/
 .btn-info {
 	color: #fff;
 	background-color: #17a2b8;
@@ -3463,7 +3463,7 @@ input[type=submit].btn-block {
 .dropdown-item:active {
 	color: #fff;
 	text-decoration: none;
-	background-color: #31aa15
+	background-color: #f8f9fa
 }
 
 .dropdown-item.disabled,

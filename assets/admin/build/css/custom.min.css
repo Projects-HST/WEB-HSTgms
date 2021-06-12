@@ -2063,8 +2063,7 @@ a:focus {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
 
     /* background: linear-gradient(#334556, #2C4257), #2A3F54; */
-    background-color: #f5f7f4;
-    color:#000000;
+    background-color: #f5f7f4color:#000000;
     /* box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0 */
 }
 
@@ -3901,7 +3900,7 @@ select.parsley-error {
 }
 
 .btn {
-    border-radius: 3px
+    border-radius: 5px
 }
 
 a.btn-success,
@@ -3911,9 +3910,9 @@ a.btn-danger {
     /*color: #fff*/
 }
 
-.btn-success {
-    /*background:  #31aa15;
-    border: 1px solid  #31aa15;*/
+/* .btn-success {
+    background:  #31aa15;
+    border: 1px solid  #31aa15;
 }
 
 .btn-success:hover,
@@ -3921,8 +3920,8 @@ a.btn-danger {
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-    /*background:  #31aa15;*/
-}
+    background:  #31aa15;
+} */
 
 .btn-dark {
     color: #E9EDEF;

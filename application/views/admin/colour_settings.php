@@ -40,7 +40,7 @@
 				<tr>
                    <td></td>
                    <td></td>
-                   <td style="text-align: center;"><button type="submit" class="btn btn-success">Assing</button></td>
+                   <td style="text-align: center;"><button type="submit" class="btn btn-success" style="background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000;border:1px solid <?php echo $this->session->userdata('base_colour');?>;">Assing</button></td>
                 </tr>
              </tbody>
           </table>

@@ -17,7 +17,6 @@
                 <tr>
                    <th>S.no</th>
                    <th>Religion</th>
-
                    <th>status</th>
 
                 </tr>
@@ -34,14 +33,8 @@
                               <span class="badge badge-danger">Inactive</span>
                             <?php   } ?>
                     </td>
-
-
                  </tr>
-
-            <?php  $i++; } ?>
-
-
-
+					<?php  $i++; } ?>
              </tbody>
           </table>
 </div>

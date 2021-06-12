@@ -1,5 +1,4 @@
 <?php
-
 	$user_pic = $this->session->userdata('user_pic');
 	$user_type = $this->session->userdata('user_type');
 	$base_colour = $this->session->userdata('base_colour');
@@ -8,43 +7,59 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-		   <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="icon" href="images/favicon.ico" type="image/ico" />
-      <title>GMS - <?php echo $constituency_name; ?></title>
-      <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="images/favicon.ico" type="image/ico" />
+		<title>GMS - <?php echo $constituency_name; ?></title>
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 
-	  <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-	  <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
-	  <link href="<?php echo base_url(); ?>assets/admin/vendors/datatable/css/buttons.dataTables.min.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/datatable/css/buttons.dataTables.min.css" rel="stylesheet">
 
-	  <link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
-      <link href="<?php echo base_url(); ?>assets/admin/build/css/extra.css" rel="stylesheet">
-	  <link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/build/css/custom.min.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/build/css/extra.css" rel="stylesheet">
+		<link href="<?php echo base_url(); ?>assets/admin/vendors/style.css" rel="stylesheet">
 
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jquery.dataTables.min.js"></script>
-      <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.buttons.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jszip.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/pdfmake.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/vfs_fonts.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/buttons.html5.min.js "></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/dataTables.buttons.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/jszip.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/pdfmake.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/vfs_fonts.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/datatable/js/buttons.html5.min.js "></script>
 
-    <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/additional-methods.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/additional-methods.min.js"></script>
 
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/moment/min/moment.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/moment/min/moment.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script src="<?php echo base_url(); ?>assets/admin/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<style>
+	.btn-success {
+		background-color:<?php echo $this->session->userdata('base_colour');?>;
+		color:#000000;
+		border:1px solid <?php echo $this->session->userdata('base_colour');?>;
+	}
+	.btn-success:hover,
+	.btn-success:focus,
+	.btn-success:active,
+	.btn-success.active,
+	.open .dropdown-toggle.btn-success {
+		background-color:<?php echo $this->session->userdata('base_colour');?>;
+		color:#000000;
+		border:1px solid <?php echo $this->session->userdata('base_colour');?>;
+}
+	</style>
 
    </head>
    <body class="nav-md">
@@ -52,9 +67,9 @@
          <div class="main_container">
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
-                  <div class="navbar nav_title" style="border: 0;">
+                  <!--<div class="navbar nav_title" style="border: 0;">
                      <p class="site_title" style="margin-top:0px;text-align:center;font-weight:600;"> <span >GMS</span></p>
-                  </div>
+                  </div>-->
                   <div class="clearfix"></div>
                   <div class="profile clearfix menu_profile">
                      <div class="profile_pic">

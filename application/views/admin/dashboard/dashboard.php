@@ -87,8 +87,7 @@
 				 </div>
 
 					 <div class="col-md-2 col-sm-2 text-center">
-					  <button type="submit" class="btn btn-success btn-width" 
-					  style="background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000;border:1px solid <?php echo $this->session->userdata('base_colour');?>;">FIND</button>
+					  <button type="submit" class="btn btn-success btn-width">FIND</button>
 					  <a href="<?php echo base_url(); ?>dashboard/index" class="btn btn-white btn-width">CLEAR</a>
 
 
