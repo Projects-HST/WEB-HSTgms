@@ -1,0 +1,112 @@
+.paginate_links{
+  /* padding-bottom:25px; */
+}
+.badge-Active{
+    /* background-color: #27c30a; */
+    color: #27c30a;
+    font-weight: bold;
+    text-align: left;
+    /* border-radius: 25px; */
+    width: 90px;
+
+}
+.badge-Inactive{
+    /* background-color: #e24949; */
+    color: #e24949;
+    font-weight: bold;
+    text-align: left;
+    /* border-radius: 25px; */
+    width: 90px;
+
+}
+.card.card-custom.card-stretch.gutter-b{
+  
+}
+th{
+  text-align: left;
+}
+svg{
+  width:10px;
+}
+.img_box{
+  margin-bottom: 10px;
+}
+.mb_0{
+  margin-bottom: 0px;
+}
+.ml-12{
+  margin-left: -12px !important;
+}
+.img_icon_box{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: right;
+}
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
+      color: #e4dada !important;
+}
+.datepicker tbody tr > td.day{
+  /* color:#000 !important; */
+}
+.event_details p{
+  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width:900px;
+}
+.text_overlap{
+  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.btn.btn-primary{
+  width:100px;
+}
+.btn.btn-danger{
+  width:94px;
+}
+.btn-viewmore{
+  color:#0B9421;
+}
+.btn-viewmore:hover{
+  color:#0B9421;
+}
+.symbol.symbol-50 .symbol-label{
+  width: 100px;
+  height: 100px;
+}
+.table.table-head-custom thead tr, .table.table-head-custom thead th{
+  color:#2d2d2d !important;
+}
+.fas{
+  color:#949494;
+}
+.timeline.timeline-6 .timeline-item .timeline-label{
+  font-size: 12px !important;
+}
+.fa-users{
+	color:#8B71BD;
+}
+
+.fa-male{
+	color:#E4606d;
+}
+
+.fa-female{
+	color:#1E9893;
+}
+.fauser{
+	color:#317BD3;
+}
+.symbol-light-total{
+	background-color: #EEE5FF !important;
+}
+.symbol-light-male{
+	background-color: #FFE2E5 !important;
+}
+.symbol-light-female{
+	background-color: #C9F7F5 !important;
+}
+.symbol-light-user{
+	background-color: #AAD1FF !important;
+}

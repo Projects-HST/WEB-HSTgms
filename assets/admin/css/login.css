@@ -1,0 +1,86 @@
+body{
+  text-transform: uppercase;
+}
+
+.error{
+  color: red !important;
+  font-weight: 500;
+  font-size: 14px !important;
+}
+.field-icon {
+    float: right;
+    /*margin-left: -25px;*/
+    margin-right: 10px;
+	margin-top: -30px;
+    position: relative;
+    z-index: 2;
+}
+.field-icon-inner {
+    float: right;
+    /*margin-left: -25px;*/
+    margin-right: 10px;
+	margin-top: -25px;
+    position: relative;
+    z-index: 3;
+}
+
+
+input {text-transform: uppercase;}
+textarea {text-transform: uppercase;}
+select {text-transform: uppercase;}
+
+
+.login.login-1 .login-signin,
+.login.login-1 .login-signup,
+.login.login-1 .login-forgot {
+  display: none; }
+
+.login.login-1.login-signin-on .login-signup {
+  display: none; }
+
+.login.login-1.login-signin-on .login-signin {
+  display: block; }
+
+.login.login-1.login-signin-on .login-forgot {
+  display: none; }
+
+.login.login-1.login-signup-on .login-signup {
+  display: block; }
+
+.login.login-1.login-signup-on .login-signin {
+  display: none; }
+
+.login.login-1.login-signup-on .login-forgot {
+  display: none; }
+
+.login.login-1.login-forgot-on .login-signup {
+  display: none; }
+
+.login.login-1.login-forgot-on .login-signin {
+  display: none; }
+
+.login.login-1.login-forgot-on .login-forgot {
+  display: block; }
+
+@media (min-width: 992px) {
+  .login.login-1 .login-aside {
+    width: 100%;
+    max-width: 40%; }
+  .login.login-1 .login-form {
+    width: 100%;
+    max-width: 50%; } }
+
+@media (min-width: 992px) and (max-width: 1399.98px) {
+  .login.login-1 .login-aside {
+    width: 100%;
+    max-width: 40%; } }
+
+@media (max-width: 991.98px) {
+  .login.login-1 .login-form {
+    width: 100%;
+    max-width: 40%; } }
+
+@media (max-width: 575.98px) {
+  .login.login-1 .login-form {
+    width: 100%;
+    max-width: 40%; } }

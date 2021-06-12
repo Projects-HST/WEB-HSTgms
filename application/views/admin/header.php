@@ -3,7 +3,7 @@
 	$user_pic = $this->session->userdata('user_pic');
 	$user_type = $this->session->userdata('user_type');
 	$base_colour = $this->session->userdata('base_colour');
-	
+	$constituency_name = $this->session->userdata('constituency_name');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" href="images/favicon.ico" type="image/ico" />
-      <title>GMS </title>
+      <title>GMS - <?php echo $constituency_name; ?></title>
       <link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
       <link href="<?php echo base_url(); ?>assets/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -175,7 +175,7 @@
             <div class="top_nav">
                <div class="nav_menu" style="box-shadow: 1px 5px #f0efef;">
                   <div class="nav toggle">
-						<p class="gms_title">Grievance management system</p>
+						<p class="gms_title">Grievance management system - <?php echo $constituency_name; ?></p>
                   </div>
                   <nav class="nav navbar-nav">
                      <ul class=" navbar-right">

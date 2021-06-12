@@ -39,7 +39,7 @@ class Login extends CI_Controller {
 			redirect(base_url().'login/user_login');
 		} else {
 			$this->session->set_flashdata('msg', 'Invalid Institute Code!');
-			redirect('/');
+			redirect(base_url());
 		}
 	}
 
@@ -56,6 +56,11 @@ class Login extends CI_Controller {
 			$this->load->view('login');
 		}
 		
+	}
+	
+	public function forgotpassword()
+	{
+			$this->load->view('forgot_password');
 	}
 
 	public function login_check(){
@@ -83,10 +88,11 @@ class Login extends CI_Controller {
 					$user_id=$result['user_id'];
 					$user_pic=$result['user_pic'];
 					$constituency_id=$result['constituency_id'];
+					$constituency_name=$result['constituency_name'];
 					$pugathi_id=$result['pugathi_id'];
 					$office_id=$result['office_id'];
 					$base_colour=$result['base_colour'];
-					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic,"constituency_id"=>$constituency_id,"pugathi_id"=>$pugathi_id,"sess_office_id"=>$office_id,"base_colour"=>$base_colour);
+					$datas= array("user_name"=>$email_id,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic,"constituency_id"=>$constituency_id,"constituency_name"=>$constituency_name,"pugathi_id"=>$pugathi_id,"sess_office_id"=>$office_id,"base_colour"=>$base_colour);
 					$session_data=$this->session->set_userdata($datas);
 					redirect(base_url().'dashboard');
 		}

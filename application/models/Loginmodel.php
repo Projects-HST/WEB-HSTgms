@@ -42,7 +42,7 @@ Class Loginmodel extends CI_Model
 			}
 		}
 		
-		$chkUser = "SELECT * FROM user_master WHERE email_id ='$username' AND password='$pwd'";
+		$chkUser = "SELECT A.*, B.constituency_name FROM user_master A, constituency B WHERE A.email_id ='$username' AND A.password='$pwd' AND A.constituency_id = B.id";
 		$res=$this->app_db->query($chkUser);
 		if($res->num_rows()>0){
 		   foreach($res->result() as $rows)
@@ -50,7 +50,7 @@ Class Loginmodel extends CI_Model
 			   $status = $rows->status;
 		   }
 			if ($status == 'ACTIVE'){
-				  $data = array("user_type"=>$rows->role_id,"user_id"=>$rows->id,"name"=>$rows->full_name,"email_id"=>$rows->email_id,"constituency_id"=>$rows->constituency_id,"pugathi_id"=>$rows->pugathi_id,"office_id"=>$rows->office_id,"user_pic"=>$rows->profile_pic,"status"=>$rows->status,"base_colour"=>$base_colour);
+				  $data = array("user_type"=>$rows->role_id,"user_id"=>$rows->id,"name"=>$rows->full_name,"email_id"=>$rows->email_id,"constituency_id"=>$rows->constituency_id,"constituency_name"=>$rows->constituency_name,"pugathi_id"=>$rows->pugathi_id,"office_id"=>$rows->office_id,"user_pic"=>$rows->profile_pic,"status"=>$rows->status,"base_colour"=>$base_colour);
 				 return $data;
 			 } else {
 				  $data= array("status" => "Inactive");
