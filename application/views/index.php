@@ -16,7 +16,7 @@
 		<div class="d-flex flex-column flex-root">
 			<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
 			
-				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/images/bg-1.jpg);">
+				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/images/constituency_id_bg.jpg);">
 					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
 						 <div class="text-center mb-10">
 							<h3 class="font-size-h2" style="margin-bottom:30px;">Welcome To</h3>
@@ -30,19 +30,16 @@
 				<div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
 					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
 						<div class="login-form login-signin">
-
 							  <div class="text-center mb-10">
 								<h3 class="font-size-h2" style="margin-bottom:30px;">Constituency Code</h3>
 								<p>Please enter the Constituency Code <br>given to you for login.</p>
 							  </div>
-						  
-							<?php if($this->session->flashdata('msg')): ?>
+						  	<?php if($this->session->flashdata('msg')): ?>
 								<div class="alert alert-danger alert-dismissible " role="alert">
 									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><!--<span aria-hidden="true">×</span>--></button>
 									<?php echo $this->session->flashdata('msg'); ?>
 								</div>
 							<?php endif; ?>
-								
 								<form action="<?php echo base_url(); ?>login/valid_code" method="post" enctype="multipart/form-data" id="loginform" name="loginform">
 									<div class="form-group">
 									<input class="form-control form-control-solid h-auto py-4 px-5" type="text" placeholder="Constituency Code" name="cons_code" id="cons_code" maxlength="10" autocomplete="off">

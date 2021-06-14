@@ -164,11 +164,11 @@ table {
 }
 
 .badge-ACTIVE{
-    color:#6aa84e !important;
+    color:#54c520 !important;
     font-weight:bold;
 }
 .badge-INACTIVE{
-    color:#cb2027 !important;
+    color:#e20a13 !important;
     font-weight:bold;
 }
 .badge-REQUESTED{
@@ -412,7 +412,7 @@ padding:10px;
 background:#fff;
 }
 .pagination-first-tag a{
-  color: #31aa15 !important;
+  color: #495057 !important;
 
 }
 .pagination-last-tag{
@@ -423,7 +423,7 @@ background:#fff;
 .pagination-next-tag{
 padding:10px;
 border:1px solid #eeeeee;
-color:#31aa15;
+color:#495057;
 background:#fff;
 }
 .pagination-prev-tag{
@@ -433,7 +433,7 @@ background:#fff;
 }
 .pagination-current-tag{
   color: #fff;
-  background-color:#31aa15 !important;
+  background-color:#495057 !important;
 font-weight:bold;
 padding:10px;
 border:1px solid #eeeeee;
@@ -441,10 +441,10 @@ border:1px solid #eeeeee;
 .pagination-number a{
 padding:10px;
 border:1px solid #eeeeee;
-color:#31aa15;
+color:#495057;
 }
 .pagination-first-tag a, .pagination-next-tag a, .pagination-last-tag a, .pagination-prev-tag a{
-color:#31aa15;
+color:#495057;
 }
 .nav.side-menu>li.active>a{
   font-weight: 600;
@@ -474,29 +474,29 @@ hr{
   font-weight: 500;
 }
 .page-item.disabled .page-link{
-  color: #31aa15;
+  color: #495057;
     background-color: #ffffff !important;
 
 }
 .dataTables_paginate a{
-  color: #31aa15;
+  color: #495057;
   background-color: #fff  !important;
 }
 
 .page-item.active .page-link{
   font-weight: 700;
   color: #fff;
-  background-color:#31aa15 !important;
+  background-color:#495057 !important;
 }
 .page-link{
-  border: 1px solid #31aa15;
+  border: 1px solid #495057;
 }
 .btn-export{
-  background-color: #343a40;
+  background-color: #438C43;
   color:#fff;
 }
 .btn-export:hover{
-  background-color: #343a40;
+  background-color: #438C43;
   color:#fff;
 }
 .table td, .table th{
