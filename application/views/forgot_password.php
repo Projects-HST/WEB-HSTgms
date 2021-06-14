@@ -9,13 +9,13 @@
 		<link href="<?php echo base_url(); ?>assets/admin/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo base_url(); ?>assets/admin/css/jquery.toast.min.css" rel="stylesheet" type="text/css" />
 		
-		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/admin/media/logos/favicon.png" />
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
 	</head>
 	<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled page-loading">
 
 		<div class="d-flex flex-column flex-root">
 			<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
-				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/admin/images/bg-4.jpg);">
+				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/images/bg-4.jpg);">
 					
 				</div>
 				<div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">

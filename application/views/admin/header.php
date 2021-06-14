@@ -10,7 +10,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" href="images/favicon.ico" type="image/ico" />
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
 		<title>GMS - <?php echo $constituency_name; ?></title>
 		<link href="<?php echo base_url(); ?>assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="<?php echo base_url(); ?>assets/admin/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -58,7 +58,7 @@
 		background-color:<?php echo $this->session->userdata('base_colour');?>;
 		color:#000000;
 		border:1px solid <?php echo $this->session->userdata('base_colour');?>;
-}
+	}
 	</style>
 
    </head>

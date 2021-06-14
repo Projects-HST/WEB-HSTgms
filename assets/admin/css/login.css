@@ -65,22 +65,22 @@ select {text-transform: uppercase;}
 @media (min-width: 992px) {
   .login.login-1 .login-aside {
     width: 100%;
-    max-width: 40%; }
+    max-width: 45%; }
   .login.login-1 .login-form {
     width: 100%;
-    max-width: 50%; } }
+    max-width: 45%; } }
 
 @media (min-width: 992px) and (max-width: 1399.98px) {
   .login.login-1 .login-aside {
     width: 100%;
-    max-width: 40%; } }
+    max-width: 45%; } }
 
 @media (max-width: 991.98px) {
   .login.login-1 .login-form {
     width: 100%;
-    max-width: 40%; } }
+    max-width: 45%; } }
 
 @media (max-width: 575.98px) {
   .login.login-1 .login-form {
     width: 100%;
-    max-width: 40%; } }
+    max-width: 45%; } }

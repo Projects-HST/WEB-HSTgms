@@ -14,8 +14,8 @@ Class Loginmodel extends CI_Model
 		 $query = "SELECT * FROM gms_consty_user_master WHERE consituency_code = '$cons_code' AND status = 'Active'";
 		 $resultset=$this->db->query($query);
 		 if($resultset->num_rows()>0){
-			 $data = array("consituency_code"  => 'sanzhapp_'.$cons_code);
-			 //$data = array("consituency_code"  => 'gms');
+			 //$data = array("consituency_code"  => 'sanzhapp_'.$cons_code);
+			 $data = array("consituency_code"  => 'gms');
 			 $this->session->set_userdata($data);
 			 $data= array("status" => "Active","msg" => "Your Account Is Active");
 			 return $data;
@@ -185,6 +185,9 @@ Class Loginmodel extends CI_Model
 			$result = $this->app_db->query($update);
 		}
 
+		$data = array("name"  => $name,"user_pic"  => $staff_prof_pic);
+		 $this->session->set_userdata($data);
+		 
 		if ($result) {
 		  $data = array("status" => "success");
 		} else {

@@ -8,7 +8,7 @@
 		<link href="<?php echo base_url(); ?>assets/admin/css/login.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo base_url(); ?>assets/admin/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		
-		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/admin/media/logos/favicon.png" />
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
 		<title>Login Page</title>
 	</head>
 	<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled page-loading">
@@ -16,14 +16,21 @@
 		<div class="d-flex flex-column flex-root">
 			<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
 			
-				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/admin/images/bg-1.jpg);">
-					
+				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/images/bg-1.jpg);">
+					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
+						 <div class="text-center mb-10">
+							<h3 class="font-size-h2" style="margin-bottom:30px;">Welcome To</h3>
+							<img src="<?php echo base_url(); ?>assets/images/login.png" class="img-responsive login_img" style="margin-bottom:30px;">
+							<h3 class="font-size-h2" style="margin-bottom:30px;">Grievance Management System</h3>
+							<p>Please enter the Constituency Code <br>given to you for login.</p>
+						</div>
+					</div>
 				</div>
 				
 				<div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
 					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
 						<div class="login-form login-signin">
-						
+
 							  <div class="text-center mb-10">
 								<h3 class="font-size-h2" style="margin-bottom:30px;">Constituency Code</h3>
 								<p>Please enter the Constituency Code <br>given to you for login.</p>
