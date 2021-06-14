@@ -215,7 +215,7 @@ class Apiios extends CI_Controller {
         $phone = $this->input->post("phone");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiiosmodel->Check_phone($phone);
+		$data['result']=$this->apiiosmodel->Check_phone($phone,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

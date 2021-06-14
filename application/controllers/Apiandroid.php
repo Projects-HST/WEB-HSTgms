@@ -13,7 +13,6 @@ class Apiandroid extends CI_Controller {
 		 $this->load->library('session');
 		 $this->load->helper(array('url','db_dynamic_helper')); 
 		 $this->load->model('apiandroidmodel');
-		
     }
 
 	public function checkMethod()
@@ -215,7 +214,7 @@ class Apiandroid extends CI_Controller {
         $phone = $this->input->post("phone");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Check_phone($phone);
+		$data['result']=$this->apiandroidmodel->Check_phone($phone,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
