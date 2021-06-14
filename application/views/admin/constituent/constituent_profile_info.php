@@ -44,7 +44,7 @@ th{
 
 
                      </ul>
-                     <a href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>" class="btn btn-success" style="background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000;border:1px solid <?php echo $this->session->userdata('base_colour');?>;">Edit Profile</a>
+                     <a href="<?php echo base_url(); ?>constituent/get_constituent_member_edit/<?php echo base64_encode($rows->id*98765); ?>" class="btn btn-success" style="background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000 !important;border:1px solid <?php echo $this->session->userdata('base_colour');?>;">Edit Profile</a>
 
 
                   </div>
