@@ -13,7 +13,7 @@ input:required {
             <div class="x_title">
                 <h2>List of constituent</h2> <span style="float:right;">
 
-				              <a class="btn btn-export" style="background-color:<?php echo $this->session->userdata('base_colour');?>;color:#000000;border:1px solid <?php echo $this->session->userdata('base_colour');?>;margin-top:5px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
+				              <a class="btn btn-export" style="margin-top:5px;" href="<?= base_url() ?>constituent/export_constituent"> Export </a></span>
                <div class="clearfix"></div>
             </div>
 						<?php if($this->session->flashdata('msg')) {
