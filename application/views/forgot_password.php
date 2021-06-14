@@ -15,36 +15,35 @@
 
 		<div class="d-flex flex-column flex-root">
 			<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
+			
 				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/images/bg-4.jpg);">
-					
+					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
+						 <div class="text-center mb-10">
+							<img src="<?php echo base_url(); ?>assets/images/login.png" class="img-responsive login_img" style="margin-bottom:30px;">
+							<h3 class="font-size-h2" style="margin-bottom:30px;color:#ffffff;">Grievance Management System</h3>
+						</div>
+					</div>
 				</div>
+				
 				<div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
 					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
 						<title>Forgot Password</title>
 
-<div class="login-form login-signin">
-  <div class="text-center mb-10">
-    <h3 class="font-size-h1">Forgot Password</h3>
-    <p class="text-muted font-weight-bold">Enter your Login Email Address</p>
-  </div>
-
-   <form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
-    <div class="form-group">
-      
-      <input class="form-control form-control-solid h-auto py-4 px-5" type="email" placeholder="Email Address" name="user_name" id="user_name" autocomplete="off" />
-
-    </div>
-
-    <!--begin::Action-->
-    <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
-      <a href="<?php echo base_url(); ?>login/user_login" class="text-dark-50 text-hover-primary my-3 mr-2" id="kt_login_forgot">Login</a>
-      <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3">RESET PASSWORD</button>
-    </div>
-    <!--end::Action-->
-  </form>
-  <!--end::Form-->
-</div>
-<!--end::Signin-->
+							<div class="login-form login-signin">
+							  <div class="text-center mb-10">
+								<h3 class="font-size-h1">Forgot Password</h3>
+								<p class="text-muted font-weight-bold">Enter your Login Email Address</p>
+							  </div>
+							   <form action="<?php echo base_url(); ?>login/login_check" method="post" enctype="multipart/form-data" id="reset_password" name="reset_password">
+								<div class="form-group">
+								  <input class="form-control form-control-solid h-auto py-4 px-5" type="email" placeholder="Email Address" name="user_name" id="user_name" autocomplete="off" />
+								</div>
+								<div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+								  <a href="<?php echo base_url(); ?>login/user_login" class="text-dark-50 text-hover-primary my-3 mr-2" id="kt_login_forgot">Login</a>
+								  <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3">RESET PASSWORD</button>
+								</div>
+							  </form>
+							</div>
 					</div>
 
 				</div>
@@ -52,10 +51,11 @@
 		</div>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/vendors/jquery/dist/jquery.validate.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/js/jquery.toast.min.js"></script>
 	</body>
+	
 	<script type="text/javascript">
-$("#reset_password").validate({
+	$("#reset_password").validate({
        rules: {
            user_name:{required:true,email:true }
        },
@@ -77,7 +77,7 @@ $("#reset_password").validate({
                                  stack: false
                              })
                             // window.setTimeout(function(){location.reload()},3000);
-							window.setTimeout(function(){window.location.replace("<?php echo base_url(); ?>login/user_login/")},100000);
+							window.setTimeout(function(){window.location.replace("<?php echo base_url(); ?>login/user_login/")},3000);
 
                      }else{
                        $.toast({

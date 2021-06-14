@@ -17,8 +17,11 @@
 			<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
 				
 				<div class="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10" style="background-image: url(<?php echo base_url(); ?>assets/images/bg-4.jpg);">
-					<div class="d-flex flex-row-fluid flex-column justify-content-between">
-						
+					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
+						 <div class="text-center mb-10">
+							<img src="<?php echo base_url(); ?>assets/images/login.png" class="img-responsive login_img" style="margin-bottom:30px;">
+							<h3 class="font-size-h2" style="margin-bottom:30px;color:#ffffff;">Grievance Management System</h3>
+						</div>
 					</div>
 				</div>
 				
