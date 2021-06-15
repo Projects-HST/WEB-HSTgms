@@ -141,6 +141,121 @@ class Apiiosmodel extends CI_Model {
 
 //#################### Main Login End ####################//
 
+
+//######## Mobile number OTP ##############//
+    function Mobile_login($mobile_no,$dynamic_db)
+	{
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+
+		$select="SELECT * FROM user_master where phone_number ='$mobile_no'";
+		$res=$this->app_db->query($select);
+		if($res->num_rows()!=0){
+			$result=$res->result();
+			$otp=$this->generateNumericOTP();
+			$update="UPDATE user_master SET mobile_otp ='$otp' where phone_number ='$mobile_no'";
+			$res_update=$this->app_db->query($update);
+			$to_phone=$mobile_no;
+			$smsContent='Verification OTP.'.$otp;
+			$this->smsmodel->sendSMS($to_phone,$smsContent);
+
+			$data=array('status'=>'success','msg'=>'details found','mobile_otp'=>$otp);
+		}else{
+			$data=array('status'=>'error','msg'=>'No details found for this mobile number');
+		}
+		return $data;
+    }
+//######## Mobile number OTP ##############//
+
+
+//######## Mobile number check with OTP ##############//
+
+  	function Mobile_verify($mobile_no,$otp,$gcm_key,$mobile_type,$dynamic_db)
+  	{
+		//---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$select="SELECT * FROM colour_codes WHERE selected_status ='Y'";
+		$result=$this->app_db->query($select);
+		if($result->num_rows()>0){
+			foreach ($result->result() as $rows)
+			{
+				$base_colour = $rows->colour_code ;
+			}
+		}else{
+				$base_colour = '#1271b5' ;
+		}
+		
+		$sql = "SELECT * FROM user_master where phone_number = '$mobile_no' and mobile_otp='$otp'";
+		$user_result = $this->app_db->query($sql);
+		$ress = $user_result->result();
+		if($user_result->num_rows()>0)
+		{
+			$check_status="SELECT * FROM user_master where phone_number = '$mobile_no' and mobile_otp='$otp' AND status='INACTIVE'";
+			$user_status = $this->app_db->query($check_status);
+			if($user_status->num_rows()>0){
+				$response = array("status" => "Error", "msg" => "Account Deactivated");
+				return $response;
+			} else{
+				foreach ($user_result->result() as $rows)
+				{
+				  $user_id = $rows->id;
+				  $login_count = $rows->login_count+1;
+				  $profile_pic = $rows->profile_pic ;
+				  $base_colour = $base_colour;
+				}
+				
+				if ($profile_pic != ''){
+			        $picture_url = base_url().'assets/users/'.$profile_pic;
+			    }else {
+			         $picture_url = '';
+			    }
+				$update_sql = "UPDATE user_master SET last_login=NOW(),login_count='$login_count' WHERE id='$user_id'";
+				$update_result = $this->app_db->query($update_sql);
+				
+				$gcmQuery = "SELECT * FROM notification_master WHERE gcm_key like '%" .$gcm_key. "%' LIMIT 1";
+				$gcm_result = $this->app_db->query($gcmQuery);
+				$gcm_ress = $gcm_result->result();
+
+				if($gcm_result->num_rows()==0)
+				{
+					$sQuery = "INSERT INTO notification_master (user_type,user_id,gcm_key,mobile_type) VALUES ('2','". $user_id . "','". $gcm_key . "','". $mobile_type . "')";
+					$update_gcm = $this->app_db->query($sQuery);
+				}
+			}
+
+			$userData  = array(
+							"user_id" => $ress[0]->id,
+							"user_role" => $ress[0]->role_id,
+							"constituency_id" => $ress[0]->constituency_id,
+							"pugathi_id" => $ress[0]->pugathi_id,
+							"full_name" => $ress[0]->full_name,
+							"phone_number" => $ress[0]->phone_number,
+							"email_id" => $ress[0]->email_id,
+							"gender" => $ress[0]->gender,
+							"address" => $ress[0]->address,
+							"picture_url" => $picture_url,
+							"status" => $ress[0]->status,
+							"last_login" => $ress[0]->last_login,
+							"login_count" => $ress[0]->login_count,
+							"base_colour" => $base_colour
+				);
+			
+			$response = array("status" => "Success", "msg" => "Login Successfully", "userData" => $userData);
+			return $response;
+		} else {
+			$response = array("status" => "Error", "msg" => "Invalid login credentials!");
+			return $response;
+		}
+      return $data;
+  	}
+//######## Mobile number check with OTP ##############//
+
+
 //#################### Forgot Password ####################//
 	public function Forgot_password($user_name,$dynamic_db)
 	{

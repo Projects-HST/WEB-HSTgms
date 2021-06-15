@@ -101,6 +101,51 @@ class Apiios extends CI_Controller {
 
 //-----------------------------------------------//
 
+//-----------------------------------------------//
+
+	public function mobile_login()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$mobile_no = '';
+		$dynamic_db = '';
+		$mobile_no = $this->input->post("mobile_no");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiiosmodel->Mobile_login($mobile_no,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+//-----------------------------------------------//
+
+
+	public function mobile_verify()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$mobile_no = $this->input->post("mobile_no");
+		$otp = $this->input->post("otp");
+		$gcm_key = $this->input->post("device_id");
+		$mobile_type = $this->input->post("mobile_type");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiiosmodel->Mobile_verify($mobile_no,$otp,$gcm_key,$mobile_type,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+	
+//-----------------------------------------------//
+
 	public function forgotPassword(){
 		
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
