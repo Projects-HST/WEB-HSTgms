@@ -21,6 +21,20 @@ class Apiiosmodel extends CI_Model {
 	  }
 	  return $response;
 	}
+	
+	//#################### Constituency code End ####################//
+
+    function generateNumericOTP() 
+	{
+		$n=4;
+        $generator = "1357902468";
+        $result = "";
+
+        for ($i = 1; $i <= $n; $i++) {
+            $result .= substr($generator, (rand()%(strlen($generator))), 1);
+        }
+        return $result;
+    }
 
 //#################### Constituency code ####################//
 
