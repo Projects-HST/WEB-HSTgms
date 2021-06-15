@@ -110,9 +110,9 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$dynamic_db = '';
-		$dynamic_db = $this->input->post("dynamic_db");
 		$mobile_no = $this->input->post("mobile_no");
-		
+		$dynamic_db = $this->input->post("dynamic_db");
+				
 		$data['result']=$this->apiandroidmodel->Mobile_login($mobile_no,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
@@ -129,7 +129,6 @@ class Apiandroid extends CI_Controller {
 		{
 			return FALSE;
 		}
-
 
 		$mobile_no = $this->input->post("mobile_no");
 		$otp = $this->input->post("otp");
@@ -402,6 +401,30 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function list_office()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$constituency_id = '';
+		$dynamic_db = '';
+		
+		$constituency_id = $this->input->post("constituency_id");
+		$dynamic_db = $this->input->post("dynamic_db");
+
+		$data['result']=$this->apiandroidmodel->List_office($constituency_id,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function dashBoard()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -412,16 +435,18 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+		$office_id = '';
 		$from_date = '';
 		$to_date = '';
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Dashboard($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Dashboard($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
