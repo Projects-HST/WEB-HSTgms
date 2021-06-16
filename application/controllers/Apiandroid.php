@@ -465,16 +465,18 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+		$office_id = '';
 		$from_date = '';
 		$to_date = '';
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_members($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Widgets_members($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -494,16 +496,18 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+		$office_id = '';
 		$from_date = '';
 		$to_date = '';
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_grievances($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Widgets_grievances($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -523,16 +527,18 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+		$office_id = '';
 		$from_date = '';
 		$to_date = '';
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_footfall($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Widgets_footfall($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -552,16 +558,18 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+		$office_id = '';
 		$from_date = '';
 		$to_date = '';
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_meetings($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Widgets_meetings($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -606,16 +614,18 @@ class Apiandroid extends CI_Controller {
 		}
 
 		$paguthi_id = '';
+		$office_id = '';
 		$from_date = '';
 		$to_date = '';
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_greetings($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Widgets_greetings($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -640,11 +650,12 @@ class Apiandroid extends CI_Controller {
 		$dynamic_db = '';
 		
 		$paguthi_id = $this->input->post("paguthi_id");
+		$office_id = $this->input->post("office_id");
 		$from_date = $this->input->post("from_date");
 		$to_date = $this->input->post("to_date");
 		$dynamic_db = $this->input->post("dynamic_db");
 
-		$data['result']=$this->apiandroidmodel->Widgets_videos($paguthi_id,$from_date,$to_date,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Widgets_videos($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

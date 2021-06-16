@@ -866,7 +866,7 @@ class Apiandroidmodel extends CI_Model {
 		}
 
 
-	function widgets_members($paguthi_id,$from_date,$to_date,$dynamic_db)
+	function widgets_members($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -878,7 +878,17 @@ class Apiandroidmodel extends CI_Model {
 		}else{
 			$quer_paguthi="WHERE paguthi_id='$paguthi_id'";
 		} 	
-				
+		
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office="";
+		}else{
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_office="WHERE office_id='$office_id'";
+			}else{
+				$quer_office="AND office_id='$office_id'";
+			}
+		}
+			
 		if(empty($from_date)){
 			$quer_date="";
 		}else{
@@ -923,8 +933,7 @@ class Apiandroidmodel extends CI_Model {
 			IFNULL(sum(case when voter_id_no!= '' then 1 else 0 end),'0') AS having_vote_id,
 			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end) / count(*) * 100,'0') as having_dob_percentage,
 			IFNULL(sum(case when dob!= '0000-00-00' then 1 else 0 end),'0') AS having_dob
-			FROM constituent $quer_paguthi $quer_date";
-
+			FROM constituent $quer_paguthi $quer_office $quer_date";
 			$res=$this->app_db->query($query);
 			$result=$res->result();
 
@@ -933,7 +942,7 @@ class Apiandroidmodel extends CI_Model {
 	}
 	
 	
-	function Widgets_grievances($paguthi_id,$from_date,$to_date,$dynamic_db)
+	function Widgets_grievances($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -946,6 +955,12 @@ class Apiandroidmodel extends CI_Model {
 				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
 		}
 
+		if($office_id=='ALL' || empty($office_id)){
+			$query_office ="";
+		}else{
+			$query_office="AND g.office_id='$office_id'";
+		}  
+		
 		if(empty($from_date)){
 			$quer_date="";
 		}else{
@@ -956,13 +971,13 @@ class Apiandroidmodel extends CI_Model {
 			$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 		}
 
-		$query_2=$this->app_db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
+		 $query_2=$this->app_db->query("SELECT count(*) as enquiry_count from grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $query_office $quer_date");
 		$result_2=$query_2->result();
 		foreach($result_2 as $row_enquiry_count){
 			  $enquiry_count = $row_enquiry_count->enquiry_count;
 			}
 
-		$query_3=$this->app_db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
+		$query_3=$this->app_db->query("SELECT count(*) as petition_count from grievance as g where g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_3=$query_3->result();
 		foreach($result_3 as $row_petition_count){
 			  $petition_count = $row_petition_count->petition_count;
@@ -972,7 +987,7 @@ class Apiandroidmodel extends CI_Model {
 		$query_4=$this->app_db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
-		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $quer_date");
+		FROM grievance as g  where g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_4=$query_4->result();
 		foreach($result_4 as $row_petition_status){
 			  $petition_pending = $row_petition_status->no_of_pending;
@@ -994,7 +1009,7 @@ class Apiandroidmodel extends CI_Model {
 		$query_1=$this->app_db->query("SELECT
 		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
 		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
-		FROM grievance as g where g.grievance_type='P' $quer_paguthi $quer_date");
+		FROM grievance as g where g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_1=$query_1->result();
 		foreach($result_1 as $row_petition_list){
 			  $no_of_online = $row_petition_list->no_of_online;
@@ -1012,7 +1027,7 @@ class Apiandroidmodel extends CI_Model {
 		$query_1_1=$this->app_db->query("SELECT
 		IFNULL(sum(case when g.seeker_type_id = '1' then 1 else 0 end),'0') AS no_of_online,
 		IFNULL(sum(case when g.seeker_type_id = '2' then 1 else 0 end),'0') AS no_of_civic
-		FROM grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $quer_date");
+		FROM grievance as g where g.grievance_type='E' AND g.enquiry_status = 'E' $quer_paguthi $query_office $quer_date");
 		$result_1_1=$query_1_1->result();
 		foreach($result_1_1 as $row_enquiry_list){
 			  $no_of_online = $row_enquiry_list->no_of_online;
@@ -1028,7 +1043,7 @@ class Apiandroidmodel extends CI_Model {
 		);
 
 		$query_6=$this->app_db->query("SELECT count(*) as online_petition_count FROM grievance  as g where g.seeker_type_id='1' 
-		and g.grievance_type='P' $quer_paguthi $quer_date");
+		and g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_6=$query_6->result();
 		foreach($result_6 as $online_pet_count){
 			  $online_petition_count = $online_pet_count->online_petition_count;
@@ -1037,7 +1052,7 @@ class Apiandroidmodel extends CI_Model {
 		$query_7=$this->app_db->query("SELECT IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
         IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
         IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
-		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $quer_date");
+		FROM grievance as g  where g.seeker_type_id='1' and g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_7=$query_7->result();
 		foreach($result_7 as $online_petition_status){
 			  $petition_pending = $online_petition_status->no_of_pending;
@@ -1057,8 +1072,8 @@ class Apiandroidmodel extends CI_Model {
 		);
 
 
-		$query_9=$this->app_db->query("SELECT count(*) as civic_petition_count FROM grievance  as g where g.seeker_type_id='2' 
-		and g.grievance_type='P' $quer_paguthi $quer_date");
+		$query_9=$this->app_db->query("SELECT count(*) as civic_petition_count FROM grievance as g where g.seeker_type_id='2' 
+		and g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_9=$query_9->result();
 		foreach($result_9 as $civic_pet_count){
 			  $civic_petition_count = $civic_pet_count->civic_petition_count;
@@ -1067,7 +1082,7 @@ class Apiandroidmodel extends CI_Model {
 		$query_10=$this->app_db->query("SELECT	IFNULL(sum(case when g.status = 'PENDING' then 1 else 0 end),'0') AS no_of_pending,
 		IFNULL(sum(case when g.status = 'COMPLETED' then 1 else 0 end),'0') AS no_of_completed,
 		IFNULL(sum(case when g.status = 'REJECTED' then 1 else 0 end),'0') AS no_of_rejected
-		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $quer_date");
+		FROM grievance as g  where g.seeker_type_id='2' and g.grievance_type='P' $quer_paguthi $query_office $quer_date");
 		$result_10=$query_10->result();
 
 		foreach($result_10 as $civic_petition_status){
@@ -1092,7 +1107,7 @@ class Apiandroidmodel extends CI_Model {
 
 	}
 	
-	function Widgets_footfall($paguthi_id,$from_date,$to_date,$dynamic_db)
+	function Widgets_footfall($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -1113,8 +1128,14 @@ class Apiandroidmodel extends CI_Model {
 			}else{
 				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
 			}
-	}
+		}
 
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office ="";
+		}else{
+			$quer_office ="AND g.office_id='$office_id'";
+		}
+	
 		if(empty($from_date)){
 			$quer_date="";
 		}else{
@@ -1125,35 +1146,35 @@ class Apiandroidmodel extends CI_Model {
 			$quer_date="AND DATE(g.grievance_date) BETWEEN '$one_date' and '$two_date'";
 		}
 		
-		$query_1="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_1="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_1=$this->app_db->query($query_1);
 		$cons_footfall_cnt = $result_1->num_rows();
 		
-		$query_2="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_2="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_2=$this->app_db->query($query_2);
 		$other_footfall_cnt = $result_2->num_rows();
 
-		$query_3="SELECT * from grievance as g where g.repeated_status ='N' $quer_cons $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_3="SELECT * from grievance as g where g.repeated_status ='N' $quer_cons $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_3=$this->app_db->query($query_3);
 		$unique_cnt = $result_3->num_rows();
 		
-		$query_4="SELECT * from grievance as g where g.repeated_status ='R' $quer_cons $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_4="SELECT * from grievance as g where g.repeated_status ='R' $quer_cons $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_4=$this->app_db->query($query_4);
 		$repeated_cnt = $result_4->num_rows();
 		
-		$query_5="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_5="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_5=$this->app_db->query($query_5);
 		$sing_unique_cnt = $result_5->num_rows();
 		
-		$query_6="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='R' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_6="SELECT * from grievance as g where g.constituency_id ='$cons_id' and g.repeated_status ='R' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_6=$this->app_db->query($query_6);
 		$sing_repeted_cnt = $result_6->num_rows();
 		
-		$query_7="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_7="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='N' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_7=$this->app_db->query($query_7);
 		$other_unique_cnt = $result_7->num_rows();
 		
-		$query_8="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='R' $quer_paguthi $quer_date GROUP BY g.constituent_id, g.grievance_date";
+		$query_8="SELECT * from grievance as g where g.constituency_id ='$others_id' and g.repeated_status ='R' $quer_paguthi $quer_office $quer_date GROUP BY g.constituent_id, g.grievance_date";
 		$result_8=$this->app_db->query($query_8);
 		$other_repeted_cnt = $result_8->num_rows();
 
@@ -1226,7 +1247,7 @@ class Apiandroidmodel extends CI_Model {
 	}
 	
 	
-	function Widgets_meetings($paguthi_id,$from_date,$to_date,$dynamic_db)
+	function Widgets_meetings($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -1234,9 +1255,19 @@ class Apiandroidmodel extends CI_Model {
 		//---------Dynamic DB Connection----------//
 		
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
-				$quer_paguthi="";
+			$quer_paguthi="";
 		}else{
-				$quer_paguthi="AND g.paguthi_id='$paguthi_id'";
+			$quer_paguthi="WHERE c.paguthi_id='$paguthi_id'";
+		}
+		
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office="";
+		}else{
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_office="WHERE c.office_id='$office_id'";
+			}else{
+			$quer_office="AND c.office_id='$office_id'";
+			}
 		}
 		
 		if(empty($from_date)){
@@ -1248,7 +1279,7 @@ class Apiandroidmodel extends CI_Model {
 			$dateTime2 = new DateTime($to_date);
 			$two_date=date_format($dateTime2,'Y-m-d' );
 
-			if(empty($quer_paguthi_cons)){
+			if(empty($quer_paguthi)){
 				$quer_mr_date="WHERE DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
 			}else{
 				$quer_mr_date="AND DATE(mr.created_at) BETWEEN '$one_date' and '$two_date'";
@@ -1256,12 +1287,13 @@ class Apiandroidmodel extends CI_Model {
 		}
 		
 		$query_3="SELECT IFNULL(count(*),'0') as total,
-			IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0')  AS meeting_request_count,
-			IFNULL(IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage,
-			IFNULL(sum(case when mr.meeting_status = 'COMPLETED'  then 1 else 0 end),'0')  AS meeting_complete_count,
-			IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
-			FROM meeting_request as mr
-			left join constituent as c on c.id=mr.constituent_id $quer_paguthi $quer_mr_date";
+						IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0')  AS meeting_request_count,
+            IFNULL(IFNULL(sum(case when (mr.meeting_status = 'REQUESTED' OR mr.meeting_status = 'SCHEDULED') then 1 else 0 end),'0') / count(*) * 100,'0') AS mr_percentage,
+						IFNULL(sum(case when mr.meeting_status = 'COMPLETED'  then 1 else 0 end),'0')  AS meeting_complete_count,
+						IFNULL(IFNULL(sum(case when mr.meeting_status = 'COMPLETED' then 1 else 0 end),'0') / count(*) * 100,'0') AS mc_percentage
+						FROM meeting_request as mr
+            left join constituent as c on c.id=mr.constituent_id $quer_paguthi $quer_office $quer_mr_date";
+
 			$res_3=$this->app_db->query($query_3);
 			$result_3=$res_3->result();
 			foreach($result_3 as $row_meeting_status){
@@ -1321,7 +1353,7 @@ class Apiandroidmodel extends CI_Model {
 	
 	
 	
-	function Widgets_greetings($paguthi_id,$from_date,$to_date,$dynamic_db)
+	function Widgets_greetings($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -1333,6 +1365,17 @@ class Apiandroidmodel extends CI_Model {
 		}else{
 			$quer_paguthi_cons="WHERE c.paguthi_id='$paguthi_id'";
 		}
+
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office="";
+		}else{
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_office="WHERE c.office_id='$office_id'";
+			}else{
+			$quer_office="AND c.office_id='$office_id'";
+			}
+		}
+
 
 		if(empty($from_date)){
 			$quer_bw_date="";
@@ -1357,14 +1400,14 @@ class Apiandroidmodel extends CI_Model {
 			}
 		}
 		
-		$query_5="SELECT IFNULL(count(*),'0') as birth_wish_count FROM consitutent_birthday_wish as br left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_bw_date";
+		$query_5="SELECT IFNULL(count(*),'0') as birth_wish_count FROM consitutent_birthday_wish as br left join constituent as c on c.id=br.constituent_id $quer_paguthi_cons $quer_office $quer_bw_date";
 		$res_5=$this->app_db->query($query_5);
 		$result_5=$res_5->result();
 			foreach($result_5 as $row_birthday_wish){
 			   $birthday_wish_count = $row_birthday_wish->birth_wish_count;
 			}
 
-		$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_fw_date";
+		$query_6="SELECT IFNULL(count(fw.id),'0') as total from festival_wishes as fw left join constituent as c on c.id=fw.constituent_id $quer_paguthi_cons $quer_office $quer_fw_date";
 		$res_6=$this->app_db->query($query_6);
 		$result_6=$res_6->result();
 		
@@ -1374,7 +1417,7 @@ class Apiandroidmodel extends CI_Model {
 		
 		$festival_greetings_details = []; 
 
-		$query_7=$this->app_db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_fw_date
+		$query_7=$this->app_db->query("SELECT count(fw.id) as wishes_cnt,fm.festival_name FROM festival_wishes  as fw left join festival_master as fm on fm.id=fw.festival_id left join constituent as c on c.id=fw.constituent_id  $quer_paguthi_cons $quer_office $quer_fw_date
 		GROUP BY fw.festival_id");
 		$result_7=$query_7->result();
 		
@@ -1403,7 +1446,7 @@ class Apiandroidmodel extends CI_Model {
 	
 	
 	
-	function Widgets_videos($paguthi_id,$from_date,$to_date,$dynamic_db)
+	function Widgets_videos($paguthi_id,$office_id,$from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -1416,6 +1459,16 @@ class Apiandroidmodel extends CI_Model {
 			$quer_paguthi_video="AND c.paguthi_id='$paguthi_id'";
 		}
 
+		if($office_id=='ALL' || empty($office_id)){
+			$quer_office_video="";
+		}else{
+			if($paguthi_id=='ALL' || empty($paguthi_id)){
+				$quer_office_video ="WHERE c.office_id='$office_id'";
+			}else{
+				$quer_office_video ="AND c.office_id='$office_id'";
+			}
+		}
+		
 		if(empty($from_date)){
 			$quer_cv_date="";
 		}else{
@@ -1435,7 +1488,7 @@ class Apiandroidmodel extends CI_Model {
 
 		$query_5="SELECT p.paguthi_name,o.office_name,COUNT(cv.id) as cnt_video from office as o
 		left join paguthi as p on p.id=o.paguthi_id
-		left join constituent as c on c.office_id=o.id $quer_paguthi_video 
+		left join constituent as c on c.office_id=o.id $quer_paguthi_video $quer_office_video
 		left join constituent_video as cv on cv.constituent_id=c.id $quer_cv_date
 		GROUP BY o.id";
 		$res_5=$this->app_db->query($query_5);
