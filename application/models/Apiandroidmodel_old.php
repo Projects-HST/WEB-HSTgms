@@ -621,47 +621,6 @@ class Apiandroidmodel extends CI_Model {
 	}
 //#################### List Office end ####################//
 
-//#################### Category and Sub Category ####################//	
-	function Active_category($user_id,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
-		$resultset=$this->app_db->query($query);
-		$category_result = $resultset->result();
-		if($resultset->num_rows()>0)
-			{
-				$response = array("status" => "Success", "msg" => "List Category", "category_details" =>$category_result);
-			} else {
-				$response = array("status" => "Error", "msg" => "No records found");
-			}
-		return $response;
-	}
-	
-	function Active_subcategory($user_id,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
-		$resultset=$this->app_db->query($query);
-		$sub_category_result = $resultset->result();
-		if($resultset->num_rows()>0)
-			{
-				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
-			} else {
-				$response = array("status" => "Error", "msg" => "No records found");
-			}
-		return $response;
-	}
-	
-//#################### Category and Sub Category End ####################//
-	
 
 //#################### Dashboard ####################//
 
@@ -2998,9 +2957,8 @@ class Apiandroidmodel extends CI_Model {
 
 //#################### Reports ####################//	
 
-	function Report_status($from_date,$to_date,$status,$paguthi,$office,$offset,$rowcount,$dynamic_db)
+	function Report_status($from_date,$to_date,$status,$paguthi,$dynamic_db)
 	{
-
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
 		$this->app_db = $this->load->database($config_app, TRUE); 
@@ -3012,28 +2970,11 @@ class Apiandroidmodel extends CI_Model {
 		$dateTime2 = new DateTime($to_date);
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
-		if ($status =='ALL' || empty($status)){
-			$status_query = "";
-		} else {
-			$status_query = "AND A.status = '$status'";
-		}
-		
-		if ($paguthi =='ALL' || empty($paguthi)){
-			$paguthi_query = "";
-		} else {
-			$paguthi_query = "AND A.paguthi_id = '$paguthi'";
-		}
-		
-		if ($office =='ALL' || empty($office) ){
-			$office_query = "";
-		} else {
-			$office_query = "AND A.office_id = '$office'";
-		}
-		
-		 $cquery="SELECT
+		if ($status=='ALL' && $paguthi == 'ALL')
+		{		
+			$query="SELECT
 						A.id,
 						F.paguthi_name,
-						G.office_name,
 						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
@@ -3049,29 +2990,230 @@ class Apiandroidmodel extends CI_Model {
 						user_master C,
 						grievance_type D,
 						role_master E,
-						paguthi F,
-						office G
+						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.office_id = G.id $status_query $paguthi_query $office_query AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
-						
-		$query= $cquery." LIMIT $offset, $rowcount";
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status=='ALL' && $paguthi != 'ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status!='ALL' && $paguthi == 'ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		if ($status!='ALL' && $paguthi != 'ALL')
+		{
+			$query="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+		}
+		$resultset=$this->app_db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"status_report" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			
+		return $response;
+	}
+	
+	function Report_statusnew($from_date,$to_date,$status,$paguthi,$offset,$rowcount,$dynamic_db)
+	{
 
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if ($status=='ALL' && $paguthi == 'ALL')
+		{		
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		if ($status=='ALL' && $paguthi != 'ALL')
+		{
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi == 'ALL')
+		{
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi != 'ALL')
+		{
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') ORDER BY A.`grievance_date` DESC";
+			
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		
 		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 			
 		$resultset=$this->app_db->query($query);
 		$report_result = $resultset->result();
-		
-		if($resultset->num_rows()>0) {
-			$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"report_list" =>$report_result);
-		} else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "Status based report","result_count" =>$result_count,"report_list" =>$report_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+			
 		return $response;
-
 	}
 	
-	function Report_statussearch($from_date,$to_date,$status,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db)
+	function Report_statussearch($from_date,$to_date,$status,$paguthi,$keyword,$offset,$rowcount,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -3084,28 +3226,11 @@ class Apiandroidmodel extends CI_Model {
 		$dateTime2 = new DateTime($to_date);
 		$to_date=date_format($dateTime2,'Y-m-d' );
 		
-		if ($status =='ALL' || empty($status)){
-			$status_query = "";
-		} else {
-			$status_query = "AND A.status = '$status'";
-		}
-		
-		if ($paguthi =='ALL' || empty($paguthi)){
-			$paguthi_query = "";
-		} else {
-			$paguthi_query = "AND A.paguthi_id = '$paguthi'";
-		}
-		
-		if ($office =='ALL' || empty($office) ){
-			$office_query = "";
-		} else {
-			$office_query = "AND A.office_id = '$office'";
-		}
-		
-		$cquery="SELECT
+		if ($status=='ALL' && $paguthi == 'ALL')
+		{		
+			 $cquery="SELECT
 						A.id,
 						F.paguthi_name,
-						G.office_name,
 						A.grievance_type,
 						A.petition_enquiry_no,
 						A.grievance_date,
@@ -3121,13 +3246,99 @@ class Apiandroidmodel extends CI_Model {
 						user_master C,
 						grievance_type D,
 						role_master E,
-						paguthi F,
-						office G
+						paguthi F
 					WHERE
-						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.office_id = G.id $status_query $paguthi_query $office_query AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
 						ORDER BY A.`grievance_date` DESC";
 						
-		$query= $cquery." LIMIT $offset, $rowcount";
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		if ($status=='ALL' && $paguthi != 'ALL')
+		{
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi == 'ALL')
+		{
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		if ($status!='ALL' && $paguthi != 'ALL')
+		{
+			 $cquery="SELECT
+						A.id,
+						F.paguthi_name,
+						A.grievance_type,
+						A.petition_enquiry_no,
+						A.grievance_date,
+						A.status,
+						B.full_name,
+						B.mobile_no,
+						C.full_name AS created_by,
+						D.grievance_name,
+						E.role_name
+					FROM
+						grievance A,
+						constituent B,
+						user_master C,
+						grievance_type D,
+						role_master E,
+						paguthi F
+					WHERE
+						A.constituent_id = B.id AND A.created_by = C.id AND A.grievance_type_id = D.id AND C.role_id = E.id AND A.paguthi_id = F.id AND A.status = '$status' AND A.paguthi_id = '$paguthi' AND (`grievance_date` BETWEEN '$from_date' AND '$to_date') 
+						AND (A.status like '%$keyword%' OR  A.petition_enquiry_no like '%$keyword%' OR A.grievance_date like '%$keyword%' OR B.full_name like '%$keyword%' OR B.mobile_no like '%$keyword%' OR C.full_name like '%$keyword%' OR D.grievance_name like '%$keyword%')
+						ORDER BY A.`grievance_date` DESC";
+						
+			$query= $cquery." LIMIT $offset, $rowcount";
+		}
+		
 		$resultset_count=$this->app_db->query($cquery);
 		$result_count = $resultset_count->num_rows();
 		
@@ -3142,165 +3353,6 @@ class Apiandroidmodel extends CI_Model {
 			
 		return $response;
 	}
-
-	function Report_meetings($from_date,$to_date,$paguthi,$office,$status,$offset,$rowcount,$dynamic_db)
-	{
-
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$dateTime1 = new DateTime($from_date);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-		
-		$dateTime2 = new DateTime($to_date);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-		
-		if (empty($status)){
-			$status_query = "";
-		} else {
-			$status_query = "AND A.meeting_status = '$status'";
-		}
-		
-		if (empty($paguthi)){
-			$paguthi_query = "";
-		} else {
-			$paguthi_query = "AND B.paguthi_id = '$paguthi'";
-		}
-		
-		if (empty($office)){
-			$office_query = "";
-		} else {
-			$office_query = "AND B.office_id = '$office'";
-		}
-		
-		 $cquery="SELECT
-					A.id,
-					B.full_name,
-					A.meeting_date,
-					A.meeting_title,
-					A.meeting_status,
-					C.full_name AS created_by,
-					D.paguthi_name,
-					E.office_name
-				FROM
-					meeting_request A,
-					constituent B,
-					user_master C,
-					paguthi D,
-					office E
-				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND B.office_id = E.id $status_query $paguthi_query $office_query AND (A.meeting_date BETWEEN '$from_date' AND '$to_date')
-				ORDER BY
-					A.meeting_date
-				DESC";
-				
-		$query= $cquery." LIMIT $offset, $rowcount";
-				
-		$resultset_count=$this->app_db->query($cquery);
-		$result_count = $resultset_count->num_rows();
-		
-		$resultset=$this->app_db->query($query);
-		$report_result = $resultset->result();
-		
-		if($resultset->num_rows()>0)
-		{
-			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"report_list" =>$report_result);
-		} else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		return $response;
-	}
-	
-	
-	function Report_meetingssearch($from_date,$to_date,$paguthi,$office,$status,$keyword,$offset,$rowcount,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$dateTime1 = new DateTime($from_date);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-		
-		$dateTime2 = new DateTime($to_date);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-		
-		if (empty($status)){
-			$status_query = "";
-		} else {
-			$status_query = "AND A.meeting_status = '$status'";
-		}
-		
-		if (empty($paguthi)){
-			$paguthi_query = "";
-		} else {
-			$paguthi_query = "AND B.paguthi_id = '$paguthi'";
-		}
-		
-		if (empty($office)){
-			$office_query = "";
-		} else {
-			$office_query = "AND B.office_id = '$office'";
-		}
-		
-		$cquery="SELECT
-					A.id,
-					B.full_name,
-					A.meeting_date,
-					A.meeting_title,
-					A.meeting_status,
-					C.full_name AS created_by,
-					D.paguthi_name,
-					E.office_name
-				FROM
-					meeting_request A,
-					constituent B,
-					user_master C,
-					paguthi D,
-					office E
-				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND B.office_id = E.id $status_query $paguthi_query $office_query AND (A.meeting_date BETWEEN '$from_date' AND '$to_date') AND (A.meeting_status like '%$keyword%' OR  A.meeting_date like '%$keyword%' OR A.meeting_title like '%$keyword%' OR B.full_name like '%$keyword%' OR C.full_name like '%$keyword%' OR D.paguthi_name like '%$keyword%') 
-				ORDER BY
-					A.meeting_date
-				DESC";
-				
-		$query= $cquery." LIMIT $offset, $rowcount";
-				
-		$resultset_count=$this->app_db->query($cquery);
-		$result_count = $resultset_count->num_rows();
-		
-		$resultset=$this->app_db->query($query);
-		$report_result = $resultset->result();
-		
-		if($resultset->num_rows()>0)
-		{
-			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"report_list" =>$report_result);
-		} else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		return $response;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
 	
 	function Report_category($from_date,$to_date,$category,$dynamic_db)
@@ -4055,7 +4107,7 @@ class Apiandroidmodel extends CI_Model {
 	
 	
 	
-	/* function Report_meetings($from_date,$to_date,$dynamic_db)
+	function Report_meetings($from_date,$to_date,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
 		$config_app = switch_maindb($dynamic_db);
@@ -4099,9 +4151,108 @@ class Apiandroidmodel extends CI_Model {
 		
 		
 		return $response;
-	} */
+	}
+	
+	function Report_meetingsnew($from_date,$to_date,$offset,$rowcount,$dynamic_db)
+	{
+
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$cquery="SELECT
+					A.id,
+					B.full_name,
+					A.meeting_date,
+					A.meeting_title,
+					A.meeting_status,
+					C.full_name AS created_by,
+					D.paguthi_name
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C,
+					paguthi D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
+				ORDER BY
+					A.meeting_date
+				DESC";
+				
+		$query= $cquery." LIMIT $offset, $rowcount";
+				
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"report_list" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
 	
 	
+	function Report_meetingssearch($from_date,$to_date,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$cquery="SELECT
+					A.id,
+					B.full_name,
+					A.meeting_date,
+					A.meeting_title,
+					A.meeting_status,
+					C.full_name AS created_by,
+					D.paguthi_name
+				FROM
+					meeting_request A,
+					constituent B,
+					user_master C,
+					paguthi D
+				WHERE
+					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
+					AND (A.meeting_status like '%$keyword%' OR  A.meeting_date like '%$keyword%' OR A.meeting_title like '%$keyword%' OR B.full_name like '%$keyword%' OR C.full_name like '%$keyword%' OR D.paguthi_name like '%$keyword%') 
+				ORDER BY
+					A.meeting_date
+				DESC";
+				
+		$query= $cquery." LIMIT $offset, $rowcount";
+				
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"report_list" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
 	
 	
 	function Report_staff($from_date,$to_date,$dynamic_db)
@@ -4327,7 +4478,46 @@ class Apiandroidmodel extends CI_Model {
 //#################### Reports End ####################//	
 
 
-
+//#################### Category and Sub Category ####################//	
+	function Active_category($user_id,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `grievance_type` WHERE status='ACTIVE'";
+		$resultset=$this->app_db->query($query);
+		$category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Category", "category_details" =>$category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Active_subcategory($user_id,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
+		$resultset=$this->app_db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	//#################### Category and Sub Category End ####################//
 	
 } 
 
