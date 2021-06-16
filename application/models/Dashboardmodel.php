@@ -113,9 +113,9 @@ Class Dashboardmodel extends CI_Model
 		}
 
 		if($paguthi_id=='ALL' || empty($paguthi_id)){
-		$quer_paguthi_video="";
-	}else{
-		$quer_paguthi_video="AND c.paguthi_id='$paguthi_id'";
+			$quer_paguthi_video="";
+		}else{
+			$quer_paguthi_video="AND c.paguthi_id='$paguthi_id'";
 	}
 
 		if($office_id=='ALL' || empty($office_id)){
