@@ -1940,6 +1940,169 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+//-----------------------------------------------//
+
+	public function reportGrievances()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$seeker_type_id = '';
+		$grievance_type_id = '';
+		$sub_category_id = '';
+		$paguthi='';
+		$office='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+		$seeker_type_id = $this->input->post("seeker_type_id");
+		$grievance_type_id = $this->input->post("grievance_type_id");
+		$sub_category_id = $this->input->post("sub_category_id");
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_grievances($from_date,$to_date,$seeker_type_id,$grievance_type_id,$sub_category_id,$paguthi,$office,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportGrievancessearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$seeker_type_id = '';
+		$grievance_type_id = '';
+		$sub_category_id = '';
+		$paguthi='';
+		$office='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");
+		$seeker_type_id = $this->input->post("seeker_type_id");
+		$grievance_type_id = $this->input->post("grievance_type_id");
+		$sub_category_id = $this->input->post("sub_category_id");
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_grievancessearch($from_date,$to_date,$seeker_type_id,$grievance_type_id,$sub_category_id,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportConstituent()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi='';
+		$office='';
+		$whatsapp_no='';
+		$mobile_no='';
+		$email_id='';
+		$dob='';
+		$voter_id_no='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$whatsapp_no=$this->input->post('whatsapp_no');
+		$mobile_no=$this->input->post('mobile_no');
+		$email_id=$this->input->post('email_id');
+		$dob=$this->input->post('dob');
+		$voter_id_no=$this->input->post('voter_id_no');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_constituent($paguthi,$office,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id_no,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportConstituentsearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi='';
+		$office='';
+		$whatsapp_no='';
+		$mobile_no='';
+		$email_id='';
+		$dob='';
+		$voter_id_no='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$whatsapp_no=$this->input->post('whatsapp_no');
+		$mobile_no=$this->input->post('mobile_no');
+		$email_id=$this->input->post('email_id');
+		$dob=$this->input->post('dob');
+		$voter_id_no=$this->input->post('voter_id_no');
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_constituentsearch($paguthi,$office,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id_no,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+
 
 
 

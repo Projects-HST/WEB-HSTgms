@@ -3769,7 +3769,291 @@ class Apiandroidmodel extends CI_Model {
 		return $response;
 	}
 	
+	function Report_grievances($from_date,$to_date,$seeker_type_id,$grievance_type_id,$sub_category_id,$paguthi,$office,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if (empty($seeker_type_id)){
+			$seeker_type_query = "";
+		} else {
+			$seeker_type_query = "AND `g`.`seeker_type_id` = '$seeker_type_id'";
+		}
+		if (empty($grievance_type_id)){
+			$grievance_type_query = "";
+		} else {
+			$grievance_type_query = "AND `g`.`grievance_type_id` = '$grievance_type_id'";
+		}
+		if (empty($sub_category_id)){
+			$sub_category_query = "";
+		} else {
+			$sub_category_query = "AND `g`.`sub_category_id` = '$sub_category_id'";
+		}
+		if (empty($paguthi)){
+			$paguthi_query = "";
+		} else {
+			$paguthi_query = "AND g.paguthi_id = '$paguthi'";
+		}
+		if (empty($office)){
+			$office_query = "";
+		} else {
+			$office_query = "AND g.office_id = '$office'";
+		}
+		
+		$cquery="SELECT
+				`g`.*,
+				`c`.`full_name`,
+				`c`.`mobile_no`,
+				`c`.`father_husband_name`,
+				`c`.`address`,
+				`c`.`dob`,
+				`c`.`door_no`,
+				`c`.`pin_code`,
+				`u`.`full_name` AS `created_by`,
+				`gt`.`grievance_name`
+			FROM
+				`grievance` AS `g`
+			LEFT JOIN `constituent` AS `c`
+			ON
+				`g`.`constituent_id` = `c`.`id`
+			LEFT JOIN `user_master` AS `u`
+			ON
+				`g`.`created_by` = `u`.`id`
+			LEFT JOIN `grievance_type` AS `gt`
+			ON
+				`gt`.`id` = `g`.`grievance_type_id`
+			WHERE
+			   `g`.`grievance_date` >= '$from_date' AND `g`.`grievance_date` <= '$to_date' $seeker_type_query $grievance_type_query $sub_category_query $paguthi_query $office_query";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$grievance_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Grievance report","result_count" =>$result_count,"grievance_report" =>$grievance_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
 	
+	function Report_grievancessearch($from_date,$to_date,$seeker_type_id,$grievance_type_id,$sub_category_id,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		if (empty($seeker_type_id)){
+			$seeker_type_query = "";
+		} else {
+			$seeker_type_query = "AND `g`.`seeker_type_id` = '$seeker_type_id'";
+		}
+		if (empty($grievance_type_id)){
+			$grievance_type_query = "";
+		} else {
+			$grievance_type_query = "AND `g`.`grievance_type_id` = '$grievance_type_id'";
+		}
+		if (empty($sub_category_id)){
+			$sub_category_query = "";
+		} else {
+			$sub_category_query = "AND `g`.`sub_category_id` = '$sub_category_id'";
+		}
+		if (empty($paguthi)){
+			$paguthi_query = "";
+		} else {
+			$paguthi_query = "AND g.paguthi_id = '$paguthi'";
+		}
+		if (empty($office)){
+			$office_query = "";
+		} else {
+			$office_query = "AND g.office_id = '$office'";
+		}
+		
+		$cquery="SELECT
+				`g`.*,
+				`c`.`full_name`,
+				`c`.`mobile_no`,
+				`c`.`father_husband_name`,
+				`c`.`address`,
+				`c`.`dob`,
+				`c`.`door_no`,
+				`c`.`pin_code`,
+				`u`.`full_name` AS `created_by`,
+				`gt`.`grievance_name`
+			FROM
+				`grievance` AS `g`
+			LEFT JOIN `constituent` AS `c`
+			ON
+				`g`.`constituent_id` = `c`.`id`
+			LEFT JOIN `user_master` AS `u`
+			ON
+				`g`.`created_by` = `u`.`id`
+			LEFT JOIN `grievance_type` AS `gt`
+			ON
+				`gt`.`id` = `g`.`grievance_type_id`
+			WHERE
+			   `g`.`grievance_date` >= '$from_date' AND `g`.`grievance_date` <= '$to_date' $seeker_type_query $grievance_type_query $sub_category_query $paguthi_query $office_query AND (c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%')";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$grievance_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Grievance report","result_count" =>$result_count,"grievance_report" =>$grievance_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	function Report_constituent($paguthi,$office,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id_no,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if(empty($paguthi)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi ="AND c.paguthi_id='$paguthi'";
+		} 	
+		if(empty($office)){
+			$quer_office="";
+		}else{
+			$quer_office ="AND c.office_id='$office'";
+		}
+		if(empty($whatsapp_no)){
+			$quer_whatsapp="";
+		}else{
+			$quer_whatsapp ="AND c.whatsapp_no!=''";
+		}
+		if(empty($mobile_no )){
+			$quer_mobile ="";
+		}else{
+			$quer_mobile ="AND c.mobile_no!=''";
+		}
+		if(empty($email_id )){
+			$quer_email ="";
+		}else{
+			$quer_email ="AND c.email_id!=''";
+		}
+		if(empty($dob )){
+			$quer_dob ="";
+		}else{
+			$quer_dob ="AND c.dob !='0000-00-00'";
+		}
+		if(empty($voter_id_no)){
+			$quer_voter ="";
+		}else{
+			$quer_voter ="AND c.voter_id_no !='' AND c.voter_status = 'VOTER'";
+		}
+		
+		$cquery="SELECT `c`.* FROM `constituent` as `c` WHERE c.status ='ACTIVE' $quer_paguthi $quer_office $quer_whatsapp $quer_mobile $quer_email $quer_dob $quer_voter";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$constituent_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Constituent report","result_count" =>$result_count,"constituent_report" =>$constituent_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	function Report_constituentsearch($paguthi,$office,$whatsapp_no,$mobile_no,$email_id,$dob,$voter_id_no,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if(empty($paguthi)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi ="AND c.paguthi_id='$paguthi'";
+		} 	
+		if(empty($office)){
+			$quer_office="";
+		}else{
+			$quer_office ="AND c.office_id='$office'";
+		}
+		if(empty($whatsapp_no)){
+			$quer_whatsapp="";
+		}else{
+			$quer_whatsapp ="AND c.whatsapp_no!=''";
+		}
+		if(empty($mobile_no )){
+			$quer_mobile ="";
+		}else{
+			$quer_mobile ="AND c.mobile_no!=''";
+		}
+		if(empty($email_id )){
+			$quer_email ="";
+		}else{
+			$quer_email ="AND c.email_id!=''";
+		}
+		if(empty($dob )){
+			$quer_dob ="";
+		}else{
+			$quer_dob ="AND c.dob !='0000-00-00'";
+		}
+		if(empty($voter_id_no)){
+			$quer_voter ="";
+		}else{
+			$quer_voter ="AND c.voter_id_no !='' AND c.voter_status = 'VOTER'";
+		}
+		
+		$cquery="SELECT `c`.* FROM `constituent` as `c` WHERE c.status ='ACTIVE' $quer_paguthi $quer_office $quer_whatsapp $quer_mobile $quer_email $quer_dob $quer_voter AND (c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%')";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$constituent_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Constituent report","result_count" =>$result_count,"constituent_report" =>$constituent_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
 	
 //#################### Reports End ####################//	
 
