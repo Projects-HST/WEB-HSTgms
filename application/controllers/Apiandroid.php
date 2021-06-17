@@ -425,6 +425,30 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function activeSeeker()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$dynamic_db = '';
+		
+		$user_id = $this->input->post("user_id");
+		$dynamic_db = $this->input->post("dynamic_db");
+
+		$data['result']=$this->apiandroidmodel->Active_seeker($user_id,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function activeCategory()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -465,6 +489,54 @@ class Apiandroid extends CI_Controller {
 		$dynamic_db = $this->input->post("dynamic_db");
 
 		$data['result']=$this->apiandroidmodel->Active_subcategory($user_id,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function seekersCategory()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$seeker_id = '';
+		$dynamic_db = '';
+		
+		$seeker_id = $this->input->post("seeker_id");
+		$dynamic_db = $this->input->post("dynamic_db");
+
+		$data['result']=$this->apiandroidmodel->Seekers_category($seeker_id,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function grivancesSubcategory()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$user_id = '';
+		$dynamic_db = '';
+		
+		$category_id = $this->input->post("category_id");
+		$dynamic_db = $this->input->post("dynamic_db");
+
+		$data['result']=$this->apiandroidmodel->Grivances_subcategory($category_id,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1567,24 +1639,9 @@ class Apiandroid extends CI_Controller {
 
 //-----------------------------------------------//
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //-----------------------------------------------//
 
-	/* public function reportCategory()
+	public function getBirthdayyear()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 		
@@ -1593,317 +1650,15 @@ class Apiandroid extends CI_Controller {
 			return FALSE;
 		}
 
-		$from_date = '';
-		$to_date = '';
-		$category='';
 		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$category=$this->input->post('category');
 		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_category($from_date,$to_date,$category,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	/* public function reportCategorynew()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$category='';
-		$offset = '';
-		$rowcount = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$category=$this->input->post('category');
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_categorynew($from_date,$to_date,$category,$offset,$rowcount,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	/* public function reportCategorysearch()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-		
-		$from_date = '';
-		$to_date = '';
-		$category='';
-		$keyword = '';
-		$offset = '';
-		$rowcount = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$category=$this->input->post('category');
-		//$keyword = $this->input->post("keyword");
-		$keyword=$this->db->escape_str($this->input->post('keyword'));
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-
-
-//-----------------------------------------------//
-
-	/* public function reportsubCategory()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$sub_category='';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$sub_category=$this->input->post('sub_category');
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_subcategory($from_date,$to_date,$sub_category,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	/* public function reportsubCategorynew()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$sub_category='';
-		$offset = '';
-		$rowcount = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$sub_category=$this->input->post('sub_category');
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	/* public function reportsubCategorysearch()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		
-		$from_date = '';
-		$to_date = '';
-		$sub_category='';
-		$keyword = '';
-		$offset = '';
-		$rowcount = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$sub_category=$this->input->post('sub_category');
-		//$keyword = $this->input->post("keyword");
-		$keyword=$this->db->escape_str($this->input->post('keyword'));
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Get_birthdayyear($dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
- */
-//-----------------------------------------------//
 
 //-----------------------------------------------//
-
-	/* public function reportLocation()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$paguthi='';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$paguthi=$this->input->post('paguthi');
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_location($from_date,$to_date,$paguthi,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	/* public function reportLocationnew()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$paguthi='';
-		$offset = '';
-		$rowcount = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$paguthi=$this->input->post('paguthi');
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	/* public function reportLocationsearch()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$paguthi='';
-		$keyword = '';
-		$offset = '';
-		$rowcount = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");	
-		$paguthi=$this->input->post('paguthi');
-		//$keyword=$this->input->post('keyword');
-		$keyword=$this->db->escape_str($this->input->post('keyword'));
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-
-
-//-----------------------------------------------//
-
-	/* public function reportMeetings()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$from_date = '';
-		$to_date = '';
-		$dynamic_db = '';
-		
-		$from_date = $this->input->post("from_date");
-		$to_date = $this->input->post("to_date");
-		$offset = $this->input->post("offset");
-		$rowcount = $this->input->post("rowcount");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_meetings($from_date,$to_date,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	} */
-
-//-----------------------------------------------//
-
-
-
-
-
 
 //-----------------------------------------------//
 
@@ -1916,41 +1671,25 @@ class Apiandroid extends CI_Controller {
 			return FALSE;
 		}
 
+		$from_year = '';
+		$to_year = '';
 		$selMonth = '';
-		$dynamic_db = '';
-		
-		$selMonth = $this->input->post("select_month");
-		$dynamic_db = $this->input->post("dynamic_db");
-		
-		$data['result']=$this->apiandroidmodel->Report_birthday($selMonth,$dynamic_db);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	public function reportBirthdaynew()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		$selMonth = '';
+		$paguthi='';
+		$office='';
 		$offset = '';
 		$rowcount = '';
 		$dynamic_db = '';
 		
+		$from_year = $this->input->post("from_year");
+		$to_year = $this->input->post("to_year");
 		$selMonth = $this->input->post("select_month");
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$dynamic_db = $this->input->post("dynamic_db");
 		
-		$data['result']=$this->apiandroidmodel->Report_birthdaynew($selMonth,$offset,$rowcount,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Report_birthday($from_year,$to_year,$selMonth,$paguthi,$office,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -1968,20 +1707,207 @@ class Apiandroid extends CI_Controller {
 			return FALSE;
 		}
 
+		$from_year = '';
+		$to_year = '';
 		$selMonth = '';
+		$paguthi='';
+		$office='';
 		$keyword = '';
 		$offset = '';
 		$rowcount = '';
 		$dynamic_db = '';
 		
+		$from_year = $this->input->post("from_year");
+		$to_year = $this->input->post("to_year");
 		$selMonth = $this->input->post("select_month");
-		//$keyword = $this->input->post("keyword");
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
 		$keyword=$this->db->escape_str($this->input->post('keyword'));
 		$offset = $this->input->post("offset");
 		$rowcount = $this->input->post("rowcount");
 		$dynamic_db = $this->input->post("dynamic_db");
+
 		
-		$data['result']=$this->apiandroidmodel->Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount,$dynamic_db);
+		$data['result']=$this->apiandroidmodel->Report_birthdaysearch($from_year,$to_year,$selMonth,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function getFestivalyear()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$dynamic_db = '';
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Get_Festivalyear($dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function getFestivals()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$dynamic_db = '';
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Get_Festivals($dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportFestival()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_year = '';
+		$to_year = '';
+		$festival = '';
+		$paguthi='';
+		$office='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_year = $this->input->post("from_year");
+		$to_year = $this->input->post("to_year");
+		$festival = $this->input->post("festival");
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_festival($from_year,$to_year,$festival,$paguthi,$office,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportFestivalsearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_year = '';
+		$to_year = '';
+		$festival = '';
+		$paguthi='';
+		$office='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_year = $this->input->post("from_year");
+		$to_year = $this->input->post("to_year");
+		$festival = $this->input->post("festival");
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+
+		
+		$data['result']=$this->apiandroidmodel->Report_festivalsearch($from_year,$to_year,$festival,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportVideo()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi='';
+		$office='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_video($paguthi,$office,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportVideosearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$paguthi='';
+		$office='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$paguthi=$this->input->post('paguthi');
+		$office=$this->input->post('office');
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+
+		$data['result']=$this->apiandroidmodel->Report_videosearch($paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -2015,5 +1941,304 @@ class Apiandroid extends CI_Controller {
 //-----------------------------------------------//
 
 
+
+
+
+
+
+
+
+
+
+
+
+/* 
+//-----------------------------------------------//
+
+	 public function reportCategory()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$category='';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$category=$this->input->post('category');
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_category($from_date,$to_date,$category,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	 public function reportCategorynew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$category='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$category=$this->input->post('category');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_categorynew($from_date,$to_date,$category,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	 public function reportCategorysearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+		
+		$from_date = '';
+		$to_date = '';
+		$category='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$category=$this->input->post('category');
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_categorysearch($from_date,$to_date,$category,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	 public function reportsubCategory()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$sub_category='';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$sub_category=$this->input->post('sub_category');
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_subcategory($from_date,$to_date,$sub_category,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	 public function reportsubCategorynew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$sub_category='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$sub_category=$this->input->post('sub_category');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_subcategorynew($from_date,$to_date,$sub_category,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	 public function reportsubCategorysearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		
+		$from_date = '';
+		$to_date = '';
+		$sub_category='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$sub_category=$this->input->post('sub_category');
+		//$keyword = $this->input->post("keyword");
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_subcategorysearch($from_date,$to_date,$sub_category,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	 public function reportLocation()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$paguthi='';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$paguthi=$this->input->post('paguthi');
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_location($from_date,$to_date,$paguthi,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportLocationnew()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$paguthi='';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$paguthi=$this->input->post('paguthi');
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_locationnew($from_date,$to_date,$paguthi,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function reportLocationsearch()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		$from_date = '';
+		$to_date = '';
+		$paguthi='';
+		$keyword = '';
+		$offset = '';
+		$rowcount = '';
+		$dynamic_db = '';
+		
+		$from_date = $this->input->post("from_date");
+		$to_date = $this->input->post("to_date");	
+		$paguthi=$this->input->post('paguthi');
+		//$keyword=$this->input->post('keyword');
+		$keyword=$this->db->escape_str($this->input->post('keyword'));
+		$offset = $this->input->post("offset");
+		$rowcount = $this->input->post("rowcount");
+		$dynamic_db = $this->input->post("dynamic_db");
+		
+		$data['result']=$this->apiandroidmodel->Report_locationsearch($from_date,$to_date,$paguthi,$keyword,$offset,$rowcount,$dynamic_db);
+		$response = $data['result'];
+		echo json_encode($response);
+	} 
+
+//-----------------------------------------------//
+
+ */
 
 }

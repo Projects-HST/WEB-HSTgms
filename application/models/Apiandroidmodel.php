@@ -621,7 +621,28 @@ class Apiandroidmodel extends CI_Model {
 	}
 //#################### List Office end ####################//
 
+
 //#################### Category and Sub Category ####################//	
+
+	function Active_seeker($user_id,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `seeker_type` WHERE status='ACTIVE'";
+		$resultset=$this->app_db->query($query);
+		$seeker_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Seekers", "seeker_details" =>$seeker_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+
 	function Active_category($user_id,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
@@ -649,6 +670,44 @@ class Apiandroidmodel extends CI_Model {
 		//---------Dynamic DB Connection----------//
 		
 		$query="SELECT * FROM `grievance_sub_category` WHERE status='ACTIVE'";
+		$resultset=$this->app_db->query($query);
+		$sub_category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Sub Category", "sub_category_details" =>$sub_category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Seekers_category($seeker_id,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `grievance_type` WHERE seeker_id = '$seeker_id' AND status='ACTIVE'";
+		$resultset=$this->app_db->query($query);
+		$category_result = $resultset->result();
+		if($resultset->num_rows()>0)
+			{
+				$response = array("status" => "Success", "msg" => "List Category", "category_details" =>$category_result);
+			} else {
+				$response = array("status" => "Error", "msg" => "No records found");
+			}
+		return $response;
+	}
+	
+	function Grivances_subcategory($category_id,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `grievance_sub_category` WHERE grievance_id = '$category_id' AND status='ACTIVE'";
 		$resultset=$this->app_db->query($query);
 		$sub_category_result = $resultset->result();
 		if($resultset->num_rows()>0)
@@ -3284,9 +3343,435 @@ class Apiandroidmodel extends CI_Model {
 	}
 
 
+	function Get_birthdayyear($dynamic_db){
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT YEAR(created_at)  as year_name FROM consitutent_birthday_wish GROUP BY year_name ORDER BY year_name desc";
+		$resultset=$this->app_db->query($query);
+		$year_result = $resultset->result();
 
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Birthday Wish Year","birthday_year" =>$year_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
 
+	function Report_birthday($from_year,$to_year,$selMonth,$paguthi,$office,$offset,$rowcount,$dynamic_db)
+	{
 
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if (empty($paguthi)){
+			$paguthi_query = "";
+		} else {
+			$paguthi_query = "AND c.paguthi_id = '$paguthi'";
+		}
+		
+		if (empty($office)){
+			$office_query = "";
+		} else {
+			$office_query = "AND c.office_id = '$office'";
+		}
+		
+		$cquery="SELECT
+				`bw`.created_at AS send_on,
+				`c`.`full_name`,
+				`c`.`father_husband_name`,
+				`c`.`mobile_no`,
+				`c`.`whatsapp_no`,
+				`c`.`email_id`,
+				`c`.`address`,
+				`c`.`dob`,
+				`c`.`pin_code`,
+				`c`.`door_no`
+			FROM
+				`consitutent_birthday_wish` AS `bw`
+			LEFT JOIN `constituent` AS `c`
+			ON
+				`c`.`id` = `bw`.`constituent_id`
+			WHERE
+				YEAR(bw.created_at) BETWEEN '$from_year' AND '$to_year' AND MONTH(c.dob) = '$selMonth' $paguthi_query $office_query";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$birthday_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$birthday_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_birthdaysearch($from_year,$to_year,$selMonth,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if (empty($paguthi)){
+			$paguthi_query = "";
+		} else {
+			$paguthi_query = "AND c.paguthi_id = '$paguthi'";
+		}
+		
+		if (empty($office)){
+			$office_query = "";
+		} else {
+			$office_query = "AND c.office_id = '$office'";
+		}
+		
+		$cquery="SELECT
+				`bw`.created_at AS send_on,
+				`c`.`full_name`,
+				`c`.`father_husband_name`,
+				`c`.`mobile_no`,
+				`c`.`whatsapp_no`,
+				`c`.`email_id`,
+				`c`.`address`,
+				`c`.`dob`,
+				`c`.`pin_code`,
+				`c`.`door_no`
+			FROM
+				`consitutent_birthday_wish` AS `bw`
+			LEFT JOIN `constituent` AS `c`
+			ON
+				`c`.`id` = `bw`.`constituent_id`
+			WHERE
+				YEAR(bw.created_at) BETWEEN '$from_year' AND '$to_year' AND MONTH(c.dob) = '$selMonth' $paguthi_query $office_query AND (c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%')";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$birthday_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$birthday_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Get_Festivalyear($dynamic_db){
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT YEAR(updated_at) as year_name FROM festival_wishes GROUP BY year_name ORDER BY year_name desc";
+		$resultset=$this->app_db->query($query);
+		$year_result = $resultset->result();
+
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Festival Wish Year","festival_year" =>$year_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Get_Festivals($dynamic_db){
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$query="SELECT * FROM `festival_master` WHERE status = 'ACTIVE'";
+		$resultset=$this->app_db->query($query);
+		$year_result = $resultset->result();
+
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Festivals","festivals" =>$year_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_festival($from_year,$to_year,$festival,$paguthi,$office,$offset,$rowcount,$dynamic_db)
+	{
+
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if (empty($paguthi)){
+			$paguthi_query = "";
+		} else {
+			$paguthi_query = "AND c.paguthi_id = '$paguthi'";
+		}
+		
+		if (empty($office)){
+			$office_query = "";
+		} else {
+			$office_query = "AND c.office_id = '$office'";
+		}
+		
+		$cquery="SELECT
+					`c`.*,
+					`fm`.`festival_name`,
+					`fw`.`updated_at` AS `sent_on`
+				FROM
+					`festival_wishes` AS `fw`
+				LEFT JOIN `festival_master` AS `fm`
+				ON
+					`fm`.`id` = `fw`.`festival_id`
+				LEFT JOIN `constituent` AS `c`
+				ON
+					`c`.`id` = `fw`.`constituent_id`
+				WHERE
+					YEAR(fw.updated_at) BETWEEN '$from_year' AND '$to_year' AND `fm`.`id` = '$festival' $paguthi_query $office_query";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$festival_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Fetival report","result_count" =>$result_count,"festival_report" =>$festival_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_festivalsearch($from_year,$to_year,$festival,$paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if (empty($paguthi)){
+			$paguthi_query = "";
+		} else {
+			$paguthi_query = "AND c.paguthi_id = '$paguthi'";
+		}
+		
+		if (empty($office)){
+			$office_query = "";
+		} else {
+			$office_query = "AND c.office_id = '$office'";
+		}
+		
+		$cquery="SELECT
+					`c`.*,
+					`fm`.`festival_name`,
+					`fw`.`updated_at` AS `sent_on`
+				FROM
+					`festival_wishes` AS `fw`
+				LEFT JOIN `festival_master` AS `fm`
+				ON
+					`fm`.`id` = `fw`.`festival_id`
+				LEFT JOIN `constituent` AS `c`
+				ON
+					`c`.`id` = `fw`.`constituent_id`
+				WHERE
+					YEAR(fw.updated_at) BETWEEN '$from_year' AND '$to_year' AND `fm`.`id` = '$festival' $paguthi_query $office_query AND (c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%')";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$festival_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"festival_report" =>$festival_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	function Report_video($paguthi,$office,$offset,$rowcount,$dynamic_db)
+	{
+
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if(empty($paguthi)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi="WHERE c.paguthi_id='$paguthi'";
+		} 	
+		
+		if(empty($office)){
+			$quer_office="";
+		}else{
+			if(empty($paguthi)){
+				$quer_office="WHERE c.office_id='$office'";
+			}else{
+				$quer_office="AND c.office_id='$office'";
+			}
+		}
+		
+		$cquery="SELECT
+					`c`.*,
+					`cv`.`video_title`,
+					`cv`.`video_link`,
+					`u`.`full_name` AS `done_by`,
+					`cv`.`updated_at`
+				FROM
+					`constituent_video` AS `cv`
+				LEFT JOIN `constituent` AS `c`
+				ON
+					`c`.`id` = `cv`.`constituent_id`
+				LEFT JOIN `user_master` AS `u`
+				ON
+					`cv`.`updated_by` = `u`.`id` $quer_paguthi $quer_office";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$video_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Video report","result_count" =>$result_count,"video_report" =>$video_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_videosearch($paguthi,$office,$keyword,$offset,$rowcount,$dynamic_db)
+	{
+		
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		if(empty($paguthi)){
+			$quer_paguthi="";
+		}else{
+			$quer_paguthi="WHERE c.paguthi_id='$paguthi'";
+		} 	
+		
+		if(empty($office)){
+			$quer_office="";
+		}else{
+			if(empty($paguthi)){
+				$quer_office="WHERE c.office_id='$office'";
+			}else{
+				$quer_office="AND c.office_id='$office'";
+			}
+		}
+		
+		$cquery="SELECT
+					`c`.*,
+					`cv`.`video_title`,
+					`cv`.`video_link`,
+					`u`.`full_name` AS `done_by`,
+					`cv`.`updated_at`
+				FROM
+					`constituent_video` AS `cv`
+				LEFT JOIN `constituent` AS `c`
+				ON
+					`c`.`id` = `cv`.`constituent_id`
+				LEFT JOIN `user_master` AS `u`
+				ON
+					`cv`.`updated_by` = `u`.`id` $quer_paguthi $quer_office AND (c.full_name LIKE '%$keyword%' OR c.father_husband_name LIKE '%$keyword%' OR c.guardian_name LIKE '%$keyword%' OR c.mobile_no LIKE '%$keyword%' OR c.whatsapp_no LIKE '%$keyword%' OR c.door_no LIKE '%$keyword%' OR c.address LIKE '%$keyword%' OR c.pin_code LIKE '%$keyword%' OR c.email_id LIKE '%$keyword%' OR c.voter_id_no LIKE '%$keyword%' OR c.aadhaar_no LIKE '%$keyword%' OR c.serial_no LIKE '%$keyword%')";
+
+		$query= $cquery." LIMIT $offset, $rowcount";
+		
+		$resultset_count=$this->app_db->query($cquery);
+		$result_count = $resultset_count->num_rows();
+		
+		$resultset=$this->app_db->query($query);
+		$video_report = $resultset->result();
+		if($resultset->num_rows()>0){
+			
+			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"video_report" =>$video_report);
+		}else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		return $response;
+	}
+	
+	
+	function Report_staff($from_date,$to_date,$dynamic_db)
+	{
+		 //---------Dynamic DB Connection----------//
+		$config_app = switch_maindb($dynamic_db);
+		$this->app_db = $this->load->database($config_app, TRUE); 
+		//---------Dynamic DB Connection----------//
+		
+		$dateTime1 = new DateTime($from_date);
+		$from_date=date_format($dateTime1,'Y-m-d' );
+		
+		$dateTime2 = new DateTime($to_date);
+		$to_date=date_format($dateTime2,'Y-m-d' );
+		
+		$query_vide="DATE(cv.updated_at) BETWEEN '$from_date' AND '$to_date'";
+		$query_cons=" DATE(c.created_at) BETWEEN '$from_date' AND '$to_date'";
+		$query_griever="DATE(g.created_at) BETWEEN '$from_date' AND '$to_date'";
+		$query_wb="DATE(wb.updated_at) BETWEEN '$from_date' AND '$to_date'";
+		
+		$query="SELECT t3.id,t3.full_name,t3.total_cons,t3.total_v,t3.total_g,count(wb.updated_by) as total_broadcast FROM (SELECT t2.id,t2.full_name,t2.total_cons,t2.total_v,count(g.created_by) as total_g from (select t1.id,t1.full_name,t1.total_cons,count(cv.updated_by) as total_v
+			from (select um.id,um.full_name,COUNT(c.created_by) as total_cons from user_master as um left join constituent as c on c.created_by=um.id
+			and $query_cons group by um.id) t1 left join constituent_video as cv on cv.updated_by=t1.id and $query_vide GROUP by t1.id) t2 left join grievance as g on g.created_by=t2.id and $query_griever GROUP BY t2.id) t3 left join constituent as wb on wb.updated_by=t3.id and wb.whatsapp_broadcast='Y'
+			AND $query_wb group by t3.id";
+			
+		$resultset=$this->app_db->query($query);
+		$result_count = $resultset->num_rows();
+		$report_result = $resultset->result();
+		
+		if($resultset->num_rows()>0)
+		{
+			$response = array("status" => "Success", "msg" => "Staff report","result_count" =>$result_count,"staff_report" =>$report_result);
+		} else {
+			$response = array("status" => "Error", "msg" => "No records found");
+		}
+		
+		return $response;
+	}
+	
+	
+	
+//#################### Reports End ####################//	
 
 
 
@@ -3302,7 +3787,7 @@ class Apiandroidmodel extends CI_Model {
 
 
 	
-	
+/*
 	function Report_category($from_date,$to_date,$category,$dynamic_db)
 	{
 		 //---------Dynamic DB Connection----------//
@@ -3548,8 +4033,6 @@ class Apiandroidmodel extends CI_Model {
 	
 		return $response;
 	}
-	
-	
 	
 	
 	function Report_subcategory($from_date,$to_date,$sub_category,$dynamic_db)
@@ -4051,284 +4534,9 @@ class Apiandroidmodel extends CI_Model {
 		}
 			
 		return $response;
-	}
-	
-	
-	
-	/* function Report_meetings($from_date,$to_date,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$dateTime1 = new DateTime($from_date);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-		
-		$dateTime2 = new DateTime($to_date);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-		
-		$query="SELECT
-					A.id,
-					B.full_name,
-					A.meeting_date,
-					A.meeting_title,
-					A.meeting_status,
-					C.full_name AS created_by,
-					D.paguthi_name
-				FROM
-					meeting_request A,
-					constituent B,
-					user_master C,
-					paguthi D
-				WHERE
-					A.constituent_id = B.id AND A.created_by = C.id AND B.paguthi_id = D.id AND(A.meeting_date BETWEEN '$from_date' AND '$to_date')
-				ORDER BY
-					A.meeting_date
-				DESC";
-		$resultset=$this->app_db->query($query);
-		$result_count = $resultset->num_rows();
-		$report_result = $resultset->result();
-		
-		if($resultset->num_rows()>0)
-		{
-			$response = array("status" => "Success", "msg" => "Meetings report","result_count" =>$result_count,"meetings_report" =>$report_result);
-		} else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		
-		
-		return $response;
-	} */
-	
-	
-	
-	
-	function Report_staff($from_date,$to_date,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$dateTime1 = new DateTime($from_date);
-		$from_date=date_format($dateTime1,'Y-m-d' );
-		
-		$dateTime2 = new DateTime($to_date);
-		$to_date=date_format($dateTime2,'Y-m-d' );
-		
-		$query="SELECT
-				um.id,
-				um.full_name,
-				COUNT(ct.created_by) AS total,
-				COUNT( CASE WHEN ct.status = 'ACTIVE' THEN 1 END ) AS active,
-				COUNT( CASE WHEN ct.status = 'INACTIVE' THEN 1 END ) AS inactive
-				FROM constituent AS	ct
-				LEFT JOIN user_master AS um ON um.id = ct.created_by
-				WHERE DATE(ct.created_at) BETWEEN '$from_date' AND '$to_date' GROUP BY ct.created_by";
-		$resultset=$this->app_db->query($query);
-		$result_count = $resultset->num_rows();
-		$report_result = $resultset->result();
-		
-		if($resultset->num_rows()>0)
-		{
-			$response = array("status" => "Success", "msg" => "Staff report","result_count" =>$result_count,"staff_report" =>$report_result);
-		} else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		
-		return $response;
-	}
-	
-	function Report_birthday($selMonth,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$year = date("Y"); 
-		$query="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-		$resultset=$this->app_db->query($query);
-		$result_count = $resultset->num_rows();
-		if($resultset->num_rows()>0){
-			foreach ($resultset->result() as $rows)
-			{
-				$const_id = $rows->id;
-				$full_name = $rows->full_name;
-				$dob = $rows->dob;
-				$mobile_no = $rows->mobile_no;
-				$door_no = $rows->door_no;
-				$address = $rows->address;
-				$pin_code = $rows->pin_code;
-				
-				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				$subQuery_result = $this->app_db->query($subQuery);
-				if($subQuery_result->num_rows()>0){
-					foreach ($subQuery_result->result() as $rows1)
-					{
-						$birth_id = $rows1->constituent_id;
-					}
-				}else{
-					$birth_id = '';
-				}
-				
-				if ($const_id == $birth_id){
-					 $birth_wish = 'Send';
-				} else {
-					 $birth_wish = 'NotSend';
-				}
-				$contData[]  = (object) array(
-						"const_id" => $const_id,
-						"full_name" => $full_name,
-						"dob" => $dob,
-						"mobile_no" => $mobile_no,
-						"door_no" => $door_no,
-						"address" => $address,
-						"pin_code" => $pin_code,
-						"birth_wish_status" => $birth_wish,
-				);
-			} 
-			
-			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$contData);
-		}else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		return $response;
-	}
-	
-	function Report_birthdaynew($selMonth,$offset,$rowcount,$dynamic_db)
-	{
+	} 
+*/	
 
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$year = date("Y"); 
-		
-		$cquery="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth'";
-
-		$query= $cquery." LIMIT $offset, $rowcount";
-				
-		$resultset_count=$this->app_db->query($cquery);
-		$result_count = $resultset_count->num_rows();
-		
-		$resultset=$this->app_db->query($query);
-		if($resultset->num_rows()>0){
-			foreach ($resultset->result() as $rows)
-			{
-				$const_id = $rows->id;
-				$full_name = $rows->full_name;
-				$dob = $rows->dob;
-				$mobile_no = $rows->mobile_no;
-				$door_no = $rows->door_no;
-				$address = $rows->address;
-				$pin_code = $rows->pin_code;
-				
-				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				$subQuery_result = $this->app_db->query($subQuery);
-				if($subQuery_result->num_rows()>0){
-					foreach ($subQuery_result->result() as $rows1)
-					{
-						$birth_id = $rows1->constituent_id;
-					}
-				}else{
-					$birth_id = '';
-				}
-				
-				if ($const_id == $birth_id){
-					 $birth_wish = 'Send';
-				} else {
-					 $birth_wish = 'NotSend';
-				}
-				$contData[]  = (object) array(
-						"const_id" => $const_id,
-						"full_name" => $full_name,
-						"dob" => $dob,
-						"mobile_no" => $mobile_no,
-						"door_no" => $door_no,
-						"address" => $address,
-						"pin_code" => $pin_code,
-						"birth_wish_status" => $birth_wish,
-				);
-			} 
-			
-			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$contData);
-		}else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		return $response;
-	}
-	
-	
-	function Report_birthdaysearch($selMonth,$keyword,$offset,$rowcount,$dynamic_db)
-	{
-		 //---------Dynamic DB Connection----------//
-		$config_app = switch_maindb($dynamic_db);
-		$this->app_db = $this->load->database($config_app, TRUE); 
-		//---------Dynamic DB Connection----------//
-		
-		$year = date("Y"); 	
-	
-		$cquery="SELECT * FROM constituent WHERE MONTH(dob) = '$selMonth' AND (full_name LIKE '%$keyword%' OR father_husband_name LIKE '%$keyword%' OR guardian_name LIKE '%$keyword%' OR mobile_no LIKE '%$keyword%' OR whatsapp_no LIKE '%$keyword%' OR door_no LIKE '%$keyword%' OR address LIKE '%$keyword%' OR pin_code LIKE '%$keyword%' OR email_id LIKE '%$keyword%' OR voter_id_no LIKE '%$keyword%' OR aadhaar_no LIKE '%$keyword%' OR serial_no LIKE '%$keyword%')";
-		
-		$query= $cquery." LIMIT $offset, $rowcount";
-		
-		$resultset_count=$this->app_db->query($cquery);
-		$result_count = $resultset_count->num_rows();
-		
-		$resultset=$this->app_db->query($query);
-		if($resultset->num_rows()>0){
-			foreach ($resultset->result() as $rows)
-			{
-				$const_id = $rows->id;
-				$full_name = $rows->full_name;
-				$dob = $rows->dob;
-				$mobile_no = $rows->mobile_no;
-				$door_no = $rows->door_no;
-				$address = $rows->address;
-				$pin_code = $rows->pin_code;
-				
-				$subQuery = "SELECT * FROM consitutent_birthday_wish WHERE YEAR(created_at)='$year' AND constituent_id = '$const_id'";
-				$subQuery_result = $this->app_db->query($subQuery);
-				if($subQuery_result->num_rows()>0){
-					foreach ($subQuery_result->result() as $rows1)
-					{
-						$birth_id = $rows1->constituent_id;
-					}
-				}else{
-					$birth_id = '';
-				}
-				
-				if ($const_id == $birth_id){
-					 $birth_wish = 'Send';
-				} else {
-					 $birth_wish = 'NotSend';
-				}
-				$contData[]  = (object) array(
-						"const_id" => $const_id,
-						"full_name" => $full_name,
-						"dob" => $dob,
-						"mobile_no" => $mobile_no,
-						"door_no" => $door_no,
-						"address" => $address,
-						"pin_code" => $pin_code,
-						"birth_wish_status" => $birth_wish,
-				);
-			} 
-			
-			$response = array("status" => "Success", "msg" => "Birthday report","result_count" =>$result_count,"birthday_report" =>$contData);
-		}else {
-			$response = array("status" => "Error", "msg" => "No records found");
-		}
-		return $response;
-	}
-//#################### Reports End ####################//	
-
-
-
-	
 } 
 
 ?>
