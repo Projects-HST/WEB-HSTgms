@@ -1960,7 +1960,7 @@ class Apiandroidmodel extends CI_Model {
 		$this->app_db = $this->load->database($config_app, TRUE); 
 		//---------Dynamic DB Connection----------//
 		
-			$query="SELECT * FROM meeting_request WHERE constituent_id = '$constituent_id' ORDER BY id DESC";
+			$query="SELECT A.*, B.full_name AS created_user FROM meeting_request A, user_master B WHERE constituent_id = '$constituent_id' AND A.created_by = B.id ORDER BY `A`.`created_by` DESC";
 			$resultset=$this->app_db->query($query);
 			$meeting_result = $resultset->result();
 			if($resultset->num_rows()>0)
