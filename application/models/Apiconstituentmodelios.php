@@ -627,20 +627,42 @@ Class Apiconstituentmodelios extends CI_Model
 		$this->app_db = $this->load->database($config_app, TRUE); 
 		//---------Dynamic DB Connection----------//  
 
-		$gallery="SELECT id,banner_image_name as gallery_image FROM banners where status='ACTIVE'";
+		$gallery="SELECT id,banner_image_name as banner_image FROM banners where status='ACTIVE'";
 		$res_gallery=$this->app_db->query($gallery);
 		if($res_gallery->num_rows()!=0){
 			$result_gallery=$res_gallery->result();
 			foreach($result_gallery as $rows_gallery){
 			  $galley_img[]=array(
 				"id"=>$rows_gallery->id,
-				"gallery_image"=>base_url().'assets/banners/'.$rows_gallery->gallery_image,
+				"banner_image"=>base_url().'assets/banners/'.$rows_gallery->banner_image,
 			  );
 			}
-			$data=array("status"=>"success","msg"=>"Banner image found","banner_image"=>$galley_img);
-		}else{
-			$data=array("status"=>"error","msg"=>"No Banner image");
+		} else {
+			$galley_img = [];
 		}
+		
+		$video="SELECT * FROM video_feeder where status='ACTIVE' LIMIT 1";
+		$res_video=$this->app_db->query($video);
+		if($res_video->num_rows()!=0){
+			$result_video = $res_video->result();
+			
+			foreach($result_video as $rows){
+				
+			  $video_details=array(
+					  "id"=>$rows->id,
+					  "video_title"=>$rows->video_title,
+					  "video_url"=>$rows->video_url
+					);
+			}
+		} else {
+			$video_details = [];
+		}
+			$data=array("status"=>"success","msg"=>"Banner and Videos","banner_images"=>$galley_img,"video_details"=>$video_details);
+			
+			
+		//}else{
+		//	$data=array("status"=>"error","msg"=>"No Banner image");
+		//}
 	  return $data;
 	}
 
