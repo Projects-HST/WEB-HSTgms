@@ -650,7 +650,7 @@ Class Apiconstituentmodel extends CI_Model
 		if($res_video->num_rows()!=0){
 			$result_video = $res_video->result();
 			
-			foreach($result_gallery as $rows){
+			foreach($result_video as $rows){
 				
 			  $video_details=array(
 					  "id"=>$rows->id,
