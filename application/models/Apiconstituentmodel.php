@@ -180,11 +180,13 @@ Class Apiconstituentmodel extends CI_Model
 		if($res->num_rows()!=0){
 		  $result=$res->result();
 		  foreach($result as $rows){
+
 			if($rows->dob=='0000-00-00'){
 			  $dob='';
 			}else{
 			  $dob=date("d-m-Y",  strtotime($rows->dob));
 			}
+			
 			if(empty($rows->profile_pic)){
 			  $pic=base_url().'assets/constituent/default.png';
 			}else{
@@ -231,6 +233,17 @@ Class Apiconstituentmodel extends CI_Model
     if($res->num_rows()!=0){
       $result=$res->result();
       foreach($result as $rows){}
+	  
+		$constituent_id = $rows->id;
+		
+		$query_5="SELECT * FROM meeting_request WHERE constituent_id ='$constituent_id'";
+		$result_5=$this->app_db->query($query_5);
+		$meeting_count = $result_5->num_rows();
+		
+		$query_6 = "SELECT * FROM grievance WHERE constituent_id ='$constituent_id'";
+		$result_6 = $this->app_db->query($query_6);
+		$grievance_count = $result_6->num_rows(); 
+			
         if($rows->dob=='0000-00-00'){
           $dob='';
         }else{
@@ -263,6 +276,8 @@ Class Apiconstituentmodel extends CI_Model
           'dob'=>$dob,
           'gender'=>$rows->gender,
           'profile_picture'=>$pic,
+		  'grievance_count'=>$grievance_count,
+		  'meeting_count'=>$meeting_count
         );
 
         $data=array('status'=>'success','msg'=>'details found','user_details'=>$user_details);

@@ -3372,7 +3372,7 @@ class Apiandroidmodel extends CI_Model {
 		$this->app_db = $this->load->database($config_app, TRUE); 
 		//---------Dynamic DB Connection----------//
 		
-		$query="SELECT YEAR(created_at)  as year_name FROM consitutent_birthday_wish GROUP BY year_name ORDER BY year_name desc";
+		$query="SELECT YEAR(created_at) as year_name FROM consitutent_birthday_wish GROUP BY year_name ORDER BY year_name desc";
 		$resultset=$this->app_db->query($query);
 		$year_result = $resultset->result();
 
