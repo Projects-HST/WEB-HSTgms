@@ -657,6 +657,7 @@ Class Apiconstituentmodel extends CI_Model
 					  "video_title"=>$rows->video_title,
 					  "video_url"=>$rows->video_url
 					);
+			}
 		} else {
 			$video_details = [];
 		}
