@@ -80,7 +80,8 @@ Class Apiconstituentmodelios extends CI_Model
 		$res=$this->app_db->query($select);
 		if($res->num_rows()!=0){
 			$result=$res->result();
-			$otp=$this->generateNumericOTP();
+			//$otp=$this->generateNumericOTP();
+			$otp="1234";
 			$update="UPDATE constituent SET mobile_otp='$otp' where mobile_no='$mobile_no'";
 			$res_update=$this->app_db->query($update);
 			$to_phone=$mobile_no;
