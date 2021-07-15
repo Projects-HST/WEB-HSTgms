@@ -152,13 +152,16 @@
                            </li>
 						   <?php } ?>
 							<li id="news_menu">
-                              <a><img src="<?php echo base_url(); ?>assets/images/icons/Newsfeeder.png" class="img-responsive menu_img"> News Feeder <span class="fa fa-chevron-down"></span></a>
+                              <a><img src="<?php echo base_url(); ?>assets/images/icons/Newsfeeder.png" class="img-responsive menu_img"> Promotions <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu news_menu">
                                  <li id="create_news_menu"><a href="<?php echo base_url(); ?>news/add">Create news Feeder</a></li>
                                  <li id="list_news_menu"><a href="<?php echo base_url(); ?>news/list">List news Feeder</a></li>
+								 <li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners">Banners</a></li>
+								 <li id="videos_menu"><a href="<?php echo base_url(); ?>news/videos">Videos</a></li>
                               </ul>
                            </li>
-						<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"> Banners</a></li>
+							<!--<li id="banners_menu"><a href="<?php echo base_url(); ?>news/banners"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"> Banners</a></li>
+							<li id="banners_menu"><a href="<?php echo base_url(); ?>news/videos"><img src="<?php echo base_url(); ?>assets/images/icons/Banner.png" class="img-responsive menu_img"> Videos</a></li>-->
                            <li id="reportmenu">
                               <a><img src="<?php echo base_url(); ?>assets/images/icons/Report.png" class="img-responsive menu_img"> Report  <span class="fa fa-chevron-down"></span></a>
                               <ul class="nav child_menu reportmenu">

@@ -364,4 +364,85 @@ class News extends CI_Controller {
        }
 	}
 
+
+#################### Videos ####################//
+
+	public function videos()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$data['res']=$this->newsmodel->get_videos();
+			$this->load->view('admin/header');
+			$this->load->view('admin/news/videos',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+
+	}
+
+	public function checkvideourl(){
+		$video_url=strtoupper($this->db->escape_str($this->input->post('video_url')));
+		$data=$this->newsmodel->checkvideourl($video_url);
+	}
+
+	public function checkvideourlexist(){
+		$video_url=strtoupper($this->db->escape_str($this->input->post('video_url')));
+		$video_id=$this->uri->segment(3);
+		$data=$this->newsmodel->checkvideourlexist($video_url,$video_id);
+	}
+
+
+	public function get_video_edit(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$video_id=$this->uri->segment(3);
+			$data['res']=$this->newsmodel->get_video_edit($video_id);
+			$this->load->view('admin/header');
+			$this->load->view('admin/news/videos_update',$data);
+			$this->load->view('admin/footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+	public function create_video(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$video_title=strtoupper($this->db->escape_str($this->input->post('video_title')));
+			$video_url=strtoupper($this->db->escape_str($this->input->post('video_url')));
+			$status=$this->input->post('status');
+			$data=$this->newsmodel->create_video($video_title,$video_url,$status,$user_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("news/videos");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function update_video(){
+		$user_id = $this->session->userdata('user_id');
+		$user_type = $this->session->userdata('user_type');
+		if($user_type=='1' || $user_type=='2'){
+			$video_title=strtoupper($this->db->escape_str($this->input->post('video_title')));
+			$video_url=strtoupper($this->db->escape_str($this->input->post('video_url')));
+			$status=strtoupper($this->db->escape_str($this->input->post('status')));
+		 	$video_id=$this->input->post('video_id');
+
+			$data=$this->newsmodel->update_video($video_title,$video_url,$status,$user_id,$video_id);
+			$messge = array('status'=>$data['status'],'message' => $data['msg'],'class' => $data['class']);
+			$this->session->set_flashdata('msg', $messge);
+			redirect("news/videos");
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	#################### Paguthi ####################//
 }

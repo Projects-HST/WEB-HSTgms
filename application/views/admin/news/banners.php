@@ -158,6 +158,12 @@
    }
    </style>
 <script type="text/javascript">
+
+	$('#news_menu').addClass('active');
+	$('.news_menu').css('display','block');
+	$('#banners_menu').addClass('active current-page');
+	
+	
 	$.validator.addMethod('filesize', function (value, element, param) {
 		return this.optional(element) || (element.files[0].size <= param)
 	}, 'File size must be less than 1 MB');

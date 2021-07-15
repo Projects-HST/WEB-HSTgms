@@ -194,5 +194,77 @@ Class Newsmodel extends CI_Model
 		return $data;
 	}
 
+
+#################### Videos ####################//
+
+	function get_videos(){
+		$query="SELECT * FROM video_feeder";
+		$result=$this->app_db->query($query);
+		return $result->result();
+	}
+
+	function get_video_edit($video_id){
+		$id=base64_decode($video_id)/98765;
+		$query="SELECT * FROM video_feeder WHERE id='$id'";
+		$result=$this->app_db->query($query);
+		return $result->result();
+	}
+
+
+	function checkvideourl($video_url){
+    $select="SELECT * FROM video_feeder WHERE video_url ='$video_url'";
+      $result=$this->app_db->query($select);
+      if($result->num_rows()>0){
+        echo "false";
+        }else{
+          echo "true";
+      }
+  }
+
+	function checkvideourlexist($video_url,$video_id){
+		$select="SELECT * FROM video_feeder Where video_url='$video_url' and id!='$video_id'";
+      $result=$this->app_db->query($select);
+      if($result->num_rows()>0){
+        echo "false";
+        }else{
+          echo "true";
+      }
+	}
+
+
+	function create_video($video_title,$video_url,$status,$user_id){
+		$select="SELECT * FROM video_feeder Where video_url='$video_url'";
+			$result=$this->app_db->query($select);
+			if($result->num_rows()==0){
+					$insert="INSERT INTO video_feeder (video_title,video_url,status,created_at,created_by) VALUES ('$video_title','$video_url','$status',NOW(),'$user_id')";
+					$result=$this->app_db->query($insert);
+					if($result){
+						$data=array("status"=>"success","msg"=>"Video created Successfully!","class"=>"alert alert-success");
+					}else{
+						$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
+					}
+
+			}else{
+				$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
+			}
+			return $data;
+	}
+
+
+
+	function update_video($video_title,$video_url,$status,$user_id,$video_id){
+			
+		$id= $video_id;
+		$update="UPDATE video_feeder SET video_title='$video_title',video_url='$video_url',status='$status' WHERE id='$id'";
+		$result=$this->app_db->query($update);
+		
+		if($result){
+			$data=array("status"=>"success","msg"=>"Video updated Successfully!","class"=>"alert alert-success");
+		}else{
+			$data=array("status"=>"error","msg"=>"Something went wrong!","class"=>"alert alert-danger");
+		}
+		return $data;
+	}
+#################### Paguthi ####################//
 }
 ?>

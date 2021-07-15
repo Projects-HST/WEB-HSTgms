@@ -59,7 +59,9 @@
 
 <script type="text/javascript">
 
-   $('#banners_menu').addClass('active current-page');
+   $('#news_menu').addClass('active');
+	$('.news_menu').css('display','block');
+	$('#banners_menu').addClass('active current-page');
 
 
 	$.validator.addMethod('filesize', function (value, element, param) {

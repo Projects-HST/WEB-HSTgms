@@ -645,14 +645,14 @@ Class Apiconstituentmodel extends CI_Model
 			$galley_img = [];
 		}
 		
-		$video="SELECT * FROM video_feeder where status='ACTIVE' LIMIT 1";
+		$video="SELECT * FROM video_feeder where status='ACTIVE'";
 		$res_video=$this->app_db->query($video);
 		if($res_video->num_rows()!=0){
 			$result_video = $res_video->result();
 			
 			foreach($result_video as $rows){
 				
-			  $video_details=array(
+			  $video_details[]=array(
 					  "id"=>$rows->id,
 					  "video_title"=>$rows->video_title,
 					  "video_url"=>$rows->video_url
